@@ -261,8 +261,8 @@ http://opensource.org/licenses/MIT.
 [bitcoinpdf]: https://bitcoin.org/en/bitcoin-paper
 [choose your wallet]: /en/choose-your-wallet
 [communities]: /en/community
-[core executable]: /en/download
-[dev communities]: /en/development#devcommunities
+[core executable]: https://www.dash.org/wallets/#wallets
+[dev communities]: https://www.dash.org/community/
 [developer documentation]: /en/developer-documentation
 [devex complex raw transaction]: /en/developer-examples#complex-raw-transaction
 [devex payment protocol]: /en/developer-examples#payment-protocol
@@ -347,12 +347,12 @@ http://opensource.org/licenses/MIT.
 [#bitcoin-mining]: https://webchat.freenode.net/?channels=bitcoin-mining&uio=d4
 [#bitcoin-wiki]: https://webchat.freenode.net/?channels=bitcoin-wiki&uio=d4
 [0bin]: http://0bin.net/
-[bcc automated testing]: https://github.com/bitcoin/bitcoin/blob/master/README.md#automated-testing
+[bcc automated testing]: https://github.com/dashpay/dash/blob/master/README.md#automated-testing
 [bcc configuration]: https://en.bitcoin.it/wiki/Running_Bitcoin
 [bcc data directory]: https://en.bitcoin.it/wiki/Data_directory
-[bcc issues]: https://github.com/bitcoin/bitcoin/issues
-[bcc new issue]: https://github.com/bitcoin/bitcoin/issues/new
-[bcc pulls]: https://github.com/bitcoin/bitcoin/pulls
+[bcc issues]: https://github.com/dashpay/dash/issues
+[bcc new issue]: https://github.com/dashpay/dash/issues/new
+[bcc pulls]: https://github.com/dashpay/dash/pulls
 [bcc tor]: https://en.bitcoin.it/wiki/Tor
 [bcc tor hs]: https://en.bitcoin.it/wiki/Tor#Hidden_services
 [core github tag]: https://github.com/bitcoin-dot-org/bitcoin.org/labels/Core
@@ -364,11 +364,11 @@ http://opensource.org/licenses/MIT.
 [Bitcoin Core 0.3.11]: https://github.com/bitcoin/bitcoin/commit/343328c6b8db85e58a1feea85f0d10e62967fa19
 [Bitcoin Core 0.3.15]: https://github.com/bitcoin/bitcoin/commit/c891967b6fcab2e8dc4ce0c787312b36c07efa4d
 [Bitcoin Core 0.3.18]: https://github.com/bitcoin/bitcoin/commit/82201801336f64ee77851b9eaab9383ee4e442f0
-[Bitcoin Core build unix]: https://github.com/bitcoin/bitcoin/blob/master/doc/build-unix.md
-[Bitcoin Core docs directory]: https://github.com/bitcoin/bitcoin/tree/master/doc
+[Bitcoin Core build unix]: https://github.com/dashpay/dash/blob/master/doc/build-unix.md
+[Bitcoin Core docs directory]: https://github.com/dashpay/dash/tree/master/doc
 [bitcoin core fee drop commit]: https://github.com/bitcoin/bitcoin/commit/6a4c196dd64da2fd33dc7ae77a8cdd3e4cf0eff1
 [Bitcoin Core issue #2381]: https://github.com/bitcoin/bitcoin/issues/2381
-[Bitcoin Core master]: https://github.com/bitcoin/bitcoin
+[Bitcoin Core master]: https://github.com/dashpay/dash
 [Bitcoin Core pull #4468]: https://github.com/bitcoin/bitcoin/pull/4468
 [Bitcoin core transifex]: https://www.transifex.com/projects/p/bitcoin/
 [Bitcoin reddit]: http://www.reddit.com/r/Bitcoin
@@ -382,22 +382,22 @@ http://opensource.org/licenses/MIT.
 [bitcoinj micropayment tutorial]: https://bitcoinj.github.io/working-with-micropayments
 [block170]: https://www.biteasy.com/block/00000000d1145790a8694403d4063f323d499e655c83426834d4ce2f8dd4a2ee
 [casascius address utility]: https://github.com/casascius/Bitcoin-Address-Utility
-[core base58.h]: https://github.com/bitcoin/bitcoin/blob/master/src/base58.h
-[core chainparams.cpp]: https://github.com/bitcoin/bitcoin/blob/master/src/chainparams.cpp
-[core git]: https://github.com/bitcoin/bitcoin
-[core paymentrequest.proto]: https://github.com/bitcoin/bitcoin/blob/master/src/qt/paymentrequest.proto
-[core script.h]: https://github.com/bitcoin/bitcoin/blob/master/src/script/script.h
+[core base58.h]: https://github.com/dashpay/dash/blob/master/src/base58.h
+[core chainparams.cpp]: https://github.com/dashpay/dash/blob/master/src/chainparams.cpp
+[core git]: https://github.com/dashpay/dash/
+[core paymentrequest.proto]: https://github.com/dashpay/dash/blob/master/src/qt/paymentrequest.proto
+[core script.h]: https://github.com/dashpay/dash/blob/master/src/script/script.h
 [creative commons attribution 3.0 license]: https://creativecommons.org/licenses/by/3.0/
 [DER]: https://en.wikipedia.org/wiki/X.690#DER_encoding
 [dig command]: https://en.wikipedia.org/wiki/Dig_%28Unix_command%29
 [DNS A records]: http://tools.ietf.org/html/rfc1035#section-3.2.2
-[DNS Seed Policy]: https://github.com/bitcoin/bitcoin/blob/master/doc/dnsseed-policy.md
-[docs issue]: https://github.com/bitcoin-dot-org/bitcoin.org/issues
+[DNS Seed Policy]: https://github.com/dashpay/dash/blob/master/doc/dnsseed-policy.md
+[docs issue]: https://github.com/thephez/dash.org/issues
 [ECDSA]: https://en.wikipedia.org/wiki/Elliptic_Curve_DSA
 [edit bandwidth sharing guide]: https://github.com/bitcoin-dot-org/bitcoin.org/edit/master/en/full-node.md
 [Electrum server]: https://github.com/spesmilo/electrum-server
 [Eloipool]: https://github.com/luke-jr/eloipool
-[errors in docs]: https://github.com/bitcoin-dot-org/bitcoin.org/issues?q=is%3Aissue+label%3A%22Dev+Docs%22
+[errors in docs]: https://github.com/thephez/dash.org/issues?q=is%3Aissue+label%3A%22Dev+Docs%22
 [fake satoshi transaction]: https://www.reddit.com/r/Bitcoin/comments/3fv42j/blockchaininfo_spoofed_transactions_problem_aug_4/
 [forum tech support]: https://bitcointalk.org/index.php?board=4.0
 [ghash betcoin double spend]: https://bitcointalk.org/index.php?topic=321630.msg3445371
@@ -417,7 +417,7 @@ http://opensource.org/licenses/MIT.
 [libblkmaker]: https://github.com/bitcoin/libblkmaker
 [localhost]: https://en.wikipedia.org/wiki/Localhost
 [lying consistently is hard]: https://groups.google.com/forum/#!msg/bitcoinj/Ys13qkTwcNg/9qxnhwnkeoIJ
-[makeseeds script]: https://github.com/bitcoin/bitcoin/tree/master/contrib/seeds
+[makeseeds script]: https://github.com/dashpay/dash/tree/master/contrib/seeds
 [mozilla's bug reporting documentation]: https://developer.mozilla.org/en-US/docs/Mozilla/QA/Bug_writing_guidelines#Writing_precise_steps_to_reproduce
 [murmur3]: https://en.wikipedia.org/wiki/MurmurHash
 [man-in-the-middle]: https://en.wikipedia.org/wiki/Man-in-the-middle_attack
