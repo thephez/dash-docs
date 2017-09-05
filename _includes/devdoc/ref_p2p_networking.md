@@ -146,9 +146,26 @@ The currently-available type identifiers are:
 | 1               | [`MSG_TX`][msg_tx]{:#term-msg_tx}{:.term}                                     | The hash is a TXID.
 | 2               | [`MSG_BLOCK`][msg_block]{:#term-msg_block}{:.term}                            | The hash is of a block header.
 | 3               | [`MSG_FILTERED_BLOCK`][msg_filtered_block]{:#term-msg_filtered_block}{:.term} | The hash is of a block header; identical to `MSG_BLOCK`. When used in a `getdata` message, this indicates the response should be a `merkleblock` message rather than a `block` message (but this only works if a bloom filter was previously configured).  **Only for use in `getdata` messages.**
+| 4               | [`MSG_TXLOCK_REQUEST`][msg_txlock_request]{:#term-msg_txlock_request}{:.term} | The hash is an Instant Send transaction lock request.
+| 5               | [`MSG_TXLOCK_VOTE`][msg_txlock_vote]{:#term-msg_txlock_vote}{:.term}          | The hash is an Instant Send transaction vote.
+| 6               | [`MSG_SPORK`][msg_spork]{:#term-msg_spork}{:.term}                            | The hash is Spork ID.
+| 7               | [`MSG_MASTERNODE_PAYMENT_VOTE`][msg_masternode_payment_vote]{:#term-msg_masternode_payment_vote}{:.term}                                     | The hash is a Masternode Payment Vote.
+| 8               | [`MSG_MASTERNODE_PAYMENT_BLOCK`][msg_masternode_payment_block]{:#term-msg_masternode_payment_block}{:.term}                                     | The hash is a Masternode Payment Block.
+| _8_               | _`MSG_MASTERNODE_SCANNING_ERROR`_                                             | Replaced by `MSG_MASTERNODE_PAYMENT_BLOCK`
+| _9_               | _[`MSG_BUDGET_VOTE`][msg_budget_vote]{:#term-msg_budget_vote}{:.term}_          | Deprecated
+| _10_               | _[`MSG_BUDGET_PROPOSAL`][msg_budget_proposal]{:#term-msg_budget_proposal}{:.term}_                                     | Deprecated
+| _11_               | _[`MSG_BUDGET_FINALIZED`][msg_budget_finalized]{:#term-msg_budget_finalized}{:.term}_                                     | Deprecated
+| _12_               | _[`MSG_BUDGET_FINALIZED_VOTE`][msg_budget_finalized_vote]{:#term-msg_budget_finalized_vote}{:.term}_                                     | Deprecated
+| _13_               | _[`MSG_MASTERNODE_QUORUM`][msg_masternode_quorum]{:#term-msg_masternode_quorum}{:.term}_                                     | Not Implemented
+| 14               | [`MSG_MASTERNODE_ANNOUNCE`][msg_masternode_announce]{:#term-msg_masternode_announce}{:.term}                                     | The hash is a Masternode Broadcast.
+| 15               | [`MSG_MASTERNODE_PING`][msg_masternode_ping]{:#term-msg_masternode_ping}{:.term}                                     | The hash is a Masternode Ping.
+| 16               | [`MSG_DSTX`][msg_dstx]{:#term-msg_dstx}{:.term}                              | The hash is Private Send (Dark Send) Broadcast TX.
+| 17               | [`MSG_GOVERNANCE_OBJECT`][msg_governance_object]{:#term-msg_governance_object}{:.term}                                     | The hash is a Governance Object.
+| 18               | [`MSG_GOVERNANCE_OBJECT_VOTE`][msg_governance_object_vote]{:#term-msg_governance_object}{:.term}                                     | The hash is a Governance Object Vote.
+| 19               | [`MSG_MASTERNODE_VERIFY`][msg_masternode_verify]{:#term-msg_masternode_verify}{:.term}                                     | The hash is a Masternode Verify.
 
-Type identifier zero and type identifiers greater than three are reserved
-for future implementations. Bitcoin Core ignores all inventories with
+Type identifier zero and type identifiers greater than nineteen are reserved
+for future implementations. Dash Core ignores all inventories with
 one of these unknown types.
 
 {% endautocrossref %}
