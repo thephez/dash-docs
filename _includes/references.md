@@ -457,7 +457,7 @@ http://opensource.org/licenses/MIT.
 
 {% comment %}<!-- Direct links to code; link to a specific commit to prevent code
 changes from moving the referenced object, but also update links
-periodically to point to recent code. Last update: 2014-11-12 --> {% endcomment %}
-[core bloom.cpp hash]: https://github.com/bitcoin/bitcoin/blob/cbf28c6619fe348a258dfd7d08bdbd2392d07511/src/bloom.cpp#L46
-[MAX_SIZE]: https://github.com/bitcoin/bitcoin/blob/60abd463ac2eaa8bc1d616d8c07880dc53d97211/src/serialize.h#L23
-[rpcprotocol.h]: https://github.com/bitcoin/bitcoin/blob/f914f1a746d7f91951c1da262a4a749dd3ebfa71/src/rpcprotocol.h
+periodically to point to recent code. Last update: 2017-09-05 --> {% endcomment %}
+[core bloom.cpp hash]: https://github.com/dashpay/dash/blob/333e1eaeea80344e5a28db6efbce2691c85e2b25/src/bloom.cpp#L58
+[MAX_SIZE]: https://github.com/dashpay/dash/blob/c31ba8ba4c07e72620bd71753f2103ca103bb1c2/src/serialize.h#L26
+[rpcprotocol.h]: https://github.com/dashpay/dash/blob/3e0eee4c84f40b3cf277e8d03e004249d03c081d/src/rpcprotocol.h

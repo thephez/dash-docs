@@ -40,7 +40,7 @@ Note: the testnet start string and nBits above are for testnet3.
 
 Command line parameters can change what port a node listens on (see
 `-help`). Start strings are hardcoded constants that appear at the start
-of all messages sent on the Bitcoin network; they may also appear in
+of all messages sent on the Dash network; they may also appear in
 data files such as Dash Core's block database. The Magic Value and nBits
 displayed above are in big-endian order; they're sent over the network in
 little-endian order. The Start String is simply the endian reversed Magic Value.
@@ -61,13 +61,21 @@ with the most recent versions listed first. (If you know of a protocol
 version that implemented a major change but which is not listed here,
 please [open an issue][docs issue].)
 
-As of Bitcoin Core 0.14.2, the most recent protocol version is 70015.
+As of Dash Core 0.12.1.5, the most recent protocol version is 70206.
 
 | Version | Initial Release                    | Major Changes
 |---------|------------------------------------|--------------
-| 70015   | Bitcoin Core 0.13.2 <br>(Jan 2017) | • New banning behavior for invalid compact blocks [#9026](https://github.com/bitcoin/bitcoin/pull/9026) in v0.14.0, Backported to v0.13.2 in [#9048](https://github.com/bitcoin/bitcoin/pull/9048).
-| 70014   | Bitcoin Core 0.13.0 <br>(Aug 2016) | [BIP152][]: <br>• Added `sendcmpct`, `cmpctblock`, `getblocktxn`, `blocktxn` messages <br> • Added `MSG_CMPCT_BLOCK` inventory type to `getdata` message.
-| 70013   | Bitcoin Core 0.13.0 <br>(Aug 2016) | [BIP133][]: <br>• Added `feefilter` message.<br> • Removed `alert` message system. See [Alert System Retirement](https://bitcoin.org/en/alert/2016-11-01-alert-retirement)
+| 70206  | Dash Core 0.12.1.x <br>(Mar 2017)  |
+| 70103  | Dash Core 0.12.0.x <br>(Aug 2015)  |
+| 70076  | Dash Core 0.11.2.x <br>(Apr 2015)  |
+| 70066  | Dash Core 0.11.1.x <br>(Feb 2015)  |
+| 70051  | Dash Core 0.10.0.x <br>(Feb 2015)  |
+| 70002  | Dash Core 0.8.7 <br>(Jan 2014)     | Initial Dash release
+
+Historical Bitcoin protocol versions for reference shown below.
+
+| Version | Initial Release                    | Major Changes
+|---------|------------------------------------|--------------
 | 70012   | Bitcoin Core 0.12.0 <br>(Feb 2016) | [BIP130][]: <br>• Added `sendheaders` message.
 | 70011   | Bitcoin Core 0.12.0 <br>(Feb 2016) | [BIP111][]: <br>• `filter*` messages are disabled without NODE_BLOOM after and including this version.
 | 70002   | Bitcoin Core 0.9.0 <br>(Mar 2014)  | • Send multiple `inv` messages in response to a `mempool` message if necessary <br><br>[BIP61][]: <br>• Added `reject` message
@@ -96,14 +104,14 @@ The message header format is:
 |-------|--------------|-----------|-------------
 | 4     | start string | char[4]   | Magic bytes indicating the originating network; used to seek to next message when stream state is unknown.
 | 12    | command name | char[12]  | ASCII string which identifies what message type is contained in the payload.  Followed by nulls (0x00) to pad out byte count; for example: `version\0\0\0\0\0`.
-| 4     | payload size | uint32_t  | Number of bytes in payload.  The current maximum number of bytes ([`MAX_SIZE`][max_size]) allowed in the payload by Bitcoin Core is 32 MiB---messages with a payload size larger than this will be dropped or rejected.
+| 4     | payload size | uint32_t  | Number of bytes in payload.  The current maximum number of bytes ([`MAX_SIZE`][max_size]) allowed in the payload by Dash Core is 32 MiB---messages with a payload size larger than this will be dropped or rejected.
 | 4     | checksum     | char[4]   | *Added in protocol version 209.* <br><br>First 4 bytes of SHA256(SHA256(payload)) in internal byte order.<br /><br /> If payload is empty, as in `verack` and `getaddr` messages, the checksum is always 0x5df6e0e2 (SHA256(SHA256(\<empty string>))).
 
 The following example is an annotated hex dump of a mainnet message
 header from a `verack` message which has no payload.
 
 {% highlight text %}
-f9beb4d9 ................... Start string: Mainnet
+bf0c6bbd ................... Start string: Mainnet
 76657261636b000000000000 ... Command name: verack + null padding
 00000000 ................... Byte count: 0
 5df6e0e2 ................... Checksum: SHA256(SHA256(<empty>))
