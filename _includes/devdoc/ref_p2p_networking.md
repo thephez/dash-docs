@@ -255,7 +255,9 @@ node. The objects are requested by an inventory, which the requesting
 node typically previously received by way of an `inv` message.
 
 The response to a `getdata` message can be a `tx` message, `block`
-message, `merkleblock` message, or `notfound` message.
+message, `merkleblock` message, `ix` message, `txlvote` message,
+`mnw` message, `mnb` message, `mnp` message, `dstx` message, `govobj` message,
+`govobjvote` message, `mnv` message, or `notfound` message. <!-- What about spork? Only handled by getspork?-->
 
 This message cannot be used to request arbitrary data, such as historic
 transactions no longer in the memory pool or relay set. Full nodes may
@@ -274,7 +276,7 @@ identical to the `inv` message; only the message header differs.
 
 {% autocrossref %}
 
-*Added in protocol version 31800.*
+*Added in protocol version 70077.*
 
 The `getheaders` message requests a `headers` message that provides block headers
 starting from a particular point in the block chain. It allows a
@@ -293,7 +295,7 @@ to the `getheaders` message will include as many as 2,000 block headers.
 
 {% autocrossref %}
 
-*Added in protocol version 31800.*
+*Added in protocol version 31800 (of Bitcoin).*
 
 The `headers` message sends block headers to a node which
 previously requested certain headers with a `getheaders` message. A headers
@@ -349,13 +351,13 @@ inventory entries.  (The message header has been omitted.)
 {% highlight text %}
 02 ................................. Count: 2
 
-01000000 ........................... Type: MSG_TX
-de55ffd709ac1f5dc509a0925d0b1fc4
-42ca034f224732e429081da1b621f55a ... Hash (TXID)
+0f000000 ........................... Type: MSG_MASTERNODE_PING
+dd6cc6c11211793b239c2e311f1496e2
+2281b200b35233eaae465d2aa3c9d537 ... Hash (mnp)
 
-01000000 ........................... Type: MSG_TX
-91d36d997037e08018262978766f24b8
-a055aaf1d872e94ae85e9817b2c68dc7 ... Hash (TXID)
+05000000 ........................... Type: MSG_TXLOCK_VOTE
+afc5b2f418f8c06c477a7d071240f5ee
+ab17057f9ce4b50c2aef4fadf3729a2e ... Hash (txlvote)
 {% endhighlight %}
 
 {% endautocrossref %}
@@ -365,7 +367,7 @@ a055aaf1d872e94ae85e9817b2c68dc7 ... Hash (TXID)
 
 {% autocrossref %}
 
-*Added in protocol version 60002.*
+*Added in protocol version 60002 (of Bitcoin).*
 
 The `mempool` message requests the TXIDs of transactions that the
 receiving node has verified as valid but which have not yet appeared in
@@ -622,19 +624,20 @@ identical to the `inv` message; only the message header differs.
 The `tx` message transmits a single transaction in the raw transaction
 format. It can be sent in a variety of situations;
 
-* **Transaction Response:** Bitcoin Core and BitcoinJ will send it in
-  response to a `getdata` message that requests the transaction with an
-  inventory type of `MSG_TX`.
+* **Transaction Response:** Dash Core will send it in response to a
+  `getdata` message that requests the transaction with an inventory
+  type of `MSG_TX`.
 
-* **MerkleBlock Response:** Bitcoin Core will send it in response to a
+* **MerkleBlock Response:** Dash Core will send it in response to a
   `getdata` message that requests a merkle block with an inventory type
   of `MSG_MERKLEBLOCK`. (This is in addition to sending a `merkleblock`
   message.) Each `tx` message in this case provides a matched
   transaction from that block.
 
+<!-- Is there any reason to leave this here?
 * **Unsolicited:** BitcoinJ will send a `tx` message unsolicited for
   transactions it originates.
-
+-->
 For an example hexdump of the raw transaction format, see the [raw
 transaction section][raw transaction format].
 
