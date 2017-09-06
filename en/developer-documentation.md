@@ -5,7 +5,7 @@
 layout: base
 lang: en
 id: developer-documentation
-title: "Developer Documentation - Bitcoin"
+title: "Developer Documentation - Dash"
 breadcrumbs:
   - bitcoin
   - Developer Documentation

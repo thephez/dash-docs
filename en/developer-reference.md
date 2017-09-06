@@ -5,7 +5,7 @@
 layout: base
 lang: en
 id: developer-reference
-title: "Developer Reference - Bitcoin"
+title: "Developer Reference - Dash"
 breadcrumbs:
   - bitcoin
   - dev docs
@@ -20,7 +20,7 @@ end_of_page: |
 
 <!-- This should be empty, but comment it out just in case: {% include helpers/vars.md %} -->
 
-# Bitcoin Developer Reference
+# Dash Developer Reference
 
 <p class="summary">Find technical details and API documentation.</p>
 
@@ -146,11 +146,11 @@ untrusted source.
 
 {% include devdoc/bitcoin-core/rpcs/rpcs/getmemoryinfo.md %}
 
-{% include devdoc/bitcoin-core/rpcs/rpcs/getmempoolancestors.md %} 
+{% include devdoc/bitcoin-core/rpcs/rpcs/getmempoolancestors.md %}
 
-{% include devdoc/bitcoin-core/rpcs/rpcs/getmempooldescendants.md %} 
+{% include devdoc/bitcoin-core/rpcs/rpcs/getmempooldescendants.md %}
 
-{% include devdoc/bitcoin-core/rpcs/rpcs/getmempoolentry.md %} 
+{% include devdoc/bitcoin-core/rpcs/rpcs/getmempoolentry.md %}
 
 {% include devdoc/bitcoin-core/rpcs/rpcs/getmempoolinfo.md %}
 
