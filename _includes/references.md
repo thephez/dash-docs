@@ -395,7 +395,7 @@ http://opensource.org/licenses/MIT.
 [Bitcoin Seeder]: https://github.com/sipa/bitcoin-seeder
 [Bitcoin stackexchange]: http://bitcoin.stackexchange.com
 [Bitcoin stackexchange tag bitcoin-qt]: http://bitcoin.stackexchange.com/questions/tagged/bitcoin-qt
-[bitcoin-documentation mailing list]: https://groups.google.com/forum/#!forum/bitcoin-documentation
+<!--[bitcoin-documentation mailing list]: https://groups.google.com/forum/#!forum/bitcoin-documentation-->
 [BitcoinJ]: http://bitcoinj.github.io
 [BitcoinJ documentation about pending transaction safety]: https://bitcoinj.github.io/security-model#pending-transactions
 [bitcoinj micropayment tutorial]: https://bitcoinj.github.io/working-with-micropayments
