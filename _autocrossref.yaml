@@ -44,12 +44,16 @@ fiat:
 '`getheaders` messages': getheaders message
 '`getaddr` message': getaddr message
 '`getaddr` messages': getaddr message
+'`getsporks` message': getsporks message
+'`getsporks` messages': getsporks message
 '`headers` message': headers message
 '`headers` messages': headers message
 intermediate certificate:
 intermediate certificates: intermediate certificate
 '`inv` message': inv message
 '`inv` messages': inv message
+'`ix` message': ix message
+'`ix` messages': ix message
 IP address: DO NOT AUTOCROSSREF
 IP addresses: DO NOT AUTOCROSSREF
 IPv4 address: DO NOT AUTOCROSSREF
@@ -133,11 +137,15 @@ RPC:
 RPCs: rpc
 '`script`': pp script
 secp256k1:
+'`spork` message': spork message
+'`spork` messages': spork message
 standard block relay:
 transaction object format:
 transaction version number:
 '`tx` message': tx message
 '`tx` messages': tx message
+'`txlvote` message': txlvote message
+'`txlvote` messages': txlvote message
 unencrypted wallet:
 unix epoch time:
 unix time: unix epoch time
