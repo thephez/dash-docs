@@ -1144,8 +1144,7 @@ section][section message header] for an example of a message without a payload.
 
 {% autocrossref %}
 
-The `getsporks` message requests `spork` messages from the receiving
-node.
+The `getsporks` message requests `spork` messages from the receiving node.
 
 There is no payload in a `getsporks` message.  See the [message header
 section][section message header] for an example of a message without a payload.
@@ -1293,6 +1292,8 @@ Sporks are a mechanism by which updated code is released to the network, but
 not immediately made active (or “enforced”). Enforcement of the updated code
 can be activated remotely. Should problems arise, the code can be deactivated
 in the same manner, without the need for a network-wide rollback or client update.
+
+A `spork` message may be sent in response to a `getsporks` message.
 
 The `spork` message tells the receiving peer the status of the spork defined by
 the SporkID field.
@@ -1672,12 +1673,67 @@ The following network messages enable the Governance features built in to Dash.
 
 {% autocrossref %}
 
+The `govobj` message is ...
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 32 | nHashParent | uint256 | Required | Parent object, 0 is root
+| 4 | nRevision | int | Required | Object revision in the system
+| 8 | nTime | int64_t | Required | Time which this object was created
+| 32 | nCollateralHash | uint256 | Required | Hash of the collateral fee transaction
+| 0-16384 | strData | string | Required | Data field - can be used for anything (leading varint indicates size of data)
+| 4 | nObjectType | int | Required | Type of governance object as defined by src/governance-object.h
+| 41 | vinMasternode | CTxIn | Required | Unspent output for the masternode which is signing this object
+| 66* | vchSig | char[] | Required | Signature of the masternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
+
+The following annotated hexdump shows a `govobj` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+00000000000000000000000000000000
+00000000000000000000000000000000 ..... Parent Hash (0 = root)
+01000000 ............................. Revision (1)
+911ea85900000000 ..................... Create timestamp (2017-08-31 10:34:57 EDT)
+00000000000000000000000000000000
+00000000000000000000000000000000 ..... Collateral Hash
+
+Data
+| ae11 ............................... Data length (4526)
+| fdae11356235623 ... 376435643564 ... Data (truncated)
+
+02000000 ............................. Object Type (2 = GOVERNANCE_OBJECT_TRIGGER)
+
+Transaction input
+| UTXO
+| | ffefbe4959085907bcd2ba29e357a441
+| | fa7b6e26e25896d8127332bba2419e97 ... Outpoint TXID
+| | 00000000 ........................... Outpoint index number (0)
+| 00 ................................... Script length (0)
+| ...................................... Signature (None)
+| ffffffff ............................. Sequence
+
+1ce3b782f66be8ae9fc4158680128864
+341202b6006384083ab2d9cfa73795e2
+6000668e84af4ef6a284a52b53843524
+72037d51bd9079ffd5c087d9632865ee
+75 ................................... Masternode Signature
+{% endhighlight %}
+
 {% endautocrossref %}
 
 #### govobjvote
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 41+ | vinMasternode | CTxIn | Required | Unspent output for the masternode which is voting
+| 32 | nParentHash | uint256 | Required | Object which we're voting on (proposal, contract, setting or final budget)
+| 4 | nVoteOutcome | int | Required |
+| 4 | nVoteSignal | int | Required |
+| 8 | nTime | int64_t | Required | Time which the vote was created
+| 66* | vchSig | char[] | Required | Signature of the masternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
 
 {% endautocrossref %}
 
