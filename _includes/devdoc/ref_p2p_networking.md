@@ -1411,6 +1411,8 @@ bc8f5e5400000000 ............................ Epoch time: 1415483324
 {% autocrossref %}
 
 The following network messages all help control the InstantSend feature of Dash.
+InstantSend uses the masternode network to lock transaction inputs and enable
+secure, instantaneous transactions.
 
 {% endautocrossref %}
 
@@ -1419,6 +1421,10 @@ The following network messages all help control the InstantSend feature of Dash.
 
 {% autocrossref %}
 
+The `ix` message (transaction lock request) has the same structure as the `tx` message.
+The masternode network responds with `txlvote` messages if the transaction inputs
+can be locked.
+
 {% endautocrossref %}
 
 
@@ -1426,6 +1432,41 @@ The following network messages all help control the InstantSend feature of Dash.
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
+
+The `txlvote` message ([transaction lock vote][msg_txlock_vote]{:#term-msg_txlock_vote}{:.term})
+is sent by masternodes to indicate approval of a transaction lock request
+`ix` message.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 32 | txHash | uint256 | Required | TXID of the transaction to lock
+| 36 | outPoint | outpoint | Required | The unspent outpoint to lock in this transaction
+| 36 | outpointMasternode | outpoint | Required | The outpoint of the masternode which is signing the vote
+| 66* | vchMasternodeSignature | char[] | Required | 66 bytes in most cases. Length (1 byte) + Signature (65 bytes)
+
+The following annotated hexdump shows a `txlvote` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+3c121fb4a12b2f715e2f70a9fa282115
+be197dde14073959fb2a2b8e95a7418f ..... TXID
+
+Outpoint to lock
+| bb607995757c6a6efd6429215dcb3688
+| b252d34d835c81fed310fd905f487020 ... Outpoint TXID
+| 01000000 ........................... Outpoint index number (1)
+
+Masternode Outpoint
+| de9029c7e9b7eb7cd11f27ba670b2349
+| 0c3f0717b86ed949c316874589405cd2 ... Outpoint TXID
+| 00000000 ........................... Outpoint index number (0)
+
+1ccc39ffb9c62111a8c82823d3ce61d2
+380db4e8f76ec238d568908f37558a90
+4e79566a53663de12ec2be1183c87d61
+250e8ebd57be171be1d4b5e89b69c263
+88 ................................... Masternode Signature
+{% endhighlight %}
 
 {% endautocrossref %}
 

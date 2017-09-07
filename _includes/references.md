@@ -213,6 +213,7 @@ http://opensource.org/licenses/MIT.
 [getheaders message]: /en/developer-reference#getheaders "A P2P protocol message used to request a range of block headers"
 [headers message]: /en/developer-reference#headers "A P2P protocol message containing one or more block headers"
 [inv message]: /en/developer-reference#inv "A P2P protocol message used to send inventories of transactions and blocks known to the transmitting peer"
+[ix message]: /en/developer-reference#ix "A P2P protocol message which sends a single serialized transaction via InstantSend"
 [mempool message]: /en/developer-reference#mempool "A P2P protocol message used to request one or more inv messages with currently-unconfirmed transactions"
 [merkleblock message]: /en/developer-reference#merkleblock "A P2P protocol message used to request a filtered block useful for SPV proofs"
 [notfound message]: /en/developer-reference#notfound "A P2P protocol message sent to indicate that the requested data was not available"
@@ -221,6 +222,7 @@ http://opensource.org/licenses/MIT.
 [reject message]: /en/developer-reference#reject "A P2P network message used to indicate a previously-received message was rejected for some reason"
 [sendheaders message]: /en/developer-reference#sendheaders "A P2P network message used to request new blocks be announced through headers messages rather than inv messages"
 [tx message]: /en/developer-reference#tx "A P2P protocol message which sends a single serialized transaction"
+[txlvote message]: /en/developer-reference#txlvote "A P2P protocol message which masternodes send in response to an ix (transaction lock request) message if the transaction inputs can be locked."
 [verack message]: /en/developer-reference#verack "A P2P network message sent in reply to a version message to confirm a connection has been established"
 [version message]: /en/developer-reference#version "A P2P network message sent at the begining of a connection to allow protocol version negotiation"
 
