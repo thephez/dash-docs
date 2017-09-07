@@ -17,8 +17,10 @@ network protocol never implemented in an official version of Dash Core.
 
 All peer-to-peer communication occurs entirely over TCP.
 
-**Note:** unless their description says otherwise, all multi-byte
+{% highlight text %}
+Note: unless their description says otherwise, all multi-byte
 integers mentioned in this section are transmitted in little-endian order.
+{% endhighlight %}
 
 {% endautocrossref %}
 
@@ -684,7 +686,7 @@ An `addr` message may also be sent in response to a `getaddr` message.
 | Bytes      | Name             | Data Type          | Description
 |------------|------------------|--------------------|----------------
 | *Varies*   | IP address count | compactSize uint   | The number of IP address entries up to a maximum of 1,000.
-| *Varies*   | IP addresses     | network IP address | IP address entries.  See the table below for the format of a Bitcoin network IP address.
+| *Varies*   | IP addresses     | network IP address | IP address entries.  See the table below for the format of a Dash network IP address.
 
 Each encapsulated network IP address currently uses the following structure:
 
@@ -693,7 +695,7 @@ Each encapsulated network IP address currently uses the following structure:
 | 4     | time       | uint32    | *Added in protocol version 31402.* <br><br>A time in Unix epoch time format.  Nodes advertising their own IP address set this to the current time.  Nodes advertising IP addresses they've connected to set this to the last time they connected to that node.  Other nodes just relaying the IP address should not change the time.  Nodes can use the time field to avoid relaying old `addr` messages.  <br><br>Malicious nodes may change times or even set them in the future.
 | 8     | services   | uint64_t  | The services the node advertised in its `version` message.
 | 16    | IP address | char      | IPv6 address in **big endian byte order**. IPv4 addresses can be provided as [IPv4-mapped IPv6 addresses][]
-| 2     | port       | uint16_t  | Port number in **big endian byte order**.  Note that Bitcoin Core will only connect to nodes with non-standard port numbers as a last resort for finding peers.  This is to prevent anyone from trying to use the network to disrupt non-Bitcoin services that run on other ports.
+| 2     | port       | uint16_t  | Port number in **big endian byte order**.  Note that Dash Core will only connect to nodes with non-standard port numbers as a last resort for finding peers.  This is to prevent anyone from trying to use the network to disrupt non-Dash services that run on other ports.
 
 The following annotated hexdump shows part of an `addr` message. (The
 message header has been omitted and the actual IP address has been
@@ -872,7 +874,7 @@ previously-set bloom filter.  This also undoes the effect of setting the
 relay field in the `version` message to 0, allowing unfiltered access to
 `inv` messages announcing new transactions.
 
-Bitcoin Core does not require a `filterclear` message before a
+Dash Core does not require a `filterclear` message before a
 replacement filter is loaded with `filterload`.  It also doesn't require
 a `filterload` message before a `filterclear` message.
 
@@ -977,7 +979,7 @@ function][murmur3].
 ![Warning icon](/img/icons/icon_warning.svg)
 **Warning:** the Murmur3 hash function has separate 32-bit and 64-bit
 versions that produce different results for the same input.  Only the
-32-bit Murmur3 version is used with Bitcoin bloom filters.
+32-bit Murmur3 version is used with Dash bloom filters.
 
 The data to be hashed can be any transaction element which the bloom
 filter can match. See the next subsection for the list of transaction
@@ -985,7 +987,7 @@ elements checked against the filter. The largest element which can be
 matched is a script data push of 520 bytes, so the data should never
 exceed 520 bytes.
 
-The example below from Bitcoin Core [bloom.cpp][core bloom.cpp hash] combines
+The example below from Dash Core [bloom.cpp][core bloom.cpp hash] combines
 all the steps above to create the hash function template. The seed is
 the first parameter; the data to be hashed is the second parameter. The
 result is a uint32\_t modulo the size of the bit field in bits.
@@ -1187,7 +1189,7 @@ header has been omitted.)
 *Added in protocol version 60001 as described by BIP31.*
 
 The `pong` message replies to a `ping` message, proving to the pinging
-node that the ponging node is still alive. Bitcoin Core will, by
+node that the ponging node is still alive. Dash Core will, by
 default, disconnect from any clients which have not responded to a
 `ping` message within 20 minutes.
 
@@ -1230,6 +1232,7 @@ ascending code number (primary) and alphabetic in reply to (secondary) -->
 | 0x01 | *any message*     | 0           | N/A        | Message could not be decoded.  Be careful of `reject` message feedback loops where two peers each don't understand each other's `reject` messages and so keep sending them back and forth forever.
 | 0x10 | `block` message   | 32          | char[32]   | Block is invalid for some reason (invalid proof-of-work, invalid signature, etc).  Extra data may include the rejected block's header hash.
 | 0x10 | `tx` message      | 32          | char[32]   | Transaction is invalid for some reason (invalid signature, output value greater than input, etc.).  Extra data may include the rejected transaction's TXID.
+| 0x10 | `ix` message      | 32          | char[32]   | InstantSend transaction is invalid for some reason (invalid tx lock request, conflicting tx lock request, etc.).  Extra data may include the rejected transaction's TXID.
 | 0x11 | `block` message   | 32          | char[32]   | The block uses a version that is no longer supported.  Extra data may include the rejected block's header hash.
 | 0x11 | `version` message | 0           | N/A        | Connecting node is using a protocol version that the rejecting node considers obsolete and unsupported.
 | 0x12 | `tx` message      | 32          | char[32]   | Duplicate input spend (double spend): the rejected transaction spends the same input as a previously-received transaction.  Extra data may include the rejected transaction's TXID.
@@ -1238,6 +1241,19 @@ ascending code number (primary) and alphabetic in reply to (secondary) -->
 | 0x41 | `tx` message      | 32          | char[32]   | One or more output amounts are below the dust threshold.  Extra data may include the rejected transaction's TXID.
 | 0x42 | `tx` message      |             | char[32]   | The transaction did not have a large enough fee or priority to be relayed or mined.  Extra data may include the rejected transaction's TXID.
 | 0x43 | `block` message   | 32          | char[32]   | The block belongs to a block chain which is not the same block chain as provided by a compiled-in checkpoint.  Extra data may include the rejected block's header hash.
+
+Reject Codes
+
+| Code | Description
+|------|--------------
+| 0x01 | Malformed
+| 0x10 | Invalid
+| 0x11 | Obsolete
+| 0x12 | Duplicate
+| 0x40 | Non-standard
+| 0x41 | Dust
+| 0x42 | Insufficient fee
+| 0x43 | Checkpoint
 
 The annotated hexdump below shows a `reject` message. (The message
 header has been omitted.)
@@ -1337,8 +1353,8 @@ before initializing its half of the connection by first sending a
 | 4        | version               | int32_t          | Required                                 | The highest protocol version understood by the transmitting node.  See the [protocol version section][section protocol versions].
 | 8        | services              | uint64_t         | Required                                 | The services supported by the transmitting node encoded as a bitfield.  See the list of service codes below.
 | 8        | timestamp             | int64_t          | Required                                 | The current Unix epoch time according to the transmitting node's clock.  Because nodes will reject blocks with timestamps more than two hours in the future, this field can help other nodes to determine that their clock is wrong.
-| 8        | addr_recv services    | uint64_t         | Required                                 | *Added in protocol version 106.* <br><br>The services supported by the receiving node as perceived by the transmitting node.  Same format as the 'services' field above. Bitcoin Core will attempt to provide accurate information.  BitcoinJ will, by default, always send 0.
-| 16       | addr_recv IP address  | char             | Required                                 | *Added in protocol version 106.* <br><br>The IPv6 address of the receiving node as perceived by the transmitting node in **big endian byte order**. IPv4 addresses can be provided as [IPv4-mapped IPv6 addresses][]. Bitcoin Core will attempt to provide accurate information.  BitcoinJ will, by default, always return ::ffff:127.0.0.1
+| 8        | addr_recv services    | uint64_t         | Required                                 | *Added in protocol version 106.* <br><br>The services supported by the receiving node as perceived by the transmitting node.  Same format as the 'services' field above. Dash Core will attempt to provide accurate information.
+| 16       | addr_recv IP address  | char             | Required                                 | *Added in protocol version 106.* <br><br>The IPv6 address of the receiving node as perceived by the transmitting node in **big endian byte order**. IPv4 addresses can be provided as [IPv4-mapped IPv6 addresses][]. Dash Core will attempt to provide accurate information.
 | 2        | addr_recv port        | uint16_t         | Required                                 | *Added in protocol version 106.* <br><br>The port number of the receiving node as perceived by the transmitting node in **big endian byte order**.
 | 8        | addr_trans services   | uint64_t         | Required                                 | The services supported by the transmitting node.  Should be identical to the 'services' field above.
 | 16       | addr_trans IP address | char             | Required                                 | The IPv6 address of the transmitting node in **big endian byte order**. IPv4 addresses can be provided as [IPv4-mapped IPv6 addresses][].  Set to ::ffff:127.0.0.1 if unknown.
@@ -1349,37 +1365,40 @@ before initializing its half of the connection by first sending a
 | 4        | start_height          | int32_t          | Required                                 | The height of the transmitting node's best block chain or, in the case of an SPV client, best block header chain.
 | 1        | relay                 | bool             | Optional                                 | *Added in protocol version 70001 as described by BIP37.* <br><br>Transaction relay flag.  If 0x00, no `inv` messages or `tx` messages announcing new transactions should be sent to this client until it sends a `filterload` message or `filterclear` message.  If the relay field is not present or is set to 0x01, this node wants `inv` messages and `tx` messages announcing new transactions.
 
+
 The following service identifiers have been assigned.
 
 | Value | Name         | Description
 |-------|--------------|---------------
 | 0x00  | *Unnamed*    | This node is not a full node.  It may not be able to provide any data except for the transactions it originates.
 | 0x01  | NODE_NETWORK | This is a full node and can be asked for full blocks.  It should implement all protocol features available in its self-reported protocol version.
+| 0x02  | NODE_GETUTXO | This node is capable of responding to the getutxo protocol request. *Dash Core does not support this service.*
+| 0x04  | NODE_BLOOM | This node is capable and willing to handle bloom-filtered connections.  Dash Core nodes used to support this by default, without advertising this bit, but no longer do as of protocol version 70201 (= NO_BLOOM_VERSION)
 
 The following annotated hexdump shows a `version` message. (The
 message header has been omitted and the actual IP addresses have been
 replaced with [RFC5737][] reserved IP addresses.)
 
 {% highlight text %}
-72110100 ........................... Protocol version: 70002
-0100000000000000 ................... Services: NODE_NETWORK
-bc8f5e5400000000 ................... Epoch time: 1415483324
+3e120100 .................................... Protocol version: 70206
+0500000000000000 ............................ Services: NODE_NETWORK (1) + NODE_BLOOM (4)
+bc8f5e5400000000 ............................ Epoch time: 1415483324
 
-0100000000000000 ................... Receiving node's services
-00000000000000000000ffffc61b6409 ... Receiving node's IPv6 address
-208d ............................... Receiving node's port number
+0100000000000000 ............................ Receiving node's services
+00000000000000000000ffffc61b6409 ............ Receiving node's IPv6 address
+270f ........................................ Receiving node's port number
 
-0100000000000000 ................... Transmitting node's services
-00000000000000000000ffffcb0071c0 ... Transmitting node's IPv6 address
-208d ............................... Transmitting node's port number
+0500000000000000 ............................ Transmitting node's services
+00000000000000000000ffffcb0071c0 ............ Transmitting node's IPv6 address
+270f ........................................ Transmitting node's port number
 
-128035cbc97953f8 ................... Nonce
+128035cbc97953f8 ............................ Nonce
 
-0f ................................. Bytes in user agent string: 15
-2f5361746f7368693a302e392e332f ..... User agent: /Satoshi:0.9.2.1/
+14 .......................................... Bytes in user agent string: 20
+2f4461736820436f72653a302e31322e312e352f..... User agent: /Satoshi:0.9.2.1/
 
-cf050500 ........................... Start height: 329167
-01 ................................. Relay flag: true
+851f0b00 .................................... Start height: 728965
+01 .......................................... Relay flag: true
 {% endhighlight %}
 
 {% endautocrossref %}
