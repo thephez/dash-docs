@@ -1704,7 +1704,7 @@ Data
 02000000 ............................. Object Type (2 = GOVERNANCE_OBJECT_TRIGGER)
 
 Transaction input
-| UTXO
+| Previous Output
 | | ffefbe4959085907bcd2ba29e357a441
 | | fa7b6e26e25896d8127332bba2419e97 ... Outpoint TXID
 | | 00000000 ........................... Outpoint index number (0)
@@ -1726,6 +1726,8 @@ Transaction input
 
 {% autocrossref %}
 
+The `govobjvote` message is ...
+
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
 | 41+ | vinMasternode | CTxIn | Required | Unspent output for the masternode which is voting
@@ -1735,11 +1737,54 @@ Transaction input
 | 8 | nTime | int64_t | Required | Time which the vote was created
 | 66* | vchSig | char[] | Required | Signature of the masternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
 
+The following annotated hexdump shows a `govobjvote` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+Transaction input
+| Previous Output
+| | 57566a0ef85e6cac3415ced67b0b07e1
+| | 781bafb853650d7c9d56d8bc132cc3b4 ... Outpoint TXID
+| | 00000000 ........................... Outpoint index number (0)
+| 00 ................................... Script length (0)
+| ...................................... Signature (None)
+| ffffffff ............................. Sequence
+
+ad9579d5c181eee904156df1c88b050f
+b8b4d39e5fda71f015996dbf14a51bff...... Parent Hash (0 = root)
+01000000 ............................. Vote Outcome (1 = VOTE_OUTCOME_NONE)
+02000000 ............................. Vote Signal (2 = VOTE_SIGNAL_VALID)
+b517a85900000000 ..................... Vote Create Timestamp(2017-08-31 10:05:41 EDT)
+00000000000000000000000000000000 ..... Collateral Hash
+
+1b049113a81fe913f061ad295561d267
+00b8135a021ab0356a1e89b18d663d0b
+dc45e9c09ee0427223e332b52e8d709e
+6d64e86b6435d7bdf207d8f23b6ae0db
+6f ................................... Masternode Signature
+{% endhighlight %}
+
 {% endautocrossref %}
 
 #### govsync
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
+
+The `govsync` message is ...
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 32 | nHash | uint256 | Required |
+| # | filter | CBloomFiter | Required |
+
+The following annotated hexdump shows a `govsync` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+2e46ea5418e097a3dbcccbee3cf2a911
+6fb94ba635153f276dcb2123efcb73ff ..... Hash
+00000000000000000000 ................. Bloom Filter
+{% endhighlight %}
 
 {% endautocrossref %}

@@ -46,6 +46,12 @@ fiat:
 '`getaddr` messages': getaddr message
 '`getsporks` message': getsporks message
 '`getsporks` messages': getsporks message
+'`govobj` message': govobj message
+'`govobj` messages': govobj message
+'`govobjvote` message': govobjvote message
+'`govobjvote` messages': govobjvote message
+'`govsync` message': govsync message
+'`govsync` messages': govsync message
 '`headers` message': headers message
 '`headers` messages': headers message
 intermediate certificate:
@@ -128,7 +134,7 @@ public key infrastructure: pki
 '`r`': r
 receipt:
 recurrent rebilling:
-refund: 
+refund:
 refunds: refund
 '`reject` message': reject message
 '`reject` messages': reject message
