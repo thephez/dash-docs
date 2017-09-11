@@ -1673,7 +1673,8 @@ The following network messages enable the Governance features built in to Dash.
 
 {% autocrossref %}
 
-The `govobj` message is ...
+The `govobj` message is a governance object that is generally a proposal,
+contract, or setting.
 
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
@@ -1726,14 +1727,15 @@ Transaction input
 
 {% autocrossref %}
 
-The `govobjvote` message is ...
+The `govobjvote` message is sent by masternodes to indicate their intention (yes,
+  no, abstain) regarding a governance object.
 
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
 | 41+ | vinMasternode | CTxIn | Required | Unspent output for the masternode which is voting
 | 32 | nParentHash | uint256 | Required | Object which we're voting on (proposal, contract, setting or final budget)
-| 4 | nVoteOutcome | int | Required |
-| 4 | nVoteSignal | int | Required |
+| 4 | nVoteOutcome | int | Required | None (0), Yes (1), No (2), Abstain (3)
+| 4 | nVoteSignal | int | Required |  None (0), Funding (1), Valid (2), Delete (3), Endorsed (4)
 | 8 | nTime | int64_t | Required | Time which the vote was created
 | 66* | vchSig | char[] | Required | Signature of the masternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
 
@@ -1771,7 +1773,7 @@ dc45e9c09ee0427223e332b52e8d709e
 
 {% autocrossref %}
 
-The `govsync` message is ...
+The `govsync` message is used to request syncing of governance objects with peers.
 
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
