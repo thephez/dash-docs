@@ -1477,8 +1477,8 @@ Masternode Outpoint
 
 {% autocrossref %}
 
-The following network messages all help control the PrivateSend coin mixing
-features built in to Dash.
+The following network messages all help control the PrivateSend (formerly
+DarkSend) coin mixing features built in to Dash.
 
 {% endautocrossref %}
 
@@ -1486,6 +1486,16 @@ features built in to Dash.
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
+
+The `dsa` message replies to a `dsq` message and allows the user to join
+a mixing pool.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 4 | nDenom | int | Required | Denomination that will be exclusively used when submitting inputs into the pool
+| 41+ | txCollateral | CTxIn | Required | Collateral TX that will be charged if this client acts maliciously
+
+<!-- No examples have been observed in Wireshark -->
 
 {% endautocrossref %}
 
@@ -1495,6 +1505,48 @@ features built in to Dash.
 
 {% autocrossref %}
 
+The `dsc` message indicates a PrivateSend mixing session is complete.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 4 | nSessionID | int | Required | ID of the mixing session
+| 4 | nMessageID | int | Required | Collateral TX that will be charged if this client acts maliciously
+
+Message IDs
+
+| Code | Description
+|------|--------------
+| 0x00 | ERR_ALREADY_HAVE
+| 0x01 | ERR_DENOM
+| 0x02 | ERR_ENTRIES_FULL
+| 0x03 | ERR_EXISTING_TX
+| 0x04 | ERR_FEES
+| 0x05 | ERR_INVALID_COLLATERAL
+| 0x06 | ERR_INVALID_INPUT
+| 0x07 | ERR_INVALID_SCRIPT
+| 0x08 | ERR_INVALID_TX
+| 0x09 | ERR_MAXIMUM
+| 0x0A | ERR_MN_LIST
+| 0x0B | ERR_MODE
+| 0x0C | ERR_NON_STANDARD_PUBKEY
+| 0x0D | ERR_NOT_A_MN (Not used)
+| 0x0E | ERR_QUEUE_FULL
+| 0x0F | ERR_RECENT
+| 0x10 | ERR_SESSION
+| 0x11 | ERR_MISSING_TX
+| 0x12 | ERR_VERSION
+| 0x13 | MSG_NOERR
+| 0x14 | MSG_SUCCESS
+| 0x15 | MSG_ENTRIES_ADDED
+
+The following annotated hexdump shows a `dsc` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+d9070700 ............................. Session ID (460761)
+14000000 ............................. Message ID (MSG_SUCCESS)
+{% endhighlight %}
+
 {% endautocrossref %}
 
 
@@ -1502,6 +1554,59 @@ features built in to Dash.
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
+
+The `dsf` message is sent as the final mixing transaction in a PrivateSend
+mixing session.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 4 | nSessionID | int | Required | ID of the mixing session
+| # | txFinal | `tx` message | Required | Collateral TX that will be charged if this client acts maliciously
+
+The following annotated hexdump shows a `dsf` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+d9070700 ............................. Session ID (460761)
+
+Transaction Message
+| 01000000 ................................. Version (1)
+|
+| 11 ......................................... Number of inputs (17)
+|
+| Transaction input #1
+| |
+| | 312b2eef73770de0c75647b1fda96d85
+| | fe83b06867abf11057a241a3cf8d2a84 ......... Outpoint TXID
+| | 00000000 ................................. Outpoint index number (0)
+| |
+| | 00 ....................................... Bytes in sig. script: 0
+| | .......................................... Secp256k1 signature (None)
+| |
+| | ffffffff ................................. Sequence number: UINT32_MAX
+|
+| Remaining 16 transaction inputs (not shown) ....
+|
+|
+| 11 ......................................... Number of outputs (17)
+|
+| Transaction output #1
+| | 4a420f0000000000 ......................... Duffs (0.01000010 Dash)
+| |
+| | 19 ....................................... Bytes in pubkey script: 25
+| | | 76 ..................................... OP_DUP
+| | | a9 ..................................... OP_HASH160
+| | | 14 ..................................... Push 20 bytes as data
+| | | | 0041cc11dac1386e0d8676fda6c5b122
+| | | | 9d8c61e2 ............................. PubKey hash
+| | | 88 ..................................... OP_EQUALVERIFY
+| | | ac ..................................... OP_CHECKSIG
+|
+| Remaining 16 transaction outputs (not shown) ....
+|
+|
+| 00000000 ................................... locktime: 0 (a block height)
+{% endhighlight %}
 
 {% endautocrossref %}
 
@@ -1511,13 +1616,17 @@ features built in to Dash.
 
 {% autocrossref %}
 
-{% endautocrossref %}
+The `dsi` message indicates the queue is ready and the user is expected to send
+the entry inputs to start mixing.
 
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| ? | vecTxDSIn | CTxDSIn[] | Required | Vector of users inputs (CTxDSIn serialization is equal to CTxIn serialization)
+| 8 | nAmount | int64_t | Required | Deprecated since 12.1. Used for backwards compatibility only and can be removed with future protocol bump
+| ? | txCollateral | `tx` message | Required |Collateral transaction which is used to prevent misbehavior and also to charge fees randomly
+| ? | vecTxDSOut | CTxDSOut[] | Required | Vector of user outputs (CTxDSOut serialization is equal to CTxOut serialization)
 
-#### dss
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
+<!-- No examples have been observed in Wireshark -->
 
 {% endautocrossref %}
 
@@ -1527,6 +1636,67 @@ features built in to Dash.
 
 {% autocrossref %}
 
+The `dsq` message asks users to sign a final mixing TX messages.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 4 | nDenom | int | Required | Denomination allowed in this mixing session
+| 41+ | vin | CTxIn | Required | Unspent output from masternode which is hosting this session
+| 4 | nTime | int | Required | Time this `dsq` message was created
+| 4 | fReady | int | Required | Indicates if the mixing pool is ready to be executed
+| 66* | vchSig | char[] | Required | Signature of this message by masternode verifiable via pubKeyMasternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
+
+Denominations
+
+| Value | Denomination
+|------|--------------
+| 1 | 10 Dash
+| 2 | 1 Dash
+| 4 | 0.1 Dash
+| 8 | 0.01 Dash
+
+The following annotated hexdump shows a `dsq` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+08000000 ............................. Denomination (0.01 Dash)
+
+Masternode Outpoint
+| aeed0e77c6db30a616507a37a129bc88
+| 1811f08afc51dd485d5322f36c1f04c5 ... Outpoint TXID
+| 01000000 ........................... Outpoint index number (1)
+
+1318a859 ............................. Create Time
+
+00000000 ............................. Ready (0)
+
+00 ................................... ???
+41 ................................... Signature length (65)
+
+1bd74386ea4e111197f1b4b4660c1415
+13486745ca10ba0632426ed3a644d941
+047e43c988680904d4a4fcf551d8813c
+ec12d47ae9b00e870db294cd66708ab7
+dc ................................... Masternode Signature
+{% endhighlight %}
+
+{% endautocrossref %}
+
+
+#### dss
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `dss` message sends the user's signed inputs for a group transaction in a
+mixing session.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| # | inputs | CTxIn[] | Required | Signed inputs for mixing session
+
+
+
 {% endautocrossref %}
 
 
@@ -1535,6 +1705,46 @@ features built in to Dash.
 
 {% autocrossref %}
 
+The `dssu` message provides a mixing pool status update.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 4 | nMsgSessionID | int | Required | Session ID
+| 4 | nMsgState | int | Required | Current state of mixing process
+| 4 | nMsgEntriesCount | int | Required | Number of entries in the mixing pool
+| 4 | nMsgStatusUpdate | int | Required | Update state and/or signal if entry was accepted or not
+| 4 | nMsgMessageID | int | Required | ID of the typical masternode reply message
+
+Pool State
+
+| State | Description
+|------|--------------
+| 0 | POOL_STATE_IDLE
+| 1 | POOL_STATE_QUEUE
+| 2 | POOL_STATE_ACCEPTING_ENTRIES
+| 3 | POOL_STATE_SIGNING
+| 4 | POOL_STATE_ERROR
+| 5 | POOL_STATE_SUCCESS
+
+Pool Status Update
+
+| Status | Description
+|------|--------------
+| 0 | STATUS_REJECTED
+| 1 | STATUS_ACCEPTED
+
+The following annotated hexdump shows a `dssu` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+e6ce0c00 ............................. Session ID
+02000000 ............................. State (POOL_STATE_ACCEPTING_ENTRIES)
+01000000 ............................. Entries (1)
+01000000 ............................. Status Update (STATUS_ACCEPTED)
+13000000 ............................. Message ID (MSG_NOERR)
+{% endhighlight %}
+
+
 {% endautocrossref %}
 
 
@@ -1542,6 +1752,85 @@ features built in to Dash.
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
+
+The `dstx` message allows masternodes to broadcast subsidized transactions without
+fees (to provide security in mixing).
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| # | tx | `tx` message | Required | The transaction
+| 41 | vin | CtxIn | Required | Masternode unspent output
+| 66* | vchSig | char[] | Required | Signature of this message by masternode verifiable via pubKeyMasternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
+| 8 | sigTime | int64_t | Require | Time this message was signed
+
+
+The following annotated hexdump shows a `dstx` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+Transaction Message
+| 01000000 ................................. Version (1)
+|
+| 0b ......................................... Number of inputs (11)
+|
+| Transaction input #1
+| |
+| | 0adb782b2170018eada54534be880e70
+| | 74ed8307a566731119b1782362af43ad ......... Outpoint TXID
+| | 05000000 ................................. Outpoint index number (5)
+| |
+| | 6a ....................................... Bytes in sig. script: 106
+| | 47304402204ed56f525ae6df707f9cbe
+| | 55c78d82bbcc02daa1fb27b0bf54588a
+| | 446dcc804102200c4e03c4a2b9a90aef
+| | 9f01de7c28812a0e8b280e6c153b0bd8
+| | 26d2ff660102e18121028c96903b2709
+| | 7b331d55abd1f42d2ff6cc7c784ab839
+| | 7c232b73a34a149a348e ..................... Secp256k1 signature
+| |
+| | ffffffff ................................. Sequence number: UINT32_MAX
+|
+| Remaining 10 transaction inputs (not shown) ....
+|
+|
+| 0b ......................................... Number of outputs (11)
+|
+| Transaction output #1
+| | e8e4f50500000000 ......................... Duffs (1.00001000 Dash)
+| |
+| | 19 ....................................... Bytes in pubkey script: 25
+| | | 76 ..................................... OP_DUP
+| | | a9 ..................................... OP_HASH160
+| | | 14 ..................................... Push 20 bytes as data
+| | | | 0febbeaa8818b2c2f80fb8c98f90bdae
+| | | | 41fe5c26 ............................. PubKey hash
+| | | 88 ..................................... OP_EQUALVERIFY
+| | | ac ..................................... OP_CHECKSIG
+|
+| Remaining 10 transaction outputs (not shown) ....
+|
+|
+| 00000000 ................................... locktime: 0 (a block height)
+
+Masternode Unspent Output
+| 387d522def2abfb9bdd15be899f074f3
+| 49b414cef078ec642e1d14b42996b9fc ......... Outpoint TXID
+| 00000000 ................................. Outpoint index number (0)
+|
+| 00 ....................................... Bytes in sig. script: 0
+| .......................................... Secp256k1 signature (None)
+|
+| ffffffff ................................. Sequence number: UINT32_MAX
+
+1b6fb8f90f0df6e502bc10aab9604e49
+2d14214e05331c9761c834d55c7536e3
+3369e5909479ea88116aad7ea64587d9
+59364326c97d7f249f7b9293e120a5b6
+1c ................................... Masternode Signature
+
+ece5a95900000000 ..................... Signature Timestamp
+{% endhighlight %}
+
 
 {% endautocrossref %}
 

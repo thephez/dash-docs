@@ -24,6 +24,22 @@ certificate chain:
 DER:
 DER format: der
 DER-formatted: der
+'`dsa` message': dsa message
+'`dsa` messages': dsa message
+'`dsc` message': dsc message
+'`dsc` messages': dsc message
+'`dsf` message': dsf message
+'`dsf` messages': dsf message
+'`dsi` message': dsi message
+'`dsi` messages': dsi message
+'`dsq` message': dsq message
+'`dsq` messages': dsq message
+'`dss` message': dss message
+'`dss` messages': dss message
+'`dssu` message': dssu message
+'`dssu` messages': dssu message
+'`dstx` message': dstx message
+'`dstx` messages': dstx message
 ECDSA:
 epoch time: unix epoch time
 '`expires`': pp expires
