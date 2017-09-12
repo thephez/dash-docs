@@ -1849,12 +1849,106 @@ The following network messages enable the Masternode features built in to Dash.
 
 {% autocrossref %}
 
+The `dseg` message requests either the masternode list or a specific entry.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 41 | vin | txIn | Required | The unspent output which is holding 1000 DASH
+
+The following annotated hexdump shows a `dseg` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+Masternode Unspent Output
+| 7fe33a2901aa654598ae0af572d4fbec
+| ee97af2d0276f189d177dee5848ef3da ......... Outpoint TXID
+| 00000000 ................................. Outpoint index number: 0
+|
+| 00 ....................................... Bytes in sig. script: 0
+| .......................................... Secp256k1 signature: None
+|
+| ffffffff ................................. Sequence number: UINT32_MAX
+{% endhighlight %}
+
 {% endautocrossref %}
 
 #### mnb
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
+
+The `mnb` message is sent whenever a masternode comes online or a client is
+syncing.  The masternode will send this message which describes the masternode
+entry and how to validate messages from it.
+
+The following annotated hexdump shows a `mnb` message. (The
+message header has been omitted and the actual IP address has been replaced
+with a RFC5737 reserved IP address.)
+
+{% highlight text %}
+Masternode Unspent Output
+| 3fbc7d4a8f68ba6ecb02a8db34d1f5b6
+| 2dc105f0b5c3505243435cf815d02394 ......... Outpoint TXID
+| 01000000 ................................. Outpoint index number: 1
+|
+| 00 ....................................... Bytes in sig. script: 0
+| .......................................... Secp256k1 signature: None
+|
+| ffffffff ................................. Sequence number: UINT32_MAX
+
+Masternode Address
+| 00000000000000000000ffffc0000233 ......... IP Address: ::ffff:192.0.2.51
+| 270f ..................................... Port: 9999
+
+Collateral Public Key
+| 21 ....................................... Key Size: 33
+| 02 ....................................... Key Type: 2 - Compressed (even)
+| 02a47a6845936a4199e126d35399dd09
+| 97c1aaf89a3fe70d474c53f29624a43a5b ....... Public Key
+
+Masternode Public Key
+| 41 ....................................... Key Size: 65
+| 04 ....................................... Key Type: 4 - Uncompressed
+| 04da252243305d604cab90480880af4a
+| b5cea3a934c91393452e9b7b4c97a87e
+| 198bc809916ac2c27436a1db9c28d0aa
+| bfefec4dc3c2193835fd9a56c31150c633 ....... Public Key
+
+Message Signature
+| 41 ....................................... Bytes in signature: 65
+| 1fb80f9ba8c110835e4a7dd4c8deccd7
+| 89027663d00084d9a99ef579a9b5601f
+| 40727b27e91aab2897a078f63976ae25
+| 3ff8f01e56862e953278f432530f6ee080 ....... Signature
+
+4728ef5800000000 ........................... Sig. Timestamp: 2017-04-13 07:27:03 UTC
+
+3e120100 ................................... Protocol Version: 70206
+
+Masternode Ping Message
+| Masternode Unspent Output
+| | 3fbc7d4a8f68ba6ecb02a8db34d1f5b6
+| | 2dc105f0b5c3505243435cf815d02394 ........ Outpoint TXID
+| | 01000000 ................................ Outpoint index number: 1
+| |
+| | 00 ...................................... Bytes in sig. script: 0
+| | ......................................... Secp256k1 signature: None
+| |
+| | ffffffff ................................ Sequence number: UINT32_MAX
+|
+| 94fc0fad18b166c2fedf1a5dc0511372
+| 26c353d57e086737ff05000000000000 ......... Chaintip block hash
+|
+| 66c1a95900000000 ......................... Sig. Timestamp: 2017-10-01 21:21:58 UTC
+|
+| Masternode Signature
+| | 41 ..................................... Bytes in signature: 65
+| | 1b3017c49a03e2d77083f3c92a8c2e4c
+| | d815d068b6256498a719e3cb6a34f774
+| | ec6434cfcbb7a5a51704350a05903287
+| | eecc82e6b40ac2fcfa2df29ddaa6c4fc
+| | b8 ..................................... Masternode Signature
+{% endhighlight %}
 
 {% endautocrossref %}
 
@@ -1863,12 +1957,52 @@ The following network messages enable the Masternode features built in to Dash.
 
 {% autocrossref %}
 
+The `mnget` message requests masternode payment sync.
+
+The following annotated hexdump shows a `mnget` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+a8170000 ................................... Count: 6056
+{% endhighlight %}
+
 {% endautocrossref %}
 
 #### mnp
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
+
+The `mnp` message is sent by masternodes every few minutes to ping the network
+with a message that propagates across the whole network.
+
+The following annotated hexdump shows a `dseg` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+Masternode Unspent Output
+| 0bfa3616099771bb5f36181ff4060a9b
+| 9afe7b3e47d7f4327800f0f8ce586c6e ......... Outpoint TXID
+| 01000000 ................................. Outpoint index number: 1
+|
+| 00 ....................................... Bytes in sig. script: 0
+| .......................................... Secp256k1 signature: None
+|
+| ffffffff ................................. Sequence number: UINT32_MAX
+
+a26a68ebb733192c1c40f9b42f872ac0
+e23d4c360e20d5ab6608000000000000 ........... Chaintip block hash
+
+1bbfa95900000000 ........................... Sig. Timestamp: 2017-10-01 20:12:11 UTC
+
+Masternode Signature
+| 41 ....................................... Bytes in signature: 65
+| 1c2b205bd6ba472d7a9495f049ef66dc
+| f844154846e25f2389385ba2d3e95cde
+| cf3ccf82bc26d94c6fdafcd7b965bb61
+| db02d05483595196ea4d92b2e797612b
+| 79 ....................................... Masternode Signature
+{% endhighlight %}
 
 {% endautocrossref %}
 
@@ -1877,12 +2011,53 @@ The following network messages enable the Masternode features built in to Dash.
 
 {% autocrossref %}
 
+The `mnv` message is used to verify masternodes.
+
 {% endautocrossref %}
 
 #### mnw
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
+
+The `mnw` message is used to pick the next winning masternode. When a new block
+is found on the network, a masternode quorum will be determined and those 10
+selected masternodes will issue the masternode payment vote message.
+
+The following annotated hexdump shows a `mnw` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+Masternode Unspent Output
+| 0c1b5c5846792b25b05eeea9586d8c34
+| ecb996c566bedb4ecf6a68fe8ffa9582 ......... Outpoint TXID
+| 00000000 ................................. Outpoint index number: 0
+|
+| 00 ....................................... Bytes in sig. script: 0
+| .......................................... Secp256k1 signature: None
+|
+| ffffffff ................................. Sequence number: UINT32_MAX
+
+fb4f0a00 ................................... Block pay height: 675835
+
+Payee Address
+| 19 ....................................... Address Length: 25
+| | 76 ..................................... OP_DUP
+| | a9 ..................................... OP_HASH160
+| | 14 ..................................... Push 20 bytes as data
+| | | 1767c363646be7d8e4475c0aa85ea454
+| | | 9fd102c4 ............................. Pubkey hash
+| | 88 ..................................... OP_EQUALVERIFY
+| | ac ..................................... OP_CHECKSIG
+
+Masternode Signature
+| 41 ....................................... Bytes in signature: 65
+| 1c25da47190a83937fb5ef607235703a
+| 7cdda155bf5a1ae6139929024750f899
+| a90a4f57cdf9d54c9d9603c1f31009f8
+| e257355b49c0484fb4c31bc412c73dd9
+| 20 ....................................... Signature
+{% endhighlight %}
 
 {% endautocrossref %}
 
@@ -1891,6 +2066,8 @@ The following network messages enable the Masternode features built in to Dash.
 
 {% autocrossref %}
 
+There is no message for `mnwb` (inventory only).
+
 {% endautocrossref %}
 
 #### ssc
@@ -1898,12 +2075,23 @@ The following network messages enable the Masternode features built in to Dash.
 
 {% autocrossref %}
 
+The `ssc` message is used to track the sync status of masternode objects.
+
+The following annotated hexdump shows a `ssc` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+02000000 ................................... Item ID: MASTERNODE_SYNC_LIST (2)
+bf110000 ................................... Count: 4543
+{% endhighlight %}
+
 {% endautocrossref %}
 
 #### mnvs
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
+
 Deprecated since 12.1
 
 {% endautocrossref %}
@@ -1912,6 +2100,7 @@ Deprecated since 12.1
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
+
 Deprecated since 12.1
 
 {% endautocrossref %}
@@ -1920,6 +2109,7 @@ Deprecated since 12.1
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
+
 Deprecated since 12.1
 
 {% endautocrossref %}
@@ -1928,6 +2118,7 @@ Deprecated since 12.1
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
+
 Deprecated since 12.1
 
 {% endautocrossref %}
@@ -1936,6 +2127,7 @@ Deprecated since 12.1
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
+
 Deprecated since 12.1
 
 {% endautocrossref %}
@@ -1944,7 +2136,9 @@ Deprecated since 12.1
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
+
 Not Implemented
+
 {% endautocrossref %}
 
 
