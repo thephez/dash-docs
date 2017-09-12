@@ -1493,7 +1493,7 @@ a mixing pool.
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
 | 4 | nDenom | int | Required | Denomination that will be exclusively used when submitting inputs into the pool
-| 41+ | txCollateral | CTxIn | Required | Collateral TX that will be charged if this client acts maliciously
+| 41+ | txCollateral | txIn | Required | Collateral TX that will be charged if this client acts maliciously
 
 <!-- No examples have been observed in Wireshark -->
 
@@ -1641,7 +1641,7 @@ The `dsq` message asks users to sign a final mixing TX messages.
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
 | 4 | nDenom | int | Required | Denomination allowed in this mixing session
-| 41+ | vin | CTxIn | Required | Unspent output from masternode which is hosting this session
+| 41+ | vin | txIn | Required | Unspent output from masternode which is hosting this session
 | 4 | nTime | int | Required | Time this `dsq` message was created
 | 4 | fReady | int | Required | Indicates if the mixing pool is ready to be executed
 | 66* | vchSig | char[] | Required | Signature of this message by masternode verifiable via pubKeyMasternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
@@ -1693,7 +1693,7 @@ mixing session.
 
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
-| # | inputs | CTxIn[] | Required | Signed inputs for mixing session
+| # | inputs | txIn[] | Required | Signed inputs for mixing session
 
 
 
@@ -1759,7 +1759,7 @@ fees (to provide security in mixing).
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
 | # | tx | `tx` message | Required | The transaction
-| 41 | vin | CtxIn | Required | Masternode unspent output
+| 41 | vin | txIn | Required | Masternode unspent output
 | 66* | vchSig | char[] | Required | Signature of this message by masternode verifiable via pubKeyMasternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
 | 8 | sigTime | int64_t | Require | Time this message was signed
 
