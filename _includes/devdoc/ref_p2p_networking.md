@@ -1455,12 +1455,14 @@ be197dde14073959fb2a2b8e95a7418f ..... TXID
 Outpoint to lock
 | bb607995757c6a6efd6429215dcb3688
 | b252d34d835c81fed310fd905f487020 ... Outpoint TXID
-| 01000000 ........................... Outpoint index number (1)
+| 01000000 ........................... Outpoint index number: 1
 
 Masternode Outpoint
 | de9029c7e9b7eb7cd11f27ba670b2349
 | 0c3f0717b86ed949c316874589405cd2 ... Outpoint TXID
-| 00000000 ........................... Outpoint index number (0)
+| 00000000 ........................... Outpoint index number: 0
+
+41 ................................... Signature length: 65
 
 1ccc39ffb9c62111a8c82823d3ce61d2
 380db4e8f76ec238d568908f37558a90
@@ -1543,8 +1545,8 @@ The following annotated hexdump shows a `dsc` message. (The
 message header has been omitted.)
 
 {% highlight text %}
-d9070700 ............................. Session ID (460761)
-14000000 ............................. Message ID (MSG_SUCCESS)
+d9070700 ............................. Session ID: 460761
+14000000 ............................. Message ID: MSG_SUCCESS (0x14)
 {% endhighlight %}
 
 {% endautocrossref %}
@@ -1567,28 +1569,28 @@ The following annotated hexdump shows a `dsf` message. (The
 message header has been omitted.)
 
 {% highlight text %}
-d9070700 ............................. Session ID (460761)
+d9070700 ............................. Session ID: 460761
 
 Transaction Message
-| 01000000 ................................. Version (1)
+| 01000000 ................................. Version: 1
 |
-| 11 ......................................... Number of inputs (17)
+| 11 ......................................... Number of inputs: 17
 |
 | Transaction input #1
 | |
 | | 312b2eef73770de0c75647b1fda96d85
 | | fe83b06867abf11057a241a3cf8d2a84 ......... Outpoint TXID
-| | 00000000 ................................. Outpoint index number (0)
+| | 00000000 ................................. Outpoint index number: 0
 | |
 | | 00 ....................................... Bytes in sig. script: 0
-| | .......................................... Secp256k1 signature (None)
+| | .......................................... Secp256k1 signature: None
 | |
 | | ffffffff ................................. Sequence number: UINT32_MAX
 |
-| Remaining 16 transaction inputs (not shown) ....
+| [...] ...................................... 16 more transaction inputs omitted
 |
 |
-| 11 ......................................... Number of outputs (17)
+| 11 ......................................... Number of outputs: 17
 |
 | Transaction output #1
 | | 4a420f0000000000 ......................... Duffs (0.01000010 Dash)
@@ -1602,7 +1604,7 @@ Transaction Message
 | | | 88 ..................................... OP_EQUALVERIFY
 | | | ac ..................................... OP_CHECKSIG
 |
-| Remaining 16 transaction outputs (not shown) ....
+| [...] ...................................... 16 more transaction outputs omitted
 |
 |
 | 00000000 ................................... locktime: 0 (a block height)
@@ -1659,19 +1661,19 @@ The following annotated hexdump shows a `dsq` message. (The
 message header has been omitted.)
 
 {% highlight text %}
-08000000 ............................. Denomination (0.01 Dash)
+08000000 ............................. Denomination: 0.01 Dash (8)
 
 Masternode Outpoint
 | aeed0e77c6db30a616507a37a129bc88
 | 1811f08afc51dd485d5322f36c1f04c5 ... Outpoint TXID
-| 01000000 ........................... Outpoint index number (1)
+| 01000000 ........................... Outpoint index number: 1
 
 1318a859 ............................. Create Time
 
-00000000 ............................. Ready (0)
+00000000 ............................. Ready: 0
 
 00 ................................... ???
-41 ................................... Signature length (65)
+41 ................................... Signature length: 65
 
 1bd74386ea4e111197f1b4b4660c1415
 13486745ca10ba0632426ed3a644d941
@@ -1738,12 +1740,11 @@ message header has been omitted.)
 
 {% highlight text %}
 e6ce0c00 ............................. Session ID
-02000000 ............................. State (POOL_STATE_ACCEPTING_ENTRIES)
-01000000 ............................. Entries (1)
-01000000 ............................. Status Update (STATUS_ACCEPTED)
-13000000 ............................. Message ID (MSG_NOERR)
+02000000 ............................. State: POOL_STATE_ACCEPTING_ENTRIES (2)
+01000000 ............................. Entries: 1
+01000000 ............................. Status Update: STATUS_ACCEPTED (1)
+13000000 ............................. Message ID: MSG_NOERR (0x13)
 {% endhighlight %}
-
 
 {% endautocrossref %}
 
@@ -1769,15 +1770,15 @@ message header has been omitted.)
 
 {% highlight text %}
 Transaction Message
-| 01000000 ................................. Version (1)
+| 01000000 ................................. Version: 1
 |
-| 0b ......................................... Number of inputs (11)
+| 0b ......................................... Number of inputs: 11
 |
 | Transaction input #1
 | |
 | | 0adb782b2170018eada54534be880e70
 | | 74ed8307a566731119b1782362af43ad ......... Outpoint TXID
-| | 05000000 ................................. Outpoint index number (5)
+| | 05000000 ................................. Outpoint index number: 5
 | |
 | | 6a ....................................... Bytes in sig. script: 106
 | | 47304402204ed56f525ae6df707f9cbe
@@ -1790,10 +1791,10 @@ Transaction Message
 | |
 | | ffffffff ................................. Sequence number: UINT32_MAX
 |
-| Remaining 10 transaction inputs (not shown) ....
+| [...] ...................................... 10 more transaction inputs omitted
 |
 |
-| 0b ......................................... Number of outputs (11)
+| 0b ......................................... Number of outputs: 11
 |
 | Transaction output #1
 | | e8e4f50500000000 ......................... Duffs (1.00001000 Dash)
@@ -1807,7 +1808,7 @@ Transaction Message
 | | | 88 ..................................... OP_EQUALVERIFY
 | | | ac ..................................... OP_CHECKSIG
 |
-| Remaining 10 transaction outputs (not shown) ....
+| [...] ...................................... 10 more transaction outputs omitted
 |
 |
 | 00000000 ................................... locktime: 0 (a block height)
@@ -1815,7 +1816,7 @@ Transaction Message
 Masternode Unspent Output
 | 387d522def2abfb9bdd15be899f074f3
 | 49b414cef078ec642e1d14b42996b9fc ......... Outpoint TXID
-| 00000000 ................................. Outpoint index number (0)
+| 00000000 ................................. Outpoint index number: 0
 |
 | 00 ....................................... Bytes in sig. script: 0
 | .......................................... Secp256k1 signature (None)
@@ -1830,7 +1831,6 @@ Masternode Unspent Output
 
 ece5a95900000000 ..................... Signature Timestamp
 {% endhighlight %}
-
 
 {% endautocrossref %}
 
@@ -1891,7 +1891,7 @@ entry and how to validate messages from it.
 | 8 | sigTime | int64_t | Required | Time which the signature was created
 | 4 | nProtocolVersion | int | Required | The protocol version of the masternode
 | # | lastPing | `mnp` message | Required | The last known ping of the masternode
-| 8 | nLastDsq | int64_t | Deprecated | The last time the masternode sent a DSQ message (for mixing) (DEPRECATED)
+| 8 | nLastDsq | int64_t | Deprecated | The last time the masternode sent a `dsq` message (for mixing) (DEPRECATED)
 
 The following annotated hexdump shows a `mnb` message. (The
 message header has been omitted and the actual IP address has been replaced
@@ -2118,7 +2118,7 @@ inventory entry.  (The message header has been omitted.)
 
 08000000 ........................... Type: MSG_MASTERNODE_PAYMENT_BLOCK (8)
 dd6cc6c11211793b239c2e311f1496e2
-2281b200b35233eaae465d2aa3c9d537 ... Hash (mnwb)
+2281b200b35233eaae465d2aa3c9d537 ... Hash: mnwb
 {% endhighlight %}
 
 {% endautocrossref %}
@@ -2160,7 +2160,7 @@ bf110000 ................................... Count: 4543
 
 {% autocrossref %}
 
-Deprecated since 12.1
+Masternode Budget Sync - Deprecated since 12.1
 
 {% endautocrossref %}
 
@@ -2169,7 +2169,7 @@ Deprecated since 12.1
 
 {% autocrossref %}
 
-Deprecated since 12.1
+Masternode Budget Vote - Deprecated since 12.1
 
 {% endautocrossref %}
 
@@ -2178,7 +2178,7 @@ Deprecated since 12.1
 
 {% autocrossref %}
 
-Deprecated since 12.1
+Masternode Budget Proposal - Deprecated since 12.1
 
 {% endautocrossref %}
 
@@ -2187,7 +2187,7 @@ Deprecated since 12.1
 
 {% autocrossref %}
 
-Deprecated since 12.1
+Masternode Budget Final - Deprecated since 12.1
 
 {% endautocrossref %}
 
@@ -2196,7 +2196,7 @@ Deprecated since 12.1
 
 {% autocrossref %}
 
-Deprecated since 12.1
+Masternode Budget Final Vote - Deprecated since 12.1
 
 {% endautocrossref %}
 
@@ -2244,25 +2244,27 @@ message header has been omitted.)
 {% highlight text %}
 00000000000000000000000000000000
 00000000000000000000000000000000 ..... Parent Hash (0 = root)
-01000000 ............................. Revision (1)
-911ea85900000000 ..................... Create timestamp (2017-08-31 10:34:57 EDT)
+01000000 ............................. Revision: 1
+911ea85900000000 ..................... Create timestamp: 2017-08-31 14:34:57 UTC
 00000000000000000000000000000000
 00000000000000000000000000000000 ..... Collateral Hash
 
 Data
-| ae11 ............................... Data length (4526)
+| ae11 ............................... Data length: 4526
 | fdae11356235623 ... 376435643564 ... Data (truncated)
 
-02000000 ............................. Object Type (2 = GOVERNANCE_OBJECT_TRIGGER)
+02000000 ............................. Object Type: GOVERNANCE_OBJECT_TRIGGER (2)
 
 Transaction input
 | Previous Output
 | | ffefbe4959085907bcd2ba29e357a441
 | | fa7b6e26e25896d8127332bba2419e97 ... Outpoint TXID
-| | 00000000 ........................... Outpoint index number (0)
-| 00 ................................... Script length (0)
-| ...................................... Signature (None)
+| | 00000000 ........................... Outpoint index number: 0
+| 00 ................................... Script length: 0
+| ...................................... Signature: None
 | ffffffff ............................. Sequence
+
+41 ................................... Signature length: 65
 
 1ce3b782f66be8ae9fc4158680128864
 341202b6006384083ab2d9cfa73795e2
@@ -2298,16 +2300,16 @@ Transaction input
 | Previous Output
 | | 57566a0ef85e6cac3415ced67b0b07e1
 | | 781bafb853650d7c9d56d8bc132cc3b4 ... Outpoint TXID
-| | 00000000 ........................... Outpoint index number (0)
-| 00 ................................... Script length (0)
-| ...................................... Signature (None)
+| | 00000000 ........................... Outpoint index number: 0
+| 00 ................................... Script length: 0
+| ...................................... Signature: None
 | ffffffff ............................. Sequence
 
 ad9579d5c181eee904156df1c88b050f
 b8b4d39e5fda71f015996dbf14a51bff...... Parent Hash (0 = root)
-01000000 ............................. Vote Outcome (1 = VOTE_OUTCOME_NONE)
-02000000 ............................. Vote Signal (2 = VOTE_SIGNAL_VALID)
-b517a85900000000 ..................... Vote Create Timestamp(2017-08-31 10:05:41 EDT)
+01000000 ............................. Vote Outcome: VOTE_OUTCOME_NONE (1)
+02000000 ............................. Vote Signal: VOTE_SIGNAL_VALID (2)
+b517a85900000000 ..................... Vote Create Timestamp: 2017-08-31 14:05:41 UTC
 00000000000000000000000000000000 ..... Collateral Hash
 
 1b049113a81fe913f061ad295561d267
