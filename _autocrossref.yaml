@@ -34,6 +34,8 @@ DER-formatted: der
 '`dsi` messages': dsi message
 '`dsq` message': dsq message
 '`dsq` messages': dsq message
+'`dseg` message': dseg message
+'`dseg` messages': dseg message
 '`dss` message': dss message
 '`dss` messages': dss message
 '`dssu` message': dssu message
@@ -101,6 +103,16 @@ merge:
 Merge avoidance:
 micropayment channel:
 micropayment channels: micropayment channel
+'`mnb` message': mnb message
+'`mnb` messages': mnb message
+'`mnget` message': mnget message
+'`mnget` messages': mnget message
+'`mnp` message': mnp message
+'`mnp` messages': mnp message
+'`mnv` message': mnv message
+'`mnv` messages': mnv message
+'`mnw` message': mnw message
+'`mnw` messages': mnw message
 '`MSG_BLOCK`': msg_block
 '`MSG_FILTERED_BLOCK`': msg_filtered_block
 '`MSG_TX`': msg_tx
@@ -161,6 +173,8 @@ RPCs: rpc
 secp256k1:
 '`spork` message': spork message
 '`spork` messages': spork message
+'`ssc` message': ssc message
+'`ssc` messages': ssc message
 standard block relay:
 transaction object format:
 transaction version number:

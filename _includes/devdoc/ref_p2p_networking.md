@@ -1881,6 +1881,18 @@ The `mnb` message is sent whenever a masternode comes online or a client is
 syncing.  The masternode will send this message which describes the masternode
 entry and how to validate messages from it.
 
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 41 | vin | txIn | Required | The unspent output which is holding 1000 DASH
+| # | addr | CService | Required | IPv4 address of the masternode
+| 33-65 | pubKeyCollateralAddress | CPubKey | Required | CPubKey of the main 1000 DASH unspent output
+| 33-65 | pubKeyMasternode | CPubKey | Required | CPubKey of the secondary signing key (For all other messaging other than announce message)
+| 66* | sig | char[] | Required | Signature of this message verifiable via pubKeyMasternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
+| 8 | sigTime | int64_t | Required | Time which the signature was created
+| 4 | nProtocolVersion | int | Required | The protocol version of the masternode
+| # | lastPing | `mnp` message | Required | The last known ping of the masternode
+| 8 | nLastDsq | int64_t | Deprecated | The last time the masternode sent a DSQ message (for mixing) (DEPRECATED)
+
 The following annotated hexdump shows a `mnb` message. (The
 message header has been omitted and the actual IP address has been replaced
 with a RFC5737 reserved IP address.)
@@ -1959,6 +1971,10 @@ Masternode Ping Message
 
 The `mnget` message requests masternode payment sync.
 
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 4 | nMnCount | int | Required |
+
 The following annotated hexdump shows a `mnget` message. (The
 message header has been omitted.)
 
@@ -1976,7 +1992,14 @@ a8170000 ................................... Count: 6056
 The `mnp` message is sent by masternodes every few minutes to ping the network
 with a message that propagates across the whole network.
 
-The following annotated hexdump shows a `dseg` message. (The
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 41 | vin | txIn | Required | The unspent output of the masternode (holding 1000 DASH) which is signing the message
+| 32 | blockHash | uint256 | Required | Current chaintip blockhash (minus 12??)
+| 8 | sigTime | int64_t | Required | Time which the signature was created
+| 66* | vchSig | char[] | Required | Signature of this message by masternode - verifiable via pubKeyMasternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
+
+The following annotated hexdump shows a `mnp` message. (The
 message header has been omitted.)
 
 {% highlight text %}
@@ -2013,6 +2036,18 @@ Masternode Signature
 
 The `mnv` message is used to verify masternodes.
 
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 41 | vin1 | txIn | Required | The unspent output which is holding 1000 DASH for masternode 1
+| 41 | vin2 | txIn | Required | The unspent output which is holding 1000 DASH for masternode 2
+| # | addr | CService | Required | IPv4 address and port of the masternode
+| 4 | nonce | int | Required | Nonce
+| 4 | nBlockHeight | int | Required | Block height
+| 66* | vchSig1 | char[] | Required | Signature of this message by masternode 1 - verifiable via pubKeyMasternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
+| 66* | vchSig2 | char[] | Required | Signature of this message by masternode 2 - verifiable via pubKeyMasternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
+
+<!-- Need example from Wireshark -->
+
 {% endautocrossref %}
 
 #### mnw
@@ -2023,6 +2058,13 @@ The `mnv` message is used to verify masternodes.
 The `mnw` message is used to pick the next winning masternode. When a new block
 is found on the network, a masternode quorum will be determined and those 10
 selected masternodes will issue the masternode payment vote message.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 41 | vin | txIn | Required | The unspent output which is holding 1000 DASH
+| 4 | nBlockHeight | int | Required | The blockheight which the payee should be paid
+| ? | payeeAddress | CScript | Required | The address receiving payment
+| 66* | vchSig | char[] | Required | Signature of the masternode which is signing the message (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
 
 The following annotated hexdump shows a `mnw` message. (The
 message header has been omitted.)
@@ -2066,7 +2108,18 @@ Masternode Signature
 
 {% autocrossref %}
 
-There is no message for `mnwb` (inventory only).
+There is no message for `mnwb` (`inv` message only).
+
+The following annotated hexdump shows an `inv` message with a `mnwb`
+inventory entry.  (The message header has been omitted.)
+
+{% highlight text %}
+01 ................................. Count: 1
+
+08000000 ........................... Type: MSG_MASTERNODE_PAYMENT_BLOCK (8)
+dd6cc6c11211793b239c2e311f1496e2
+2281b200b35233eaae465d2aa3c9d537 ... Hash (mnwb)
+{% endhighlight %}
 
 {% endautocrossref %}
 
@@ -2076,6 +2129,21 @@ There is no message for `mnwb` (inventory only).
 {% autocrossref %}
 
 The `ssc` message is used to track the sync status of masternode objects.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 4 | nItemID | int | Required | Masternode Sync Item ID
+| 4 | nCount | int | Required | Masternode Sync Count
+
+Sync Item IDs
+
+| ID | Description
+|------|--------------
+| 2 | MASTERNODE_SYNC_LIST
+| 3 | MASTERNODE_SYNC_MNW
+| 4 | MASTERNODE_SYNC_GOVERNANCE
+| 10 | MASTERNODE_SYNC_GOVOBJ
+| 11 | MASTERNODE_SYNC_GOVOBJ_VOTE
 
 The following annotated hexdump shows a `ssc` message. (The
 message header has been omitted.)
