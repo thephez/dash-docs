@@ -504,3 +504,4 @@ periodically to point to recent code. Last update: 2017-09-05 --> {% endcomment 
 [MAX_SIZE]: https://github.com/dashpay/dash/blob/c31ba8ba4c07e72620bd71753f2103ca103bb1c2/src/serialize.h#L26
 [rpcprotocol.h]: https://github.com/dashpay/dash/blob/3e0eee4c84f40b3cf277e8d03e004249d03c081d/src/rpcprotocol.h
 [spork.h]: https://github.com/dashpay/dash/blob/e1702cd4eca5f276c75cae9de0eb274369b031f6/src/spork.h#L22
+[block subsidy]: https://github.com/dashpay/dash/blob/9ed9474a9eb007bba70278ce19df68e84aeeb712/src/main.cpp#L1741
