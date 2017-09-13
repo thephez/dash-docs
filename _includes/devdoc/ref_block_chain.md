@@ -52,32 +52,44 @@ fe9f0864 ........................... Nonce
 
 {% autocrossref %}
 
-* **Version 1** was introduced in the genesis block (January 2009).
+* **Version 1** was used by Dash for the Genesis Block only.
 
-* **[Version 2][v2 block]{:#term-v2-block}{:.term}** was introduced in
-  Bitcoin Core 0.7.0 (September 2012) as a soft fork. As described in
+* **[Version 2][v2 block]{:#term-v2-block}{:.term}** was introduced with
+  the first block following the Genesis Block (January 2014). As described in
   BIP34, valid version 2 blocks require a [block height parameter in the
-  coinbase][coinbase block height]. Also described in BIP34 are rules
+  coinbase][coinbase block height].
+
+<!-- Dash supported BIP34 from block 1
+  Also described in BIP34 are rules
   for rejecting certain blocks; based on those rules, Bitcoin Core 0.7.0
   and later versions began to reject version 2 blocks without the block
   height in coinbase at block height 224,412 (March 2013) and began to
   reject new version 1 blocks three weeks later at block height 227,930.
+-->
   <!-- source for heights: my (@harding) own headers dump and counting
   script -->
 
-* **Version 3** blocks were introduced in Bitcoin Core 0.10.0 (February
-  2015) as a soft fork. When the fork reach full enforcement (July
-  2015), it required strict DER encoding of all ECDSA signatures in new
-  blocks as described in BIP66. Transactions that do not use strict DER
-  encoding had previously been non-standard since Bitcoin Core 0.8.0
-  (February 2012).
+* **Version 3** blocks were introduced in Dash Core 0.11.2 (March 2015) as a
+  soft fork (Block 244,834 was the first version 3 block).
+  <!--Bitcoin Core 0.10.0 (February
+  2015) as a soft fork. -->
+  When the fork reach full enforcement, it required strict DER encoding of all
+  ECDSA signatures in new blocks as described in BIP66. Transactions that do not
+  use strict DER encoding had previously been non-standard since Dash Core 0.8.0.
 
-* **Version 4** blocks specified in BIP65 and introduced in Bitcoin Core 0.11.2 
-  (November 2015) as a soft fork became active in December 2015.  These blocks now support the new
-  `OP_CHECKLOCKTIMEVERIFY` opcode described in that BIP.
+* **Version 4** blocks specified in BIP65 and introduced in Bitcoin Core 0.11.2
+  (November 2015) as a soft fork became active in December 2015.  These blocks
+  now support the new `OP_CHECKLOCKTIMEVERIFY` opcode described in that BIP.
+
+<!--
+* **Version 536870913** blocks were introduced in Dash Core 0.??? (February 2017)
+  at block height 617,288.
+
+* **Version 536870912** blocks were introduced in Dash Core 0.??? ( 2017).
+-->
 
 The mechanism used for the version 2, 3, and 4 upgrades is commonly
-called IsSuperMajority() after the function added to Bitcoin Core to
+called IsSuperMajority() after the function added to Dash Core to
 manage those soft forking changes. See BIP34 for a full description of
 this method.
 
