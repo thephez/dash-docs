@@ -9,34 +9,34 @@ http://opensource.org/licenses/MIT.
 
 {% autocrossref %}
 
-Bitcoin Core provides a remote procedure call (RPC) interface for various
+Dash Core provides a remote procedure call (RPC) interface for various
 administrative tasks, wallet operations, and queries about network and block
 chain data.
 
-If you start Bitcoin Core using `bitcoin-qt`, the RPC interface is disabled by
-default. To enable it, set `server=1` in `bitcoin.conf` or supply the `-server`
-argument when invoking the program. If you start Bitcoin Core using `bitcoind`,
+If you start Dash Core using `dash-qt`, the RPC interface is disabled by
+default. To enable it, set `server=1` in `dash.conf` or supply the `-server`
+argument when invoking the program. If you start Dash Core using `dashd`,
 the RPC interface is enabled by default.
 
 The interface requires the user to provide a password for authenticating RPC
 requests. This password can be set either using the `rpcpassword` property in
-`bitcoin.conf` or by supplying the `-rpcpassword` program argument. Optionally a
+`dash.conf` or by supplying the `-rpcpassword` program argument. Optionally a
 username can be set using the `rpcuser` configuration value. See the [Examples
-Page][devexamples] for more information about setting Bitcoin Core configuration
+Page][devexamples] for more information about setting Dash Core configuration
 values.
 
 Open-source client libraries for the RPC interface are readily available in most
 modern programming languages, so you probably don't need to write your own from
-scratch. Bitcoin Core also ships with its own compiled C++ RPC client,
-`bitcoin-cli`, located in the `bin` directory alongside `bitcoind` and
-`bitcoin-qt`. The `bitcoin-cli` program can be used as a command-line interface
-(CLI) to Bitcoin Core or for making RPC calls from applications written in
+scratch. Dash Core also ships with its own compiled C++ RPC client,
+`dash-cli`, located in the `bin` directory alongside `dashd` and
+`dash-qt`. The `dash-cli` program can be used as a command-line interface
+(CLI) to Dash Core or for making RPC calls from applications written in
 languages lacking a suitable native client. The remainder of this section
-describes the Bitcoin Core RPC protocol in detail.
+describes the Dash Core RPC protocol in detail.
 
-The Bitcoin Core RPC service listens for HTTP `POST` requests on port 8332 in
-mainnet mode or 18332 in testnet or regtest mode. The port number can be changed
-by setting `rpcport` in `bitcoin.conf`. By default the RPC service binds to your
+The Dash Core RPC service listens for HTTP `POST` requests on port 9998 in
+mainnet mode, 19998 in testnet, or 18332 in regtest mode. The port number can be changed
+by setting `rpcport` in `dash.conf`. By default the RPC service binds to your
 server's [localhost][Localhost] loopback
 network<!--noref--> interface so it's not accessible from other servers.
 Authentication is implemented using [HTTP basic
@@ -53,7 +53,7 @@ format:
 | Name                 | Type            | Presence                    | Description
 |----------------------|-----------------|-----------------------------|----------------
 | Request              | object          | Required<br>(exactly 1)     | The JSON-RPC<!--noref--> request object
-| → <br>`jsonrpc`      | number (real)   | Optional<br>(0 or 1)        | Version indicator for the JSON-RPC<!--noref--> request. Currently ignored by Bitcoin Core.
+| → <br>`jsonrpc`      | number (real)   | Optional<br>(0 or 1)        | Version indicator for the JSON-RPC<!--noref--> request. Currently ignored by Dash Core.
 | → <br>`id`           | string          | Optional<br>(0 or 1)        | An arbitrary string that will be returned with the response.  May be omitted or set to an empty string ("")
 | → <br>`method`       | string          | Required<br>(exactly 1)     | The RPC method name (e.g. `getblock`).  See the RPC section for a list of available methods.
 | → <br>`params`       | array           | Optional<br>(0 or 1)        | An array containing positional parameter values for the RPC.  May be an empty array or omitted for RPC calls that don't have any required parameters.
@@ -72,7 +72,7 @@ output<!--noref-->, we use the following conventions
 * Code-style names like `params` are literal strings that appear in the JSON
   object.
 
-* "Type" is the JSON data type and the specific Bitcoin Core type.
+* "Type" is the JSON data type and the specific Dash Core type.
 
 * "Presence" indicates whether or not a field must be present within its
    containing array or object. Note that an optional object may still have
@@ -103,38 +103,38 @@ the genesis block:
 }
 {% endhighlight %}
 
-The command to send this request using `bitcoin-cli` is:
+The command to send this request using `dash-cli` is:
 
 {% highlight bash %}
-bitcoin-cli getblockhash 0
+dash-cli getblockhash 0
 {% endhighlight %}
 
 Alternatively, we could `POST` this request using the cURL command-line program
 as follows:
 
 {% highlight bash %}
-curl --user ':my_secret_password' --data-binary '''
+curl --user 'my_username:my_secret_password' --data-binary '''
   {
       "method": "getblockhash",
       "params": [0],
       "id": "foo"
   }''' \
-  --header 'Content-Type: text/plain;' localhost:8332
+  --header 'Content-Type: text/plain;' localhost:9998
 {% endhighlight %}
 
 The HTTP response data for this request would be:
 
 {% highlight json %}
 {
-    "result": "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f",
+    "result": "00000ffd590b1485b3caadc19b22e6379c733355108f107a430458cdf3407ab6",
     "error": null,
     "id": "foo"
 }
 {% endhighlight %}
 
-Note: In order to minimize its size, the raw JSON response from Bitcoin Core
+Note: In order to minimize its size, the raw JSON response from Dash Core
 doesn't include any extraneous whitespace characters. Here we've added
-whitespace to make the object more readable. Speaking of which, `bitcoin-cli`
+whitespace to make the object more readable. Speaking of which, `dash-cli`
 also transforms the raw response to make it more human-readable. It:
 
 - Adds whitespace indentation to JSON objects
@@ -143,14 +143,14 @@ also transforms the raw response to make it more human-readable. It:
 - Strips the outer double-quotes around `result`s of type string
 - Returns only the `error` field if there's an error
 
-Continuing with the example above, the output<!--noref--> from the `bitcoin-cli`
+Continuing with the example above, the output<!--noref--> from the `dash-cli`
 command would be simply:
 
 {% highlight text %}
-000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f
+00000ffd590b1485b3caadc19b22e6379c733355108f107a430458cdf3407ab6
 {% endhighlight %}
 
-If there's an error processing a request, Bitcoin Core sets the `result` field
+If there's an error processing a request, Dash Core sets the `result` field
 to `null` and provides information about the error in the  `error` field. For
 example, a request for the block hash at block height -1 would be met with the
 following response (again, whitespace added for clarity):
@@ -166,28 +166,47 @@ following response (again, whitespace added for clarity):
 }
 {% endhighlight %}
 
-If `bitcoin-cli` encounters an error, it exits with a non-zero status code and
+If `dash-cli` encounters an error, it exits with a non-zero status code and
 outputs<!--noref--> the `error` field as text to the process's standard error
 stream:
 
 {% highlight text %}
-error: {"code": -8, "message": "Block height out of range"}
+error code: -8
+error message:
+Block height out of range
 {% endhighlight %}
 
-Starting in Bitcoin Core version 0.7.0, the RPC interface supports request
+The RPC interface supports request
 batching as described in [version 2.0 of the JSON-RPC
 specification][JSON-RPC request batching]. To initiate multiple
 RPC requests within a single HTTP request, a client can `POST` a JSON array
 filled with Request objects. The HTTP response data is then a JSON array filled
 with the corresponding Response objects. Depending on your usage pattern,
-request batching may provide significant performance gains. The `bitcoin-cli`
+request batching may provide significant performance gains. The `dash-cli`
 RPC client does not support batch requests.
 
+{% highlight bash %}
+curl --user 'my_username:my_secret_password' --data-binary '''
+  [
+    {
+      "method": "getblockhash",
+      "params": [0],
+      "id": "foo"
+    },
+    {
+      "method": "getblockhash",
+      "params": [1],
+      "id": "foo2"
+    }
+  ]''' \
+  --header 'Content-Type: text/plain;' localhost:9998
+{% endhighlight %}
+
 To keep this documentation compact and readable, the examples for each of the
-available RPC calls will be given as `bitcoin-cli` commands:
+available RPC calls will be given as `dash-cli` commands:
 
 {% highlight text %}
-bitcoin-cli [options] <method name> <param1> <param2> ...
+dash-cli [options] <method name> <param1> <param2> ...
 {% endhighlight %}
 
 This translates into an JSON-RPC<!--noref--> Request object of the form:
