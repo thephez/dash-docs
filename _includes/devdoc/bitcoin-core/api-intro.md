@@ -12,7 +12,7 @@ http://opensource.org/licenses/MIT.
 
 {% autocrossref %}
 
-Bitcoin Core RPCs accept and return the byte-wise reverse of computed
+Dash Core RPCs accept and return the byte-wise reverse of computed
 SHA-256 hash values. For example, the Unix `sha256sum` command displays the
 SHA256(SHA256()) hash of mainnet block 300,000's header as:
 
@@ -26,25 +26,28 @@ previous-header-hash part of block 300,001's header:
 0000000000000</b>ab0aaa377ca3f49b1545e2ae6b0667a08f42e72d8c24ae\
 237140e28f14f3bb7c6bcc6d536c890019edd83ccf</pre>
 
-However, Bitcoin Core's RPCs use the byte-wise reverse for hashes, so if you
-want to get information about block 300,000 using the `getblock` RPC,
+However, Dash Core's RPCs use the byte-wise reverse for hashes, so if you
+want to get information about block 675,776 using the `getblock` RPC,
 you need to reverse the requested hash:
 
-    > bitcoin-cli getblock \
+    <!--> bitcoin-cli getblock \
       000000000000000082ccf8f1557c5d40b21edabb18d2d691cfbf87118bac7254
+    -->
+    > dash-cli getblock \
+      000000000000327a66cd1011b2d1defd1417b7d9e39b439e8e67ba996ee92602
 
 (Note: hex representation uses two characters to display each byte of
 data, which is why the reversed string looks somewhat mangled.)
 
 The rationale for the reversal is unknown, but it likely stems from
-Bitcoin Core's use of hashes (which are byte arrays in C++) as integers
+Dash Core's use of hashes (which are byte arrays in C++) as integers
 for the purpose of determining whether the hash is below the network
 target. Whatever the reason for reversing header hashes, the reversal
 also extends to other hashes used in RPCs, such as TXIDs and merkle
 roots.
 
 As header hashes and TXIDs are widely used as global identifiers in
-other Bitcoin software, this reversal of hashes has become the standard
+other Dash software, this reversal of hashes has become the standard
 way to refer to certain objects. The table below should make clear where
 each byte order is used.
 
