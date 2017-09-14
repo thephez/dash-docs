@@ -50,6 +50,21 @@ Use v0.n.n in abbreviation title to prevent autocrossrefing.
      _includes/rpc/getbestblockhash.md and run `make manual-update-summaries`. -->
 {% include helpers/summaries.md %}
 
+#### Addressindex RPCs
+{:.no_toc}
+<!-- no subhead-links here -->
+
+{% autocrossref %}
+
+* [GetAddressBalance][rpc getaddressbalance]: {{summary_getAddressBalance}}
+* [GetAddressDeltas][rpc getaddressdeltas]: {{summary_getAddressDeltas}}
+* [GetAddressMempool][rpc getaddressmempool]: {{summary_getAddressMempool}}
+* [GetAddressTxids][rpc getaddresstxids]: {{summary_getAddressTxids}}
+* [GetAddressUtxos][rpc getaddressutxos]: {{summary_getAddressUtxos}}
+
+{% endautocrossref %}
+
+
 #### Block Chain RPCs
 {:.no_toc}
 <!-- no subhead-links here -->
@@ -61,19 +76,26 @@ Use v0.n.n in abbreviation title to prevent autocrossrefing.
 * [GetBlockChainInfo][rpc getblockchaininfo]: {{summary_getBlockChainInfo}} {{UPDATED0_12_1}}
 * [GetBlockCount][rpc getblockcount]: {{summary_getBlockCount}}
 * [GetBlockHash][rpc getblockhash]: {{summary_getBlockHash}}
+    * [GetBlockHashes][rpc getblockhashes]: {{summary_getBlockHashes}}
 * [GetBlockHeader][rpc getblockheader]: {{summary_getBlockHeader}} {{NEW0_12_0}}
+    * [GetBlockHeaders][rpc getblockheaders]: {{summary_getBlockHeaders}}
 * [GetChainTips][rpc getchaintips]: {{summary_getChainTips}}
 * [GetDifficulty][rpc getdifficulty]: {{summary_getDifficultly}}
+<!-- Not in Dash
 * [GetMemPoolAncestors][rpc getmempoolancestors]: {{summary_getMemPoolAncestors}} {{NEW0_13_0}}
 * [GetMemPoolDescendants][rpc getmempooldescendants]: {{summary_getMemPoolDescendants}} {{NEW0_13_0}}
 * [GetMemPoolEntry][rpc  getmempoolentry]: {{summary_getMemPoolEntry}} {{NEW0_13_0}}
+-->
 * [GetMemPoolInfo][rpc getmempoolinfo]: {{summary_getMemPoolInfo}} {{UPDATED0_12_0}}
 * [GetRawMemPool][rpc getrawmempool]: {{summary_getRawMemPool}} {{UPDATED0_13_0}}
+    * [GetSpentInfo][rpc getspentifo]: {{summary_getSpentInfo}}
 * [GetTxOut][rpc gettxout]: {{summary_getTxOut}}
 * [GetTxOutProof][rpc gettxoutproof]: {{summary_getTxOutProof}} {{NEW0_11_0}}
 * [GetTxOutSetInfo][rpc gettxoutsetinfo]: {{summary_getTxOutSetInfo}}
+<!-- Not in Dash
 * [PreciousBlock][rpc preciousblock]: {{summary_preciousBlock}} {{NEW0_14_0}}
 * [PruneBlockChain][rpc pruneblockchain]: {{summary_pruneBlockChain}} {{NEW0_14_0}}
+-->
 * [VerifyChain][rpc verifychain]: {{summary_verifyChain}}
 * [VerifyTxOutProof][rpc verifytxoutproof]: {{summary_verifyTxOutProof}} {{NEW0_11_0}}
 
@@ -85,9 +107,30 @@ Use v0.n.n in abbreviation title to prevent autocrossrefing.
 
 {% autocrossref %}
 
+* [Debug][rpc debug]: {{summary_debug}}
 * [GetInfo][rpc getinfo]: {{summary_getInfo}} {{DEPRECATED}}
 * [Help][rpc help]: {{summary_help}}
 * [Stop][rpc stop]: {{summary_stop}}
+
+{% endautocrossref %}
+
+#### Dash RPCs
+{:.no_toc}
+<!-- no subhead-links here -->
+
+{% autocrossref %}
+
+    * [GetGovernanceInfo][rpc getgovernanceinfo]: {{summary_getGovernanceInfo}}
+    * [GetPoolInfo][rpc getpoolinfo]: {{summary_getPoolInfo}}
+    * [GetSuperblockBudget][rpc getsuperblockbudget]: {{summary_getSuperblockBudget}}
+    * [GObject][rpc gobject]: {{summary_gObject}}
+    * [Masternode][rpc masternode]: {{summary_masternode}}
+    * [MasternodeBroadcast][rpc masternodebroadcast]: {{summary_masternodeBroadcast}}
+    * [MasternodeList][rpc masternodelist]: {{summary_masternodeList}}
+    * [MnSync][rpc mnsync]: {{summary_mnSync}}
+    * [PrivateSend][rpc privatesend]: {{summary_privateSend}}
+    * [Spork][rpc spork]: {{summary_spork}}
+    * [VoteRaw][rpc voteraw]: {{summary_voteRaw}}
 
 {% endautocrossref %}
 
@@ -98,7 +141,11 @@ Use v0.n.n in abbreviation title to prevent autocrossrefing.
 {% autocrossref %}
 
 * [Generate][rpc generate]: {{summary_generate}} {{NEW0_11_0}}, {{UPDATED0_13_0}}
+    * [GetGenerate][rpc getgenerate]: {{summary_getgenerate}}
+    * [SetGenerate][rpc setgenerate]: {{summary_setgenerate}}
+<!-- Not in Dash
 * [GenerateToAddress][rpc generatetoaddress]: {{summary_generateToAddress}} {{NEW0_13_0}}
+-->
 
 {% endautocrossref %}
 
@@ -133,8 +180,9 @@ Use v0.n.n in abbreviation title to prevent autocrossrefing.
 * [ListBanned][rpc listbanned]: {{summary_listBanned}} {{NEW0_12_0}}
 * [Ping][rpc ping]: {{summary_ping-rpc}}
 * [SetBan][rpc setban]: {{summary_setBan}} {{NEW0_12_0}}
+<!-- Not in Dash
 * [SetNetworkActive][rpc setnetworkactive]: {{summary_setNetworkActive}} {{NEW0_14_0}}
-
+-->
 {% endautocrossref %}
 
 #### Raw Transaction RPCs
@@ -144,9 +192,9 @@ Use v0.n.n in abbreviation title to prevent autocrossrefing.
 {% autocrossref %}
 
 * [CreateRawTransaction][rpc createrawtransaction]: {{summary_createRawTransaction}} {{UPDATED0_14_1}}
-* [FundRawTransaction][rpc fundrawtransaction]: {{summary_fundRawTransaction}} {{NEW0_12_0}}, {{UPDATED0_14_0}}
 * [DecodeRawTransaction][rpc decoderawtransaction]: {{summary_decodeRawTransaction}} {{UPDATED0_13_0}}
 * [DecodeScript][rpc decodescript]: {{summary_decodeScript}}
+* [FundRawTransaction][rpc fundrawtransaction]: {{summary_fundRawTransaction}} {{NEW0_12_0}}, {{UPDATED0_14_0}}
 * [GetRawTransaction][rpc getrawtransaction]: {{summary_getRawTransaction}} {{UPDATED0_14_0}}
 * [SendRawTransaction][rpc sendrawtransaction]: {{summary_sendRawTransaction}}
 * [SignRawTransaction][rpc signrawtransaction]: {{summary_signRawTransaction}}
@@ -160,9 +208,13 @@ Use v0.n.n in abbreviation title to prevent autocrossrefing.
 {% autocrossref %}
 
 * [CreateMultiSig][rpc createmultisig]: {{summary_createMultiSig}}
-* [EstimateFee][rpc estimatefee]: {{summary_estimateFee}} {{UPDATED0_14_0}}
-* [EstimatePriority][rpc estimatepriority]: {{summary_estimatePriority}} {{DEPRECATED}}
+* [EstimateFee][rpc estimatefee]: {{summary_estimateFee}}
+* [EstimatePriority][rpc estimatepriority]: {{summary_estimatePriority}}
+    * [EstimateSmartFee][rpc estimatesmartfee]: {{summary_estimateSmartFee}} {{DEPRECATED}}
+    * [EstimateSmartPriority][rpc estimatesmartpriority]: {{summary_estimateSmartPriority}} {{DEPRECATED}}
+<!-- Not in Dash
 * [GetMemoryInfo][rpc getmemoryinfo]: {{summary_getMemoryInfo}} {{NEW_14_0}}
+-->
 * [ValidateAddress][rpc validateaddress]: {{summary_validateAddress}} {{UPDATED0_13_0}}
 * [VerifyMessage][rpc verifymessage]: {{summary_verifyMessage}}
 
@@ -174,20 +226,24 @@ Use v0.n.n in abbreviation title to prevent autocrossrefing.
 
 {% autocrossref %}
 
-**Note:** the wallet RPCs are only available if Bitcoin Core was built
+**Note:** the wallet RPCs are only available if Dash Core was built
 with [wallet support][]{:#term-wallet-support}{:.term}, which is the
 default.
 
 * [AbandonTransaction][rpc abandontransaction]: {{summary_abandonTransaction}} {{NEW0_12_0}}
+<!-- Not in Dash
 * [AddWitnessAddress][rpc addwitnessaddress]: {{summary_addWitnessAddress}} {{NEW0_13_0}}
+-->
 * [AddMultiSigAddress][rpc addmultisigaddress]: {{summary_addMultiSigAddress}}
 * [BackupWallet][rpc backupwallet]: {{summary_backupWallet}}
+<!-- Not in Dash
 * [BumpFee][rpc bumpfee]: {{summary_bumpFee}} {{NEW0_14_0}}
+-->
 * [DumpPrivKey][rpc dumpprivkey]: {{summary_dumpPrivKey}}
 * [DumpWallet][rpc dumpwallet]: {{summary_dumpWallet}}
 * [EncryptWallet][rpc encryptwallet]: {{summary_encryptWallet}}
-* [GetAccountAddress][rpc getaccountaddress]: {{summary_getAccountAddress}} {{DEPRECATED}}
 * [GetAccount][rpc getaccount]: {{summary_getAccount}}
+* [GetAccountAddress][rpc getaccountaddress]: {{summary_getAccountAddress}} {{DEPRECATED}}
 * [GetAddressesByAccount][rpc getaddressesbyaccount]: {{summary_getAddressesByAccount}} {{DEPRECATED}}
 * [GetBalance][rpc getbalance]: {{summary_getBalance}}
 * [GetNewAddress][rpc getnewaddress]: {{summary_getNewAddress}}
@@ -198,10 +254,16 @@ default.
 * [GetUnconfirmedBalance][rpc getunconfirmedbalance]: {{summary_getUnconfirmedBalance}}
 * [GetWalletInfo][rpc getwalletinfo]: {{summary_getWalletInfo}}
 * [ImportAddress][rpc importaddress]: {{summary_importAddress}}
+    * [ImportElectrumWallet][rpc importelecturmwallet]: {{summary_importElectrumWallet}}
+<!-- Not in Dash
 * [ImportMulti][rpc importmulti]: {{summary_importMulti}} {{NEW0_14_0}}
 * [ImportPrunedFunds][rpc importprunedfunds]: {{summary_importPrunedFunds}} {{NEW0_13_0}}
+-->
 * [ImportPrivKey][rpc importprivkey]: {{summary_importPrivKey}}
+    * [ImportPubKey][rpc importpubkey]: {{summary_importPubKey}}
 * [ImportWallet][rpc importwallet]: {{summary_importWallet}}
+  * [InstantSendToAddress][rpc instantsendtoaddress]: {{summary_instantSendToAddress}}
+  * [Keepass][rpc keepass]: {{summary_keepass}}
 * [KeyPoolRefill][rpc keypoolrefill]: {{summary_keyPoolRefill}}
 * [ListAccounts][rpc listaccounts]: {{summary_listAccounts}} {{DEPRECATED}}
 * [ListAddressGroupings][rpc listaddressgroupings]: {{summary_listAddressGroupings}}
@@ -213,14 +275,18 @@ default.
 * [ListUnspent][rpc listunspent]: {{summary_listUnspent}} {{UPDATED0_13_0}}
 * [LockUnspent][rpc lockunspent]: {{summary_lockUnspent}}
 * [Move][rpc move]: {{summary_move}} {{DEPRECATED}}
+<!-- Not in Dash
 * [RemovePrunedFunds][rpc removeprunedfunds]: {{summary_removePrunedFunds}} {{NEW0_13_0}}
+-->
 * [SendFrom][rpc sendfrom]: {{summary_sendFrom}} {{DEPRECATED}}
 * [SendMany][rpc sendmany]: {{summary_sendMany}}
 * [SendToAddress][rpc sendtoaddress]: {{summary_sendToAddress}}
 * [SetAccount][rpc setaccount]: {{summary_setAccount}} {{DEPRECATED}}
 * [SetTxFee][rpc settxfee]: {{summary_setTxFee}}
-* [SignMessage][rpc signmessage]: {{summary_signMessage}} 
+* [SignMessage][rpc signmessage]: {{summary_signMessage}}
+<!-- Not in Dash
 * [SignMessageWithPrivKey][rpc signmessagewithprivkey]: {{summary_signMessageWithPrivKey}}  {{NEW0_13_0}}
+-->
 * [WalletLock][rpc walletlock]: {{summary_walletLock}}
 * [WalletPassphrase][rpc walletpassphrase]: {{summary_walletPassphrase}}
 * [WalletPassphraseChange][rpc walletpassphrasechange]: {{summary_walletPassphraseChange}}
@@ -233,9 +299,10 @@ default.
 
 {% autocrossref %}
 
-* [GetGenerate][rpc getgenerate]: {{summary_getGenerate}}
 * [GetHashesPerSec][rpc gethashespersec]: {{summary_getHashesPerSec}}
 * [GetWork][rpc getwork]: {{summary_getWork}}
+<!-- Still in Dash
+* [GetGenerate][rpc getgenerate]: {{summary_getGenerate}}
 * [SetGenerate][rpc setgenerate]: {{summary_setGenerate}}
-
+-->
 {% endautocrossref %}
