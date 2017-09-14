@@ -2,7 +2,7 @@
 This file is licensed under the MIT License (MIT) available on
 http://opensource.org/licenses/MIT.
 {% endcomment %}
-{% assign filename="_includes/devdoc/bitcoin-core/rpcs/intro.md" %}
+{% assign filename="_includes/devdoc/dash-core/rpcs/intro.md" %}
 
 ### Remote Procedure Calls (RPCs)
 {% include helpers/subhead-links.md %}

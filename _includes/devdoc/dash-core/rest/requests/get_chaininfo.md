@@ -2,7 +2,7 @@
 This file is licensed under the MIT License (MIT) available on
 http://opensource.org/licenses/MIT.
 {% endcomment %}
-{% assign filename="_includes/devdoc/bitcoin-core/rest/requests/get_chaininfo.md" %}
+{% assign filename="_includes/devdoc/dash-core/rest/requests/get_chaininfo.md" %}
 
 ##### GET ChainInfo
 {% include helpers/subhead-links.md %}
