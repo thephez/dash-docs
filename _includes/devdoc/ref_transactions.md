@@ -389,6 +389,10 @@ An itemized coinbase transaction:
 | 00000000 ............................ Locktime
 {% endhighlight %}
 
+Note: currently the normal coinbase has 2 outputs (1 for the miner and 1 for
+the selected masternode). Superblocks ([superblock example][superblock example])
+have multiple outputs depending on the number of proposals being funded.
+
 {% endautocrossref %}
 
 ### CompactSize Unsigned Integers

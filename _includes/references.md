@@ -484,6 +484,7 @@ http://opensource.org/licenses/MIT.
 [SHA256]: https://en.wikipedia.org/wiki/SHA-2
 [Stratum mining protocol]: http://mining.bitcoin.cz/stratum-mining
 [study of SPV privacy over tor]: http://arxiv.org/abs/1410.6079
+[superblock example]: https://chainz.cryptoid.info/dash/block.dws?731104.htm
 [Tor]: https://en.wikipedia.org/wiki/Tor_%28anonymity_network%29
 [transifex]: https://www.transifex.com/projects/p/bitcoinorg/
 [unix epoch time]: https://en.wikipedia.org/wiki/Unix_time
