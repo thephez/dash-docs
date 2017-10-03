@@ -24,6 +24,10 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_getAccountAddress="returns the current Bitcoin address for receiving payments to this account. If the account doesn't exist, it creates both the account and a new address for receiving payment.  Once a payment has been received to an address, future calls to this RPC for the same account will return a different address." %}
 {% assign summary_getAddedNodeInfo="returns information about the given added node, or all added nodes (except onetry nodes). Only nodes which have been manually added using the `addnode` RPC will have their information displayed." %}
 {% assign summary_getAddressBalance="returns the balance for address(es) (requires addressindex to be enabled)." %}
+{% assign summary_getAddressDeltas="" %}
+{% assign summary_getAddressMempool="" %}
+{% assign summary_getAddressTxids="" %}
+{% assign summary_getAddressUtxos="" %}
 {% assign summary_getAddressesByAccount="returns a list of every address assigned to a particular account." %}
 {% assign summary_getBalance="gets the balance in decimal bitcoins across all accounts or for a particular account." %}
 {% assign summary_getBestBlockHash="returns the header hash of the most recent block on the best block chain." %}

@@ -283,8 +283,16 @@ CVE-2012-2459:
 '`getaddednodeinfo` RPC': rpc getaddednodeinfo
 '`getaddressbalance`': rpc getaddressbalance
 '`getaddressbalance` RPC': rpc getaddressbalance
+'`getaddressdeltas`': rpc getaddressdeltas
+'`getaddressdeltas` RPC': rpc getaddressdeltas
 '`getaddressesbyaccount`': rpc getaddressesbyaccount
 '`getaddressesbyaccount` RPC': rpc getaddressesbyaccount
+'`getaddressmempool`': rpc getaddressmempool
+'`getaddressmempool` RPC': rpc getaddressmempool
+'`getaddresstxids`': rpc getaddresstxids
+'`getaddresstxids` RPC': rpc getaddresstxids
+'`getaddressutxos`': rpc getaddressutxos
+'`getaddressutxos` RPC': rpc getaddressutxos
 '`getbalance`': rpc getbalance
 '`getbalance` RPC': rpc getbalance
 '`getbestblockhash`': rpc getbestblockhash

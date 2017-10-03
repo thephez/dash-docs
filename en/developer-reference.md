@@ -116,7 +116,15 @@ untrusted source.
 
 {% include devdoc/dash-core/rpcs/rpcs/getaddressbalance.md %}
 
+{% include devdoc/dash-core/rpcs/rpcs/getaddressdeltas.md %}
+
 {% include devdoc/dash-core/rpcs/rpcs/getaddressesbyaccount.md %}
+
+{% include devdoc/dash-core/rpcs/rpcs/getaddressmempool.md %}
+
+{% include devdoc/dash-core/rpcs/rpcs/getaddresstxids.md %}
+
+{% include devdoc/dash-core/rpcs/rpcs/getaddressutxos.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/getbalance.md %}
 
