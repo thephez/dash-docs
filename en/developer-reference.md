@@ -114,6 +114,8 @@ untrusted source.
 
 {% include devdoc/dash-core/rpcs/rpcs/getaddednodeinfo.md %}
 
+{% include devdoc/dash-core/rpcs/rpcs/getaddressbalance.md %}
+
 {% include devdoc/dash-core/rpcs/rpcs/getaddressesbyaccount.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/getbalance.md %}

@@ -180,9 +180,8 @@ Use v0.n.n in abbreviation title to prevent autocrossrefing.
 * [ListBanned][rpc listbanned]: {{summary_listBanned}} {{NEW0_12_0}}
 * [Ping][rpc ping]: {{summary_ping-rpc}}
 * [SetBan][rpc setban]: {{summary_setBan}} {{NEW0_12_0}}
-<!-- Not in Dash
 * [SetNetworkActive][rpc setnetworkactive]: {{summary_setNetworkActive}} {{NEW0_14_0}}
--->
+
 {% endautocrossref %}
 
 #### Raw Transaction RPCs
@@ -239,6 +238,7 @@ default.
 <!-- Not in Dash
 * [BumpFee][rpc bumpfee]: {{summary_bumpFee}} {{NEW0_14_0}}
 -->
+  * [DumpHDInfo][rpc dumphdinfo]: {{summary_dumpHdInfo}}
 * [DumpPrivKey][rpc dumpprivkey]: {{summary_dumpPrivKey}}
 * [DumpWallet][rpc dumpwallet]: {{summary_dumpWallet}}
 * [EncryptWallet][rpc encryptwallet]: {{summary_encryptWallet}}

@@ -106,6 +106,7 @@ http://opensource.org/licenses/MIT.
 [rpc getaccount]: /en/developer-reference#getaccount
 [rpc getaccountaddress]: /en/developer-reference#getaccountaddress
 [rpc getaddednodeinfo]: /en/developer-reference#getaddednodeinfo
+[rpc getaddressbalance]: /en/developer-reference#getaddressbalance
 [rpc getaddressesbyaccount]: /en/developer-reference#getaddressesbyaccount
 [rpc getbalance]: /en/developer-reference#getbalance
 [rpc getbestblockhash]: /en/developer-reference#getbestblockhash

@@ -281,6 +281,8 @@ CVE-2012-2459:
 '`getaccountaddress` RPC': rpc getaccountaddress
 '`getaddednodeinfo`': rpc getaddednodeinfo
 '`getaddednodeinfo` RPC': rpc getaddednodeinfo
+'`getaddressbalance`': rpc getaddressbalance
+'`getaddressbalance` RPC': rpc getaddressbalance
 '`getaddressesbyaccount`': rpc getaddressesbyaccount
 '`getaddressesbyaccount` RPC': rpc getaddressesbyaccount
 '`getbalance`': rpc getbalance

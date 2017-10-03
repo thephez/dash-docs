@@ -277,6 +277,7 @@ devsearches:
     - 'GetAccount': "/en/developer-reference#getaccount"
     - 'GetAccountAddress': "/en/developer-reference#getaccountaddress"
     - 'GetAddedNodeInfo': "/en/developer-reference#getaddednodeinfo"
+    - 'GetAddressBalance': "/en/developer-reference#getaddressbalance"
     - 'GetAddressesByAccount': "/en/developer-reference#getaddressesbyaccount"
     - 'GetBalance': "/en/developer-reference#getbalance"
     - 'GetBestBlockHash': "/en/developer-reference#getbestblockhash"
