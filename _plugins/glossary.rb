@@ -22,8 +22,8 @@ module Jekyll
       ## Pass in the full path to enable edit-on-github links
       self.data["filename"] = srcdir + '/' + src
 
-      ## Page Title: <title> - Bitcoin Glossary
-      self.data["title"] = self.data["required"]["title_max_40_characters_no_formatting"] + " - Bitcoin Glossary"
+      ## Page Title: <title> - Dash Glossary
+      self.data["title"] = self.data["required"]["title_max_40_characters_no_formatting"] + " - Dash Glossary"
 
       ## Output file is v<version>.md (converted later to HTML)
       @name = output_file

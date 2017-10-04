@@ -7,7 +7,7 @@ lang: en
 id: developer-reference
 title: "Developer Reference - Dash"
 breadcrumbs:
-  - bitcoin
+#  - bitcoin
   - dev docs
   - Reference
 end_of_page: |
