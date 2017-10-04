@@ -18,19 +18,24 @@ The `getaddressdeltas` RPC {{summary_getAddressDeltas}}
 *Parameter #1---an array of addresses*
 
 {% itemplate ntpd1 %}
-- n: "Address"
+- n: "`addresses`"
+  t: "object"
+  p: "Required<br>(exactly 1)"
+  d: "An array of P2PKH or P2SH Dash address(es)"
+
+- n: "→Address"
   t: "string (base58)"
   p: "Required<br>(1 or more)"
-  d: "An array of P2PKH or P2SH Dash address(es)."
+  d: "The base58check encoded address"
 
 {% enditemplate %}
 
 *Parameter #2---the start block height*
 
 {% itemplate ntpd1 %}
-- n: "Block Height"
+- n: "`start`"
   t: "number (int)"
-  p: "Required<br>(exactly 1)"
+  p: "Optional<br>(exactly 1)"
   d: "The start block height"
 
 {% enditemplate %}
@@ -38,9 +43,9 @@ The `getaddressdeltas` RPC {{summary_getAddressDeltas}}
 *Parameter #3---the end block height*
 
 {% itemplate ntpd1 %}
-- n: "Block Height"
+- n: "`end`"
   t: "number (int)"
-  p: "Required<br>(exactly 1)"
+  p: "Optional<br>(exactly 1)"
   d: "The end block height"
 
 {% enditemplate %}
@@ -53,7 +58,7 @@ The `getaddressdeltas` RPC {{summary_getAddressDeltas}}
   p: "Required<br>(exactly 1)"
   d: "An array of JSON objects, with each object describing a transaction involving one of the requested addresses"
 
-- n: "→<br>`delta`"
+- n: "→<br>Delta"
   t: "object"
   p: "Required<br>(1 or more)"
   d: "An object describing a particular address delta"
@@ -61,14 +66,14 @@ The `getaddressdeltas` RPC {{summary_getAddressDeltas}}
 - n: "→→<br>`satoshis`"
   t: "number"
   p: "Required<br>(exactly 1)"
-  d: "The difference of satoshis"
+  d: "The difference of duffs"
 
 - n: "→→<br>`txid`"
   t: "string"
   p: "Required<br>(exactly 1)"
   d: "The related txid"
 
-- n: "→→<br>`index`"
+- n: "→→<br>`blockindex`"
   t: "number"
   p: "Required<br>(exactly 1)"
   d: "The related input or output index"
@@ -90,12 +95,12 @@ The `getaddressdeltas` RPC {{summary_getAddressDeltas}}
 Get the deltas for an address:
 
 {% highlight bash %}
-dash-cli getaddressdeltas '{"addresses": ["yWjoZBvnUKWhpKMbBkVVnnMD8Bzno9j6tQ"]}'
+dash-cli getaddressdeltas '{"addresses": ["yWjoZBvnUKWhpKMbBkVVnnMD8Bzno9j6tQ"], "start":5000, "end":7500}'
 {% endhighlight %}
 
 Result:
 
-{% highlight text %}
+{% highlight json %}
 [
   {
     "satoshis": 10000100,

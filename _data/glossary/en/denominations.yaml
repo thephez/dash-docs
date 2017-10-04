@@ -7,27 +7,23 @@ required:
     title_max_40_characters_no_formatting: Denominations
 
     summary_max_255_characters_no_formatting: >
-        Denominations of Bitcoin value, usually measured in fractions of
-        a bitcoin but sometimes measured in multiples of a satoshi.  One
-        bitcoin equals 100,000,000 satoshis.
+        Denominations of Dash value, usually measured in fractions of
+        a dash but sometimes measured in multiples of a duff.  One
+        dash equals 100,000,000 duffs.
 
     synonyms_shown_in_glossary_capitalize_first_letter:
         - Denomination
-        - Bitcoins
-        - Satoshis
+        #- Bitcoins
+        - Duffs
 
 optional:
     synonyms_and_pluralizations_not_shown_in_glossary:
         - denominations
-        - millibitcoin
-        - millibitcoins
-        - millibit
-        - millibits
-        - microbitcoin
-        - microbitcoins
-        - microbit
-        - microbits
-        - satoshi
+        - millidash
+        #- millibit
+        #- millibits
+        - microdash
+        - duff
         ## Don't add bitcoin singular, we use bare "Bitcoin" massively often
         ## Don't add bits; the dev docs use [binary] "bits" often
 

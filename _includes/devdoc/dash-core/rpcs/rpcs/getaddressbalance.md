@@ -18,10 +18,15 @@ The `getaddressbalance` RPC {{summary_getAddressBalance}}
 *Parameter #1---an array of addresses*
 
 {% itemplate ntpd1 %}
-- n: "Address"
+- n: "`addresses`"
+  t: "object"
+  p: "Required<br>(exactly 1)"
+  d: "An array of P2PKH or P2SH Dash address(es)"
+
+- n: "→Address"
   t: "string (base58)"
   p: "Required<br>(1 or more)"
-  d: "An array of P2PKH or P2SH Dash address(es)."
+  d: "The base58check encoded address"
 
 {% enditemplate %}
 
@@ -55,7 +60,7 @@ dash-cli getaddressbalance '{"addresses": ["yWjoZBvnUKWhpKMbBkVVnnMD8Bzno9j6tQ"]
 
 Result:
 
-{% highlight text %}
+{% highlight json %}
 {
   "balance": 0,
   "received": 10000100

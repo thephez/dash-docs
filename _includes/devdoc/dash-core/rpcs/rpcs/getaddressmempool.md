@@ -18,10 +18,15 @@ The `getaddressmempool` RPC {{summary_getAddressMempool}}
 *Parameter #1---an array of addresses*
 
 {% itemplate ntpd1 %}
-- n: "Address"
+- n: "`addresses`"
+  t: "object"
+  p: "Required<br>(exactly 1)"
+  d: "An array of P2PKH or P2SH Dash address(es)"
+
+- n: "→Address"
   t: "string (base58)"
   p: "Required<br>(1 or more)"
-  d: "An array of P2PKH or P2SH Dash address(es)."
+  d: "The base58check encoded address"
 
 {% enditemplate %}
 
@@ -33,7 +38,7 @@ The `getaddressmempool` RPC {{summary_getAddressMempool}}
   p: "Required<br>(exactly 1)"
   d: "An array of JSON objects, with each object describing a transaction involving one of the requested addresses"
 
-- n: "→<br>`mempool deltas`"
+- n: "→Mempool Deltas"
   t: "object"
   p: "Required<br>(1 or more)"
   d: "An object describing a particular mempool address delta"
@@ -56,7 +61,7 @@ The `getaddressmempool` RPC {{summary_getAddressMempool}}
 - n: "→→<br>`satoshis`"
   t: "number"
   p: "Required<br>(exactly 1)"
-  d: "The difference of satoshis"
+  d: "The difference of duffs"
 
 - n: "→→<br>`timestamp`"
   t: "string"

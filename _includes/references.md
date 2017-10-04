@@ -80,7 +80,7 @@ http://opensource.org/licenses/MIT.
 [URI QR Code]: /en/developer-guide#term-uri-qr-code "A QR code containing a bitcoin: URI"
 [v2 block]: /en/developer-reference#term-v2-block "The current version of Bitcoin blocks"
 [verified payments]: /en/developer-guide#verifying-payment "Payments which the receiver believes won't be double spent"
-[wallet support]: /en/developer-reference#term-wallet-support "A Bitcoin Core ./configure option that enables (default) or disables the wallet"
+[wallet support]: /en/developer-reference#term-wallet-support "A Dash Core ./configure option that enables (default) or disables the wallet"
 
 {% comment %}<!-- RPCs; alphabetical order -->{% endcomment %}
 [rpc abandontransaction]: /en/developer-reference#abandontransaction
