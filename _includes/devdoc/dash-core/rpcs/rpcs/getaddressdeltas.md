@@ -9,7 +9,111 @@ http://opensource.org/licenses/MIT.
 
 {% autocrossref %}
 
-{% assign summary_getAddressDeltas="" %}
+{% assign summary_getAddressDeltas="returns all changes for an address (requires addressindex to be enabled)." %}
 
+*Requires wallet support.*
+
+The `getaddressdeltas` RPC {{summary_getAddressDeltas}}
+
+*Parameter #1---an array of addresses*
+
+{% itemplate ntpd1 %}
+- n: "Address"
+  t: "string (base58)"
+  p: "Required<br>(1 or more)"
+  d: "An array of P2PKH or P2SH Dash address(es)."
+
+{% enditemplate %}
+
+*Parameter #2---the start block height*
+
+{% itemplate ntpd1 %}
+- n: "Block Height"
+  t: "number (int)"
+  p: "Required<br>(exactly 1)"
+  d: "The start block height"
+
+{% enditemplate %}
+
+*Parameter #3---the end block height*
+
+{% itemplate ntpd1 %}
+- n: "Block Height"
+  t: "number (int)"
+  p: "Required<br>(exactly 1)"
+  d: "The end block height"
+
+{% enditemplate %}
+
+*Result---information about all changes for the address(es)*
+
+{% itemplate ntpd1 %}
+- n: "`result`"
+  t: "array"
+  p: "Required<br>(exactly 1)"
+  d: "An array of JSON objects, with each object describing a transaction involving one of the requested addresses"
+
+- n: "→<br>`delta`"
+  t: "object"
+  p: "Required<br>(1 or more)"
+  d: "An object describing a particular address delta"
+
+- n: "→→<br>`satoshis`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "The difference of satoshis"
+
+- n: "→→<br>`txid`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "The related txid"
+
+- n: "→→<br>`index`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "The related input or output index"
+
+- n: "→→<br>`height`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "The block height"
+
+- n: "→→<br>`address`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "The base58check encoded address"
+
+{% enditemplate %}
+
+*Example from Dash Core 0.12.2*
+
+Get the deltas for an address:
+
+{% highlight bash %}
+dash-cli getaddressdeltas '{"addresses": ["yWjoZBvnUKWhpKMbBkVVnnMD8Bzno9j6tQ"]}'
+{% endhighlight %}
+
+Result:
+
+{% highlight text %}
+[
+  {
+    "satoshis": 10000100,
+    "txid": "1fe86e463a9394d4ccd9a5ff1c6b483c95b4350ffdb055b55dc3615111e977de",
+    "index": 18,
+    "blockindex": 1,
+    "height": 6708,
+    "address": "yWjoZBvnUKWhpKMbBkVVnnMD8Bzno9j6tQ"
+  },
+  {
+    "satoshis": -10000100,
+    "txid": "6cb4379eec45cd3bb08b8f4c3a101b8cd89795e24f2cb8288a9941a85fb114cf",
+    "index": 0,
+    "blockindex": 1,
+    "height": 7217,
+    "address": "yWjoZBvnUKWhpKMbBkVVnnMD8Bzno9j6tQ"
+  }
+]
+{% endhighlight %}
 
 {% endautocrossref %}

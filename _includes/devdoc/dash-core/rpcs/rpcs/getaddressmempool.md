@@ -9,7 +9,83 @@ http://opensource.org/licenses/MIT.
 
 {% autocrossref %}
 
-{% assign summary_getAddressMempool="" %}
+{% assign summary_getAddressMempool="returns all mempool deltas for an address (requires addressindex to be enabled)." %}
 
+*Requires wallet support.*
+
+The `getaddressmempool` RPC {{summary_getAddressMempool}}
+
+*Parameter #1---an array of addresses*
+
+{% itemplate ntpd1 %}
+- n: "Address"
+  t: "string (base58)"
+  p: "Required<br>(1 or more)"
+  d: "An array of P2PKH or P2SH Dash address(es)."
+
+{% enditemplate %}
+
+*Result---information about mempool deltas for the address(es)*
+
+{% itemplate ntpd1 %}
+- n: "`result`"
+  t: "array"
+  p: "Required<br>(exactly 1)"
+  d: "An array of JSON objects, with each object describing a transaction involving one of the requested addresses"
+
+- n: "→<br>`mempool deltas`"
+  t: "object"
+  p: "Required<br>(1 or more)"
+  d: "An object describing a particular mempool address delta"
+
+- n: "→→<br>`address`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "The base58check encoded address"
+
+- n: "→→<br>`txid`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "The related txid"
+
+- n: "→→<br>`index`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "The related input or output index"
+
+- n: "→→<br>`satoshis`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "The difference of satoshis"
+
+- n: "→→<br>`timestamp`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "The time the transaction entered the mempool (seconds)"
+
+- n: "→→<br>`prevtxid`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "The previous txid (if spending)"
+
+- n: "→→<br>`prevout`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "The previous transaction output index (if spending)"    
+{% enditemplate %}
+
+*Example from Dash Core 0.12.2*
+
+Get the deltas for an address:
+
+{% highlight bash %}
+dash-cli getaddressmempool '{"addresses": ["yWjoZBvnUKWhpKMbBkVVnnMD8Bzno9j6tQ"]}'
+{% endhighlight %}
+
+Result:
+
+{% highlight text %}
+  Example result needed
+{% endhighlight %}
 
 {% endautocrossref %}
