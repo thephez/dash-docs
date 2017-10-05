@@ -57,12 +57,12 @@ The `getrawmempool` RPC {{summary_getRawMemPool}}
   d: "The size of the serialized transaction in bytes"
 
 - n: "→ →<br>`fee`"
-  t: "number (bitcoins)"
+  t: "amount (Dash)"
   p: "Required<br>(exactly 1)"
   d: "The transaction fee paid by the transaction in decimal Dash"
 
 - n: "→ →<br>`modifiedfee`"
-  t: "number (bitcoins)"
+  t: "amount (Dash)"
   p: "Required<br>(exactly 1)"
   d: "*Added in Bitcoin Core 0.12.0*<br><br>The transaction fee with fee deltas used for mining priority in decimal Dash"
 

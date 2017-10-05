@@ -54,29 +54,29 @@ The `gettxoutsetinfo` RPC {{summary_getTxOutSetInfo}}
   d: "A SHA256(SHA256()) hash of the serialized UTXO set; useful for comparing two nodes to see if they have the same set (they should, if they always used the same serialization format and currently have the same best block).  The hash is encoded as hex in RPC byte order"
 
 - n: "→<br>`total_amount`"
-  t: "number (bitcoins)"
+  t: "number (Dash)"
   p: "Required<br>(exactly 1)"
-  d: "The total number of bitcoins in the UTXO set"
+  d: "The total amount of Dash in the UTXO set"
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.10.0*
+*Example from Dash Core 0.12.2*
 
 {% highlight bash %}
-bitcoin-cli -testnet gettxoutsetinfo
+dash-cli -testnet gettxoutsetinfo
 {% endhighlight %}
 
 Result:
 
 {% highlight json %}
 {
-    "height" : 315293,
-    "bestblock" : "00000000c92356f7030b1deeab54b3b02885711320b4c48523be9daa3e0ace5d",
-    "transactions" : 771920,
-    "txouts" : 2734587,
-    "bytes_serialized" : 102629817,
-    "hash_serialized" : "4753470fda0145760109e79b8c218a1331e84bb4269d116857b8a4597f109905",
-    "total_amount" : 13131746.33839451
+  "height": 4755,
+  "bestblock": "0000000025da0abc9e9937f1c65b3f544a57bb7e8817422f7ff2a89ff32696f4",
+  "transactions": 4748,
+  "txouts": 10602,
+  "bytes_serialized": 463925,
+  "hash_serialized": "fce0776d7961b409c4d8a46363c8d049879321861f7f40db97b0432e59532320",
+  "total_amount": 2243585.70000000
 }
 {% endhighlight %}
 

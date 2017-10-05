@@ -63,9 +63,9 @@ The `gettxout` RPC {{summary_getTxOut}}
   d: "The number of confirmations received for the transaction containing this output or `0` if the transaction hasn't been confirmed yet"
 
 - n: "→<br>`value`"
-  t: "number (bitcoins)"
+  t: "number (Dash)"
   p: "Required<br>(exactly 1)"
-  d: "The amount of bitcoins spent to this output.  May be `0`"
+  d: "The amount of Dash spent to this output.  May be `0`"
 
 - n: "→<br>`scriptPubKey`"
   t: "string : object"
@@ -114,15 +114,15 @@ The `gettxout` RPC {{summary_getTxOut}}
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.10.0*
+*Example from Dash Core 0.12.2*
 
 Get the UTXO from the following transaction from the first output index ("0"),
 searching the memory pool if necessary.
 
 
 {% highlight bash %}
-bitcoin-cli -testnet gettxout \
-  d77aee99e8bdc11f40b8a9354956f0346fec5535b82c77c8b5c06047e3bca86a \
+dash-cli -testnet gettxout \
+  e0a06b47f0de6f3851a228d5ac377ac38b495adf04298c43e951e679c5b0aa8f \
   0 true
 {% endhighlight %}
 
@@ -130,20 +130,20 @@ Result:
 
 {% highlight json %}
 {
-    "bestblock" : "00000000c92356f7030b1deeab54b3b02885711320b4c48523be9daa3e0ace5d",
-    "confirmations" : 0,
-    "value" : 0.00100000,
-    "scriptPubKey" : {
-        "asm" : "OP_DUP OP_HASH160 a11418d3c144876258ba02909514d90e71ad8443 OP_EQUALVERIFY OP_CHECKSIG",
-        "hex" : "76a914a11418d3c144876258ba02909514d90e71ad844388ac",
-        "reqSigs" : 1,
-        "type" : "pubkeyhash",
-        "addresses" : [
-            "mvCfAJSKaoFXoJEvv8ssW7wxaqRPphQuSv"
-        ]
-    },
-    "version" : 1,
-    "coinbase" : false
+  "bestblock": "000000005651f6d7859793dee07d476a2f2a7338e66bbb41caf4b544c5b0318d",
+  "confirmations": 2,
+  "value": 25.00000000,
+  "scriptPubKey": {
+    "asm": "OP_DUP OP_HASH160 b66266c5017a759817f3bb99e8d9124bf5bb2e74 OP_EQUALVERIFY OP_CHECKSIG",
+    "hex": "76a914b66266c5017a759817f3bb99e8d9124bf5bb2e7488ac",
+    "reqSigs": 1,
+    "type": "pubkeyhash",
+    "addresses": [
+      "ycwoiAibTjpwnoCZSX7S4kiB2H8wULw9qo"
+    ]
+  },
+  "version": 1,
+  "coinbase": false
 }
 {% endhighlight %}
 

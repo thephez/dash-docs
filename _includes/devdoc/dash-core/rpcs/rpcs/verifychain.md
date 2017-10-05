@@ -43,16 +43,15 @@ The `verifychain` RPC {{summary_verifyChain}}
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.10.0*
+*Example from Dash Core 0.12.2*
 
-Verify the most recent 10,000 blocks in the most through way:
+Verify the most recent 400 blocks in the most through way:
 
 {% highlight bash %}
-bitcoin-cli -testnet verifychain 4 10000
+dash-cli -testnet verifychain 4 400
 {% endhighlight %}
 
-Result (took 4 minutes and 25 seconds on a generic PC laptop; it
-would've taken much longer on mainnet):
+Result (took < 1 second on a mobile workstation; it would've taken much longer on mainnet):
 
 {% highlight json %}
 true
