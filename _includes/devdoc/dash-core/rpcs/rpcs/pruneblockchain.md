@@ -13,6 +13,10 @@ http://opensource.org/licenses/MIT.
 
 *Added in Bitcoin Core 0.14.0*
 
+**_Not implemented in Dash Core (as of 0.12.2)_**
+
+{% comment %}
+
 The `pruneblockchain` RPC {{summary_pruneBlockChain}} The `-prune` option needs to be enabled (disabled by default).
 
 *Parameter #1---the block height or timestamp*
@@ -50,5 +54,7 @@ Result:
 *See also*
 
 * [ImportPrunedFunds][rpc importprunedfunds]: {{summary_importPrunedFunds}}
+
+{% endcomment %}
 
 {% endautocrossref %}

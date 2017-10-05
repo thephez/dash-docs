@@ -100,7 +100,7 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 
 {% endautocrossref %}
 
-##### Not implemented in Dash
+**Not implemented in Dash**
 
 {% autocrossref %}
 

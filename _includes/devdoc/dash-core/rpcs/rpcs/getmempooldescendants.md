@@ -13,6 +13,10 @@ http://opensource.org/licenses/MIT.
 
 *Added in Bitcoin Core 0.13.0*
 
+**_Not implemented in Dash Core (as of 0.12.2)_**
+
+{% comment %}
+
 The `getmempooldescendants` RPC {{summary_getMemPoolDescendants}}
 
 *Parameter #1---a transaction identifier (TXID)*
@@ -72,7 +76,7 @@ The `getmempooldescendants` RPC {{summary_getMemPoolDescendants}}
   t: "number (bitcoins)"
   p: "Required<br>(exactly 1)"
   d: "The transaction fee paid by the transaction in decimal bitcoins"
-  
+
 - n: "→ →<br>`modifiedfee`"
   t: "number (bitcoins)"
   p: "Required<br>(exactly 1)"
@@ -210,5 +214,7 @@ Result:
 
 * [GetMemPoolAncestors][rpc getmempoolancestors]: {{summary_getMemPoolAncestors}}
 * [GetRawMemPool][rpc getrawmempool]: {{summary_getRawMemPool}}
+
+{% endcomment %}
 
 {% endautocrossref %}

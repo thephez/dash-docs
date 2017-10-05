@@ -13,6 +13,10 @@ http://opensource.org/licenses/MIT.
 
 *Added in Bitcoin Core 0.14.0*
 
+**_Not implemented in Dash Core (as of 0.12.2)_**
+
+{% comment %}
+
 The `preciousblock` RPC {{summary_preciousBlock}} A later `preciousblock` call can override the effect of an earlier one. The effects of `preciousblock` are not retained across restarts.
 
 *Parameter #1---the block hash*
@@ -43,5 +47,7 @@ bitcoin-cli preciousblock 000000000000000001517a0bac70b8cd6f27ee\
 {% endhighlight %}
 
 Result (no output from `bitcoin-cli` because result is set to `null`).
+
+{% endcomment %}
 
 {% endautocrossref %}
