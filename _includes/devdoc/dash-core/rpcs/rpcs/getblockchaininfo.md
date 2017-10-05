@@ -52,7 +52,7 @@ The `getblockchaininfo` RPC {{summary_getBlockChainInfo}}
   t: "number (int)"
   p: "Required<br>(exactly 1)"
   d: "*Added in Bitcoin Core 0.12.0*<br><br>The median time of the 11 blocks before the most recent block on the blockchain.  Used for validating transaction locktime under BIP113"
-  
+
 - n: "→<br>`verificationprogress`"
   t: "number (real)"
   p: "Required<br>(exactly 1)"
@@ -67,12 +67,12 @@ The `getblockchaininfo` RPC {{summary_getBlockChainInfo}}
   t: "bool"
   p: "Required<br>(exactly 1)"
   d: "*Added in Bitcoin Core 0.11.0*<br><br>Indicates if the blocks are subject to pruning"
-  
+
 - n: "→<br>`pruneheight`"
   t: "number (int)"
   p: "Optional<br>(0 or 1)"
-  d: "*Added in Bitcoin Core 0.11.0*<br><br>The lowest-height complete block stored if prunning is activated"
-  
+  d: "*Added in Bitcoin Core 0.11.0*<br><br>The lowest-height complete block stored if pruning is activated"
+
 - n: "→<br>`softforks`"
   t: "array"
   p: "Required<br>(exactly 1)"
@@ -82,17 +82,17 @@ The `getblockchaininfo` RPC {{summary_getBlockChainInfo}}
   t: "object"
   p: "Required<br>(3 or more)"
   d: "A specific softfork"
-  
+
 - n: "→ → →<br>`id`"
   t: "string"
   p: "Required<br>(exactly 1)"
   d: "The name of the softfork"
-  
+
 - n: "→ → →<br>`version`"
   t: "numeric<br>(int)"
   p: "Required<br>(exactly 1)"
   d: "The block version used for the softfork"
-  
+
 - n: "→ → →<br>`enforce`"
   t: "string : object"
   p: "Optional<br>(0 or 1)"
@@ -102,12 +102,12 @@ The `getblockchaininfo` RPC {{summary_getBlockChainInfo}}
   t: "bool"
   p: "Required<br>(exactly 1)"
   d: "Indicates if the threshold was reached"
-  
+
 - n: "→ → → →<br>`found`"
   t: "numeric<br>(int)"
   p: "Optional<br>(0 or 1)"
   d: "Number of blocks that support the softfork"
-  
+
 - n: "→ → → →<br>`required`"
   t: "numeric<br>(int)"
   p: "Optional<br>(0 or 1)"
@@ -127,12 +127,12 @@ The `getblockchaininfo` RPC {{summary_getBlockChainInfo}}
   t: "bool"
   p: "Optional<br>(0 or 1)"
   d: "Indicates if the threshold was reached"
-  
+
 - n: "→ → → →<br>`found`"
   t: "numeric<br>(int)"
   p: "Optional<br>(0 or 1)"
   d: "Number of blocks that support the softfork"
-  
+
 - n: "→ → → →<br>`required`"
   t: "numeric<br>(int)"
   p: "Optional<br>(0 or 1)"
@@ -142,101 +142,108 @@ The `getblockchaininfo` RPC {{summary_getBlockChainInfo}}
   t: "numeric<br>(int)"
   p: "Optional<br>(0 or 1)"
   d: "The maximum size of examined window of recent blocks"
-  
+
 - n: "→<br>`bip9_softforks`"
   t: "object"
   p: "Required<br>(exactly 1)"
   d: "*Added in Bitcoin Core 0.12.1*<br><br>The status of BIP9 softforks in progress"
-  
+
 - n: "→ →<br>Name"
   t: "string : object"
   p: "Required<br>(2 or more)"
   d: "A specific BIP9 softfork"
-  
+
 - n: "→ → →<br>`status`"
   t: "string"
   p: "Required<br>(exactly 1)"
   d: "Set to one of the following reasons:<br>• `defined` if voting hasn't started yet<br>• `started` if the voting has started <br>• `locked_in` if the voting was successful but the softfort hasn't been activated yet<br>• `active` if the softfork was activated<br>• `failed` if the softfork has not receieved enough votes"
-  
+
 - n: "→ → →<br>`bit`"
   t: "numeric<br>(int)"
   p: "Optional<br>(0 or 1)"
   d: "The bit (0-28) in the block version field used to signal this softfork.  Field is only shown when status is `started`"
-  
-- n: "→ → →<br>`startTime`"
-  t: "numeric<br>(int)"
-  p: "Required<br>(exactly 1)"
-  d: "The Unix epoch time when the softfork voting begins"
-  
-- n: "→ → →<br>`timeout`"
-  t: "numeric<br>(int)"
-  p: "Required<br>(exactly 1)"
-  d: "The Unix epoch time at which the deployment is considered failed if not yet locked in"
-  
-- n: "→ → →<br>`since`"
-  t: "numeric<br>(int)"
-  p: "Required<br>(exactly 1)"
-  d: "*Added in Bitcoin Core 0.14.0*<br><br>The height of the first block to which the status applies"
-  
+
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.14.1*
+*Example from Dash Core 0.12.2*
 
 {% highlight bash %}
-bitcoin-cli getblockchaininfo
+dash-cli -testnet getblockchaininfo
 {% endhighlight %}
 
 Result:
 
 {% highlight json %}
 {
-  "chain": "main",
-  "blocks": 464562,
-  "headers": 464562,
-  "bestblockhash": "00000000000000000085bd56990c579a36bade6ea427646612f13476edb30ceb",
-  "difficulty": 521974519553.6282,
-  "mediantime": 1493758169,
-  "verificationprogress": 0.999989733170878,
-  "chainwork": "00000000000000000000000000000000000000000052c26f32ffa22706efd28c",
+  "chain": "test",
+  "blocks": 4622,
+  "headers": 4622,
+  "bestblockhash": "000000007f4141e557309da09911b1c3c65b8e9eed3f5e940f7083aec8999ac7",
+  "difficulty": 1.380236305048335,
+  "mediantime": 1507209819,
+  "verificationprogress": 0.9999053826626874,
+  "chainwork": "000000000000000000000000000000000000000000000000000001d17aeaf58b",
   "pruned": false,
   "softforks": [
     {
       "id": "bip34",
       "version": 2,
+      "enforce": {
+        "status": true,
+        "found": 100,
+        "required": 51,
+        "window": 100
+      },
       "reject": {
-        "status": true
+        "status": true,
+        "found": 100,
+        "required": 75,
+        "window": 100
       }
     },
     {
       "id": "bip66",
       "version": 3,
+      "enforce": {
+        "status": true,
+        "found": 100,
+        "required": 51,
+        "window": 100
+      },
       "reject": {
-        "status": true
+        "status": true,
+        "found": 100,
+        "required": 75,
+        "window": 100
       }
     },
     {
       "id": "bip65",
       "version": 4,
+      "enforce": {
+        "status": true,
+        "found": 100,
+        "required": 51,
+        "window": 100
+      },
       "reject": {
-        "status": true
+        "status": true,
+        "found": 100,
+        "required": 75,
+        "window": 100
       }
     }
   ],
-  "bip9_softforks": {
-    "csv": {
-      "status": "active",
-      "startTime": 1462060800,
-      "timeout": 1493596800,
-      "since": 419328
+  "bip9_softforks": [
+    {
+      "id": "csv",
+      "status": "started"
     },
-    "segwit": {
-      "status": "started",
-      "bit": 1,
-      "startTime": 1479168000,
-      "timeout": 1510704000,
-      "since": 439488
+    {
+      "id": "dip0001",
+      "status": "started"
     }
-  }
+  ]
 }
 
 {% endhighlight %}

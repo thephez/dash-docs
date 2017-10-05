@@ -33,16 +33,16 @@ The `getblockhash` RPC {{summary_getBlockHash}}
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.10.0*
+*Example from Dash Core 0.12.2*
 
 {% highlight bash %}
-bitcoin-cli -testnet getblockhash 240886
+dash-cli -testnet getblockhash 4000
 {% endhighlight %}
 
 Result:
 
 {% highlight text %}
-00000000a0faf83ab5799354ae9c11da2a2bd6db44058e03c528851dee0a3fff
+00000ce22113f3eb8636e225d6a1691e132fdd587aed993e1bc9b07a0235eea4
 {% endhighlight %}
 
 *See also*

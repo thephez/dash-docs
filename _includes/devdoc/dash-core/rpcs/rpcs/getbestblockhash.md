@@ -25,16 +25,16 @@ The `getbestblockhash` RPC {{summary_getBestBlockHash}}
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.10.0*
+*Example from Dash Core 0.12.2*
 
 {% highlight bash %}
-bitcoin-cli -testnet getbestblockhash
+dash-cli -testnet getbestblockhash
 {% endhighlight %}
 
 Result:
 
 {% highlight text %}
-0000000000075c58ed39c3e50f99b32183d090aefa0cf8c324a82eea9b01a887
+00000bafbc94add76cb75e2ec92894837288a481e5c005f6563d91623bf8bc2c
 {% endhighlight %}
 
 *See also*

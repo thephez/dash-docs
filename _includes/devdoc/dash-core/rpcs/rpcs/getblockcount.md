@@ -25,16 +25,16 @@ The `getblockcount` RPC {{summary_getBlockCount}}
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.10.0*
+*Example from Dash Core 0.12.2*
 
 {% highlight bash %}
-bitcoin-cli -testnet getblockcount
+dash-cli -testnet getblockcount
 {% endhighlight %}
 
 Result:
 
 {% highlight text %}
-315280
+4627
 {% endhighlight %}
 
 *See also*
