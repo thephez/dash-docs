@@ -25,16 +25,16 @@ The `getdifficulty` RPC {{summary_getDifficulty}}
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.10.0*
+*Example from Dash Core 0.12.2*
 
 {% highlight bash %}
-bitcoin-cli -testnet getdifficulty
+dash-cli -testnet getdifficulty
 {% endhighlight %}
 
 Result:
 
 {% highlight text %}
-1.00000000
+1.069156225528583
 {% endhighlight %}
 
 *See also*

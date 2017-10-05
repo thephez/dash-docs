@@ -38,6 +38,16 @@ The `getchaintips` RPC {{summary_getChainTips}}
   p: "Required<br>(exactly 1)"
   d: "The hash of the highest block in the chain, encoded as hex in RPC byte order"
 
+- n: "→<br>`difficulty`"
+  t: "number (real)"
+  p: "Required<br>(exactly 1)"
+  d: "The difficulty of the highest-height block in the best block chain (Added in Dash Core 0.12.1)"
+
+- n: "→<br>`chainwork`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The estimated number of block header hashes checked from the genesis block to this block, encoded as big-endian hex (Added in Dash Core 0.12.1)"
+
 - n: "→ →<br>`branchlen`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
@@ -50,32 +60,22 @@ The `getchaintips` RPC {{summary_getChainTips}}
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.10.0*
+*Example from Dash Core 0.12.2*
 
 {% highlight bash %}
-bitcoin-cli -testnet getchaintips
+dash-cli -testnet getchaintips
 {% endhighlight %}
 
 {% highlight json %}
 [
-    {
-        "height" : 312647,
-        "hash" : "000000000b1be96f87b31485f62c1361193304a5ad78acf47f9164ea4773a843",
-        "branchlen" : 0,
-        "status" : "active"
-    },
-    {
-        "height" : 282072,
-        "hash" : "00000000712340a499b185080f94b28c365d8adb9fc95bca541ea5e708f31028",
-        "branchlen" : 5,
-        "status" : "valid-fork"
-    },
-    {
-        "height" : 281721,
-        "hash" : "000000006e1f2a32199629c6c1fbd37766f5ce7e8c42bab0c6e1ae42b88ffe12",
-        "branchlen" : 1,
-        "status" : "valid-headers"
-    },
+  {
+    "height": 4655,
+    "hash": "00000000629c276241d9526d85297f2675d6edebcc7fd0c39e8f4263d729b8c1",
+    "difficulty": 0.9622782802772231,
+    "chainwork": "000000000000000000000000000000000000000000000000000001f1e286e12a",
+    "branchlen": 0,
+    "status": "active"
+  }
 ]
 {% endhighlight %}
 

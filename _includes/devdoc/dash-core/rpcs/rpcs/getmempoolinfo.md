@@ -50,19 +50,19 @@ The `getmempoolinfo` RPC {{summary_getMemPoolInfo}}
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.14.1*
+*Example from Dash Core 0.12.2*
 
 {% highlight bash %}
-bitcoin-cli -testnet getmempoolinfo
+dash-cli -testnet getmempoolinfo
 {% endhighlight %}
 
 Result:
 
 {% highlight json %}
 {
-  "size": 1237,
-  "bytes": 591126,
-  "usage": 1900416,
+  "size": 1,
+  "bytes": 3471,
+  "usage": 8544,
   "maxmempool": 300000000,
   "mempoolminfee": 0.00000000
 }
