@@ -16,32 +16,39 @@ changes made more than two years ago.
 Use v0.n.n in abbreviation title to prevent autocrossrefing.
 {% endcomment %}
 
+<!-- Dash - Not Implemented -->
+{% assign DASH_NOT_IMPLEMENTED='**<abbr title="Not Implemented in Dash">Not Implemented</abbr>**' %}
+
+<!-- Dash Core 0.12.1.0 Feb 2017 -->
+{% assign DASH_NEW0_12_1='*<abbr title="New in Dash Core v0.12.1">New in Dash Core 0.12.0</abbr>*' %}
+{% assign DASH_UPDATED0_12_1='**<abbr title="Updated in Dash Core v0.12.1">Updated in Dash Core 0.12.1</abbr>**' %}
+
 <!-- Deprecated -->
 {% assign DEPRECATED='**<abbr title="Deprecated; will be removed in a future version of Bitcoin Core">Deprecated</abbr>**' %}
 
 <!-- Bitcoin Core 0.14.1 April 2017 -->
-{% assign UPDATED0_14_0='**<abbr title="Updated in Bitcoin Core v0.14.1">Updated in 0.14.1</abbr>**' %}
+{% assign UPDATED0_14_0='**<abbr title="Updated in Bitcoin Core v0.14.1">Updated in Bitcoin Core 0.14.1</abbr>**' %}
 
 <!-- Bitcoin Core 0.14.0 March 2017 -->
-{% assign NEW0_14_0='**<abbr title="New in Bitcoin Core v0.14.0">New in 0.14.0</abbr>**' %}
-{% assign UPDATED0_14_0='**<abbr title="Updated in Bitcoin Core v0.14.0">Updated in 0.14.0</abbr>**' %}
+{% assign NEW0_14_0='**<abbr title="New in Bitcoin Core v0.14.0">New in Bitcoin Core 0.14.0</abbr>**' %}
+{% assign UPDATED0_14_0='**<abbr title="Updated in Bitcoin Core v0.14.0">Updated in Bitcoin Core 0.14.0</abbr>**' %}
 
 <!-- Bitcoin Core 0.13.1 September 2016 -->
-{% assign UPDATED0_13_1='*<abbr title="Updated in Bitcoin Core v0.13.1">Updated in 0.13.1</abbr>*' %}
+{% assign UPDATED0_13_1='*<abbr title="Updated in Bitcoin Core v0.13.1">Updated in Bitcoin Core 0.13.1</abbr>*' %}
 
 <!-- Bitcoin Core 0.13.0 August 2016 -->
-{% assign NEW0_13_0='*<abbr title="New in Bitcoin Core v0.13.0">New in 0.13.0</abbr>*' %}
-{% assign UPDATED0_13_0='*<abbr title="Updated in Bitcoin Core v0.13.0">Updated in 0.13.0</abbr>*' %}
+{% assign NEW0_13_0='*<abbr title="New in Bitcoin Core v0.13.0">New in Bitcoin Core 0.13.0</abbr>*' %}
+{% assign UPDATED0_13_0='*<abbr title="Updated in Bitcoin Core v0.13.0">Updated in Bitcoin Core 0.13.0</abbr>*' %}
 
 <!-- Bitcoin Core 0.12.1 April 2016 -->
-{% assign UPDATED0_12_1='*<abbr title="Updated in Bitcoin Core v0.12.1">Updated in 0.12.1</abbr>*' %}
+{% assign UPDATED0_12_1='*<abbr title="Updated in Bitcoin Core v0.12.1">Updated in Bitcoin Core 0.12.1</abbr>*' %}
 
 <!-- Bitcoin Core 0.12.0 February 2016 -->
-{% assign NEW0_12_0='*<abbr title="New in Bitcoin Core v0.12.0">New in 0.12.0</abbr>*' %}
-{% assign UPDATED0_12_0='*<abbr title="Updated in Bitcoin Core v0.12.0">Updated in 0.12.0</abbr>*' %}
+{% assign NEW0_12_0='*<abbr title="New in Bitcoin Core v0.12.0">New in Bitcoin Core 0.12.0</abbr>*' %}
+{% assign UPDATED0_12_0='*<abbr title="Updated in Bitcoin Core v0.12.0">Updated in Bitcoin Core 0.12.0</abbr>*' %}
 
 <!-- Bitcoin Core 0.11.0 July 2015 -->
-{% assign NEW0_11_0='*<abbr title="New in Bitcoin Core v0.11.0">New in 0.11.0</abbr>*' %}
+{% assign NEW0_11_0='*<abbr title="New in Bitcoin Core v0.11.0">New in Bitcoin Core 0.11.0</abbr>*' %}
 
 <!-- the summaries used below are defined in the files for the
      particular RPC and aggregated into this helper file by the makefile
@@ -51,6 +58,7 @@ Use v0.n.n in abbreviation title to prevent autocrossrefing.
 {% include helpers/summaries.md %}
 
 #### Addressindex RPCs
+These RPCs are all Dash-specific and not found in Bitcoin Core
 {:.no_toc}
 <!-- no subhead-links here -->
 
@@ -79,25 +87,28 @@ Use v0.n.n in abbreviation title to prevent autocrossrefing.
     * [GetBlockHashes][rpc getblockhashes]: {{summary_getBlockHashes}}
 * [GetBlockHeader][rpc getblockheader]: {{summary_getBlockHeader}} {{NEW0_12_0}}
     * [GetBlockHeaders][rpc getblockheaders]: {{summary_getBlockHeaders}}
-* [GetChainTips][rpc getchaintips]: {{summary_getChainTips}}
+* [GetChainTips][rpc getchaintips]: {{summary_getChainTips}} {{DASH_UPDATED0_12_1}}
 * [GetDifficulty][rpc getdifficulty]: {{summary_getDifficultly}}
-<!-- Not in Dash
-* [GetMemPoolAncestors][rpc getmempoolancestors]: {{summary_getMemPoolAncestors}} {{NEW0_13_0}}
-* [GetMemPoolDescendants][rpc getmempooldescendants]: {{summary_getMemPoolDescendants}} {{NEW0_13_0}}
-* [GetMemPoolEntry][rpc  getmempoolentry]: {{summary_getMemPoolEntry}} {{NEW0_13_0}}
--->
 * [GetMemPoolInfo][rpc getmempoolinfo]: {{summary_getMemPoolInfo}} {{UPDATED0_12_0}}
 * [GetRawMemPool][rpc getrawmempool]: {{summary_getRawMemPool}} {{UPDATED0_13_0}}
     * [GetSpentInfo][rpc getspentifo]: {{summary_getSpentInfo}}
 * [GetTxOut][rpc gettxout]: {{summary_getTxOut}}
 * [GetTxOutProof][rpc gettxoutproof]: {{summary_getTxOutProof}} {{NEW0_11_0}}
 * [GetTxOutSetInfo][rpc gettxoutsetinfo]: {{summary_getTxOutSetInfo}}
-<!-- Not in Dash
-* [PreciousBlock][rpc preciousblock]: {{summary_preciousBlock}} {{NEW0_14_0}}
-* [PruneBlockChain][rpc pruneblockchain]: {{summary_pruneBlockChain}} {{NEW0_14_0}}
--->
 * [VerifyChain][rpc verifychain]: {{summary_verifyChain}}
 * [VerifyTxOutProof][rpc verifytxoutproof]: {{summary_verifyTxOutProof}} {{NEW0_11_0}}
+
+{% endautocrossref %}
+
+##### Not implemented in Dash
+
+{% autocrossref %}
+
+* {{DASH_NOT_IMPLEMENTED}}  [GetMemPoolAncestors][rpc getmempoolancestors]: {{summary_getMemPoolAncestors}} {{NEW0_13_0}}
+* {{DASH_NOT_IMPLEMENTED}}  [GetMemPoolDescendants][rpc getmempooldescendants]: {{summary_getMemPoolDescendants}} {{NEW0_13_0}}
+* {{DASH_NOT_IMPLEMENTED}}  [GetMemPoolEntry][rpc  getmempoolentry]: {{summary_getMemPoolEntry}} {{NEW0_13_0}}
+* {{DASH_NOT_IMPLEMENTED}}  [PreciousBlock][rpc preciousblock]: {{summary_preciousBlock}} {{NEW0_14_0}}
+* {{DASH_NOT_IMPLEMENTED}}  [PruneBlockChain][rpc pruneblockchain]: {{summary_pruneBlockChain}} {{NEW0_14_0}}
 
 {% endautocrossref %}
 
@@ -143,9 +154,7 @@ Use v0.n.n in abbreviation title to prevent autocrossrefing.
 * [Generate][rpc generate]: {{summary_generate}} {{NEW0_11_0}}, {{UPDATED0_13_0}}
     * [GetGenerate][rpc getgenerate]: {{summary_getgenerate}}
     * [SetGenerate][rpc setgenerate]: {{summary_setgenerate}}
-<!-- Not in Dash
-* [GenerateToAddress][rpc generatetoaddress]: {{summary_generateToAddress}} {{NEW0_13_0}}
--->
+* {{DASH_NOT_IMPLEMENTED}}  [GenerateToAddress][rpc generatetoaddress]: {{summary_generateToAddress}} {{NEW0_13_0}}
 
 {% endautocrossref %}
 
@@ -211,11 +220,10 @@ Use v0.n.n in abbreviation title to prevent autocrossrefing.
 * [EstimatePriority][rpc estimatepriority]: {{summary_estimatePriority}}
     * [EstimateSmartFee][rpc estimatesmartfee]: {{summary_estimateSmartFee}} {{DEPRECATED}}
     * [EstimateSmartPriority][rpc estimatesmartpriority]: {{summary_estimateSmartPriority}} {{DEPRECATED}}
-<!-- Not in Dash
-* [GetMemoryInfo][rpc getmemoryinfo]: {{summary_getMemoryInfo}} {{NEW_14_0}}
--->
 * [ValidateAddress][rpc validateaddress]: {{summary_validateAddress}} {{UPDATED0_13_0}}
 * [VerifyMessage][rpc verifymessage]: {{summary_verifyMessage}}
+
+* {{DASH_NOT_IMPLEMENTED}}  [GetMemoryInfo][rpc getmemoryinfo]: {{summary_getMemoryInfo}} {{NEW_14_0}}
 
 {% endautocrossref %}
 
@@ -230,14 +238,8 @@ with [wallet support][]{:#term-wallet-support}{:.term}, which is the
 default.
 
 * [AbandonTransaction][rpc abandontransaction]: {{summary_abandonTransaction}} {{NEW0_12_0}}
-<!-- Not in Dash
-* [AddWitnessAddress][rpc addwitnessaddress]: {{summary_addWitnessAddress}} {{NEW0_13_0}}
--->
 * [AddMultiSigAddress][rpc addmultisigaddress]: {{summary_addMultiSigAddress}}
 * [BackupWallet][rpc backupwallet]: {{summary_backupWallet}}
-<!-- Not in Dash
-* [BumpFee][rpc bumpfee]: {{summary_bumpFee}} {{NEW0_14_0}}
--->
   * [DumpHDInfo][rpc dumphdinfo]: {{summary_dumpHdInfo}}
 * [DumpPrivKey][rpc dumpprivkey]: {{summary_dumpPrivKey}}
 * [DumpWallet][rpc dumpwallet]: {{summary_dumpWallet}}
@@ -254,11 +256,7 @@ default.
 * [GetUnconfirmedBalance][rpc getunconfirmedbalance]: {{summary_getUnconfirmedBalance}}
 * [GetWalletInfo][rpc getwalletinfo]: {{summary_getWalletInfo}}
 * [ImportAddress][rpc importaddress]: {{summary_importAddress}}
-    * [ImportElectrumWallet][rpc importelecturmwallet]: {{summary_importElectrumWallet}}
-<!-- Not in Dash
-* [ImportMulti][rpc importmulti]: {{summary_importMulti}} {{NEW0_14_0}}
-* [ImportPrunedFunds][rpc importprunedfunds]: {{summary_importPrunedFunds}} {{NEW0_13_0}}
--->
+    * [ImportElectrumWallet][rpc importelecturmwallet]: {{summary_importElectrumWallet}} {{DASH_NEW0_12_1}}
 * [ImportPrivKey][rpc importprivkey]: {{summary_importPrivKey}}
     * [ImportPubKey][rpc importpubkey]: {{summary_importPubKey}}
 * [ImportWallet][rpc importwallet]: {{summary_importWallet}}
@@ -275,21 +273,22 @@ default.
 * [ListUnspent][rpc listunspent]: {{summary_listUnspent}} {{UPDATED0_13_0}}
 * [LockUnspent][rpc lockunspent]: {{summary_lockUnspent}}
 * [Move][rpc move]: {{summary_move}} {{DEPRECATED}}
-<!-- Not in Dash
-* [RemovePrunedFunds][rpc removeprunedfunds]: {{summary_removePrunedFunds}} {{NEW0_13_0}}
--->
 * [SendFrom][rpc sendfrom]: {{summary_sendFrom}} {{DEPRECATED}}
 * [SendMany][rpc sendmany]: {{summary_sendMany}}
 * [SendToAddress][rpc sendtoaddress]: {{summary_sendToAddress}}
 * [SetAccount][rpc setaccount]: {{summary_setAccount}} {{DEPRECATED}}
 * [SetTxFee][rpc settxfee]: {{summary_setTxFee}}
 * [SignMessage][rpc signmessage]: {{summary_signMessage}}
-<!-- Not in Dash
-* [SignMessageWithPrivKey][rpc signmessagewithprivkey]: {{summary_signMessageWithPrivKey}}  {{NEW0_13_0}}
--->
 * [WalletLock][rpc walletlock]: {{summary_walletLock}}
 * [WalletPassphrase][rpc walletpassphrase]: {{summary_walletPassphrase}}
 * [WalletPassphraseChange][rpc walletpassphrasechange]: {{summary_walletPassphraseChange}}
+
+* {{DASH_NOT_IMPLEMENTED}}  [AddWitnessAddress][rpc addwitnessaddress]: {{summary_addWitnessAddress}} {{NEW0_13_0}}
+* {{DASH_NOT_IMPLEMENTED}}  [BumpFee][rpc bumpfee]: {{summary_bumpFee}} {{NEW0_14_0}}
+* {{DASH_NOT_IMPLEMENTED}}  [ImportMulti][rpc importmulti]: {{summary_importMulti}} {{NEW0_14_0}}
+* {{DASH_NOT_IMPLEMENTED}}  [ImportPrunedFunds][rpc importprunedfunds]: {{summary_importPrunedFunds}} {{NEW0_13_0}}
+* {{DASH_NOT_IMPLEMENTED}}  [RemovePrunedFunds][rpc removeprunedfunds]: {{summary_removePrunedFunds}} {{NEW0_13_0}}
+* {{DASH_NOT_IMPLEMENTED}}  [SignMessageWithPrivKey][rpc signmessagewithprivkey]: {{summary_signMessageWithPrivKey}}  {{NEW0_13_0}}
 
 {% endautocrossref %}
 
