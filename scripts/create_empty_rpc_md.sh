@@ -12,9 +12,9 @@ if [ "$PARAMCOUNT" == 1 ]; then
 	echo "This file is licensed under the MIT License (MIT) available on" >> $FILENAME
 	echo "http://opensource.org/licenses/MIT." >> $FILENAME
 	echo "{% endcomment %}" >> $FILENAME
-	echo '{% assign filename="_includes/devdoc/dash-core/rpcs/rpcs/'$FILENAME'" %}#' >> $FILENAME
+	echo '{% assign filename="_includes/devdoc/dash-core/rpcs/rpcs/'$FILENAME'" %}' >> $FILENAME
 	echo "" >> $FILENAME
-	echo "##### '$RPCNAME'" >> $FILENAME
+	echo "##### $RPCNAME" >> $FILENAME
 	echo "{% include helpers/subhead-links.md %}" >> $FILENAME
 	echo "" >> $FILENAME
 	echo "{% autocrossref %}" >> $FILENAME
