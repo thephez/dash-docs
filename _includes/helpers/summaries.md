@@ -35,7 +35,9 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_getBlockChainInfo="provides information about the current state of the block chain." %}
 {% assign summary_getBlockCount="returns the number of blocks in the local best block chain." %}
 {% assign summary_getBlockHash="returns the header hash of a block at the given height in the local best block chain." %}
+{% assign summary_getBlockHashes= %}
 {% assign summary_getBlockHeader="gets a block header with a particular header hash from the local block database either as a JSON object or as a serialized block header." %}
+{% assign summary_getBlockHeaders= %}
 {% assign summary_getBlockTemplate="gets a block template or proposal for use with mining software." %}
 {% assign summary_getChainTips="returns information about the highest-height block (tip) of each local block chain." %}
 {% assign summary_getConnectionCount="returns the number of connections to other nodes." %}
@@ -59,6 +61,7 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_getRawTransaction="gets a hex-encoded serialized transaction or a JSON object describing the transaction. By default, Bitcoin Core only stores complete transaction data for UTXOs and your own transactions, so the RPC may fail on historic transactions unless you use the non-default `txindex=1` in your Bitcoin Core startup settings." %}
 {% assign summary_getReceivedByAccount="returns the total amount received by addresses in a particular account from transactions with the specified number of confirmations.  It does not count coinbase transactions." %}
 {% assign summary_getReceivedByAddress="returns the total amount received by the specified address in transactions with the specified number of confirmations. It does not count coinbase transactions." %}
+{% assign summary_getSpentInfo= %}
 {% assign summary_getTransaction="gets detailed information about an in-wallet transaction." %}
 {% assign summary_getTxOut="returns details about a transaction output.  Only unspent transaction outputs (UTXOs) are guaranteed to be available." %}
 {% assign summary_getTxOutProof="returns a hex-encoded proof that one or more specified transactions were included in a block." %}

@@ -118,7 +118,9 @@ http://opensource.org/licenses/MIT.
 [rpc getblockchaininfo]: /en/developer-reference#getblockchaininfo
 [rpc getblockcount]: /en/developer-reference#getblockcount
 [rpc getblockhash]: /en/developer-reference#getblockhash
+[rpc getblockhashes]: /en/developer-reference#getblockhashes
 [rpc getblockheader]: /en/developer-reference#getblockheader
+[rpc getblockheaders]: /en/developer-reference#getblockheaders
 [rpc getblocktemplate]: /en/developer-reference#getblocktemplate
 [rpc getchaintips]: /en/developer-reference#getchaintips
 [rpc getconnectioncount]: /en/developer-reference#getconnectioncount
@@ -142,6 +144,7 @@ http://opensource.org/licenses/MIT.
 [rpc getrawtransaction]: /en/developer-reference#getrawtransaction
 [rpc getreceivedbyaccount]: /en/developer-reference#getreceivedbyaccount
 [rpc getreceivedbyaddress]: /en/developer-reference#getreceivedbyaddress
+[rpc getspentinfo]: /en/developer-reference#getspentinfo
 [rpc gettransaction]: /en/developer-reference#gettransaction
 [rpc gettxout]: /en/developer-reference#gettxout
 [rpc gettxoutproof]: /en/developer-reference#gettxoutproof
@@ -476,8 +479,8 @@ http://opensource.org/licenses/MIT.
 [netcat]: https://en.wikipedia.org/wiki/Netcat
 [nop opcodes]: https://en.bitcoin.it/wiki/Script#Reserved_words
 [offline transactions]: http://bitcoin.stackexchange.com/a/34122/21052
-[open a pull request]: https://github.com/bitcoin-dot-org/bitcoin.org#working-with-github
-[open an issue]: https://github.com/bitcoin-dot-org/bitcoin.org/issues/new
+[open a pull request]: https://github.com/thephez/dash.org#working-with-github
+[open an issue]: https://github.com/thephez/dash.org/issues/new
 [Payment Request Generator]: https://github.com/gavinandresen/paymentrequest/blob/master/php/demo_website/createpaymentrequest.php
 [Piotr Piasecki's testnet faucet]: https://tpfaucet.appspot.com/
 [prime symbol]: https://en.wikipedia.org/wiki/Prime_%28symbol%29

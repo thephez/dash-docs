@@ -91,7 +91,7 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 * [GetDifficulty][rpc getdifficulty]: {{summary_getDifficultly}}
 * [GetMemPoolInfo][rpc getmempoolinfo]: {{summary_getMemPoolInfo}} {{UPDATED0_12_0}}
 * [GetRawMemPool][rpc getrawmempool]: {{summary_getRawMemPool}} {{UPDATED0_13_0}}
-    * [GetSpentInfo][rpc getspentifo]: {{summary_getSpentInfo}}
+    * [GetSpentInfo][rpc getspentinfo]: {{summary_getSpentInfo}}
 * [GetTxOut][rpc gettxout]: {{summary_getTxOut}}
 * [GetTxOutProof][rpc gettxoutproof]: {{summary_getTxOutProof}} {{NEW0_11_0}}
 * [GetTxOutSetInfo][rpc gettxoutsetinfo]: {{summary_getTxOutSetInfo}}

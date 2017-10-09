@@ -305,8 +305,12 @@ CVE-2012-2459:
 '`getblockcount` RPC': rpc getblockcount
 '`getblockhash`': rpc getblockhash
 '`getblockhash` RPC': rpc getblockhash
+'`getblockhashes`': rpc getblockhashes
+'`getblockhashes` RPC': rpc getblockhashes
 '`getblockheader`': rpc getblockheader
 '`getblockheader` RPC': rpc getblockheader
+'`getblockheaders`': rpc getblockheaders
+'`getblockheaders` RPC': rpc getblockheaders
 '`getblocktemplate`': rpc getblocktemplate
 '`getblocktemplate` RPC': rpc getblocktemplate
 '`getchaintips`': rpc getchaintips
@@ -353,6 +357,8 @@ CVE-2012-2459:
 '`getreceivedbyaccount` RPC': rpc getreceivedbyaccount
 '`getreceivedbyaddress`': rpc getreceivedbyaddress
 '`getreceivedbyaddress` RPC': rpc getreceivedbyaddress
+'`getspentinfo`': rpc getspentinfo
+'`getspentinfo` RPC': rpc getspentinfo
 '`gettransaction`': rpc gettransaction
 '`gettransaction` RPC': rpc gettransaction
 '`gettxout`': rpc gettxout

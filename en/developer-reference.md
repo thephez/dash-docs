@@ -138,7 +138,11 @@ untrusted source.
 
 {% include devdoc/dash-core/rpcs/rpcs/getblockhash.md %}
 
+{% include devdoc/dash-core/rpcs/rpcs/getblockhashes.md %}
+
 {% include devdoc/dash-core/rpcs/rpcs/getblockheader.md %}
+
+{% include devdoc/dash-core/rpcs/rpcs/getblockheaders.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/getblocktemplate.md %}
 
@@ -185,6 +189,8 @@ untrusted source.
 {% include devdoc/dash-core/rpcs/rpcs/getreceivedbyaccount.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/getreceivedbyaddress.md %}
+
+{% include devdoc/dash-core/rpcs/rpcs/getspentinfo.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/gettransaction.md %}
 
