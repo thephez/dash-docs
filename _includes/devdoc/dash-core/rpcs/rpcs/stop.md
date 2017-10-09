@@ -7,7 +7,7 @@ http://opensource.org/licenses/MIT.
 ##### Stop
 {% include helpers/subhead-links.md %}
 
-{% assign summary_stop="safely shuts down the Bitcoin Core server." %}
+{% assign summary_stop="safely shuts down the Dash Core server." %}
 
 {% autocrossref %}
 
@@ -21,20 +21,20 @@ The `stop` RPC {{summary_stop}}
 - n: "`result`"
   t: "string"
   p: "Required<br>(exactly 1)"
-  d: "The string \"Bitcoin server stopping\""
+  d: "The string \"Dash Core server stopping\""
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.10.0*
+*Example from Dash Core 0.12.2*
 
 {% highlight bash %}
-bitcoin-cli -testnet stop
+dash-cli -testnet stop
 {% endhighlight %}
 
 Result:
 
 {% highlight text %}
-Bitcoin server stopping
+Dash Core server stopping
 {% endhighlight %}
 
 *See also: none*

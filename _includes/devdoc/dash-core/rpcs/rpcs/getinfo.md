@@ -13,7 +13,7 @@ http://opensource.org/licenses/MIT.
 
 The `getinfo` RPC {{summary_getInfo}}
 
-{{WARNING}} `getinfo` will be removed in a later version of Bitcoin
+{{WARNING}} `getinfo` will be removed in a later version of Dash
 Core.  Use the RPCs listed in the See Also subsection below instead.
 
 *Parameters: none*
@@ -29,7 +29,7 @@ Core.  Use the RPCs listed in the See Also subsection below instead.
 - n: "→<br>`version`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
-  d: "This node's version of Bitcoin Core in its internal integer format.  For example, Bitcoin Core 0.9.2 has the integer version number 90200"
+  d: "This node's version of Bitcoin Core in its internal integer format.  For example, Dash Core 0.12.2 has the integer version number 120200"
 
 - n: "→<br>`protocolversion`"
   t: "number (int)"
@@ -42,9 +42,14 @@ Core.  Use the RPCs listed in the See Also subsection below instead.
   d: "The version number of the wallet.  Only returned if wallet support is enabled"
 
 - n: "→<br>`balance`"
-  t: "number (bitcoins)"
+  t: "number (duffs)"
   p: "Optional<br>(0 or 1)"
-  d: "The balance of the wallet in bitcoins.  Only returned if wallet support is enabled"
+  d: "The total balance of the wallet in duffs.  Only returned if wallet support is enabled"
+
+- n: "→<br>`privatesend_balance`"
+  t: "number (duffs)"
+  p: "Optional<br>(0 or 1)"
+  d: "The PrivateSend balance of the wallet in duffs.  Only returned if wallet support is enabled  (Added in Dash Core 0.11.0)"
 
 - n: "→<br>`blocks`"
   t: "number (int)"
@@ -86,20 +91,20 @@ Core.  Use the RPCs listed in the See Also subsection below instead.
   p: "Optional<br>(0 or 1)"
   d: "The number of keys in the wallet keypool.  Only returned if wallet support is enabled"
 
-- n: "→<br>`paytxfee`"
-  t: "number (bitcoins)"
-  p: "Optional<br>(0 or 1)"
-  d: "The minimum fee to pay per kilobyte of transaction; may be `0`.  Only returned if wallet suuport is enabled"
-
-- n: "→<br>`relayfee`"
-  t: "number (bitcoins)"
-  p: "Required<br>(exactly 1)"
-  d: "The minimum fee a low-priority transaction must pay in order for this node to accept it into its memory pool"
-
 - n: "→<br>`unlocked_until`"
   t: "number (int)"
   p: "Optional<br>(0 or 1)"
   d: "The Unix epoch time when the wallet will automatically re-lock.  Only displayed if wallet encryption is enabled.  Set to `0` if wallet is currently locked"
+
+- n: "→<br>`paytxfee`"
+  t: "number (duffs)"
+  p: "Optional<br>(0 or 1)"
+  d: "The minimum fee to pay per kilobyte of transaction; may be `0`.  Only returned if wallet support is enabled"
+
+- n: "→<br>`relayfee`"
+  t: "number (duffs)"
+  p: "Required<br>(exactly 1)"
+  d: "The minimum fee a low-priority transaction must pay in order for this node to accept it into its memory pool"
 
 - n: "→<br>`errors`"
   t: "string"
@@ -108,31 +113,33 @@ Core.  Use the RPCs listed in the See Also subsection below instead.
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.10.0 with wallet support enabled*
+*Example from Dash Core 0.12.2 with wallet support enabled*
 
 {% highlight bash %}
-bitcoin-cli -testnet getinfo
+dash-cli -testnet getinfo
 {% endhighlight %}
 
 Result:
 
 {% highlight json %}
 {
-    "version" : 100000,
-    "protocolversion" : 70002,
-    "walletversion" : 60000,
-    "balance" : 1.27007770,
-    "blocks" : 315281,
-    "timeoffset" : 0,
-    "connections" : 9,
-    "proxy" : "",
-    "difficulty" : 1.00000000,
-    "testnet" : true,
-    "keypoololdest" : 1418924649,
-    "keypoolsize" : 101,
-    "paytxfee" : 0.00000000,
-    "relayfee" : 0.00001000,
-    "errors" : ""
+  "version": 120200,
+  "protocolversion": 70208,
+  "walletversion": 61000,
+  "balance": 0.00000000,
+  "privatesend_balance": 0.00000000,
+  "blocks": 0,
+  "timeoffset": 0,
+  "connections": 0,
+  "proxy": "",
+  "difficulty": 0.000244140625,
+  "testnet": true,
+  "keypoololdest": 1507579068,
+  "keypoolsize": 617,
+  "unlocked_until": 0,
+  "paytxfee": 0.00000000,
+  "relayfee": 0.00010000,
+  "errors": ""
 }
 {% endhighlight %}
 
