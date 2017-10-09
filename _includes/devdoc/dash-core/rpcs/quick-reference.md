@@ -20,7 +20,7 @@ Use v0.n.n in abbreviation title to prevent autocrossrefing.
 {% assign DASH_NOT_IMPLEMENTED='**<abbr title="Not Implemented in Dash">Not Implemented</abbr>**' %}
 
 <!-- Dash Core 0.12.1.0 Feb 2017 -->
-{% assign DASH_NEW0_12_1='*<abbr title="New in Dash Core v0.12.1">New in Dash Core 0.12.0</abbr>*' %}
+{% assign DASH_NEW0_12_1='*<abbr title="New in Dash Core v0.12.1">New in Dash Core 0.12.1</abbr>*' %}
 {% assign DASH_UPDATED0_12_1='**<abbr title="Updated in Dash Core v0.12.1">Updated in Dash Core 0.12.1</abbr>**' %}
 
 <!-- Deprecated -->
@@ -84,9 +84,9 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 * [GetBlockChainInfo][rpc getblockchaininfo]: {{summary_getBlockChainInfo}} {{UPDATED0_12_1}}
 * [GetBlockCount][rpc getblockcount]: {{summary_getBlockCount}}
 * [GetBlockHash][rpc getblockhash]: {{summary_getBlockHash}}
-    * [GetBlockHashes][rpc getblockhashes]: {{summary_getBlockHashes}}
+* [GetBlockHashes][rpc getblockhashes]: {{summary_getBlockHashes}} {{DASH_NEW0_12_1}}
 * [GetBlockHeader][rpc getblockheader]: {{summary_getBlockHeader}} {{NEW0_12_0}}
-    * [GetBlockHeaders][rpc getblockheaders]: {{summary_getBlockHeaders}}
+* [GetBlockHeaders][rpc getblockheaders]: {{summary_getBlockHeaders}} {{DASH_NEW0_12_1}}
 * [GetChainTips][rpc getchaintips]: {{summary_getChainTips}} {{DASH_UPDATED0_12_1}}
 * [GetDifficulty][rpc getdifficulty]: {{summary_getDifficultly}}
 * [GetMemPoolInfo][rpc getmempoolinfo]: {{summary_getMemPoolInfo}} {{UPDATED0_12_0}}

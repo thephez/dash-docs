@@ -35,9 +35,9 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_getBlockChainInfo="provides information about the current state of the block chain." %}
 {% assign summary_getBlockCount="returns the number of blocks in the local best block chain." %}
 {% assign summary_getBlockHash="returns the header hash of a block at the given height in the local best block chain." %}
-{% assign summary_getBlockHashes= %}
+{% assign summary_getBlockHashes="returns array of hashes of blocks within the timestamp range provided (requires `timestampindex` to be enabled)." %}
 {% assign summary_getBlockHeader="gets a block header with a particular header hash from the local block database either as a JSON object or as a serialized block header." %}
-{% assign summary_getBlockHeaders= %}
+{% assign summary_getBlockHeaders="returns an array of items with information about the requested number of blockheaders starting from the requested hash." %}
 {% assign summary_getBlockTemplate="gets a block template or proposal for use with mining software." %}
 {% assign summary_getChainTips="returns information about the highest-height block (tip) of each local block chain." %}
 {% assign summary_getConnectionCount="returns the number of connections to other nodes." %}

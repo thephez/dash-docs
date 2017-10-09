@@ -78,6 +78,11 @@ The `getblockheader` RPC {{summary_getBlockHeader}}
   p: "Required<br>(exactly 1)"
   d: "The merkle root for this block, encoded as hex in RPC byte order"
 
+- n: "→<br>`time`"
+  t: "number (int)"
+  p: "Required<br>(exactly 1)"
+  d: "The time of the block"  
+
 - n: "→<br>`mediantime`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
@@ -178,6 +183,8 @@ Result:
 
 * [GetBlock][rpc getblock]: {{summary_getBlock}}
 * [GetBlockHash][rpc getblockhash]: {{summary_getBlockHash}}
+* [GetBlockHashes][rpc getblockhashes]: {{summary_getBlockHashes}}
+* [GetBlockHeaders][rpc getblockheaders]: {{summary_getBlockHeaders}}
 * [GetBestBlockHash][rpc getbestblockhash]: {{summary_getBestBlockHash}}
 
 {% endautocrossref %}

@@ -7,9 +7,11 @@ http://opensource.org/licenses/MIT.
 ##### GetBlockHashes
 {% include helpers/subhead-links.md %}
 
-{% assign summary_getBlockHashes="returns array of hashes of blocks within the timestamp range provided." %}
+{% assign summary_getBlockHashes="returns array of hashes of blocks within the timestamp range provided (requires `timestampindex` to be enabled)." %}
 
 {% autocrossref %}
+
+*Added in Dash Core 0.12.1*
 
 The `getblockhashes` RPC {{summary_getBlockHashes}}
 
