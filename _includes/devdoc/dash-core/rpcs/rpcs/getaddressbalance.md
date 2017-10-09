@@ -9,7 +9,7 @@ http://opensource.org/licenses/MIT.
 
 {% autocrossref %}
 
-{% assign summary_getAddressBalance="returns the balance for address(es) (requires addressindex to be enabled)." %}
+{% assign summary_getAddressBalance="returns the balance for address(es) (requires `addressindex` to be enabled)." %}
 
 *Requires wallet support.*
 

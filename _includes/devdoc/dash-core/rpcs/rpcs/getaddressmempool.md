@@ -9,7 +9,7 @@ http://opensource.org/licenses/MIT.
 
 {% autocrossref %}
 
-{% assign summary_getAddressMempool="returns all mempool deltas for an address (requires addressindex to be enabled)." %}
+{% assign summary_getAddressMempool="returns all mempool deltas for an address (requires `addressindex` to be enabled)." %}
 
 *Requires wallet support.*
 

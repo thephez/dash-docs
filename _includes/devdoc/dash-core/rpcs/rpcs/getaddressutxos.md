@@ -9,7 +9,7 @@ http://opensource.org/licenses/MIT.
 
 {% autocrossref %}
 
-{% assign summary_getAddressUtxos="returns all unspent outputs for an address (requires addressindex to be enabled)" %}
+{% assign summary_getAddressUtxos="returns all unspent outputs for an address (requires `addressindex` to be enabled)" %}
 
 *Requires wallet support.*
 

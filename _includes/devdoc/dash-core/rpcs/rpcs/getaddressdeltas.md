@@ -9,7 +9,7 @@ http://opensource.org/licenses/MIT.
 
 {% autocrossref %}
 
-{% assign summary_getAddressDeltas="returns all changes for an address (requires addressindex to be enabled)." %}
+{% assign summary_getAddressDeltas="returns all changes for an address (requires `addressindex` to be enabled)." %}
 
 *Requires wallet support.*
 
