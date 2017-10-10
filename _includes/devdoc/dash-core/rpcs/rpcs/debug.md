@@ -23,6 +23,8 @@ The `debug` RPC {{summary_debug}}
 
 {% enditemplate %}
 
+*Example from Dash Core 0.12.2*
+
 {% highlight bash %}
 dash-cli -testnet debug "net,mempool"
 {% endhighlight %}

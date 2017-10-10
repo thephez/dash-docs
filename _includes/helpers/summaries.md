@@ -44,6 +44,7 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_getConnectionCount="returns the number of connections to other nodes." %}
 {% assign summary_getDifficultly="returns the proof-of-work difficulty as a multiple of the minimum difficulty." %}
 {% assign summary_getGenerate="was removed in Bitcoin Core 0.13.0." %}
+{% assign summary_getGovernanceInfo="returns an object containing governance parameters." %}
 {% assign summary_getHashesPerSec="was removed in Bitcoin Core 0.11.0." %}
 {% assign summary_getInfo="prints various information about the node and the network." %}
 {% assign summary_getMemPoolAncestors="returns all in-mempool ancestors for a transaction in the mempool." %}
@@ -57,12 +58,14 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_getNetworkInfo="returns information about the node's connection to the network." %}
 {% assign summary_getNewAddress="returns a new Bitcoin address for receiving payments. If an account is specified, payments received with the address will be credited to that account." %}
 {% assign summary_getPeerInfo="returns data about each connected network node." %}
+{% assign summary_getPoolInfo="returns an object containing mixing pool related information." %}
 {% assign summary_getRawChangeAddress="returns a new Bitcoin address for receiving change. This is for use with raw transactions, not normal use." %}
 {% assign summary_getRawMemPool="returns all transaction identifiers (TXIDs) in the memory pool as a JSON array, or detailed information about each transaction in the memory pool as a JSON object." %}
 {% assign summary_getRawTransaction="gets a hex-encoded serialized transaction or a JSON object describing the transaction. By default, Bitcoin Core only stores complete transaction data for UTXOs and your own transactions, so the RPC may fail on historic transactions unless you use the non-default `txindex=1` in your Bitcoin Core startup settings." %}
 {% assign summary_getReceivedByAccount="returns the total amount received by addresses in a particular account from transactions with the specified number of confirmations.  It does not count coinbase transactions." %}
 {% assign summary_getReceivedByAddress="returns the total amount received by the specified address in transactions with the specified number of confirmations. It does not count coinbase transactions." %}
 {% assign summary_getSpentInfo="returns the txid and index where an output is spent (requires `spentindex` to be enabled)." %}
+{% assign summary_getSuperblockBudget="returns the absolute maximum sum of superblock payments allowed." %}
 {% assign summary_getTransaction="gets detailed information about an in-wallet transaction." %}
 {% assign summary_getTxOut="returns details about a transaction output.  Only unspent transaction outputs (UTXOs) are guaranteed to be available." %}
 {% assign summary_getTxOutProof="returns a hex-encoded proof that one or more specified transactions were included in a block." %}

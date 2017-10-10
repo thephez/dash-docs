@@ -7,21 +7,45 @@ http://opensource.org/licenses/MIT.
 ##### GetSuperblockBudget
 {% include helpers/subhead-links.md %}
 
-{% assign summary_getSuperblockBudget="" %}
+{% assign summary_getSuperblockBudget="returns the absolute maximum sum of superblock payments allowed." %}
 
 {% autocrossref %}
 
 The `getsuperblockbudget` RPC {{summary_getSuperblockBudget}}
 
+*Parameter #1---block index*
+
+{% itemplate ntpd1 %}
+- n: "index"
+  t: "number (int)"
+  p: "Required<br>(exactly 1)"
+  d: "The superblock index"
+
+{% enditemplate %}
+
+*Result---maximum sum of superblock payments*
+
+{% itemplate ntpd1 %}
+- n: "`result`"
+  t: "number (int)"
+  p: "Required<br>(exactly 1)"
+  d: "The absolute maximum sum of superblock payments allowed, in DASH"
+
+{% enditemplate %}
+
+*Example from Dash Core 0.12.2*
+
 {% highlight bash %}
-dash-cli -testnet getsuperblockbudget
+dash-cli -testnet getsuperblockbudget 7392
 {% endhighlight %}
 
 Result:
-{% highlight json %}
-	*INSERT RESULTS HERE*
+{% highlight text %}
+367.20
 {% endhighlight %}
 
 *See also:*
+
+* [GetGovernanceInfo][rpc getgovernanceinfo]: {{summary_getGovernanceInfo}}
 
 {% endautocrossref %}
