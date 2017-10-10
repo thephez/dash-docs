@@ -131,17 +131,17 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 
 {% autocrossref %}
 
-    * [GetGovernanceInfo][rpc getgovernanceinfo]: {{summary_getGovernanceInfo}}
-    * [GetPoolInfo][rpc getpoolinfo]: {{summary_getPoolInfo}}
-    * [GetSuperblockBudget][rpc getsuperblockbudget]: {{summary_getSuperblockBudget}}
-    * [GObject][rpc gobject]: {{summary_gObject}}
-    * [Masternode][rpc masternode]: {{summary_masternode}}
-    * [MasternodeBroadcast][rpc masternodebroadcast]: {{summary_masternodeBroadcast}}
-    * [MasternodeList][rpc masternodelist]: {{summary_masternodeList}}
-    * [MnSync][rpc mnsync]: {{summary_mnSync}}
-    * [PrivateSend][rpc privatesend]: {{summary_privateSend}}
-    * [Spork][rpc spork]: {{summary_spork}}
-    * [VoteRaw][rpc voteraw]: {{summary_voteRaw}}
+* [GetGovernanceInfo][rpc getgovernanceinfo]: {{summary_getGovernanceInfo}}
+* [GetPoolInfo][rpc getpoolinfo]: {{summary_getPoolInfo}}
+* [GetSuperblockBudget][rpc getsuperblockbudget]: {{summary_getSuperblockBudget}}
+* [GObject][rpc gobject]: {{summary_gObject}}
+* [Masternode][rpc masternode]: {{summary_masternode}}
+* [MasternodeBroadcast][rpc masternodebroadcast]: {{summary_masternodeBroadcast}}
+* [MasternodeList][rpc masternodelist]: {{summary_masternodeList}}
+* [MnSync][rpc mnsync]: {{summary_mnSync}}
+* [PrivateSend][rpc privatesend]: {{summary_privateSend}}
+* [Spork][rpc spork]: {{summary_spork-rpc}}
+* [VoteRaw][rpc voteraw]: {{summary_voteRaw}}
 
 {% endautocrossref %}
 

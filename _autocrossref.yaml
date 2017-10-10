@@ -323,6 +323,8 @@ CVE-2012-2459:
 '`getdifficulty` RPC': rpc getdifficulty
 '`getgenerate`': rpc getgenerate
 '`getgenerate` RPC': rpc getgenerate
+'`getgovernanceinfo`': rpc getgovernanceinfo
+'`getgovernanceinfo` RPC': rpc getgovernanceinfo
 '`gethashespersec`': rpc gethashespersec
 '`gethashespersec` RPC': rpc gethashespersec
 '`getinfo`': rpc getinfo
@@ -349,6 +351,8 @@ CVE-2012-2459:
 '`getnewaddress` RPC': rpc getnewaddress
 '`getpeerinfo`': rpc getpeerinfo
 '`getpeerinfo` RPC': rpc getpeerinfo
+'`getpoolinfo`': rpc getpoolinfo
+'`getpoolinfo` RPC': rpc getpoolinfo
 '`getrawchangeaddress`': rpc getrawchangeaddress
 '`getrawchangeaddress` RPC': rpc getrawchangeaddress
 '`getrawmempool`': rpc getrawmempool
@@ -361,6 +365,8 @@ CVE-2012-2459:
 '`getreceivedbyaddress` RPC': rpc getreceivedbyaddress
 '`getspentinfo`': rpc getspentinfo
 '`getspentinfo` RPC': rpc getspentinfo
+'`getsuperblockbudget`': rpc getsuperblockbudget
+'`getsuperblockbudget` RPC': rpc getsuperblockbudget
 '`gettransaction`': rpc gettransaction
 '`gettransaction` RPC': rpc gettransaction
 '`gettxout`': rpc gettxout
@@ -375,6 +381,8 @@ CVE-2012-2459:
 '`getwalletinfo` RPC': rpc getwalletinfo
 '`getwork`': rpc getwork
 '`getwork` RPC': rpc getwork
+'`gobject`': rpc gobject
+'`gobject` RPC': rpc gobject
 '`help`': rpc help
 '`help` RPC': rpc help
 '`importaddress`': rpc importaddress
@@ -409,6 +417,14 @@ CVE-2012-2459:
 '`listunspent` RPC': rpc listunspent
 '`lockunspent`': rpc lockunspent
 '`lockunspent` RPC': rpc lockunspent
+'`masternode`': rpc masternode
+'`masternode` RPC': rpc masternode
+'`masternodebroadcast`': rpc masternodebroadcast
+'`masternodebroadcast` RPC': rpc masternodebroadcast
+'`masternodelist`': rpc masternodelist
+'`masternodelist` RPC': rpc masternodelist
+'`mnsync`': rpc mnsync
+'`mnsync` RPC': rpc mnsync
 '`move`': rpc move
 '`move` RPC': rpc move
 '`ping`': rpc ping
@@ -417,6 +433,8 @@ CVE-2012-2459:
 '`preciousblock` RPC': rpc preciousblock
 '`prioritisetransaction`': rpc prioritisetransaction
 '`prioritisetransaction` RPC': rpc prioritisetransaction
+'`privatesend`': rpc privatesend
+'`privatesend` RPC': rpc privatesend
 '`pruneblockchain`': rpc pruneblockchain
 '`pruneblockchain` RPC': rpc pruneblockchain
 '`removeprunedfunds`': rpc removeprunedfunds
@@ -448,6 +466,8 @@ CVE-2012-2459:
 '`signmessagewithprivkey` RPC': rpc signmessagewithprivkey
 '`signrawtransaction`': rpc signrawtransaction
 '`signrawtransaction` RPC': rpc signrawtransaction
+'`spork`': rpc spork
+'`spork` RPC': rpc spork
 '`stop`': rpc stop
 '`stop` RPC': rpc stop
 '`submitblock`': rpc submitblock
@@ -460,6 +480,8 @@ CVE-2012-2459:
 '`verifymessage` RPC': rpc verifymessage
 '`verifytxoutproof`': rpc verifytxoutproof
 '`verifytxoutproof` RPC': rpc verifytxoutproof
+'`voteraw`': rpc voteraw
+'`voteraw` RPC': rpc voteraw
 '`walletlock`': rpc walletlock
 '`walletlock` RPC': rpc walletlock
 '`walletpassphrase`': rpc walletpassphrase

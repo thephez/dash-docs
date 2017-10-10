@@ -156,6 +156,8 @@ untrusted source.
 
 {% include devdoc/dash-core/rpcs/rpcs/getgenerate.md %}
 
+{% include devdoc/dash-core/rpcs/rpcs/getgovernanceinfo.md %}
+
 {% include devdoc/dash-core/rpcs/rpcs/gethashespersec.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/getinfo.md %}
@@ -182,6 +184,8 @@ untrusted source.
 
 {% include devdoc/dash-core/rpcs/rpcs/getpeerinfo.md %}
 
+{% include devdoc/dash-core/rpcs/rpcs/getpoolinfo.md %}
+
 {% include devdoc/dash-core/rpcs/rpcs/getrawchangeaddress.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/getrawmempool.md %}
@@ -193,6 +197,8 @@ untrusted source.
 {% include devdoc/dash-core/rpcs/rpcs/getreceivedbyaddress.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/getspentinfo.md %}
+
+{% include devdoc/dash-core/rpcs/rpcs/getsuperblockbudget.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/gettransaction.md %}
 
@@ -207,6 +213,8 @@ untrusted source.
 {% include devdoc/dash-core/rpcs/rpcs/getwalletinfo.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/getwork.md %}
+
+{% include devdoc/dash-core/rpcs/rpcs/gobject.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/help.md %}
 
@@ -242,11 +250,21 @@ untrusted source.
 
 {% include devdoc/dash-core/rpcs/rpcs/lockunspent.md %}
 
+{% include devdoc/dash-core/rpcs/rpcs/masternode.md %}
+
+{% include devdoc/dash-core/rpcs/rpcs/masternodebroadcast.md %}
+
+{% include devdoc/dash-core/rpcs/rpcs/masternodelist.md %}
+
+{% include devdoc/dash-core/rpcs/rpcs/mnsync.md %}
+
 {% include devdoc/dash-core/rpcs/rpcs/move.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/ping.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/preciousblock.md %}
+
+{% include devdoc/dash-core/rpcs/rpcs/privatesend.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/prioritisetransaction.md %}
 
@@ -278,6 +296,8 @@ untrusted source.
 
 {% include devdoc/dash-core/rpcs/rpcs/signrawtransaction.md %}
 
+{% include devdoc/dash-core/rpcs/rpcs/spork.md %}
+
 {% include devdoc/dash-core/rpcs/rpcs/stop.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/submitblock.md %}
@@ -289,6 +309,8 @@ untrusted source.
 {% include devdoc/dash-core/rpcs/rpcs/verifymessage.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/verifytxoutproof.md %}
+
+{% include devdoc/dash-core/rpcs/rpcs/voteraw.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/walletlock.md %}
 
