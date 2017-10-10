@@ -8,19 +8,40 @@ PARAMCOUNT=$#
 if [ "$PARAMCOUNT" == 1 ]; then
 	FILENAME=${1,,}.md
 	RPCNAME=$1
+
 	echo "{% comment %}" >> $FILENAME
 	echo "This file is licensed under the MIT License (MIT) available on" >> $FILENAME
 	echo "http://opensource.org/licenses/MIT." >> $FILENAME
 	echo "{% endcomment %}" >> $FILENAME
 	echo '{% assign filename="_includes/devdoc/dash-core/rpcs/rpcs/'$FILENAME'" %}' >> $FILENAME
 	echo "" >> $FILENAME
+
 	echo "##### $RPCNAME" >> $FILENAME
 	echo "{% include helpers/subhead-links.md %}" >> $FILENAME
 	echo "" >> $FILENAME
+	echo "{% assign summary_${RPCNAME,}=\"\""" %}" >> $FILENAME
+	echo "" >> $FILENAME
 	echo "{% autocrossref %}" >> $FILENAME
 	echo "" >> $FILENAME
-	echo "{% assign summary_${RPCNAME,}="" %}" >> $FILENAME
+	echo "The \`${RPCNAME,,}\` RPC {{summary_${RPCNAME,}}}" >> $FILENAME
 	echo "" >> $FILENAME
+
+	# Example
+	echo "{% highlight bash %}" >> $FILENAME
+	echo "dash-cli -testnet ${RPCNAME,,}" >> $FILENAME
+	echo "{% endhighlight %}" >> $FILENAME
+	echo "" >> $FILENAME
+	
+	# Example results
+	echo "Result:" >> $FILENAME
+	echo "{% highlight json %}" >> $FILENAME
+	echo "	*INSERT RESULTS HERE*" >> $FILENAME
+	echo "{% endhighlight %}" >> $FILENAME
+	echo "" >> $FILENAME
+
+	echo "*See also:*" >> $FILENAME
+	echo "" >> $FILENAME
+
 	echo "{% endautocrossref %}" >> $FILENAME
 
 	cat $FILENAME
