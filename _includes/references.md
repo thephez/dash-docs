@@ -92,6 +92,7 @@ http://opensource.org/licenses/MIT.
 [rpc clearbanned]: /en/developer-reference#clearbanned
 [rpc createmultisig]: /en/developer-reference#createmultisig
 [rpc createrawtransaction]: /en/developer-reference#createrawtransaction
+[rpc debug]: /en/developer-reference#debug
 [rpc decoderawtransaction]: /en/developer-reference#decoderawtransaction
 [rpc decodescript]: /en/developer-reference#decodescript
 [rpc disconnectnode]: /en/developer-reference#disconnectnode

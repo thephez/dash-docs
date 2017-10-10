@@ -263,6 +263,7 @@ devsearches:
     - 'ClearBanned': "/en/developer-reference#clearbanned"
     - 'CreateMultisig': "/en/developer-reference#createmultisig"
     - 'CreateRawTransaction': "/en/developer-reference#createrawtransaction"
+    - 'Debug': "/en/developer-reference#debug"
     - 'DecodeRawTransaction': "/en/developer-reference#decoderawtransaction"
     - 'DecodeScript': "/en/developer-reference#decodescript"
     - 'DisconnectNode': "/en/developer-reference#disconnectnode"

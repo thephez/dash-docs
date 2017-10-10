@@ -253,6 +253,8 @@ CVE-2012-2459:
 '`createmultisig` RPC': rpc createmultisig
 '`createrawtransaction`': rpc createrawtransaction
 '`createrawtransaction` RPC': rpc createrawtransaction
+'`debug`': rpc debug
+'`debug` RPC': rpc debug
 '`decoderawtransaction`': rpc decoderawtransaction
 '`decoderawtransaction` RPC': rpc decoderawtransaction
 '`decodescript`': rpc decodescript

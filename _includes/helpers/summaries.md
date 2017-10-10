@@ -9,6 +9,7 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_clearBanned="clears list of banned nodes." %}
 {% assign summary_createMultiSig="creates a P2SH multi-signature address." %}
 {% assign summary_createRawTransaction="creates an unsigned serialized transaction that spends a previous output to a new output with a P2PKH or P2SH address. The transaction is not stored in the wallet or transmitted to the network." %}
+{% assign summary_debug="changes the debug category from the console." %}
 {% assign summary_decodeRawTransaction="decodes a serialized transaction hex string into a JSON object describing the transaction." %}
 {% assign summary_decodeScript="decodes a hex-encoded P2SH redeem script." %}
 {% assign summary_disconnectNode="immediately disconnects from a specified node." %}
@@ -112,7 +113,7 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_signMessage="signs a message with the private key of an address." %}
 {% assign summary_signMessageWithPrivKey="signs a message with a given private key." %}
 {% assign summary_signRawTransaction="signs a transaction in the serialized transaction format using private keys stored in the wallet or provided in the call." %}
-{% assign summary_stop="safely shuts down the Bitcoin Core server." %}
+{% assign summary_stop="safely shuts down the Dash Core server." %}
 {% assign summary_submitBlock="accepts a block, verifies it is a valid addition to the block chain, and broadcasts it to the network. Extra parameters are ignored by Bitcoin Core but may be used by mining pools or other programs." %}
 {% assign summary_validateAddress="returns information about the given Bitcoin address." %}
 {% assign summary_verifyChain="verifies each entry in the local block chain database." %}
