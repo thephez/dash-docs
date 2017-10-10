@@ -23,7 +23,7 @@ The `mnsync` RPC {{summary_mnSync}}
 
 {% enditemplate %}
 
-**Command Mode - Status**
+**Command Mode - `status`**
 
 *Result---the sync status*
 
@@ -77,6 +77,7 @@ The `mnsync` RPC {{summary_mnSync}}
   t: "boolean"
   p: "Required<br>(exactly 1)"
   d: "Masternode list sync fail status"
+
 {% enditemplate %}
 
 Sync Assets
@@ -115,7 +116,7 @@ Result:
 {% endhighlight %}
 
 
-**Command Mode - Next**
+**Command Mode - `next`**
 
 *Result---next command return status*
 
@@ -124,6 +125,7 @@ Result:
   t: "string"
   p: "Required<br>(exactly 1)"
   d: "Command return status"
+
 {% enditemplate %}
 
 *Example from Dash Core 0.12.2*
@@ -138,7 +140,7 @@ sync updated to MASTERNODE_SYNC_LIST
 {% endhighlight %}
 
 
-**Command Mode - Reset**
+**Command Mode - `reset`**
 
 *Result---reset command return status*
 
@@ -147,6 +149,7 @@ sync updated to MASTERNODE_SYNC_LIST
   t: "string"
   p: "Required<br>(exactly 1)"
   d: "Command return status:<br>`success` or `failure`"
+
 {% enditemplate %}
 
 *Example from Dash Core 0.12.2*

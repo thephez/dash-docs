@@ -50,6 +50,21 @@ Mode | Description
 
 {% enditemplate %}
 
+*Result---the masternode list*
+
+{% itemplate ntpd1 %}
+- n: "`result`"
+  t: "object/null"
+  p: "Required<br>(exactly 1)"
+  d: "Information about the masternode sync status"
+
+- n: "→<br>Masternode Info"
+  t: "string"
+  p: "Required<br>(1 or more)"
+  d: "The requested masternode info. Output varies based on selected `mode` and `filter` parameters"
+
+{% enditemplate %}
+
 *Example from Dash Core 0.12.2*
 
 Get unfiltered Masternode list in default mode
