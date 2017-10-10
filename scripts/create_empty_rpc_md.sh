@@ -26,6 +26,17 @@ if [ "$PARAMCOUNT" == 1 ]; then
 	echo "The \`${RPCNAME,,}\` RPC {{summary_${RPCNAME,}}}" >> $FILENAME
 	echo "" >> $FILENAME
 
+	# Parameters
+	echo "*Parameter #1---PARAMETER DESCRIPTION*" >> $FILENAME
+	echo "" >> $FILENAME
+
+	# Results
+	echo "*Result---RESULT DESCRIPTION*" >> $FILENAME
+	echo "" >> $FILENAME
+
+	echo "*Example from Dash Core 0.12.2*" >> $FILENAME
+	echo "" >> $FILENAME
+
 	# Example
 	echo "{% highlight bash %}" >> $FILENAME
 	echo "dash-cli -testnet ${RPCNAME,,}" >> $FILENAME
