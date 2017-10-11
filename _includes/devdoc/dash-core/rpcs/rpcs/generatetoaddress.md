@@ -13,6 +13,9 @@ http://opensource.org/licenses/MIT.
 
 *Added in Bitcoin Core 0.13.0*
 
+**_Not implemented in Dash Core (as of 0.12.2)_**
+
+{% comment %}
 *Requires wallet support.*
 
 The `generatetoaddress` RPC {{summary_generateToAddress}}
@@ -24,7 +27,7 @@ The `generatetoaddress` RPC {{summary_generateToAddress}}
   t: "number (int)"
   p: "Required<br>(exactly 1)"
   d: "The number of blocks to generate.  The RPC call will not return until all blocks have been generated or the maxium number of iterations has been reached"
-  
+
 {% enditemplate %}
 
 *Parameter #2---a transaction identifier (TXID)*
@@ -34,7 +37,7 @@ The `generatetoaddress` RPC {{summary_generateToAddress}}
   t: "string (base58)"
   p: "Required<br>(exactly 1)"
   d: "The address to send the newly generated Bitcoin to"
-  
+
 {% enditemplate %}
 
 *Parameter #3---the maximum number of iterations to try*
@@ -84,5 +87,7 @@ Result:
 * [Generate][rpc generate]: {{summary_generate}}
 * [GetMiningInfo][rpc getmininginfo]: {{summary_getMiningInfo}}
 * [GetBlockTemplate][rpc getblocktemplate]: {{summary_getBlockTemplate}}
+
+{% endcomment %}
 
 {% endautocrossref %}

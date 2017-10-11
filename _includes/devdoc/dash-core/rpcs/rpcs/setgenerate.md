@@ -7,16 +7,58 @@ http://opensource.org/licenses/MIT.
 ##### SetGenerate
 {% include helpers/subhead-links.md %}
 
-{% assign summary_setGenerate="was removed in Bitcoin Core 0.13.0." %}
+{% assign summary_setGenerate="enables or disables hashing to attempt to find the next block." %}
 
 {% autocrossref %}
 
 *Requires wallet support.*
 
-The `setgenerate` RPC {{summary_setGenerate}} If you have an older
-version of Bitcoin Core, use `help setgenerate` RPC to get help. For testing, 
-the generate call can still be used to mine a block, and the `generatetoaddress` RPC 
-call has been added to mine to a specific address. This works with wallet disabled.
+*Removed in Bitcoin Core 0.13.0.*
+
+The `setgenerate` RPC {{summary_setGenerate}}
+
+*Parameter #1---enable/disable generation*
+
+{% itemplate ntpd1 %}
+- n: "`generate`"
+  t: "boolean"
+  p: "Required<br>(exactly 1)"
+  d: "Set to true to turn on generation, false to turn off."
+
+{% enditemplate %}
+
+*Parameter #2---processor limit*
+
+{% itemplate ntpd1 %}
+- n: "`genproclimit`"
+  t: "number (int)"
+  p: "Optional<br>(exactly 1)"
+  d: "Set the processor limit for when generation is on. Can be -1 for unlimited."
+
+{% enditemplate %}
+
+
+*Result---the generated block header hashes*
+
+{% itemplate ntpd1 %}
+- n: "`result`"
+  t: "null"
+  p: "Required<br>(exactly 1)"
+  d: "Always JSON `null`"
+
+{% enditemplate %}
+
+*Example from Dash Core 0.12.2*
+
+Using regtest mode, generate 2 blocks:
+
+{% highlight bash %}
+dash-cli -testnet setgenerate 1
+{% endhighlight %}
+
+Result:
+
+(Success: no result displayed. Process manager shows 100% CPU usage.)
 
 *See also*
 

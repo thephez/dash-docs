@@ -7,31 +7,21 @@ http://opensource.org/licenses/MIT.
 ##### Generate
 {% include helpers/subhead-links.md %}
 
-{% assign summary_generate="nearly instantly generates blocks." %}
+{% assign summary_generate="mines blocks immediately (before the RPC call returns)." %}
 
 {% autocrossref %}
 
-*Requires wallet support.*
+*Requires wallet support. Can only be used on the regtest network.*
 
 The `generate` RPC {{summary_generate}}
 
 *Parameter #1---the number of blocks to generate*
 
 {% itemplate ntpd1 %}
-- n: "Blocks"
+- n: "`numblocks`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
-  d: "The number of blocks to generate.  The RPC call will not return until all blocks have been generated or the maxium number of iterations has been reached"
-  
-{% enditemplate %}
-
-*Parameter #2---the maximum number of iterations to try*
-
-{% itemplate ntpd1 %}
-- n: "Maxtries"
-  t: "number (int)"
-  p: "Optional<br>(0 or 1)"
-  d: "The maximum number of iterations that are tried to create the requested number of blocks. Default is `1000000`"
+  d: "The number of blocks to generate.  The RPC call will not return until all blocks have been generated."
 
 {% enditemplate %}
 
@@ -49,27 +39,29 @@ The `generate` RPC {{summary_generate}}
   d: "The hashes of the headers of the blocks generated in regtest mode, as hex in RPC byte order"
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.13.1*
+*Example from Dash Core 0.12.2*
 
-Using regtest mode (also works in normal mode), generate 2 blocks:
+Using regtest mode, generate 2 blocks:
 
 {% highlight bash %}
-bitcoin-cli -regtest generate 2 500000
+dash-cli -regtest generate 2
 {% endhighlight %}
 
 Result:
 
 {% highlight json %}
 [
-    "36252b5852a5921bdfca8701f936b39edeb1f8c39fffe73b0d8437921401f9af",
-    "5f2956817db1e386759aa5794285977c70596b39ea093b9eab0aa4ba8cd50c06"
+  "55a4c47da8151c0823eec22c41ebc6d690a0288302179625bae9eb6f36808266",
+  "3f07b9aa4e3bcd5518610945c4a6b32699acac71b1762605ff79ba553111fc79"
 ]
 {% endhighlight %}
 
 *See also*
 
 * [GenerateToAddress][rpc generatetoaddress]: {{summary_generateToAddress}}
-* [GetMiningInfo][rpc getmininginfo]: {{summary_getMiningInfo}}
 * [GetBlockTemplate][rpc getblocktemplate]: {{summary_getBlockTemplate}}
+* [GetGenerate][rpc getgenerate]: {{summary_getGenerate}}
+* [GetMiningInfo][rpc getmininginfo]: {{summary_getMiningInfo}}
+* [SetGenerate][rpc setgenerate]: {{summary_setGenerate}}
 
 {% endautocrossref %}

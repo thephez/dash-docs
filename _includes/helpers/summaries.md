@@ -20,6 +20,7 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_estimatePriority="estimates the priority that a transaction needs in order to be included within a certain number of blocks as a free high-priority transaction." %}
 {% assign summary_fundRawTransaction="adds inputs to a transaction until it has enough in value to meet its out value." %}
 {% assign summary_generate="nearly instantly generates blocks." %}
+{% assign summary_generate="mines blocks immediately (before the RPC call returns)." %}
 {% assign summary_generateToAddress="mines blocks immediately to a specified address." %}
 {% assign summary_getAccount="returns the name of the account associated with the given address." %}
 {% assign summary_getAccountAddress="returns the current Bitcoin address for receiving payments to this account. If the account doesn't exist, it creates both the account and a new address for receiving payment.  Once a payment has been received to an address, future calls to this RPC for the same account will return a different address." %}
@@ -43,7 +44,7 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_getChainTips="returns information about the highest-height block (tip) of each local block chain." %}
 {% assign summary_getConnectionCount="returns the number of connections to other nodes." %}
 {% assign summary_getDifficultly="returns the proof-of-work difficulty as a multiple of the minimum difficulty." %}
-{% assign summary_getGenerate="was removed in Bitcoin Core 0.13.0." %}
+{% assign summary_getGenerate="returns if the server is set to generate coins or not." %}
 {% assign summary_getGovernanceInfo="returns an object containing governance parameters." %}
 {% assign summary_getHashesPerSec="was removed in Bitcoin Core 0.11.0." %}
 {% assign summary_getInfo="prints various information about the node and the network." %}
@@ -96,6 +97,7 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_ping-rpc="sends a P2P ping message to all connected nodes to measure ping time. Results are provided by the `getpeerinfo` RPC pingtime and pingwait fields as decimal seconds. The P2P `ping` message is handled in a queue with all other commands, so it measures processing backlog, not just network ping." %}
 {% assign summary_preciousBlock="treats a block as if it were received before others with the same work." %}
 {% assign summary_prioritiseTransaction="adds virtual priority or fee to a transaction, allowing it to be accepted into blocks mined by this node (or miners which use this node) with a lower priority or fee. (It can also remove virtual priority or fee, requiring the transaction have a higher priority or fee to be accepted into a locally-mined block.)" %}
+{% assign summary_privateSend="controls the mixing process." %}
 {% assign summary_pruneBlockChain="prunes the blockchain up to a specified height or timestamp." %}
 {% assign summary_removePrunedFunds="deletes the specified transaction from the wallet. Meant for use with pruned wallets and as a companion to importprunedfunds." %}
 {% assign summary_restGetBlock-noTxDetails="gets a block with a particular header hash from the local block database either as a JSON object or as a serialized block.  The JSON object includes TXIDs for transactions within the block rather than the complete transactions [GET block][rest get block] returns." %}
@@ -112,7 +114,7 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_sendToAddress="spends an amount to a given address." %}
 {% assign summary_setAccount="puts the specified address in the given account." %}
 {% assign summary_setBan="attempts add or remove a IP/Subnet from the banned list." %}
-{% assign summary_setGenerate="was removed in Bitcoin Core 0.13.0." %}
+{% assign summary_setGenerate="enables or disables hashing to attempt to find the next block." %}
 {% assign summary_setNetworkActive="disables/enables all P2P network activity." %}
 {% assign summary_setTxFee="sets the transaction fee per kilobyte paid by transactions created by this wallet." %}
 {% assign summary_signMessage="signs a message with the private key of an address." %}
