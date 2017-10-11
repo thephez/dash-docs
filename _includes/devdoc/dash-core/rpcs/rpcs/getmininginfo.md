@@ -51,7 +51,7 @@ The `getmininginfo` RPC {{summary_getMiningInfo}}
 - n: "→<br>`genproclimit`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
-  d: "*Removed in Bitcoin Core 0.13.0*<br><br>The limit on the number of processors to use for generation.  If generation was enabled since the last time this node was restarted, this is the number used in the second parameter of the `setgenerate` RPC (or the default).  Otherwise, it is `-1`"
+  d: "The processor limit for generation (-1 if no generation - see getgenerate or setgenerate calls).<br><br>*Removed in Bitcoin Core 0.13.0*"
 
 - n: "→<br>`networkhashps`"
   t: "number (int)"
@@ -66,7 +66,7 @@ The `getmininginfo` RPC {{summary_getMiningInfo}}
 - n: "→<br>`testnet`"
   t: "bool"
   p: "Required<br>(exactly 1)"
-  d: "*Removed in Bitcoin Core 0.14.0*<br><br>Set to `true` if this node is running on testnet.  Set to `false` if this node is on mainnet or a regtest"
+  d: "Set to `true` if this node is running on testnet.  Set to `false` if this node is on mainnet or a regtest<br><br>*Removed in Bitcoin Core 0.14.0*"
 
 - n: "→<br>`chain`"
   t: "string"
@@ -76,34 +76,31 @@ The `getmininginfo` RPC {{summary_getMiningInfo}}
 - n: "→<br>`generate`"
   t: "bool"
   p: "Optional<br>(0 or 1)"
-  d: "*Removed in Bitcoin Core 0.13.0*<br><br>Set to `true` if generation is currently enabled; set to `false` if generation is currently disabled.  Only returned if the node has wallet support enabled"
-
-- n: "→<br>`hashespersec`"
-  t: "number (int)"
-  p: "Optional<br>(0 or 1)"
-  d: "*Removed in Bitcoin Core 0.11.0*<br><br>The approximate number of hashes per second this node is generating across all CPUs, if generation is enabled.  Otherwise `0`.  Only returned if the node has wallet support enabled"
+  d: "Set to `true` if generation is currently enabled; set to `false` if generation is currently disabled.  Only returned if the node has wallet support enabled<br><br>*Removed in Bitcoin Core 0.13.0*"
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.14.1*
+*Example from Dash Core 0.12.2*
 
 {% highlight bash %}
-bitcoin-cli getmininginfo
+dash-cli getmininginfo
 {% endhighlight %}
 
 Result:
 
 {% highlight json %}
 {
-    "blocks": 464545,
-    "currentblocksize": 0,
-    "currentblockweight": 0,
-    "currentblocktx": 0,
-    "difficulty": 521974519553.6282,
-    "errors": "",
-    "networkhashps": 4.126888339085874e+18,
-    "pooledtx": 31241,
-    "chain": "main"
+  "blocks": 8036,
+  "currentblocksize": 0,
+  "currentblocktx": 0,
+  "difficulty": 0.8239043524175907,
+  "errors": "",
+  "genproclimit": 1,
+  "networkhashps": 22234635.4469006,
+  "pooledtx": 3,
+  "testnet": true,
+  "chain": "test",
+  "generate": false
 }
 {% endhighlight %}
 

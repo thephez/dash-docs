@@ -39,7 +39,7 @@ The `prioritisetransaction` RPC {{summary_prioritiseTransaction}}
 - n: "Fee"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
-  d: "**Warning:** this value is in satoshis, not bitcoins<br><br>If positive, the virtual fee to add to the actual fee paid by the transaction; if negative, the virtual fee to subtract from the actual fee paid by the transaction.  No change is made to the actual fee paid by the transaction"
+  d: "**Warning:** this value is in duffs, not Dash<br><br>If positive, the virtual fee to add to the actual fee paid by the transaction; if negative, the virtual fee to subtract from the actual fee paid by the transaction.  No change is made to the actual fee paid by the transaction"
 
 {% enditemplate %}
 
@@ -53,11 +53,11 @@ The `prioritisetransaction` RPC {{summary_prioritiseTransaction}}
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.10.0*
+*Example from Dash Core 0.12.2*
 
 {% highlight bash %}
-bitcoin-cli -testnet prioritisetransaction \
-    fe0165147da737e16f5096ab6c1709825217377a95a882023ed089a89af4cff9 \
+dash-cli -testnet prioritisetransaction \
+    f86c74f27fdd9c7e618d69b3606eeae1710b3f02fabede6ae8c88dd7bb756942 \
     1234 456789
 {% endhighlight %}
 

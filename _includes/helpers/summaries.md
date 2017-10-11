@@ -54,7 +54,7 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_getMemoryInfo="returns information about memory usage." %}
 {% assign summary_getMiningInfo="returns various mining-related information." %}
 {% assign summary_getNetTotals="returns information about network traffic, including bytes in, bytes out, and the current time." %}
-{% assign summary_getNetworkHashPS="returns the estimated current or historical network hashes per second based on the last *n* blocks." %}
+{% assign summary_getNetworkHashPS="returns the estimated network hashes per second based on the last n blocks." %}
 {% assign summary_getNetworkInfo="returns information about the node's connection to the network." %}
 {% assign summary_getNewAddress="returns a new Bitcoin address for receiving payments. If an account is specified, payments received with the address will be credited to that account." %}
 {% assign summary_getPeerInfo="returns data about each connected network node." %}

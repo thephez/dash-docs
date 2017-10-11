@@ -18,7 +18,30 @@ information, please see the following resources:
 * [BIP22][]
 * [BIP23][]
 
-*Parameters: none*
+*Parameter #1---a JSON request object*
+
+{% itemplate ntpd1 %}
+- n: "Request"
+  t: "object"
+  p: "Optional<br>(exactly 1)"
+  d: "A JSON request object"
+
+- n: "→<br>`mode`"
+  t: "string"
+  p: "Optional<br>(exactly 1)"
+  d: "This must be set to \"template\" or omitted"
+
+- n: "→<br>`capabilities`"
+  t: "array (string)"
+  p: "Optional<br>(0 or more)"
+  d: "A list of strings"
+
+- n: "→ →<br>Capability"
+  t: "string"
+  p: "Optional<br>(exactly 1)"
+  d: "Client side supported feature, `longpoll`, `coinbasetxn`, `coinbasevalue`, `proposal`, `serverlist`, `workid`"
+
+{% enditemplate %}
 
 *Result---block template*
 
