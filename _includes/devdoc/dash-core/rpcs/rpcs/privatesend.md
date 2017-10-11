@@ -7,21 +7,91 @@ http://opensource.org/licenses/MIT.
 ##### PrivateSend
 {% include helpers/subhead-links.md %}
 
-{% assign summary_privateSend="" %}
+{% assign summary_privateSend="controls the mixing process." %}
 
 {% autocrossref %}
 
 The `privatesend` RPC {{summary_privateSend}}
 
+{% itemplate ntpd1 %}
+- n: "`mode`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "The command mode to use:<br>`start` - Start mixing<br>`stop` - Stop mixing<br>`reset` - Reset mixing"
+
+{% enditemplate %}
+
+**Command Mode - `start`**
+
+*Result---start command return status*
+
+{% itemplate ntpd1 %}
+- n: "`result`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "Command return status"
+
+{% enditemplate %}
+
+*Example from Dash Core 0.12.2*
+
 {% highlight bash %}
-dash-cli -testnet privatesend
+dash-cli -testnet privatesend start
 {% endhighlight %}
 
 Result:
-{% highlight json %}
-	*INSERT RESULTS HERE*
+{% highlight text %}
+Mixing started successfully
 {% endhighlight %}
 
-*See also:*
+
+**Command Mode - `stop`**
+
+*Result---stop command return status*
+
+{% itemplate ntpd1 %}
+- n: "`result`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "Command return status"
+
+{% enditemplate %}
+
+*Example from Dash Core 0.12.2*
+
+{% highlight bash %}
+dash-cli -testnet privatesend stop
+{% endhighlight %}
+
+Result:
+{% highlight text %}
+Mixing was stopped
+{% endhighlight %}
+
+
+**Command Mode - `reset`**
+
+*Result---reset command return status*
+
+{% itemplate ntpd1 %}
+- n: "`result`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "Command return status"
+
+{% enditemplate %}
+
+*Example from Dash Core 0.12.2*
+
+{% highlight bash %}
+dash-cli -testnet privatesend reset
+{% endhighlight %}
+
+Result:
+{% highlight text %}
+Mixing was reset
+{% endhighlight %}
+
+*See also: none*
 
 {% endautocrossref %}

@@ -4,7 +4,7 @@ http://opensource.org/licenses/MIT.
 {% endcomment %}
 {% assign filename="_includes/devdoc/dash-core/api-intro.md" %}
 
-## Bitcoin Core APIs
+## Dash Core APIs
 {% include helpers/subhead-links.md %}
 
 ### Hash Byte Order
