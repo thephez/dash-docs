@@ -19,7 +19,6 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_estimateFee="estimates the transaction fee per kilobyte that needs to be paid for a transaction to be included within a certain number of blocks." %}
 {% assign summary_estimatePriority="estimates the priority that a transaction needs in order to be included within a certain number of blocks as a free high-priority transaction." %}
 {% assign summary_fundRawTransaction="adds inputs to a transaction until it has enough in value to meet its out value." %}
-{% assign summary_generate="nearly instantly generates blocks." %}
 {% assign summary_generate="mines blocks immediately (before the RPC call returns)." %}
 {% assign summary_generateToAddress="mines blocks immediately to a specified address." %}
 {% assign summary_getAccount="returns the name of the account associated with the given address." %}
@@ -43,7 +42,7 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_getBlockTemplate="gets a block template or proposal for use with mining software." %}
 {% assign summary_getChainTips="returns information about the highest-height block (tip) of each local block chain." %}
 {% assign summary_getConnectionCount="returns the number of connections to other nodes." %}
-{% assign summary_getDifficultly="returns the proof-of-work difficulty as a multiple of the minimum difficulty." %}
+{% assign summary_getDifficulty="returns the proof-of-work difficulty as a multiple of the minimum difficulty." %}
 {% assign summary_getGenerate="returns if the server is set to generate coins or not." %}
 {% assign summary_getGovernanceInfo="returns an object containing governance parameters." %}
 {% assign summary_getHashesPerSec="was removed in Bitcoin Core 0.11.0." %}

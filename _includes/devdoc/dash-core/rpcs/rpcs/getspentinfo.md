@@ -2,7 +2,7 @@
 This file is licensed under the MIT License (MIT) available on
 http://opensource.org/licenses/MIT.
 {% endcomment %}
-{% assign filename="_includes/devdoc/dash-core/rpcs/rpcs/getspentinfo.md" %}#
+{% assign filename="_includes/devdoc/dash-core/rpcs/rpcs/getspentinfo.md" %}
 
 ##### GetSpentInfo
 {% include helpers/subhead-links.md %}
@@ -62,16 +62,21 @@ Get the txid and index where an output is spent:
 dash-cli getspentinfo \
   '''
     {
-      "txid": "e0a06b47f0de6f3851a228d5ac377ac38b495adf04298c43e951e679c5b0aa8f", \
+      "txid": "0456aaf51a8df21dd47c2a06ede046a5bf7403bcb95d14d1d71b178c189fb933", \
       "index": 0
     }
 {% endhighlight %}
 
 Result:
-**Example needed**
 
 {% highlight json %}
-
+{
+  "txid": "14e874421350840e9d43965967c5a989e7d41ad361ef37484ee67d01d433ecfa",
+  "index": 1,
+  "height": 7742
+}
 {% endhighlight %}
+
+*See also: none*
 
 {% endautocrossref %}

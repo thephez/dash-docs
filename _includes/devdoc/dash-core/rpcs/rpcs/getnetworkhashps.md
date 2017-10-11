@@ -60,7 +60,7 @@ Result:
 
 *See also*
 
-* [GetDifficulty][rpc getdifficulty]: {{summary_getDifficultly}}
+* [GetDifficulty][rpc getdifficulty]: {{summary_getDifficulty}}
 * [GetBlock][rpc getblock]: {{summary_getBlock}}
 
 {% endautocrossref %}

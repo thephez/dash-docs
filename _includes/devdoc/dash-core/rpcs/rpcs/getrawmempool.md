@@ -137,7 +137,7 @@ The `getrawmempool` RPC {{summary_getRawMemPool}}
 The default (`false`):
 
 {% highlight bash %}
-bitcoin-cli getrawmempool
+dash-cli getrawmempool
 {% endhighlight %}
 
 Result:
@@ -158,18 +158,19 @@ Result:
 
 {% highlight json %}
 {
-  "9dc994e03e387ff2d2709fbe86edede9f3d7aaddea7f75694495e415561b22fe": {
-    "size": 3471,
-    "fee": 0.00080520,
-    "modifiedfee": 0.00080520,
-    "time": 1507217951,
-    "height": 4660,
-    "startingpriority": 553299903846.1538,
-    "currentpriority": 553299903846.1538,
-    "descendantcount": 1,
-    "descendantsize": 3471,
-    "descendantfees": 80520,
+  "286b3ec21e6ce5463fc712c98d86e02353525e09452113836651f3f91e562354": {
+    "size": 225,
+    "fee": 0.00000225,
+    "modifiedfee": 0.00000225,
+    "time": 1507735322,
+    "height": 7940,
+    "startingpriority": 0,
+    "currentpriority": 0,
+    "descendantcount": 4,
+    "descendantsize": 901,
+    "descendantfees": 902,
     "depends": [
+      "2aacf53e0e15d3b4d778837792c7b6bd298edd3c41a0608586bdec41adcfe7c4"
     ]
   }
 }

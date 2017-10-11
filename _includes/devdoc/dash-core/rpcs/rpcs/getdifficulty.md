@@ -7,7 +7,7 @@ http://opensource.org/licenses/MIT.
 ##### GetDifficulty
 {% include helpers/subhead-links.md %}
 
-{% assign summary_getDifficultly="returns the proof-of-work difficulty as a multiple of the minimum difficulty." %}
+{% assign summary_getDifficulty="returns the proof-of-work difficulty as a multiple of the minimum difficulty." %}
 
 {% autocrossref %}
 
