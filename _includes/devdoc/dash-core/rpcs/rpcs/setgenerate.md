@@ -37,7 +37,6 @@ The `setgenerate` RPC {{summary_setGenerate}}
 
 {% enditemplate %}
 
-
 *Result---the generated block header hashes*
 
 {% itemplate ntpd1 %}
@@ -50,7 +49,7 @@ The `setgenerate` RPC {{summary_setGenerate}}
 
 *Example from Dash Core 0.12.2*
 
-Using regtest mode, generate 2 blocks:
+Enable generation using 1 processor:
 
 {% highlight bash %}
 dash-cli -testnet setgenerate 1

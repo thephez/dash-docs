@@ -99,32 +99,32 @@ information, please see the following resources:
 - n: "→<br>`transactions`"
   t: "array (objects)"
   p: "Optional<br>(0 or more)"
-  d: "The contents of non-coinbase transactions that should be included in the next block"
+  d: "Non-coinbase transactions to be included in the next block"
 
 - n: "→ →<br>Transaction"
   t: "object"
   p: "Optional (0 or more)"
-  d: "Object containing a non-coinbase transaction to include in the next block"
+  d: "Non-coinbase transaction"
 
 - n: "→ → →<br>`data`"
   t: "string (hex)"
   p: "Optional (0 or more)"
-  d: "The transaction data encoded in hexadecimal (byte-for-byte)"
+  d: "Transaction data encoded in hex (byte-for-byte)"
 
 - n: "→ → →<br>`hash`"
   t: "string (hex)"
   p: "Optional (0 or more)"
-  d: "The hash/id encoded in little-endian hexadecimal"
+  d: "The hash/id encoded in little-endian hex"
 
 - n: "→ → →<br>`depends`"
   t: "array (numbers)"
   p: "Required<br>(0 or more)"
-  d: "An array holding TXIDs of unconfirmed transactions this transaction depends upon (parent transactions)."
+  d: "An array holding TXIDs of unconfirmed transactions this TX depends upon (parent transactions)."
 
 - n: "→ → → →<br>Transaction number"
   t: "number"
   p: "Optional<br>(1 or more)"
-  d: "The transactions before this one (by 1-based index in 'transactions' list) that must be present in the final block if this one is"
+  d: "Transactions before this one (by 1-based index in `transactions` list) that must be present in the final block if this one is"
 
 - n: "→ → →<br>`fee`"
   t: "number"
@@ -134,7 +134,7 @@ information, please see the following resources:
 - n: "→ → →<br>`sigops`"
   t: "number"
   p: "Required<br>(exactly 1)"
-  d: "The total number of SigOps. If key not present, the count is unknown and clients MUST NOT assume there aren't any"
+  d: "Total SigOps. If not present, the count is unknown (clients MUST NOT assume there aren't any)"
 
 - n: "→ → →<br>`required`"
   t: "boolean"
