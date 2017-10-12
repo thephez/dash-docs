@@ -35,13 +35,13 @@ The `setnetworkactive` RPC {{summary_setNetworkActive}}
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.14.1*
+*Example from Dash Core 0.12.2*
 
 {% highlight bash %}
-bitcoin-cli setnetworkactive true
+dash-cli setnetworkactive true
 {% endhighlight %}
 
-Result (no output from `bitcoin-cli` because result is set to `null`).
+Result (no output from `dash-cli` because result is set to `null`).
 
 *See also*
 
