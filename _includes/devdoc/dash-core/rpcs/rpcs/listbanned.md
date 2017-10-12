@@ -25,11 +25,11 @@ The `listbanned` RPC {{summary_listBanned}}
   p: "Required<br>(exactly 1)"
   d: "An array of objects each describing one entry. If there are no entries in the ban list, the array will be empty"
 
-- n: "→<br>Node"
+- n: "→<br>Node<!--noref-->"
   t: "object"
   p: "Optional<br>(0 or more)"
   d: "A ban list entry"
-  
+
 - n: "→ →<br>`address`"
   t: "string"
   p: "Required<br>(exactly 1)"
@@ -44,7 +44,7 @@ The `listbanned` RPC {{summary_listBanned}}
   t: "number<br>(int)"
   p: "Required<br>(exactly 1)"
   d: "The Unix epoch time until the IP/Subnet is banned"
- 
+
 - n: "→ →<br>`ban_reason`"
   t: "string"
   p: "Required<br>(exactly 1)"
@@ -52,29 +52,28 @@ The `listbanned` RPC {{summary_listBanned}}
 
 {% enditemplate %}
 
-*Examples from Bitcoin Core 0.12.1*
+*Examples from Dash Core 0.12.2*
 
 The default (`false`):
 
 {% highlight bash %}
-bitcoin-cli listbanned
+dash-cli listbanned
 {% endhighlight %}
 
 Result:
 
 {% highlight json %}
-
 [
   {
-    "address": "83.84.25.82/32",
-    "banned_until": 1487269503,
-    "ban_created": 1478629503,
+    "address": "192.0.2.201/32",
+    "banned_until": 1507906175,
+    "ban_created": 1507819775,
     "ban_reason": "node misbehaving"
   },
   {
-    "address": "111.111.0.111/32",
-    "banned_until": 1487791655,
-    "ban_created": 1479151655,
+    "address": "192.0.2.101/32",
+    "banned_until": 1507906199,
+    "ban_created": 1507819799,
     "ban_reason": "manually added"
   }
 ]

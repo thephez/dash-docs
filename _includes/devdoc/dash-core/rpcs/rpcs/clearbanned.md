@@ -27,15 +27,15 @@ The `clearbanned` RPC {{summary_clearBanned}}
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.13.1*
+*Example from Dash Core 0.12.2*
 
 Clears the ban list.
 
 {% highlight bash %}
-bitcoin-cli clearbanned
+dash-cli clearbanned
 {% endhighlight %}
 
-Result (no output from `bitcoin-cli` because result is set to `null`).
+Result (no output from `dash-cli` because result is set to `null`).
 
 *See also*
 

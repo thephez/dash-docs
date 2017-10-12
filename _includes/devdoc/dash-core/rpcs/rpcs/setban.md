@@ -31,7 +31,7 @@ The `setban` RPC {{summary_setBan}}
 - n: "Command"
   t: "string"
   p: "Required<br>(exactly 1)"
-  d: "What to do with the IP/Subnet address above.  Options are:<br>• `add` to add a node to the addnode list<br>• `remove` to remove a node from the list.  If currently connected, this will disconnect immediately"
+  d: "What to do with the IP/Subnet address<!--noref--> above.  Options are:<br>• `add` to add a node to the addnode list<br>• `remove` to remove a node from the list.  If currently connected, this will disconnect immediately"
 
 {% enditemplate %}
 
@@ -65,15 +65,15 @@ The `setban` RPC {{summary_setBan}}
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.12.1*
+*Example from Dash Core 0.12.2*
 
 Ban the following node.
 
 {% highlight bash %}
-bitcoin-cli -testnet setban 192.0.2.113:18333 add 2592000
+dash-cli -testnet setban 192.0.2.113 add 2592000
 {% endhighlight %}
 
-Result (no output from `bitcoin-cli` because result is set to `null`).
+Result (no output from `dash-cli` because result is set to `null`).
 
 *See also*
 

@@ -26,7 +26,7 @@ The `getnetworkinfo` RPC {{summary_getNetworkInfo}}
 - n: "→<br>`version`"
   t: "number"
   p: "Required<br>(exactly 1)"
-  d: "This node's version of Bitcoin Core in its internal integer format.  For example, Bitcoin Core 0.9.2 has the integer version number 90200"
+  d: "This node's version of Dash Core in its internal integer format.  For example, Dash Core 0.12.2 has the integer version number 120200"
 
 - n: "→<br>`subversion`"
   t: "string"
@@ -37,12 +37,12 @@ The `getnetworkinfo` RPC {{summary_getNetworkInfo}}
   t: "number (int)"
   p: "Required<br>(exactly 1)"
   d: "The protocol version number used by this node.  See the [protocol versions section][section protocol versions] for more information"
-  
+
 - n: "→<br>`localservices`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
   d: "The services supported by this node as advertised in its `version` message"
-  
+
 - n: "→<br>`localrelay`"
   t: "bool"
   p: "Required<br>(exactly 1)"
@@ -63,55 +63,55 @@ The `getnetworkinfo` RPC {{summary_getNetworkInfo}}
   p: "Required<br>(exactly 1)"
   d: "An array with three objects: one describing the IPv4 connection, one describing the IPv6 connection, and one describing the Tor hidden service (onion) connection"
 
-- n: "→ →<br>Network"
+- n: "→ →<br>Network<!--noref-->"
   t: "object"
   p: "Optional<br>(0 to 3)"
-  d: "An object describing a network.  If the network is unroutable, it will not be returned"
+  d: "An object describing a network<!--noref-->.  If the network<!--noref--> is unroutable, it will not be returned"
 
 - n: "→ → →<br>`name`"
   t: "string"
   p: "Required<br>(exactly 1)"
-  d: "The name of the network.  Either `ipv4`, `ipv6`, or `onion`"
+  d: "The name of the network<!--noref-->.  Either `ipv4`, `ipv6`, or `onion`"
 
 - n: "→ → →<br>`limited`"
   t: "bool"
   p: "Required<br>(exactly 1)"
-  d: "Set to `true` if only connections to this network are allowed according to the `-onlynet` Bitcoin Core command-line/configuration-file parameter.  Otherwise set to `false`"
+  d: "Set to `true` if only connections to this network<!--noref--> are allowed according to the `-onlynet` Dash Core command-line/configuration-file parameter.  Otherwise set to `false`"
 
 - n: "→ → →<br>`reachable`"
   t: "bool"
   p: "Required<br>(exactly 1)"
-  d: "Set to `true` if connections can be made to or from this network.  Otherwise set to `false`"
+  d: "Set to `true` if connections can be made to or from this network<!--noref-->.  Otherwise set to `false`"
 
 - n: "→ → →<br>`proxy`"
   t: "string"
   p: "Required<br>(exactly 1)"
-  d: "The hostname and port of any proxy being used for this network.  If a proxy is not in use, an empty string"
-  
+  d: "The hostname and port of any proxy being used for this network<!--noref-->.  If a proxy is not in use, an empty string"
+
 - n: "→ → →<br>`proxy_randomize_credentials`"
   t: "bool"
   p: "Required<br>(exactly 1)"
   d: "*Added in Bitcoin Core 0.11.0*<br><br>Set to `true` if randomized credentials are set for this proxy. Otherwise set to `false`"
-  
+
 - n: "→<br>`relayfee`"
-  t: "number (bitcoins)"
+  t: "number (Dash)"
   p: "Required<br>(exactly 1)"
-  d: "The minimum fee a low-priority transaction must pay in order for this node to accept it into its memory pool"
+  d: "The minimum relay fee for non-free transactions in order for this node to accept it into its memory pool"
 
 - n: "→<br>`localaddresses`"
   t: "array"
   p: "Required<br>(exactly 1)"
-  d: "An array of objects each describing the local addresses this node believes it listens on"
+  d: "An array of objects each describing the local addresses<!--noref--> this node believes it listens on"
 
-- n: "→ →<br>Address"
+- n: "→ →<br>Address<!--noref-->"
   t: "object"
   p: "Optional<br>(0 or more)"
-  d: "An object describing a particular address this node believes it listens on"
+  d: "An object describing a particular address<!--noref--> this node believes it listens on"
 
 - n: "→ → →<br>`address`"
   t: "string"
   p: "Required<br>(exactly 1)"
-  d: "An IP address or .onion address this node believes it listens on.  This may be manually configured, auto detected, or based on `version` messages this node received from its peers"
+  d: "An IP address or .onion address<!--noref--> this node believes it listens on.  This may be manually configured, auto detected, or based on `version` messages this node received from its peers"
 
 - n: "→ → →<br>`port`"
   t: "number (int)"
@@ -121,8 +121,8 @@ The `getnetworkinfo` RPC {{summary_getNetworkInfo}}
 - n: "→ → →<br>`score`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
-  d: "The number of incoming connections during the uptime of this node that have used this address in their `version` message"
-  
+  d: "The number of incoming connections during the uptime of this node that have used this `address` in their `version` message"
+
 - n: "→<br>`warnings`"
   t: "string"
   p: "Required<br>(exactly 1)"
@@ -130,23 +130,24 @@ The `getnetworkinfo` RPC {{summary_getNetworkInfo}}
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.13.1*
+*Example from Dash Core 0.12.2*
 
 {% highlight bash %}
-bitcoin-cli getnetworkinfo
+dash-cli getnetworkinfo
 {% endhighlight %}
 
-Result (actual addresses have been replaced with reserved addresses):
+Result (actual addresses<!--noref--> have been replaced with [RFC5737][] reserved addresses<!--noref-->):
 
 {% highlight json %}
 {
-  "version": 130100,
-  "subversion": "/Satoshi:0.13.1/",
-  "protocolversion": 70014,
-  "localservices": "000000000000000d",
+  "version": 120200,
+  "subversion": "/Dash Core:0.12.2/",
+  "protocolversion": 70208,
+  "localservices": "0000000000000005",
   "localrelay": true,
-  "timeoffset": -19,
-  "connections": 8,
+  "timeoffset": 0,
+  "networkactive": true,
+  "connections": 9,
   "networks": [
     {
       "name": "ipv4",
@@ -154,14 +155,14 @@ Result (actual addresses have been replaced with reserved addresses):
       "reachable": true,
       "proxy": "",
       "proxy_randomize_credentials": false
-    }, 
+    },
     {
       "name": "ipv6",
       "limited": false,
       "reachable": true,
       "proxy": "",
       "proxy_randomize_credentials": false
-    }, 
+    },
     {
       "name": "onion",
       "limited": true,
@@ -170,16 +171,17 @@ Result (actual addresses have been replaced with reserved addresses):
       "proxy_randomize_credentials": false
     }
   ],
-  "relayfee": 5000.00000000,
+  "relayfee": 0.00001000,
   "localaddresses": [
     {
-      "address": "0600:3c03::f03c:91ff:fe89:dfc4",
-      "port": 8333,
+      "address": "192.0.2.113",
+      "port": 19999,
       "score": 4
     }
   ],
   "warnings": ""
 }
+
 {% endhighlight %}
 
 *See also*

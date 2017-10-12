@@ -7,7 +7,7 @@ http://opensource.org/licenses/MIT.
 ##### Ping {#ping-rpc}
 {% include helpers/subhead-links.md %}
 
-{% assign summary_ping-rpc="sends a P2P ping message to all connected nodes to measure ping time. Results are provided by the `getpeerinfo` RPC pingtime and pingwait fields as decimal seconds. The P2P `ping` message is handled in a queue with all other commands, so it measures processing backlog, not just network ping." %}
+{% assign summary_ping-rpc="sends a P2P ping message to all connected nodes to measure ping time. Results are provided by the `getpeerinfo` RPC pingtime and pingwait fields as decimal seconds. The P2P `ping` message is handled in a queue with all other commands, so it measures processing backlog, not just network<!--noref--> ping." %}
 
 {% autocrossref %}
 
@@ -25,10 +25,10 @@ The `ping` RPC {{summary_ping-rpc}}
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.10.0*
+*Example from Dash Core 0.12.2*
 
 {% highlight bash %}
-bitcoin-cli -testnet ping
+dash-cli -testnet ping
 {% endhighlight %}
 
 (Success: no result printed.)
@@ -36,7 +36,7 @@ bitcoin-cli -testnet ping
 Get the results using the `getpeerinfo` RPC:
 
 {% highlight bash %}
-bitcoin-cli -testnet getpeerinfo | grep ping
+dash-cli -testnet getpeerinfo | grep ping
 {% endhighlight %}
 
 Results:

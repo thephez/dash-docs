@@ -23,7 +23,7 @@ The `getpeerinfo` RPC {{summary_getPeerInfo}}
   p: "Required<br>(exactly 1)"
   d: "An array of objects each describing one connected node.  If there are no connections, the array will be empty"
 
-- n: "→<br>Node"
+- n: "→<br>Node<!--noref-->"
   t: "object"
   p: "Optional<br>(0 or more)"
   d: "An object describing a particular connected node"
@@ -31,7 +31,7 @@ The `getpeerinfo` RPC {{summary_getPeerInfo}}
 - n: "→ →<br>`id`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
-  d: "The node's index number in the local node address database"
+  d: "The node's index number in the local node address<!--noref--> database"
 
 - n: "→ →<br>`addr`"
   t: "string"
@@ -41,7 +41,7 @@ The `getpeerinfo` RPC {{summary_getPeerInfo}}
 - n: "→ →<br>`addrlocal`"
   t: "string"
   p: "Optional<br>(0 or 1)"
-  d: "Our IP address and port number according to the remote node.  May be incorrect due to error or lying.  Most SPV nodes set this to `127.0.0.1:8333`"
+  d: "Our IP address and port number according to the remote node.  May be incorrect due to error or lying.  Most SPV nodes set this to `127.0.0.1:9999`"
 
 - n: "→ →<br>`services`"
   t: "string (hex)"
@@ -72,7 +72,7 @@ The `getpeerinfo` RPC {{summary_getPeerInfo}}
   t: "number (int)"
   p: "Required<br>(exactly 1)"
   d: "The Unix epoch time when we connected to this node"
-  
+
 - n: "→ →<br>`timeoffset`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
@@ -82,7 +82,7 @@ The `getpeerinfo` RPC {{summary_getPeerInfo}}
   t: "number (real)"
   p: "Required<br>(exactly 1)"
   d: "The number of seconds this node took to respond to our last P2P `ping` message"
-  
+
 - n: "→ →<br>`minping`"
   t: "number (real)"
   p: "Optional<br>(0 or 1)"
@@ -106,7 +106,7 @@ The `getpeerinfo` RPC {{summary_getPeerInfo}}
 - n: "→ →<br>`inbound`"
   t: "bool"
   p: "Required<br>(exactly 1)"
-  d: "Set to `true` if this node connected to us; set to `false` if we connected to this node"
+  d: "Set to `true` if this node connected to us (inbound); set to `false` if we connected to this node (outbound)"
 
 - n: "→ →<br>`startingheight`"
   t: "number (int)"
@@ -116,7 +116,7 @@ The `getpeerinfo` RPC {{summary_getPeerInfo}}
 - n: "→ →<br>`banscore`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
-  d: "The ban score we've assigned the node based on any misbehavior it's made.  By default, Bitcoin Core disconnects when the ban score reaches `100`"
+  d: "The ban score we've assigned the node based on any misbehavior it's made.  By default, Dash Core disconnects when the ban score reaches `100`"
 
 - n: "→ →<br>`synced_headers`"
   t: "number (int)"
@@ -133,7 +133,7 @@ The `getpeerinfo` RPC {{summary_getPeerInfo}}
   p: "Required<br>(exactly 1)"
   d: "An array of blocks which have been requested from this peer.  May be empty"
 
-- n: "→ → →<br>Blocks"
+- n: "→ → →<br>Blocks<!--noref-->"
   t: "number (int)"
   p: "Optional<br>(0 or more)"
   d: "The height of a block being requested from the remote peer"
@@ -147,29 +147,28 @@ The `getpeerinfo` RPC {{summary_getPeerInfo}}
   t: "string : <br>object"
   p: "Required<br>(exactly 1)"
   d: "*Added in Bitcoin Core 0.13.0*<br><br>Information about total sent bytes aggregated by message type"
-  
+
 - n: "→ → →<br>Message Type"
   t: "number (int)"
   p: "Required<br>(1 or more)"
   d: "Total sent bytes aggregated by message type. One field for every used message type"
-  
+
 - n: "→ →<br>`bytesrecv_per_msg`"
   t: "string : <br>object"
   p: "Required<br>(exactly 1)"
   d: "*Added in Bitcoin Core 0.13.0*<br><br>Information about total received bytes aggregated by message type"
-  
+
 - n: "→ → →<br>Message Type"
   t: "number (int)"
   p: "Required<br>(1 or more)"
   d: "Total received bytes aggregated by message type. One field for every used message type"
 
- 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.13.1*
+*Example from Dash Core 0.12.2*
 
 {% highlight bash %}
-bitcoin-cli getpeerinfo
+dash-cli getpeerinfo
 {% endhighlight %}
 
 Result (edited to show only a single entry, with IP addresses changed to
@@ -177,47 +176,74 @@ Result (edited to show only a single entry, with IP addresses changed to
 
 {% highlight json %}
 [
-    {
+  {
     "id": 3,
-    "addr": "192.0.2.113:43132",
-    "addrlocal": "127.0.0.1:8333",
-    "services": "0000000000000000",
+    "addr": "192.0.2.113:19999",
+    "addrlocal": "127.0.0.1:56332",
+    "services": "0000000000000005",
     "relaytxes": true,
-    "lastsend": 1481158534,
-    "lastrecv": 1481158534,
-    "bytessent": 142772,
-    "bytesrecv": 14167,
-    "conntime": 1481158420,
-    "timeoffset": 11,
-    "pingtime": 0.226368,
-    "minping": 0.226368,
-    "version": 70001,
-    "subver": "/Satoshi:0.12.1/",
-    "inbound": true,
-    "startingheight": 0,
+    "lastsend": 1507818327,
+    "lastrecv": 1507818327,
+    "bytessent": 844135,
+    "bytesrecv": 887651,
+    "conntime": 1507808575,
+    "timeoffset": 0,
+    "pingtime": 0.189852,
+    "minping": 0.187152,
+    "version": 70208,
+    "subver": "/Dash Core:0.12.2/",
+    "inbound": false,
+    "startingheight": 8416,
     "banscore": 0,
-    "synced_headers": -1,
-    "synced_blocks": -1,
+    "synced_headers": 8474,
+    "synced_blocks": 8474,
     "inflight": [
     ],
     "whitelisted": false,
     "bytessent_per_msg": {
-      "addr": 55,
-      "inv": 12161,
-      "ping": 32,
-      "pong": 1824,
-      "tx": 128549,
+      "addr": 165,
+      "dseg": 65,
+      "dsq": 33984,
+      "getaddr": 24,
+      "getdata": 73261,
+      "getheaders": 861,
+      "getsporks": 48,
+      "govobj": 20244,
+      "govobjvote": 22196,
+      "govsync": 545682,
+      "headers": 106,
+      "inv": 139035,
+      "mnget": 28,
+      "notfound": 1220,
+      "ping": 2624,
+      "pong": 2624,
+      "sendheaders": 24,
+      "ssc": 1792,
       "verack": 24,
-      "version": 127
+      "version": 128
     },
     "bytesrecv_per_msg": {
-      "getdata": 12161,
-      "ping": 1824,
-      "pong": 32,
+      "addr": 4365,
+      "block": 22307,
+      "dsq": 33984,
+      "getdata": 10417,
+      "getheaders": 861,
+      "govobjvote": 179,
+      "govsync": 4620,
+      "headers": 6254,
+      "inv": 130964,
+      "mnp": 352,
+      "mnw": 600208,
+      "notfound": 31192,
+      "ping": 2624,
+      "pong": 2624,
+      "sendheaders": 24,
+      "spork": 2860,
+      "ssc": 33664,
       "verack": 24,
-      "version": 126
+      "version": 128
     }
-  }
+  },
 ]
 {% endhighlight %}
 

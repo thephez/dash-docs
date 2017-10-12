@@ -25,10 +25,10 @@ The `getconnectioncount` RPC {{summary_getConnectionCount}}
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.10.0*
+*Example from Dash Core 0.12.2*
 
 {% highlight bash %}
-bitcoin-cli -testnet getconnectioncount
+dash-cli -testnet getconnectioncount
 {% endhighlight bash %}
 
 Result:

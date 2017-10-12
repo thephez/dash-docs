@@ -37,57 +37,57 @@ The `getnettotals` RPC {{summary_getNetTotals}}
   t: "number (int)"
   p: "Required<br>(exactly 1)"
   d: "Unix epoch time in milliseconds according to the operating system's clock (not the node adjusted time)"
-  
+
 - n: "→<br>`uploadtarget`"
   t: "string : <br>object"
   p: "Required<br>(exactly 1)"
   d: "The upload traget information"
-  
+
 - n: "→ →<br>`timeframe`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
-  d: "Length of the measuring timeframe in seconds.  The timeframe is currently set to `24` hours"
+  d: "Length of the measuring timeframe in seconds (currently set to `24` hours)"
 
 - n: "→ →<br>`target`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
-  d: "The maximum allowed outbound traffic in bytes.  The default is `0`.  Can be changed with `-maxuploadtarget`"
+  d: "The maximum allowed outbound traffic in bytes (default is `0`).  Can be changed with `-maxuploadtarget`"
 
 - n: "→ →<br>`target_reached`"
   t: "bool"
   p: "Required<br>(exactly 1)"
-  d: "Indicates if the target is reached.  If the target is reached the node won't serve SPV and historical block requests anymore"  
+  d: "Indicates if the target<!--noref--> is reached.  If the target<!--noref--> is reached the node won't serve SPV and historical block requests anymore"  
 
 - n: "→ →<br>`serve_historical_blocks`"
   t: "bool"
   p: "Required<br>(exactly 1)"
   d: "Indicates if historical blocks are served"  
-  
+
 - n: "→ →<br>`bytes_left_in_cycle`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
-  d: "Amount of bytes left in current time cycle.  `0` is displayed if no upload target is set"  
+  d: "Amount of bytes left in current time cycle.  `0` is displayed if no upload target<!--noref--> is set"  
 
 - n: "→ →<br>`time_left_in_cycle`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
-  d: "Seconds left in current time cycle.  `0` is displayed if no upload target is set"    
+  d: "Seconds left in current time cycle.  `0` is displayed if no upload target<!--noref--> is set"    
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.13.1*
+*Example from Dash Core 0.12.2*
 
 {% highlight bash %}
-bitcoin-cli getnettotals
+dash-cli getnettotals
 {% endhighlight %}
 
 Result:
 
 {% highlight json %}
 {
-  "totalbytesrecv": 7137052851,
-  "totalbytessent": 211648636140,
-  "timemillis": 1481227418585,
+  "totalbytesrecv": 4661588,
+  "totalbytessent": 2899423,
+  "timemillis": 1507815162756,
   "uploadtarget": {
     "timeframe": 86400,
     "target": 0,

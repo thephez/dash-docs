@@ -16,17 +16,17 @@ The `getaddednodeinfo` RPC {{summary_getAddedNodeInfo}}
 *Parameter #1---whether to display connection information*
 
 {% itemplate ntpd1 %}
-- n: "Details"
+- n: "Dummy"
   t: "bool"
   p: "Required<br>(exactly 1)"
-  d: "*Removed in Bitcoin Core 0.14.0*<br><br>Set to `true` to display detailed information about each added node; set to `false` to only display the IP address or hostname and port added"
+  d: "Kept for historical purposes but ignored<br><br>*Removed in Bitcoin Core 0.14.0*"
 
 {% enditemplate %}
 
 *Parameter #2---what node to display information about*
 
 {% itemplate ntpd1 %}
-- n: "Node"
+- n: "`node`"
   t: "string"
   p: "Optional<br>(0 or 1)"
   d: "The node to get information about in the same `<IP address>:<port>` format as the `addnode` RPC.  If this parameter is not provided, information about all added nodes will be returned"
@@ -41,7 +41,7 @@ The `getaddednodeinfo` RPC {{summary_getAddedNodeInfo}}
   p: "Required<br>(exactly 1)"
   d: "An array containing objects describing each added node.  If no added nodes are present, the array will be empty.  Nodes added with `onetry` will not be returned"
 
-- n: "→<br>Added Node"
+- n: "→<br>Added Node<!--noref-->"
   t: "object"
   p: "Optional<br>(0 or more)"
   d: "An object containing details about a single added node"
@@ -49,22 +49,22 @@ The `getaddednodeinfo` RPC {{summary_getAddedNodeInfo}}
 - n: "→ →<br>`addednode`"
   t: "string"
   p: "Required<br>(exactly 1)"
-  d: "An added node in the same `<IP address>:<port>` format as used in the `addnode` RPC.  This element is present for any added node whether or not the Details parameter was set to `true`"
+  d: "An added node in the same `<IP address>:<port>` format as used in the `addnode` RPC."
 
 - n: "→ →<br>`connected`"
   t: "bool"
   p: "Optional<br>(0 or 1)"
-  d: "If the Details parameter was set to `true`, this will be set to `true` if the node is currently connected and `false` if it is not"
+  d: "This will be set to `true` if the node is currently connected and `false` if it is not"
 
 - n: "→ →<br>`addresses`"
   t: "array"
-  p: "Optional<br>(0 or 1)"
-  d: "If the Details parameter was set to `true`, this will be an array of addresses belonging to the added node"
+  p: "Requred<br>(exactly 1)"
+  d: "This will be an array of addresses<!--noref--> belonging to the added node"
 
-- n: "→ → →<br>Address"
+- n: "→ → →<br>Address<!--noref-->"
   t: "object"
   p: "Optional<br>(0 or more)"
-  d: "An object describing one of this node's addresses"
+  d: "An object describing one of this node's addresses<!--noref-->"
 
 - n: "→ → → →<br>`address`"
   t: "string"
@@ -78,26 +78,26 @@ The `getaddednodeinfo` RPC {{summary_getAddedNodeInfo}}
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.14.1*
+*Example from Dash Core 0.12.2*
 
 {% highlight bash %}
-bitcoin-cli getaddednodeinfo
+dash-cli getaddednodeinfo true
 {% endhighlight %}
 
-Result (real hostname and IP address replaced):
+Result (real hostname and IP address replaced with [RFC5737][] reserved address):
 
 {% highlight json %}
 [
-    {
-        "addednode" : "bitcoind.example.com:8333",
-        "connected" : true,
-        "addresses" : [
-            {
-                "address" : "192.0.2.113:8333",
-                "connected" : "outbound"
-            }
-        ]
-    }
+  {
+    "addednode": "192.0.2.113:19999",
+    "connected": true,
+    "addresses": [
+      {
+        "address": "192.0.2.113:19999",
+        "connected": "outbound"
+      }
+    ]
+  }
 ]
 {% endhighlight %}
 
