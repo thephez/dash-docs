@@ -9,9 +9,9 @@ http://opensource.org/licenses/MIT.
 
 {% autocrossref %}
 
-{% assign summary_getAddressTxids="returns the txids for an address(es) (requires `addressindex` to be enabled)" %}
+{% assign summary_getAddressTxids="returns the txids for an address(es)." %}
 
-*Requires wallet support.*
+*Requires wallet support and `-addressindex` Dash Core command-line/configuration-file parameter to be enabled.*
 
 The `getaddresstxids` RPC {{summary_getAddressTxids}}
 

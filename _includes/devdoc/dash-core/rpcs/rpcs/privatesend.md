@@ -17,7 +17,7 @@ The `privatesend` RPC {{summary_privateSend}}
 - n: "`mode`"
   t: "string"
   p: "Required<br>(exactly 1)"
-  d: "The command mode to use:<br>`start` - Start mixing<br>`stop` - Stop mixing<br>`reset` - Reset mixing"
+  d: "The command mode to use:<br>`start` - Start mixing<br>`stop<!--noref-->` - Stop mixing<br>`reset` - Reset mixing"
 
 {% enditemplate %}
 
@@ -45,7 +45,7 @@ Mixing started successfully
 {% endhighlight %}
 
 
-**Command Mode - `stop`**
+**Command Mode - `stop<!--noref-->`**
 
 *Result---stop command return status*
 

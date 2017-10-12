@@ -9,9 +9,9 @@ http://opensource.org/licenses/MIT.
 
 {% autocrossref %}
 
-{% assign summary_getAddressMempool="returns all mempool deltas for an address (requires `addressindex` to be enabled)." %}
+{% assign summary_getAddressMempool="returns all mempool deltas for an address." %}
 
-*Requires wallet support.*
+*Requires wallet support and `-addressindex` Dash Core command-line/configuration-file parameter to be enabled.*
 
 The `getaddressmempool` RPC {{summary_getAddressMempool}}
 

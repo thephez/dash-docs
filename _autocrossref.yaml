@@ -42,6 +42,7 @@ DER-formatted: der
 '`dssu` messages': dssu message
 '`dstx` message': dstx message
 '`dstx` messages': dstx message
+DNS address: DO NOT AUTOCROSSREF
 ECDSA:
 epoch time: unix epoch time
 '`expires`': pp expires

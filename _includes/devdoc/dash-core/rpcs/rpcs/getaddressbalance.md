@@ -9,9 +9,9 @@ http://opensource.org/licenses/MIT.
 
 {% autocrossref %}
 
-{% assign summary_getAddressBalance="returns the balance for address(es) (requires `addressindex` to be enabled)." %}
+{% assign summary_getAddressBalance="returns the balance for address(es)." %}
 
-*Requires wallet support.*
+*Requires wallet support and `-addressindex` Dash Core command-line/configuration-file parameter to be enabled.*
 
 The `getaddressbalance` RPC {{summary_getAddressBalance}}
 

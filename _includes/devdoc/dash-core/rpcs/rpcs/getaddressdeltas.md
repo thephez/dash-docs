@@ -9,9 +9,9 @@ http://opensource.org/licenses/MIT.
 
 {% autocrossref %}
 
-{% assign summary_getAddressDeltas="returns all changes for an address (requires `addressindex` to be enabled)." %}
+{% assign summary_getAddressDeltas="returns all changes for an address." %}
 
-*Requires wallet support.*
+*Requires wallet support and `-addressindex` Dash Core command-line/configuration-file parameter to be enabled.*
 
 The `getaddressdeltas` RPC {{summary_getAddressDeltas}}
 

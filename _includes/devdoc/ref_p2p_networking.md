@@ -67,6 +67,7 @@ As of Dash Core 0.12.1.5, the most recent protocol version is 70206.
 
 | Version | Initial Release                    | Major Changes
 |---------|------------------------------------|--------------
+| 70208  | Dash Core 0.12.2.x <br>(??? 2017)  |
 | 70206  | Dash Core 0.12.1.x <br>(Mar 2017)  |
 | 70103  | Dash Core 0.12.0.x <br>(Aug 2015)  |
 | 70076  | Dash Core 0.11.2.x <br>(Apr 2015)  |

@@ -24,11 +24,11 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_getAccount="returns the name of the account associated with the given address." %}
 {% assign summary_getAccountAddress="returns the current Bitcoin address for receiving payments to this account. If the account doesn't exist, it creates both the account and a new address for receiving payment.  Once a payment has been received to an address, future calls to this RPC for the same account will return a different address." %}
 {% assign summary_getAddedNodeInfo="returns information about the given added node, or all added nodes (except onetry nodes). Only nodes which have been manually added using the `addnode` RPC will have their information displayed." %}
-{% assign summary_getAddressBalance="returns the balance for address(es) (requires `addressindex` to be enabled)." %}
-{% assign summary_getAddressDeltas="returns all changes for an address (requires `addressindex` to be enabled)." %}
-{% assign summary_getAddressMempool="returns all mempool deltas for an address (requires `addressindex` to be enabled)." %}
-{% assign summary_getAddressTxids="returns the txids for an address(es) (requires `addressindex` to be enabled)" %}
-{% assign summary_getAddressUtxos="returns all unspent outputs for an address (requires `addressindex` to be enabled)" %}
+{% assign summary_getAddressBalance="returns the balance for address(es)." %}
+{% assign summary_getAddressDeltas="returns all changes for an address." %}
+{% assign summary_getAddressMempool="returns all mempool deltas for an address." %}
+{% assign summary_getAddressTxids="returns the txids for an address(es)." %}
+{% assign summary_getAddressUtxos="returns all unspent outputs for an address." %}
 {% assign summary_getAddressesByAccount="returns a list of every address assigned to a particular account." %}
 {% assign summary_getBalance="gets the balance in decimal bitcoins across all accounts or for a particular account." %}
 {% assign summary_getBestBlockHash="returns the header hash of the most recent block on the best block chain." %}
@@ -93,7 +93,7 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_masternodeList="returns a list of masternodes in different modes." %}
 {% assign summary_mnSync="returns the sync status, updates to the next step or resets it entirely." %}
 {% assign summary_move="moves a specified amount from one account in your wallet to another using an off-block-chain transaction." %}
-{% assign summary_ping-rpc="sends a P2P ping message to all connected nodes to measure ping time. Results are provided by the `getpeerinfo` RPC pingtime and pingwait fields as decimal seconds. The P2P `ping` message is handled in a queue with all other commands, so it measures processing backlog, not just network ping." %}
+{% assign summary_ping-rpc="sends a P2P ping message to all connected nodes to measure ping time. Results are provided by the `getpeerinfo` RPC pingtime and pingwait fields as decimal seconds. The P2P `ping` message is handled in a queue with all other commands, so it measures processing backlog, not just network<!--noref--> ping." %}
 {% assign summary_preciousBlock="treats a block as if it were received before others with the same work." %}
 {% assign summary_prioritiseTransaction="adds virtual priority or fee to a transaction, allowing it to be accepted into blocks mined by this node (or miners which use this node) with a lower priority or fee. (It can also remove virtual priority or fee, requiring the transaction have a higher priority or fee to be accepted into a locally-mined block.)" %}
 {% assign summary_privateSend="controls the mixing process." %}
@@ -120,7 +120,7 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_signMessageWithPrivKey="signs a message with a given private key." %}
 {% assign summary_signRawTransaction="signs a transaction in the serialized transaction format using private keys stored in the wallet or provided in the call." %}
 {% assign summary_stop="safely shuts down the Dash Core server." %}
-{% assign summary_submitBlock="accepts a block, verifies it is a valid addition to the block chain, and broadcasts it to the network. Extra parameters are ignored by Bitcoin Core but may be used by mining pools or other programs." %}
+{% assign summary_submitBlock="accepts a block, verifies it is a valid addition to the block chain, and broadcasts it to the network. Extra parameters are ignored by Dash Core but may be used by mining pools or other programs." %}
 {% assign summary_validateAddress="returns information about the given Bitcoin address." %}
 {% assign summary_verifyChain="verifies each entry in the local block chain database." %}
 {% assign summary_verifyMessage="verifies a signed message." %}
