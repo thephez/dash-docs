@@ -2230,14 +2230,23 @@ contract, or setting.
 
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
-| 32 | nHashParent | uint256 | Required | Parent object, 0 is root
+| 32 | nHashParent | uint256 | Required | Parent object (a hash of all zeros here indicates this is the root object, not a child object).
 | 4 | nRevision | int | Required | Object revision in the system
 | 8 | nTime | int64_t | Required | Time which this object was created
 | 32 | nCollateralHash | uint256 | Required | Hash of the collateral fee transaction
 | 0-16384 | strData | string | Required | Data field - can be used for anything (leading varint indicates size of data)
-| 4 | nObjectType | int | Required | Type of governance object as defined by src/governance-object.h
+| 4 | nObjectType | int | Required | Type of governance object: <br>• `0` - Unknown<br>• `1` - Proposal<br>• `2` - Trigger<br>• `3` - Watchdog
 | 41 | vinMasternode | CTxIn | Required | Unspent output for the masternode which is signing this object
 | 66* | vchSig | char[] | Required | Signature of the masternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
+
+Governance Object Types (defined by src/governance-object.h)
+
+| Object Type | Description
+|------|--------------
+| 0 | GOVERNANCE_OBJECT_UNKNOWN
+| 1 | GOVERNANCE_OBJECT_PROPOSAL
+| 2 | GOVERNANCE_OBJECT_TRIGGER
+| 3 | GOVERNANCE_OBJECT_WATCHDOG
 
 The following annotated hexdump shows a `govobj` message. (The
 message header has been omitted.)
@@ -2327,12 +2336,15 @@ dc45e9c09ee0427223e332b52e8d709e
 
 {% autocrossref %}
 
-The `govsync` message is used to request syncing of governance objects with peers.
+The `govsync` message is used to request syncing of governance objects
+(`govobj` message and `govobjvote` message) with peers.
 
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
 | 32 | nHash | uint256 | Required |
 | # | filter | CBloomFiter | Required |
+
+Note: Both the hash and bloom filter fields can be set to all zeros.
 
 The following annotated hexdump shows a `govsync` message. (The
 message header has been omitted.)

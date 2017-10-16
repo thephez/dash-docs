@@ -587,3 +587,46 @@ Take note that for both types of broadcasting, mechanisms are in place to punish
 Earlier versions of Bitcoin Core allowed developers and trusted community members to issue [Bitcoin alerts](https://bitcoin.org/en/alerts) to notify users of critical network-wide issues. This messaging system [was retired](https://bitcoin.org/en/alert/2016-11-01-alert-retirement) in Bitcoin Core v0.13.0; however, internal alerts, partition detection warnings and the `-alertnotify` option features remain.
 
 {% endautocrossref %}
+
+
+
+### Governance
+
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+#### Synchronization
+
+Dash Core synchronizes the governance system via the Masternode network as the
+last stage of the Masternode sync process (following they sync of sporks, the
+Masternode list, and Masternode payments).
+
+The `govsync` message initiates a sync of the governance system. Masternodes
+respond to the `govsync` message with several items:
+
+* First, the Masternode sends one `ssc` message (Sync Status Count) for `govobj`
+objects and one for `govobjvote` objects. These messages indicates how many
+inventory items will be sent.
+
+* Second, the Masternode sends `inv` messages for the `govobj` and `govobjvote`
+objects.
+
+Once the syncing node receives the counts and inventories, it may request any
+`govobj` and `govobjvote` objects from the Masternode via a `getdata` message.
+
+*Governance Sync Data Flow*
+
+| **Syncing Node Message** | **Direction**  | **Masternode Response**   | **Description** |
+| `govsync`                | →              |                           | Syncing node initiates governance sync
+|                          | ←              | `ssc` message (govobj)    | Number of governance objects
+|                          | ←              | `ssc` message (govobjvote)| Number of governance object votes
+|                          | ←              | `inv` message (govobj)    | Governance object inventories
+|                          | ←              | `inv` message (govobjvote)| Governance object vote inventories
+| `getdata` (govobj)       | →              |                           | (Optional) Syncing node requests govobj
+|                          | ←              | `govobj` message          | (If requested) Governance object
+| `getdata` (govobjvote)   | →              |                           | (Optional) Syncing node requests govobjvote
+|                          | ←              | `govobjvote` message      | (If requested) Governance object vote
+
+
+{% endautocrossref %}
