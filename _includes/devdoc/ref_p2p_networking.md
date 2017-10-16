@@ -2218,6 +2218,8 @@ Not Implemented
 
 The following network messages enable the Governance features built in to Dash.
 
+![Overview Of P2P Protocol Governance Request And Reply Messages](/img/dev/en-p2p-governance-messages.svg)
+
 {% endautocrossref %}
 
 #### govobj
