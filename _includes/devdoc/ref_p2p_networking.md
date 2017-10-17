@@ -1850,14 +1850,41 @@ The following network messages enable the Masternode features built in to Dash.
 
 {% autocrossref %}
 
-The `dseg` message requests either the masternode list or a specific entry.
+The `dseg` message requests either the entire masternode list or a specific
+entry. To request the list of all masternodes, use an empty txIn (TXID of all
+zeros and an index of 0xFFFFFFFF).  To request information about a specific
+masternode, use the unspent output associated with that masternode.
+
+The response to a `dseg` message is an `mnb` message and an `mnp` message from
+the masternode(s) requested.
 
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
-| 41 | vin | txIn | Required | The unspent output which is holding 1000 DASH
+| 41 | vin | txIn | Required | Request options:<br>`All Entries` - empty txIn<br>`Single Entry` - Masternode's unspent output which is holding 1000 DASH
 
-The following annotated hexdump shows a `dseg` message. (The
-message header has been omitted.)
+
+{% highlight text %}
+Note: Dash Core only allows nodes to request the entire list every 3 hours.
+Additional requests sent prior to then may result in the node being banned.
+{% endhighlight %}
+
+The following annotated hexdump shows a `dseg` message requesting **all**
+masternodes. (The message header has been omitted.)
+
+{% highlight text %}
+Masternode Unspent Output
+| 00000000000000000000000000000000
+| 00000000000000000000000000000000 ......... Outpoint TXID
+| ffffffff ................................. Outpoint index number: 0
+|
+| 00 ....................................... Bytes in sig. script: 0
+| .......................................... Secp256k1 signature: None
+|
+| ffffffff ................................. Sequence number: UINT32_MAX
+{% endhighlight %}
+
+The following annotated hexdump shows a `dseg` message requesting a specific
+masternode. (The message header has been omitted.)
 
 {% highlight text %}
 Masternode Unspent Output
