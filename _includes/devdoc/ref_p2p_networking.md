@@ -1855,8 +1855,9 @@ entry. To request the list of all masternodes, use an empty txIn (TXID of all
 zeros and an index of 0xFFFFFFFF).  To request information about a specific
 masternode, use the unspent output associated with that masternode.
 
-The response to a `dseg` message is an `mnb` message and an `mnp` message from
-the masternode(s) requested.
+The response to a `dseg` message is an `mnb` message inventory and an
+`mnp` message inventory for each requested masternode. Masternodes ignore this
+request if they are not fully synced.
 
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
@@ -1997,11 +1998,18 @@ Masternode Ping Message
 
 {% autocrossref %}
 
-The `mnget` message requests masternode payment sync.
+The `mnget` message requests masternode payment sync. The response to an
+`mnget` message is an `mnb` message inventory and an `mnp` message inventory for
+each requested masternode. Masternodes ignore this request if they are not fully synced.
 
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
-| 4 | nMnCount | int | Required |
+| 4 | nMnCount | int | Required | Number of masternode payment votes to request
+
+{% highlight text %}
+Note: Dash Core limits how frequently a masternode payment sync can be
+requested. Frequent requests will result in the node being banned.
+{% endhighlight %}
 
 The following annotated hexdump shows a `mnget` message. (The
 message header has been omitted.)
@@ -2156,7 +2164,10 @@ dd6cc6c11211793b239c2e311f1496e2
 
 {% autocrossref %}
 
-The `ssc` message is used to track the sync status of masternode objects.
+The `ssc` message is used to track the sync status of masternode objects. This
+message is sent in response to sync requests for masternode payments
+(`mnw` message), masternode list (`mnget` message),
+governance objects (`govsync` message), and governance object votes (`govsync` message).
 
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
@@ -2370,6 +2381,19 @@ dc45e9c09ee0427223e332b52e8d709e
 
 The `govsync` message is used to request syncing of governance objects
 (`govobj` message and `govobjvote` message) with peers.
+
+This message responds in two ways depending on the request:
+
+1. When a masternode receives a `govsync` message with a hash of all zeros, it
+responds with a `govobj` inventory message (MSG_GOVERNANCE_OBJECT - 0x17) for
+all valid governance objects. Governance object votes are excluded in this type
+of response.
+
+2. When a masternode receives a `govsync` message with a specific hash, it
+responds with both a `govobj` inventory message (MSG_GOVERNANCE_OBJECT - 0x17)
+and a `govobjvote` inventory message (MSG_GOVERNANCE_OBJECT_VOTE - 0x18) for
+the single goverance object requested.
+
 
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |

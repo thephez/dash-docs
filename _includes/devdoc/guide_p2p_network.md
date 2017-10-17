@@ -589,6 +589,40 @@ Earlier versions of Bitcoin Core allowed developers and trusted community member
 {% endautocrossref %}
 
 
+### Masternode Sync
+
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+Dash Core performs masternode synchronization as required, but it can be started
+manually by issuing the `mnsync reset` RPC command.
+
+*Masternode Sync Data Flow*
+
+| **Syncing Node Message** | **Direction**  | **Masternode Response**   | **Description** |
+| **1. Sporks** |   |  |  |
+| `getsporks` message                            | → |                           | Syncing node requests sporks
+|                                                | ← | `spork` message(s)        |
+| **2. Masternode List** |   |  | Sync Masternode list from other connected clients |
+| `dseg` message                                 | → |                           | Syncing node requests masternode list
+|                                                | ← | `ssc` message | Number of entries in masternode list (MASTERNODE_SYNC_LIST)<br><br>Only sent if requesting entire list
+|                                                | ← | `inv` message(s) (mnb)         | MSG_MASTERNODE_ANNOUNCE
+|                                                | ← | `inv` message(s) (mnp)         | MSG_MASTERNODE_PING
+| `getdata` message(s) (mnb) | → |                           | (Optional)
+| `getdata` message(s) (mnp)     | → |                           | (Optional)
+|                                                | ← | `mnb` message(s)          | (If requested) Masternode announce message
+|                                                | ← | `mnp` message(s)          | (If requested) Masternode ping message
+| **3. Masternode payments** |   |  | Ask node for all payment votes it has (new nodes will only return votes for future payments) |
+| `mnget` message                                | → |                           | Syncing node requests masternode payment sync
+|                                                | ← | `ssc` message | Number of entries in masternode payment list
+|                                                | ← | `inv` message(s) (mnw)         | MSG_MASTERNODE_PAYMENT_VOTE
+| `getdata` message(s) (mnw) | → |                           | (Optional)
+|                                                | ← | `mnw` message(s)          | (If requested) Masternode payment vote message
+| **4. Governance** |   |  | See [Governance sync](#governance) |
+
+{% endautocrossref %}
+
 
 ### Governance
 
