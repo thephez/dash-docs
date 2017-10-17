@@ -615,6 +615,9 @@ objects.
 Once the syncing node receives the counts and inventories, it may request any
 `govobj` and `govobjvote` objects from the Masternode via a `getdata` message.
 
+Dash Core periodically (~ every 6 seconds) sends `govsync` messages to connected
+nodes until all the governance objects have been synchronized.
+
 *Governance Sync Data Flow*
 
 | **Syncing Node Message** | **Direction**  | **Masternode Response**   | **Description** |

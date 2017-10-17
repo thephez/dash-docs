@@ -2244,6 +2244,7 @@ Not Implemented
 {% autocrossref %}
 
 The following network messages enable the Governance features built in to Dash.
+For additional details on the governance system, see this [Budget System page](https://dashpay.atlassian.net/wiki/spaces/DOC/pages/8585246/Budget+System+Funding+Voting+DGBB).
 
 ![Overview Of P2P Protocol Governance Request And Reply Messages](/img/dev/en-p2p-governance-messages.svg)
 
@@ -2254,7 +2255,7 @@ The following network messages enable the Governance features built in to Dash.
 
 {% autocrossref %}
 
-The `govobj` message is a governance object that is generally a proposal,
+The `govobj` message contains a governance object that is generally a proposal,
 contract, or setting.
 
 | Bytes | Name | Data type | Required | Description |
@@ -2320,15 +2321,17 @@ Transaction input
 {% autocrossref %}
 
 The `govobjvote` message is sent by masternodes to indicate their intention (yes,
-  no, abstain) regarding a governance object.
+no, abstain) regarding a governance object. A sufficient number of yes votes
+results in the proposed funding being payed out in the next superblock (assuming
+their are sufficient funds available in the budget).
 
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
 | 41+ | vinMasternode | CTxIn | Required | Unspent output for the masternode which is voting
-| 32 | nParentHash | uint256 | Required | Object which we're voting on (proposal, contract, setting or final budget)
+| 32 | nParentHash | uint256 | Required | Object (`govobj`) being voted on (proposal, contract, setting or final budget)
 | 4 | nVoteOutcome | int | Required | None (0), Yes (1), No (2), Abstain (3)
 | 4 | nVoteSignal | int | Required |  None (0), Funding (1), Valid (2), Delete (3), Endorsed (4)
-| 8 | nTime | int64_t | Required | Time which the vote was created
+| 8 | nTime | int64_t | Required | Time the vote was created
 | 66* | vchSig | char[] | Required | Signature of the masternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
 
 The following annotated hexdump shows a `govobjvote` message. (The
@@ -2371,7 +2374,7 @@ The `govsync` message is used to request syncing of governance objects
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
 | 32 | nHash | uint256 | Required |
-| # | filter | CBloomFiter | Required |
+| # | filter | CBloomFiter | Required | Only supported since [protocol version 70206][section protocol versions]
 
 Note: Both the hash and bloom filter fields can be set to all zeros.
 
