@@ -2407,13 +2407,13 @@ request if they are not fully synced.
 
 This message responds in one of two ways depending on the request:
 
-1. When a masternode receives a `govsync` message with a hash of all zeros, it
+1. Object Sync - When a masternode receives a `govsync` message with a hash of all zeros, it
 responds with one `ssc` message for `govobj` objects and one for `govobjvote`
 objects. The masternode also sends an `inv` message (MSG_GOVERNANCE_OBJECT - 0x17)
 for all valid `govobj` governance objects.
 *Governance object votes are excluded in this type of response.*
 
-2. When a masternode receives a `govsync` message with a specific hash, it
+2. Vote Sync - When a masternode receives a `govsync` message with a specific hash, it
 responds with one `ssc` message for `govobj` objects and one for `govobjvote`
 objects. The masternode also sends both a `govobj` inventory message
 (MSG_GOVERNANCE_OBJECT - 0x17) and `govobjvote` inventory messages
@@ -2422,9 +2422,12 @@ objects. The masternode also sends both a `govobj` inventory message
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
 | 32 | nHash | uint256 | Required | Hash of governance object to request<br>Set to all zeros to request all objects (excludes votes)
-| # | filter | CBloomFiter | Required | Only supported since [protocol version 70206][section protocol versions]
+| # | filter | CBloomFiter | Required | Can be set to all zeros.<br>Only supported since [protocol version 70206][section protocol versions]
 
-Note: Both the hash and bloom filter fields can be set to all zeros.
+{% highlight text %}
+Dash Core limits how frequently the first type of sync (object sync) can be
+requested. Frequent requests will result in the node being banned.
+{% endhighlight %}
 
 The following annotated hexdump shows a `govsync` message. (The
 message header has been omitted.)

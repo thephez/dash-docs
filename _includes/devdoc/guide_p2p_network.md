@@ -637,8 +637,26 @@ last stage of the Masternode sync process (following the sync of sporks, the
 Masternode list, and Masternode payments).
 
 The `govsync` message initiates a sync of the governance system. Masternodes
-ignore this request if they are not fully synced.  Otherwise, they respond to
-the `govsync` message with several items:
+ignore this request if they are not fully synced.  
+
+There are two distinct stages of governance sync:
+
+1. Initial request (object sync) - requests the governance objects only via a
+`govsync` message sent with a hash of all zeros.  
+
+2. Follow up request(s) (vote sync) - request governance object votes for a
+specific object via a `govsync` message containing the hash of the object. One
+message is required for each object. Dash Core periodically (~ every 6 seconds)
+sends messages to connected nodes until all the governance objects have been
+synchronized.
+
+{% highlight text %}
+Dash Core limits how frequently the first type of sync (object sync) can be
+requested. Frequent requests will result in the node being banned.
+{% endhighlight %}
+
+
+Masternodes respond to the `govsync` message with several items:
 
 * First, the Masternode sends one `ssc` message (Sync Status Count) for `govobj`
 objects and one for `govobjvote` objects. These messages indicate how many
@@ -648,10 +666,8 @@ inventory items will be sent.
 objects.
 
 Once the syncing node receives the counts and inventories, it may request any
-`govobj` and `govobjvote` objects from the Masternode via a `getdata` message.
+`govobj` and `govobjvote` objects from the masternode via a `getdata` message.
 
-Dash Core periodically (~ every 6 seconds) sends `govsync` messages to connected
-nodes until all the governance objects have been synchronized.
 
 *Governance Sync Data Flow*
 
