@@ -2165,24 +2165,23 @@ dd6cc6c11211793b239c2e311f1496e2
 {% autocrossref %}
 
 The `ssc` message is used to track the sync status of masternode objects. This
-message is sent in response to sync requests for masternode payments
-(`mnw` message), masternode list (`mnget` message),
-governance objects (`govsync` message), and governance object votes (`govsync` message).
+message is sent in response to sync requests for the list of masternodes
+(`dseg` message), masternode payments (`mnget` message), governance objects
+(`govsync` message), and governance object votes (`govsync` message).
 
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
 | 4 | nItemID | int | Required | Masternode Sync Item ID
-| 4 | nCount | int | Required | Masternode Sync Count
+| 4 | nCount | int | Required | Number of items to sync
 
 Sync Item IDs
 
-| ID | Description
-|------|--------------
-| 2 | MASTERNODE_SYNC_LIST
-| 3 | MASTERNODE_SYNC_MNW
-| 4 | MASTERNODE_SYNC_GOVERNANCE
-| 10 | MASTERNODE_SYNC_GOVOBJ
-| 11 | MASTERNODE_SYNC_GOVOBJ_VOTE
+| ID | Description | Response To
+|------|--------------|---------------
+| 2 | MASTERNODE_SYNC_LIST | `dseg` message
+| 3 | MASTERNODE_SYNC_MNW | `mnget` message
+| 10 | MASTERNODE_SYNC_GOVOBJ | `govsync` message
+| 11 | MASTERNODE_SYNC_GOVOBJ_VOTE | `govsync` message with non-zero hash
 
 The following annotated hexdump shows a `ssc` message. (The
 message header has been omitted.)
@@ -2259,6 +2258,8 @@ For additional details on the governance system, see this [Budget System page](h
 
 ![Overview Of P2P Protocol Governance Request And Reply Messages](/img/dev/en-p2p-governance-messages.svg)
 
+For additional details, refer to the Developer Guide [Governance section](developer-guide#governance).
+
 {% endautocrossref %}
 
 #### govobj
@@ -2267,7 +2268,7 @@ For additional details on the governance system, see this [Budget System page](h
 {% autocrossref %}
 
 The `govobj` message contains a governance object that is generally a proposal,
-contract, or setting.
+contract, or setting. Masternodes ignore this request if they are not fully synced.
 
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
@@ -2331,10 +2332,22 @@ Transaction input
 
 {% autocrossref %}
 
-The `govobjvote` message is sent by masternodes to indicate their intention (yes,
-no, abstain) regarding a governance object. A sufficient number of yes votes
-results in the proposed funding being payed out in the next superblock (assuming
-their are sufficient funds available in the budget).
+The `govobjvote` message is used to indicate the voting status of a governance
+object.  Voting status is comprised of the vote outcome (how the masternode
+voted) and the vote signal (the network support status). A sufficient number of
+yes votes results in the proposed funding being payed out in the next
+superblock (assuming their are sufficient funds available in the budget).
+
+The initial `govobjvote` message is created by a masternode to vote on a
+governance object (proposal, etc.). When the masternode votes, it broadcasts
+the `govobjvote` message to all its peers.
+
+When a node receives a valid, **new** `govobjvote` message, it relays the message
+to all its connected peers to propagate the vote.
+
+Additionally, nodes can request `govobjvote` messages for specific governance
+objects via a `govsync` message. Masternodes ignore requests for votes if they
+are not fully synced.
 
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
@@ -2344,6 +2357,15 @@ their are sufficient funds available in the budget).
 | 4 | nVoteSignal | int | Required |  None (0), Funding (1), Valid (2), Delete (3), Endorsed (4)
 | 8 | nTime | int64_t | Required | Time the vote was created
 | 66* | vchSig | char[] | Required | Signature of the masternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
+
+Governance Object Vote Signals (defined by src/governance-object.h)
+
+| Value | Name | Description
+|------|-------|------------
+| 1 | Funding  | Minimum network support has been reached for this object to be funded (doesn't mean it will for sure though)
+| 2 | Valid    | Minimum network support has been reached flagging this object as a valid and understood governance object (e.g, the serialized data is correct format, etc.)
+| 3 | Delete   | Minimum network support has been reached saying this object should be deleted from the system entirely
+| 4 | Endorsed | Minimum network support has been reached flagging this object as endorsed by an elected representative body
 
 The following annotated hexdump shows a `govobjvote` message. (The
 message header has been omitted.)
@@ -2380,24 +2402,26 @@ dc45e9c09ee0427223e332b52e8d709e
 {% autocrossref %}
 
 The `govsync` message is used to request syncing of governance objects
-(`govobj` message and `govobjvote` message) with peers.
+(`govobj` message and `govobjvote` message) with peers. Masternodes ignore this
+request if they are not fully synced.
 
-This message responds in two ways depending on the request:
+This message responds in one of two ways depending on the request:
 
 1. When a masternode receives a `govsync` message with a hash of all zeros, it
-responds with a `govobj` inventory message (MSG_GOVERNANCE_OBJECT - 0x17) for
-all valid governance objects. Governance object votes are excluded in this type
-of response.
+responds with one `ssc` message for `govobj` objects and one for `govobjvote`
+objects. The masternode also sends an `inv` message (MSG_GOVERNANCE_OBJECT - 0x17)
+for all valid `govobj` governance objects.
+*Governance object votes are excluded in this type of response.*
 
 2. When a masternode receives a `govsync` message with a specific hash, it
-responds with both a `govobj` inventory message (MSG_GOVERNANCE_OBJECT - 0x17)
-and a `govobjvote` inventory message (MSG_GOVERNANCE_OBJECT_VOTE - 0x18) for
-the single goverance object requested.
-
+responds with one `ssc` message for `govobj` objects and one for `govobjvote`
+objects. The masternode also sends both a `govobj` inventory message
+(MSG_GOVERNANCE_OBJECT - 0x17) and `govobjvote` inventory messages
+(MSG_GOVERNANCE_OBJECT_VOTE - 0x18) for the single governance object requested.
 
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
-| 32 | nHash | uint256 | Required |
+| 32 | nHash | uint256 | Required | Hash of governance object to request<br>Set to all zeros to request all objects (excludes votes)
 | # | filter | CBloomFiter | Required | Only supported since [protocol version 70206][section protocol versions]
 
 Note: Both the hash and bloom filter fields can be set to all zeros.
