@@ -16,7 +16,7 @@ The `createrawtransaction` RPC {{summary_createRawTransaction}}
 *Parameter #1---Inputs*
 
 {% itemplate ntpd1 %}
-- n: "Inputs"
+- n: "Transactions"
   t: "array"
   p: "Required<br>(exactly 1)"
   d: "An array of objects, each one to be used as an input to the transaction"
@@ -35,11 +35,11 @@ The `createrawtransaction` RPC {{summary_createRawTransaction}}
   t: "number (int)"
   p: "Required<br>(exactly 1)"
   d: "The output index number (vout) of the outpoint to be spent; the first output in a transaction is index `0`"
-  
+
 - n: "→ →<br>`Sequence`"
   t: "number (int)"
   p: "Optional<br>(0 or 1)"
-  d: "The sequence number to use for the input"
+  d: "NOT IMPLEMENTED IN DASH.<br><br>The sequence number to use for the input"
 
 {% enditemplate %}
 
@@ -52,9 +52,9 @@ The `createrawtransaction` RPC {{summary_createRawTransaction}}
   d: "The addresses and amounts to pay"
 
 - n: "→<br>Address/Amount"
-  t: "string : number (bitcoins)"
+  t: "string : number (Dash)"
   p: "Required<br>(1 or more)"
-  d: "A key/value pair with the address to pay as a string (key) and the amount to pay that address (value) in bitcoins"
+  d: "A key/value pair with the address to pay as a string (key) and the amount to pay that address (value) in Dash"
 
 {% enditemplate %}
 
@@ -78,24 +78,27 @@ The `createrawtransaction` RPC {{summary_createRawTransaction}}
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.10.0*
+*Example from Dash Core 0.12.2*
 
 {% highlight bash %}
-bitcoin-cli -testnet createrawtransaction '''
+dash-cli -testnet createrawtransaction '''
   [
     {
-      "txid": "1eb590cd06127f78bf38ab4140c4cdce56ad9eb8886999eb898ddf4d3b28a91d",
+      "txid": "f6c83fd96bfaa47887c4587cceadeb9af6238a2c86fe36b883c4d7a6867eab0f",
       "vout" : 0
     }
-  ]''' '{ "mgnucj8nYqdrPFh2JfZSB1NmUThUGnmsqe": 0.13 }'
+  ]''' \
+  '{"ySutkc49Khpz1HQN8AfWNitVBLwqtyaxvv": 800, "yY6AmGopsZS31wy1JLHR9P6AC6owFaXwuh":77.78}' '1024'
+
 {% endhighlight %}
 
 Result (wrapped):
 
 {% highlight text %}
-01000000011da9283b4ddf8d89eb996988b89ead56cecdc44041ab38bf787f12\
-06cd90b51e0000000000ffffffff01405dc600000000001976a9140dfc8bafc8\
-419853b34d5e072ad37d1a5159f58488ac00000000
+01000000010fab7e86a6d7c483b836fe862c8a23f69aebadce7c58c48778a4fa6bd93fc8f6\
+0000000000ffffffff0200205fa0120000001976a914485485425fa99504ec1638ac4213f3\
+cfc9f32ef388ac80dc9acf010000001976a914811eacc14db8ebb5b64486dc43400c0226b4\
+28a488ac00040000
 {% endhighlight %}
 
 *See also*
