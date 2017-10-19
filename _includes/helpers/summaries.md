@@ -3,7 +3,7 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_abandonTransaction="marks an in-wallet transaction and all its in-wallet descendants as abandoned. This allows their inputs to be respent." %}
 {% assign summary_addMultiSigAddress="adds a P2SH multisig address to the wallet." %}
 {% assign summary_addNode="attempts to add or remove a node from the addnode list, or to try a connection to a node once." %}
-{% assign summary_addWitnessAddress="adds a witness address for a script (with pubkey or redeemscript known)." %}
+{% assign summary_addWitnessAddress="adds a witness address for a script (with pubkey or redeem script known)." %}
 {% assign summary_backupWallet="safely copies `wallet.dat`<!--noref--> to the specified file, which can be a directory or a path with filename." %}
 {% assign summary_bumpFee="replaces an unconfirmed wallet transaction that signaled RBF with a new transaction that pays a higher fee." %}
 {% assign summary_clearBanned="clears list of banned nodes." %}
@@ -17,8 +17,10 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_dumpWallet="creates or overwrites a file with all wallet keys in a human-readable format." %}
 {% assign summary_encryptWallet="encrypts the wallet with a passphrase.  This is only to enable encryption for the first time. After encryption is enabled, you will need to enter the passphrase to use private keys." %}
 {% assign summary_estimateFee="estimates the transaction fee per kilobyte that needs to be paid for a transaction to be included within a certain number of blocks." %}
-{% assign summary_estimatePriority="estimates the priority that a transaction needs in order to be included within a certain number of blocks as a free high-priority transaction." %}
+{% assign summary_estimatePriority="estimates the priority (coin age) that a transaction needs in order to be included within a certain number of blocks as a free high-priority transaction." %}
 {% assign summary_fundRawTransaction="adds inputs to a transaction until it has enough in value to meet its out value." %}
+{% assign summary_gObject="provides a set of commands for managing governance objects and displaying information about them." %}
+{% assign summary_gObjectCheck="." %}
 {% assign summary_generate="mines blocks immediately (before the RPC call returns)." %}
 {% assign summary_generateToAddress="mines blocks immediately to a specified address." %}
 {% assign summary_getAccount="returns the name of the account associated with the given address." %}
@@ -90,6 +92,8 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_listTransactions="returns the most recent transactions that affect the wallet." %}
 {% assign summary_listUnspent="returns an array of unspent transaction outputs belonging to this wallet." %}
 {% assign summary_lockUnspent="temporarily locks or unlocks specified transaction outputs. A locked transaction output will not be chosen by automatic coin selection when spending bitcoins. Locks are stored in memory only, so nodes start with zero locked outputs and the locked output list is always cleared when a node stops or fails." %}
+{% assign summary_masternode="" %}
+{% assign summary_masternodeBroadcast="" %}
 {% assign summary_masternodeList="returns a list of masternodes in different modes." %}
 {% assign summary_mnSync="returns the sync status, updates to the next step or resets it entirely." %}
 {% assign summary_move="moves a specified amount from one account in your wallet to another using an off-block-chain transaction." %}
@@ -119,12 +123,14 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_signMessage="signs a message with the private key of an address." %}
 {% assign summary_signMessageWithPrivKey="signs a message with a given private key." %}
 {% assign summary_signRawTransaction="signs a transaction in the serialized transaction format using private keys stored in the wallet or provided in the call." %}
+{% assign summary_spork-rpc="" %}
 {% assign summary_stop="safely shuts down the Dash Core server." %}
 {% assign summary_submitBlock="accepts a block, verifies it is a valid addition to the block chain, and broadcasts it to the network. Extra parameters are ignored by Dash Core but may be used by mining pools or other programs." %}
 {% assign summary_validateAddress="returns information about the given Bitcoin address." %}
 {% assign summary_verifyChain="verifies each entry in the local block chain database." %}
 {% assign summary_verifyMessage="verifies a signed message." %}
 {% assign summary_verifyTxOutProof="verifies that a proof points to one or more transactions in a block, returning the transactions the proof commits to and throwing an RPC error if the block is not in our best block chain." %}
+{% assign summary_voteRaw="" %}
 {% assign summary_walletLock="removes the wallet encryption key from memory, locking the wallet. After calling this method, you will need to call `walletpassphrase` again before being able to call any methods which require the wallet to be unlocked." %}
 {% assign summary_walletPassphrase="stores the wallet decryption key in memory for the indicated number of seconds. Issuing the `walletpassphrase` command while the wallet is already unlocked will set a new unlock time that overrides the old one." %}
 {% assign summary_walletPassphraseChange="changes the wallet passphrase from 'old passphrase' to 'new passphrase'." %}

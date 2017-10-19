@@ -2283,12 +2283,12 @@ contract, or setting. Masternodes ignore this request if they are not fully sync
 
 Governance Object Types (defined by src/governance-object.h)
 
-| Object Type | Description
-|------|--------------
-| 0 | GOVERNANCE_OBJECT_UNKNOWN
-| 1 | GOVERNANCE_OBJECT_PROPOSAL
-| 2 | GOVERNANCE_OBJECT_TRIGGER
-| 3 | GOVERNANCE_OBJECT_WATCHDOG
+| Type | Name                    | Description
+|------|-------------------------|------------
+| 0 | GOVERNANCE_OBJECT_UNKNOWN  |
+| 1 | GOVERNANCE_OBJECT_PROPOSAL | Submitted proposal (requires collateral transaction - currently 5 Dash)
+| 2 | GOVERNANCE_OBJECT_TRIGGER  | Masternode generated. Removed after activation/execution. Used for superblocks.
+| 3 | GOVERNANCE_OBJECT_WATCHDOG | Masternode generated. Two hour expiration time.
 
 The following annotated hexdump shows a `govobj` message. (The
 message header has been omitted.)
