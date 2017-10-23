@@ -1297,14 +1297,15 @@ in the same manner, without the need for a network-wide rollback or client updat
 A `spork` message may be sent in response to a `getsporks` message.
 
 The `spork` message tells the receiving peer the status of the spork defined by
-the SporkID field.
+the SporkID field. Upon receiving a spork message, the client must verify the
+signature before accepting the spork message as valid.
 
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
 | 4 | nSporkID | int | Required | ID assigned in spork.h
 | 8 | nValue | int64_t | Required | Value assigned to spork
 | 8 | nTimeSigned | int64_t | Required | Time the spork value was signed
-| 66* | vchSig | char[] | Required | 66 bytes in most cases. Length (1 byte) + Signature (65 bytes)
+| 66 | vchSig | char[] | Required | Length (1 byte) + Signature (65 bytes)
 
 Defined Sporks (per [`src/spork.h`][spork.h])
 
@@ -1320,8 +1321,37 @@ Defined Sporks (per [`src/spork.h`][spork.h])
 | 10012 | 13 | `OLD_SUPERBLOCK_FLAG` |
 | 10013 | 14 | `REQUIRE_SENTINEL_FLAG` | Only masternode's running sentinel will be paid
 
-{% endautocrossref %}
+To verify `vchSig`, compare the hard-coded spork public key (`strSporkPubKey`
+from [`src/chainparams.cpp`][spork pubkey]) with the public key recovered from
+the `spork` message's hash and `vchSig` value (implementation details for Dash
+Core can be found in `CPubKey::RecoverCompact`). The hash is a double SHA-256 hash of:
 
+* The spork magic message (`"DarkCoin Signed Message:\n"`)
+* nSporkID
+* nValue
+* nTimeSigned
+
+| Network | Spork Pubkey (wrapped) |
+| ---------- | ---------- |
+| Mainnet | 04549ac134f694c0243f503e8c8a9a986f5de6610049c40b07816809b0d1<br>d06a21b07be27b9bb555931773f62ba6cf35a25fd52f694d4e1106ccd237<br>a7bb899fdd |
+| Testnet3 | 046f78dcf911fbd61910136f7f0f8d90578f68d0b3ac973b5040fb7afb50<br>1b5939f39b108b0569dca71488f5bbf498d92e4d1194f6f941307ffd95f7<br>5e76869f0e |
+| RegTest | Undefined |
+
+The following annotated hexdump shows a `spork` message.
+
+{% highlight text %}
+11270000 .................................... Spork ID: Spork 2 InstantSend enabled (10001)
+0000000000000000 ............................ Value (0)
+2478da5900000000 ............................ Epoch time: 2017-10-08 19:10:28 UTC (1507489828)
+
+1b6762d3e70890b5cfaed5d1fd72121c
+d32020c827a89f8128a00acd210f4ea4
+1b36c26c3767f8a24f48663e189865ed
+403ed1e850cdb4207cdd466419d9d183
+45 .......................................... Masternode Signature
+{% endhighlight %}
+
+{% endautocrossref %}
 
 #### VerAck
 {% include helpers/subhead-links.md %}
@@ -1363,7 +1393,7 @@ before initializing its half of the connection by first sending a
 | 2        | addr_trans port       | uint16_t         | Required                                 | The port number of the transmitting node in **big endian byte order**.
 | 8        | nonce                 | uint64_t         | Required                                 | A random nonce which can help a node detect a connection to itself.  If the nonce is 0, the nonce field is ignored.  If the nonce is anything else, a node should terminate the connection on receipt<!--noref--> of a `version` message with a nonce it previously sent.
 | *Varies* | user_agent bytes      | compactSize uint | Required                                 | Number of bytes in following user\_agent field.  If 0x00, no user agent field is sent.
-| *Varies* | user_agent            | string           | Required if user_agent bytes > 0         | *Renamed in protocol version 60000.* <br><br>User agent as defined by BIP14. Previously called subVer.
+| *Varies* | user_agent            | string           | Required if user_agent bytes > 0         | *Renamed in protocol version 60000.* <br><br>User agent as defined by BIP14. Previously called subVer.<br><br>Dash Core limits the length to 256 characters.
 | 4        | start_height          | int32_t          | Required                                 | The height of the transmitting node's best block chain or, in the case of an SPV client, best block header chain.
 | 1        | relay                 | bool             | Optional                                 | *Added in protocol version 70001 as described by BIP37.* <br><br>Transaction relay flag.  If 0x00, no `inv` messages or `tx` messages announcing new transactions should be sent to this client until it sends a `filterload` message or `filterclear` message.  If the relay field is not present or is set to 0x01, this node wants `inv` messages and `tx` messages announcing new transactions.
 
@@ -2422,7 +2452,7 @@ objects. The masternode also sends both a `govobj` inventory message
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
 | 32 | nHash | uint256 | Required | Hash of governance object to request<br>Set to all zeros to request all objects (excludes votes)
-| # | filter | CBloomFiter | Required | Can be set to all zeros.<br>Only supported since [protocol version 70206][section protocol versions]
+| # | filter | CBloomFilter | Required | Can be set to all zeros.<br>Only supported since [protocol version 70206][section protocol versions]
 
 {% highlight text %}
 Dash Core limits how frequently the first type of sync (object sync) can be
