@@ -1327,9 +1327,7 @@ the `spork` message's hash and `vchSig` value (implementation details for Dash
 Core can be found in `CPubKey::RecoverCompact`). The hash is a double SHA-256 hash of:
 
 * The spork magic message (`"DarkCoin Signed Message:\n"`)
-* nSporkID
-* nValue
-* nTimeSigned
+* nSporkID + nValue + nTimeSigned
 
 | Network | Spork Pubkey (wrapped) |
 | ---------- | ---------- |
@@ -1343,6 +1341,8 @@ The following annotated hexdump shows a `spork` message.
 11270000 .................................... Spork ID: Spork 2 InstantSend enabled (10001)
 0000000000000000 ............................ Value (0)
 2478da5900000000 ............................ Epoch time: 2017-10-08 19:10:28 UTC (1507489828)
+
+41 .......................................... Signature length: 65
 
 1b6762d3e70890b5cfaed5d1fd72121c
 d32020c827a89f8128a00acd210f4ea4
@@ -2100,17 +2100,37 @@ Masternode Signature
 
 {% autocrossref %}
 
-The `mnv` message is used to verify masternodes.
+The `mnv` message is used by masternodes to verify each other. Several `mnv`
+messages are exchanged in the process. This results in the address of
+masternode 1 being validated as of the provided block height.
 
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
 | 41 | vin1 | txIn | Required | The unspent output which is holding 1000 DASH for masternode 1
 | 41 | vin2 | txIn | Required | The unspent output which is holding 1000 DASH for masternode 2
-| # | addr | CService | Required | IPv4 address and port of the masternode
+| # | addr | CService | Required | IPv4 address and port of masternode 1
 | 4 | nonce | int | Required | Nonce
 | 4 | nBlockHeight | int | Required | Block height
-| 66* | vchSig1 | char[] | Required | Signature of this message by masternode 1 - verifiable via pubKeyMasternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
-| 66* | vchSig2 | char[] | Required | Signature of this message by masternode 2 - verifiable via pubKeyMasternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
+| 66 | vchSig1 | char[] | Required*<br><br>Added in Step 2 | Signature of this message by masternode 1 - verifiable via pubKeyMasternode (Length (1 byte) + Signature (65 bytes))<br><br>
+| 66 | vchSig2 | char[] | Required*<br><br>Added in Step 3 | Signature of this message by masternode 2 - verifiable via pubKeyMasternode (Length (1 byte) + Signature (65 bytes))<br><br>
+
+Initially, both `vchSig1` and `vchSig2` are empty. They are updated as the
+exchange of messages between the masternodes occurs as detailed in the table
+below.
+
+*Masternode Verify Data Flow*
+
+| Step  | **Masternode 2** | **Direction**  | **Masternode 1**   | **Description** |
+|   | **Inital request** | |                   | **`mnv` message with no signatures** |
+| 1 | `mnv` message    | → |                   | Contains `addr`, `nonce`, and `nBlockHeight`
+| 2 |                  | ← | `mnv` message     | Add `vchSig1` (signature of the IP address + nonce +hash of the requested block)
+| 3 | `mnv` message    | → |                   | Verify `vchSig1` <br><br>Add `vchSig2` (signature of the IP address + nonce + hash of the requested block + `vin1` prevout + `vin2` prevout)
+| 4 |                  | ← | `mnv` message     | Verify `vchSig2` <br><br>Relay message to peers if valid
+
+{% highlight text %}
+Note: Dash Core limits how frequently a masternode verify request can be
+requested. Frequent requests will result in the node being banned.
+{% endhighlight %}
 
 <!-- Need example from Wireshark -->
 
