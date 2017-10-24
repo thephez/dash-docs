@@ -589,6 +589,20 @@ Earlier versions of Bitcoin Core allowed developers and trusted community member
 {% endautocrossref %}
 
 
+### Masternode Payment
+
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+Masternode payment uses a verifiable process to determine which masternode is
+paid in each block. When a new block is processed, a quorum of
+`MNPAYMENTS_SIGNATURES_TOTAL` (10) masternodes vote on the next masternode
+payee. Each member of the quorum issues a 'mnw' message that is relayed to the
+network.
+
+{% endautocrossref %}
+
 ### Masternode Sync
 
 {% include helpers/subhead-links.md %}
