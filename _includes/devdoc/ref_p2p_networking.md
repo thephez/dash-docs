@@ -2056,12 +2056,13 @@ a8170000 ................................... Count: 6056
 {% autocrossref %}
 
 The `mnp` message is sent by masternodes every few minutes to ping the network
-with a message that propagates across the whole network.
+with a message that propagates across the whole network. Dash Core currently
+uses a minimum masternode ping time of 10 minutes.
 
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
 | 41 | vin | txIn | Required | The unspent output of the masternode (holding 1000 DASH) which is signing the message
-| 32 | blockHash | uint256 | Required | Current chaintip blockhash (minus 12??)
+| 32 | blockHash | uint256 | Required | Block hash from 12 blocks ago (current chaintip minus 12). This offset allows nodes to be slightly out of sync.
 | 8 | sigTime | int64_t | Required | Time which the signature was created
 | 66* | vchSig | char[] | Required | Signature of this message by masternode - verifiable via pubKeyMasternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
 
@@ -2101,7 +2102,7 @@ Masternode Signature
 {% autocrossref %}
 
 The `mnv` message is used by masternodes to verify each other. Several `mnv`
-messages are exchanged in the process. This results in the address of
+messages are exchanged in the process. This results in the IP address of
 masternode 1 being validated as of the provided block height.
 
 | Bytes | Name | Data type | Required | Description |
@@ -2109,7 +2110,7 @@ masternode 1 being validated as of the provided block height.
 | 41 | vin1 | txIn | Required | The unspent output which is holding 1000 DASH for masternode 1
 | 41 | vin2 | txIn | Required | The unspent output which is holding 1000 DASH for masternode 2
 | # | addr | CService | Required | IPv4 address and port of masternode 1
-| 4 | nonce | int | Required | Nonce
+| 4 | nonce | int | Required | Random nonce
 | 4 | nBlockHeight | int | Required | Block height
 | 66 | vchSig1 | char[] | Required*<br><br>Added in Step 2 | Signature of this message by masternode 1 - verifiable via pubKeyMasternode (Length (1 byte) + Signature (65 bytes))<br><br>
 | 66 | vchSig2 | char[] | Required*<br><br>Added in Step 3 | Signature of this message by masternode 2 - verifiable via pubKeyMasternode (Length (1 byte) + Signature (65 bytes))<br><br>
@@ -2120,16 +2121,25 @@ below.
 
 *Masternode Verify Data Flow*
 
-| Step  | **Masternode 2** | **Direction**  | **Masternode 1**   | **Description** |
-|   | **Inital request** | |                   | **`mnv` message with no signatures** |
+| Step  | **MN 2 (Verifier)** | **Direction**  | **MN 1 (Being verified)**   | **Description** |
+|   | **Verification request** | |                   | **`mnv` message with no signatures** |
 | 1 | `mnv` message    | → |                   | Contains `addr`, `nonce`, and `nBlockHeight`
-| 2 |                  | ← | `mnv` message     | Add `vchSig1` (signature of the IP address + nonce +hash of the requested block)
-| 3 | `mnv` message    | → |                   | Verify `vchSig1` <br><br>Add `vchSig2` (signature of the IP address + nonce + hash of the requested block + `vin1` prevout + `vin2` prevout)
-| 4 |                  | ← | `mnv` message     | Verify `vchSig2` <br><br>Relay message to peers if valid
+| 2 |                  | ← | `mnv` message     | Add `vchSig1` (signature of the IP address + nonce + hash of the requested block)
+| 3 | `mnv` message    | → |                   | Verify `vchSig1` <br><br>Add `vchSig2` (signature of the IP address + nonce + hash of the requested block + `vin1` prevout + `vin2` prevout) and relay message to peers if valid
+
+Nodes receiving a relayed `mnv` message (one in which both `vchSig1` and
+`vchSig2` are already present) use it to update the PoSe ban score. If the ban
+score reaches `MASTERNODE_POSE_BAN_MAX_SCORE` (5), the masternode will be
+considered malicious and banned.
 
 {% highlight text %}
-Note: Dash Core limits how frequently a masternode verify request can be
-requested. Frequent requests will result in the node being banned.
+Important Notes:
+* Dash Core limits how frequently a masternode verify request can be
+  requested. Frequent requests will result in the node being banned.
+
+* Only masternodes in the top `MAX_POSE_RANK` (10) can send an `mnv` request
+  (to no more than `MAX_POSE_CONNECTIONS` (10)).
+
 {% endhighlight %}
 
 <!-- Need example from Wireshark -->

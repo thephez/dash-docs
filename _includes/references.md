@@ -252,7 +252,7 @@ http://opensource.org/licenses/MIT.
 [mnb message]: /en/developer-reference#mnb "A P2P protocol message used to describe the masternode entry and how to validate messages from it"
 [mnget message]: /en/developer-reference#mnget "A P2P protocol message that requests masternode payment sync"
 [mnp message]: /en/developer-reference#mnp "A P2P protocol message sent by masternodes every few minutes to ping the network with a message that propagates across the whole network"
-[mnv message]: /en/developer-reference#mnv "A P2P protocol message used to verify masternodes."
+[mnv message]: /en/developer-reference#mnv "A P2P protocol message used by masternodes to verify other masternode's IP Addresses."
 [mnw message]: /en/developer-reference#mnw "A P2P protocol message used to pick the next winning masternode (payee)"
 [notfound message]: /en/developer-reference#notfound "A P2P protocol message sent to indicate that the requested data was not available"
 [ping message]: /en/developer-reference#ping "A P2P network message used to see if the remote host is still connected"
