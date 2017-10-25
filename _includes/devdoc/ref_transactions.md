@@ -24,25 +24,25 @@ The opcodes used in the pubkey scripts of standard transactions are:
 * `OP_TRUE`/`OP_1` (0x51) and `OP_2` through `OP_16` (0x52--0x60), which
   push the values 1 through 16 to the stack.
 
-* [`OP_CHECKSIG`][op_checksig]{:#term-op-checksig}{:.term} consumes a signature and a full public key, and pushes
+* [`OP_CHECKSIG`][op_checksig]{:#term-op-checksig}{:.term} (0xac) consumes a signature and a full public key, and pushes
   true onto the stack if the transaction data specified by the SIGHASH flag was
   converted into the signature using the same ECDSA private key that
   generated the public key.  Otherwise, it pushes false onto the stack.
 
-* [`OP_DUP`][op_dup]{:#term-op-dup}{:.term} pushes a copy of the topmost stack item on to the stack.
+* [`OP_DUP`][op_dup]{:#term-op-dup}{:.term} (0x76) pushes a copy of the topmost stack item on to the stack.
 
-* [`OP_HASH160`][op_hash160]{:#term-op-hash160}{:.term} consumes the topmost item on the stack,
+* [`OP_HASH160`][op_hash160]{:#term-op-hash160}{:.term} (0xa9) consumes the topmost item on the stack,
   computes the RIPEMD160(SHA256()) hash of that item, and pushes that hash onto the stack.
 
-* [`OP_EQUAL`][op_equal]{:#term-op-equal}{:.term} consumes the top two items on the stack, compares them, and
+* [`OP_EQUAL`][op_equal]{:#term-op-equal}{:.term} (0x87) consumes the top two items on the stack, compares them, and
   pushes true onto the stack if they are the same, false if not.
 
-* [`OP_VERIFY`][op_verify]{:#term-op-verify}{:.term} consumes the topmost item on the stack.
+* [`OP_VERIFY`][op_verify]{:#term-op-verify}{:.term} (0x69) consumes the topmost item on the stack.
   If that item is zero (false) it terminates the script in failure.
 
-* [`OP_EQUALVERIFY`][op_equalverify]{:#term-op-equalverify}{:.term} runs `OP_EQUAL` and then `OP_VERIFY` in sequence.
+* [`OP_EQUALVERIFY`][op_equalverify]{:#term-op-equalverify}{:.term} (0x88) runs `OP_EQUAL` and then `OP_VERIFY` in sequence.
 
-* [`OP_CHECKMULTISIG`][op_checkmultisig]{:#term-op-checkmultisig}{:.term} consumes the value (n) at the top of the stack,
+* [`OP_CHECKMULTISIG`][op_checkmultisig]{:#term-op-checkmultisig}{:.term} (0xae) consumes the value (n) at the top of the stack,
   consumes that many of the next stack levels (public keys), consumes
   the value (m) now at the top of the stack, and consumes that many of
   the next values (signatures) plus one extra value.
@@ -65,11 +65,11 @@ The opcodes used in the pubkey scripts of standard transactions are:
     the pubkey script or redeem script. See the `OP_CHECKMULTISIG` warning
     below for more details.
 
-* [`OP_RETURN`][op_return]{:#term-op-return}{:.term} terminates the script in failure when executed.
+* [`OP_RETURN`][op_return]{:#term-op-return}{:.term} (0x6a) terminates the script in failure when executed.
 
 A complete list of opcodes can be found on the Bitcoin Wiki [Script
 Page][wiki script], with an authoritative list in the `opcodetype` enum
-of the Bitcoin Core [script header file][core script.h]
+of the Dash Core [script header file][core script.h]
 
 ![Warning icon](/img/icons/icon_warning.svg)
 **<span id="signature_script_modification_warning">Signature script modification warning</span>:**
@@ -131,7 +131,7 @@ Failure, aborted: two signature matches required but none found so
 
 {% autocrossref %}
 
-The hashes used in P2PKH and P2SH outputs are commonly encoded as Bitcoin
+The hashes used in P2PKH and P2SH outputs are commonly encoded as Dash
 addresses.  This is the procedure to encode those hashes and decode the
 addresses.
 
@@ -142,15 +142,15 @@ format used in raw transactions (described in a [following
 sub-section][raw transaction format]).  Taking the resulting hash:
 
 1. Add an address version byte in front of the hash.  The version
-bytes commonly used by Bitcoin are:
+bytes commonly used by Dash are:
 
-    * 0x00 for P2PKH addresses on the main Bitcoin network (mainnet)
+    * 0x4c for P2PKH addresses on the main Dash network (mainnet)
 
-    * 0x6f for P2PKH addresses on the Bitcoin testing network (testnet)
+    * 0x8c for P2PKH addresses on the Dash testing network (testnet)
 
-    * 0x05 for P2SH addresses on mainnet
+    * 0x10 for P2SH addresses on mainnet
 
-    * 0xc4 for P2SH addresses on testnet
+    * 0x13 for P2SH addresses on testnet
 
 2. Create a copy of the version and hash; then hash that twice with SHA256: `SHA256(SHA256(version . hash))`
 
@@ -160,8 +160,8 @@ bytes commonly used by Bitcoin are:
 
 4. Append the checksum to the version and hash, and encode it as a base58
    string: <!--[-->`BASE58(version . hash . checksum)`<!--]-->
- 
-Bitcoin's base58 encoding, called [Base58Check][/en/glossary/base58check]{:#term-base58check}{:.term} may not match other implementations. Tier
+
+Dash's base58 encoding, called [Base58Check][/en/glossary/base58check]{:#term-base58check}{:.term} may not match other implementations. Tier
 Nolan provided the following example encoding algorithm to the Bitcoin
 Wiki [Base58Check
 encoding](https://en.bitcoin.it/wiki/Base58Check_encoding) page under
@@ -173,7 +173,7 @@ x = convert_bytes_to_big_integer(hash_result)
 
 output_string = ""
 
-while(x > 0) 
+while(x > 0)
    {
        (x, remainder) = divide(x, 58)
        output_string.append(code_string[remainder])
@@ -187,7 +187,7 @@ repeat(number_of_leading_zero_bytes_in_hash)
 output_string.reverse();
 {% endhighlight %}
 
-Bitcoin's own code can be traced using the [base58 header
+Dash's own code can be traced using the [base58 header
 file][core base58.h].
 
 To convert addresses back into hashes, reverse the base58 encoding, extract
@@ -201,19 +201,19 @@ against the extracted checksum, and then remove the version byte.
 
 {% autocrossref %}
 
-Bitcoin transactions are broadcast between peers
+Dash transactions are broadcast between peers
 in a serialized byte format, called [raw format][/en/glossary/serialized-transaction]{:#term-raw-format}{:.term}.
 It is this form of a transaction which is SHA256(SHA256()) hashed to create
 the TXID and, ultimately, the merkle root of a block containing the
 transaction---making the transaction format part of the consensus rules.
 
-Bitcoin Core and many other tools print and accept raw transactions
+Dash Core and many other tools print and accept raw transactions
 encoded as hex.
 
-As of Bitcoin Core 0.9.3 (October 2014), all transactions use the
-version 1 format described below. (Note: transactions in the block chain
-are allowed to list a higher version number to permit soft forks, but
-they are treated as version 1 transactions by current software.)
+All transactions use the version 1 format described below.
+(Note: transactions in the block chain are allowed to list a higher version
+number to permit soft forks, but they are treated as version 1 transactions
+by current software.)
 
 A raw transaction has the following top-level format:
 
@@ -224,7 +224,7 @@ A raw transaction has the following top-level format:
 | *Varies* | tx_in        | txIn                | Transaction inputs.  See description of txIn below.
 | *Varies* | tx_out count | compactSize uint    | Number of outputs in this transaction.
 | *Varies* | tx_out       | txOut               | Transaction outputs.  See description of txOut below.
-| 4        | lock_time    | uint32_t            | A time (Unix epoch time) or block number.  See the [locktime parsing rules][]. 
+| 4        | lock_time    | uint32_t            | A time (Unix epoch time) or block number.  See the [locktime parsing rules][].
 
 A transaction may have multiple inputs and outputs, so the txIn and
 txOut structures may recur within a transaction. CompactSize unsigned
@@ -247,7 +247,7 @@ Each non-coinbase input spends an outpoint from a previous transaction.
 | 36       | previous_output  | outpoint             | The previous outpoint being spent.  See description of outpoint below.
 | *Varies* | script bytes     | compactSize uint     | The number of bytes in the signature script.  Maximum is 10,000 bytes.
 | *Varies* | signature script | char[]               | A script-language script which satisfies the conditions placed in the outpoint's pubkey script.  Should only contain data pushes; see the [signature script modification warning][].
-| 4        | sequence         | uint32_t             | Sequence number.  Default for Bitcoin Core and almost all other programs is 0xffffffff.
+| 4        | sequence         | uint32_t             | Sequence number.  Default for Dash Core and almost all other programs is 0xffffffff.
 
 {% endautocrossref %}
 
@@ -274,12 +274,12 @@ specific output.
 
 {% autocrossref %}
 
-Each output spends a certain number of satoshis, placing them under
+Each output spends a certain number of duffs, placing them under
 control of anyone who can satisfy the provided pubkey script.
 
 | Bytes    | Name            | Data Type        | Description
 |----------|-----------------|------------------|--------------
-| 8        | value           | int64_t          | Number of satoshis to spend.  May be zero; the sum of all outputs may not exceed the sum of satoshis previously spent to the outpoints provided in the input section.  (Exception: coinbase transactions spend the block subsidy and collected transaction fees.)
+| 8        | value           | int64_t          | Number of duffs to spend.  May be zero; the sum of all outputs may not exceed the sum of duffs previously spent to the outpoints provided in the input section.  (Exception: coinbase transactions spend the block subsidy and collected transaction fees.)
 | 1+       | pk_script bytes | compactSize uint | Number of bytes in the pubkey script.  Maximum is 10,000 bytes.
 | *Varies* | pk_script       | char[]           | Defines the conditions which must be satisfied to spend this output.
 
@@ -297,7 +297,7 @@ to a new pay-to-pubkey-hash (P2PKH) output.
 |
 | 7b1eabe0209b1fe794124575ef807057
 | c77ada2138ae4fa8d6c4de0398a14f3f ......... Outpoint TXID
-| 00000000 ................................. Outpoint index number
+| 00000000 ................................. Outpoint index number: 0
 |
 | 49 ....................................... Bytes in sig. script: 73
 | | 48 ..................................... Push 72 bytes as data
@@ -310,7 +310,7 @@ to a new pay-to-pubkey-hash (P2PKH) output.
 | ffffffff ................................. Sequence number: UINT32_MAX
 
 01 ......................................... Number of outputs
-| f0ca052a01000000 ......................... Satoshis (49.99990000 BTC)
+| f0ca052a01000000 ......................... Duffs (49.99990000 Dash)
 |
 | 19 ....................................... Bytes in pubkey script: 25
 | | 76 ..................................... OP_DUP
@@ -345,10 +345,11 @@ has the following format.
 | *Varies* | coinbase script    | *None*               | The [coinbase field][/en/glossary/coinbase]{:#term-coinbase-field}{:.term}: Arbitrary data not exceeding 100 bytes minus the (4) height bytes.  Miners commonly place an extra nonce in this field to update the block header merkle root during hashing.
 | 4        | sequence           | uint32_t             | Sequence number.
 
+<!--
 Most (but not all) blocks prior to block height 227,836 used block
 version 1 which did not require the height parameter to be prefixed to
 the coinbase script.  The block height parameter is now required.
-
+-->
 Although the coinbase script is arbitrary data, if it includes the
 bytes used by any signature-checking operations such as `OP_CHECKSIG`,
 those signature checks will be counted as signature operations (sigops)
@@ -365,22 +366,32 @@ An itemized coinbase transaction:
 | 00000000000000000000000000000000 ...  Previous outpoint TXID
 | ffffffff ............................ Previous outpoint index
 |
-| 29 .................................. Bytes in coinbase
+| 18 .................................. Bytes in coinbase: 24
 | |
 | | 03 ................................ Bytes in height
-| | | 4e0105 .......................... Height: 328014
+| | | b8240b .......................... Height: 730296
 | |
-| | 062f503253482f0472d35454085fffed
-| | f2400000f90f54696d65202620486561
-| | 6c74682021 ........................ Arbitrary data
+| | 03b8240b049d29aa59080400077efa95
+| | 0000052f6d70682f .................. Arbitrary data
 | 00000000 ............................ Sequence
 
-01 .................................... Output count
-| 2c37449500000000 .................... Satoshis (25.04275756 BTC)
-| 1976a914a09be8040cbf399926aeb1f4
-| 70c37d1341f3b46588ac ................ P2PKH script
+02 .................................... Output count
+| Transaction Output 1
+| | f20cbe0a00000000 .................... Duffs (1.80227314 Dash)
+| | 1976a9142cd46be3ceeacca983e0fea3
+| | b88f26b08a26c29b88ac ................ P2PKH script
+|
+| Transaction Output 2
+| | eb0cbe0a00000000 .................... Duffs (1.80227307 Dash)
+| | 1976a914868180414905937a68fadeb0
+| | f33e64d102c9591a88ac ................ P2PKH script
+|
 | 00000000 ............................ Locktime
 {% endhighlight %}
+
+Note: currently the normal coinbase has 2 outputs (1 for the miner and 1 for
+the selected masternode). Superblocks ([superblock example][superblock example])
+have multiple outputs depending on the number of proposals being funded.
 
 {% endautocrossref %}
 
@@ -393,23 +404,23 @@ The raw transaction format and several peer-to-peer network messages use
 a type of variable-length integer to indicate the number of bytes in a
 following piece of data.
 
-Bitcoin Core code and this document refers to these variable length
+Dash Core code and this document refers to these variable length
 integers as compactSize. Many other documents refer to them as var_int
 or varInt, but this risks conflation with other variable-length integer
-encodings---such as the CVarInt class used in Bitcoin Core for
+encodings---such as the CVarInt class used in Dash Core for
 serializing data to disk.  Because it's used in the transaction format,
 the format of compactSize unsigned integers is part of the consensus
 rules.
 
-For numbers from 0 to 252, compactSize unsigned integers look like
+For numbers from 0 to 252 (0xfc), compactSize unsigned integers look like
 regular unsigned integers. For other numbers up to 0xffffffffffffffff, a
 byte is prefixed to the number to indicate its length---but otherwise
 the numbers look like regular unsigned integers in little-endian order.
 
 | Value                                   | Bytes Used | Format
 |-----------------------------------------|------------|-----------------------------------------
-| >= 0 && <= 252                          | 1          | uint8_t
-| >= 253 && <= 0xffff                     | 3          | 0xfd followed by the number as uint16_t
+| >= 0 && <= 0xfc (252)                   | 1          | uint8_t
+| >= 0xfd (253) && <= 0xffff              | 3          | 0xfd followed by the number as uint16_t
 | >= 0x10000 && <= 0xffffffff             | 5          | 0xfe followed by the number as uint32_t
 | >= 0x100000000 && <= 0xffffffffffffffff | 9          | 0xff followed by the number as uint64_t
 

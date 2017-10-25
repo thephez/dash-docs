@@ -587,3 +587,123 @@ Take note that for both types of broadcasting, mechanisms are in place to punish
 Earlier versions of Bitcoin Core allowed developers and trusted community members to issue [Bitcoin alerts](https://bitcoin.org/en/alerts) to notify users of critical network-wide issues. This messaging system [was retired](https://bitcoin.org/en/alert/2016-11-01-alert-retirement) in Bitcoin Core v0.13.0; however, internal alerts, partition detection warnings and the `-alertnotify` option features remain.
 
 {% endautocrossref %}
+
+
+### Masternode Payment
+
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+Masternode payment uses a verifiable process to determine which masternode is
+paid in each block. When a new block is processed, a quorum of
+`MNPAYMENTS_SIGNATURES_TOTAL` (10) masternodes vote on the next masternode
+payee. Each member of the quorum issues a 'mnw' message that is relayed to the
+network.
+
+{% endautocrossref %}
+
+### Masternode Sync
+
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+Dash Core performs masternode synchronization as required, but it can be started
+manually by issuing the `mnsync reset` RPC command.
+
+*Masternode Sync Data Flow*
+
+| **Syncing Node Message** | **Direction**  | **Masternode Response**   | **Description** |
+| **1. Sporks** |   |  |  |
+| `getsporks` message                            | → |                           | Syncing node requests sporks
+|                                                | ← | `spork` message(s)        |
+| **2. Masternode List** |   |  | Sync Masternode list from other connected clients |
+| `dseg` message                                 | → |                           | Syncing node requests masternode list
+|                                                | ← | `ssc` message | Number of entries in masternode list (MASTERNODE_SYNC_LIST)<br><br>Only sent if requesting entire list
+|                                                | ← | `inv` message(s) (mnb)         | MSG_MASTERNODE_ANNOUNCE
+|                                                | ← | `inv` message(s) (mnp)         | MSG_MASTERNODE_PING
+| `getdata` message(s) (mnb) | → |                           | (Optional)
+| `getdata` message(s) (mnp)     | → |                           | (Optional)
+|                                                | ← | `mnb` message(s)          | (If requested) Masternode announce message
+|                                                | ← | `mnp` message(s)          | (If requested) Masternode ping message
+| **3. Masternode payments** |   |  | Ask node for all payment votes it has (new nodes will only return votes for future payments) |
+| `mnget` message                                | → |                           | Syncing node requests masternode payment sync
+|                                                | ← | `ssc` message | Number of entries in masternode payment list
+|                                                | ← | `inv` message(s) (mnw)         | MSG_MASTERNODE_PAYMENT_VOTE
+| `getdata` message(s) (mnw) | → |                           | (Optional)
+|                                                | ← | `mnw` message(s)          | (If requested) Masternode payment vote message
+| **4. Governance** |   |  | See [Governance sync](#governance) |
+
+{% endautocrossref %}
+
+
+### Governance
+
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+#### Synchronization
+
+Dash Core synchronizes the governance system via the Masternode network as the
+last stage of the Masternode sync process (following the sync of sporks, the
+Masternode list, and Masternode payments).
+
+The `govsync` message initiates a sync of the governance system. Masternodes
+ignore this request if they are not fully synced.  
+
+There are two distinct stages of governance sync:
+
+1. Initial request (object sync) - requests the governance objects only via a
+`govsync` message sent with a hash of all zeros.  
+
+2. Follow up request(s) (vote sync) - request governance object votes for a
+specific object via a `govsync` message containing the hash of the object. One
+message is required for each object. Dash Core periodically (~ every 6 seconds)
+sends messages to connected nodes until all the governance objects have been
+synchronized.
+
+{% highlight text %}
+Dash Core limits how frequently the first type of sync (object sync) can be
+requested. Frequent requests will result in the node being banned.
+{% endhighlight %}
+
+
+Masternodes respond to the `govsync` message with several items:
+
+* First, the Masternode sends one `ssc` message (Sync Status Count) for `govobj`
+objects and one for `govobjvote` objects. These messages indicate how many
+inventory items will be sent.
+
+* Second, the Masternode sends `inv` messages for the `govobj` and `govobjvote`
+objects.
+
+Once the syncing node receives the counts and inventories, it may request any
+`govobj` and `govobjvote` objects from the masternode via a `getdata` message.
+
+
+*Governance Sync Data Flow*
+
+| **Syncing Node Message** | **Direction**  | **Masternode Response**   | **Description** |
+| **Inital request** | | | **Requests all governance objects (without votes)** |
+| `govsync` message        | →              |                           | Syncing node initiates governance sync (hash set to all zeros)
+|                          | ←              | `ssc` message (govobj)    | Number of governance objects (0 or more)
+|                          | ←              | `ssc` message (govobjvote)| Number of governance object votes *(0 since votes are only returned if a specific hash is provided with the `govsync` message)*
+|                          | ←              | `inv` message (govobj)    | Governance object inventories
+| `getdata` message (govobj) | →              |                           | (Optional) Syncing node requests govobj
+|                          | ←              | `govobj` message          | (If requested) Governance object
+| | | | |
+| **Follow up requests** | | | **Requests governance object (with votes)** |
+| `govsync` message        | →              |                           | Syncing node requests governance sync for a specific governance object
+|                          | ←              | `ssc` message (govobj)    | Number of governance objects (1)
+|                          | ←              | `ssc` message (govobjvote)| Number of governance object votes (0 or more)
+|                          | ←              | `inv` message (govobj)    | Governance object inventory
+|                          | ←              | `inv` message (govobjvote)| Governance object vote inventories
+| `getdata` message (govobj) | →              |                           | (Optional) Syncing node requests govobj
+|                          | ←              | `govobj` message          | (If requested) Governance object
+| `getdata` message (govobjvote) | →              |                           | (Optional) Syncing node requests govobjvote
+|                          | ←              | `govobjvote` message      | (If requested) Governance object vote
+
+
+{% endautocrossref %}

@@ -17,9 +17,28 @@ http://opensource.org/licenses/MIT.
 [merge]: /en/developer-guide#term-merge "Spending, in the same transaction, multiple outputs which can be traced back to different previous spenders, leaking information about how many satoshis you control"
 [merge avoidance]: /en/developer-guide#term-merge-avoidance "A strategy for selecting which outputs to spend that avoids merging outputs with different histories that could leak private information"
 [message]: /en/developer-guide#term-message "A parameter of bitcoin: URIs which allows the receiver to optionally specify a message to the spender"
+<!-- Inventory Messages -->
 [msg_tx]: /en/developer-reference#term-msg_tx "The TXID data type identifier of an inventory on the P2P network"
 [msg_block]: /en/developer-reference#term-msg_block "The block header hash data type identifier of an inventory on the P2P network"
 [msg_filtered_block]: /en/developer-reference#term-msg_block "An alternative to the block header hash data type identifier of an inventory on the P2P network used to request a merkle block"
+<!-- Inventory Messages: Dash Specific -->
+[msg_txlock_request]: /en/developer-reference#term-msg_txlock_request "The InstantSend TX Lock request data type identifier of an inventory on the P2P network"
+[msg_txlock_vote]: /en/developer-reference#term-msg_txlock_vote "The InstantSend TX Lock vote data type identifier of an inventory on the P2P network"
+[msg_spork]: /en/developer-reference#term-msg_spork "The Spork ID data type identifier of an inventory on the P2P network"
+[msg_masternode_payment_vote]: /en/developer-reference#term-msg_masternode_payment_vote "Masternode Payment Vote data type identifier of an inventory on the P2P network"
+[msg_masternode_payment_block]: /en/developer-reference#term-msg_masternode_payment_block "Masternode Payment Block data type identifier of an inventory on the P2P network"
+[msg_budget_vote]: /en/developer-reference#term-msg_budget_vote "Deprecated budget related data type identifier of an inventory on the P2P network"
+[msg_budget_proposal]: /en/developer-reference#term-msg_budget_proposal "Deprecated budget related data type identifier of an inventory on the P2P network"
+[msg_budget_finalized]: /en/developer-reference#term-msg_budget_finalized "Deprecated budget related data type identifier of an inventory on the P2P network"
+[msg_budget_finalized_vote]: /en/developer-reference#term-msg_budget_finalized_vote "Deprecated budget related data type identifier of an inventory on the P2P network"
+[msg_masternode_quorum]: /en/developer-reference#term-msg_masternode_quorum "Not implemented"
+[msg_masternode_announce]: /en/developer-reference#term-msg_masternode_announce "Masternode broadcast data type identifier of an inventory on the P2P network"
+[msg_masternode_ping]: /en/developer-reference#term-msg_masternode_ping "Masternode Ping data type identifier of an inventory on the P2P network"
+[msg_dstx]: /en/developer-reference#term-msg_dstx "PrivateSend TX broadcast data type identifier of an inventory on the P2P network"
+[msg_governance_object]: /en/developer-reference#term-msg_governance_object "Governance object data type identifier of an inventory on the P2P network"
+[msg_governance_object_vote]: /en/developer-reference#term-msg_governance_object_vote "Governance object vote data type identifier of an inventory on the P2P network"
+[msg_masternode_verify]: /en/developer-reference#term-msg_masternode_verify "Masternode Verify data type identifier of an inventory on the P2P network"
+
 [network]: /en/developer-guide#term-network "The Bitcoin P2P network which broadcasts transactions and blocks"
 [op_checkmultisig]: /en/developer-reference#term-op-checkmultisig "Opcode which returns true if one or more provided signatures (m) sign the correct parts of a transaction and match one or more provided public keys (n)"
 [op_checksig]: /en/developer-reference#term-op-checksig "Opcode which returns true if a signature signs the correct parts of a transaction and matches a provided public key"
@@ -61,7 +80,7 @@ http://opensource.org/licenses/MIT.
 [URI QR Code]: /en/developer-guide#term-uri-qr-code "A QR code containing a bitcoin: URI"
 [v2 block]: /en/developer-reference#term-v2-block "The current version of Bitcoin blocks"
 [verified payments]: /en/developer-guide#verifying-payment "Payments which the receiver believes won't be double spent"
-[wallet support]: /en/developer-reference#term-wallet-support "A Bitcoin Core ./configure option that enables (default) or disables the wallet"
+[wallet support]: /en/developer-reference#term-wallet-support "A Dash Core ./configure option that enables (default) or disables the wallet"
 
 {% comment %}<!-- RPCs; alphabetical order -->{% endcomment %}
 [rpc abandontransaction]: /en/developer-reference#abandontransaction
@@ -73,6 +92,7 @@ http://opensource.org/licenses/MIT.
 [rpc clearbanned]: /en/developer-reference#clearbanned
 [rpc createmultisig]: /en/developer-reference#createmultisig
 [rpc createrawtransaction]: /en/developer-reference#createrawtransaction
+[rpc debug]: /en/developer-reference#debug
 [rpc decoderawtransaction]: /en/developer-reference#decoderawtransaction
 [rpc decodescript]: /en/developer-reference#decodescript
 [rpc disconnectnode]: /en/developer-reference#disconnectnode
@@ -87,19 +107,27 @@ http://opensource.org/licenses/MIT.
 [rpc getaccount]: /en/developer-reference#getaccount
 [rpc getaccountaddress]: /en/developer-reference#getaccountaddress
 [rpc getaddednodeinfo]: /en/developer-reference#getaddednodeinfo
+[rpc getaddressbalance]: /en/developer-reference#getaddressbalance
+[rpc getaddressdeltas]: /en/developer-reference#getaddressdeltas
 [rpc getaddressesbyaccount]: /en/developer-reference#getaddressesbyaccount
+[rpc getaddressmempool]: /en/developer-reference#getaddressmempool
+[rpc getaddresstxids]: /en/developer-reference#getaddresstxids
+[rpc getaddressutxos]: /en/developer-reference#getaddressutxos
 [rpc getbalance]: /en/developer-reference#getbalance
 [rpc getbestblockhash]: /en/developer-reference#getbestblockhash
 [rpc getblock]: /en/developer-reference#getblock
 [rpc getblockchaininfo]: /en/developer-reference#getblockchaininfo
 [rpc getblockcount]: /en/developer-reference#getblockcount
 [rpc getblockhash]: /en/developer-reference#getblockhash
+[rpc getblockhashes]: /en/developer-reference#getblockhashes
 [rpc getblockheader]: /en/developer-reference#getblockheader
+[rpc getblockheaders]: /en/developer-reference#getblockheaders
 [rpc getblocktemplate]: /en/developer-reference#getblocktemplate
 [rpc getchaintips]: /en/developer-reference#getchaintips
 [rpc getconnectioncount]: /en/developer-reference#getconnectioncount
 [rpc getdifficulty]: /en/developer-reference#getdifficulty
 [rpc getgenerate]: /en/developer-reference#getgenerate
+[rpc getgovernanceinfo]: /en/developer-reference#getgovernanceinfo
 [rpc gethashespersec]: /en/developer-reference#gethashespersec
 [rpc getinfo]: /en/developer-reference#getinfo
 [rpc getmemoryinfo]: /en/developer-reference#getmemoryinfo
@@ -113,11 +141,14 @@ http://opensource.org/licenses/MIT.
 [rpc getnetworkinfo]: /en/developer-reference#getnetworkinfo
 [rpc getnewaddress]: /en/developer-reference#getnewaddress
 [rpc getpeerinfo]: /en/developer-reference#getpeerinfo
+[rpc getpoolinfo]: /en/developer-reference#getpoolinfo
 [rpc getrawchangeaddress]: /en/developer-reference#getrawchangeaddress
 [rpc getrawmempool]: /en/developer-reference#getrawmempool
 [rpc getrawtransaction]: /en/developer-reference#getrawtransaction
 [rpc getreceivedbyaccount]: /en/developer-reference#getreceivedbyaccount
 [rpc getreceivedbyaddress]: /en/developer-reference#getreceivedbyaddress
+[rpc getspentinfo]: /en/developer-reference#getspentinfo
+[rpc getsuperblockbudget]: /en/developer-reference#getsuperblockbudget
 [rpc gettransaction]: /en/developer-reference#gettransaction
 [rpc gettxout]: /en/developer-reference#gettxout
 [rpc gettxoutproof]: /en/developer-reference#gettxoutproof
@@ -125,6 +156,7 @@ http://opensource.org/licenses/MIT.
 [rpc getunconfirmedbalance]: /en/developer-reference#getunconfirmedbalance
 [rpc getwalletinfo]: /en/developer-reference#getwalletinfo
 [rpc getwork]: /en/developer-reference#getwork
+[rpc gobject]: /en/developer-reference#gobject
 [rpc help]: /en/developer-reference#help
 [rpc importaddress]: /en/developer-reference#importaddress
 [rpc importmulti]: /en/developer-reference#importmulti
@@ -142,11 +174,16 @@ http://opensource.org/licenses/MIT.
 [rpc listtransactions]: /en/developer-reference#listtransactions
 [rpc listunspent]: /en/developer-reference#listunspent
 [rpc lockunspent]: /en/developer-reference#lockunspent
+[rpc masternode]: /en/developer-reference#masternode
+[rpc masternodebroadcast]: /en/developer-reference#masternodebroadcast
+[rpc masternodelist]: /en/developer-reference#masternodelist
+[rpc mnsync]: /en/developer-reference#mnsync
 [rpc move]: /en/developer-reference#move
 [rpc ping]: /en/developer-reference#ping-rpc
 [rpc preciousblock]: /en/developer-reference#preciousblock
 [rpc pruneblockchain]: /en/developer-reference#pruneblockchain
 [rpc prioritisetransaction]: /en/developer-reference#prioritisetransaction
+[rpc privatesend]: /en/developer-reference#privatesend
 [rpc removeprunedfunds]: /en/developer-reference#removeprunedfunds
 [rpc sendfrom]: /en/developer-reference#sendfrom
 [rpc sendmany]: /en/developer-reference#sendmany
@@ -160,12 +197,14 @@ http://opensource.org/licenses/MIT.
 [rpc signmessage]: /en/developer-reference#signmessage
 [rpc signmessagewithprivkey]: /en/developer-reference#signmessagewithprivkey
 [rpc signrawtransaction]: /en/developer-reference#signrawtransaction
+[rpc spork]: /en/developer-reference#spork-rpc
 [rpc stop]: /en/developer-reference#stop
 [rpc submitblock]: /en/developer-reference#submitblock
 [rpc validateaddress]: /en/developer-reference#validateaddress
 [rpc verifychain]: /en/developer-reference#verifychain
 [rpc verifymessage]: /en/developer-reference#verifymessage
 [rpc verifytxoutproof]: /en/developer-reference#verifytxoutproof
+[rpc voteraw]: /en/developer-reference#voteraw
 [rpc walletlock]: /en/developer-reference#walletlock
 [rpc walletpassphrase]: /en/developer-reference#walletpassphrase
 [rpc walletpassphrasechange]: /en/developer-reference#walletpassphrasechange
@@ -184,6 +223,15 @@ http://opensource.org/licenses/MIT.
 [addr message]: /en/developer-reference#addr "The P2P network message which relays IP addresses and port numbers of active nodes to other nodes and clients, allowing decentralized peer discovery."
 [alert message]: /en/developer-reference#alert "The P2P network message which sends alerts in case of major software problems."
 [block message]: /en/developer-reference#block "The P2P network message which sends a serialized block"
+[dsa message]: /en/developer-reference#dsa "A P2P network message used to reply to a P2P network dsq message"
+[dsc message]: /en/developer-reference#dsc "A P2P network message used to indicates a PrivateSend mixing session is complete"
+[dsf message]: /en/developer-reference#dsf "A P2P network message sent to indicate the queue is ready and the user is expected to send the entry inputs to start mixing"
+[dsi message]: /en/developer-reference#dsi "A P2P network message sent as the final mixing transaction in a PrivateSend mixing session"
+[dseg message]: /en/developer-reference#dseg "A P2P network message which requests either the entire masternode list or a specific masternode entry"
+[dss message]: /en/developer-reference#dss "A P2P network message which sends the user’s signed inputs for a group transaction in a mixing session"
+[dssu message]: /en/developer-reference#dssu "A P2P network message providing a mixing pool status update"
+[dsq message]: /en/developer-reference#dsq "A P2P network message asking users to sign a final mixing TX messages"
+[dstx message]: /en/developer-reference#dstx "A P2P network message sent by masternodes to broadcast subsidized transactions without fees (provides security in mixing)"
 [feefilter message]: /en/developer-reference#feefilter "The P2P network message which requests the receiving peer not relay any transactions below the specified fee rate"
 [filteradd message]: /en/developer-reference#filteradd "A P2P protocol message used to add a data element to an existing bloom filter."
 [filterclear message]: /en/developer-reference#filterclear "A P2P protocol message used to remove an existing bloom filter."
@@ -192,16 +240,29 @@ http://opensource.org/licenses/MIT.
 [getblocks message]: /en/developer-reference#getblocks "A P2P protocol message used to request an inv message containing a range of block header hashes"
 [getdata message]: /en/developer-reference#getdata "A P2P protocol message used to request one or more transactions, blocks, or merkle blocks"
 [getheaders message]: /en/developer-reference#getheaders "A P2P protocol message used to request a range of block headers"
+[getsporks message]: /en/developer-reference#getsporks "A P2P network message used to request the status of sporks"
+[govobj message]: /en/developer-reference#govobj "A P2P network message used to send governance objects (proposals, etc.)"
+[govobjvote message]: /en/developer-reference#govobjvote "A P2P network message used to send governance object votes"
+[govsync message]: /en/developer-reference#govsync "A P2P network message used to synchronize governance objects"
 [headers message]: /en/developer-reference#headers "A P2P protocol message containing one or more block headers"
 [inv message]: /en/developer-reference#inv "A P2P protocol message used to send inventories of transactions and blocks known to the transmitting peer"
+[ix message]: /en/developer-reference#ix "A P2P protocol message which sends a single serialized transaction via InstantSend"
 [mempool message]: /en/developer-reference#mempool "A P2P protocol message used to request one or more inv messages with currently-unconfirmed transactions"
 [merkleblock message]: /en/developer-reference#merkleblock "A P2P protocol message used to request a filtered block useful for SPV proofs"
+[mnb message]: /en/developer-reference#mnb "A P2P protocol message used to describe the masternode entry and how to validate messages from it"
+[mnget message]: /en/developer-reference#mnget "A P2P protocol message that requests masternode payment sync"
+[mnp message]: /en/developer-reference#mnp "A P2P protocol message sent by masternodes every few minutes to ping the network with a message that propagates across the whole network"
+[mnv message]: /en/developer-reference#mnv "A P2P protocol message used by masternodes to verify other masternode's IP Addresses."
+[mnw message]: /en/developer-reference#mnw "A P2P protocol message used to pick the next winning masternode (payee)"
 [notfound message]: /en/developer-reference#notfound "A P2P protocol message sent to indicate that the requested data was not available"
 [ping message]: /en/developer-reference#ping "A P2P network message used to see if the remote host is still connected"
 [pong message]: /en/developer-reference#pong "A P2P network message used to reply to a P2P network ping message"
 [reject message]: /en/developer-reference#reject "A P2P network message used to indicate a previously-received message was rejected for some reason"
 [sendheaders message]: /en/developer-reference#sendheaders "A P2P network message used to request new blocks be announced through headers messages rather than inv messages"
+[spork message]: /en/developer-reference#spork "A P2P network message used to send the activation status of a spork"
+[ssc message]: /en/developer-reference#ssc "A P2P network message used to track the sync status of masternode objects ()"
 [tx message]: /en/developer-reference#tx "A P2P protocol message which sends a single serialized transaction"
+[txlvote message]: /en/developer-reference#txlvote "A P2P protocol message which masternodes send in response to an ix (transaction lock request) message if the transaction inputs can be locked."
 [verack message]: /en/developer-reference#verack "A P2P network message sent in reply to a version message to confirm a connection has been established"
 [version message]: /en/developer-reference#version "A P2P network message sent at the begining of a connection to allow protocol version negotiation"
 
@@ -261,8 +322,8 @@ http://opensource.org/licenses/MIT.
 [bitcoinpdf]: https://bitcoin.org/en/bitcoin-paper
 [choose your wallet]: /en/choose-your-wallet
 [communities]: /en/community
-[core executable]: /en/download
-[dev communities]: /en/development#devcommunities
+[core executable]: https://www.dash.org/wallets/#wallets
+[dev communities]: https://www.dash.org/community/
 [developer documentation]: /en/developer-documentation
 [devex complex raw transaction]: /en/developer-examples#complex-raw-transaction
 [devex payment protocol]: /en/developer-examples#payment-protocol
@@ -324,6 +385,7 @@ http://opensource.org/licenses/MIT.
 [BIP50]: https://github.com/bitcoin/bips/blob/master/bip-0050.mediawiki
 [BIP61]: https://github.com/bitcoin/bips/blob/master/bip-0061.mediawiki
 [BIP62]: https://github.com/bitcoin/bips/blob/master/bip-0062.mediawiki
+[BIP65]: https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki
 [BIP66]: https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki
 [BIP70]: https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki
 [BIP71]: https://github.com/bitcoin/bips/blob/master/bip-0071.mediawiki
@@ -347,12 +409,12 @@ http://opensource.org/licenses/MIT.
 [#bitcoin-mining]: https://webchat.freenode.net/?channels=bitcoin-mining&uio=d4
 [#bitcoin-wiki]: https://webchat.freenode.net/?channels=bitcoin-wiki&uio=d4
 [0bin]: http://0bin.net/
-[bcc automated testing]: https://github.com/bitcoin/bitcoin/blob/master/README.md#automated-testing
+[bcc automated testing]: https://github.com/dashpay/dash/blob/master/README.md#automated-testing
 [bcc configuration]: https://en.bitcoin.it/wiki/Running_Bitcoin
 [bcc data directory]: https://en.bitcoin.it/wiki/Data_directory
-[bcc issues]: https://github.com/bitcoin/bitcoin/issues
-[bcc new issue]: https://github.com/bitcoin/bitcoin/issues/new
-[bcc pulls]: https://github.com/bitcoin/bitcoin/pulls
+[bcc issues]: https://github.com/dashpay/dash/issues
+[bcc new issue]: https://github.com/dashpay/dash/issues/new
+[bcc pulls]: https://github.com/dashpay/dash/pulls
 [bcc tor]: https://en.bitcoin.it/wiki/Tor
 [bcc tor hs]: https://en.bitcoin.it/wiki/Tor#Hidden_services
 [core github tag]: https://github.com/bitcoin-dot-org/bitcoin.org/labels/Core
@@ -364,11 +426,11 @@ http://opensource.org/licenses/MIT.
 [Bitcoin Core 0.3.11]: https://github.com/bitcoin/bitcoin/commit/343328c6b8db85e58a1feea85f0d10e62967fa19
 [Bitcoin Core 0.3.15]: https://github.com/bitcoin/bitcoin/commit/c891967b6fcab2e8dc4ce0c787312b36c07efa4d
 [Bitcoin Core 0.3.18]: https://github.com/bitcoin/bitcoin/commit/82201801336f64ee77851b9eaab9383ee4e442f0
-[Bitcoin Core build unix]: https://github.com/bitcoin/bitcoin/blob/master/doc/build-unix.md
-[Bitcoin Core docs directory]: https://github.com/bitcoin/bitcoin/tree/master/doc
+[Bitcoin Core build unix]: https://github.com/dashpay/dash/blob/master/doc/build-unix.md
+[Bitcoin Core docs directory]: https://github.com/dashpay/dash/tree/master/doc
 [bitcoin core fee drop commit]: https://github.com/bitcoin/bitcoin/commit/6a4c196dd64da2fd33dc7ae77a8cdd3e4cf0eff1
 [Bitcoin Core issue #2381]: https://github.com/bitcoin/bitcoin/issues/2381
-[Bitcoin Core master]: https://github.com/bitcoin/bitcoin
+[Bitcoin Core master]: https://github.com/dashpay/dash
 [Bitcoin Core pull #4468]: https://github.com/bitcoin/bitcoin/pull/4468
 [Bitcoin core transifex]: https://www.transifex.com/projects/p/bitcoin/
 [Bitcoin reddit]: http://www.reddit.com/r/Bitcoin
@@ -376,28 +438,29 @@ http://opensource.org/licenses/MIT.
 [Bitcoin Seeder]: https://github.com/sipa/bitcoin-seeder
 [Bitcoin stackexchange]: http://bitcoin.stackexchange.com
 [Bitcoin stackexchange tag bitcoin-qt]: http://bitcoin.stackexchange.com/questions/tagged/bitcoin-qt
-[bitcoin-documentation mailing list]: https://groups.google.com/forum/#!forum/bitcoin-documentation
+<!--[bitcoin-documentation mailing list]: https://groups.google.com/forum/#!forum/bitcoin-documentation-->
 [BitcoinJ]: http://bitcoinj.github.io
 [BitcoinJ documentation about pending transaction safety]: https://bitcoinj.github.io/security-model#pending-transactions
 [bitcoinj micropayment tutorial]: https://bitcoinj.github.io/working-with-micropayments
 [block170]: https://www.biteasy.com/block/00000000d1145790a8694403d4063f323d499e655c83426834d4ce2f8dd4a2ee
 [casascius address utility]: https://github.com/casascius/Bitcoin-Address-Utility
-[core base58.h]: https://github.com/bitcoin/bitcoin/blob/master/src/base58.h
-[core chainparams.cpp]: https://github.com/bitcoin/bitcoin/blob/master/src/chainparams.cpp
-[core git]: https://github.com/bitcoin/bitcoin
-[core paymentrequest.proto]: https://github.com/bitcoin/bitcoin/blob/master/src/qt/paymentrequest.proto
-[core script.h]: https://github.com/bitcoin/bitcoin/blob/master/src/script/script.h
+[core alert.cpp]: https://github.com/dashpay/dash/blob/master/src/alert.cpp
+[core base58.h]: https://github.com/dashpay/dash/blob/master/src/base58.h
+[core chainparams.cpp]: https://github.com/dashpay/dash/blob/master/src/chainparams.cpp
+[core git]: https://github.com/dashpay/dash/
+[core paymentrequest.proto]: https://github.com/dashpay/dash/blob/master/src/qt/paymentrequest.proto
+[core script.h]: https://github.com/dashpay/dash/blob/master/src/script/script.h
 [creative commons attribution 3.0 license]: https://creativecommons.org/licenses/by/3.0/
 [DER]: https://en.wikipedia.org/wiki/X.690#DER_encoding
 [dig command]: https://en.wikipedia.org/wiki/Dig_%28Unix_command%29
 [DNS A records]: http://tools.ietf.org/html/rfc1035#section-3.2.2
-[DNS Seed Policy]: https://github.com/bitcoin/bitcoin/blob/master/doc/dnsseed-policy.md
-[docs issue]: https://github.com/bitcoin-dot-org/bitcoin.org/issues
+[DNS Seed Policy]: https://github.com/dashpay/dash/blob/master/doc/dnsseed-policy.md
+[docs issue]: https://github.com/thephez/dash.org/issues
 [ECDSA]: https://en.wikipedia.org/wiki/Elliptic_Curve_DSA
 [edit bandwidth sharing guide]: https://github.com/bitcoin-dot-org/bitcoin.org/edit/master/en/full-node.md
 [Electrum server]: https://github.com/spesmilo/electrum-server
 [Eloipool]: https://github.com/luke-jr/eloipool
-[errors in docs]: https://github.com/bitcoin-dot-org/bitcoin.org/issues?q=is%3Aissue+label%3A%22Dev+Docs%22
+[errors in docs]: https://github.com/thephez/dash.org/issues?q=is%3Aissue+label%3A%22Dev+Docs%22
 [fake satoshi transaction]: https://www.reddit.com/r/Bitcoin/comments/3fv42j/blockchaininfo_spoofed_transactions_problem_aug_4/
 [forum tech support]: https://bitcointalk.org/index.php?board=4.0
 [ghash betcoin double spend]: https://bitcointalk.org/index.php?topic=321630.msg3445371
@@ -417,7 +480,7 @@ http://opensource.org/licenses/MIT.
 [libblkmaker]: https://github.com/bitcoin/libblkmaker
 [localhost]: https://en.wikipedia.org/wiki/Localhost
 [lying consistently is hard]: https://groups.google.com/forum/#!msg/bitcoinj/Ys13qkTwcNg/9qxnhwnkeoIJ
-[makeseeds script]: https://github.com/bitcoin/bitcoin/tree/master/contrib/seeds
+[makeseeds script]: https://github.com/dashpay/dash/tree/master/contrib/seeds
 [mozilla's bug reporting documentation]: https://developer.mozilla.org/en-US/docs/Mozilla/QA/Bug_writing_guidelines#Writing_precise_steps_to_reproduce
 [murmur3]: https://en.wikipedia.org/wiki/MurmurHash
 [man-in-the-middle]: https://en.wikipedia.org/wiki/Man-in-the-middle_attack
@@ -428,8 +491,8 @@ http://opensource.org/licenses/MIT.
 [netcat]: https://en.wikipedia.org/wiki/Netcat
 [nop opcodes]: https://en.bitcoin.it/wiki/Script#Reserved_words
 [offline transactions]: http://bitcoin.stackexchange.com/a/34122/21052
-[open a pull request]: https://github.com/bitcoin-dot-org/bitcoin.org#working-with-github
-[open an issue]: https://github.com/bitcoin-dot-org/bitcoin.org/issues/new
+[open a pull request]: https://github.com/thephez/dash.org#working-with-github
+[open an issue]: https://github.com/thephez/dash.org/issues/new
 [Payment Request Generator]: https://github.com/gavinandresen/paymentrequest/blob/master/php/demo_website/createpaymentrequest.php
 [Piotr Piasecki's testnet faucet]: https://tpfaucet.appspot.com/
 [prime symbol]: https://en.wikipedia.org/wiki/Prime_%28symbol%29
@@ -441,6 +504,7 @@ http://opensource.org/licenses/MIT.
 [SHA256]: https://en.wikipedia.org/wiki/SHA-2
 [Stratum mining protocol]: http://mining.bitcoin.cz/stratum-mining
 [study of SPV privacy over tor]: http://arxiv.org/abs/1410.6079
+[superblock example]: https://chainz.cryptoid.info/dash/block.dws?731104.htm
 [Tor]: https://en.wikipedia.org/wiki/Tor_%28anonymity_network%29
 [transifex]: https://www.transifex.com/projects/p/bitcoinorg/
 [unix epoch time]: https://en.wikipedia.org/wiki/Unix_time
@@ -457,7 +521,11 @@ http://opensource.org/licenses/MIT.
 
 {% comment %}<!-- Direct links to code; link to a specific commit to prevent code
 changes from moving the referenced object, but also update links
-periodically to point to recent code. Last update: 2014-11-12 --> {% endcomment %}
-[core bloom.cpp hash]: https://github.com/bitcoin/bitcoin/blob/cbf28c6619fe348a258dfd7d08bdbd2392d07511/src/bloom.cpp#L46
-[MAX_SIZE]: https://github.com/bitcoin/bitcoin/blob/60abd463ac2eaa8bc1d616d8c07880dc53d97211/src/serialize.h#L23
-[rpcprotocol.h]: https://github.com/bitcoin/bitcoin/blob/f914f1a746d7f91951c1da262a4a749dd3ebfa71/src/rpcprotocol.h
+periodically to point to recent code. Last update: 2017-09-05 --> {% endcomment %}
+[core bloom.cpp hash]: https://github.com/dashpay/dash/blob/333e1eaeea80344e5a28db6efbce2691c85e2b25/src/bloom.cpp#L58
+[MAX_SIZE]: https://github.com/dashpay/dash/blob/c31ba8ba4c07e72620bd71753f2103ca103bb1c2/src/serialize.h#L26
+[rpcprotocol.h]: https://github.com/dashpay/dash/blob/3e0eee4c84f40b3cf277e8d03e004249d03c081d/src/rpcprotocol.h
+[spork.h]: https://github.com/dashpay/dash/blob/e1702cd4eca5f276c75cae9de0eb274369b031f6/src/spork.h#L22
+[spork pubkey]: https://github.com/dashpay/dash/blob/eaf90b77177efbaf9cbed46e822f0d794f1a0ee5/src/chainparams.cpp#L158
+[masternode payments pubkey]: https://github.com/dashpay/dash/blob/eaf90b77177efbaf9cbed46e822f0d794f1a0ee5/src/chainparams.cpp#L159
+[block subsidy]: https://github.com/dashpay/dash/blob/9ed9474a9eb007bba70278ce19df68e84aeeb712/src/main.cpp#L1741

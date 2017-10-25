@@ -7,7 +7,7 @@ lang: en
 id: developer-examples
 title: "Developer Examples - Bitcoin"
 breadcrumbs:
-  - bitcoin
+#  - bitcoin
   - dev docs
   - Examples
 end_of_page: |

@@ -7,7 +7,7 @@ lang: en
 id: developer-guide
 title: "Developer Guide - Bitcoin"
 breadcrumbs:
-  - bitcoin
+#  - bitcoin
   - dev docs
   - Guide
 end_of_page: |

@@ -9,16 +9,18 @@ http://opensource.org/licenses/MIT.
 
 {% autocrossref %}
 
-This section describes the Bitcoin P2P network protocol (but it is [not a
-specification][]). It does not describe the discontinued direct [IP-to-IP
-payment protocol][], the [BIP70 payment protocol][/en/glossary/payment-protocol], the
+This section describes the Dash P2P network protocol (but it is [not a
+specification][]). It does not describe the
+[BIP70 payment protocol][/en/glossary/payment-protocol], the
 [GetBlockTemplate mining protocol][section getblocktemplate], or any
-network protocol never implemented in an official version of Bitcoin Core.
+network protocol never implemented in an official version of Dash Core.
 
 All peer-to-peer communication occurs entirely over TCP.
 
-**Note:** unless their description says otherwise, all multi-byte
+{% highlight text %}
+Note: unless their description says otherwise, all multi-byte
 integers mentioned in this section are transmitted in little-endian order.
+{% endhighlight %}
 
 {% endautocrossref %}
 
@@ -27,27 +29,25 @@ integers mentioned in this section are transmitted in little-endian order.
 
 {% autocrossref %}
 
-The following constants and defaults are taken from Bitcoin Core's
+The following constants and defaults are taken from Dash Core's
 [chainparams.cpp][core chainparams.cpp] source code file.
 
-| Network | Default Port | [Start String][/en/glossary/start-string]{:#term-start-string}{:.term} | Max nBits
+| Network | Default Port | Magic Value | [Start String][/en/glossary/start-string]{:#term-start-string}{:.term} | Max nBits
 |---------|--------------|-----------------------------------------------|---------------
-| Mainnet | 8333         | 0xf9beb4d9                                    | 0x1d00ffff
-| Testnet | 18333        | 0x0b110907                                    | 0x1d00ffff
-| Regtest | 18444        | 0xfabfb5da                                    | 0x207fffff
+| Mainnet | 9999         | 0xBD6B0CBF  | 0xBF0C6BBD                      | 0x1e0ffff0
+| Testnet | 19999        | 0xFFCAE2CE  | 0xCEE2CAFF                      | 0x1e0ffff0
+| Regtest | 19994        | 0xDCB7C1FC  | 0xFCC1B7DC                      | 0x207fffff
 
-Note: the testnet start string and nBits above are for testnet3; the
-original testnet used a different string and higher (less difficult)
-nBits.
+Note: the testnet start string and nBits above are for testnet3.
 
 Command line parameters can change what port a node listens on (see
 `-help`). Start strings are hardcoded constants that appear at the start
-of all messages sent on the Bitcoin network; they may also appear in
-data files such as Bitcoin Core's block database.  The nBits displayed
-above are in big-endian order; they're sent over the network in
-little-endian order.
+of all messages sent on the Dash network; they may also appear in
+data files such as Dash Core's block database. The Magic Value and nBits
+displayed above are in big-endian order; they're sent over the network in
+little-endian order. The Start String is simply the endian reversed Magic Value.
 
-Bitcoin Core's [chainparams.cpp][core chainparams.cpp] also includes
+Dash Core's [chainparams.cpp][core chainparams.cpp] also includes
 other constants useful to programs, such as the hash of the genesis
 blocks for the different networks.
 
@@ -63,13 +63,22 @@ with the most recent versions listed first. (If you know of a protocol
 version that implemented a major change but which is not listed here,
 please [open an issue][docs issue].)
 
-As of Bitcoin Core 0.14.2, the most recent protocol version is 70015.
+As of Dash Core 0.12.1.5, the most recent protocol version is 70206.
 
 | Version | Initial Release                    | Major Changes
 |---------|------------------------------------|--------------
-| 70015   | Bitcoin Core 0.13.2 <br>(Jan 2017) | • New banning behavior for invalid compact blocks [#9026](https://github.com/bitcoin/bitcoin/pull/9026) in v0.14.0, Backported to v0.13.2 in [#9048](https://github.com/bitcoin/bitcoin/pull/9048).
-| 70014   | Bitcoin Core 0.13.0 <br>(Aug 2016) | [BIP152][]: <br>• Added `sendcmpct`, `cmpctblock`, `getblocktxn`, `blocktxn` messages <br> • Added `MSG_CMPCT_BLOCK` inventory type to `getdata` message.
-| 70013   | Bitcoin Core 0.13.0 <br>(Aug 2016) | [BIP133][]: <br>• Added `feefilter` message.<br> • Removed `alert` message system. See [Alert System Retirement](https://bitcoin.org/en/alert/2016-11-01-alert-retirement)
+| 70208  | Dash Core 0.12.2.x <br>(??? 2017)  |
+| 70206  | Dash Core 0.12.1.x <br>(Mar 2017)  |
+| 70103  | Dash Core 0.12.0.x <br>(Aug 2015)  |
+| 70076  | Dash Core 0.11.2.x <br>(Apr 2015)  |
+| 70066  | Dash Core 0.11.1.x <br>(Feb 2015)  |
+| 70051  | Dash Core 0.10.0.x <br>(Feb 2015)  |
+| 70002  | Dash Core 0.8.7 <br>(Jan 2014)     | Initial Dash release
+
+Historical Bitcoin protocol versions for reference shown below.
+
+| Version | Initial Release                    | Major Changes
+|---------|------------------------------------|--------------
 | 70012   | Bitcoin Core 0.12.0 <br>(Feb 2016) | [BIP130][]: <br>• Added `sendheaders` message.
 | 70011   | Bitcoin Core 0.12.0 <br>(Feb 2016) | [BIP111][]: <br>• `filter*` messages are disabled without NODE_BLOOM after and including this version.
 | 70002   | Bitcoin Core 0.9.0 <br>(Mar 2014)  | • Send multiple `inv` messages in response to a `mempool` message if necessary <br><br>[BIP61][]: <br>• Added `reject` message
@@ -98,14 +107,14 @@ The message header format is:
 |-------|--------------|-----------|-------------
 | 4     | start string | char[4]   | Magic bytes indicating the originating network; used to seek to next message when stream state is unknown.
 | 12    | command name | char[12]  | ASCII string which identifies what message type is contained in the payload.  Followed by nulls (0x00) to pad out byte count; for example: `version\0\0\0\0\0`.
-| 4     | payload size | uint32_t  | Number of bytes in payload.  The current maximum number of bytes ([`MAX_SIZE`][max_size]) allowed in the payload by Bitcoin Core is 32 MiB---messages with a payload size larger than this will be dropped or rejected.
+| 4     | payload size | uint32_t  | Number of bytes in payload.  The current maximum number of bytes ([`MAX_SIZE`][max_size]) allowed in the payload by Dash Core is 32 MiB---messages with a payload size larger than this will be dropped or rejected.
 | 4     | checksum     | char[4]   | *Added in protocol version 209.* <br><br>First 4 bytes of SHA256(SHA256(payload)) in internal byte order.<br /><br /> If payload is empty, as in `verack` and `getaddr` messages, the checksum is always 0x5df6e0e2 (SHA256(SHA256(\<empty string>))).
 
 The following example is an annotated hex dump of a mainnet message
 header from a `verack` message which has no payload.
 
 {% highlight text %}
-f9beb4d9 ................... Start string: Mainnet
+bf0c6bbd ................... Start string: Mainnet
 76657261636b000000000000 ... Command name: verack + null padding
 00000000 ................... Byte count: 0
 5df6e0e2 ................... Checksum: SHA256(SHA256(<empty>))
@@ -140,9 +149,26 @@ The currently-available type identifiers are:
 | 1               | [`MSG_TX`][msg_tx]{:#term-msg_tx}{:.term}                                     | The hash is a TXID.
 | 2               | [`MSG_BLOCK`][msg_block]{:#term-msg_block}{:.term}                            | The hash is of a block header.
 | 3               | [`MSG_FILTERED_BLOCK`][msg_filtered_block]{:#term-msg_filtered_block}{:.term} | The hash is of a block header; identical to `MSG_BLOCK`. When used in a `getdata` message, this indicates the response should be a `merkleblock` message rather than a `block` message (but this only works if a bloom filter was previously configured).  **Only for use in `getdata` messages.**
+| 4               | [`MSG_TXLOCK_REQUEST`][msg_txlock_request]{:#term-msg_txlock_request}{:.term} | The hash is an Instant Send transaction lock request.
+| 5               | [`MSG_TXLOCK_VOTE`][msg_txlock_vote]{:#term-msg_txlock_vote}{:.term}          | The hash is an Instant Send transaction vote.
+| 6               | [`MSG_SPORK`][msg_spork]{:#term-msg_spork}{:.term}                            | The hash is Spork ID.
+| 7               | [`MSG_MASTERNODE_PAYMENT_VOTE`][msg_masternode_payment_vote]{:#term-msg_masternode_payment_vote}{:.term}                                     | The hash is a Masternode Payment Vote.
+| 8               | [`MSG_MASTERNODE_PAYMENT_BLOCK`][msg_masternode_payment_block]{:#term-msg_masternode_payment_block}{:.term}                                     | The hash is a Masternode Payment Block.
+| _8_               | _`MSG_MASTERNODE_SCANNING_ERROR`_                                             | Replaced by `MSG_MASTERNODE_PAYMENT_BLOCK`
+| _9_               | _[`MSG_BUDGET_VOTE`][msg_budget_vote]{:#term-msg_budget_vote}{:.term}_          | Deprecated
+| _10_               | _[`MSG_BUDGET_PROPOSAL`][msg_budget_proposal]{:#term-msg_budget_proposal}{:.term}_                                     | Deprecated
+| _11_               | _[`MSG_BUDGET_FINALIZED`][msg_budget_finalized]{:#term-msg_budget_finalized}{:.term}_                                     | Deprecated
+| _12_               | _[`MSG_BUDGET_FINALIZED_VOTE`][msg_budget_finalized_vote]{:#term-msg_budget_finalized_vote}{:.term}_                                     | Deprecated
+| _13_               | _[`MSG_MASTERNODE_QUORUM`][msg_masternode_quorum]{:#term-msg_masternode_quorum}{:.term}_                                     | Not Implemented
+| 14               | [`MSG_MASTERNODE_ANNOUNCE`][msg_masternode_announce]{:#term-msg_masternode_announce}{:.term}                                     | The hash is a Masternode Broadcast.
+| 15               | [`MSG_MASTERNODE_PING`][msg_masternode_ping]{:#term-msg_masternode_ping}{:.term}                                     | The hash is a Masternode Ping.
+| 16               | [`MSG_DSTX`][msg_dstx]{:#term-msg_dstx}{:.term}                              | The hash is Private Send (Dark Send) Broadcast TX.
+| 17               | [`MSG_GOVERNANCE_OBJECT`][msg_governance_object]{:#term-msg_governance_object}{:.term}                                     | The hash is a Governance Object.
+| 18               | [`MSG_GOVERNANCE_OBJECT_VOTE`][msg_governance_object_vote]{:#term-msg_governance_object}{:.term}                                     | The hash is a Governance Object Vote.
+| 19               | [`MSG_MASTERNODE_VERIFY`][msg_masternode_verify]{:#term-msg_masternode_verify}{:.term}                                     | The hash is a Masternode Verify.
 
-Type identifier zero and type identifiers greater than three are reserved
-for future implementations. Bitcoin Core ignores all inventories with
+Type identifier zero and type identifiers greater than nineteen are reserved
+for future implementations. Dash Core ignores all inventories with
 one of these unknown types.
 
 {% endautocrossref %}
@@ -232,7 +258,9 @@ node. The objects are requested by an inventory, which the requesting
 node typically previously received by way of an `inv` message.
 
 The response to a `getdata` message can be a `tx` message, `block`
-message, `merkleblock` message, or `notfound` message.
+message, `merkleblock` message, `ix` message, `txlvote` message,
+`mnw` message, `mnb` message, `mnp` message, `dstx` message, `govobj` message,
+`govobjvote` message, `mnv` message, or `notfound` message. <!-- What about spork? Only handled by getspork?-->
 
 This message cannot be used to request arbitrary data, such as historic
 transactions no longer in the memory pool or relay set. Full nodes may
@@ -251,7 +279,7 @@ identical to the `inv` message; only the message header differs.
 
 {% autocrossref %}
 
-*Added in protocol version 31800.*
+*Added in protocol version 70077.*
 
 The `getheaders` message requests a `headers` message that provides block headers
 starting from a particular point in the block chain. It allows a
@@ -270,7 +298,7 @@ to the `getheaders` message will include as many as 2,000 block headers.
 
 {% autocrossref %}
 
-*Added in protocol version 31800.*
+*Added in protocol version 31800 (of Bitcoin).*
 
 The `headers` message sends block headers to a node which
 previously requested certain headers with a `getheaders` message. A headers
@@ -326,13 +354,13 @@ inventory entries.  (The message header has been omitted.)
 {% highlight text %}
 02 ................................. Count: 2
 
-01000000 ........................... Type: MSG_TX
-de55ffd709ac1f5dc509a0925d0b1fc4
-42ca034f224732e429081da1b621f55a ... Hash (TXID)
+0f000000 ........................... Type: MSG_MASTERNODE_PING
+dd6cc6c11211793b239c2e311f1496e2
+2281b200b35233eaae465d2aa3c9d537 ... Hash (mnp)
 
-01000000 ........................... Type: MSG_TX
-91d36d997037e08018262978766f24b8
-a055aaf1d872e94ae85e9817b2c68dc7 ... Hash (TXID)
+05000000 ........................... Type: MSG_TXLOCK_VOTE
+afc5b2f418f8c06c477a7d071240f5ee
+ab17057f9ce4b50c2aef4fadf3729a2e ... Hash (txlvote)
 {% endhighlight %}
 
 {% endautocrossref %}
@@ -342,7 +370,7 @@ a055aaf1d872e94ae85e9817b2c68dc7 ... Hash (TXID)
 
 {% autocrossref %}
 
-*Added in protocol version 60002.*
+*Added in protocol version 60002 (of Bitcoin).*
 
 The `mempool` message requests the TXIDs of transactions that the
 receiving node has verified as valid but which have not yet appeared in
@@ -599,19 +627,20 @@ identical to the `inv` message; only the message header differs.
 The `tx` message transmits a single transaction in the raw transaction
 format. It can be sent in a variety of situations;
 
-* **Transaction Response:** Bitcoin Core and BitcoinJ will send it in
-  response to a `getdata` message that requests the transaction with an
-  inventory type of `MSG_TX`.
+* **Transaction Response:** Dash Core will send it in response to a
+  `getdata` message that requests the transaction with an inventory
+  type of `MSG_TX`.
 
-* **MerkleBlock Response:** Bitcoin Core will send it in response to a
+* **MerkleBlock Response:** Dash Core will send it in response to a
   `getdata` message that requests a merkle block with an inventory type
   of `MSG_MERKLEBLOCK`. (This is in addition to sending a `merkleblock`
   message.) Each `tx` message in this case provides a matched
   transaction from that block.
 
+<!-- Is there any reason to leave this here?
 * **Unsolicited:** BitcoinJ will send a `tx` message unsolicited for
   transactions it originates.
-
+-->
 For an example hexdump of the raw transaction format, see the [raw
 transaction section][raw transaction format].
 
@@ -658,7 +687,7 @@ An `addr` message may also be sent in response to a `getaddr` message.
 | Bytes      | Name             | Data Type          | Description
 |------------|------------------|--------------------|----------------
 | *Varies*   | IP address count | compactSize uint   | The number of IP address entries up to a maximum of 1,000.
-| *Varies*   | IP addresses     | network IP address | IP address entries.  See the table below for the format of a Bitcoin network IP address.
+| *Varies*   | IP addresses     | network IP address | IP address entries.  See the table below for the format of a Dash network IP address.
 
 Each encapsulated network IP address currently uses the following structure:
 
@@ -667,7 +696,7 @@ Each encapsulated network IP address currently uses the following structure:
 | 4     | time       | uint32    | *Added in protocol version 31402.* <br><br>A time in Unix epoch time format.  Nodes advertising their own IP address set this to the current time.  Nodes advertising IP addresses they've connected to set this to the last time they connected to that node.  Other nodes just relaying the IP address should not change the time.  Nodes can use the time field to avoid relaying old `addr` messages.  <br><br>Malicious nodes may change times or even set them in the future.
 | 8     | services   | uint64_t  | The services the node advertised in its `version` message.
 | 16    | IP address | char      | IPv6 address in **big endian byte order**. IPv4 addresses can be provided as [IPv4-mapped IPv6 addresses][]
-| 2     | port       | uint16_t  | Port number in **big endian byte order**.  Note that Bitcoin Core will only connect to nodes with non-standard port numbers as a last resort for finding peers.  This is to prevent anyone from trying to use the network to disrupt non-Bitcoin services that run on other ports.
+| 2     | port       | uint16_t  | Port number in **big endian byte order**.  Note that Dash Core will only connect to nodes with non-standard port numbers as a last resort for finding peers.  This is to prevent anyone from trying to use the network to disrupt non-Dash services that run on other ports.
 
 The following annotated hexdump shows part of an `addr` message. (The
 message header has been omitted and the actual IP address has been
@@ -687,67 +716,111 @@ d91f4854 ........................... Epoch time: 1414012889
 {% endautocrossref %}
 
 
-
-
 #### Alert
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
 
 *Added in protocol version 311.*
-*Removed in protocol version 70013 and released in Bitcoin Core 0.13.0*
+*Removed by Bitcoin in protocol version 70013, but retained by Dash.*
 
-The legacy p2p network alert messaging system has been retired; however, internal alerts, partition detection warnings and the `-alertnotify` option features remain. See [Alert System Retirement](https://bitcoin.org/en/alert/2016-11-01-alert-retirement) for details.
+The `alert` message warns nodes of problems that may affect them or the
+rest of the network. Each `alert` message is signed using a key controlled
+by respected community members, mostly Dash Core developers.
 
-{% endautocrossref %}
+To ensure all nodes can validate and forward `alert` messages,
+encapsulation is used. Developers create an alert using the data
+structure appropriate for the versions of the software they want to
+notify; then they serialize that data and sign it. The serialized data
+and its signature make up the outer `alert` message---allowing nodes
+which don't understand the data structure to validate the signature and
+relay the alert to nodes which do understand it. The nodes which
+actually need the message can decode the serialized data to access the
+inner `alert` message.
 
-#### FeeFilter
-{% include helpers/subhead-links.md %}
+The outer `alert` message has four fields:
 
-{% autocrossref %}
+| Bytes       | Name            | Data Type        | Description
+|-------------|-----------------|------------------|-------------
+| *Variable*  | alert bytes     | compactSize uint | The number of bytes in following alert field.
+| *Variable*  | alert           | uchar            | The serialized alert.  See below for a description of the current alert format.
+| *Variable*  | signature bytes | compactSize uint | The number of bytes in the following signature field.
+| *Variable*  | signature       | uchar            | A DER-encoded ECDSA (secp256k1) signature of the alert signed with the developer's alert key.
 
-*Added in protocol version 70013 as described by BIP133.*
+Although designed to be easily upgraded, the format of the inner
+serialized alert has not changed since the `alert` message was first
+introduced in protocol version 311.
 
-The `feefilter` message is a request to the receiving peer to not relay any
-transaction inv messages to the sending peer where the fee rate for the
-transaction is below the fee rate specified in the feefilter message.
+| Bytes    | Name              | Data Type                 | Description
+|----------|-------------------|---------------------------|-------------
+| 4        | version           | int32_t                   | Alert format version.  Version 1 from protocol version 311 through at least protocol version 70002.
+| 8        | relayUntil        | int64_t                   | The time beyond which nodes should stop relaying this alert.  Unix epoch time format.
+| 8        | expiration        | int64_t                   | The time beyond which this alert is no longer in effect and should be ignored.  Unix epoch time format.
+| 4        | ID                | int32_t                   | A unique ID number for this alert.
+| 4        | cancel            | int32_t                   | All alerts with an ID number less than or equal to this number should be canceled: deleted and not accepted in the future.
+| *Varies* | setCancel count   | compactSize uint          | The number of IDs in the following setCancel field.  May be zero.
+| *Varies* | setCancel         | int32_t                   | Alert IDs which should be canceled.  Each alert ID is a separate int32_t number.
+| 4        | minVer            | int32_t                   | This alert only applies to protocol versions greater than or equal to this version. Nodes running other protocol versions should still relay it.
+| 4        | maxVer            | int32_t                   | This alert only applies to protocol versions less than or equal to this version. Nodes running other protocol versions should still relay it.
+| *Varies* | user\_agent count | compactSize uint          | The number of user agent strings in the following setUser\_agent field.  May be zero.
+| *Varies* | setUser\_agent    | compactSize uint + string | If this field is empty, it has no effect on the alert.  If there is at least one entry is this field, this alert only applies to programs with a user agent that exactly matches one of the strings in this field.  Each entry in this field is a compactSize uint followed by a string---the uint indicates how many bytes are in the following string.  This field was originally called setSubVer; since BIP14, it applies to user agent strings as defined in the `version` message.
+| 4        | priority          | int32_t                   | Relative priority compared to other alerts.
+| *Varies* | comment bytes     | compactSize uint          | The number of bytes in the following comment field.  May be zero.
+| *Varies* | comment           | string                    | A comment on the alert that is not displayed.
+| *Varies* | statusBar bytes   | compactSize uint          | The number of bytes in the following statusBar field.  May be zero.
+| *Varies* | statusBar         | string                    | The alert message that is displayed to the user.
+| *Varies* | reserved bytes    | compactSize uint          | The number of bytes in the following reserved field.  May be zero.
+| *Varies* | reserved          | string                    | Reserved for future use.  Originally called RPC Error.  
 
-`feefilter` was introduced in Bitcoin Core 0.13.0 following the introduction
-of mempool limiting in Bitcoin Core 0.12.0. Mempool limiting provides protection against
-attacks and spam transactions that have low fee rates and are unlikely to be
-included in mined blocks. The `feefilter` messages allows a node to inform its
-peers that it will not accept transactions below a specified fee rate into
-its mempool, and therefore that the peers can skip relaying inv messages for
-transactions below that fee rate to that node.
-
-| Bytes | Name    | Data Type | Description
-|-------|---------|-----------|---------------
-| 8     | feerate | uint64_t  | The fee rate (in satoshis per kilobyte) below which transactions should not be relayed to this peer.
-
-The receiving peer may choose to ignore the message and not filter transaction
-inv messages.
-
-The fee filter is additive with bloom filters. If an SPV client loads a bloom
-filter and sends a feefilter message, transactions should only be relayed if
-they pass both filters.
-
-Note however that feefilter has no effect on block propagation or responses to
-getdata messages. For example, if a node requests a merkleblock from its peer
-by sending a getdata message with inv type MSG_FILTERED_BLOCK and it has
-previously sent a feefilter to that peer, the peer should respond with a
-merkleblock containing *all* the transactions matching the bloom filter, even
-if they are below the feefilter fee rate.
-
-inv messages generated from a mempool message are subject to a fee filter if it exists.
-
-The annotated hexdump below shows a `feefilter` message. (The message
+The annotated hexdump below shows an `alert` message. (The message
 header has been omitted.)
 
-{% endautocrossref %}
+<!-- example below from Bitcoin Wiki but it's a network capture so I
+(@harding) don't think it is subject to the wiki's copyright license; I
+think it's public domain. TODO: replace with a more recent
+alert the next time one is live on the network. -->
 
 {% highlight text %}
-7cbd000000000000 ... satoshis per kilobyte: 48,508
+73 ................................. Bytes in encapsulated alert: 115
+01000000 ........................... Version: 1
+3766404f00000000 ................... RelayUntil: 1329620535
+b305434f00000000 ................... Expiration: 1330917376
+
+f2030000 ........................... ID: 1010
+f1030000 ........................... Cancel: 1009
+00 ................................. setCancel count: 0
+
+10270000 ........................... MinVer: 10000
+48ee0000 ........................... MaxVer: 61000
+00 ................................. setUser_agent bytes: 0
+64000000 ........................... Priority: 100
+
+00 ................................. Bytes In Comment String: 0
+46 ................................. Bytes in StatusBar String: 70
+53656520626974636f696e2e6f72672f
+666562323020696620796f7520686176
+652074726f75626c6520636f6e6e6563
+74696e67206166746572203230204665
+627275617279 ....................... Status Bar String: "See [...]"
+00 ................................. Bytes In Reserved String: 0
+
+47 ................................. Bytes in signature: 71
+30450221008389df45f0703f39ec8c1c
+c42c13810ffcae14995bb648340219e3
+53b63b53eb022009ec65e1c1aaeec1fd
+334c6b684bde2b3f573060d5b70c3a46
+723326e4e8a4f1 ..................... Signature
 {% endhighlight %}
+
+**Alert key compromise:** Dash Core's source code defines a
+particular set of alert parameters that can be used to notify users that
+the alert signing key has been compromised and that they should upgrade
+to get a new alert public key. Once a signed alert containing those
+parameters has been received, no other alerts can cancel or override it.
+See the `ProcessAlert()` function in the Dash Core [alert.cpp][core
+alert.cpp] source code for the parameters of this message.
+
+{% endautocrossref %}
 
 
 #### FilterAdd
@@ -802,7 +875,7 @@ previously-set bloom filter.  This also undoes the effect of setting the
 relay field in the `version` message to 0, allowing unfiltered access to
 `inv` messages announcing new transactions.
 
-Bitcoin Core does not require a `filterclear` message before a
+Dash Core does not require a `filterclear` message before a
 replacement filter is loaded with `filterload`.  It also doesn't require
 a `filterload` message before a `filterclear` message.
 
@@ -907,7 +980,7 @@ function][murmur3].
 ![Warning icon](/img/icons/icon_warning.svg)
 **Warning:** the Murmur3 hash function has separate 32-bit and 64-bit
 versions that produce different results for the same input.  Only the
-32-bit Murmur3 version is used with Bitcoin bloom filters.
+32-bit Murmur3 version is used with Dash bloom filters.
 
 The data to be hashed can be any transaction element which the bloom
 filter can match. See the next subsection for the list of transaction
@@ -915,7 +988,7 @@ elements checked against the filter. The largest element which can be
 matched is a script data push of 520 bytes, so the data should never
 exceed 520 bytes.
 
-The example below from Bitcoin Core [bloom.cpp][core bloom.cpp hash] combines
+The example below from Dash Core [bloom.cpp][core bloom.cpp hash] combines
 all the steps above to create the hash function template. The seed is
 the first parameter; the data to be hashed is the second parameter. The
 result is a uint32\_t modulo the size of the bit field in bits.
@@ -1067,6 +1140,19 @@ section][section message header] for an example of a message without a payload.
 {% endautocrossref %}
 
 
+#### GetSporks
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `getsporks` message requests `spork` messages from the receiving node.
+
+There is no payload in a `getsporks` message.  See the [message header
+section][section message header] for an example of a message without a payload.
+
+{% endautocrossref %}
+
+
 #### Ping
 {% include helpers/subhead-links.md %}
 
@@ -1103,7 +1189,7 @@ header has been omitted.)
 *Added in protocol version 60001 as described by BIP31.*
 
 The `pong` message replies to a `ping` message, proving to the pinging
-node that the ponging node is still alive. Bitcoin Core will, by
+node that the ponging node is still alive. Dash Core will, by
 default, disconnect from any clients which have not responded to a
 `ping` message within 20 minutes.
 
@@ -1146,6 +1232,7 @@ ascending code number (primary) and alphabetic in reply to (secondary) -->
 | 0x01 | *any message*     | 0           | N/A        | Message could not be decoded.  Be careful of `reject` message feedback loops where two peers each don't understand each other's `reject` messages and so keep sending them back and forth forever.
 | 0x10 | `block` message   | 32          | char[32]   | Block is invalid for some reason (invalid proof-of-work, invalid signature, etc).  Extra data may include the rejected block's header hash.
 | 0x10 | `tx` message      | 32          | char[32]   | Transaction is invalid for some reason (invalid signature, output value greater than input, etc.).  Extra data may include the rejected transaction's TXID.
+| 0x10 | `ix` message      | 32          | char[32]   | InstantSend transaction is invalid for some reason (invalid tx lock request, conflicting tx lock request, etc.).  Extra data may include the rejected transaction's TXID.
 | 0x11 | `block` message   | 32          | char[32]   | The block uses a version that is no longer supported.  Extra data may include the rejected block's header hash.
 | 0x11 | `version` message | 0           | N/A        | Connecting node is using a protocol version that the rejecting node considers obsolete and unsupported.
 | 0x12 | `tx` message      | 32          | char[32]   | Duplicate input spend (double spend): the rejected transaction spends the same input as a previously-received transaction.  Extra data may include the rejected transaction's TXID.
@@ -1154,6 +1241,19 @@ ascending code number (primary) and alphabetic in reply to (secondary) -->
 | 0x41 | `tx` message      | 32          | char[32]   | One or more output amounts are below the dust threshold.  Extra data may include the rejected transaction's TXID.
 | 0x42 | `tx` message      |             | char[32]   | The transaction did not have a large enough fee or priority to be relayed or mined.  Extra data may include the rejected transaction's TXID.
 | 0x43 | `block` message   | 32          | char[32]   | The block belongs to a block chain which is not the same block chain as provided by a compiled-in checkpoint.  Extra data may include the rejected block's header hash.
+
+Reject Codes
+
+| Code | Description
+|------|--------------
+| 0x01 | Malformed
+| 0x10 | Invalid
+| 0x11 | Obsolete
+| 0x12 | Duplicate
+| 0x40 | Non-standard
+| 0x41 | Dust
+| 0x42 | Insufficient fee
+| 0x43 | Checkpoint
 
 The annotated hexdump below shows a `reject` message. (The message
 header has been omitted.)
@@ -1184,6 +1284,75 @@ section][section message header] for an example of a message without a payload.
 
 {% endautocrossref %}
 
+
+#### Spork
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+Sporks are a mechanism by which updated code is released to the network, but
+not immediately made active (or “enforced”). Enforcement of the updated code
+can be activated remotely. Should problems arise, the code can be deactivated
+in the same manner, without the need for a network-wide rollback or client update.
+
+A `spork` message may be sent in response to a `getsporks` message.
+
+The `spork` message tells the receiving peer the status of the spork defined by
+the SporkID field. Upon receiving a spork message, the client must verify the
+signature before accepting the spork message as valid.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 4 | nSporkID | int | Required | ID assigned in spork.h
+| 8 | nValue | int64_t | Required | Value assigned to spork
+| 8 | nTimeSigned | int64_t | Required | Time the spork value was signed
+| 66 | vchSig | char[] | Required | Length (1 byte) + Signature (65 bytes)
+
+Defined Sporks (per [`src/spork.h`][spork.h])
+
+| Spork ID | Number | Name | Description |
+| ---------- | ---------- | ----------- | ----------- |
+| 10001 | 2 | `INSTANTSEND_ENABLED` | Turns on and off InstantSend network wide
+| 10002 | 3 | `INSTANTSEND_BLOCK_FILTERING` | Turns on and off InstantSend block filtering
+| 10004 | 5 | `INSTANTSEND_MAX_VALUE` | Controls the max value for an InstantSend transaction (currently 2000 dash)
+| 10007 | 8 | `MASTERNODE_PAYMENT_ENFORCEMENT` | Requires masternodes to be paid by miners when blocks are processed
+| 10008 | 9 | `SUPERBLOCKS_ENABLED` | Superblocks are enabled (the 10% comes to fund the dash treasury)
+| 10009 | 10 | `MASTERNODE_PAY_UPDATED_NODES` | Only current protocol version masternode's will be paid (not older nodes)
+| 10011 | 12 | `RECONSIDER_BLOCKS` |
+| 10012 | 13 | `OLD_SUPERBLOCK_FLAG` |
+| 10013 | 14 | `REQUIRE_SENTINEL_FLAG` | Only masternode's running sentinel will be paid
+
+To verify `vchSig`, compare the hard-coded spork public key (`strSporkPubKey`
+from [`src/chainparams.cpp`][spork pubkey]) with the public key recovered from
+the `spork` message's hash and `vchSig` value (implementation details for Dash
+Core can be found in `CPubKey::RecoverCompact`). The hash is a double SHA-256 hash of:
+
+* The spork magic message (`"DarkCoin Signed Message:\n"`)
+* nSporkID + nValue + nTimeSigned
+
+| Network | Spork Pubkey (wrapped) |
+| ---------- | ---------- |
+| Mainnet | 04549ac134f694c0243f503e8c8a9a986f5de6610049c40b07816809b0d1<br>d06a21b07be27b9bb555931773f62ba6cf35a25fd52f694d4e1106ccd237<br>a7bb899fdd |
+| Testnet3 | 046f78dcf911fbd61910136f7f0f8d90578f68d0b3ac973b5040fb7afb50<br>1b5939f39b108b0569dca71488f5bbf498d92e4d1194f6f941307ffd95f7<br>5e76869f0e |
+| RegTest | Undefined |
+
+The following annotated hexdump shows a `spork` message.
+
+{% highlight text %}
+11270000 .................................... Spork ID: Spork 2 InstantSend enabled (10001)
+0000000000000000 ............................ Value (0)
+2478da5900000000 ............................ Epoch time: 2017-10-08 19:10:28 UTC (1507489828)
+
+41 .......................................... Signature length: 65
+
+1b6762d3e70890b5cfaed5d1fd72121c
+d32020c827a89f8128a00acd210f4ea4
+1b36c26c3767f8a24f48663e189865ed
+403ed1e850cdb4207cdd466419d9d183
+45 .......................................... Masternode Signature
+{% endhighlight %}
+
+{% endautocrossref %}
+
 #### VerAck
 {% include helpers/subhead-links.md %}
 
@@ -1196,7 +1365,6 @@ of a message with no payload, see the [message headers
 section][section message header].
 
 {% endautocrossref %}
-
 
 #### Version
 {% include helpers/subhead-links.md %}
@@ -1217,17 +1385,18 @@ before initializing its half of the connection by first sending a
 | 4        | version               | int32_t          | Required                                 | The highest protocol version understood by the transmitting node.  See the [protocol version section][section protocol versions].
 | 8        | services              | uint64_t         | Required                                 | The services supported by the transmitting node encoded as a bitfield.  See the list of service codes below.
 | 8        | timestamp             | int64_t          | Required                                 | The current Unix epoch time according to the transmitting node's clock.  Because nodes will reject blocks with timestamps more than two hours in the future, this field can help other nodes to determine that their clock is wrong.
-| 8        | addr_recv services    | uint64_t         | Required                                 | *Added in protocol version 106.* <br><br>The services supported by the receiving node as perceived by the transmitting node.  Same format as the 'services' field above. Bitcoin Core will attempt to provide accurate information.  BitcoinJ will, by default, always send 0.
-| 16       | addr_recv IP address  | char             | Required                                 | *Added in protocol version 106.* <br><br>The IPv6 address of the receiving node as perceived by the transmitting node in **big endian byte order**. IPv4 addresses can be provided as [IPv4-mapped IPv6 addresses][]. Bitcoin Core will attempt to provide accurate information.  BitcoinJ will, by default, always return ::ffff:127.0.0.1
+| 8        | addr_recv services    | uint64_t         | Required                                 | *Added in protocol version 106.* <br><br>The services supported by the receiving node as perceived by the transmitting node.  Same format as the 'services' field above. Dash Core will attempt to provide accurate information.
+| 16       | addr_recv IP address  | char             | Required                                 | *Added in protocol version 106.* <br><br>The IPv6 address of the receiving node as perceived by the transmitting node in **big endian byte order**. IPv4 addresses can be provided as [IPv4-mapped IPv6 addresses][]. Dash Core will attempt to provide accurate information.
 | 2        | addr_recv port        | uint16_t         | Required                                 | *Added in protocol version 106.* <br><br>The port number of the receiving node as perceived by the transmitting node in **big endian byte order**.
 | 8        | addr_trans services   | uint64_t         | Required                                 | The services supported by the transmitting node.  Should be identical to the 'services' field above.
 | 16       | addr_trans IP address | char             | Required                                 | The IPv6 address of the transmitting node in **big endian byte order**. IPv4 addresses can be provided as [IPv4-mapped IPv6 addresses][].  Set to ::ffff:127.0.0.1 if unknown.
 | 2        | addr_trans port       | uint16_t         | Required                                 | The port number of the transmitting node in **big endian byte order**.
 | 8        | nonce                 | uint64_t         | Required                                 | A random nonce which can help a node detect a connection to itself.  If the nonce is 0, the nonce field is ignored.  If the nonce is anything else, a node should terminate the connection on receipt<!--noref--> of a `version` message with a nonce it previously sent.
 | *Varies* | user_agent bytes      | compactSize uint | Required                                 | Number of bytes in following user\_agent field.  If 0x00, no user agent field is sent.
-| *Varies* | user_agent            | string           | Required if user_agent bytes > 0         | *Renamed in protocol version 60000.* <br><br>User agent as defined by BIP14. Previously called subVer.
+| *Varies* | user_agent            | string           | Required if user_agent bytes > 0         | *Renamed in protocol version 60000.* <br><br>User agent as defined by BIP14. Previously called subVer.<br><br>Dash Core limits the length to 256 characters.
 | 4        | start_height          | int32_t          | Required                                 | The height of the transmitting node's best block chain or, in the case of an SPV client, best block header chain.
 | 1        | relay                 | bool             | Optional                                 | *Added in protocol version 70001 as described by BIP37.* <br><br>Transaction relay flag.  If 0x00, no `inv` messages or `tx` messages announcing new transactions should be sent to this client until it sends a `filterload` message or `filterclear` message.  If the relay field is not present or is set to 0x01, this node wants `inv` messages and `tx` messages announcing new transactions.
+
 
 The following service identifiers have been assigned.
 
@@ -1235,31 +1404,1108 @@ The following service identifiers have been assigned.
 |-------|--------------|---------------
 | 0x00  | *Unnamed*    | This node is not a full node.  It may not be able to provide any data except for the transactions it originates.
 | 0x01  | NODE_NETWORK | This is a full node and can be asked for full blocks.  It should implement all protocol features available in its self-reported protocol version.
+| 0x02  | NODE_GETUTXO | This node is capable of responding to the getutxo protocol request. *Dash Core does not support this service.*
+| 0x04  | NODE_BLOOM | This node is capable and willing to handle bloom-filtered connections.  Dash Core nodes used to support this by default, without advertising this bit, but no longer do as of protocol version 70201 (= NO_BLOOM_VERSION)
 
 The following annotated hexdump shows a `version` message. (The
 message header has been omitted and the actual IP addresses have been
 replaced with [RFC5737][] reserved IP addresses.)
 
 {% highlight text %}
-72110100 ........................... Protocol version: 70002
-0100000000000000 ................... Services: NODE_NETWORK
-bc8f5e5400000000 ................... Epoch time: 1415483324
+3e120100 .................................... Protocol version: 70206
+0500000000000000 ............................ Services: NODE_NETWORK (1) + NODE_BLOOM (4)
+bc8f5e5400000000 ............................ Epoch time: 1415483324
 
-0100000000000000 ................... Receiving node's services
-00000000000000000000ffffc61b6409 ... Receiving node's IPv6 address
-208d ............................... Receiving node's port number
+0100000000000000 ............................ Receiving node's services
+00000000000000000000ffffc61b6409 ............ Receiving node's IPv6 address
+270f ........................................ Receiving node's port number
 
-0100000000000000 ................... Transmitting node's services
-00000000000000000000ffffcb0071c0 ... Transmitting node's IPv6 address
-208d ............................... Transmitting node's port number
+0500000000000000 ............................ Transmitting node's services
+00000000000000000000ffffcb0071c0 ............ Transmitting node's IPv6 address
+270f ........................................ Transmitting node's port number
 
-128035cbc97953f8 ................... Nonce
+128035cbc97953f8 ............................ Nonce
 
-0f ................................. Bytes in user agent string: 15
-2f5361746f7368693a302e392e332f ..... User agent: /Satoshi:0.9.2.1/
+14 .......................................... Bytes in user agent string: 20
+2f4461736820436f72653a302e31322e312e352f..... User agent: /Satoshi:0.9.2.1/
 
-cf050500 ........................... Start height: 329167
-01 ................................. Relay flag: true
+851f0b00 .................................... Start height: 728965
+01 .......................................... Relay flag: true
 {% endhighlight %}
+
+{% endautocrossref %}
+
+
+
+### InstantSend Messages
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The following network messages all help control the InstantSend feature of Dash.
+InstantSend uses the masternode network to lock transaction inputs and enable
+secure, instantaneous transactions.
+
+{% endautocrossref %}
+
+#### ix
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `ix` message (transaction lock request) has the same structure as the `tx` message.
+The masternode network responds with `txlvote` messages if the transaction inputs
+can be locked.
+
+{% endautocrossref %}
+
+
+#### txlvote
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `txlvote` message ([transaction lock vote][msg_txlock_vote]{:#term-msg_txlock_vote}{:.term})
+is sent by masternodes to indicate approval of a transaction lock request
+`ix` message.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 32 | txHash | uint256 | Required | TXID of the transaction to lock
+| 36 | outPoint | outpoint | Required | The unspent outpoint to lock in this transaction
+| 36 | outpointMasternode | outpoint | Required | The outpoint of the masternode which is signing the vote
+| 66* | vchMasternodeSignature | char[] | Required | 66 bytes in most cases. Length (1 byte) + Signature (65 bytes)
+
+The following annotated hexdump shows a `txlvote` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+3c121fb4a12b2f715e2f70a9fa282115
+be197dde14073959fb2a2b8e95a7418f ..... TXID
+
+Outpoint to lock
+| bb607995757c6a6efd6429215dcb3688
+| b252d34d835c81fed310fd905f487020 ... Outpoint TXID
+| 01000000 ........................... Outpoint index number: 1
+
+Masternode Outpoint
+| de9029c7e9b7eb7cd11f27ba670b2349
+| 0c3f0717b86ed949c316874589405cd2 ... Outpoint TXID
+| 00000000 ........................... Outpoint index number: 0
+
+41 ................................... Signature length: 65
+
+1ccc39ffb9c62111a8c82823d3ce61d2
+380db4e8f76ec238d568908f37558a90
+4e79566a53663de12ec2be1183c87d61
+250e8ebd57be171be1d4b5e89b69c263
+88 ................................... Masternode Signature
+{% endhighlight %}
+
+{% endautocrossref %}
+
+
+### PrivateSend Messages
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The following network messages all help control the PrivateSend (formerly
+DarkSend) coin mixing features built in to Dash.
+
+{% endautocrossref %}
+
+#### dsa
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `dsa` message replies to a `dsq` message and allows the user to join
+a mixing pool.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 4 | nDenom | int | Required | Denomination that will be exclusively used when submitting inputs into the pool
+| 41+ | txCollateral | txIn | Required | Collateral TX that will be charged if this client acts maliciously
+
+<!-- No examples have been observed in Wireshark -->
+
+{% endautocrossref %}
+
+
+#### dsc
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `dsc` message indicates a PrivateSend mixing session is complete.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 4 | nSessionID | int | Required | ID of the mixing session
+| 4 | nMessageID | int | Required | Collateral TX that will be charged if this client acts maliciously
+
+Message IDs
+
+| Code | Description
+|------|--------------
+| 0x00 | ERR_ALREADY_HAVE
+| 0x01 | ERR_DENOM
+| 0x02 | ERR_ENTRIES_FULL
+| 0x03 | ERR_EXISTING_TX
+| 0x04 | ERR_FEES
+| 0x05 | ERR_INVALID_COLLATERAL
+| 0x06 | ERR_INVALID_INPUT
+| 0x07 | ERR_INVALID_SCRIPT
+| 0x08 | ERR_INVALID_TX
+| 0x09 | ERR_MAXIMUM
+| 0x0A | ERR_MN_LIST
+| 0x0B | ERR_MODE
+| 0x0C | ERR_NON_STANDARD_PUBKEY
+| 0x0D | ERR_NOT_A_MN (Not used)
+| 0x0E | ERR_QUEUE_FULL
+| 0x0F | ERR_RECENT
+| 0x10 | ERR_SESSION
+| 0x11 | ERR_MISSING_TX
+| 0x12 | ERR_VERSION
+| 0x13 | MSG_NOERR
+| 0x14 | MSG_SUCCESS
+| 0x15 | MSG_ENTRIES_ADDED
+
+The following annotated hexdump shows a `dsc` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+d9070700 ............................. Session ID: 460761
+14000000 ............................. Message ID: MSG_SUCCESS (0x14)
+{% endhighlight %}
+
+{% endautocrossref %}
+
+
+#### dsf
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `dsf` message is sent as the final mixing transaction in a PrivateSend
+mixing session.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 4 | nSessionID | int | Required | ID of the mixing session
+| # | txFinal | `tx` message | Required | Collateral TX that will be charged if this client acts maliciously
+
+The following annotated hexdump shows a `dsf` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+d9070700 ............................. Session ID: 460761
+
+Transaction Message
+| 01000000 ................................. Version: 1
+|
+| 11 ......................................... Number of inputs: 17
+|
+| Transaction input #1
+| |
+| | 312b2eef73770de0c75647b1fda96d85
+| | fe83b06867abf11057a241a3cf8d2a84 ......... Outpoint TXID
+| | 00000000 ................................. Outpoint index number: 0
+| |
+| | 00 ....................................... Bytes in sig. script: 0
+| | .......................................... Secp256k1 signature: None
+| |
+| | ffffffff ................................. Sequence number: UINT32_MAX
+|
+| [...] ...................................... 16 more transaction inputs omitted
+|
+|
+| 11 ......................................... Number of outputs: 17
+|
+| Transaction output #1
+| | 4a420f0000000000 ......................... Duffs (0.01000010 Dash)
+| |
+| | 19 ....................................... Bytes in pubkey script: 25
+| | | 76 ..................................... OP_DUP
+| | | a9 ..................................... OP_HASH160
+| | | 14 ..................................... Push 20 bytes as data
+| | | | 0041cc11dac1386e0d8676fda6c5b122
+| | | | 9d8c61e2 ............................. PubKey hash
+| | | 88 ..................................... OP_EQUALVERIFY
+| | | ac ..................................... OP_CHECKSIG
+|
+| [...] ...................................... 16 more transaction outputs omitted
+|
+|
+| 00000000 ................................... locktime: 0 (a block height)
+{% endhighlight %}
+
+{% endautocrossref %}
+
+
+#### dsi
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `dsi` message indicates the queue is ready and the user is expected to send
+the entry inputs to start mixing.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| ? | vecTxDSIn | CTxDSIn[] | Required | Vector of users inputs (CTxDSIn serialization is equal to CTxIn serialization)
+| 8 | nAmount | int64_t | Required | Deprecated since 12.1. Used for backwards compatibility only and can be removed with future protocol bump
+| ? | txCollateral | `tx` message | Required |Collateral transaction which is used to prevent misbehavior and also to charge fees randomly
+| ? | vecTxDSOut | CTxDSOut[] | Required | Vector of user outputs (CTxDSOut serialization is equal to CTxOut serialization)
+
+<!-- No examples have been observed in Wireshark -->
+
+{% endautocrossref %}
+
+
+#### dsq
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `dsq` message asks users to sign a final mixing TX messages.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 4 | nDenom | int | Required | Denomination allowed in this mixing session
+| 41+ | vin | txIn | Required | Unspent output from masternode which is hosting this session
+| 4 | nTime | int | Required | Time this `dsq` message was created
+| 4 | fReady | int | Required | Indicates if the mixing pool is ready to be executed
+| 66* | vchSig | char[] | Required | Signature of this message by masternode verifiable via pubKeyMasternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
+
+Denominations
+
+| Value | Denomination
+|------|--------------
+| 1 | 10 Dash
+| 2 | 1 Dash
+| 4 | 0.1 Dash
+| 8 | 0.01 Dash
+
+The following annotated hexdump shows a `dsq` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+08000000 ............................. Denomination: 0.01 Dash (8)
+
+Masternode Outpoint
+| aeed0e77c6db30a616507a37a129bc88
+| 1811f08afc51dd485d5322f36c1f04c5 ... Outpoint TXID
+| 01000000 ........................... Outpoint index number: 1
+
+1318a859 ............................. Create Time
+
+00000000 ............................. Ready: 0
+
+00 ................................... ???
+41 ................................... Signature length: 65
+
+1bd74386ea4e111197f1b4b4660c1415
+13486745ca10ba0632426ed3a644d941
+047e43c988680904d4a4fcf551d8813c
+ec12d47ae9b00e870db294cd66708ab7
+dc ................................... Masternode Signature
+{% endhighlight %}
+
+{% endautocrossref %}
+
+
+#### dss
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `dss` message sends the user's signed inputs for a group transaction in a
+mixing session.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| # | inputs | txIn[] | Required | Signed inputs for mixing session
+
+
+
+{% endautocrossref %}
+
+
+#### dssu
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `dssu` message provides a mixing pool status update.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 4 | nMsgSessionID | int | Required | Session ID
+| 4 | nMsgState | int | Required | Current state of mixing process
+| 4 | nMsgEntriesCount | int | Required | Number of entries in the mixing pool
+| 4 | nMsgStatusUpdate | int | Required | Update state and/or signal if entry was accepted or not
+| 4 | nMsgMessageID | int | Required | ID of the typical masternode reply message
+
+Pool State
+
+| State | Description
+|------|--------------
+| 0 | POOL_STATE_IDLE
+| 1 | POOL_STATE_QUEUE
+| 2 | POOL_STATE_ACCEPTING_ENTRIES
+| 3 | POOL_STATE_SIGNING
+| 4 | POOL_STATE_ERROR
+| 5 | POOL_STATE_SUCCESS
+
+Pool Status Update
+
+| Status | Description
+|------|--------------
+| 0 | STATUS_REJECTED
+| 1 | STATUS_ACCEPTED
+
+The following annotated hexdump shows a `dssu` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+e6ce0c00 ............................. Session ID
+02000000 ............................. State: POOL_STATE_ACCEPTING_ENTRIES (2)
+01000000 ............................. Entries: 1
+01000000 ............................. Status Update: STATUS_ACCEPTED (1)
+13000000 ............................. Message ID: MSG_NOERR (0x13)
+{% endhighlight %}
+
+{% endautocrossref %}
+
+
+#### dstx
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `dstx` message allows masternodes to broadcast subsidized transactions without
+fees (to provide security in mixing).
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| # | tx | `tx` message | Required | The transaction
+| 41 | vin | txIn | Required | Masternode unspent output
+| 66* | vchSig | char[] | Required | Signature of this message by masternode verifiable via pubKeyMasternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
+| 8 | sigTime | int64_t | Require | Time this message was signed
+
+
+The following annotated hexdump shows a `dstx` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+Transaction Message
+| 01000000 ................................. Version: 1
+|
+| 0b ......................................... Number of inputs: 11
+|
+| Transaction input #1
+| |
+| | 0adb782b2170018eada54534be880e70
+| | 74ed8307a566731119b1782362af43ad ......... Outpoint TXID
+| | 05000000 ................................. Outpoint index number: 5
+| |
+| | 6a ....................................... Bytes in sig. script: 106
+| | 47304402204ed56f525ae6df707f9cbe
+| | 55c78d82bbcc02daa1fb27b0bf54588a
+| | 446dcc804102200c4e03c4a2b9a90aef
+| | 9f01de7c28812a0e8b280e6c153b0bd8
+| | 26d2ff660102e18121028c96903b2709
+| | 7b331d55abd1f42d2ff6cc7c784ab839
+| | 7c232b73a34a149a348e ..................... Secp256k1 signature
+| |
+| | ffffffff ................................. Sequence number: UINT32_MAX
+|
+| [...] ...................................... 10 more transaction inputs omitted
+|
+|
+| 0b ......................................... Number of outputs: 11
+|
+| Transaction output #1
+| | e8e4f50500000000 ......................... Duffs (1.00001000 Dash)
+| |
+| | 19 ....................................... Bytes in pubkey script: 25
+| | | 76 ..................................... OP_DUP
+| | | a9 ..................................... OP_HASH160
+| | | 14 ..................................... Push 20 bytes as data
+| | | | 0febbeaa8818b2c2f80fb8c98f90bdae
+| | | | 41fe5c26 ............................. PubKey hash
+| | | 88 ..................................... OP_EQUALVERIFY
+| | | ac ..................................... OP_CHECKSIG
+|
+| [...] ...................................... 10 more transaction outputs omitted
+|
+|
+| 00000000 ................................... locktime: 0 (a block height)
+
+Masternode Unspent Output
+| 387d522def2abfb9bdd15be899f074f3
+| 49b414cef078ec642e1d14b42996b9fc ......... Outpoint TXID
+| 00000000 ................................. Outpoint index number: 0
+|
+| 00 ....................................... Bytes in sig. script: 0
+| .......................................... Secp256k1 signature (None)
+|
+| ffffffff ................................. Sequence number: UINT32_MAX
+
+1b6fb8f90f0df6e502bc10aab9604e49
+2d14214e05331c9761c834d55c7536e3
+3369e5909479ea88116aad7ea64587d9
+59364326c97d7f249f7b9293e120a5b6
+1c ................................... Masternode Signature
+
+ece5a95900000000 ..................... Signature Timestamp
+{% endhighlight %}
+
+{% endautocrossref %}
+
+
+### Masternode Messages
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The following network messages enable the Masternode features built in to Dash.
+
+{% endautocrossref %}
+
+#### dseg
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `dseg` message requests either the entire masternode list or a specific
+entry. To request the list of all masternodes, use an empty txIn (TXID of all
+zeros and an index of 0xFFFFFFFF).  To request information about a specific
+masternode, use the unspent output associated with that masternode.
+
+The response to a `dseg` message is an `mnb` message inventory and an
+`mnp` message inventory for each requested masternode. Masternodes ignore this
+request if they are not fully synced.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 41 | vin | txIn | Required | Request options:<br>`All Entries` - empty txIn<br>`Single Entry` - Masternode's unspent output which is holding 1000 DASH
+
+
+{% highlight text %}
+Note: Dash Core only allows nodes to request the entire list every 3 hours.
+Additional requests sent prior to then may result in the node being banned.
+{% endhighlight %}
+
+The following annotated hexdump shows a `dseg` message requesting **all**
+masternodes. (The message header has been omitted.)
+
+{% highlight text %}
+Masternode Unspent Output
+| 00000000000000000000000000000000
+| 00000000000000000000000000000000 ......... Outpoint TXID
+| ffffffff ................................. Outpoint index number: 0
+|
+| 00 ....................................... Bytes in sig. script: 0
+| .......................................... Secp256k1 signature: None
+|
+| ffffffff ................................. Sequence number: UINT32_MAX
+{% endhighlight %}
+
+The following annotated hexdump shows a `dseg` message requesting a specific
+masternode. (The message header has been omitted.)
+
+{% highlight text %}
+Masternode Unspent Output
+| 7fe33a2901aa654598ae0af572d4fbec
+| ee97af2d0276f189d177dee5848ef3da ......... Outpoint TXID
+| 00000000 ................................. Outpoint index number: 0
+|
+| 00 ....................................... Bytes in sig. script: 0
+| .......................................... Secp256k1 signature: None
+|
+| ffffffff ................................. Sequence number: UINT32_MAX
+{% endhighlight %}
+
+{% endautocrossref %}
+
+#### mnb
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `mnb` message is sent whenever a masternode comes online or a client is
+syncing.  The masternode will send this message which describes the masternode
+entry and how to validate messages from it.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 41 | vin | txIn | Required | The unspent output which is holding 1000 DASH
+| # | addr | CService | Required | IPv4 address of the masternode
+| 33-65 | pubKeyCollateralAddress | CPubKey | Required | CPubKey of the main 1000 DASH unspent output
+| 33-65 | pubKeyMasternode | CPubKey | Required | CPubKey of the secondary signing key (For all other messaging other than announce message)
+| 66* | sig | char[] | Required | Signature of this message verifiable via pubKeyMasternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
+| 8 | sigTime | int64_t | Required | Time which the signature was created
+| 4 | nProtocolVersion | int | Required | The protocol version of the masternode
+| # | lastPing | `mnp` message | Required | The last known ping of the masternode
+| 8 | nLastDsq | int64_t | Deprecated | The last time the masternode sent a `dsq` message (for mixing) (DEPRECATED)
+
+The following annotated hexdump shows a `mnb` message. (The
+message header has been omitted and the actual IP address has been replaced
+with a RFC5737 reserved IP address.)
+
+{% highlight text %}
+Masternode Unspent Output
+| 3fbc7d4a8f68ba6ecb02a8db34d1f5b6
+| 2dc105f0b5c3505243435cf815d02394 ......... Outpoint TXID
+| 01000000 ................................. Outpoint index number: 1
+|
+| 00 ....................................... Bytes in sig. script: 0
+| .......................................... Secp256k1 signature: None
+|
+| ffffffff ................................. Sequence number: UINT32_MAX
+
+Masternode Address
+| 00000000000000000000ffffc0000233 ......... IP Address: ::ffff:192.0.2.51
+| 270f ..................................... Port: 9999
+
+Collateral Public Key
+| 21 ....................................... Key Size: 33
+| 02 ....................................... Key Type: 2 - Compressed (even)
+| 02a47a6845936a4199e126d35399dd09
+| 97c1aaf89a3fe70d474c53f29624a43a5b ....... Public Key
+
+Masternode Public Key
+| 41 ....................................... Key Size: 65
+| 04 ....................................... Key Type: 4 - Uncompressed
+| 04da252243305d604cab90480880af4a
+| b5cea3a934c91393452e9b7b4c97a87e
+| 198bc809916ac2c27436a1db9c28d0aa
+| bfefec4dc3c2193835fd9a56c31150c633 ....... Public Key
+
+Message Signature
+| 41 ....................................... Bytes in signature: 65
+| 1fb80f9ba8c110835e4a7dd4c8deccd7
+| 89027663d00084d9a99ef579a9b5601f
+| 40727b27e91aab2897a078f63976ae25
+| 3ff8f01e56862e953278f432530f6ee080 ....... Signature
+
+4728ef5800000000 ........................... Sig. Timestamp: 2017-04-13 07:27:03 UTC
+
+3e120100 ................................... Protocol Version: 70206
+
+Masternode Ping Message
+| Masternode Unspent Output
+| | 3fbc7d4a8f68ba6ecb02a8db34d1f5b6
+| | 2dc105f0b5c3505243435cf815d02394 ........ Outpoint TXID
+| | 01000000 ................................ Outpoint index number: 1
+| |
+| | 00 ...................................... Bytes in sig. script: 0
+| | ......................................... Secp256k1 signature: None
+| |
+| | ffffffff ................................ Sequence number: UINT32_MAX
+|
+| 94fc0fad18b166c2fedf1a5dc0511372
+| 26c353d57e086737ff05000000000000 ......... Chaintip block hash
+|
+| 66c1a95900000000 ......................... Sig. Timestamp: 2017-10-01 21:21:58 UTC
+|
+| Masternode Signature
+| | 41 ..................................... Bytes in signature: 65
+| | 1b3017c49a03e2d77083f3c92a8c2e4c
+| | d815d068b6256498a719e3cb6a34f774
+| | ec6434cfcbb7a5a51704350a05903287
+| | eecc82e6b40ac2fcfa2df29ddaa6c4fc
+| | b8 ..................................... Masternode Signature
+{% endhighlight %}
+
+{% endautocrossref %}
+
+#### mnget
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `mnget` message requests masternode payment sync. The response to an
+`mnget` message is an `mnb` message inventory and an `mnp` message inventory for
+each requested masternode. Masternodes ignore this request if they are not fully synced.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 4 | nMnCount | int | Required | Number of masternode payment votes to request
+
+{% highlight text %}
+Note: Dash Core limits how frequently a masternode payment sync can be
+requested. Frequent requests will result in the node being banned.
+{% endhighlight %}
+
+The following annotated hexdump shows a `mnget` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+a8170000 ................................... Count: 6056
+{% endhighlight %}
+
+{% endautocrossref %}
+
+#### mnp
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `mnp` message is sent by masternodes every few minutes to ping the network
+with a message that propagates across the whole network. Dash Core currently
+uses a minimum masternode ping time of 10 minutes.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 41 | vin | txIn | Required | The unspent output of the masternode (holding 1000 DASH) which is signing the message
+| 32 | blockHash | uint256 | Required | Block hash from 12 blocks ago (current chaintip minus 12). This offset allows nodes to be slightly out of sync.
+| 8 | sigTime | int64_t | Required | Time which the signature was created
+| 66* | vchSig | char[] | Required | Signature of this message by masternode - verifiable via pubKeyMasternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
+
+The following annotated hexdump shows a `mnp` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+Masternode Unspent Output
+| 0bfa3616099771bb5f36181ff4060a9b
+| 9afe7b3e47d7f4327800f0f8ce586c6e ......... Outpoint TXID
+| 01000000 ................................. Outpoint index number: 1
+|
+| 00 ....................................... Bytes in sig. script: 0
+| .......................................... Secp256k1 signature: None
+|
+| ffffffff ................................. Sequence number: UINT32_MAX
+
+a26a68ebb733192c1c40f9b42f872ac0
+e23d4c360e20d5ab6608000000000000 ........... Chaintip block hash
+
+1bbfa95900000000 ........................... Sig. Timestamp: 2017-10-01 20:12:11 UTC
+
+Masternode Signature
+| 41 ....................................... Bytes in signature: 65
+| 1c2b205bd6ba472d7a9495f049ef66dc
+| f844154846e25f2389385ba2d3e95cde
+| cf3ccf82bc26d94c6fdafcd7b965bb61
+| db02d05483595196ea4d92b2e797612b
+| 79 ....................................... Masternode Signature
+{% endhighlight %}
+
+{% endautocrossref %}
+
+#### mnv
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `mnv` message is used by masternodes to verify each other. Several `mnv`
+messages are exchanged in the process. This results in the IP address of
+masternode 1 being validated as of the provided block height.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 41 | vin1 | txIn | Required | The unspent output which is holding 1000 DASH for masternode 1
+| 41 | vin2 | txIn | Required | The unspent output which is holding 1000 DASH for masternode 2
+| # | addr | CService | Required | IPv4 address and port of masternode 1
+| 4 | nonce | int | Required | Random nonce
+| 4 | nBlockHeight | int | Required | Block height
+| 66 | vchSig1 | char[] | Required*<br><br>Added in Step 2 | Signature of this message by masternode 1 - verifiable via pubKeyMasternode (Length (1 byte) + Signature (65 bytes))<br><br>
+| 66 | vchSig2 | char[] | Required*<br><br>Added in Step 3 | Signature of this message by masternode 2 - verifiable via pubKeyMasternode (Length (1 byte) + Signature (65 bytes))<br><br>
+
+Initially, both `vchSig1` and `vchSig2` are empty. They are updated as the
+exchange of messages between the masternodes occurs as detailed in the table
+below.
+
+*Masternode Verify Data Flow*
+
+| Step  | **MN 2 (Verifier)** | **Direction**  | **MN 1 (Being verified)**   | **Description** |
+|   | **Verification request** | |                   | **`mnv` message with no signatures** |
+| 1 | `mnv` message    | → |                   | Contains `addr`, `nonce`, and `nBlockHeight`
+| 2 |                  | ← | `mnv` message     | Add `vchSig1` (signature of the IP address + nonce + hash of the requested block)
+| 3 | `mnv` message    | → |                   | Verify `vchSig1` <br><br>Add `vchSig2` (signature of the IP address + nonce + hash of the requested block + `vin1` prevout + `vin2` prevout) and relay message to peers if valid
+
+Nodes receiving a relayed `mnv` message (one in which both `vchSig1` and
+`vchSig2` are already present) use it to update the PoSe ban score. If the ban
+score reaches `MASTERNODE_POSE_BAN_MAX_SCORE` (5), the masternode will be
+considered malicious and banned.
+
+{% highlight text %}
+Important Notes:
+* Dash Core limits how frequently a masternode verify request can be
+  requested. Frequent requests will result in the node being banned.
+
+* Only masternodes in the top `MAX_POSE_RANK` (10) can send an `mnv` request
+  (to no more than `MAX_POSE_CONNECTIONS` (10)).
+
+{% endhighlight %}
+
+<!-- Need example from Wireshark -->
+
+{% endautocrossref %}
+
+#### mnw
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `mnw` message is used to pick the next winning masternode. When a new block
+is found on the network, a masternode quorum will be determined and those 10
+selected masternodes will issue the masternode payment vote message.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 41 | vin | txIn | Required | The unspent output which is holding 1000 DASH
+| 4 | nBlockHeight | int | Required | The blockheight which the payee should be paid
+| ? | payeeAddress | CScript | Required | The address receiving payment
+| 66* | vchSig | char[] | Required | Signature of the masternode which is signing the message (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
+
+The following annotated hexdump shows a `mnw` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+Masternode Unspent Output
+| 0c1b5c5846792b25b05eeea9586d8c34
+| ecb996c566bedb4ecf6a68fe8ffa9582 ......... Outpoint TXID
+| 00000000 ................................. Outpoint index number: 0
+|
+| 00 ....................................... Bytes in sig. script: 0
+| .......................................... Secp256k1 signature: None
+|
+| ffffffff ................................. Sequence number: UINT32_MAX
+
+fb4f0a00 ................................... Block pay height: 675835
+
+Payee Address
+| 19 ....................................... Address Length: 25
+| | 76 ..................................... OP_DUP
+| | a9 ..................................... OP_HASH160
+| | 14 ..................................... Push 20 bytes as data
+| | | 1767c363646be7d8e4475c0aa85ea454
+| | | 9fd102c4 ............................. Pubkey hash
+| | 88 ..................................... OP_EQUALVERIFY
+| | ac ..................................... OP_CHECKSIG
+
+Masternode Signature
+| 41 ....................................... Bytes in signature: 65
+| 1c25da47190a83937fb5ef607235703a
+| 7cdda155bf5a1ae6139929024750f899
+| a90a4f57cdf9d54c9d9603c1f31009f8
+| e257355b49c0484fb4c31bc412c73dd9
+| 20 ....................................... Signature
+{% endhighlight %}
+
+{% endautocrossref %}
+
+#### mnwb
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+There is no message for `mnwb` (`inv` message only).
+
+The following annotated hexdump shows an `inv` message with a `mnwb`
+inventory entry.  (The message header has been omitted.)
+
+{% highlight text %}
+01 ................................. Count: 1
+
+08000000 ........................... Type: MSG_MASTERNODE_PAYMENT_BLOCK (8)
+dd6cc6c11211793b239c2e311f1496e2
+2281b200b35233eaae465d2aa3c9d537 ... Hash: mnwb
+{% endhighlight %}
+
+{% endautocrossref %}
+
+#### ssc
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `ssc` message is used to track the sync status of masternode objects. This
+message is sent in response to sync requests for the list of masternodes
+(`dseg` message), masternode payments (`mnget` message), governance objects
+(`govsync` message), and governance object votes (`govsync` message).
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 4 | nItemID | int | Required | Masternode Sync Item ID
+| 4 | nCount | int | Required | Number of items to sync
+
+Sync Item IDs
+
+| ID | Description | Response To
+|------|--------------|---------------
+| 2 | MASTERNODE_SYNC_LIST | `dseg` message
+| 3 | MASTERNODE_SYNC_MNW | `mnget` message
+| 10 | MASTERNODE_SYNC_GOVOBJ | `govsync` message
+| 11 | MASTERNODE_SYNC_GOVOBJ_VOTE | `govsync` message with non-zero hash
+
+The following annotated hexdump shows a `ssc` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+02000000 ................................... Item ID: MASTERNODE_SYNC_LIST (2)
+bf110000 ................................... Count: 4543
+{% endhighlight %}
+
+{% endautocrossref %}
+
+
+### Governance Messages
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The following network messages enable the Governance features built in to Dash.
+For additional details on the governance system, see this [Budget System page](https://dashpay.atlassian.net/wiki/spaces/DOC/pages/8585246/Budget+System+Funding+Voting+DGBB).
+
+![Overview Of P2P Protocol Governance Request And Reply Messages](/img/dev/en-p2p-governance-messages.svg)
+
+For additional details, refer to the Developer Guide [Governance section](developer-guide#governance).
+
+{% endautocrossref %}
+
+#### govobj
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `govobj` message contains a governance object that is generally a proposal,
+contract, or setting. Masternodes ignore this request if they are not fully synced.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 32 | nHashParent | uint256 | Required | Parent object (a hash of all zeros here indicates this is the root object, not a child object).
+| 4 | nRevision | int | Required | Object revision in the system
+| 8 | nTime | int64_t | Required | Time which this object was created
+| 32 | nCollateralHash | uint256 | Required | Hash of the collateral fee transaction
+| 0-16384 | strData | string | Required | Data field - can be used for anything (leading varint indicates size of data)
+| 4 | nObjectType | int | Required | Type of governance object: <br>• `0` - Unknown<br>• `1` - Proposal<br>• `2` - Trigger<br>• `3` - Watchdog
+| 41 | vinMasternode | CTxIn | Required | Unspent output for the masternode which is signing this object
+| 66* | vchSig | char[] | Required | Signature of the masternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
+
+Governance Object Types (defined by src/governance-object.h)
+
+| Type | Name                    | Description
+|------|-------------------------|------------
+| 0 | GOVERNANCE_OBJECT_UNKNOWN  |
+| 1 | GOVERNANCE_OBJECT_PROPOSAL | Submitted proposal (requires collateral transaction - currently 5 Dash)
+| 2 | GOVERNANCE_OBJECT_TRIGGER  | Masternode generated. Removed after activation/execution. Used for superblocks.
+| 3 | GOVERNANCE_OBJECT_WATCHDOG | Masternode generated. Two hour expiration time.
+
+The following annotated hexdump shows a `govobj` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+00000000000000000000000000000000
+00000000000000000000000000000000 ..... Parent Hash (0 = root)
+01000000 ............................. Revision: 1
+911ea85900000000 ..................... Create timestamp: 2017-08-31 14:34:57 UTC
+00000000000000000000000000000000
+00000000000000000000000000000000 ..... Collateral Hash
+
+Data
+| ae11 ............................... Data length: 4526
+| fdae11356235623 ... 376435643564 ... Data (truncated)
+
+02000000 ............................. Object Type: GOVERNANCE_OBJECT_TRIGGER (2)
+
+Transaction input
+| Previous Output
+| | ffefbe4959085907bcd2ba29e357a441
+| | fa7b6e26e25896d8127332bba2419e97 ... Outpoint TXID
+| | 00000000 ........................... Outpoint index number: 0
+| 00 ................................... Script length: 0
+| ...................................... Signature: None
+| ffffffff ............................. Sequence
+
+41 ................................... Signature length: 65
+
+1ce3b782f66be8ae9fc4158680128864
+341202b6006384083ab2d9cfa73795e2
+6000668e84af4ef6a284a52b53843524
+72037d51bd9079ffd5c087d9632865ee
+75 ................................... Masternode Signature
+{% endhighlight %}
+
+{% endautocrossref %}
+
+#### govobjvote
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `govobjvote` message is used to indicate the voting status of a governance
+object.  Voting status is comprised of the vote outcome (how the masternode
+voted) and the vote signal (the network support status). A sufficient number of
+yes votes results in the proposed funding being payed out in the next
+superblock (assuming their are sufficient funds available in the budget).
+
+The initial `govobjvote` message is created by a masternode to vote on a
+governance object (proposal, etc.). When the masternode votes, it broadcasts
+the `govobjvote` message to all its peers.
+
+When a node receives a valid, **new** `govobjvote` message, it relays the message
+to all its connected peers to propagate the vote.
+
+Additionally, nodes can request `govobjvote` messages for specific governance
+objects via a `govsync` message. Masternodes ignore requests for votes if they
+are not fully synced.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 41+ | vinMasternode | CTxIn | Required | Unspent output for the masternode which is voting
+| 32 | nParentHash | uint256 | Required | Object (`govobj`) being voted on (proposal, contract, setting or final budget)
+| 4 | nVoteOutcome | int | Required | None (0), Yes (1), No (2), Abstain (3)
+| 4 | nVoteSignal | int | Required |  None (0), Funding (1), Valid (2), Delete (3), Endorsed (4)
+| 8 | nTime | int64_t | Required | Time the vote was created
+| 66* | vchSig | char[] | Required | Signature of the masternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
+
+Governance Object Vote Signals (defined by src/governance-object.h)
+
+| Value | Name | Description
+|------|-------|------------
+| 1 | Funding  | Minimum network support has been reached for this object to be funded (doesn't mean it will for sure though)
+| 2 | Valid    | Minimum network support has been reached flagging this object as a valid and understood governance object (e.g, the serialized data is correct format, etc.)
+| 3 | Delete   | Minimum network support has been reached saying this object should be deleted from the system entirely
+| 4 | Endorsed | Minimum network support has been reached flagging this object as endorsed by an elected representative body
+
+The following annotated hexdump shows a `govobjvote` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+Transaction input
+| Previous Output
+| | 57566a0ef85e6cac3415ced67b0b07e1
+| | 781bafb853650d7c9d56d8bc132cc3b4 ... Outpoint TXID
+| | 00000000 ........................... Outpoint index number: 0
+| 00 ................................... Script length: 0
+| ...................................... Signature: None
+| ffffffff ............................. Sequence
+
+ad9579d5c181eee904156df1c88b050f
+b8b4d39e5fda71f015996dbf14a51bff...... Parent Hash (0 = root)
+01000000 ............................. Vote Outcome: VOTE_OUTCOME_NONE (1)
+02000000 ............................. Vote Signal: VOTE_SIGNAL_VALID (2)
+b517a85900000000 ..................... Vote Create Timestamp: 2017-08-31 14:05:41 UTC
+00000000000000000000000000000000 ..... Collateral Hash
+
+1b049113a81fe913f061ad295561d267
+00b8135a021ab0356a1e89b18d663d0b
+dc45e9c09ee0427223e332b52e8d709e
+6d64e86b6435d7bdf207d8f23b6ae0db
+6f ................................... Masternode Signature
+{% endhighlight %}
+
+{% endautocrossref %}
+
+#### govsync
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `govsync` message is used to request syncing of governance objects
+(`govobj` message and `govobjvote` message) with peers. Masternodes ignore this
+request if they are not fully synced.
+
+This message responds in one of two ways depending on the request:
+
+1. Object Sync - When a masternode receives a `govsync` message with a hash of all zeros, it
+responds with one `ssc` message for `govobj` objects and one for `govobjvote`
+objects. The masternode also sends an `inv` message (MSG_GOVERNANCE_OBJECT - 0x17)
+for all valid `govobj` governance objects.
+*Governance object votes are excluded in this type of response.*
+
+2. Vote Sync - When a masternode receives a `govsync` message with a specific hash, it
+responds with one `ssc` message for `govobj` objects and one for `govobjvote`
+objects. The masternode also sends both a `govobj` inventory message
+(MSG_GOVERNANCE_OBJECT - 0x17) and `govobjvote` inventory messages
+(MSG_GOVERNANCE_OBJECT_VOTE - 0x18) for the single governance object requested.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 32 | nHash | uint256 | Required | Hash of governance object to request<br>Set to all zeros to request all objects (excludes votes)
+| # | filter | CBloomFilter | Required | Can be set to all zeros.<br>Only supported since [protocol version 70206][section protocol versions]
+
+{% highlight text %}
+Dash Core limits how frequently the first type of sync (object sync) can be
+requested. Frequent requests will result in the node being banned.
+{% endhighlight %}
+
+The following annotated hexdump shows a `govsync` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+2e46ea5418e097a3dbcccbee3cf2a911
+6fb94ba635153f276dcb2123efcb73ff ..... Hash
+00000000000000000000 ................. Bloom Filter
+{% endhighlight %}
+
+{% endautocrossref %}
+
+
+### Deprecated Messages
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The following network messages have been deprecated and should not longer be used.
+
+{% endautocrossref %}
+
+#### mnvs
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+Masternode Budget Sync - Deprecated since 12.1
+
+{% endautocrossref %}
+
+#### mvote
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+Masternode Budget Vote - Deprecated since 12.1
+
+{% endautocrossref %}
+
+#### mprop
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+Masternode Budget Proposal - Deprecated since 12.1
+
+{% endautocrossref %}
+
+#### fbs
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+Masternode Budget Final - Deprecated since 12.1
+
+{% endautocrossref %}
+
+#### fbvote
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+Masternode Budget Final Vote - Deprecated since 12.1
+
+{% endautocrossref %}
+
+#### mn quorum
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+Not Implemented
 
 {% endautocrossref %}
