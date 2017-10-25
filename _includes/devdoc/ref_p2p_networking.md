@@ -2253,60 +2253,6 @@ bf110000 ................................... Count: 4543
 
 {% endautocrossref %}
 
-#### mnvs
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-Masternode Budget Sync - Deprecated since 12.1
-
-{% endautocrossref %}
-
-#### mvote
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-Masternode Budget Vote - Deprecated since 12.1
-
-{% endautocrossref %}
-
-#### mprop
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-Masternode Budget Proposal - Deprecated since 12.1
-
-{% endautocrossref %}
-
-#### fbs
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-Masternode Budget Final - Deprecated since 12.1
-
-{% endautocrossref %}
-
-#### fbvote
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-Masternode Budget Final Vote - Deprecated since 12.1
-
-{% endautocrossref %}
-
-#### mn quorum
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-Not Implemented
-
-{% endautocrossref %}
-
 
 ### Governance Messages
 {% include helpers/subhead-links.md %}
@@ -2497,5 +2443,69 @@ message header has been omitted.)
 6fb94ba635153f276dcb2123efcb73ff ..... Hash
 00000000000000000000 ................. Bloom Filter
 {% endhighlight %}
+
+{% endautocrossref %}
+
+
+### Deprecated Messages
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The following network messages have been deprecated and should not longer be used.
+
+{% endautocrossref %}
+
+#### mnvs
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+Masternode Budget Sync - Deprecated since 12.1
+
+{% endautocrossref %}
+
+#### mvote
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+Masternode Budget Vote - Deprecated since 12.1
+
+{% endautocrossref %}
+
+#### mprop
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+Masternode Budget Proposal - Deprecated since 12.1
+
+{% endautocrossref %}
+
+#### fbs
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+Masternode Budget Final - Deprecated since 12.1
+
+{% endautocrossref %}
+
+#### fbvote
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+Masternode Budget Final Vote - Deprecated since 12.1
+
+{% endautocrossref %}
+
+#### mn quorum
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+Not Implemented
 
 {% endautocrossref %}
