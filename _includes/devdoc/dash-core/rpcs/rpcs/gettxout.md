@@ -7,8 +7,8 @@ http://opensource.org/licenses/MIT.
 ##### GetTxOut
 {% include helpers/subhead-links.md %}
 
-{% assign summary_getTxOut="returns details about a transaction output.  Only unspent transaction outputs (UTXOs) are guaranteed to be available." %}
-
+{% assign summary_getTxOut="returns details about an unspent transaction output (UTXO)." %}
+<!-- __ -->
 {% autocrossref %}
 
 The `gettxout` RPC {{summary_getTxOut}}

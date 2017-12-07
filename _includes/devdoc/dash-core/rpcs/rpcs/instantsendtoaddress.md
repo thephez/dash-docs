@@ -77,12 +77,12 @@ The `instantsendtoaddress` RPC {{summary_instantSendToAddress}}
 
 *Example from Dash Core 0.12.2*
 
-InstantSend 0.1 dash to the address below with the comment "instantsendtoadress
+InstantSend 0.1 dash to the address below with the comment "instantsendtoaddress
 example" and the comment-to "Nemo From Example.com":
 
 {% highlight bash %}
 dash-cli -testnet instantsendtoaddress ySutkc49Khpz1HQN8AfWNitVBLwqtyaxvv \
-  1.0 "instantsendtoadress example" "Nemo From Example.com"
+  1.0 "instantsendtoaddress example" "Nemo From Example.com"
 {% endhighlight %}
 
 Result:

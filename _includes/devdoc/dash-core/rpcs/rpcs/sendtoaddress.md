@@ -100,7 +100,7 @@ The `sendtoaddress` RPC {{summary_sendToAddress}}
 
 *Example from Dash Core 0.12.2*
 
-Spend 0.1 dash to the address below with the comment "sendtoadress
+Spend 0.1 dash to the address below with the comment "sendtoaddress
 example" and the comment-to "Nemo From Example.com":
 
 {% highlight bash %}
@@ -116,7 +116,7 @@ Result:
 
 *Example from Dash Core 0.12.2 (InstantSend)*
 
-Spend 0.1 dash via InstantSend to the address below with the comment "sendtoadress
+Spend 0.1 dash via InstantSend to the address below with the comment "sendtoaddress
 example" and the comment-to "Nemo From Example.com":
 
 {% highlight bash %}
@@ -132,7 +132,7 @@ af002b9c931b5efb5b2852df3d65efd48c3b9ac2ba0ef8a4cf97b894f3ff08c2
 
 *Example from Dash Core 0.12.2 (PrivateSend)*
 
-Spend 0.1 dash via PrivateSend to the address below with the comment "sendtoadress
+Spend 0.1 dash via PrivateSend to the address below with the comment "sendtoaddress
 example" and the comment-to "Nemo From Example.com":
 
 {% highlight bash %}
@@ -149,7 +149,7 @@ Result:
 *Example from Dash Core 0.12.2 (InstantSend + PrivateSend)*
 
 Spend 0.1 dash via InstantSend and PrivateSend to the address below with the
-comment "sendtoadressexample" and the comment-to "Nemo From Example.com":
+comment "sendtoaddressexample" and the comment-to "Nemo From Example.com":
 
 {% highlight bash %}
 dash-cli -testnet sendtoaddress ySutkc49Khpz1HQN8AfWNitVBLwqtyaxvv \

@@ -71,7 +71,7 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_getSpentInfo="returns the txid and index where an output is spent (requires `spentindex` to be enabled)." %}
 {% assign summary_getSuperblockBudget="returns the absolute maximum sum of superblock payments allowed." %}
 {% assign summary_getTransaction="gets detailed information about an in-wallet transaction." %}
-{% assign summary_getTxOut="returns details about a transaction output.  Only unspent transaction outputs (UTXOs) are guaranteed to be available." %}
+{% assign summary_getTxOut="returns details about an unspent transaction output (UTXO)." %}
 {% assign summary_getTxOutProof="returns a hex-encoded proof that one or more specified transactions were included in a block." %}
 {% assign summary_getTxOutSetInfo="returns statistics about the confirmed unspent transaction output (UTXO) set. Note that this call may take some time and that it only counts outputs from confirmed transactions---it does not count outputs from the memory pool." %}
 {% assign summary_getUnconfirmedBalance="returns the wallet's total unconfirmed balance." %}
