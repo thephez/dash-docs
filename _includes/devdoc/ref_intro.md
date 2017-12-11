@@ -5,6 +5,7 @@ http://opensource.org/licenses/MIT.
 {% assign filename="_includes/devdoc/ref_intro.md" %}
 
 {% autocrossref %}
+<!-- __ -->
 
 The Developer Reference aims to provide technical details and API information
 to help you start building Dash-based applications, but it is [not a
@@ -15,7 +16,7 @@ Core, either from [source][core git] or from a [pre-compiled executable][core ex
 Questions about Dash development are best asked in one of the
 [Dash development communities][dev communities].
 Errors or suggestions related to
-documentation on {Dash.org} can be [submitted as an issue][docs issue].
+documentation on dash-docs.github.io can be [submitted as an issue][docs issue].
 
 In the following documentation, some strings have been shortened or wrapped: "[...]"
 indicates extra data was removed, and lines ending in a single backslash "\\"
@@ -31,7 +32,7 @@ definition of the term will be displayed in a tooltip.
 
 {% autocrossref %}
 
-The {Dash.org} Developer Documentation describes how Dash works to
+The dash-docs.github.io Developer Documentation describes how Dash works to
 help educate new Dash developers, but it is not a specification---and
 it never will be.
 
@@ -40,8 +41,8 @@ consensus, its security is weakened or destroyed. The cause of the
 divergence doesn't matter: it could be a bug in your program, it could
 be an [error in this documentation][errors in docs] which you
 implemented as described, or it could be you do everything right but
-other software on the network [behaves unexpectedly][v0.8 chain
-fork] as in the case of Bitcoin's v0.8 chain fork. The specific cause
+other software on the network [behaves unexpectedly](https://bitcoin.org/en/alert/2013-03-11-chain-fork)
+as in the case of Bitcoin's v0.8 chain fork. The specific cause
 will not matter to the users of your software whose wealth is lost.
 
 The only correct specification of consensus behavior is the actual
