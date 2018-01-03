@@ -1448,7 +1448,7 @@ bc8f5e5400000000 ............................ Epoch time: 1415483324
 The following network messages all help control the InstantSend feature of Dash.
 InstantSend uses the masternode network to lock transaction inputs and enable
 secure, instantaneous transactions. For additional details, refer to
-the Developer Guide [InstantSend section](developer-guide#instantsend).
+the Developer Guide [InstantSend section](developer-guide#instantsend<!--noref-->).
 
 ![Overview Of P2P Protocol InstantSend Request And Reply Messages](/img/dev/en-p2p-instantsend-messages.svg)
 
@@ -1524,7 +1524,7 @@ masternode network.
 Since the messages are all related to a single process, this diagram shows them
 sequentially numbered. The `dssu` message (not shown) is sent by the
 masternode in conjunction with some responses. For additional details, refer to
-the Developer Guide [PrivateSend section](developer-guide#privatesend).
+the Developer Guide [PrivateSend section](developer-guide#privatesend<!--noref-->).
 
 ![Overview Of P2P Protocol PrivateSend Request And Reply Messages](/img/dev/en-p2p-privatesend-messages.svg)
 
@@ -2171,8 +2171,8 @@ The following network messages enable the masternode features built in to Dash.
 
 ![Overview Of P2P Protocol Masternode Request And Reply Messages](/img/dev/en-p2p-masternode-messages.svg)
 
-For additional details, refer to the Developer Guide [Masternode Sync](developer-guide#masternode-sync)
-and [Masternode Payment](developer-guide#masternode-payment) sections.
+For additional details, refer to the Developer Guide [Masternode Sync](developer-guide#masternode<!--noref-->-sync)
+and [Masternode Payment](developer-guide#masternode<!--noref-->-payment) sections.
 
 {% endautocrossref %}
 
@@ -2643,7 +2643,7 @@ bf110000 ................................... Count: 4543
 {% autocrossref %}
 
 The following network messages enable the Governance features built in to Dash.
-For additional details on the governance system, see this [Budget System page](https://dashpay.atlassian.net/wiki/spaces/DOC/pages/8585246/Budget+System+Funding+Voting+DGBB).
+For additional details on the governance system, see this [Budget System page](https://dashpay.atlassian.net/wiki/spaces/DOC/pages/8585246/Budget+System+Funding+Voting+DGBB<!--noref-->).
 
 ![Overview Of P2P Protocol Governance Request And Reply Messages](/img/dev/en-p2p-governance-messages.svg)
 

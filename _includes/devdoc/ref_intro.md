@@ -41,7 +41,7 @@ consensus, its security is weakened or destroyed. The cause of the
 divergence doesn't matter: it could be a bug in your program, it could
 be an [error in this documentation][errors in docs] which you
 implemented as described, or it could be you do everything right but
-other software on the network [behaves unexpectedly](https://bitcoin.org/en/alert/2013-03-11-chain-fork)
+other software on the network [behaves unexpectedly](https://bitcoin.org/en/alert/2013-03-11-chain-fork<!--noref-->)
 as in the case of Bitcoin's v0.8 chain fork. The specific cause
 will not matter to the users of your software whose wealth is lost.
 

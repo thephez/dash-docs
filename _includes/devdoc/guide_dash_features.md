@@ -69,7 +69,7 @@ There are a number of limitations on InstantSend transactions:
 
 Dash Core's PrivateSend feature provides a way to improve privacy by performing
 coin-mixing without relinquishing custodial access. For additional details,
-reference this [Official Documentation PrivateSend page](https://dashpay.atlassian.net/wiki/spaces/DOC/pages/1146924/PrivateSend).
+reference this [Official Documentation PrivateSend page](https://dashpay.atlassian.net/wiki/spaces/DOC/pages/1146924/PrivateSend<!--noref-->).
 
 *PrivateSend Data Flow*
 
@@ -310,7 +310,7 @@ Once the syncing node receives the counts and inventories, it may request any
 
 #### Sentinel<!--noref-->
 
-[Sentinel](https://github.com/dashpay/sentinel/) is a Python application that connects to a masternode's local dashd
+[Sentinel](https://github.com/dashpay/sentinel<!--noref-->/) is a Python application that connects to a masternode's local dashd
 instance to run as an autonomous agent for persisting, processing, and automating
 Dash 12.1+ governance objects and tasks. Sentinel abstracts some governance
 details away from Dash Core for easier extensibility of the governance system in
