@@ -15,7 +15,7 @@ http://opensource.org/licenses/MIT.
 
 *Requires wallet support.*
 
-{{WARNING_ICON}} The `gethashespersec` RPC {{summary_getHashesPerSec}}.
+{{WARNING_ICON}} The `gethashespersec` RPC {{summary_getHashesPerSec}}
 
 *See also*
 

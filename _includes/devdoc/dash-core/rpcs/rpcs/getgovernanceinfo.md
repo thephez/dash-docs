@@ -53,9 +53,14 @@ The `getgovernanceinfo` RPC {{summary_getGovernanceInfo}}
   p: "Required<br>(exactly 1)"
   d: "The block number of the next superblock"
 
+- n: "→<br>`maxgovobjdatasize`"
+  t: "number (int)"
+  p: "Required<br>(exactly 1)"
+  d: "*Added in Dash Core 0.12.2.2*<br><br>The maximum governance object data size in bytes"
+
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.12.2.2*
 
 {% highlight bash %}
 dash-cli -testnet getgovernanceinfo
@@ -68,8 +73,9 @@ Result:
   "masternodewatchdogmaxseconds": 7200,
   "proposalfee": 5.00000000,
   "superblockcycle": 24,
-  "lastsuperblock": 7368,
-  "nextsuperblock": 7392
+  "lastsuperblock": 52872,
+  "nextsuperblock": 52896,
+  "maxgovobjdatasize": 16384
 }
 {% endhighlight %}
 
