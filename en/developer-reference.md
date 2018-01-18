@@ -50,6 +50,8 @@ end_of_page: |
 
 {% include devdoc/ref_p2p_networking.md %}
 
+{% include devdoc/ref_bips.md %}
+
 {% include devdoc/dash-core/api-intro.md %}
 
 {% include devdoc/dash-core/rpcs/intro.md %}
