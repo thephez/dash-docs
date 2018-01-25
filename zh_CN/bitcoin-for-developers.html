@@ -1,0 +1,194 @@
+<!DOCTYPE HTML>
+<html lang="zh_CN">
+
+<head>
+
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta property="og:image" content="https://www.dash.org/assets/img/graphics/dash_circle_normal.png" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>比特币开发者 - 比特币</title>
+
+<link rel="stylesheet" href="/css/font-awesome-4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/main.css">
+<!--[if lt IE 8]><link rel="stylesheet" href="/css/ie.css"><script type="text/javascript" src="/js/ie.js"></script><![endif]-->
+<!--[if IE 8]><link rel="stylesheet" href="/css/ie8.css"><![endif]-->
+
+<link rel="stylesheet" href="/css/sans.css">
+<script type="text/javascript" src="/js/base.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+  <script src="/js/jquery/jquery-1.11.2.min.js"></script>
+  <script src="/js/jquery/jquery.qrcode.min.js"></script>
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-touch-icon-precomposed" href="/img/icons/logo_dash_circle_normal.png"/>
+
+<!-- Turn off cookie/analytic stuff
+<script>
+    window.cookieconsent_options = {
+        theme: 'light-floating'
+    }
+</script>
+<script type="text/javascript" src="/js/cookieconsent/cookieconsent.js"></script>
+<script>
+if( navigator.doNotTrack != "yes" && navigator.doNotTrack != "1" && window.doNotTrack != "1" && navigator.msDoNotTrack != "1" ){
+	var script = document.createElement('script');
+	script.src = '/js/analytics.js'
+	document.getElementsByTagName("head")[0].appendChild(script);
+}
+</script>
+-->
+
+</head>
+
+<body>
+
+  
+
+
+
+
+
+
+<div id="detectmobile" class="detectmobile"></div>
+
+
+
+
+
+
+
+<div class="head"><div>
+  
+<ul class="lang">
+  <li><a></a>
+  <ul>
+    <li><ul>
+      
+      
+        
+          <li><a href="/en/bitcoin-for-developers">English</a></li>
+        
+      </ul></li>
+    </ul>
+  </li>
+</ul>
+
+  
+
+<a id="menumobile" class="menumobile" onclick="mobileMenuShow(event);" ontouchstart="mobileMenuShow(event);"></a>
+
+  
+
+<a class="logo" href="/zh_CN/"><img src="/img/icons/logotop.svg" alt="Dash"></a>
+
+  
+<div id="langselect" class="langselect"><select onchange="window.location=this.value;">
+    
+          <option value="/en/bitcoin-for-developers">English</option>
+    
+</select></div>
+
+  
+
+<ul id="menusimple" class="menusimple menumain" onclick="mobileMenuHover(event);" ontouchstart="mobileMenuHover(event);">
+  <li class="active"><a href="/zh_CN/bitcoin-for-developers">开发者</a></li>
+  <!---->
+
+  <li><a>Documentation</a>
+    <ul>
+      
+      
+      
+      
+      
+
+      <!--
+      <li><a href="/zh_CN/getting-started">入门指南</a></li>
+      <li><a href="/zh_CN/how-it-works">工作原理</a></li>
+      <li><a href="/zh_CN/you-need-to-know">注意事项</a></li>
+    -->
+    </ul>
+  </li>
+  <li><a>资源</a>
+    <ul>
+      <li><a rel="noopener noreferrer" target="_blank" href="https://www.dash.org/community/">社区</a></li>
+      <li><a href="/zh_CN/vocabulary">词汇表</a></li>
+    </ul>
+  </li>
+  <!-- <li><a href="/zh_CN/innovation">创新</a></li> -->
+</ul>
+
+</div></div>
+
+<div class="body">
+  
+
+<div class="breadcrumbs">
+  
+</div>
+
+  
+
+<div id="content" class="content">
+  <h1>比特币开发者</h1>
+<p class="summary">比特币可以用于达成惊人成就，也可以用于满足日常所需。</p>
+
+<h2 id="simple"><img class="titleicon" src="/img/icons/ico_simple.svg" alt="Icon" />最简单的支付系统</h2>
+<p>除非付款需要自动生成发票，接受付款和支付比特币一样简单：无论是以链接还是二维码的方式。这个任何用户都可以完成的简单设定已经足以满足相当多客户的需要，尤其适用于公共场合的透明捐款和小费。</p>
+
+<h2 id="api"><img class="titleicon" src="/img/icons/ico_conf.svg" alt="Icon" />众多的第三方API</h2>
+<p>很多第三方支付处理服务都提供API（应用程序接口）；你不用将比特币存储在你的服务器上，不用应付随之而产生的安全性问题。同时，大多数API都可以让您处理发票并以低廉的费率将比特币兑换成当地货币。</p>
+
+<h2 id="own"><img class="titleicon" src="/img/icons/ico_own.svg" alt="Icon" />你可以拥有自己的财务系统</h2>
+<p>即使你不使用任何第三方API，也可以将比特币服务直接整合到你自己的应用程序中，让你成为自己的银行和支付服务。只要你能承担相应的责任，你就能够打造出一个出色的、几乎无需费用的比特币交易系统。</p>
+
+<h2 id="invoice"><img class="titleicon" src="/img/icons/ico_invoice.svg" alt="Icon" />用比特币地址跟踪账单</h2>
+<p>比特币为每一笔交易生成独立唯一的地址。所以如果您想建立一个支持发票功能的支付系统，只需为每次支付生成一个新地址并对其进行监控即可。建议您不要使用相同的地址进行多笔交易。</p>
+
+<h2 id="security"><img class="titleicon" src="/img/icons/ico_lock.svg" alt="Icon" />大部分的安全保障都在客户端实现</h2>
+<p>大部分的安全性问题都由协议来处理。这意味着无需遵守PCI标准，而欺诈检测仅仅在服务或产品是即时到货的情况下才有必要。你关心的主要问题应该是将你的比特币存放在一个 <a href="/zh_CN/secure-your-wallet">安全环境</a>中并保护那些用户可见的支付请求信息。 </p>
+
+<h2 id="micro"><img class="titleicon" src="/img/icons/ico_micro.svg" alt="Icon" />低廉的小额支付</h2>
+<p>比特币提供最低的支付手续费并且通常可以用来支付小到几美元的金额。比特币允许用于设计和实现在过去由于金融限制根本不存在的具有创新的网上服务。其中包括各种各样的小费系统和自动化支付解决方案。</p>
+
+<div class="introlink"><a href="/en/">Developer Documentation (English)</a></div>
+<!--<div class="mainbutton"><a href="/zh_CN/getting-started"><img src="/img/icons/but_bitcoin.svg" alt="icon">比特币入门指南</a></div> -->
+<div class="mainbutton"><a href="https://www.dash.org/" target="_blank"><img src="/img/icons/but_bitcoin.svg" alt="icon">比特币入门指南</a></div>
+
+</div>
+
+  <div class="footer">
+    
+
+
+
+    
+
+<div class="footersponsor">
+  <!--<div><span>社区网站主办方：</span> <a href="https://bitcoinfoundation.org/"><img src="/img/brand/bitcoinfoundation.png" alt="Bitcoin Foundation"></a></div>-->
+</div>
+
+    
+
+<div class="footerlicense">© Bitcoin Project 2009-2018 基于<a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT协议</a>授权发布
+<br>© Dash Project 2017-2018 基于<a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT协议</a>授权发布</div>
+
+  </div>
+</div>
+
+
+
+<script type="text/javascript">
+  fallbackSVG();
+  addAnchorLinks();
+  trackOutgoingLinks();
+</script>
+
+
+
+
+</body>
+
+</html>

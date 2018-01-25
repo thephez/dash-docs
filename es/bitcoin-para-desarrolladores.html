@@ -1,0 +1,194 @@
+<!DOCTYPE HTML>
+<html lang="es">
+
+<head>
+
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta property="og:image" content="https://www.dash.org/assets/img/graphics/dash_circle_normal.png" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Bitcoin para Desarrolladores - Bitcoin</title>
+
+<link rel="stylesheet" href="/css/font-awesome-4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/main.css">
+<!--[if lt IE 8]><link rel="stylesheet" href="/css/ie.css"><script type="text/javascript" src="/js/ie.js"></script><![endif]-->
+<!--[if IE 8]><link rel="stylesheet" href="/css/ie8.css"><![endif]-->
+
+
+<script type="text/javascript" src="/js/base.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+  <script src="/js/jquery/jquery-1.11.2.min.js"></script>
+  <script src="/js/jquery/jquery.qrcode.min.js"></script>
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-touch-icon-precomposed" href="/img/icons/logo_dash_circle_normal.png"/>
+
+<!-- Turn off cookie/analytic stuff
+<script>
+    window.cookieconsent_options = {
+        theme: 'light-floating'
+    }
+</script>
+<script type="text/javascript" src="/js/cookieconsent/cookieconsent.js"></script>
+<script>
+if( navigator.doNotTrack != "yes" && navigator.doNotTrack != "1" && window.doNotTrack != "1" && navigator.msDoNotTrack != "1" ){
+	var script = document.createElement('script');
+	script.src = '/js/analytics.js'
+	document.getElementsByTagName("head")[0].appendChild(script);
+}
+</script>
+-->
+
+</head>
+
+<body>
+
+  
+
+
+
+
+
+
+<div id="detectmobile" class="detectmobile"></div>
+
+
+
+
+
+
+
+<div class="head"><div>
+  
+<ul class="lang">
+  <li><a></a>
+  <ul>
+    <li><ul>
+      
+      
+        
+          <li><a href="/en/bitcoin-for-developers">English</a></li>
+        
+      </ul></li>
+    </ul>
+  </li>
+</ul>
+
+  
+
+<a id="menumobile" class="menumobile" onclick="mobileMenuShow(event);" ontouchstart="mobileMenuShow(event);"></a>
+
+  
+
+<a class="logo" href="/es/"><img src="/img/icons/logotop.svg" alt="Dash"></a>
+
+  
+<div id="langselect" class="langselect"><select onchange="window.location=this.value;">
+    
+          <option value="/en/bitcoin-for-developers">English</option>
+    
+</select></div>
+
+  
+
+<ul id="menusimple" class="menusimple menumain" onclick="mobileMenuHover(event);" ontouchstart="mobileMenuHover(event);">
+  <li class="active"><a href="/es/bitcoin-para-desarrolladores">Desarrolladores</a></li>
+  <!---->
+
+  <li><a>Documentation</a>
+    <ul>
+      
+      
+      
+      
+      
+
+      <!--
+      <li><a href="/es/como-empezar">Cómo empezar</a></li>
+      <li><a href="/es/como-funciona">Como funciona</a></li>
+      <li><a href="/es/debes-saber">Cosas que necesita saber</a></li>
+    -->
+    </ul>
+  </li>
+  <li><a>Recursos</a>
+    <ul>
+      <li><a rel="noopener noreferrer" target="_blank" href="https://www.dash.org/community/">Comunidad</a></li>
+      <li><a href="/es/vocabulario">Vocabulario</a></li>
+    </ul>
+  </li>
+  <!-- <li><a href="/es/innovacion">Innovación</a></li> -->
+</ul>
+
+</div></div>
+
+<div class="body">
+  
+
+<div class="breadcrumbs">
+  
+</div>
+
+  
+
+<div id="content" class="content">
+  <h1>Bitcoin para Desarrolladores</h1>
+<p class="summary">Bitcoin se puede utilizar para construir cosas increíbles, o simplemente para responder a las necesidades comunes.</p>
+
+<h2 id="simple"><img class="titleicon" src="/img/icons/ico_simple.svg" alt="Icon" />El más simple de todos los sistemas de pago</h2>
+<p>A menos que un pago deba estar asociado automáticamente con una factura, aceptar dinero es tan simple como enviar bitcoins: enlace o muestre un código QR. Este simple mecanismo está al alcance de cualquier usuario y puede satisfacer las necesidades de una amplia gama de clientes. Es especialmente adecuado para recibir donaciones y propinas si es usado públicamente.</p>
+
+<h2 id="api"><img class="titleicon" src="/img/icons/ico_conf.svg" alt="Icon" />Muchas APIs de terceros</h2>
+<p>Muchos servicios de terceros le permiten procesar pagos mediante sus APIs; no necesita almacenar bitcoins en su servidor y gestionar la seguridad que esto implica. Además, muchas de estas APIs le permiten procesar facturas y cambiar sus bitcoins por su moneda local a precios competitivos.</p>
+
+<h2 id="own"><img class="titleicon" src="/img/icons/ico_own.svg" alt="Icon" />Usted puede ser su propio sistema financiero</h2>
+<p>Si no se utiliza ninguna API terciaria, usted mismo puede integrar un servidor Bitcoin directamente en sus aplicaciones, lo que le permite convertirse en su propio banco y procesador de pagos. Con todas las responsabilidades que ello implica, usted puede construir sistemas increíbles que procesan transacciones Bitcoin casi sin honorarios.</p>
+
+<h2 id="invoice"><img class="titleicon" src="/img/icons/ico_invoice.svg" alt="Icon" />Dirección Bitcoin para hacer seguimiento de facturas</h2>
+<p>Bitcoin crea una única dirección para cada transacción. Así que en caso de hacer un pago asociado a una factura, simplemente necesita generar una dirección para cada pago. No debería nunca usar la misma dirección para varias transacciones.</p>
+
+<h2 id="security"><img class="titleicon" src="/img/icons/ico_lock.svg" alt="Icon" />La mayor parte de la seguridad está del lado del cliente</h2>
+<p>La mayor parte de la seguridad es manejada por el protocolo. Lo que significa que no es necesario estar conforme con el PCI y la detección de fraudes sólo es necesaria cuando los productos o servicios son entregados instantáneamente. Almacenar sus bitcoins en un <a href="/es/asegure-su-monedero">entorno seguro</a> y asegurar las solicitudes de pago mostradas a los usuarios debería ser su principal preocupación.</p>
+
+<h2 id="micro"><img class="titleicon" src="/img/icons/ico_micro.svg" alt="Icon" />Micro pagos económicos</h2>
+<p>Bitcoin ofrece las tasas de procesamiento de pagos más bajas para cualquier tipo de transacción, incluyendo micro pagos. Por tanto se pueden diseñar e implementar nuevos servicios creativos en línea que no podían existir anteriormente debido a las limitaciones financieras. Esto incluye sistemas de propinas y sistemas de pago automático.</p>
+
+<div class="introlink"><a href="/en/">Developer Documentation (English)</a></div>
+<!--<div class="mainbutton"><a href="/es/como-empezar"><img src="/img/icons/but_bitcoin.svg" alt="icon">Cómo comenzar a usar Bitcoin</a></div> -->
+<div class="mainbutton"><a href="https://www.dash.org/" target="_blank"><img src="/img/icons/but_bitcoin.svg" alt="icon">Cómo comenzar a usar Bitcoin</a></div>
+
+</div>
+
+  <div class="footer">
+    
+
+
+
+    
+
+<div class="footersponsor">
+  <!--<div><span>Una comunidad web patrocinada por</span> <a href="https://bitcoinfoundation.org/"><img src="/img/brand/bitcoinfoundation.png" alt="Bitcoin Foundation"></a></div>-->
+</div>
+
+    
+
+<div class="footerlicense">© Bitcoin Project 2009-2018 Publicado bajo la <a href="http://opensource.org/licenses/mit-license.php" target="_blank">licencia MIT</a>
+<br>© Dash Project 2017-2018 Publicado bajo la <a href="http://opensource.org/licenses/mit-license.php" target="_blank">licencia MIT</a></div>
+
+  </div>
+</div>
+
+
+
+<script type="text/javascript">
+  fallbackSVG();
+  addAnchorLinks();
+  trackOutgoingLinks();
+</script>
+
+
+
+
+</body>
+
+</html>

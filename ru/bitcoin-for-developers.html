@@ -1,0 +1,197 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+
+<head>
+
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta property="og:image" content="https://www.dash.org/assets/img/graphics/dash_circle_normal.png" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Разработчикам - Биткойн</title>
+
+<link rel="stylesheet" href="/css/font-awesome-4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/main.css">
+<!--[if lt IE 8]><link rel="stylesheet" href="/css/ie.css"><script type="text/javascript" src="/js/ie.js"></script><![endif]-->
+<!--[if IE 8]><link rel="stylesheet" href="/css/ie8.css"><![endif]-->
+
+<link rel="stylesheet" href="/css/sans.css">
+<script type="text/javascript" src="/js/base.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+  <script src="/js/jquery/jquery-1.11.2.min.js"></script>
+  <script src="/js/jquery/jquery.qrcode.min.js"></script>
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-touch-icon-precomposed" href="/img/icons/logo_dash_circle_normal.png"/>
+
+<!-- Turn off cookie/analytic stuff
+<script>
+    window.cookieconsent_options = {
+        theme: 'light-floating'
+    }
+</script>
+<script type="text/javascript" src="/js/cookieconsent/cookieconsent.js"></script>
+<script>
+if( navigator.doNotTrack != "yes" && navigator.doNotTrack != "1" && window.doNotTrack != "1" && navigator.msDoNotTrack != "1" ){
+	var script = document.createElement('script');
+	script.src = '/js/analytics.js'
+	document.getElementsByTagName("head")[0].appendChild(script);
+}
+</script>
+-->
+
+</head>
+
+<body>
+
+  
+
+
+
+
+
+
+<div id="detectmobile" class="detectmobile"></div>
+
+
+
+
+
+
+
+<div class="head"><div>
+  
+<ul class="lang">
+  <li><a></a>
+  <ul>
+    <li><ul>
+      
+      
+        
+          <li><a href="/en/bitcoin-for-developers">English</a></li>
+        
+      </ul></li>
+    </ul>
+  </li>
+</ul>
+
+  
+
+<a id="menumobile" class="menumobile" onclick="mobileMenuShow(event);" ontouchstart="mobileMenuShow(event);"></a>
+
+  
+
+<a class="logo" href="/ru/"><img src="/img/icons/logotop.svg" alt="Dash"></a>
+
+  
+<div id="langselect" class="langselect"><select onchange="window.location=this.value;">
+    
+          <option value="/en/bitcoin-for-developers">English</option>
+    
+</select></div>
+
+  
+
+<ul id="menusimple" class="menusimple menumain" onclick="mobileMenuHover(event);" ontouchstart="mobileMenuHover(event);">
+  <li class="active"><a href="/ru/bitcoin-for-developers">Разработчикам</a></li>
+  <!---->
+
+  <li><a>Documentation</a>
+    <ul>
+      
+      
+      
+      
+      
+
+      <!--
+      <li><a href="/ru/getting-started">Начало работы</a></li>
+      <li><a href="/ru/how-it-works">Как это работает</a></li>
+      <li><a href="/ru/you-need-to-know">Вам нужно знать</a></li>
+    -->
+    </ul>
+  </li>
+  <li><a>Ресурсы</a>
+    <ul>
+      <li><a rel="noopener noreferrer" target="_blank" href="https://www.dash.org/community/">Сообщество</a></li>
+      <li><a href="/ru/vocabulary">Термины</a></li>
+    </ul>
+  </li>
+  <!-- <li><a href="/ru/innovation">Инновация</a></li> -->
+</ul>
+
+</div></div>
+
+<div class="body">
+  
+
+<div class="breadcrumbs">
+  
+</div>
+
+  
+
+<div id="content" class="content">
+  <h1>Биткойн - разработчикам</h1>
+<p class="summary">Биткойн можно использовать как для создания новых интересных вещей, так для обычных повседневных нужд.</p>
+
+<h2 id="simple"><img class="titleicon" src="/img/icons/ico_simple.svg" alt="Icon" />Простейшая платежная система</h2>
+<p>Кроме случаев, когда платеж должен ассоциирован с автоматическим счетом, получение денег так же просто, как и отправка биткойнов: через ссылку или QR код. Эти простые действия доступны любым пользователям, и могут удовлетворить потребности большого спектра клиентов. Когда это делается публично, это особенно подходит для прозрачных пожертвований и чаевых.</p>
+
+<h2 id="api"><img class="titleicon" src="/img/icons/ico_conf.svg" alt="Icon" />Множество сторонних API</h2>
+<p>Существует много сторонних сервисов по обработке платежей, которые предоставляют свои API: вам не обязательно хранить биткойны на своем сервере и сталкиваться со связанными с этим аспектами безопасности. В дополнение, большинство этих API позволяет вам обрабатывать инвойсы и обменивать ваши биткойны в валюту любой страны, по сходной цене.</p>
+
+<h2 id="own"><img class="titleicon" src="/img/icons/ico_own.svg" alt="Icon" />Вы можете создать свою финансовую систему</h2>
+<p>Если вы не используете сторонние API, то можете интегрировать биткойн-сервер прямо в свое приложение, что придаст ему функциональность как банка, так и платежного процессора. Если подходить к этому ответственно, вы можете создавать удивительные системы, обрабатывающие биткойн-транзакции как вам вздумается.
+</p>
+
+<h2 id="invoice"><img class="titleicon" src="/img/icons/ico_invoice.svg" alt="Icon" />Использование биткойн-адресов для отслеживания операций</h2>
+<p>Биткойн создает уникальный адрес для каждой транзакции. Так что, если вы собираетесь создать платежную систему связанную с выписыванием чеков, вам нужно генерировать и отслеживать отдельный биткойн-адрес для каждого платежа. Вам не следует использовать один и тот же адрес более чем для одной транзакции.</p>
+
+<h2 id="security"><img class="titleicon" src="/img/icons/ico_lock.svg" alt="Icon" />Безопасность обеспечивается на стороне клиента</h2>
+<p>В основном, безопасность обеспечивает сам протокол. Это значит, что вам не требуется соответствия стандартам PCI, а предотвращение мошенничества упрощено до слежением лишь одной переменной - <a href="/ru/you-need-to-know#instant">счетом подтверждений</a>. Вашей главной заботой будет <a href="/ru/secure-your-wallet">безопасное хранение</a> своих биткойнов и обеспечение безопасности направляемых клиентам платежных запросов.
+</p>
+
+<h2 id="micro"><img class="titleicon" src="/img/icons/ico_micro.svg" alt="Icon" />Новые возможности оплаты</h2>
+<p>Биткойн предлагает Вам проектировать и создавать новые сервисы, которые не могли бы существовать из-за финансовых ограничений.  Это включает разного рода системы чаевых и автоматические платежные системы, распределенные краудфандинговые сервисы, управление блокированием платежей, отслеживание имущества, услуги низкого доверия, микро-платежные каналы и многое другое.
+</p>
+
+<div class="introlink"><a href="/en/">Developer Documentation (English)</a></div>
+<!--<div class="mainbutton"><a href="/ru/getting-started"><img src="/img/icons/but_bitcoin.svg" alt="icon">Начало работы с Биткойном</a></div> -->
+<div class="mainbutton"><a href="https://www.dash.org/" target="_blank"><img src="/img/icons/but_bitcoin.svg" alt="icon">Начало работы с Биткойном</a></div>
+
+</div>
+
+  <div class="footer">
+    
+
+
+
+    
+
+<div class="footersponsor">
+  <!--<div><span>Веб-сайт сообщества спонсируется</span> <a href="https://bitcoinfoundation.org/"><img src="/img/brand/bitcoinfoundation.png" alt="Bitcoin Foundation"></a></div>-->
+</div>
+
+    
+
+<div class="footerlicense">© Bitcoin Project 2009-2018 ПО распространяется под лицензией <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>
+<br>© Dash Project 2017-2018 ПО распространяется под лицензией <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a></div>
+
+  </div>
+</div>
+
+
+
+<script type="text/javascript">
+  fallbackSVG();
+  addAnchorLinks();
+  trackOutgoingLinks();
+</script>
+
+
+
+
+</body>
+
+</html>
