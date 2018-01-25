@@ -20,4 +20,8 @@ deploy:
   github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
   keep-history: false
   on:
-    branch: gh-pages
+    branch: travisGHdeploy
+
+  verbose: true
+  local-dir: _site/
+  target_branch: gh-pages
