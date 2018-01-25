@@ -7,10 +7,24 @@ env:
   # http://docs.travis-ci.com/user/environment-variables/#Global-Variables
   global:
     - BITCOINORG_BUILD_TYPE=deployment
+    - DOXYFILE: $TRAVIS_BUILD_DIR/doxygen/Doxyfile-dashdocs
+    #- GH_REPO_NAME: <your_repo>
+    #- GH_REPO_REF: github.com/<your_name>/<your_repo>.git
+
 
 before_install:
   - gem update --system
   - gem install bundler
+
+# Install dependencies
+addons:
+  apt:
+    packages:
+      - doxygen
+      - doxygen-doc
+      - doxygen-latex
+      - doxygen-gui
+      - graphviz
 
 script: make travis
 
@@ -26,3 +40,9 @@ deploy:
   local-dir: _site/
   repo: thephez/thephez.github.io
   target_branch: master
+
+# Generate and deploy documentation
+after_success:
+  - cd $TRAVIS_BUILD_DIR
+  - ls
+  - echo $DOXYFILE
