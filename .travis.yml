@@ -46,3 +46,5 @@ after_success:
   - cd $TRAVIS_BUILD_DIR
   - ls
   - echo $DOXYFILE
+  - chmod +x generateDocumentationAndDeploy.sh
+  - ./generateDocumentationAndDeploy.sh  
