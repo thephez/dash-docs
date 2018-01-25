@@ -24,5 +24,5 @@ deploy:
 
   verbose: true
   local-dir: _site/
-  repo: thephez.github.io
-  target_branch: master
+  repo: thephez/thephez.github.io
+  target_branch: gh-pages
