@@ -10,7 +10,7 @@ env:
     - DOXYFILE: $TRAVIS_BUILD_DIR/doxygen/Doxyfile-dashdocs
 
 before_install:
-  - travis-retry . $TRAVIS_BUILD_DIR/scripts/install-doxygen.sh
+  - . $TRAVIS_BUILD_DIR/scripts/install-doxygen.sh
   - gem update --system
   - gem install bundler
 
