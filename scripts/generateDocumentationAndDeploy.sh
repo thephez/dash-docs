@@ -43,6 +43,7 @@ set -e
 git clone https://github.com/dashpay/dash.git
 cd dash
 
+# Copy Doxygen config / build files
 cp $TRAVIS_BUILD_DIR/doxygen/* doc/
 
 ################################################################################
@@ -53,8 +54,6 @@ doxygen $DOXYFILE 2>&1 | tee doxygen.log
 
 echo 'Done generating Doxygen code documentation...'
 #cat doxygen.log
-
-ls doc/
 
 # Copy Doxygen files to dash-docs folder
 echo 'Copy Doxygen files to _site...'
