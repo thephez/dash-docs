@@ -48,6 +48,8 @@ mkdir code
 cd code
 git clone https://github.com/dashpay/dash.git
 
+cp $TRAVIS_BUILD_DIR/doxygen/* dash/doc/
+
 ################################################################################
 ##### Generate the Doxygen code documentation and log the output.          #####
 echo 'Generating Doxygen code documentation...'
