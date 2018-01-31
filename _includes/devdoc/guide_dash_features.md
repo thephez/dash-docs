@@ -47,15 +47,21 @@ enable secure, instantaneous transactions.
 
 Once a sufficient number of votes approve the transaction lock, the InstantSend
 transaction is approved and shows 5 confirmations (`DEFAULT_INSTANTSEND_DEPTH`).
+
+NOTE: The 5 "psuedo-confirmations" are shown to convey confidence that the
+transaction is secure from double-spending and DO NOT indicate the transaction
+has already been confirmed to a block depth of 5 in the blockchain.
+
 If an InstantSend transaction is a valid transaction but does not receive a
 transaction lock, it reverts to being a standard transaction.
 
 There are a number of limitations on InstantSend transactions:
 
-* To be used in an InstantSend transaction, an input must have 6+ confirmations (`INSTANTSEND_CONFIRMATIONS_REQUIRED`)
+* To be used in an InstantSend transaction, an input must have 6+ confirmations (a block depth of 6+) (`INSTANTSEND_CONFIRMATIONS_REQUIRED`)
 * The lock request will timeout 15 seconds after the first vote is seen (`INSTANTSEND_LOCK_TIMEOUT_SECONDS`)
 * The lock request will fail if it has not been locked after 60 seconds (`INSTANTSEND_FAILED_TIMEOUT_SECONDS`)
-* A minimum fee (0.001 Dash) is required since the transaction involves the masternodes in addition to miners. Activation of [DIP-0001](https://github.com/dashpay/dips/blob/master/dip-0001.md) will reduce the fee by an order of magnitude (to 0.0001 Dash).
+* A minimum fee (0.0001 Dash) is required since the transaction involves the masternodes in addition to miners. This fee was most
+recently decreased by [DIP-0001](https://github.com/dashpay/dips/blob/master/dip-0001.md).
 
 {% endautocrossref %}
 
