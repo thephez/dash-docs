@@ -21,9 +21,4 @@ make
 echo "Done building doxygen..."
 ./bin/doxygen -v
 
-echo "doxygen path: " $(pwd)
-
-echo "Copy Doxygen binaries to $TRAVIS_BUILD_DIR"
-cp ./bin/* $TRAVIS_BUILD_DIR
-
 cd $TRAVIS_BUILD_DIR
