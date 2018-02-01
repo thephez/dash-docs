@@ -7,7 +7,7 @@ env:
   # http://docs.travis-ci.com/user/environment-variables/#Global-Variables
   global:
     - BITCOINORG_BUILD_TYPE=deployment
-    - DOXYFILE: $TRAVIS_BUILD_DIR/doxygen/Doxyfile-dashdocs
+    - DOXYFILE: Doxyfile-dashdocs
 
 before_install:
   - gem update --system
@@ -17,10 +17,9 @@ before_install:
 addons:
   apt:
     packages:
-      - doxygen
-      - doxygen-doc
-      - doxygen-latex
-      - doxygen-gui
+      - flex
+      - bison
+      - build-essential
       - graphviz
 
 script: make travis
@@ -41,5 +40,7 @@ deploy:
 # Generate and deploy documentation
 after_success:
   - cd $TRAVIS_BUILD_DIR
+  - chmod +x scripts/build-install-doxygen.sh
+  - ./scripts/build-install-doxygen.sh
   - chmod +x scripts/generateDocumentationAndDeploy.sh
   - ./scripts/generateDocumentationAndDeploy.sh
