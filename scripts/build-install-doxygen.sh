@@ -1,8 +1,6 @@
 #!/bin/sh
 set -ex
 
-echo $(ls doxygen-src/build/bin)
-
 # Build instructions from: https://www.stack.nl/~dimitri/doxygen/download.html
 echo "Cloning doxygen repository..."
 git clone https://github.com/doxygen/doxygen.git doxygen-src
@@ -22,5 +20,9 @@ make
 
 echo "Done building doxygen..."
 ./bin/doxygen -v
+
+echo "Copy Doxygen binary to folder for caching..."
+mkdir -p $TRAVIS_BUILD_DIR/doxygen-install
+cp bin/doxygen $TRAVIS_BUILD_DIR/doxygen-install/
 
 cd $TRAVIS_BUILD_DIR
