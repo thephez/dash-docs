@@ -1,28 +1,39 @@
 #!/bin/sh
 set -ex
 
-# Build instructions from: https://www.stack.nl/~dimitri/doxygen/download.html
-echo "Cloning doxygen repository..."
-git clone https://github.com/doxygen/doxygen.git doxygen-src
+file="$TRAVIS_BUILD_DIR/doxygen-install/doxygen"
 
-cd doxygen-src
+# Only build Doxygen if the binary isn't found
+if [ -f "$file" ]
+then
+  echo "Doxygen binary found. Skipping build."
+else
 
-# Use v1.8.14 (2f4139de014bf03898320a45fe52c92872c1e0f4)
-git checkout 2f4139de014bf03898320a45fe52c92872c1e0f4 .
+  echo "Doxygen binary not found. Building form source..."
+  
+  # Build instructions from: https://www.stack.nl/~dimitri/doxygen/download.html
+  echo "Cloning doxygen repository..."
+  git clone https://github.com/doxygen/doxygen.git doxygen-src
 
-echo "Create build folder..."
-mkdir build
-cd build
+  cd doxygen-src
 
-echo "Make..."
-cmake -G "Unix Makefiles" ..
-make
+  # Use v1.8.14 (2f4139de014bf03898320a45fe52c92872c1e0f4)
+  git checkout 2f4139de014bf03898320a45fe52c92872c1e0f4 .
 
-echo "Done building doxygen..."
-./bin/doxygen -v
+  echo "Create build folder..."
+  mkdir build
+  cd build
 
-echo "Copy Doxygen binary to folder for caching..."
-mkdir -p $TRAVIS_BUILD_DIR/doxygen-install
-cp bin/doxygen $TRAVIS_BUILD_DIR/doxygen-install/
+  echo "Make..."
+  cmake -G "Unix Makefiles" ..
+  make
 
-cd $TRAVIS_BUILD_DIR
+  echo "Done building doxygen..."
+  ./bin/doxygen -v
+
+  echo "Copy Doxygen binary to folder for caching..."
+  mkdir -p $TRAVIS_BUILD_DIR/doxygen-install
+  cp bin/doxygen $TRAVIS_BUILD_DIR/doxygen-install/
+
+  cd $TRAVIS_BUILD_DIR
+fi
