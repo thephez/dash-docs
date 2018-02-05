@@ -1,6 +1,8 @@
 #!/bin/sh
 set -ex
 
+echo $(ls doxygen-src/build/bin)
+
 # Build instructions from: https://www.stack.nl/~dimitri/doxygen/download.html
 echo "Cloning doxygen repository..."
 git clone https://github.com/doxygen/doxygen.git doxygen-src
