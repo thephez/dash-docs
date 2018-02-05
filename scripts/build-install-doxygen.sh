@@ -9,8 +9,8 @@ then
   echo "Doxygen binary found. Skipping build."
 else
 
-  echo "Doxygen binary not found. Building form source..."
-  
+  echo "Doxygen binary not found. Building from source..."
+
   # Build instructions from: https://www.stack.nl/~dimitri/doxygen/download.html
   echo "Cloning doxygen repository..."
   git clone https://github.com/doxygen/doxygen.git doxygen-src
