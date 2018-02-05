@@ -2,8 +2,8 @@ language: ruby
 rvm:
   - "2.5.0"
 sudo: false
+cache: bundler
 cache:
-  - bundler
   directories:
     - $TRAVIS_BUILD_DIR/doxygen-src/build/bin
 env:
