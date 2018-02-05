@@ -12,13 +12,6 @@ env:
     - BITCOINORG_BUILD_TYPE=deployment
     - DOXYFILE: Doxyfile-dashdocs
 
-before_install:
-  - gem update --system
-  - gem install bundler
-  - cd $TRAVIS_BUILD_DIR
-  - chmod +x scripts/build-install-doxygen.sh
-  - ./scripts/build-install-doxygen.sh
-
 # Install dependencies
 addons:
   apt:
@@ -28,7 +21,20 @@ addons:
       - build-essential
       - graphviz
 
+before_install:
+  - gem update --system
+  - gem install bundler
+  - cd $TRAVIS_BUILD_DIR
+  - chmod +x scripts/build-install-doxygen.sh
+  - ./scripts/build-install-doxygen.sh
+
 script: make travis
+
+# Generate and deploy documentation
+after_success:
+  - cd $TRAVIS_BUILD_DIR
+  - chmod +x scripts/generateDocumentationAndDeploy.sh
+  - ./scripts/generateDocumentationAndDeploy.sh
 
 deploy:
   # Set these environment variables in travis-ci.org settings for the repo:
@@ -51,9 +57,3 @@ deploy:
   local-dir: _site/
   repo: $DEPLOY_REPO_NAME
   target_branch: $DEPLOY_TARGET_BRANCH
-
-# Generate and deploy documentation
-after_success:
-  - cd $TRAVIS_BUILD_DIR
-  - chmod +x scripts/generateDocumentationAndDeploy.sh
-  - ./scripts/generateDocumentationAndDeploy.sh
