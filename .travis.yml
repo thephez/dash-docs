@@ -4,7 +4,8 @@ rvm:
 sudo: false
 cache:
   - bundler
-  - $TRAVIS_BUILD_DIR/doxygen-src/build/bin
+  directories:
+    - $TRAVIS_BUILD_DIR/doxygen-src/build/bin
 env:
   # http://docs.travis-ci.com/user/environment-variables/#Global-Variables
   global:
