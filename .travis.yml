@@ -25,6 +25,15 @@ addons:
 script: make travis
 
 deploy:
+  # Set these environment variables in travis-ci.org settings for the repo:
+  #
+  # GITHUB_TOKEN: token that allows Travis to deploy to GitHub (mark secure)
+  # DEPLOY_REPO_NAME: GitHub repo to deploy to (i.e dash-docs/dash-docs.github.io)
+  # DEPLOY_TARGET_BRANCH: Branch to deploy to (must be master for page to work correctly)
+  #
+  # *** NOTE: the target branch is overwritten on deployment. Use caution to
+  #       avoid inadvertently overwriting something
+
   provider: pages
   skip-cleanup: true
   github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
@@ -34,8 +43,8 @@ deploy:
 
   verbose: true
   local-dir: _site/
-  repo: thephez/thephez.github.io
-  target_branch: master
+  repo: $DEPLOY_REPO_NAME
+  target_branch: $DEPLOY_TARGET_BRANCH
 
 # Generate and deploy documentation
 after_success:
