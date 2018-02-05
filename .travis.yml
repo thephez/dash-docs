@@ -41,7 +41,7 @@ deploy:
   on:
     branch: travisGHdeploy
 
-  verbose: true
+  verbose: false
   local-dir: _site/
   repo: $DEPLOY_REPO_NAME
   target_branch: $DEPLOY_TARGET_BRANCH
