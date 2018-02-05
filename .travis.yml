@@ -45,13 +45,15 @@ deploy:
   #
   # *** NOTE: the target branch is overwritten on deployment. Use caution to
   #       avoid inadvertently overwriting something
+  #
+  # DEPLOY_SOURCE_BRANCH: Branch to deploy from
 
   provider: pages
   skip-cleanup: true
   github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
   keep-history: false
   on:
-    branch: travisGHdeploy
+    branch: $DEPLOY_SOURCE_BRANCH
 
   verbose: false
   local-dir: _site/
