@@ -77,9 +77,10 @@ reference this [Official Documentation PrivateSend page](https://dashpay.atlassi
 
 The following video provides an overview with a good introduction to the details:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/vgCId3wJc5Y?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
 {% endautocrossref %}
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/vgCId3wJc5Y?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
 
 #### PrivateSend Wallet Preparation
 {% include helpers/subhead-links.md %}
@@ -101,7 +102,7 @@ The `dsa` message and `dsq` message use this bit shifted integer instead of
 sending the actual denomination. The table below lists the bit, its associated
 integer value used in P2P messages, and the actual Dash value.
 
-| **Bit** | **Denom. (Integer)** | **Denomination (Dash)** |
+| **Bit** | **Denom. (Integer)** | **Denomination (DASH)** |
 | 0   | 1 | 10.0001              |
 | 1   | 2 | 01.00001             |
 | 2   | 4 | 00.100001            |
@@ -111,13 +112,24 @@ The denominations are structured to allow converting between denominations
 directly without requiring additional inputs or creating change (for example,
 1 x 10.0001 = 10 x 1.00001, 1 x 0.100001 = 10 x 0.0100001, etc.).
 
+{% endautocrossref %}
+
+[Example Testnet denomination creation transaction](https://testnet-insight.dashevo.org/insight/tx/702e77d19dcb0fbfe7d7daa5543bcfeacec0f552c49e398b27fb8141ae52d3e2)
+
+{% autocrossref %}
+
 **Creating Collaterals**
 
 PrivateSend collaterals are used to pay mixing fees, but are kept separate from
-the denominations to maximize privacy. The collateral fees are 0.001 Dash for
-all mixing sessions regardless of denomination.
+the denominations to maximize privacy. The collateral fees are 0.001 DASH for
+all mixing sessions regardless of denomination. In Dash Core, collaterals are
+created with enough value for 4 collateral fees (4 x 0.001 DASH).
 
 {% endautocrossref %}
+
+[Example Testnet collateral creation transaction](https://testnet-insight.dashevo.org/insight/tx/c2fc4af6a9940bf33446f3dddf6892c3dac4351fd0add89157666ca1019454ca)
+
+[Example Testnet collateral payment transaction](https://testnet-insight.dashevo.org/insight/tx/70404808f1871e600cc8d30ad1eaf2bab63906dd1f3ae4a799b7182e1689721b)
 
 
 #### PrivateSend Mixing
