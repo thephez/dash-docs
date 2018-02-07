@@ -75,7 +75,62 @@ Dash Core's PrivateSend feature provides a way to improve privacy by performing
 coin-mixing without relinquishing custodial access. For additional details,
 reference this [Official Documentation PrivateSend page](https://dashpay.atlassian.net/wiki/spaces/DOC/pages/1146924/PrivateSend<!--noref-->).
 
+The following video provides an overview with a good introduction to the details:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/vgCId3wJc5Y?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+{% endautocrossref %}
+
+#### PrivateSend Wallet Preparation
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The wallet completes two operations in this phase:
+
+1. Split value into inputs matching the PrivateSend denominations by sending transactions to itself
+2. Split value into inputs to use for collateral by sending transactions to itself
+
+**Note**: Both these operations incur standard transaction fees like any other
+transaction
+
+**Creating Denominations**
+
+The PrivateSend denominations include a bit mapping to easily differentiate them.
+The `dsa` message and `dsq` message use this bit shifted integer instead of
+sending the actual denomination. The table below lists the bit, its associated
+integer value used in P2P messages, and the actual Dash value.
+
+| **Bit** | **Denom. (Integer)** | **Denomination (Dash)** |
+| 0   | 1 | 10.0001              |
+| 1   | 2 | 01.00001             |
+| 2   | 4 | 00.100001            |
+| 3   | 8 | 00.0100001           |
+
+The denominations are structured to allow converting between denominations
+directly without requiring additional inputs or creating change (for example,
+1 x 10.0001 = 10 x 1.00001, 1 x 0.100001 = 10 x 0.0100001, etc.).
+
+**Creating Collaterals**
+
+PrivateSend collaterals are used to pay mixing fees, but are kept separate from
+the denominations to maximize privacy. The collateral fees are 0.001 Dash for
+all mixing sessions regardless of denomination.
+
+{% endautocrossref %}
+
+
+#### PrivateSend Mixing
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+{% endautocrossref %}
+
+
 *PrivateSend Data Flow*
+
+{% autocrossref %}
 
 | **PrivateSend Clients** | **Direction**  | **Masternode**   | **Description** |
 | `dsa` message                            | → |                            | Clients asks to join mixing pool (or have MN start a new one)
