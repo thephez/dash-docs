@@ -95,7 +95,7 @@ The wallet completes two operations in this phase:
 **Note**: Both these operations incur standard transaction fees like any other
 transaction
 
-**Creating Denominations**
+**Creating Denominations<!--noref-->**
 
 The PrivateSend denominations include a bit mapping to easily differentiate them.
 The `dsa` message and `dsq` message use this bit shifted integer instead of
@@ -123,7 +123,7 @@ directly without requiring additional inputs or creating change (for example,
 PrivateSend collaterals are used to pay mixing fees, but are kept separate from
 the denominations to maximize privacy. The collateral fees are 0.001 DASH for
 all mixing sessions regardless of denomination. In Dash Core, collaterals are
-created with enough value for 4 collateral fees (4 x 0.001 DASH).
+created with enough value to pay 4 collateral fees (4 x 0.001 DASH). ([Dash Core Reference](https://github.com/dashpay/dash/blob/e596762ca22d703a79c6880a9d3edb1c7c972fd3/src/privatesend.h#L313))
 
 {% endautocrossref %}
 
@@ -137,6 +137,10 @@ created with enough value for 4 collateral fees (4 x 0.001 DASH).
 
 {% autocrossref %}
 
+The mixing phase involves exchanging a sequence of messages with a masternode so
+it can construct a mixing transaction with inputs from the clients in its
+mixing pool.
+
 {% endautocrossref %}
 
 
@@ -144,20 +148,89 @@ created with enough value for 4 collateral fees (4 x 0.001 DASH).
 
 {% autocrossref %}
 
-| **PrivateSend Clients** | **Direction**  | **Masternode**   | **Description** |
-| `dsa` message                            | → |                            | Clients asks to join mixing pool (or have MN start a new one)
-|                                                | ← | `dssu` message       | Masternode provides a mixing pool status update (Typical - State: `POOL_STATE_QUEUE`, Message: `MSG_NOERR`)
-|                                                | ← | `dsq` message        | Masternode notifies clients when it is ready to mix
-| `dsi` message                                 | → |                       | Clients each provide a list of their inputs (unsigned) to be mixed, collateral, and a list of outputs where mixed funds should be sent
-|                                                | ← | `dssu` message       | Masternode provides a mixing pool status update (typical - State: `POOL_STATE_ACCEPTING_ENTRIES`, Message: `MSG_ENTRIES_ADDED`)
-|                                                | ← | `dsf` message        | Masternode sends the final transaction containing all clients inputs (unsiged) and all client outputs to each client for verification
-|                                                | ← | `dssu` message       | Masternode provides a mixing pool status update (Typical - State: `POOL_STATE_SIGNING`, Message: `MSG_NOERR`)
-| `dss` message                                 | → |                       | After verifying the final transaction, clients each sign their own inputs and send them back
-|                                                | ← | `dsc` message        | Masternode verifies the signed inputs, creates a `dstx` message to broadcast the transaction, and notifies clients that the mixing transaction is complete (Typical - Message: `MSG_SUCCESS`)
-|                                                | ← | `inv` message        | Masternode broadcasts a `dstx` inventory message
-| `getdata` message (dstx)                                 | → |            | (Optional)
+|   | **PrivateSend Clients** | **Direction**  | **Masternode**   | **Description** |
+| 0 | | | | Client determines whether to join an existing mixing pool or create a new one |
+| 1 | `dsa` message                            | → |                            | Client asks to join mixing pool or have the masternode create a new one
+| 2 |                                                | ← | `dssu` message       | Masternode provides a mixing pool status update (Typical - State: `POOL_STATE_QUEUE`, Message: `MSG_NOERR`)
+| 3 |                                                | ← | `dsq` message        | Masternode notifies clients when it is ready to mix
+| 4 | `dsi` message                                 | → |                       | Upon receiving a `dsq` message with the Ready bit set, clients each provide a list of their inputs (unsigned) to be mixed, collateral, and a list of outputs where mixed funds should be sent
+| 5 |                                                | ← | `dssu` message       | Masternode provides a mixing pool status update (typical - State: `POOL_STATE_ACCEPTING_ENTRIES`, Message: `MSG_ENTRIES_ADDED`)
+| 6 |                                                | ← | `dsf` message        | Masternode sends the final transaction containing all clients inputs (unsigned) and all client outputs to each client for verification
+| 7 |                                                | ← | `dssu` message       | Masternode provides a mixing pool status update (Typical - State: `POOL_STATE_SIGNING`, Message: `MSG_NOERR`)
+| 8 | `dss` message                                 | → |                       | After verifying the final transaction, clients each sign their own inputs and send them back
+| 9 |                                                | ← | `dsc` message        | Masternode verifies the signed inputs, creates a `dstx` message to broadcast the transaction, and notifies clients that the mixing transaction is complete (Typical - Message: `MSG_SUCCESS`)
+| 10 |                                                | ← | `inv` message        | Masternode broadcasts a `dstx` inventory message
+| 11 | `getdata` message (dstx)                                 | → |            | (Optional)
+
+**Additional notes**
+
+  _**Step 0 - Pool Selection**_
+
+  * Existing mixing pool information is derived from the Queue messages seen by the client
+  * Dash Core attempts to join an existing mixing pool 2/3 of the time although this is not a requirement that alternative implementations would be required to follow ([Dash Core Reference](https://github.com/dashpay/dash/blob/e596762ca22d703a79c6880a9d3edb1c7c972fd3/src/privatesend<!--noref-->-client.cpp#L817-#L826))
+
+  _**Step 1 - Pool Request**_
+
+  * The `dsa` message contains a collateral transaction
+    * This transaction uses a collateral input created in the [Wallet Preparation](#privatesend<!--noref-->-wallet<!--noref-->-preparation) phase
+    * The collateral is a signed transaction that pays the collateral back to a client address minus a fee of 0.001 DASH
+
+  _**Step 3 - Queue**_
+
+  * A masternode broadcasts `dsq` messages when it starts a new queue. These message are relayed by all peers.
+  * Once the masternode has received valid `dsa` messages from 3 clients (`nPoolMaxTransactions`), it sends a `dsq` message with the ready bit set ([Dash Core Reference](https://github.com/dashpay/dash/blob/e596762ca22d703a79c6880a9d3edb1c7c972fd3/src/chainparams.cpp#L173))
+    * Clients must respond to the Queue ready within 30 seconds or risk forfeiting the collateral they provided in the `dsa` message (Step 1) ([Dash Core Reference](https://github.com/dashpay/dash/blob/e596762ca22d703a79c6880a9d3edb1c7c972fd3/src/privatesend<!--noref-->.h#L22))
+
+  _**Step 4 - Inputs**_
+
+  * The collateral transaction can be the same in the `dsi` message as the one in the `dsa` message (Step 1) as long as it has not been spent
+  * Each client can provide up to 9 (`PRIVATESEND_ENTRY_MAX_SIZE`) inputs (and an equal number of outputs) to be mixed ([Dash Core Reference](https://github.com/dashpay/dash/blob/e596762ca22d703a79c6880a9d3edb1c7c972fd3/src/privatesend<!--noref-->.h#L28))
+  * This is the only message in the PrivateSend process that contains enough information to link a wallet's PrivateSend inputs with its outputs
+    * This message is sent directly between a client and the mixing masternode (not relayed across the Dash network) so no other clients see it
+
+  _**Step 6 - Final Transaction (unsigned)**_
+
+  * Once the masternode has received valid `dsi` messages from all clients, it creates the final transaction and sends a `dsf` message
+    * Inputs/outputs are ordered deterministically as defined by [BIP-69](https://github.com/quantumexplorer/bips/blob/master/bip-0069.mediawiki#Abstract) to avoid leaking any data ([Dash Core Reference](https://github.com/dashpay/dash/blob/e596762ca22d703a79c6880a9d3edb1c7c972fd3/src/privatesend<!--noref-->-server.cpp#L321-#L322))
+    * Clients must sign their inputs to the Final Transaction within 15 seconds or risk forfeiting the collateral they provided in the `dsi` message (Step 4) ([Dash Core Reference](https://github.com/dashpay/dash/blob/e596762ca22d703a79c6880a9d3edb1c7c972fd3/src/privatesend<!--noref-->.h#L23))
+
+  _**General**_
+
+  With the exception of the `dsq` message and the `dstx` message (which need
+  to be public and do not expose any private information), all PrivateSend P2P
+  messages are sent directly between the mixing masternode and relevant client(s).
 
 {% endautocrossref %}
+
+#### PrivateSend Fees
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+**Mixing Fees**
+
+* If mixing completes successfully, Dash Core charges the collateral randomly in 1/10 mixing transactions to pay miners ([Dash Core Reference](https://github.com/dashpay/dash/blob/e596762ca22d703a79c6880a9d3edb1c7c972fd3/src/privatesend<!--noref-->-server.cpp#L458-#L478))
+* Clients that abuse the mixing system by failing to respond to `dsq` messages or `dsf` messages within the timeout periods may forfeit their collateral. Dash Core charges the abuse fee in 2/3 cases ([Dash Core Reference](https://github.com/dashpay/dash/blob/e596762ca22d703a79c6880a9d3edb1c7c972fd3/src/privatesend<!--noref-->-server.cpp#L397-#L398))
+
+
+**Sending Fees**
+
+To maintain privacy when using PrivateSend, PrivateSend transactions must fully
+spend all inputs to a single output (with the remainder becoming the fee - i.e.
+no change outputs). This can result in large fees depending on the value being
+sent.
+
+For example, an extreme case is sending the minimum non-dust value (546 duffs)
+via PrivateSend. This results in an extremely large transaction fee because the
+minimum PrivateSend denomination (0.0100001 DASH or 1,000,010 duffs) must be
+fully spent with no change. This results in a fee of 0.00999464 DASH and a sent
+value of only 0.00000546 DASH as shown by the calculation below.
+
+1000010 duffs (smallest PrivateSend denomination) - 546 duffs (value to send) = 999464 duffs (fee)
+
+{% endautocrossref %}
+
+[Example Testnet PrivateSend transaction spending 546 duffs](https://testnet-insight.dashevo.org/insight/address/yWWNYVEQ84RM1xXJekj62wJPF3h1TKh9fS)
 
 
 ### Masternode Payment
