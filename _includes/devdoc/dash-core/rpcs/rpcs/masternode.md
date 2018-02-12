@@ -30,7 +30,7 @@ The `masternode<!--noref--> count` RPC prints the number of all known masternode
 - n: "Mode"
   t: "string (hex)"
   p: "Optional<br>(exactly 1)"
-  d: "Which masternodes to count:<br>`ps` - PrivateSend capable,<br>`enabled` - Enabled,<br>`all` - All,<br>`qualify` - Eligible for payment"
+  d: "Which masternodes to count:<br>`total` - Pre-0.12.3 default result,<br>`ps` - PrivateSend capable,<br>`enabled` - Enabled,<br>`all` - All,<br>`qualify` - Eligible for payment"
 
 {% enditemplate %}
 
@@ -38,13 +38,33 @@ The `masternode<!--noref--> count` RPC prints the number of all known masternode
 
 {% itemplate ntpd1 %}
 - n: "`result`"
-  t: "string (hex)"
+  t: "object"
   p: "Required<br>(exactly 1)"
-  d: "Transaction ID for the collateral transaction"
+  d: "Masternode count by mode"
+
+- n: "→<br>`total`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Count of all masternodes"
+
+- n: "→<br>`ps_compatible`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Count of PrivateSend compatible masternodes"
+
+- n: "→<br>`enabled`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Count of enabled masternodes"
+
+- n: "→<br>`qualify`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Count of masternodes qualified to receive payment"
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.12.3*
 
 {% highlight bash %}
 dash-cli -testnet masternode count
@@ -52,10 +72,28 @@ dash-cli -testnet masternode count
 
 Result:
 {% highlight bash %}
-120
+{
+  "total": 142,
+  "ps_compatible": 13,
+  "enabled": 13,
+  "qualify": 6
+}
 {% endhighlight %}
 
-Get summarized count of all masternodes
+
+**Get summarized count of all masternodes**
+
+*Result---summary of known masternodes*
+
+{% itemplate ntpd1 %}
+- n: "`result`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "Summary of masternodes in each state"
+
+{% enditemplate %}
+
+*Example from Dash Core 0.12.3*
 
 {% highlight bash %}
 dash-cli -testnet masternode count all
@@ -64,6 +102,29 @@ dash-cli -testnet masternode count all
 Result:
 {% highlight bash %}
 Total: 129 (PS Compatible: 97 / Enabled: 97 / Qualify: 90)
+{% endhighlight %}
+
+**Get total count of all masternodes (default output of `masternode<!--noref--> count` pre-0.12.3)**
+
+*Result---number of known masternodes in mode*
+
+{% itemplate ntpd1 %}
+- n: "`result`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Number of masternodes"
+
+{% enditemplate %}
+
+*Example from Dash Core 0.12.3*
+
+{% highlight bash %}
+dash-cli -testnet masternode count total
+{% endhighlight %}
+
+Result:
+{% highlight bash %}
+142
 {% endhighlight %}
 
 {% endautocrossref %}
