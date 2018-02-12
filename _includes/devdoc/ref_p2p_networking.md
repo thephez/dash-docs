@@ -1310,7 +1310,7 @@ signature before accepting the spork message as valid.
 | 8 | nTimeSigned | int64_t | Required | Time the spork value was signed
 | 66 | vchSig | char[] | Required | Length (1 byte) + Signature (65 bytes)
 
-Defined Sporks (per [`src/spork.h`][spork.h])
+Sporks (per [`src/spork.h`][spork.h])
 
 | Spork ID | Number | Name | Description |
 | ---------- | ---------- | ----------- | ----------- |
@@ -1321,8 +1321,10 @@ Defined Sporks (per [`src/spork.h`][spork.h])
 | 10008 | 9 | `SUPERBLOCKS_ENABLED` | Superblocks are enabled (10% of the block reward allocated to fund the dash treasury for funding approved proposals)
 | 10009 | 10 | `MASTERNODE_PAY_UPDATED_NODES` | Only current protocol version masternode's will be paid (not older nodes)
 | 10011 | 12 | `RECONSIDER_BLOCKS` | Forces reindex of a specified number of blocks to recover from unintentional network forks
-| 10012 | 13 | `OLD_SUPERBLOCK_FLAG` | Deprecated. No network function since block 614820
 | 10013 | 14 | `REQUIRE_SENTINEL_FLAG` | Only masternode's running sentinel will be paid
+| | | |
+| | | **Removed Sporks** |
+| _10012_ | _13_ | _`OLD_SUPERBLOCK_FLAG`_ | _Removed in Dash Core 0.12.3. No network function since block 614820_
 
 To verify `vchSig`, compare the hard-coded spork public key (`strSporkPubKey`
 from [`src/chainparams.cpp`][spork pubkey]) with the public key recovered from
