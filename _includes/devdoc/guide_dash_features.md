@@ -35,6 +35,23 @@ economy.
 Dash Core's InstantSend feature provides a way to lock transaction inputs and
 enable secure, instantaneous transactions.
 
+The following video provides an overview with a good introduction to the details
+including the InstantSend vulnerability that was fixed in Dash Core 0.12.2.
+Some specific points in the video are listed here for quick reference:
+
+ - 2:00 - InstantSend restrictions
+ - 5:00 - Masternode quorum creation
+ - 6:00 - Input locking
+ - 7:45 - Quorum score calculation / Requirement for block confirmations
+ - 9:00 - Description of Dash Core pre-0.12.2 InstantSend vulnerability
+ - 13:00 - Description of vulnerability fix / Post Dash Core 0.12.2 operation
+
+{% endautocrossref %}
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/n4PELomRiFY?rel=0;start=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+{% autocrossref %}
+
 *InstantSend Data Flow*
 
 | **InstantSend Client** | **Direction**  | **Peers**   | **Description** |
@@ -48,7 +65,7 @@ enable secure, instantaneous transactions.
 Once a sufficient number of votes approve the transaction lock, the InstantSend
 transaction is approved and shows 5 confirmations (`DEFAULT_INSTANTSEND_DEPTH`).
 
-NOTE: The 5 "psuedo-confirmations" are shown to convey confidence that the
+NOTE: The 5 "pseudo-confirmations" are shown to convey confidence that the
 transaction is secure from double-spending and DO NOT indicate the transaction
 has already been confirmed to a block depth of 5 in the blockchain.
 
