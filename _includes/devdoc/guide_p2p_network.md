@@ -104,11 +104,13 @@ and a function to use them, but I don't see that function being used in
 any of the examples/wallet templates (but I'm not Java fluent, so
 maybe PEBKAC). -@harding -->
 
-Dash Core also include a hardcoded list of IP
-addresses and port numbers to several dozen nodes which were active
-around the time that particular version of the software was first
-released. Dash Core will start attempting to connect to these nodes
-if none of the DNS seed servers have responded to a query within 60
+Dash Core also includes a hardcoded list of IP addresses and port numbers to
+several dozen nodes which were active around the time that particular
+version of the software was first released. Starting with Dash Core 0.12.3,
+masternodes are used for the seed list since they must remain online to receive
+their portion of the block reward (good availability) and must be compliant with
+consensus rules (reliable). Dash Core will start attempting to connect to these
+nodes if none of the DNS seed servers have responded to a query within 60
 seconds, providing an automatic fallback option.
 
 As a manual fallback option, Dash Core also provides several
