@@ -717,7 +717,7 @@ The `gobject getvotes` RPC gets all votes for a governance object hash (includin
 - n: "→<br>Vote Info"
   t: "string"
   p: "Required<br>(1 or more)"
-  d: "Key: vote-hash<br><br>Value: vinMasternode, time, outcome, and signal of the vote"
+  d: "Key: vote-hash<br><br>Value: Masternode's unspent outpoint, time, outcome, and signal of the vote"
 
 {% enditemplate %}
 
@@ -731,13 +731,13 @@ dash-cli -testnet gobject getvotes 78941af577f639ac94440e4855a1ed8f\
 Result (truncated):
 {% highlight json %}
 {
-  "174aaba65982d25a23f437e2a66ec3836146ba7b7ce5b3fe2d5476907f7079d9": "CTxIn(COutPoint(2eab488e3a7b030303de0d18e357ce17a9fc6b8876705d61076bbe923b2e5fc8, 1), scriptSig=):1509354047:YES:DELETE",
-  "216cbc42addec1a6b83e1f2b0b3779594bd879f5671dd76a9826cc690c68286d": "CTxIn(COutPoint(b0320c1eff10ccb5e26086017a09e77dacb30fdcafccb3d98db3e5b610b9f1bd, 1), scriptSig=):1509117256:YES:DELETE",
-  "aa4dc9d3b9e74e8c1ffc725b737d07f8a32e43c64907e4bea19e64a86135f08a": "CTxIn(COutPoint(af9f5646ace92f76b3a01b0abe08716a0a7ded64074c2d2e712c93174b9013d1, 1), scriptSig=):1508866932:YES:FUNDING",
-  "73dd135ea7bece0f2047de75d8ca04f2985daebed9568d28ee58a60a12a2a082": "CTxIn(COutPoint(8e3fee7f668fed7019588be616225c6c4762ee632470878b2dc8eae3f0b3f67d, 1), scriptSig=):1508866932:YES:FUNDING",
-  "d13b9c5c28bbc8684a7291961a1023abbbe65b534804d0629fb44166cc1a6148": "CTxIn(COutPoint(08b2dbffd61d927bc12c20f6853513f41fbf7737446632b13c7ca0df8c6da282, 1), scriptSig=):1508866932:YES:FUNDING",
-  "8a4283d457d8635b43c6fa6cbf865813a80d965c777e8ba07364eb6468200ae1": "CTxIn(COutPoint(76c40abd280441b75577e99e9e4f253f9281a7deb4feebff83860f9cede7a09b, 1), scriptSig=):1508866932:YES:FUNDING",
-  "313e19607813cb0db3b3fb477982b4d3418f13f8511295419df8fe1f7ff6668f": "CTxIn(COutPoint(0fd502f28b9a9a256d9ba29a047c375fe2823b6e76e4853af16e079a709ab72a, 1), scriptSig=):1508866932:YES:FUNDING"
+  "174aaba65982d25a23f437e2a66ec3836146ba7b7ce5b3fe2d5476907f7079d9": "2eab488e3a7b030303de0d18e357ce17a9fc6b8876705d61076bbe923b2e5fc8-1:1509354047:YES:DELETE",
+  "216cbc42addec1a6b83e1f2b0b3779594bd879f5671dd76a9826cc690c68286d": "b0320c1eff10ccb5e26086017a09e77dacb30fdcafccb3d98db3e5b610b9f1bd-1:1509117256:YES:DELETE",
+  "aa4dc9d3b9e74e8c1ffc725b737d07f8a32e43c64907e4bea19e64a86135f08a": "af9f5646ace92f76b3a01b0abe08716a0a7ded64074c2d2e712c93174b9013d1-1:1508866932:YES:FUNDING",
+  "73dd135ea7bece0f2047de75d8ca04f2985daebed9568d28ee58a60a12a2a082": "8e3fee7f668fed7019588be616225c6c4762ee632470878b2dc8eae3f0b3f67d-1:1508866932:YES:FUNDING",
+  "d13b9c5c28bbc8684a7291961a1023abbbe65b534804d0629fb44166cc1a6148": "08b2dbffd61d927bc12c20f6853513f41fbf7737446632b13c7ca0df8c6da282-1:1508866932:YES:FUNDING",
+  "8a4283d457d8635b43c6fa6cbf865813a80d965c777e8ba07364eb6468200ae1": "76c40abd280441b75577e99e9e4f253f9281a7deb4feebff83860f9cede7a09b-1:1508866932:YES:FUNDING",
+  "313e19607813cb0db3b3fb477982b4d3418f13f8511295419df8fe1f7ff6668f": "0fd502f28b9a9a256d9ba29a047c375fe2823b6e76e4853af16e079a709ab72a-1:1508866932:YES:FUNDING"
 }
 {% endhighlight %}
 
