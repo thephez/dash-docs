@@ -19,17 +19,21 @@ Use v0.n.n in abbreviation title to prevent autocrossrefing.
 <!-- Dash - Not Implemented -->
 {% assign DASH_NOT_IMPLEMENTED='**<abbr title="Not Implemented in Dash">Not Implemented</abbr>**' %}
 
+<!-- Dash Core 0.12.3.0 Spring 2018? -->
+{% assign DASH_NEW0_12_3='**<abbr title="New in Dash Core v0.12.3">New in Dash Core 0.12.3</abbr>**' %}
+{% assign DASH_UPDATED0_12_3='**<abbr title="Updated in Dash Core v0.12.3">Updated in Dash Core 0.12.3</abbr>**' %}
+
 <!-- Dash Core 0.12.2.0 Nov 2017 -->
-{% assign DASH_NEW0_12_2='*<abbr title="New in Dash Core v0.12.2">New in Dash Core 0.12.2</abbr>*' %}
+{% assign DASH_NEW0_12_2='**<abbr title="New in Dash Core v0.12.2">New in Dash Core 0.12.2</abbr>**' %}
 {% assign DASH_UPDATED0_12_2='**<abbr title="Updated in Dash Core v0.12.2">Updated in Dash Core 0.12.2</abbr>**' %}
 
 <!-- Dash Core 0.12.1.0 Feb 2017 -->
 {% assign DASH_NEW0_12_1='*<abbr title="New in Dash Core v0.12.1">New in Dash Core 0.12.1</abbr>*' %}
-{% assign DASH_UPDATED0_12_1='**<abbr title="Updated in Dash Core v0.12.1">Updated in Dash Core 0.12.1</abbr>**' %}
+{% assign DASH_UPDATED0_12_1='*<abbr title="Updated in Dash Core v0.12.1">Updated in Dash Core 0.12.1</abbr>*' %}
 
 <!-- Darkcoin Core 0.11.0 Jan 2015 -->
 {% assign DARKCOIN_NEW0_11_0='*<abbr title="New in Darkcoin Core v0.11.0">New in Darkcoin Core 0.11.0</abbr>*' %}
-{% assign DARKCOIN_UPDATED0_11_0='**<abbr title="Updated in Dash Core v0.11.0">Updated in Darkcoin Core 0.11.0</abbr>**' %}
+{% assign DARKCOIN_UPDATED0_11_0='*<abbr title="Updated in Dash Core v0.11.0">Updated in Darkcoin Core 0.11.0</abbr>*' %}
 
 <!-- Deprecated -->
 {% assign DEPRECATED='**<abbr title="Deprecated; will be removed in a future version of Bitcoin Core">Deprecated</abbr>**' %}
@@ -147,8 +151,8 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 * [GetGovernanceInfo][rpc getgovernanceinfo]: {{summary_getGovernanceInfo}}
 * [GetPoolInfo][rpc getpoolinfo]: {{summary_getPoolInfo}}
 * [GetSuperblockBudget][rpc getsuperblockbudget]: {{summary_getSuperblockBudget}}
-* [GObject][rpc gobject]: {{summary_gObject}}
-* [Masternode][rpc masternode]: {{summary_masternode}}
+* [GObject][rpc gobject]: {{summary_gObject}} {{DASH_UPDATED0_12_3}}
+* [Masternode][rpc masternode]: {{summary_masternode}} {{DASH_UPDATED0_12_3}}
 * [MasternodeBroadcast][rpc masternodebroadcast]: {{summary_masternodeBroadcast}}
 * [MasternodeList][rpc masternodelist]: {{summary_masternodeList}}
 * [MnSync][rpc mnsync]: {{summary_mnSync}}
