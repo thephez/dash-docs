@@ -137,6 +137,7 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 
 * [Debug][rpc debug]: {{summary_debug}} {{DASH_UPDATED0_12_3}}
 * [GetInfo][rpc getinfo]: {{summary_getInfo}} {{DEPRECATED}}
+* [GetMemoryInfo][rpc getmemoryinfo]: {{summary_getMemoryInfo}} {{DASH_NEW0_12_3}} {{NEW_14_0}}
 * [Help][rpc help]: {{summary_help}}
 * [Stop][rpc stop]: {{summary_stop}}
 
@@ -197,10 +198,10 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 * [AddNode][rpc addnode]: {{summary_addNode}} {{UPDATED0_14_0}}
 * [ClearBanned][rpc clearbanned]: {{summary_clearBanned}} {{NEW0_12_0}}
 * [DisconnectNode][rpc disconnectnode]: {{summary_disconnectNode}} {{NEW0_12_0}} {{UPDATED0_14_1}}
-* [GetAddedNodeInfo][rpc getaddednodeinfo]: {{summary_getAddedNodeInfo}} {{UPDATED0_14_0}}
+* [GetAddedNodeInfo][rpc getaddednodeinfo]: {{summary_getAddedNodeInfo}} {{DASH_UPDATED0_12_3}} {{UPDATED0_14_0}}
 * [GetConnectionCount][rpc getconnectioncount]: {{summary_getConnectionCount}}
 * [GetNetTotals][rpc getnettotals]: {{summary_getNetTotals}} {{UPDATED0_12_0}}
-* [GetNetworkInfo][rpc getnetworkinfo]: {{summary_getNetworkInfo}} {{UPDATED0_13_0}}
+* [GetNetworkInfo][rpc getnetworkinfo]: {{summary_getNetworkInfo}} {{DASH_UPDATED0_12_3}} {{UPDATED0_13_0}}
 * [GetPeerInfo][rpc getpeerinfo]: {{summary_getPeerInfo}} {{UPDATED0_13_0}}
 * [ListBanned][rpc listbanned]: {{summary_listBanned}} {{NEW0_12_0}}
 * [Ping][rpc ping]: {{summary_ping-rpc}}
@@ -238,8 +239,6 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 * [EstimateSmartPriority][rpc estimatesmartpriority]: {{summary_estimateSmartPriority}} {{DEPRECATED}}
 * [ValidateAddress][rpc validateaddress]: {{summary_validateAddress}} {{UPDATED0_13_0}}
 * [VerifyMessage][rpc verifymessage]: {{summary_verifyMessage}}
-
-* {{DASH_NOT_IMPLEMENTED}}  [GetMemoryInfo][rpc getmemoryinfo]: {{summary_getMemoryInfo}} {{NEW_14_0}}
 
 {% endautocrossref %}
 

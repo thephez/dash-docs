@@ -7,6 +7,8 @@ http://opensource.org/licenses/MIT.
 ##### GetNetworkInfo
 {% include helpers/subhead-links.md %}
 
+<!-- __ -->
+
 {% assign summary_getNetworkInfo="returns information about the node's connection to the network." %}
 
 {% autocrossref %}
@@ -94,9 +96,14 @@ The `getnetworkinfo` RPC {{summary_getNetworkInfo}}
   d: "*Added in Bitcoin Core 0.11.0*<br><br>Set to `true` if randomized credentials are set for this proxy. Otherwise set to `false`"
 
 - n: "→<br>`relayfee`"
-  t: "number (Dash)"
+  t: "number (DASH)"
   p: "Required<br>(exactly 1)"
   d: "The minimum relay fee for non-free transactions in order for this node to accept it into its memory pool"
+
+- n: "→<br>`incrementalfee`"
+  t: "number (DASH)"
+  p: "Required<br>(exactly 1)"
+  d: "*Added in Dash Core 0.12.3*<br><br>The minimum fee increment for mempool limiting or BIP 125 replacement in DASH/kB"
 
 - n: "→<br>`localaddresses`"
   t: "array"
@@ -130,7 +137,7 @@ The `getnetworkinfo` RPC {{summary_getNetworkInfo}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.12.3*
 
 {% highlight bash %}
 dash-cli getnetworkinfo
@@ -140,8 +147,8 @@ Result (actual addresses<!--noref--> have been replaced with [RFC5737][] reserve
 
 {% highlight json %}
 {
-  "version": 120200,
-  "subversion": "/Dash Core:0.12.2/",
+  "version": 120300,
+  "subversion": "/Dash Core:0.12.3/",
   "protocolversion": 70208,
   "localservices": "0000000000000005",
   "localrelay": true,
@@ -172,6 +179,7 @@ Result (actual addresses<!--noref--> have been replaced with [RFC5737][] reserve
     }
   ],
   "relayfee": 0.00001000,
+  "incrementalfee": 0.00001000,
   "localaddresses": [
     {
       "address": "192.0.2.113",
