@@ -9,11 +9,13 @@ http://opensource.org/licenses/MIT.
 
 {% assign summary_setGenerate="enables or disables hashing to attempt to find the next block." %}
 
+<!-- __ -->
+
 {% autocrossref %}
 
 *Requires wallet support.*
 
-*Removed in Bitcoin Core 0.13.0.*
+**_Removed in Dash Core 0.12.3 / Bitcoin Core 0.13.0._**
 
 The `setgenerate` RPC {{summary_setGenerate}}
 

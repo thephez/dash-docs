@@ -170,9 +170,7 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 {% autocrossref %}
 
 * [Generate][rpc generate]: {{summary_generate}} {{NEW0_11_0}}, {{UPDATED0_13_0}}
-* [GetGenerate][rpc getgenerate]: {{summary_getGenerate}}
-* [SetGenerate][rpc setgenerate]: {{summary_setGenerate}}
-* {{DASH_NOT_IMPLEMENTED}}  [GenerateToAddress][rpc generatetoaddress]: {{summary_generateToAddress}} {{NEW0_13_0}}
+* [GenerateToAddress][rpc generatetoaddress]: {{summary_generateToAddress}} {{DASH_NEW0_12_3}} {{NEW0_13_0}}
 
 {% endautocrossref %}
 
@@ -318,8 +316,6 @@ default.
 
 * [GetHashesPerSec][rpc gethashespersec]: {{summary_getHashesPerSec}}
 * [GetWork][rpc getwork]: {{summary_getWork}}
-<!-- Still in Dash
 * [GetGenerate][rpc getgenerate]: {{summary_getGenerate}}
 * [SetGenerate][rpc setgenerate]: {{summary_setGenerate}}
--->
 {% endautocrossref %}
