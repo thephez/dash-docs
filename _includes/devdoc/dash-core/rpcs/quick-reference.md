@@ -135,7 +135,7 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 
 {% autocrossref %}
 
-* [Debug][rpc debug]: {{summary_debug}}
+* [Debug][rpc debug]: {{summary_debug}} {{DASH_UPDATED0_12_3}}
 * [GetInfo][rpc getinfo]: {{summary_getInfo}} {{DEPRECATED}}
 * [Help][rpc help]: {{summary_help}}
 * [Stop][rpc stop]: {{summary_stop}}

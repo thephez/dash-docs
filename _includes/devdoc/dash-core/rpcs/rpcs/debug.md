@@ -23,16 +23,16 @@ The `debug` RPC {{summary_debug}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.12.3*
 
 {% highlight bash %}
-dash-cli -testnet debug "net,mempool"
+dash-cli -testnet debug "net+mempool"
 {% endhighlight %}
 
 Result:
 
 {% highlight text %}
-Debug mode: net,mempool
+Debug mode: net+mempool
 {% endhighlight %}
 
 *See also: none*
