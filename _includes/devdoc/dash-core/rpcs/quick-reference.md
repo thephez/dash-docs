@@ -234,10 +234,11 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 
 * [CreateMultiSig][rpc createmultisig]: {{summary_createMultiSig}}
 * [EstimateFee][rpc estimatefee]: {{summary_estimateFee}}
-* [EstimatePriority][rpc estimatepriority]: {{summary_estimatePriority}}
+* [EstimatePriority][rpc estimatepriority]: {{summary_estimatePriority}} {{DEPRECATED}}
 * [EstimateSmartFee][rpc estimatesmartfee]: {{summary_estimateSmartFee}} {{DEPRECATED}}
 * [EstimateSmartPriority][rpc estimatesmartpriority]: {{summary_estimateSmartPriority}} {{DEPRECATED}}
-* [ValidateAddress][rpc validateaddress]: {{summary_validateAddress}} {{UPDATED0_13_0}}
+* [SignMessageWithPrivKey][rpc signmessagewithprivkey]: {{summary_signMessageWithPrivKey}}  {{DASH_NEW0_12_3}} {{NEW0_13_0}}
+* [ValidateAddress][rpc validateaddress]: {{summary_validateAddress}} {{DASH_UPDATED0_12_3}} {{UPDATED0_13_0}}
 * [VerifyMessage][rpc verifymessage]: {{summary_verifyMessage}}
 
 {% endautocrossref %}
@@ -285,7 +286,7 @@ default.
 * [ListReceivedByAddress][rpc listreceivedbyaddress]: {{summary_listReceivedByAddress}}
 * [ListSinceBlock][rpc listsinceblock]: {{summary_listSinceBlock}}
 * [ListTransactions][rpc listtransactions]: {{summary_listTransactions}} {{UPDATED0_12_1}}
-* [ListUnspent][rpc listunspent]: {{summary_listUnspent}} {{UPDATED0_13_0}}
+* [ListUnspent][rpc listunspent]: {{summary_listUnspent}} {{DASH_UPDATED0_12_3}} {{UPDATED0_13_0}}
 * [LockUnspent][rpc lockunspent]: {{summary_lockUnspent}}
 * [Move][rpc move]: {{summary_move}} {{DEPRECATED}}
 * [SendFrom][rpc sendfrom]: {{summary_sendFrom}} {{DEPRECATED}}
@@ -303,7 +304,6 @@ default.
 * {{DASH_NOT_IMPLEMENTED}}  [ImportMulti][rpc importmulti]: {{summary_importMulti}} {{NEW0_14_0}}
 * {{DASH_NOT_IMPLEMENTED}}  [ImportPrunedFunds][rpc importprunedfunds]: {{summary_importPrunedFunds}} {{NEW0_13_0}}
 * {{DASH_NOT_IMPLEMENTED}}  [RemovePrunedFunds][rpc removeprunedfunds]: {{summary_removePrunedFunds}} {{NEW0_13_0}}
-* {{DASH_NOT_IMPLEMENTED}}  [SignMessageWithPrivKey][rpc signmessagewithprivkey]: {{summary_signMessageWithPrivKey}}  {{NEW0_13_0}}
 
 {% endautocrossref %}
 
