@@ -7,6 +7,8 @@ http://opensource.org/licenses/MIT.
 ##### Generate
 {% include helpers/subhead-links.md %}
 
+<!-- __ -->
+
 {% assign summary_generate="mines blocks immediately (before the RPC call returns)." %}
 
 {% autocrossref %}
@@ -24,6 +26,17 @@ The `generate` RPC {{summary_generate}}
   d: "The number of blocks to generate.  The RPC call will not return until all blocks have been generated."
 
 {% enditemplate %}
+
+*Parameter #2---the number of iterations*
+
+{% itemplate ntpd1 %}
+- n: "`numblocks`"
+  t: "number (int)"
+  p: "Required<br>(exactly 1)"
+  d: "The number of iterations to try (default = 1000000)."
+
+{% enditemplate %}
+
 
 *Result---the generated block header hashes*
 

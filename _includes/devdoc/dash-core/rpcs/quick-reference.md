@@ -170,7 +170,7 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 
 {% autocrossref %}
 
-* [Generate][rpc generate]: {{summary_generate}} {{NEW0_11_0}}, {{UPDATED0_13_0}}
+* [Generate][rpc generate]: {{summary_generate}} {{DASH_UPDATED0_12_3}} {{UPDATED0_13_0}}
 * [GenerateToAddress][rpc generatetoaddress]: {{summary_generateToAddress}} {{DASH_NEW0_12_3}} {{NEW0_13_0}}
 
 {% endautocrossref %}
