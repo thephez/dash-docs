@@ -7,7 +7,7 @@ http://opensource.org/licenses/MIT.
 ##### SetGenerate
 {% include helpers/subhead-links.md %}
 
-{% assign summary_setGenerate="enables or disables hashing to attempt to find the next block." %}
+{% assign summary_setGenerate="was removed in Dash Core 0.12.3." %}
 
 <!-- __ -->
 

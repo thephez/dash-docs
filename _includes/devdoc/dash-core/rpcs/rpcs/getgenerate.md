@@ -9,7 +9,7 @@ http://opensource.org/licenses/MIT.
 
 <!-- __ -->
 
-{% assign summary_getGenerate="returns if the server is set to generate coins or not." %}
+{% assign summary_getGenerate="was removed in Dash Core 0.12.3." %}
 
 {% autocrossref %}
 

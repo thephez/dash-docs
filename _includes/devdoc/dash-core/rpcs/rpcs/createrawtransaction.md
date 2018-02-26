@@ -7,6 +7,8 @@ http://opensource.org/licenses/MIT.
 ##### CreateRawTransaction
 {% include helpers/subhead-links.md %}
 
+<!-- __ -->
+
 {% assign summary_createRawTransaction="creates an unsigned serialized transaction that spends a previous output to a new output with a P2PKH or P2SH address. The transaction is not stored in the wallet or transmitted to the network." %}
 
 {% autocrossref %}
@@ -39,7 +41,7 @@ The `createrawtransaction` RPC {{summary_createRawTransaction}}
 - n: "→ →<br>`Sequence`"
   t: "number (int)"
   p: "Optional<br>(0 or 1)"
-  d: "NOT IMPLEMENTED IN DASH.<br><br>The sequence number to use for the input"
+  d: "Added in Dash Core 0.12.3.0.<br><br>The sequence number to use for the input"
 
 {% enditemplate %}
 
@@ -55,6 +57,11 @@ The `createrawtransaction` RPC {{summary_createRawTransaction}}
   t: "string : number (Dash)"
   p: "Required<br>(1 or more)"
   d: "A key/value pair with the address to pay as a string (key) and the amount to pay that address (value) in Dash"
+
+- n: "→<br>Data/Hex"
+  t: "data : hex"
+  p: "Required<br>(1 or more)"
+  d: "A key/value pair where the key is 'data' and the value is hex encoded data"
 
 {% enditemplate %}
 
