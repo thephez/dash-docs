@@ -7,6 +7,8 @@ http://opensource.org/licenses/MIT.
 ##### GetBlockChainInfo
 {% include helpers/subhead-links.md %}
 
+<!-- __ -->
+
 {% assign summary_getBlockChainInfo="provides information about the current state of the block chain." %}
 
 {% autocrossref %}
@@ -163,9 +165,23 @@ The `getblockchaininfo` RPC {{summary_getBlockChainInfo}}
   p: "Optional<br>(0 or 1)"
   d: "The bit (0-28) in the block version field used to signal this softfork.  Field is only shown when status is `started`"
 
+- n: "→ → →<br>`startTime`"
+  t: "numeric<br>(int)"
+  p: "Required<br>(exactly 1)"
+  d: "The Unix epoch time when the softfork voting begins"
+
+- n: "→ → →<br>`timeout`"
+  t: "numeric<br>(int)"
+  p: "Required<br>(exactly 1)"
+  d: "The Unix epoch time at which the deployment is considered failed if not yet locked in"
+
+- n: "→ → →<br>`since`"
+  t: "numeric<br>(int)"
+  p: "Required<br>(exactly 1)"
+  d: "*Added in Bitcoin Core 0.14.0*<br><br>The height of the first block to which the status applies"
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.12.3*
 
 {% highlight bash %}
 dash-cli -testnet getblockchaininfo
@@ -176,74 +192,57 @@ Result:
 {% highlight json %}
 {
   "chain": "test",
-  "blocks": 4622,
-  "headers": 4622,
-  "bestblockhash": "000000007f4141e557309da09911b1c3c65b8e9eed3f5e940f7083aec8999ac7",
-  "difficulty": 1.380236305048335,
-  "mediantime": 1507209819,
-  "verificationprogress": 0.9999053826626874,
-  "chainwork": "000000000000000000000000000000000000000000000000000001d17aeaf58b",
+  "blocks": 82244,
+  "headers": 82244,
+  "bestblockhash": "0000000004efcadbdb9d8b524e5ab982af3db039fdb585c2f1c1df56d42d4492",
+  "difficulty": 47.4955836390814,
+  "mediantime": 1519662782,
+  "verificationprogress": 0.9999999483744162,
+  "chainwork": "0000000000000000000000000000000000000000000000000021adf3af961831",
   "pruned": false,
   "softforks": [
     {
       "id": "bip34",
       "version": 2,
-      "enforce": {
-        "status": true,
-        "found": 100,
-        "required": 51,
-        "window": 100
-      },
       "reject": {
-        "status": true,
-        "found": 100,
-        "required": 75,
-        "window": 100
+        "status": true
       }
     },
     {
       "id": "bip66",
       "version": 3,
-      "enforce": {
-        "status": true,
-        "found": 100,
-        "required": 51,
-        "window": 100
-      },
       "reject": {
-        "status": true,
-        "found": 100,
-        "required": 75,
-        "window": 100
+        "status": true
       }
     },
     {
       "id": "bip65",
       "version": 4,
-      "enforce": {
-        "status": true,
-        "found": 100,
-        "required": 51,
-        "window": 100
-      },
       "reject": {
-        "status": true,
-        "found": 100,
-        "required": 75,
-        "window": 100
+        "status": true
       }
     }
   ],
-  "bip9_softforks": [
-    {
-      "id": "csv",
-      "status": "started"
+  "bip9_softforks": {
+    "csv": {
+      "status": "active",
+      "startTime": 1506556800,
+      "timeout": 1538092800,
+      "since": 8064
     },
-    {
-      "id": "dip0001",
-      "status": "started"
+    "dip0001": {
+      "status": "active",
+      "startTime": 1505692800,
+      "timeout": 1537228800,
+      "since": 5600
+    },
+    "bip147": {
+      "status": "active",
+      "startTime": 1517792400,
+      "timeout": 1549328400,
+      "since": 78800
     }
-  ]
+  }
 }
 
 {% endhighlight %}
