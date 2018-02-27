@@ -7,6 +7,8 @@ http://opensource.org/licenses/MIT.
 ##### GetBlockTemplate
 {% include helpers/subhead-links.md %}
 
+<!-- __ -->
+
 {% assign summary_getBlockTemplate="gets a block template or proposal for use with mining software." %}
 
 {% autocrossref %}
@@ -40,6 +42,16 @@ information, please see the following resources:
   t: "string"
   p: "Optional<br>(exactly 1)"
   d: "Client side supported feature, `longpoll`, `coinbasetxn`, `coinbasevalue`, `proposal`, `serverlist`, `workid`"
+
+- n: "→<br>`rules`"
+  t: "array (string)"
+  p: "Optional<br>(0 or more)"
+  d: "A list of strings"
+
+- n: "→ →<br>Rules"
+  t: "string"
+  p: "Optional<br>(exactly 1)"
+  d: "Client side supported softfork deployment, `csv`, `dip0001`, etc."
 
 {% enditemplate %}
 

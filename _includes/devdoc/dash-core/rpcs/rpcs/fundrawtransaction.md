@@ -7,6 +7,8 @@ http://opensource.org/licenses/MIT.
 ##### FundRawTransaction
 {% include helpers/subhead-links.md %}
 
+<!-- __ -->
+
 {% assign summary_fundRawTransaction="adds inputs to a transaction until it has enough in value to meet its out value." %}
 
 {% autocrossref %}
@@ -29,15 +31,7 @@ All existing inputs must have their previous output transaction be in the wallet
 
 *Parameter #2---Additional options*
 
-{% itemplate ntpd1 %}
-- n: "`includeWatching`"
-  t: "bool"
-  p: "Optional<br>(0 or 1)"
-  d: "Inputs from watch-only addresses are also considered. The default is `false`"
-
-{% enditemplate %}
-
-The following options from Bitcoin are not implemented in Dash Core.
+Note: For backwards compatibility, passing in a `true` instead of an object will result in {\"includeWatching\":true}\n"
 
 {% itemplate ntpd1 %}
 - n: "Options"
@@ -54,6 +48,11 @@ The following options from Bitcoin are not implemented in Dash Core.
   t: "nummeric (int)"
   p: "Optional<br>(0 or 1)"
   d: "The index of the change output. If not set, the change position is randomly chosen"
+
+- n: "`includeWatching`"
+  t: "bool"
+  p: "Optional<br>(0 or 1)"
+  d: "Inputs from watch-only addresses are also considered. The default is `false`"
 
 - n: "→ <br>`lockUnspent`"
   t: "bool"

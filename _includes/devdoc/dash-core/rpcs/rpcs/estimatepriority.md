@@ -7,6 +7,8 @@ http://opensource.org/licenses/MIT.
 ##### EstimatePriority
 {% include helpers/subhead-links.md %}
 
+<!-- __ -->
+
 {% autocrossref %}
 
 {% assign summary_estimatePriority="estimates the priority that a transaction needs in order to be included within a certain number of blocks as a free high-priority transaction." %}
@@ -15,7 +17,7 @@ http://opensource.org/licenses/MIT.
 
 The `estimatepriority` RPC {{summary_estimatePriority}} This should not to be confused with the `prioritisetransaction` RPC which will remain supported for adding fee deltas to transactions.
 
-{{WARNING}} `estimatepriority` has been [removed from Bitcoin](https://github.com/bitcoin/bitcoin/commit/fe282acd7604b5265762b24e531bdf1ebb1f009b) and will no longer be available in the next major release (planned for Bitcoin Core 0.15.0). Still present in Dash Core.
+{{WARNING}} `estimatepriority` has been [removed from Bitcoin](https://github.com/bitcoin/bitcoin/commit/fe282acd7604b5265762b24e531bdf1ebb1f009b). While still present in Dash Core, it is deprecated as of 0.12.3 (should be considered unstable and will disappear in the future). Use the RPC listed in the "See Also" subsection below instead.
 
 Transaction priority is relative to a transaction's byte size.
 

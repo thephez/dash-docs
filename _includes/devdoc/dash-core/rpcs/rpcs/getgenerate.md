@@ -7,13 +7,15 @@ http://opensource.org/licenses/MIT.
 ##### GetGenerate
 {% include helpers/subhead-links.md %}
 
-{% assign summary_getGenerate="returns if the server is set to generate coins or not." %}
+<!-- __ -->
+
+{% assign summary_getGenerate="was removed in Dash Core 0.12.3." %}
 
 {% autocrossref %}
 
 *Requires wallet support.*
 
-*Removed in Bitcoin Core 0.13.0.*
+**_Removed in Dash Core 0.12.3 / Bitcoin Core 0.13.0._**
 
 The `getgenerate` RPC {{summary_getGenerate}}
 

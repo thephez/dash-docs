@@ -7,23 +7,29 @@ http://opensource.org/licenses/MIT.
 ##### GetAddedNodeInfo
 {% include helpers/subhead-links.md %}
 
+<!-- __ -->
+
 {% assign summary_getAddedNodeInfo="returns information about the given added node, or all added nodes (except onetry nodes). Only nodes which have been manually added using the `addnode` RPC will have their information displayed." %}
 
 {% autocrossref %}
 
 The `getaddednodeinfo` RPC {{summary_getAddedNodeInfo}}
 
-*Parameter #1---whether to display connection information*
+Prior to Dash Core 0.12.3, this dummy parameter was required for historical purposes but not used:
+
+*DEPRECATED Parameter #1---whether to display connection information*
 
 {% itemplate ntpd1 %}
-- n: "Dummy"
-  t: "bool"
-  p: "Required<br>(exactly 1)"
-  d: "Kept for historical purposes but ignored<br><br>*Removed in Bitcoin Core 0.14.0*"
+- n: "_Dummy_"
+  t: "_bool_"
+  p: "_Required<br>(exactly 1)_"
+  d: "_Removed in Dash Core 0.12.3_"
 
 {% enditemplate %}
 
-*Parameter #2---what node to display information about*
+Beginning with Dash Core 0.12.3, this is the single (optional) parameter:
+
+*Parameter #1---what node to display information about*
 
 {% itemplate ntpd1 %}
 - n: "`node`"
@@ -78,10 +84,10 @@ The `getaddednodeinfo` RPC {{summary_getAddedNodeInfo}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.12.3*
 
 {% highlight bash %}
-dash-cli getaddednodeinfo true
+dash-cli getaddednodeinfo
 {% endhighlight %}
 
 Result (real hostname and IP address replaced with [RFC5737][] reserved address):

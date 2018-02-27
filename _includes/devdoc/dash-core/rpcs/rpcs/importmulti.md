@@ -7,15 +7,14 @@ http://opensource.org/licenses/MIT.
 ##### ImportMulti
 {% include helpers/subhead-links.md %}
 
+<!-- __ -->
+
 {% assign summary_importMulti="imports addresses or scripts (with private keys, public keys, or P2SH redeem scripts) and optionally performs the minimum necessary rescan for all imports." %}
 
 {% autocrossref %}
 
-*Added in Bitcoin Core 0.14.0*
+*Added in Dash Core 0.12.3 / Bitcoin Core 0.14.0*
 
-{{WARNING_ICON}} **_Not implemented in Dash Core (as of 0.12.2)_**
-
-{% comment %}
 *Requires wallet support.  Wallet must be unlocked.*
 
 The `importmulti` RPC {{summary_importMulti}}
@@ -123,27 +122,27 @@ The `importmulti` RPC {{summary_importMulti}}
   p: "Optional<br>(0 or 1)"
   d: "The error code"  
 
-- n: "→ → → <br>`message`"
+- n: "→ → → <br>`message<!--noref-->`"
   t: "string"
   p: "Optional<br>(0 or 1)"
   d: "The error message"    
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.14.1*
+*Example from Dash Core 0.12.3*
 
-Import the address 1NL9w5fP9kX2D9ToNZPxaiwFJCngNYEYJo (giving it a label and scanning the entire block chain) and the scriptPubKey 76a9149e857da0a5b397559c78c98c9d3f7f655d19c68688ac (giving a specific timestamp and label):
+Import the address `ycCsAUKsjdmoP4qAXiS1cjYA4ixM48zJWe` (giving it a label and scanning the entire block chain) and the scriptPubKey `76a9146cf5870411edc31ba5630d61c7cddff55b884fda88ac` (giving a specific timestamp and label):
 
 {% highlight bash %}
-bitcoin-cli importmulti '
+dash-cli importmulti '
   [
     {
-      "scriptPubKey" : { "address": "1NL9w5fP9kX2D9ToNZPxaiwFJCngNYEYJo" },
+      "scriptPubKey" : { "address": "ycCsAUKsjdmoP4qAXiS1cjYA4ixM48zJWe" },
       "timestamp" : 0,
       "label" : "Personal"
     },
     {
-      "scriptPubKey" : "76a9149e857da0a5b397559c78c98c9d3f7f655d19c68688ac",
+      "scriptPubKey" : "76a9146cf5870411edc31ba5630d61c7cddff55b884fda88ac",
       "timestamp" : 1493912405,
       "label" : "TestFailure"
     }
@@ -153,18 +152,18 @@ bitcoin-cli importmulti '
 Result (scriptPubKey import failed because `internal` was not set to `true`):
 
 {% highlight json %}
-  [
-    {
-      "success": true
-    },
-    {
-      "success": false,
-      "error": {
+[
+  {
+    "success": true
+  },
+  {
+    "success": false,
+    "error": {
       "code": -8,
       "message": "Internal must be set for hex scriptPubKey"
-      }
     }
-  ]
+  }
+]
 {% endhighlight %}
 
 *See also*
@@ -172,7 +171,5 @@ Result (scriptPubKey import failed because `internal` was not set to `true`):
 * [ImportPrivKey][rpc importprivkey]: {{summary_importPrivKey}}
 * [ImportAddress][rpc importaddress]: {{summary_importAddress}}
 * [ImportWallet][rpc importwallet]: {{summary_importWallet}}
-
-{% endcomment %}
 
 {% endautocrossref %}

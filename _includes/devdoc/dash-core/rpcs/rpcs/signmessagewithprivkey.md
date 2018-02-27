@@ -9,19 +9,18 @@ http://opensource.org/licenses/MIT.
 
 {% assign summary_signMessageWithPrivKey="signs a message with a given private key." %}
 
+<!-- __ -->
+
 {% autocrossref %}
 
-*Added in Bitcoin Core 0.13.0*
+*Added in Dash Core 0.12.3 / Bitcoin Core 0.13.0*
 
-{{WARNING_ICON}} **_Not implemented in Dash Core (as of 0.12.2)_**
-
-{% comment %}
 The `signmessagewithprivkey` RPC {{summary_signMessageWithPrivKey}}
 
 *Parameter #1---the private key to sign with*
 
 {% itemplate ntpd1 %}
-- n: "Privat Key"
+- n: "Private Key"
   t: "string (base58)"
   p: "Required<br>(exactly 1)"
   d: "The private key to sign the message with encoded in base58check using wallet import format (WIF)"
@@ -44,30 +43,28 @@ The `signmessagewithprivkey` RPC {{summary_signMessageWithPrivKey}}
 - n: "`result`"
   t: "string (base64)"
   p: "Required<br>(exactly 1)"
-  d: "The signature of the message, encoded in base64.  Note that Bitcoin Core before 0.10.0 creates signatures with random *k* values, so each time you sign the same message, it will create a different signature"
+  d: "The signature of the message, encoded in base64."
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.13.1*
+*Example from Dash Core 0.12.3*
 
 Sign a the message "Hello, World!" using the following private key:
 
 {% highlight bash %}
-bitcoin-cli signmessagewithprivkey 5HpHagT65TZzG1PH3CSu63k8DbpvD\
-8s5ip4nEB3kEsreKamq6aB "Hello, World!"
+dash-cli signmessagewithprivkey cNKbZBqUCjuBRSnAJWwFWxKESJ5Lw\
+G4uxBSJ1UeBNBGVRupFKr6S "Hello, World!"
 {% endhighlight %}
 
 Result:
 
 {% highlight text %}
-G+ZauMFgQExAJRKZSldbAVEaZo4i0p2AVivbFASo50PkUnynAMDUiNMVdXDlpYMWvatxCmYmLn8C9zygPRn3Y1c=
+IBx8jxFjutPlcZcFdQPlA2n/B4yTrYhH43qYJURKRj7LWhSD0ERE/nnRLOnXi/gwULUcqfqOKqnqkSvuJjlgEvc=
 {% endhighlight %}
 
 *See also*
 
 * [SignMessage][rpc signmessage]: {{summary_signMessage}}
 * [VerifyMessage][rpc verifymessage]: {{summary_verifyMessage}}
-
-{% endcomment %}
 
 {% endautocrossref %}

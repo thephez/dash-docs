@@ -170,6 +170,7 @@ http://opensource.org/licenses/MIT.
 [rpc sendtoaddress]: /en/developer-reference#sendtoaddress
 [rpc setaccount]: /en/developer-reference#setaccount
 [rpc setban]: /en/developer-reference#setban
+[rpc setbip69enabled]: /en/developer-reference#setbip69enabled
 [rpc setgenerate]: /en/developer-reference#setgenerate
 [rpc setnetworkactive]: /en/developer-reference#setnetworkactive
 [rpc settxfee]: /en/developer-reference#settxfee

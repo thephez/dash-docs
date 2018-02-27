@@ -9,13 +9,12 @@ http://opensource.org/licenses/MIT.
 
 {% assign summary_generateToAddress="mines blocks immediately to a specified address." %}
 
+<!-- __ -->
+
 {% autocrossref %}
 
-*Added in Bitcoin Core 0.13.0*
+*Added in Dash Core 0.12.3 / Bitcoin Core 0.13.0*
 
-**_Not implemented in Dash Core (as of 0.12.2)_**
-
-{% comment %}
 *Requires wallet support.*
 
 The `generatetoaddress` RPC {{summary_generateToAddress}}
@@ -26,7 +25,7 @@ The `generatetoaddress` RPC {{summary_generateToAddress}}
 - n: "Blocks"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
-  d: "The number of blocks to generate.  The RPC call will not return until all blocks have been generated or the maxium number of iterations has been reached"
+  d: "The number of blocks to generate.  The RPC call will not return until all blocks have been generated or the maximum number of iterations has been reached"
 
 {% enditemplate %}
 
@@ -36,7 +35,7 @@ The `generatetoaddress` RPC {{summary_generateToAddress}}
 - n: "Address"
   t: "string (base58)"
   p: "Required<br>(exactly 1)"
-  d: "The address to send the newly generated Bitcoin to"
+  d: "The address that will receive the newly generated Dash"
 
 {% enditemplate %}
 
@@ -64,21 +63,21 @@ The `generatetoaddress` RPC {{summary_generateToAddress}}
   d: "The hashes of the headers of the blocks generated, as hex in RPC byte order"
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.13.1*
+*Example from Dash Core 0.12.3*
 
 Using regtest mode, generate 2 blocks with maximal 500000 iterations:
 
 {% highlight bash %}
-bitcoin-cli -regtest generatetoaddress 2 "1BRo7qrYHMPrzdBDzfjmzt\
-eBdYAyTMXW75" 500000
+dash-cli -regtest generatetoaddress 2 "yaQzdWrDVYGncLKSKG4bHQ\
+ML9UdAe726QN" 500000
 {% endhighlight %}
 
 Result:
 
 {% highlight json %}
 [
-    "36252b5852a5921bdfca8701f936b39edeb1f8c39fffe73b0d8437921401f9af",
-    "5f2956817db1e386759aa5794285977c70596b39ea093b9eab0aa4ba8cd50c06"
+  "34726c518d1688a9c56b3399e892089d3a639b43de194517c07da2b168a3a89c",
+  "1f030abe2bb323b8895542e3a85ed8386bd92c67af9d19fe9c163a4c5f5ef149"
 ]
 {% endhighlight %}
 
@@ -87,7 +86,5 @@ Result:
 * [Generate][rpc generate]: {{summary_generate}}
 * [GetMiningInfo][rpc getmininginfo]: {{summary_getMiningInfo}}
 * [GetBlockTemplate][rpc getblocktemplate]: {{summary_getBlockTemplate}}
-
-{% endcomment %}
 
 {% endautocrossref %}
