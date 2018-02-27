@@ -230,6 +230,7 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 * [EstimatePriority][rpc estimatepriority]: {{summary_estimatePriority}} {{DEPRECATED}}
 * [EstimateSmartFee][rpc estimatesmartfee]: {{summary_estimateSmartFee}} {{DEPRECATED}}
 * [EstimateSmartPriority][rpc estimatesmartpriority]: {{summary_estimateSmartPriority}} {{DEPRECATED}}
+* [SetBIP69Enabled][rpc setbip69enabled]: {{summary_setBIP69Enabled}}  {{DASH_NEW0_12_3}}
 * [SignMessageWithPrivKey][rpc signmessagewithprivkey]: {{summary_signMessageWithPrivKey}}  {{DASH_NEW0_12_3}} {{NEW0_13_0}}
 * [ValidateAddress][rpc validateaddress]: {{summary_validateAddress}} {{DASH_UPDATED0_12_3}} {{UPDATED0_13_0}}
 * [VerifyMessage][rpc verifymessage]: {{summary_verifyMessage}}

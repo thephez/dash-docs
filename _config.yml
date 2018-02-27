@@ -297,6 +297,7 @@ devsearches:
     - 'SendToAddress': "/en/developer-reference#sendtoaddress"
     - 'SetAccount': "/en/developer-reference#setaccount"
     - 'SetBan': "/en/developer-reference#setban"
+    - 'SetBIP69Enabled': "/en/developer-reference#setbip69enabled"    
     - 'SetGenerate': "/en/developer-reference#setgenerate"
     - 'SetNetworkActive': "/en/developer-reference#setnetworkactive"
     - 'SetTxFee': "/en/developer-reference#settxfee"
