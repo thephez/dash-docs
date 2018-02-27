@@ -116,16 +116,9 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 * [GetTxOutProof][rpc gettxoutproof]: {{summary_getTxOutProof}} {{NEW0_11_0}}
 * [GetTxOutSetInfo][rpc gettxoutsetinfo]: {{summary_getTxOutSetInfo}}
 * [PreciousBlock][rpc preciousblock]: {{summary_preciousBlock}} {{DASH_NEW0_12_3}} {{NEW0_14_0}}
+* [PruneBlockChain][rpc pruneblockchain]: {{summary_pruneBlockChain}} {{DASH_NEW0_12_3}} {{NEW0_14_0}}
 * [VerifyChain][rpc verifychain]: {{summary_verifyChain}}
 * [VerifyTxOutProof][rpc verifytxoutproof]: {{summary_verifyTxOutProof}} {{NEW0_11_0}}
-
-{% endautocrossref %}
-
-**Not implemented in Dash**
-
-{% autocrossref %}
-
-* {{DASH_NOT_IMPLEMENTED}}  [PruneBlockChain][rpc pruneblockchain]: {{summary_pruneBlockChain}} {{NEW0_14_0}}
 
 {% endautocrossref %}
 
@@ -275,6 +268,7 @@ default.
 * [ImportElectrumWallet][rpc importelectrumwallet]: {{summary_importElectrumWallet}} {{DASH_NEW0_12_1}}
 * [ImportMulti][rpc importmulti]: {{summary_importMulti}} {{DASH_NEW0_12_3}} {{NEW0_14_0}}
 * [ImportPrivKey][rpc importprivkey]: {{summary_importPrivKey}}
+* [ImportPrunedFunds][rpc importprunedfunds]: {{summary_importPrunedFunds}} {{DASH_NEW0_12_3}} {{NEW0_13_0}}
 * [ImportPubKey][rpc importpubkey]: {{summary_importPubKey}}
 * [ImportWallet][rpc importwallet]: {{summary_importWallet}}
 * [InstantSendToAddress][rpc instantsendtoaddress]: {{summary_instantSendToAddress}}
@@ -290,6 +284,7 @@ default.
 * [ListUnspent][rpc listunspent]: {{summary_listUnspent}} {{DASH_UPDATED0_12_3}} {{UPDATED0_13_0}}
 * [LockUnspent][rpc lockunspent]: {{summary_lockUnspent}}
 * [Move][rpc move]: {{summary_move}} {{DEPRECATED}}
+* [RemovePrunedFunds][rpc removeprunedfunds]: {{summary_removePrunedFunds}} {{DASH_NEW0_12_3}} {{NEW0_13_0}}
 * [SendFrom][rpc sendfrom]: {{summary_sendFrom}} {{DEPRECATED}}
 * [SendMany][rpc sendmany]: {{summary_sendMany}}
 * [SendToAddress][rpc sendtoaddress]: {{summary_sendToAddress}}
@@ -302,8 +297,6 @@ default.
 
 * {{DASH_NOT_IMPLEMENTED}}  [AddWitnessAddress][rpc addwitnessaddress]: {{summary_addWitnessAddress}} {{NEW0_13_0}}
 * {{DASH_NOT_IMPLEMENTED}}  [BumpFee][rpc bumpfee]: {{summary_bumpFee}} {{NEW0_14_0}}
-* {{DASH_NOT_IMPLEMENTED}}  [ImportPrunedFunds][rpc importprunedfunds]: {{summary_importPrunedFunds}} {{NEW0_13_0}}
-* {{DASH_NOT_IMPLEMENTED}}  [RemovePrunedFunds][rpc removeprunedfunds]: {{summary_removePrunedFunds}} {{NEW0_13_0}}
 
 {% endautocrossref %}
 

@@ -7,15 +7,14 @@ http://opensource.org/licenses/MIT.
 ##### ImportPrunedFunds
 {% include helpers/subhead-links.md %}
 
+<!-- __ -->
+
 {% assign summary_importPrunedFunds="imports funds without the need of a rescan. Meant for use with pruned wallets." %}
 
 {% autocrossref %}
 
-*Added in Bitcoin Core 0.13.0*
+*Added in Dash Core 0.12.3 / Bitcoin Core 0.13.0*
 
-{{WARNING_ICON}} **_Not implemented in Dash Core (as of 0.12.2)_**
-
-{% comment %}
 *Requires wallet support.*
 
 The `importprunedfunds` RPC {{summary_importPrunedFunds}} Corresponding address or script must previously be included in wallet.
@@ -52,7 +51,7 @@ outputs or rescan after the point in the blockchain the transaction is included.
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.13.1*
+*Example from Dash Core 0.12.3*
 
 {% highlight bash %}
 bitcoin-cli importprunedfunds "txhex" "txoutproof"
@@ -64,7 +63,5 @@ bitcoin-cli importprunedfunds "txhex" "txoutproof"
 
 * [ImportPrivKey][rpc importprivkey]: {{summary_importPrivKey}}
 * [RemovePrunedFunds][rpc removeprunedfunds]: {{summary_removePrunedFunds}}
-
-{% endcomment %}
 
 {% endautocrossref %}
