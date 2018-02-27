@@ -7,6 +7,8 @@ http://opensource.org/licenses/MIT.
 ### Remote Procedure Calls (RPCs)
 {% include helpers/subhead-links.md %}
 
+<!-- __ -->
+
 {% autocrossref %}
 
 Dash Core provides a remote procedure call (RPC) interface for various
@@ -57,6 +59,7 @@ format:
 | → <br>`id`           | string          | Optional<br>(0 or 1)        | An arbitrary string that will be returned with the response.  May be omitted or set to an empty string ("")
 | → <br>`method`       | string          | Required<br>(exactly 1)     | The RPC method name (e.g. `getblock`).  See the RPC section for a list of available methods.
 | → <br>`params`       | array           | Optional<br>(0 or 1)        | An array containing positional parameter values for the RPC.  May be an empty array or omitted for RPC calls that don't have any required parameters.
+| → <br>`params`       | object           | Optional<br>(0 or 1)        | Starting from Dash Core 0.12.3 / Bitcoin Core 0.14.0 (replaces the params array above) An object containing named parameter values for the RPC. May be an empty object or omitted for RPC calls that don’t have any required parameters.
 | → → <br>Parameter    | *any*           | Optional<br>(0 or more)       | A parameter.  May be any JSON type allowed by the particular RPC method
 {:.ntpd}
 
@@ -109,6 +112,12 @@ The command to send this request using `dash-cli` is:
 dash-cli getblockhash 0
 {% endhighlight %}
 
+The command to send this request using `dash-cli` with named parameters is:
+
+{% highlight bash %}
+dash-cli -named getblockhash height=0
+{% endhighlight %}
+
 Alternatively, we could `POST` this request using the cURL command-line program
 as follows:
 
@@ -126,7 +135,7 @@ The HTTP response data for this request would be:
 
 {% highlight json %}
 {
-    "result": "00000ffd590b1485b3caadc19b22e6379c733355108f107a430458cdf3407ab6",
+    "result": "00000bafbc94add76cb75e2ec92894837288a481e5c005f6563d91623bf8bc2c",
     "error": null,
     "id": "foo"
 }
@@ -147,7 +156,7 @@ Continuing with the example above, the output<!--noref--> from the `dash-cli`
 command would be simply:
 
 {% highlight text %}
-00000ffd590b1485b3caadc19b22e6379c733355108f107a430458cdf3407ab6
+00000bafbc94add76cb75e2ec92894837288a481e5c005f6563d91623bf8bc2c
 {% endhighlight %}
 
 If there's an error processing a request, Dash Core sets the `result` field
