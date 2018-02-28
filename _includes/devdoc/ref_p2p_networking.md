@@ -7,6 +7,8 @@ http://opensource.org/licenses/MIT.
 ## P2P Network
 {% include helpers/subhead-links.md %}
 
+<!-- __ -->
+
 {% autocrossref %}
 
 This section describes the Dash P2P network protocol (but it is [not a
@@ -37,6 +39,7 @@ The following constants and defaults are taken from Dash Core's
 | Mainnet | 9999         | 0xBD6B0CBF  | 0xBF0C6BBD                      | 0x1e0ffff0
 | Testnet | 19999        | 0xFFCAE2CE  | 0xCEE2CAFF                      | 0x1e0ffff0
 | Regtest | 19994        | 0xDCB7C1FC  | 0xFCC1B7DC                      | 0x207fffff
+| Devnet  | User-defined | 0xFFCAE2CE  | 0xCEE2CAFF                      | 0x207fffff
 
 Note: the testnet start string and nBits above are for testnet3.
 
@@ -1339,6 +1342,7 @@ Core can be found in `CPubKey::RecoverCompact`). The hash is a double SHA-256 ha
 | Mainnet | 04549ac134f694c0243f503e8c8a9a986f5de6610049c40b07816809b0d1<br>d06a21b07be27b9bb555931773f62ba6cf35a25fd52f694d4e1106ccd237<br>a7bb899fdd |
 | Testnet3 | 046f78dcf911fbd61910136f7f0f8d90578f68d0b3ac973b5040fb7afb50<br>1b5939f39b108b0569dca71488f5bbf498d92e4d1194f6f941307ffd95f7<br>5e76869f0e |
 | RegTest | Undefined |
+| Devnets | 046f78dcf911fbd61910136f7f0f8d90578f68d0b3ac973b5040fb7afb50<br>1b5939f39b108b0569dca71488f5bbf498d92e4d1194f6f941307ffd95f7<br>5e76869f0e |
 
 The following annotated hexdump shows a `spork` message.
 
