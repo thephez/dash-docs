@@ -109,3 +109,63 @@ configuration directory locations on various operating systems. Always back up
 mainnet wallets before performing dangerous operations such as deleting.)
 
 {% endautocrossref %}
+
+### Devnet Mode
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+Developer networks (devnets) have some aspects of testnet and some aspects of
+regtest. Unlike testnet, multiple independent devnets can be created and coexist
+without interference. Each one is identified by a name which is hardened into a
+"devnet genesis" block, which is automatically positioned at height 1. Validation
+rules will ensure that a node from `devnet<!--noref-->=test1` never be able to
+accept blocks from `devnet<!--noref-->=test2`. This is done by checking the
+expected devnet genesis block.
+
+The genesis block of the devnet is the same as the one from regtest. This
+starts the devnet with a very low difficulty, allowing quick generation of a
+sufficient balance to create a masternode.
+
+The devnet name is put into the sub-version of the `version` message.
+If a node connects to the wrong network, it will immediately be disconnected.
+
+To use devnet, use the argument `-devnet=<name>`<!--noref--> with `dash-cli`,
+`dashd`or `dash-qt` or add `devnet<!--noref-->=<name>` to your `dash.conf` file as
+[described earlier](#configuration-file).
+
+Devnets must be assigned both `-port` and `-rpcport` unless they are not
+listening (`-listen=0`). It is possible to run a devnet on a private (RFC1918)
+network by using the `-allowprivatenet=1` argument.
+
+{% endautocrossref %}
+
+Example devnet start command:
+
+{% highlight bash %}
+> dashd -devnet=mydevnet -rpcport=18998 -port=18999 -daemon
+Dash Core server starting
+{% endhighlight %}
+
+{% autocrossref %}
+
+You can now use Dash Core RPCs prefixed with `dash-cli -devnet=<name>`<!--noref-->.
+
+Devnet wallets and block chain state (chainstate) are saved in the `devnet-<name>`<!--noref-->
+subdirectory of the Dash Core configuration directory. You can safely
+delete the `devnet-<name>`<!--noref--> subdirectory and restart Dash Core to
+start a new devnet. (See the [Developer Examples Introduction][devexamples] for default
+configuration directory locations on various operating systems. Always back up
+mainnet wallets before performing dangerous operations such as deleting.)
+
+Eventually, there may be many public and/or private devnets that vary in size
+and function. Providing the correct devnet name and the seed node of the network
+will be all that is required to join.
+
+An old devnet can be easily dropped and a new one started just by destroying all
+nodes and recreating them with a new devnet name. This works best in combination
+with an automated deployment using something like Ansible and Terraform. The
+[Dash Cluster Ansible](https://github.com/dashpay/dash-cluster-ansible) provides
+a way to do this (currently a work-in-progress at an early development stage).
+
+{% endautocrossref %}

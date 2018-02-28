@@ -26,6 +26,13 @@ Once installed, you'll have access to three programs: `dashd`,
 * `dash-cli` allows you to send RPC commands to `dashd` from the
   command line.  For example, `dash-cli help`
 
+{% endautocrossref %}
+
+### Configuration file
+<!-- no subhead-links here -->
+
+{% autocrossref %}
+
 All three programs get settings from `dash.conf` in the `DashCore`
 application directory:
 
@@ -53,8 +60,8 @@ directory:
 chmod 0600 dash.conf
 ~~~
 
-For development, it's safer and cheaper to use Dash's test network (testnet)
-or regression test mode (regtest) described below.
+For development, it's safer and cheaper to use Dash's test network (testnet),
+regression test mode (regtest), or a develper network (devnet) described below.
 
 Questions about Dash use are best sent to the [Dash forum][forum
 tech support] and [Discord channels][Discord channels]. Errors or suggestions related to

@@ -23,6 +23,7 @@ optional:
         - regtest modes
 
     not_to_be_confused_with_capitalize_first_letter:
+        - Devnet (a public or private development network which mimics mainnet)
         - Testnet (a global testing environment which mostly mimics mainnet)
 
     links_html_or_markdown_style_capitalize_first_letter:
