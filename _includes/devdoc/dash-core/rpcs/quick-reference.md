@@ -110,7 +110,7 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 * [GetMemPoolDescendants][rpc getmempooldescendants]: {{summary_getMemPoolDescendants}} {{DASH_NEW0_12_3}} {{NEW0_13_0}}
 * [GetMemPoolEntry][rpc  getmempoolentry]: {{summary_getMemPoolEntry}} {{DASH_NEW0_12_3}} {{NEW0_13_0}}
 * [GetMemPoolInfo][rpc getmempoolinfo]: {{summary_getMemPoolInfo}} {{UPDATED0_12_0}}
-* [GetRawMemPool][rpc getrawmempool]: {{summary_getRawMemPool}} {{UPDATED0_13_0}}
+* [GetRawMemPool][rpc getrawmempool]: {{summary_getRawMemPool}} {{DASH_UPDATED0_12_3}} {{UPDATED0_13_0}}
 * [GetSpentInfo][rpc getspentinfo]: {{summary_getSpentInfo}} {{DASH_NEW0_12_1}}
 * [GetTxOut][rpc gettxout]: {{summary_getTxOut}}
 * [GetTxOutProof][rpc gettxoutproof]: {{summary_getTxOutProof}} {{NEW0_11_0}}
@@ -150,7 +150,7 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 * [MasternodeBroadcast][rpc masternodebroadcast]: {{summary_masternodeBroadcast}}
 * [MasternodeList][rpc masternodelist]: {{summary_masternodeList}} {{DASH_UPDATED0_12_3}}
 * [MnSync][rpc mnsync]: {{summary_mnSync}}
-* [PrivateSend][rpc privatesend]: {{summary_privateSend}}
+* [PrivateSend][rpc privatesend]: {{summary_privateSend}} {{DASH_UPDATED0_12_3}}
 * [SentinelPing][rpc sentinelping]: {{summary_sentinelPing}}
 * [Spork][rpc spork]: {{summary_spork-rpc}}
 * [VoteRaw][rpc voteraw]: {{summary_voteRaw}}
@@ -264,7 +264,7 @@ default.
 * [GetReceivedByAddress][rpc getreceivedbyaddress]: {{summary_getReceivedByAddress}}
 * [GetTransaction][rpc gettransaction]: {{summary_getTransaction}} {{UPDATED0_12_0}}
 * [GetUnconfirmedBalance][rpc getunconfirmedbalance]: {{summary_getUnconfirmedBalance}}
-* [GetWalletInfo][rpc getwalletinfo]: {{summary_getWalletInfo}}
+* [GetWalletInfo][rpc getwalletinfo]: {{summary_getWalletInfo}}  {{DASH_UPDATED0_12_3}}
 * [ImportAddress][rpc importaddress]: {{summary_importAddress}}
 * [ImportElectrumWallet][rpc importelectrumwallet]: {{summary_importElectrumWallet}} {{DASH_NEW0_12_1}}
 * [ImportMulti][rpc importmulti]: {{summary_importMulti}} {{DASH_NEW0_12_3}} {{NEW0_14_0}}

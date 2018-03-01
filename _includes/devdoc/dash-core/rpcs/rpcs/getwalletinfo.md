@@ -37,6 +37,11 @@ The `getwalletinfo` RPC {{summary_getWalletInfo}}
   p: "Required<br>(exactly 1)"
   d: "The total confirmed balance of the wallet.  The same as returned by the `getbalance` RPC with default parameters"
 
+- n: "→<br>`privatesendbalance`"
+  t: "number (dash)"
+  p: "Required<br>(exactly 1)"
+  d: "*Added in Dash Core 0.12.3*<br><br>The total PrivateSend balance of the wallet"
+
 - n: "→<br>`unconfirmed_balance`"
   t: "number (dash)"
   p: "Required<br>(exactly 1)"
@@ -109,7 +114,7 @@ The `getwalletinfo` RPC {{summary_getWalletInfo}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.12.3*
 
 {% highlight bash %}
 dash-cli -testnet getwalletinfo
@@ -121,6 +126,7 @@ Result:
 {
   "walletversion": 61000,
   "balance": 3000.00000000,
+  "privatesend_balance": 413.20413200,  
   "unconfirmed_balance": 10.10000000,
   "immature_balance": 11.25000000,
   "txcount": 267,

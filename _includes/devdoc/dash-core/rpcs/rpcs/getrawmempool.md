@@ -9,6 +9,8 @@ http://opensource.org/licenses/MIT.
 
 {% assign summary_getRawMemPool="returns all transaction identifiers (TXIDs) in the memory pool as a JSON array, or detailed information about each transaction in the memory pool as a JSON object." %}
 
+<!-- __ -->
+
 {% autocrossref %}
 
 The `getrawmempool` RPC {{summary_getRawMemPool}}
@@ -101,6 +103,21 @@ The `getrawmempool` RPC {{summary_getRawMemPool}}
   p: "Required<br>(exactly 1)"
   d: "*Added in Bitcoin Core 0.12.0*<br><br>The modified fees (see `modifiedfee` above) of in-mempool descendants (including this one)"
 
+- n: "→ →<br>`ancestorcount`"
+  t: "number (int)"
+  p: "Required<br>(exactly 1)"
+  d: "*Added in Dash Core 0.12.3 / Bitcoin Core 0.13.0*<br><br>The number of in-mempool ancestor transactions (including this one)"
+
+- n: "→ →<br>`ancestorsize`"
+  t: "number (int)"
+  p: "Required<br>(exactly 1)"
+  d: "*Added in Dash Core 0.12.3 / Bitcoin Core 0.13.0*<br><br>The size of in-mempool ancestors (including this one)"
+
+- n: "→ →<br>`ancestorfees`"
+  t: "number (int)"
+  p: "Required<br>(exactly 1)"
+  d: "*Added in Dash Core 0.12.3 / Bitcoin Core 0.13.0*<br><br>The modified fees (see `modifiedfee` above) of in-mempool ancestors (including this one)"
+
 - n: "→ →<br>`depends`"
   t: "array"
   p: "Required<br>(exactly 1)"
@@ -111,28 +128,19 @@ The `getrawmempool` RPC {{summary_getRawMemPool}}
   p: "Optional (0 or more)"
   d: "The TXIDs of any unconfirmed transactions this transaction depends upon, encoded as hex in RPC byte order"
 
+- n: "→ →<br>`instantsend`"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: "*Added in Dash Core 0.12.3*<br><br>Set to `true` for transactions broadcast via the `ix` message (InstantSend lock requested). Set to `false` for standard (non-InstantSend) transactions"
+
+- n: "→ →<br>`instantlock`"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: "*Added in Dash Core 0.12.3*<br><br>Set to `true` for locked InstantSend transactions (masternode quorum has locked the transaction inputs via `txlvote` messages). Set to `false` if the masternodes have not approved the InstantSend transaction"
+
 {% enditemplate %}
 
-*Changes from Bitcoin - Following items not present in Dash result*
-
-{% itemplate ntpd1 %}
-- n: "→ TXID→<br>`ancestorcount`"
-  t: "number (int)"
-  p: "Required<br>(exactly 1)"
-  d: "*Added in Bitcoin Core 0.13.0*<br><br>The number of in-mempool ancestor transactions (including this one)"
-
-- n: "→ TXID→<br>`ancestorsize`"
-  t: "number (int)"
-  p: "Required<br>(exactly 1)"
-  d: "*Added in Bitcoin Core 0.13.0*<br><br>The size of in-mempool ancestors (including this one)"
-
-- n: "→ TXID→<br>`ancestorfees`"
-  t: "number (int)"
-  p: "Required<br>(exactly 1)"
-  d: "*Added in Bitcoin Core 0.13.0*<br><br>The modified fees (see `modifiedfee` above) of in-mempool ancestors (including this one)"
-{% enditemplate %}
-
-*Examples from Dash Core 0.12.2*
+*Examples from Dash Core 0.12.3*
 
 The default (`false`):
 
@@ -158,20 +166,44 @@ Result:
 
 {% highlight json %}
 {
-  "286b3ec21e6ce5463fc712c98d86e02353525e09452113836651f3f91e562354": {
-    "size": 225,
-    "fee": 0.00000225,
-    "modifiedfee": 0.00000225,
-    "time": 1507735322,
-    "height": 7940,
+  "8fd1440ed74d3739aa4e1700e9b2fdb32bc5c138fe79dd319f965f67339eb1ce": {
+    "size": 372,
+    "fee": 0.00020000,
+    "modifiedfee": 0.00020000,
+    "time": 1519928121,
+    "height": 83907,
+    "startingpriority": 2224190635.564103,
+    "currentpriority": 2224190635.564103,
+    "descendantcount": 2,
+    "descendantsize": 598,
+    "descendantfees": 20226,
+    "ancestorcount": 1,
+    "ancestorsize": 372,
+    "ancestorfees": 20000,
+    "depends": [
+    ],
+    "instantsend": true,
+    "instantlock": true
+  },
+  "2d914d77305dd968bbd67aeb8604cf7e9d66a7df58bf5216724db69a54000f40": {
+    "size": 226,
+    "fee": 0.00000226,
+    "modifiedfee": 0.00000226,
+    "time": 1519928256,
+    "height": 83907,
     "startingpriority": 0,
     "currentpriority": 0,
-    "descendantcount": 4,
-    "descendantsize": 901,
-    "descendantfees": 902,
+    "descendantcount": 1,
+    "descendantsize": 226,
+    "descendantfees": 226,
+    "ancestorcount": 2,
+    "ancestorsize": 598,
+    "ancestorfees": 20226,
     "depends": [
-      "2aacf53e0e15d3b4d778837792c7b6bd298edd3c41a0608586bdec41adcfe7c4"
-    ]
+      "8fd1440ed74d3739aa4e1700e9b2fdb32bc5c138fe79dd319f965f67339eb1ce"
+    ],
+    "instantsend": false,
+    "instantlock": false
   }
 }
 {% endhighlight %}
