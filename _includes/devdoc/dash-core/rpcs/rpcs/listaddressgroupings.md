@@ -91,5 +91,6 @@ Result (edited to only three results):
 
 * [GetAddressesByAccount][rpc getaddressesbyaccount]: {{summary_getAddressesByAccount}}
 * [GetTransaction][rpc gettransaction]: {{summary_getTransaction}}
+* [ListAddressBalances][rpc listaddressbalances]: {{summary_listAddressBalances}}
 
 {% endautocrossref %}

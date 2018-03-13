@@ -89,6 +89,7 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_keepass="provides commands for configuring and managing KeePass authentication" %}
 {% assign summary_keyPoolRefill="fills the cache of unused pre-generated keys (the keypool)." %}
 {% assign summary_listAccounts="lists accounts and their balances." %}
+{% assign summary_listAddressBalances="lists addresses of this wallet and their balances" %}
 {% assign summary_listAddressGroupings="lists groups of addresses that may have had their common ownership made public by common use as inputs in the same transaction or from being used as change from a previous transaction." %}
 {% assign summary_listBanned="lists all banned IPs/Subnets." %}
 {% assign summary_listLockUnspent="returns a list of temporarily unspendable (locked) outputs." %}

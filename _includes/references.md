@@ -144,6 +144,7 @@ http://opensource.org/licenses/MIT.
 [rpc keepass]: /en/developer-reference#keepass
 [rpc keypoolrefill]: /en/developer-reference#keypoolrefill
 [rpc listaccounts]: /en/developer-reference#listaccounts
+[rpc listaddressbalances]: /en/developer-reference#listaddressbalances
 [rpc listaddressgroupings]: /en/developer-reference#listaddressgroupings
 [rpc listbanned]: /en/developer-reference#listbanned
 [rpc listlockunspent]: /en/developer-reference#listlockunspent
