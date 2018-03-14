@@ -22,6 +22,7 @@ optional:
         - testing network
 
     not_to_be_confused_with_capitalize_first_letter:
+        - Devnet (a public or private development network which mimics mainnet)
         - Regtest (a local testing environment where developers can control block generation)
 
     links_html_or_markdown_style_capitalize_first_letter:
