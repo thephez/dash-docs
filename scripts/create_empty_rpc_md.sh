@@ -34,7 +34,7 @@ if [ "$PARAMCOUNT" == 1 ]; then
 	echo "*Result---RESULT DESCRIPTION*" >> $FILENAME
 	echo "" >> $FILENAME
 
-	echo "*Example from Dash Core 0.12.2*" >> $FILENAME
+	echo "*Example from Dash Core 0.12.3*" >> $FILENAME
 	echo "" >> $FILENAME
 
 	# Example
@@ -42,7 +42,7 @@ if [ "$PARAMCOUNT" == 1 ]; then
 	echo "dash-cli -testnet ${RPCNAME,,}" >> $FILENAME
 	echo "{% endhighlight %}" >> $FILENAME
 	echo "" >> $FILENAME
-	
+
 	# Example results
 	echo "Result:" >> $FILENAME
 	echo "{% highlight json %}" >> $FILENAME
@@ -60,6 +60,7 @@ if [ "$PARAMCOUNT" == 1 ]; then
 	echo " "
 	echo "Next copy the created file ('$FILENAME') to ../_includes/devdoc/dash-core/rpcs/rpcs"
 	echo "Then update _autocrossref.yaml, _config.yaml, _includes/references.md, en/developer-reference.md, and rpcs/quick-reference.md"
+	echo "Also update _includes/layout/base/rpc-table.html"
 else
 	echo "Incorrect number of parameters (Should be exactly 1)"
 	echo "Usage: create_empty_rpc_md RPCNAME"
