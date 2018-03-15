@@ -145,9 +145,15 @@ directly without requiring additional inputs or creating change (for example,
 **Creating Collaterals**
 
 PrivateSend collaterals are used to pay mixing fees, but are kept separate from
-the denominations to maximize privacy. The collateral fees are 0.001 DASH for
+the denominations to maximize privacy. The minimum collateral fee is 0.001 DASH for
 all mixing sessions regardless of denomination. In Dash Core, collaterals are
 created with enough value to pay 4 collateral fees (4 x 0.001 DASH). ([Dash Core Reference](https://github.com/dashpay/dash/blob/e596762ca22d703a79c6880a9d3edb1c7c972fd3/src/privatesend<!--noref-->.h#L313))
+
+In protocol versions <= 70208, collateral amounts were exactly 1x the minimum
+collateral amount. In protocol versions > 70208, Dash Core can either use 1x the
+minimum collateral amount OR any amount between 1x and 2x. For collateral payments
+less than 2x the minimum, no change is returned since it would result in an amount
+too small to be used for another collateral payment.
 
 {% endautocrossref %}
 
