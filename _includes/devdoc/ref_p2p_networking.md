@@ -1241,6 +1241,18 @@ ascending code number (primary) and alphabetic in reply to (secondary) -->
 | 0x10 | `ix` message      | 32          | char[32]   | InstantSend transaction is invalid for some reason (invalid tx lock request, conflicting tx lock request, etc.).  Extra data may include the rejected transaction's TXID.
 | 0x11 | `block` message   | 32          | char[32]   | The block uses a version that is no longer supported.  Extra data may include the rejected block's header hash.
 | 0x11 | `version` message | 0           | N/A        | Connecting node is using a protocol version that the rejecting node considers obsolete and unsupported.
+| 0x11 | `dsa` message     | 0           | N/A        | Connecting node is using a PrivateSend protocol version that the rejecting node considers obsolete and unsupported.
+| 0x11 | `dsi` message     | 0           | N/A        | Connecting node is using a PrivateSend protocol version that the rejecting node considers obsolete and unsupported.
+| 0x11 | `dsc` message     | 0           | N/A        | Connecting node is using a PrivateSend protocol version that the rejecting node considers obsolete and unsupported.
+| 0x11 | `dsf` message     | 0           | N/A        | Connecting node is using a PrivateSend protocol version that the rejecting node considers obsolete and unsupported.
+| 0x11 | `dsq` message     | 0           | N/A        | Connecting node is using a PrivateSend protocol version that the rejecting node considers obsolete and unsupported.
+| 0x11 | `dssu` message    | 0           | N/A        | Connecting node is using a PrivateSend protocol version that the rejecting node considers obsolete and unsupported.
+| 0x11 | `govsync` message | 0           | N/A        | Connecting node is using a governance protocol version that the rejecting node considers obsolete and unsupported.
+| 0x11 | `govobj` message  | 0           | N/A        | Connecting node is using a governance protocol version that the rejecting node considers obsolete and unsupported.
+| 0x11 | `govobjvote` message | 0           | N/A        | Connecting node is using a governance protocol version that the rejecting node considers obsolete and unsupported.
+| 0x11 | `mnget` message   | 0           | N/A        | Connecting node is using a masternode payment protocol version that the rejecting node considers obsolete and unsupported.
+| 0x11 | `mnw` message     | 0           | N/A        | Connecting node is using a masternode payment protocol version that the rejecting node considers obsolete and unsupported.
+| 0x11 | `txlvote` message | 0           | N/A        | Connecting node is using an InstantSend protocol version that the rejecting node considers obsolete and unsupported.
 | 0x12 | `tx` message      | 32          | char[32]   | Duplicate input spend (double spend): the rejected transaction spends the same input as a previously-received transaction.  Extra data may include the rejected transaction's TXID.
 | 0x12 | `version` message | 0           | N/A        | More than one `version` message received in this connection.
 | 0x40 | `tx` message      | 32          | char[32]   | The transaction will not be mined or relayed because the rejecting node considers it non-standard---a transaction type or version unknown by the server.  Extra data may include the rejected transaction's TXID.
