@@ -433,13 +433,46 @@ The `gobject count` RPC returns the count of governance objects and votes.
 
 {% enditemplate %}
 
+
+**Command Mode - `json`**
+
 *Result---count of governance objects and votes*
 
 {% itemplate ntpd1 %}
-- n: "`result`"
-  t: "string"
+- n: "Result"
+  t: "object"
   p: "Required<br>(exactly 1)"
-  d: "The count of governance objects and votes"
+  d: "Information about the governance object"
+
+- n: "→<br>`objects_total`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Total object count"
+
+- n: "→<br>`proposals`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Proposal count"
+
+- n: "→<br>`triggers`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Trigger count"
+
+- n: "→<br>`other`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Non-proposal/trigger count"
+
+- n: "→<br>`erased`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Erased count"
+
+- n: "→<br>`votes`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Vote count"
 
 {% enditemplate %}
 
@@ -460,6 +493,19 @@ Result (wrapped):
   "votes": 9680
 }
 {% endhighlight %}
+
+
+**Command Mode - `all`**
+
+*Result---count of governance objects and votes*
+
+{% itemplate ntpd1 %}
+- n: "`result`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "The count of governance objects and votes"
+
+{% enditemplate %}
 
 *Example from Dash Core 0.12.3 (mode: `all`)*
 
