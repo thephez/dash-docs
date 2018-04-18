@@ -53,6 +53,11 @@ The `getchaintips` RPC {{summary_getChainTips}}
   p: "Required<br>(exactly 1)"
   d: "The number of blocks that are on this chain but not on the main chain.  For the local best block chain, this will be `0`; for all other chains, it will be at least `1`"
 
+- n: "→ →<br>`forkpoint`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "*Added in Dash Core 0.12.3*<br><br>Block hash of the last common block between this tip and the main chain"
+
 - n: "→ →<br>`status`"
   t: "string"
   p: "Required<br>(exactly 1)"
@@ -60,7 +65,7 @@ The `getchaintips` RPC {{summary_getChainTips}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.12.3*
 
 {% highlight bash %}
 dash-cli -testnet getchaintips
@@ -69,11 +74,12 @@ dash-cli -testnet getchaintips
 {% highlight json %}
 [
   {
-    "height": 4655,
-    "hash": "00000000629c276241d9526d85297f2675d6edebcc7fd0c39e8f4263d729b8c1",
-    "difficulty": 0.9622782802772231,
-    "chainwork": "000000000000000000000000000000000000000000000000000001f1e286e12a",
+    "height": 110192,
+    "hash": "000000000c6007f40c3b68a77b0e1319a89c0504ae1b391d071cf49fa7591dee",
+    "difficulty": 18.38631407059958,
+    "chainwork": "000000000000000000000000000000000000000000000000002cbd2546718747",
     "branchlen": 0,
+    "forkpoint": "000000000c6007f40c3b68a77b0e1319a89c0504ae1b391d071cf49fa7591dee",
     "status": "active"
   }
 ]

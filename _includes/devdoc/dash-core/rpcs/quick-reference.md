@@ -104,7 +104,7 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 * [GetBlockHashes][rpc getblockhashes]: {{summary_getBlockHashes}} {{DASH_NEW0_12_1}}
 * [GetBlockHeader][rpc getblockheader]: {{summary_getBlockHeader}} {{NEW0_12_0}}
 * [GetBlockHeaders][rpc getblockheaders]: {{summary_getBlockHeaders}} {{DASH_NEW0_12_1}}
-* [GetChainTips][rpc getchaintips]: {{summary_getChainTips}} {{DASH_UPDATED0_12_1}}
+* [GetChainTips][rpc getchaintips]: {{summary_getChainTips}} {{DASH_UPDATED0_12_3}}
 * [GetDifficulty][rpc getdifficulty]: {{summary_getDifficulty}}
 * [GetMemPoolAncestors][rpc getmempoolancestors]: {{summary_getMemPoolAncestors}} {{DASH_NEW0_12_3}} {{NEW0_13_0}}
 * [GetMemPoolDescendants][rpc getmempooldescendants]: {{summary_getMemPoolDescendants}} {{DASH_NEW0_12_3}} {{NEW0_13_0}}
