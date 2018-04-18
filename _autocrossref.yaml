@@ -219,9 +219,11 @@ BIP61:
 BIP62:
 BIP65:
 BIP66:
+BIP68:
 BIP70:
 BIP71:
 BIP72:
+BIP90:
 BIP111:
 BIP112:
 BIP113:
@@ -229,11 +231,15 @@ BIP125:
 BIP130:
 BIP133:
 BIP141:
+BIP147:
 BIP151:
 BIP152:
 
 ## CVEs
 CVE-2012-2459:
+
+## DIPs in numerical order; don't use padding zeros (e.g. DIP1 not DIP0001)
+DIP1:
 
 ## RPCs
 '`abandontransaction`': rpc abandontransaction

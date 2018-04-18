@@ -314,9 +314,11 @@ http://opensource.org/licenses/MIT.
 [BIP62]: https://github.com/bitcoin/bips/blob/master/bip-0062.mediawiki
 [BIP65]: https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki
 [BIP66]: https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki
+[BIP68]: https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki
 [BIP70]: https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki
 [BIP71]: https://github.com/bitcoin/bips/blob/master/bip-0071.mediawiki
 [BIP72]: https://github.com/bitcoin/bips/blob/master/bip-0072.mediawiki
+[BIP90]: https://github.com/bitcoin/bips/blob/master/bip-0090.mediawiki
 [BIP111]: https://github.com/bitcoin/bips/blob/master/bip-0111.mediawiki
 [BIP112]: https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki
 [BIP113]: https://github.com/bitcoin/bips/blob/master/bip-0113.mediawiki
@@ -324,6 +326,7 @@ http://opensource.org/licenses/MIT.
 [BIP130]: https://github.com/bitcoin/bips/blob/master/bip-0130.mediawiki
 [BIP133]: https://github.com/bitcoin/bips/blob/master/bip-0133.mediawiki
 [BIP141]: https://github.com/bitcoin/bips/blob/master/bip-0141.mediawiki
+[BIP147]: https://github.com/bitcoin/bips/blob/master/bip-0147.mediawiki
 [BIP151]: https://github.com/bitcoin/bips/blob/master/bip-0151.mediawiki
 [BIP152]: https://github.com/bitcoin/bips/blob/master/bip-0152.mediawiki
 [CVE-2012-2459]: https://en.bitcoin.it/wiki/CVEs#CVE-2012-2459
