@@ -20,7 +20,11 @@ bitcoin QR codes: URI QR code
 bitcoinj:
 '`block` message': block message
 '`block` messages': block message
+'`blocktxn` message': blocktxn message
+'`blocktxn` messages': blocktxn message
 certificate chain:
+'`cmpctblock` message': cmpctblock message
+'`cmpctblock` messages': cmpctblock message
 DER:
 DER format: der
 DER-formatted: der
@@ -57,6 +61,8 @@ fiat:
 '`filterload` messages': filterload message
 '`getblocks` message': getblocks message
 '`getblocks` messages': getblocks message
+'`getblocktxn` message': getblocktxn message
+'`getblocktxn` messages': getblocktxn message
 '`getdata` message': getdata message
 '`getdata` messages': getdata message
 '`getheaders` message': getheaders message
@@ -172,6 +178,8 @@ RPC:
 RPCs: rpc
 '`script`': DO NOT AUTOCROSSREF
 secp256k1:
+'`sendcmpct` message': sendcmpct message
+'`sendcmpct` messages': sendcmpct message
 '`spork` message': spork message
 '`spork` messages': spork message
 '`ssc` message': ssc message

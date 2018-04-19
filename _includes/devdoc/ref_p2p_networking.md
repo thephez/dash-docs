@@ -203,6 +203,42 @@ different reasons:
 
 {% endautocrossref %}
 
+#### Blocktxn
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70209 of Dash Core.*
+
+The `blocktxn` message sends requested block transactions to a node which
+previously requested them with a `getblocktxn` message.
+
+| Bytes    | Name                 | Data Type            | Encoding | Description|
+|----------|----------------------|----------------------|----------|------|
+| 32       | blockhash            | Binary blob          | The output from a double-SHA256 of the block header, as used elsewhere | The blockhash of the block which the transactions being provided are in
+| 1 or 3   | transactions_length  | CompactSize          | As used to encode array lengths elsewhere | The number of transactions provided
+| variable | transactions         | List of transactions | As encoded in `tx` messages in response to `getdata MSG_TX` | The transactions provided
+
+The following annotated hexdump shows a `blocktxn` message.  (The
+message header has been omitted.)
+
+{% highlight text %}
+**ADD HEXDUMP HERE**
+{% endhighlight %}
+
+{% endautocrossref %}
+
+#### CmpctBlock
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `cmpctblock` message transmits a single serialized compact block.
+
+**ADD DESCRIPTION, FORMAT, AND HEXDUMP**
+
+{% endautocrossref %}
+
 #### GetBlocks
 {% include helpers/subhead-links.md %}
 
@@ -251,6 +287,31 @@ d39f608a7775b537729884d4e6633bb2
 
 00000000000000000000000000000000
 00000000000000000000000000000000 ... Stop hash
+{% endhighlight %}
+
+{% endautocrossref %}
+
+#### GetBlockTxn
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70209 of Dash Core.*
+
+The `getblocktxn` message requests a `blocktxn` message for any transactions
+that it has not seen after a compact block is received.
+
+| Bytes    | Name            | Data Type            | Encoding | Description|
+|----------|-----------------|----------------------|----------|------|
+| 32       | blockhash       | Binary blob          | The output from a double-SHA256 of the block header, as used elsewhere | The blockhash of the block which the transactions being requested are in
+| 1 or 3   | indexes_length  | CompactSize          | As used to encode array lengths elsewhere | The number of transactions requested
+| (1 or 3) * `indexes_length` | indexes         | List of CompactSizes | Differentially encoded | The indexes of the transactions being requested in the block
+
+The following annotated hexdump shows a `getblocktxn` message.  (The
+message header has been omitted.)
+
+{% highlight text %}
+**ADD HEXDUMP HERE**
 {% endhighlight %}
 
 {% endautocrossref %}
@@ -1290,6 +1351,23 @@ header has been omitted.)
 
 {% endautocrossref %}
 
+#### SendCmpct
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `sendcmpct` message tells the receiving peer to send new block
+announcements using a `cmpctblock` message rather than an `inv` message.
+
+<!--
+There is no payload in a `sendheaders` message.  See the [message header
+section][section message header] for an example of a message without a payload.
+-->
+
+**ADD FORMAT AND HEXDUMP**
+
+{% endautocrossref %}
+
 #### SendHeaders
 {% include helpers/subhead-links.md %}
 
@@ -1302,7 +1380,6 @@ There is no payload in a `sendheaders` message.  See the [message header
 section][section message header] for an example of a message without a payload.
 
 {% endautocrossref %}
-
 
 #### Spork
 {% include helpers/subhead-links.md %}
