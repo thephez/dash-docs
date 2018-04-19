@@ -233,9 +233,83 @@ message header has been omitted.)
 
 {% autocrossref %}
 
-The `cmpctblock` message transmits a single serialized compact block.
+The `cmpctblock` message transmits a single serialized compact block. A
+`HeaderAndShortIDs` structure is used to relay a block header, the short
+transactions IDs used for matching already-available transactions, and a select
+few transactions which we expect a peer may be missing (PrefilledTransactions).
 
-**ADD DESCRIPTION, FORMAT, AND HEXDUMP**
+**HeaderAndShortIDs**
+
+| Bytes    | Name                 | Data Type            | Encoding | Description|
+|----------|----------------------|----------------------|----------|------------|
+| 80       | header               | Block header         | First 80 bytes of the block as defined by the encoding used by `block` messages | The header of the block being provided
+| 8        | nonce                | uint64_t             | Little Endian | A nonce for use in short transaction ID calculations
+| 1 or 3   | shortids_<br>length  | CompactSize          | As used to encode array lengths elsewhere | The number of short transaction IDs in `shortids` (i.e. block tx count - `prefilledtxn`<br>`_length`)
+| 6 * `shortids`<br>`_length` | shortids  | List of 6-byte integers | Little Endian | The short transaction IDs calculated from the transactions which were not provided explicitly in `prefilledtxn`
+| 1 or 3   | prefilledtxn<br>_length | CompactSize       | As used to encode array lengths elsewhere | The number of prefilled transactions in `prefilledtxn` (i.e. block tx count - `shortids`<br>`_length`)
+| *Varies* * `prefilledtxn`<br>`_length` | prefilledtxn     | List of Prefilled<br>Transactions | As defined by `Prefilled`<br>`Transaction` definition below | Used to provide the coinbase transaction and a select few which we expect a peer may be missing
+
+**PrefilledTransaction**
+
+A `PrefilledTransaction` structure is used in `HeaderAndShortIDs` to provide a list of a few transactions explicitly.
+
+| Bytes    | Name                 | Data Type            | Encoding | Description|
+|----------|----------------------|----------------------|----------|------------|
+| 1 or 3   | index                | CompactSize          | Compact Size, differentially encoded since the last PrefilledTransaction in a list | The index into the block at which this transaction is
+| *Varies* | tx                   | Transaction          | As encoded in `tx` messages sent in response to `getdata MSG_TX` | Transaction which is in the block at index `index`
+
+The following annotated hexdump shows a `cmpctblock` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+00000020981178a4342cec6316296b2ad84c9b7cdf9f
+2688e5d0fe1a0003cd0000000000f64870f52a3d0125
+1336c9464961216732b25fbf288a51f25a0e81bffb20
+e9600194d85a64a50d1cc02b0181 ................ Block Header
+
+3151b67e5b418b9d ............................ Nonce
+
+00 .......................................... Short IDs Length: 0
+............................................. Short IDs: None
+
+01 .......................................... Prefilled Transaction Length: 1
+
+Prefilled Transactions
+| 00 ........................................ Index: 0
+|
+| Transaction 1 (Coinbase)
+| | 01000000 ................................ Transaction Version: 1
+| | 01 ...................................... Input count: 1
+| |
+| | Transaction input #1
+| | |
+| | | 00000000000000000000000000000000
+| | | 00000000000000000000000000000000 ..... Outpoint TXID
+| | | ffffffff ............................. Outpoint index number: UINT32_MAX
+| | |
+| | | 13 ................................... Bytes in sig. script: 19
+| | | 03daaf010e2f5032506f6f6c2d74444153482f Secp256k1 signature
+| | |
+| | | ffffffff ............................. Sequence number: UINT32_MAX
+| |
+| | 04 ..................................... Number of outputs: 04
+| |
+| | Transaction output #1
+| | | ffe5654200000000 ..................... Duffs (11.13974271 Dash)
+| | |
+| | | 19 ................................... Bytes in pubkey script: 25
+| | | | 76 ................................. OP_DUP
+| | | | a9 ................................. OP_HASH160
+| | | | 14 ................................. Push 20 bytes as data
+| | | | | b885cb21ad12e593c1a46d814df47ccb
+| | | | | 450a7d84 ......................... PubKey hash
+| | | | 88 ................................. OP_EQUALVERIFY
+| | | | ac ................................. OP_CHECKSIG
+| |
+| | [...] .................................. 3 more tx outputs omitted
+| |
+| | 00000000 ............................... locktime: 0 (a block height)
+{% endhighlight %}
 
 {% endautocrossref %}
 
@@ -328,7 +402,7 @@ node typically previously received by way of an `inv` message.
 The response to a `getdata` message can be a `tx` message, `block`
 message, `merkleblock` message, `ix` message, `txlvote` message,
 `mnw` message, `mnb` message, `mnp` message, `dstx` message, `govobj` message,
-`govobjvote` message, `mnv` message, or `notfound` message. <!-- What about spork? Only handled by getspork?-->
+`govobjvote` message, `mnv` message, `notfound` message, or `cmpctblock` message. <!-- What about spork? Only handled by getspork?-->
 
 This message cannot be used to request arbitrary data, such as historic
 transactions no longer in the memory pool or relay set. Full nodes may
