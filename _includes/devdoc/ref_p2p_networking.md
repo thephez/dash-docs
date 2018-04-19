@@ -208,7 +208,7 @@ different reasons:
 
 {% autocrossref %}
 
-*Added in protocol version 70209 of Dash Core.*
+*Added in protocol version 70209 of Dash Core as described by BIP152*
 
 The `blocktxn` message sends requested block transactions to a node which
 previously requested them with a `getblocktxn` message.
@@ -233,10 +233,21 @@ message header has been omitted.)
 
 {% autocrossref %}
 
+*Added in protocol version 70209 of Dash Core as described by BIP152*
+
 The `cmpctblock` message transmits a single serialized compact block. A
 `HeaderAndShortIDs` structure is used to relay a block header, the short
 transactions IDs used for matching already-available transactions, and a select
 few transactions which we expect a peer may be missing (PrefilledTransactions).
+It can be sent for two different reasons:
+
+1. **GetData Response:** Nodes will always send it in response to a
+   `getdata` message that requests the block with an inventory
+   type of `MSG_CMPCT_BLOCK` (provided the node has that block available for
+   relay).
+
+2. **Unsolicited:** If a node has previously sent a `sendcmpct` message
+   requesting blocks be announced via a `cmpctblock` message.
 
 **HeaderAndShortIDs**
 
@@ -370,7 +381,7 @@ d39f608a7775b537729884d4e6633bb2
 
 {% autocrossref %}
 
-*Added in protocol version 70209 of Dash Core.*
+*Added in protocol version 70209 of Dash Core as described by BIP152*
 
 The `getblocktxn` message requests a `blocktxn` message for any transactions
 that it has not seen after a compact block is received.
@@ -1429,6 +1440,8 @@ header has been omitted.)
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
+
+*Added in protocol version 70209 of Dash Core as described by BIP152*
 
 The `sendcmpct` message tells the receiving peer whether or not to announce new
 blocks using a `cmpctblock` message. It also sends the compact block protocol
