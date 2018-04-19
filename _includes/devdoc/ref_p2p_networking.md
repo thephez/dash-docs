@@ -1356,15 +1356,22 @@ header has been omitted.)
 
 {% autocrossref %}
 
-The `sendcmpct` message tells the receiving peer to send new block
-announcements using a `cmpctblock` message rather than an `inv` message.
+The `sendcmpct` message tells the receiving peer whether or not to announce new
+blocks using a `cmpctblock` message. It also sends the compact block protocol
+version it supports.
 
-<!--
-There is no payload in a `sendheaders` message.  See the [message header
-section][section message header] for an example of a message without a payload.
--->
+| Bytes    | Name          | Data Type        | Description
+|----------|---------------|------------------|--------------
+| 1        | announce      | bool             | 0 - Announce blocks via `headers` message or `inv` message<br>1 - Announce blocks via `cmpctblock` message
+| 8        | version       | uint64_t         | The compact block protocol version number
 
-**ADD FORMAT AND HEXDUMP**
+The annotated hexdump below shows a `sendcmpct` message. (The message
+header has been omitted.)
+
+{% highlight text %}
+01 ................................. Block announce type: Compact Blocks
+0100000000000000 ................... Compact block version: 1
+{% endhighlight %}
 
 {% endautocrossref %}
 
