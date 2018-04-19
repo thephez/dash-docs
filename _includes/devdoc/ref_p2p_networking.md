@@ -214,10 +214,10 @@ The `blocktxn` message sends requested block transactions to a node which
 previously requested them with a `getblocktxn` message.
 
 | Bytes    | Name                 | Data Type            | Encoding | Description|
-|----------|----------------------|----------------------|----------|------|
+|----------|----------------------|----------------------|----------|------------|
 | 32       | blockhash            | Binary blob          | The output from a double-SHA256 of the block header, as used elsewhere | The blockhash of the block which the transactions being provided are in
-| 1 or 3   | transactions_length  | CompactSize          | As used to encode array lengths elsewhere | The number of transactions provided
-| variable | transactions         | List of transactions | As encoded in `tx` messages in response to `getdata MSG_TX` | The transactions provided
+| 1 or 3   | transactions<br>_length | CompactSize          | As used to encode array lengths elsewhere | The number of transactions provided
+| *Varies* | transactions         | List of transactions | As encoded in `tx` messages in response to `getdata MSG_TX` | The transactions provided
 
 The following annotated hexdump shows a `blocktxn` message.  (The
 message header has been omitted.)
