@@ -172,8 +172,9 @@ The currently-available type identifiers are:
 | 17               | [`MSG_GOVERNANCE_OBJECT`][msg_governance_object]{:#term-msg_governance_object}{:.term}                                     | The hash is a Governance Object.
 | 18               | [`MSG_GOVERNANCE_OBJECT_VOTE`][msg_governance_object_vote]{:#term-msg_governance_object_vote}{:.term}                                     | The hash is a Governance Object Vote.
 | 19               | [`MSG_MASTERNODE_VERIFY`][msg_masternode_verify]{:#term-msg_masternode_verify}{:.term}                                     | The hash is a Masternode Verify.
+| 20               | [`MSG_CMPCT_BLOCK`][msg_cmpct_block]{:#term-msg_cmpct_block}{:.term}                                     | The hash is of a compact block.
 
-Type identifier zero and type identifiers greater than nineteen are reserved
+Type identifier zero and type identifiers greater than twenty are reserved
 for future implementations. Dash Core ignores all inventories with
 one of these unknown types.
 

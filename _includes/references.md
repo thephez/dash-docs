@@ -29,6 +29,7 @@ http://opensource.org/licenses/MIT.
 [msg_governance_object]: /en/developer-reference#term-msg_governance_object "Governance object data type identifier of an inventory on the P2P network"
 [msg_governance_object_vote]: /en/developer-reference#term-msg_governance_object_vote "Governance object vote data type identifier of an inventory on the P2P network"
 [msg_masternode_verify]: /en/developer-reference#term-msg_masternode_verify "Masternode Verify data type identifier of an inventory on the P2P network"
+[msg_cmpct_block]: /en/developer-reference#term-msg_cmpct_block "Compact Block data type identifier of an inventory on the P2P network"
 
 [network]: /en/developer-guide#term-network "The Dash P2P network which broadcasts transactions and blocks"
 [op_checkmultisig]: /en/developer-reference#term-op-checkmultisig "Opcode which returns true if one or more provided signatures (m) sign the correct parts of a transaction and match one or more provided public keys (n)"
