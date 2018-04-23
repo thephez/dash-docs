@@ -4,8 +4,11 @@ http://opensource.org/licenses/MIT.
 {% endcomment %}
 
 {% comment %}<!-- Terms; must have tooltip description in "quotes"; alphabetical order -->{% endcomment %}
+[blocktransactions]: /en/developer-reference#blocktxn "A P2P Networking data structure used to provide some of the transactions in a block as requested"
+[blocktransactionsrequest]: /en/developer-reference#getblocktxn "A P2P Networking data structure used to list transaction indexes in a block being requested by a peer"
 [coinbase block height]: /en/developer-reference#term-coinbase-block-height "The current block's height encoded into the first bytes of the coinbase field"
 [data-pushing opcode]: https://en.bitcoin.it/wiki/Script#Constants "Any opcode from 0x01 to 0x4e which pushes data on to the script evaluation stack"
+[headerandshortids]: /en/developer-reference#cmpctblock "A P2P Networking data structure used to relay a block header, the short transactions IDs used for matching already-available transactions, and a select few transactions which a peer may be missing"
 [key index]: /en/developer-guide#term-key-index "An index number used in the HD wallet formula to generate child keys from a parent key"
 [key pair]: /en/developer-guide#term-key-pair "A private key and its derived public key"
 <!-- Inventory Messages -->
@@ -29,7 +32,7 @@ http://opensource.org/licenses/MIT.
 [msg_governance_object]: /en/developer-reference#term-msg_governance_object "Governance object data type identifier of an inventory on the P2P network"
 [msg_governance_object_vote]: /en/developer-reference#term-msg_governance_object_vote "Governance object vote data type identifier of an inventory on the P2P network"
 [msg_masternode_verify]: /en/developer-reference#term-msg_masternode_verify "Masternode Verify data type identifier of an inventory on the P2P network"
-[msg_cmpct_block]: /en/developer-reference#term-msg_cmpct_block "Compact Block data type identifier of an inventory on the P2P network"
+[msg_cmpct_block]: /en/developer-reference#term-msg_cmpct_block "An alternative to the block header hash data type identifier of an inventory on the P2P network used to request a compact block"
 
 [network]: /en/developer-guide#term-network "The Dash P2P network which broadcasts transactions and blocks"
 [op_checkmultisig]: /en/developer-reference#term-op-checkmultisig "Opcode which returns true if one or more provided signatures (m) sign the correct parts of a transaction and match one or more provided public keys (n)"
@@ -42,6 +45,7 @@ http://opensource.org/licenses/MIT.
 [op_verify]: /en/developer-reference#term-op-verify "Operation which terminates the script if the entry below it on the stack is non-true (zero)"
 [output index]: /en/developer-guide#term-output-index "The sequentially-numbered index of outputs in a single transaction starting from 0"
 [point function]: /en/developer-guide#term-point-function "The ECDSA function used to create a public key from a private key"
+[prefilledtransaction]: /en/developer-reference#cmpctblock "A P2P Networking data structure used to represent a vector of a few transactions"
 [previous block header hash]: /en/developer-reference#term-previous-block-header-hash "A field in the block header which contains the SHA256(SHA256()) hash of the previous block's header"
 [proper money handling]: /en/developer-reference#term-proper-money-handling "Bitcoin amounts need to be correctly processed without introducing rounding errors that could cause monetary loss"
 [standard block relay]: /en/developer-guide#term-standard-block-relay "The regular block relay method: announcing a block with an inv message and waiting for a response"
