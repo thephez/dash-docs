@@ -19,7 +19,7 @@ Use v0.n.n in abbreviation title to prevent autocrossrefing.
 <!-- Dash - Not Implemented -->
 {% assign DASH_NOT_IMPLEMENTED='**<abbr title="Not Implemented in Dash">Not Implemented</abbr>**' %}
 
-<!-- Dash Core 0.12.3.0 Spring 2018? -->
+<!-- Dash Core 0.12.3.0 Apr 2018 -->
 {% assign DASH_NEW0_12_3='**<abbr title="New in Dash Core v0.12.3">New in Dash Core 0.12.3</abbr>**' %}
 {% assign DASH_UPDATED0_12_3='**<abbr title="Updated in Dash Core v0.12.3">Updated in Dash Core 0.12.3</abbr>**' %}
 
