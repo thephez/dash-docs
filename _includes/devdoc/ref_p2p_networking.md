@@ -172,8 +172,9 @@ The currently-available type identifiers are:
 | 17               | [`MSG_GOVERNANCE_OBJECT`][msg_governance_object]{:#term-msg_governance_object}{:.term}                                     | The hash is a Governance Object.
 | 18               | [`MSG_GOVERNANCE_OBJECT_VOTE`][msg_governance_object_vote]{:#term-msg_governance_object_vote}{:.term}                                     | The hash is a Governance Object Vote.
 | 19               | [`MSG_MASTERNODE_VERIFY`][msg_masternode_verify]{:#term-msg_masternode_verify}{:.term}                                     | The hash is a Masternode Verify.
+| 20               | [`MSG_CMPCT_BLOCK`][msg_cmpct_block]{:#term-msg_cmpct_block}{:.term}                                     | The hash is of a block header; identical to `MSG_BLOCK`. When used in a `getdata` message, this indicates the response should be a `cmpctblock` message. **Only for use in `getdata` messages.**
 
-Type identifier zero and type identifiers greater than nineteen are reserved
+Type identifier zero and type identifiers greater than twenty are reserved
 for future implementations. Dash Core ignores all inventories with
 one of these unknown types.
 
@@ -199,6 +200,166 @@ different reasons:
    mining pools do the same thing, although some may be misconfigured to
    send the block from multiple nodes, possibly sending the same block
    to some peers more than once.
+
+{% endautocrossref %}
+
+#### Blocktxn
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70209 of Dash Core as described by BIP152*
+
+The `blocktxn` message sends requested block transactions to a node which
+previously requested them with a `getblocktxn` message. It is defined as a message
+containing a serialized `BlockTransactions` message.
+
+Upon receipt of a properly-formatted requested `blocktxn` message, nodes should:
+
+1. Attempt to reconstruct the full block by taking the prefilledtxn transactions from the original `cmpctblock` message and placing them in the marked positions
+2. For each short transaction ID from the original `cmpctblock` message, in order, find the corresponding transaction (from either the `blocktxn` message or from other sources)
+3. Place each short transaction ID in the first available position in the block
+4. Once the block has been reconstructed, it shall be processed as normal.
+
+**Short transaction IDs are expected to occasionally collide. Nodes must
+not be penalized for such collisions.**
+
+The structure of `BlockTransactions` is defined below.
+
+| Bytes    | Name                 | Data Type            | Encoding | Description|
+|----------|----------------------|----------------------|----------|------------|
+| 32       | blockhash            | Binary blob          | The output from a double-SHA256 of the block header, as used elsewhere | The blockhash of the block which the transactions being provided are in
+| 1 or 3   | transactions<br>_length | CompactSize          | As used to encode array lengths elsewhere | The number of transactions provided
+| *Varies* | transactions         | List of transactions | As encoded in `tx` messages in response to `getdata MSG_TX` | The transactions provided
+
+<!-- HEXDUMP NEEDED
+The following annotated hexdump shows a `blocktxn` message.  (The
+message header has been omitted.)
+
+{% highlight text %}
+**ADD HEXDUMP HERE**
+{% endhighlight %}
+-->
+
+{% endautocrossref %}
+
+#### CmpctBlock
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70209 of Dash Core as described by BIP152*
+
+The `cmpctblock` message is a reply to a `getdata` message which
+requested a block using the inventory type `MSG_CMPCT_BLOCK`. If the
+requested block was recently announced and is close to the tip of the
+best chain of the receiver and after having sent the requesting peer
+a `sendcmpct` message, nodes respond with a `cmpctblock` message containing
+data for the block.
+
+**If the requested block is too old, the node responds with a *full non-compact block***
+
+Upon receipt of a `cmpctblock` message, after sending a `sendcmpct` message,
+nodes should calculate the short transaction ID for each unconfirmed
+transaction they have available (i.e. in their mempool) and compare each
+to each short transaction ID in the `cmpctblock` message. After finding
+already-available transactions, nodes which do not have all transactions
+available to reconstruct the full block should request the missing transactions
+using a `getblocktxn` message.
+
+A node must not send a `cmpctblock` message unless they are able to respond to
+a `getblocktxn` message which requests every transaction in the block. A node
+must not send a `cmpctblock` message without having validated that the header properly
+commits to each transaction in the block, and properly builds on top of the existing,
+fully-validated chain with a valid proof-of-work either as a part of the current most-work
+valid chain, or building directly on top of it. A node may send a `cmpctblock` message before
+validating that each transaction in the block validly spends existing UTXO set entries.
+
+The `cmpctblock` message contains a vector of `PrefilledTransaction` whose
+structure is defined below. A `PrefilledTransaction` is used in `HeaderAndShortIDs`
+to provide a list of a few transactions explicitly.
+
+| Bytes    | Name                 | Data Type            | Encoding | Description|
+|----------|----------------------|----------------------|----------|------------|
+| 1 or 3   | index                | CompactSize          | Compact Size, differentially encoded since the last PrefilledTransaction in a list | The index into the block at which this transaction is
+| *Varies* | tx                   | Transaction          | As encoded in `tx` messages sent in response to `getdata MSG_TX` | Transaction which is in the block at index `index`
+
+The `cmpctblock` message is compromised of a serialized `HeaderAndShortIDs`
+structure which is defined below. A `HeaderAndShortIDs` structure is used to
+relay a block header, the short transactions IDs used for matching
+already-available transactions, and a select few transactions which
+we expect a peer may be missing.
+
+| Bytes    | Name                 | Data Type            | Encoding | Description|
+|----------|----------------------|----------------------|----------|------------|
+| 80       | header               | Block header         | First 80 bytes of the block as defined by the encoding used by `block` messages | The header of the block being provided
+| 8        | nonce                | uint64_t             | Little Endian | A nonce for use in short transaction ID calculations
+| 1 or 3   | shortids_<br>length  | CompactSize          | As used to encode array lengths elsewhere | The number of short transaction IDs in `shortids` (i.e. block tx count - `prefilledtxn`<br>`_length`)
+| *Varies* | shortids  | List of 6-byte integers | Little Endian | The short transaction IDs calculated from the transactions which were not provided explicitly in `prefilledtxn`
+| 1 or 3   | prefilledtxn<br>_length | CompactSize       | As used to encode array lengths elsewhere | The number of prefilled transactions in `prefilledtxn` (i.e. block tx count - `shortids`<br>`_length`)
+| *Varies* | prefilledtxn     | List of Prefilled<br>Transactions | As defined by `Prefilled`<br>`Transaction` definition below | Used to provide the coinbase transaction and a select few which we expect a peer may be missing
+
+**Short Transaction ID calculation**
+
+Short transaction IDs are used to represent a transaction without sending a full 256-bit hash. They are calculated as follows,
+
+* A single-SHA256 hashing the block header with the nonce appended (in little-endian)
+* Running SipHash-2-4 with the input being the transaction ID and the keys (k0/k1) set to the first two little-endian 64-bit integers from the above hash, respectively.
+* Dropping the 2 most significant bytes from the SipHash output to make it 6 bytes.
+<!-- * Two null-bytes appended so it can be read as an 8-byte integer. -->
+
+The following annotated hexdump shows a `cmpctblock` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+00000020981178a4342cec6316296b2ad84c9b7cdf9f
+2688e5d0fe1a0003cd0000000000f64870f52a3d0125
+1336c9464961216732b25fbf288a51f25a0e81bffb20
+e9600194d85a64a50d1cc02b0181 ................ Block Header
+
+3151b67e5b418b9d ............................ Nonce
+
+00 .......................................... Short IDs Length: 0
+............................................. Short IDs: None
+
+01 .......................................... Prefilled Transaction Length: 1
+
+Prefilled Transactions
+| 00 ........................................ Index: 0
+|
+| Transaction 1 (Coinbase)
+| | 01000000 ................................ Transaction Version: 1
+| | 01 ...................................... Input count: 1
+| |
+| | Transaction input #1
+| | |
+| | | 00000000000000000000000000000000
+| | | 00000000000000000000000000000000 ..... Outpoint TXID
+| | | ffffffff ............................. Outpoint index number: UINT32_MAX
+| | |
+| | | 13 ................................... Bytes in sig. script: 19
+| | | 03daaf010e2f5032506f6f6c2d74444153482f Secp256k1 signature
+| | |
+| | | ffffffff ............................. Sequence number: UINT32_MAX
+| |
+| | 04 ..................................... Number of outputs: 04
+| |
+| | Transaction output #1
+| | | ffe5654200000000 ..................... Duffs (11.13974271 Dash)
+| | |
+| | | 19 ................................... Bytes in pubkey script: 25
+| | | | 76 ................................. OP_DUP
+| | | | a9 ................................. OP_HASH160
+| | | | 14 ................................. Push 20 bytes as data
+| | | | | b885cb21ad12e593c1a46d814df47ccb
+| | | | | 450a7d84 ......................... PubKey hash
+| | | | 88 ................................. OP_EQUALVERIFY
+| | | | ac ................................. OP_CHECKSIG
+| |
+| | [...] .................................. 3 more tx outputs omitted
+| |
+| | 00000000 ............................... locktime: 0 (a block height)
+{% endhighlight %}
 
 {% endautocrossref %}
 
@@ -254,6 +415,44 @@ d39f608a7775b537729884d4e6633bb2
 
 {% endautocrossref %}
 
+#### GetBlockTxn
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70209 of Dash Core as described by BIP152*
+
+The `getblocktxn` message requests a `blocktxn` message for any transactions
+that it has not seen after a compact block is received. It is defined as a
+message containing a serialized `BlockTransactionsRequest` message. Upon receipt
+of a properly-formatted `getblocktxn` message, nodes which recently provided the
+sender of such a message with a `cmpctblock` message for the block hash
+identified in this message must respond with either an appropriate
+`blocktxn` message, or a full block message.
+
+A `blocktxn` message response must contain exactly and only each transaction
+which is present in the appropriate block at the index specified in the
+`getblocktxn` message indexes list, in the order requested.
+
+The structure of `BlockTransactionsRequest` is defined below.
+
+| Bytes    | Name            | Data Type            | Encoding | Description|
+|----------|-----------------|----------------------|----------|------|
+| 32       | blockhash       | Binary blob          | The output from a double-SHA256 of the block header, as used elsewhere | The blockhash of the block which the transactions being requested are in
+| *Varies* | indexes_length  | CompactSize uint     | As used to encode array lengths elsewhere | The number of transactions requested
+| *Varies* | indexes         | CompactSize uint[]   | Differentially encoded | Vector of compactSize containing the indexes of the transactions being requested in the block.
+
+<!-- HEXDUMP NEEDED
+The following annotated hexdump shows a `getblocktxn` message.  (The
+message header has been omitted.)
+
+{% highlight text %}
+**ADD HEXDUMP HERE**
+{% endhighlight %}
+-->
+
+{% endautocrossref %}
+
 #### GetData
 {% include helpers/subhead-links.md %}
 
@@ -266,7 +465,7 @@ node typically previously received by way of an `inv` message.
 The response to a `getdata` message can be a `tx` message, `block`
 message, `merkleblock` message, `ix` message, `txlvote` message,
 `mnw` message, `mnb` message, `mnp` message, `dstx` message, `govobj` message,
-`govobjvote` message, `mnv` message, or `notfound` message. <!-- What about spork? Only handled by getspork?-->
+`govobjvote` message, `mnv` message, `notfound` message, or `cmpctblock` message. <!-- What about spork? Only handled by getspork?-->
 
 This message cannot be used to request arbitrary data, such as historic
 transactions no longer in the memory pool or relay set. Full nodes may
@@ -1289,6 +1488,57 @@ header has been omitted.)
 
 {% endautocrossref %}
 
+#### SendCmpct
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70209 of Dash Core as described by BIP152*
+
+The `sendcmpct` message tells the receiving peer whether or not to announce new
+blocks using a `cmpctblock` message. It also sends the compact block protocol
+version it supports. The `sendcmpct` message is defined as a message containing
+a 1-byte integer followed by a 8-byte integer. The first integer is interpreted
+as a boolean and should have a value of either 1 or 0. The second integer
+is be interpreted as a little-endian version number.
+
+Upon receipt of a `sendcmpct` message with the first and second integers
+set to 1, the node should announce new blocks by sending a `cmpctblock` message.
+
+Upon receipt of a `sendcmpct` message with the first integer set to 0, the node
+shouldn't announce new blocks by sending a `cmpctblock` message, but instead announce
+new blocks by sending invs or headers, as defined by [BIP130][].
+
+Upon receipt of a `sendcmpct` message with the second integer set to something
+other than 1, nodes should treat the peer as if they had not received the message
+(as it indicates the peer will provide an unexpected encoding in `cmpctblock` messages,
+and/or other, messages). This allows future versions to send duplicate
+`sendcmpct` messages with different versions as a part of a version handshake.
+
+Nodes should check for a protocol version of >= 70209 before sending `sendcmpct`
+messages. Nodes shouldn't send a request for a `MSG_CMPCT_BLOCK` object to a peer
+before having received a `sendcmpct` message from that peer. Nodes shouldn't
+request a `MSG_CMPCT_BLOCK` object before having sent all `sendcmpct` messages
+to that peer which they intend to send, as the peer cannot know what protocol
+version to use in the response.
+
+The structure of a `sendcmpct` message is defined below.
+
+| Bytes    | Name          | Data Type        | Description
+|----------|---------------|------------------|--------------
+| 1        | announce      | bool             | 0 - Announce blocks via `headers` message or `inv` message<br>1 - Announce blocks via `cmpctblock` message
+| 8        | version       | uint64_t         | The compact block protocol version number
+
+The annotated hexdump below shows a `sendcmpct` message. (The message
+header has been omitted.)
+
+{% highlight text %}
+01 ................................. Block announce type: Compact Blocks
+0100000000000000 ................... Compact block version: 1
+{% endhighlight %}
+
+{% endautocrossref %}
+
 #### SendHeaders
 {% include helpers/subhead-links.md %}
 
@@ -1301,7 +1551,6 @@ There is no payload in a `sendheaders` message.  See the [message header
 section][section message header] for an example of a message without a payload.
 
 {% endautocrossref %}
-
 
 #### Spork
 {% include helpers/subhead-links.md %}

@@ -22,6 +22,8 @@ sendheaders;
 ERROR [ style = "invis" ];
 ERROR -> reject [ style = "invis" ];
 
+sendcmpct;
+
 label = " \nOverview Of P2P Protocol Control And Advisory Messages"
 
 }
