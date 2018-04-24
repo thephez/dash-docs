@@ -232,12 +232,14 @@ The structure of `BlockTransactions` is defined below.
 | 1 or 3   | transactions<br>_length | CompactSize          | As used to encode array lengths elsewhere | The number of transactions provided
 | *Varies* | transactions         | List of transactions | As encoded in `tx` messages in response to `getdata MSG_TX` | The transactions provided
 
+<!-- HEXDUMP NEEDED
 The following annotated hexdump shows a `blocktxn` message.  (The
 message header has been omitted.)
 
 {% highlight text %}
 **ADD HEXDUMP HERE**
 {% endhighlight %}
+-->
 
 {% endautocrossref %}
 
@@ -440,12 +442,14 @@ The structure of `BlockTransactionsRequest` is defined below.
 | *Varies* | indexes_length  | CompactSize uint     | As used to encode array lengths elsewhere | The number of transactions requested
 | *Varies* | indexes         | CompactSize uint[]   | Differentially encoded | Vector of compactSize containing the indexes of the transactions being requested in the block.
 
+<!-- HEXDUMP NEEDED
 The following annotated hexdump shows a `getblocktxn` message.  (The
 message header has been omitted.)
 
 {% highlight text %}
 **ADD HEXDUMP HERE**
 {% endhighlight %}
+-->
 
 {% endautocrossref %}
 
