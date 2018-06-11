@@ -110,6 +110,16 @@ The `getmempoolentry` RPC {{summary_getMemPoolEntry}}
   p: "Optional (0 or more)"
   d: "The TXIDs of any unconfirmed transactions this transaction depends upon, encoded as hex in RPC byte order"
 
+- n: "→<br>`instantsend`"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: "True if this transaction was sent as an InstantSend one"
+
+- n: "→<br>`instantlock`"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: "True if this transaction was locked via InstantSend"
+
 {% enditemplate %}
 
 *Examples from Dash Core 0.12.3*
@@ -137,7 +147,9 @@ Result:
   "ancestorsize": 226,
   "ancestorfees": 226,
   "depends": [
-  ]
+  ],
+  "instantsend": false,
+  "instantlock": false  
 }
 {% endhighlight %}
 
