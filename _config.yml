@@ -505,6 +505,9 @@ devsearches:
 
   "DIPs":
     - "DIP1: 2MB Blocks": "https://github.com/dashpay/dips/blob/master/dip-0001.md"
+    - "DIP2: Special Transactions": "https://github.com/dashpay/dips/blob/master/dip-0002.md"
+    - "DIP3: Deterministic Masternode Lists": "https://github.com/dashpay/dips/blob/master/dip-0003.md"
+    - "DIP4: Simplified Verification of Deterministic Masternode Lists": "https://github.com/dashpay/dips/blob/master/dip-0004.md"
 
   ## Bitcoin P2P Protocol messages documented on Bitcoin.org
   "P2P Messages":
