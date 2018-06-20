@@ -1,0 +1,55 @@
+<h2 id='abandontransaction'>AbandonTransaction</h2>
+<p><em>Added in Bitcoin Core 0.12.0</em></p>
+
+<p>The <code>abandontransaction</code> RPC marks an in-wallet transaction and all its in-wallet descendants as abandoned. This allows their inputs to be respent.</p>
+
+<p><em>Parameter #1---a transaction identifier (TXID)</em></p>
+
+<blockquote>
+<p>Abandons the transaction on your node.</p>
+</blockquote>
+<pre class="highlight plaintext"><code>dash-cli abandontransaction fa3970c341c9f5de6ab13f128cbfec58d732e736a505fe32137ad551c799ecc4
+</code></pre>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>TXID</td>
+<td>string (hex)</td>
+<td>Required<br>(exactly 1)</td>
+<td>The TXID of the transaction that you want to abandon.  The TXID must be encoded as hex in RPC byte order</td>
+</tr>
+</tbody></table>
+
+<p><em>Result---<code>null</code> on success</em></p>
+
+<blockquote>
+<p>Result (no output from <code>dash-cli</code> because result is set to <code>null</code>).</p>
+</blockquote>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>result</code></td>
+<td>null</td>
+<td>Required<br>(exactly 1)</td>
+<td>JSON <code>null</code> when the transaction and all descendants were abandoned</td>
+</tr>
+</tbody></table>
+
+<p><em>See also</em></p>
+
+<ul>
+<li><a href="#getblock">Some other RPC</a>: Link to somewhere</li>
+</ul>

@@ -1,0 +1,252 @@
+<h1 id='rpc-quick-reference'>RPC Quick Reference</h1>
+<p>{% comment %}
+Styling notes: use highly-visible style for upcoming changes (not yet
+released) and changes made in the last 6 months.  Use less-visible
+style for changes made up to two years ago.  Don&#39;t point out
+changes made more than two years ago.</p>
+
+<p>Use v0.n.n in abbreviation title to prevent autocrossrefing.
+{% endcomment %}</p>
+
+<!-- Dash - Not Implemented -->
+
+<p>{% assign DASH_NOT_IMPLEMENTED=&#39;<strong><abbr title="Not Implemented in Dash">Not Implemented</abbr></strong>&#39; %}</p>
+
+<!-- Dash Core 0.12.3.0 Spring 2018? -->
+
+<p>{% assign DASH_NEW0_12_3=&#39;<strong><abbr title="New in Dash Core v0.12.3">New in Dash Core 0.12.3</abbr></strong>&#39; %}
+{% assign DASH_UPDATED0_12_3=&#39;<strong><abbr title="Updated in Dash Core v0.12.3">Updated in Dash Core 0.12.3</abbr></strong>&#39; %}</p>
+
+<!-- Dash Core 0.12.2.0 Nov 2017 -->
+
+<p>{% assign DASH_NEW0_12_2=&#39;<strong><abbr title="New in Dash Core v0.12.2">New in Dash Core 0.12.2</abbr></strong>&#39; %}
+{% assign DASH_UPDATED0_12_2=&#39;<strong><abbr title="Updated in Dash Core v0.12.2">Updated in Dash Core 0.12.2</abbr></strong>&#39; %}</p>
+
+<!-- Dash Core 0.12.1.0 Feb 2017 -->
+
+<p>{% assign DASH_NEW0_12_1=&#39;<em><abbr title="New in Dash Core v0.12.1">New in Dash Core 0.12.1</abbr></em>&#39; %}
+{% assign DASH_UPDATED0_12_1=&#39;<em><abbr title="Updated in Dash Core v0.12.1">Updated in Dash Core 0.12.1</abbr></em>&#39; %}</p>
+
+<!-- Darkcoin Core 0.11.0 Jan 2015 -->
+
+<p>{% assign DARKCOIN_NEW0_11_0=&#39;<em><abbr title="New in Darkcoin Core v0.11.0">New in Darkcoin Core 0.11.0</abbr></em>&#39; %}
+{% assign DARKCOIN_UPDATED0_11_0=&#39;<em><abbr title="Updated in Dash Core v0.11.0">Updated in Darkcoin Core 0.11.0</abbr></em>&#39; %}</p>
+
+<!-- Deprecated -->
+
+<p>{% assign DEPRECATED=&#39;<strong><abbr title="Deprecated; will be removed in a future version of Bitcoin Core">Deprecated</abbr></strong>&#39; %}</p>
+
+<!-- Bitcoin Core 0.14.1 April 2017 -->
+
+<p>{% assign UPDATED0_14_0=&#39;<strong><abbr title="Updated in Bitcoin Core v0.14.1">Updated in Bitcoin Core 0.14.1</abbr></strong>&#39; %}</p>
+
+<!-- Bitcoin Core 0.14.0 March 2017 -->
+
+<p>{% assign NEW0_14_0=&#39;<strong><abbr title="New in Bitcoin Core v0.14.0">New in Bitcoin Core 0.14.0</abbr></strong>&#39; %}
+{% assign UPDATED0_14_0=&#39;<strong><abbr title="Updated in Bitcoin Core v0.14.0">Updated in Bitcoin Core 0.14.0</abbr></strong>&#39; %}</p>
+
+<!-- Bitcoin Core 0.13.1 September 2016 -->
+
+<p>{% assign UPDATED0_13_1=&#39;<em><abbr title="Updated in Bitcoin Core v0.13.1">Updated in Bitcoin Core 0.13.1</abbr></em>&#39; %}</p>
+
+<!-- Bitcoin Core 0.13.0 August 2016 -->
+
+<p>{% assign NEW0_13_0=&#39;<em><abbr title="New in Bitcoin Core v0.13.0">New in Bitcoin Core 0.13.0</abbr></em>&#39; %}
+{% assign UPDATED0_13_0=&#39;<em><abbr title="Updated in Bitcoin Core v0.13.0">Updated in Bitcoin Core 0.13.0</abbr></em>&#39; %}</p>
+
+<!-- Bitcoin Core 0.12.1 April 2016 -->
+
+<p>{% assign UPDATED0_12_1=&#39;<em><abbr title="Updated in Bitcoin Core v0.12.1">Updated in Bitcoin Core 0.12.1</abbr></em>&#39; %}</p>
+
+<!-- Bitcoin Core 0.12.0 February 2016 -->
+
+<p>{% assign NEW0_12_0=&#39;<em><abbr title="New in Bitcoin Core v0.12.0">New in Bitcoin Core 0.12.0</abbr></em>&#39; %}
+{% assign UPDATED0_12_0=&#39;<em><abbr title="Updated in Bitcoin Core v0.12.0">Updated in Bitcoin Core 0.12.0</abbr></em>&#39; %}</p>
+
+<!-- Bitcoin Core 0.11.0 July 2015 -->
+
+<p>{% assign NEW0_11_0=&#39;<em><abbr title="New in Bitcoin Core v0.11.0">New in Bitcoin Core 0.11.0</abbr></em>&#39; %}</p>
+
+<!-- the summaries used below are defined in the files for the
+     particular RPC and aggregated into this helper file by the makefile
+     function manual-update-summaries-file. For example, to edit the
+     summary for GetBestBlockHash, edit
+     _includes/rpc/getbestblockhash.md and run `make manual-update-summaries`. -->
+
+<p>{% include helpers/summaries.md %}</p>
+<h2 id='rpc-summary-table'>RPC Summary Table</h2>
+<p>{% include layout/base/rpc-table.html %}</p>
+<h2 id='addressindex-rpcs'>Addressindex RPCs</h2>
+<p>These RPCs are all Dash-specific and not found in Bitcoin Core</p>
+
+<ul>
+<li>[GetAddressBalance][rpc getaddressbalance]: {{summary_getAddressBalance}}</li>
+<li>[GetAddressDeltas][rpc getaddressdeltas]: {{summary_getAddressDeltas}}</li>
+<li>[GetAddressMempool][rpc getaddressmempool]: {{summary_getAddressMempool}}</li>
+<li>[GetAddressTxids][rpc getaddresstxids]: {{summary_getAddressTxids}}</li>
+<li>[GetAddressUtxos][rpc getaddressutxos]: {{summary_getAddressUtxos}}</li>
+</ul>
+<h2 id='block-chain-rpcs'>Block Chain RPCs</h2>
+<ul>
+<li>[GetBestBlockHash][rpc getbestblockhash]: {{summary_getBestBlockHash}}</li>
+<li>[GetBlock][rpc getblock]: {{summary_getBlock}} {{UPDATED0_13_0}}</li>
+<li>[GetBlockChainInfo][rpc getblockchaininfo]: {{summary_getBlockChainInfo}} {{DASH_UPDATED0_12_3}} {{UPDATED0_12_1}}</li>
+<li>[GetBlockCount][rpc getblockcount]: {{summary_getBlockCount}}</li>
+<li>[GetBlockHash][rpc getblockhash]: {{summary_getBlockHash}}</li>
+<li>[GetBlockHashes][rpc getblockhashes]: {{summary_getBlockHashes}} {{DASH_NEW0_12_1}}</li>
+<li>[GetBlockHeader][rpc getblockheader]: {{summary_getBlockHeader}} {{NEW0_12_0}}</li>
+<li>[GetBlockHeaders][rpc getblockheaders]: {{summary_getBlockHeaders}} {{DASH_NEW0_12_1}}</li>
+<li>[GetChainTips][rpc getchaintips]: {{summary_getChainTips}} {{DASH_UPDATED0_12_3}}</li>
+<li>[GetDifficulty][rpc getdifficulty]: {{summary_getDifficulty}}</li>
+<li>[GetMemPoolAncestors][rpc getmempoolancestors]: {{summary_getMemPoolAncestors}} {{DASH_NEW0_12_3}} {{NEW0_13_0}}</li>
+<li>[GetMemPoolDescendants][rpc getmempooldescendants]: {{summary_getMemPoolDescendants}} {{DASH_NEW0_12_3}} {{NEW0_13_0}}</li>
+<li>[GetMemPoolEntry][rpc  getmempoolentry]: {{summary_getMemPoolEntry}} {{DASH_NEW0_12_3}} {{NEW0_13_0}}</li>
+<li>[GetMemPoolInfo][rpc getmempoolinfo]: {{summary_getMemPoolInfo}} {{UPDATED0_12_0}}</li>
+<li>[GetRawMemPool][rpc getrawmempool]: {{summary_getRawMemPool}} {{DASH_UPDATED0_12_3}} {{UPDATED0_13_0}}</li>
+<li>[GetSpentInfo][rpc getspentinfo]: {{summary_getSpentInfo}} {{DASH_NEW0_12_1}}</li>
+<li>[GetTxOut][rpc gettxout]: {{summary_getTxOut}}</li>
+<li>[GetTxOutProof][rpc gettxoutproof]: {{summary_getTxOutProof}} {{NEW0_11_0}}</li>
+<li>[GetTxOutSetInfo][rpc gettxoutsetinfo]: {{summary_getTxOutSetInfo}}</li>
+<li>[PreciousBlock][rpc preciousblock]: {{summary_preciousBlock}} {{DASH_NEW0_12_3}} {{NEW0_14_0}}</li>
+<li>[PruneBlockChain][rpc pruneblockchain]: {{summary_pruneBlockChain}} {{DASH_NEW0_12_3}} {{NEW0_14_0}}</li>
+<li>[VerifyChain][rpc verifychain]: {{summary_verifyChain}}</li>
+<li>[VerifyTxOutProof][rpc verifytxoutproof]: {{summary_verifyTxOutProof}} {{NEW0_11_0}}</li>
+</ul>
+<h2 id='control-rpcs'>Control RPCs</h2>
+<ul>
+<li>[Debug][rpc debug]: {{summary_debug}} {{DASH_UPDATED0_12_3}}</li>
+<li>[GetInfo][rpc getinfo]: {{summary_getInfo}} {{DEPRECATED}}</li>
+<li>[GetMemoryInfo][rpc getmemoryinfo]: {{summary_getMemoryInfo}} {{DASH_NEW0_12_3}} {{NEW_14_0}}</li>
+<li>[Help][rpc help]: {{summary_help}}</li>
+<li>[Stop][rpc stop]: {{summary_stop}}</li>
+</ul>
+<h2 id='dash-rpcs'>Dash RPCs</h2>
+<ul>
+<li>[GetGovernanceInfo][rpc getgovernanceinfo]: {{summary_getGovernanceInfo}} {{DASH_UPDATED0_12_3}}</li>
+<li>[GetPoolInfo][rpc getpoolinfo]: {{summary_getPoolInfo}}</li>
+<li>[GetSuperblockBudget][rpc getsuperblockbudget]: {{summary_getSuperblockBudget}}</li>
+<li>[GObject][rpc gobject]: {{summary_gObject}} {{DASH_UPDATED0_12_3}}</li>
+<li>[Masternode][rpc masternode]: {{summary_masternode}} {{DASH_UPDATED0_12_3}}</li>
+<li>[MasternodeBroadcast][rpc masternodebroadcast]: {{summary_masternodeBroadcast}}</li>
+<li>[MasternodeList][rpc masternodelist]: {{summary_masternodeList}} {{DASH_UPDATED0_12_3}}</li>
+<li>[MnSync][rpc mnsync]: {{summary_mnSync}}</li>
+<li>[PrivateSend][rpc privatesend]: {{summary_privateSend}} {{DASH_UPDATED0_12_3}}</li>
+<li>[SentinelPing][rpc sentinelping]: {{summary_sentinelPing}}</li>
+<li>[Spork][rpc spork]: {{summary_spork-rpc}}</li>
+<li>[VoteRaw][rpc voteraw]: {{summary_voteRaw}}</li>
+</ul>
+<h2 id='generating-rpcs'>Generating RPCs</h2>
+<ul>
+<li>[Generate][rpc generate]: {{summary_generate}} {{DASH_UPDATED0_12_3}} {{UPDATED0_13_0}}</li>
+<li>[GenerateToAddress][rpc generatetoaddress]: {{summary_generateToAddress}} {{DASH_NEW0_12_3}} {{NEW0_13_0}}</li>
+</ul>
+<h2 id='mining-rpcs'>Mining RPCs</h2>
+<ul>
+<li>[GetBlockTemplate][rpc getblocktemplate]: {{summary_getBlockTemplate}} {{DASH_UPDATED0_12_3}}</li>
+<li>[GetMiningInfo][rpc getmininginfo]: {{summary_getMiningInfo}} {{UPDATED0_14_0}}</li>
+<li>[GetNetworkHashPS][rpc getnetworkhashps]: {{summary_getNetworkHashPS}}</li>
+<li>[PrioritiseTransaction][rpc prioritisetransaction]: {{summary_prioritiseTransaction}}</li>
+<li>[SubmitBlock][rpc submitblock]: {{summary_submitBlock}}</li>
+</ul>
+<h2 id='network-rpcs'>Network RPCs</h2>
+<ul>
+<li>[AddNode][rpc addnode]: {{summary_addNode}} {{UPDATED0_14_0}}</li>
+<li>[ClearBanned][rpc clearbanned]: {{summary_clearBanned}} {{NEW0_12_0}}</li>
+<li>[DisconnectNode][rpc disconnectnode]: {{summary_disconnectNode}} {{NEW0_12_0}} {{UPDATED0_14_1}}</li>
+<li>[GetAddedNodeInfo][rpc getaddednodeinfo]: {{summary_getAddedNodeInfo}} {{DASH_UPDATED0_12_3}} {{UPDATED0_14_0}}</li>
+<li>[GetConnectionCount][rpc getconnectioncount]: {{summary_getConnectionCount}}</li>
+<li>[GetNetTotals][rpc getnettotals]: {{summary_getNetTotals}} {{UPDATED0_12_0}}</li>
+<li>[GetNetworkInfo][rpc getnetworkinfo]: {{summary_getNetworkInfo}} {{DASH_UPDATED0_12_3}} {{UPDATED0_13_0}}</li>
+<li>[GetPeerInfo][rpc getpeerinfo]: {{summary_getPeerInfo}} {{UPDATED0_13_0}}</li>
+<li>[ListBanned][rpc listbanned]: {{summary_listBanned}} {{NEW0_12_0}}</li>
+<li>[Ping][rpc ping]: {{summary_ping-rpc}}</li>
+<li>[SetBan][rpc setban]: {{summary_setBan}} {{NEW0_12_0}}</li>
+<li>[SetNetworkActive][rpc setnetworkactive]: {{summary_setNetworkActive}} {{NEW0_14_0}}</li>
+</ul>
+<h2 id='raw-transaction-rpcs'>Raw Transaction RPCs</h2>
+<ul>
+<li>[CreateRawTransaction][rpc createrawtransaction]: {{summary_createRawTransaction}} {{DASH_UPDATED0_12_3}} {{UPDATED0_14_1}}</li>
+<li>[DecodeRawTransaction][rpc decoderawtransaction]: {{summary_decodeRawTransaction}} {{UPDATED0_13_0}}</li>
+<li>[DecodeScript][rpc decodescript]: {{summary_decodeScript}}</li>
+<li>[FundRawTransaction][rpc fundrawtransaction]: {{summary_fundRawTransaction}} {{DASH_UPDATED0_12_3}} {{UPDATED0_14_0}}</li>
+<li>[GetRawTransaction][rpc getrawtransaction]: {{summary_getRawTransaction}} {{DASH_UPDATED0_12_3}} {{UPDATED0_14_0}}</li>
+<li>[SendRawTransaction][rpc sendrawtransaction]: {{summary_sendRawTransaction}}</li>
+<li>[SignRawTransaction][rpc signrawtransaction]: {{summary_signRawTransaction}}</li>
+</ul>
+<h2 id='utility-rpcs'>Utility RPCs</h2>
+<ul>
+<li>[CreateMultiSig][rpc createmultisig]: {{summary_createMultiSig}}</li>
+<li>[EstimateFee][rpc estimatefee]: {{summary_estimateFee}}</li>
+<li>[EstimatePriority][rpc estimatepriority]: {{summary_estimatePriority}} {{DEPRECATED}}</li>
+<li>[EstimateSmartFee][rpc estimatesmartfee]: {{summary_estimateSmartFee}} {{DEPRECATED}}</li>
+<li>[EstimateSmartPriority][rpc estimatesmartpriority]: {{summary_estimateSmartPriority}} {{DEPRECATED}}</li>
+<li>[SetBIP69Enabled][rpc setbip69enabled]: {{summary_setBIP69Enabled}}  {{DASH_NEW0_12_3}}</li>
+<li>[SignMessageWithPrivKey][rpc signmessagewithprivkey]: {{summary_signMessageWithPrivKey}}  {{DASH_NEW0_12_3}} {{NEW0_13_0}}</li>
+<li>[ValidateAddress][rpc validateaddress]: {{summary_validateAddress}} {{DASH_UPDATED0_12_3}} {{UPDATED0_13_0}}</li>
+<li>[VerifyMessage][rpc verifymessage]: {{summary_verifyMessage}}</li>
+</ul>
+<h2 id='wallet-rpcs'>Wallet RPCs</h2>
+<p><strong>Note:</strong> the wallet RPCs are only available if Dash Core was built
+with [wallet support][]{:#term-wallet-support}{:.term}, which is the
+default.</p>
+
+<ul>
+<li>[AbandonTransaction][rpc abandontransaction]: {{summary_abandonTransaction}} {{NEW0_12_0}}</li>
+<li>[AddMultiSigAddress][rpc addmultisigaddress]: {{summary_addMultiSigAddress}}</li>
+<li>[BackupWallet][rpc backupwallet]: {{summary_backupWallet}}</li>
+<li>[DumpHDInfo][rpc dumphdinfo]: {{summary_dumpHDInfo}} {{DASH_NEW0_12_2}}</li>
+<li>[DumpPrivKey][rpc dumpprivkey]: {{summary_dumpPrivKey}}</li>
+<li>[DumpWallet][rpc dumpwallet]: {{summary_dumpWallet}}</li>
+<li>[EncryptWallet][rpc encryptwallet]: {{summary_encryptWallet}}</li>
+<li>[GetAccount][rpc getaccount]: {{summary_getAccount}} {{DEPRECATED}}</li>
+<li>[GetAccountAddress][rpc getaccountaddress]: {{summary_getAccountAddress}} {{DEPRECATED}}</li>
+<li>[GetAddressesByAccount][rpc getaddressesbyaccount]: {{summary_getAddressesByAccount}} {{DEPRECATED}}</li>
+<li>[GetBalance][rpc getbalance]: {{summary_getBalance}}</li>
+<li>[GetNewAddress][rpc getnewaddress]: {{summary_getNewAddress}}</li>
+<li>[GetRawChangeAddress][rpc getrawchangeaddress]: {{summary_getRawChangeAddress}}</li>
+<li>[GetReceivedByAccount][rpc getreceivedbyaccount]: {{summary_getReceivedByAccount}} {{DEPRECATED}}</li>
+<li>[GetReceivedByAddress][rpc getreceivedbyaddress]: {{summary_getReceivedByAddress}}</li>
+<li>[GetTransaction][rpc gettransaction]: {{summary_getTransaction}} {{UPDATED0_12_0}}</li>
+<li>[GetUnconfirmedBalance][rpc getunconfirmedbalance]: {{summary_getUnconfirmedBalance}}</li>
+<li>[GetWalletInfo][rpc getwalletinfo]: {{summary_getWalletInfo}}  {{DASH_UPDATED0_12_3}}</li>
+<li>[ImportAddress][rpc importaddress]: {{summary_importAddress}}</li>
+<li>[ImportElectrumWallet][rpc importelectrumwallet]: {{summary_importElectrumWallet}} {{DASH_NEW0_12_1}}</li>
+<li>[ImportMulti][rpc importmulti]: {{summary_importMulti}} {{DASH_NEW0_12_3}} {{NEW0_14_0}}</li>
+<li>[ImportPrivKey][rpc importprivkey]: {{summary_importPrivKey}}</li>
+<li>[ImportPrunedFunds][rpc importprunedfunds]: {{summary_importPrunedFunds}} {{DASH_NEW0_12_3}} {{NEW0_13_0}}</li>
+<li>[ImportPubKey][rpc importpubkey]: {{summary_importPubKey}}</li>
+<li>[ImportWallet][rpc importwallet]: {{summary_importWallet}}</li>
+<li>[InstantSendToAddress][rpc instantsendtoaddress]: {{summary_instantSendToAddress}}</li>
+<li>[KeePass][rpc keepass]: {{summary_keepass}} {{DARKCOIN_NEW0_11_0}}</li>
+<li>[KeyPoolRefill][rpc keypoolrefill]: {{summary_keyPoolRefill}}</li>
+<li>[ListAccounts][rpc listaccounts]: {{summary_listAccounts}} {{DEPRECATED}}</li>
+<li>[ListAddressBalances][rpc listaddressbalances]: {{summary_listAddressBalances}} {{DASH_NEW0_12_3}}</li>
+<li>[ListAddressGroupings][rpc listaddressgroupings]: {{summary_listAddressGroupings}}</li>
+<li>[ListLockUnspent][rpc listlockunspent]: {{summary_listLockUnspent}}</li>
+<li>[ListReceivedByAccount][rpc listreceivedbyaccount]: {{summary_listReceivedByAccount}} {{DEPRECATED}}</li>
+<li>[ListReceivedByAddress][rpc listreceivedbyaddress]: {{summary_listReceivedByAddress}}</li>
+<li>[ListSinceBlock][rpc listsinceblock]: {{summary_listSinceBlock}}</li>
+<li>[ListTransactions][rpc listtransactions]: {{summary_listTransactions}} {{UPDATED0_12_1}}</li>
+<li>[ListUnspent][rpc listunspent]: {{summary_listUnspent}} {{DASH_UPDATED0_12_3}} {{UPDATED0_13_0}}</li>
+<li>[LockUnspent][rpc lockunspent]: {{summary_lockUnspent}}</li>
+<li>[Move][rpc move]: {{summary_move}} {{DEPRECATED}}</li>
+<li>[RemovePrunedFunds][rpc removeprunedfunds]: {{summary_removePrunedFunds}} {{DASH_NEW0_12_3}} {{NEW0_13_0}}</li>
+<li>[SendFrom][rpc sendfrom]: {{summary_sendFrom}} {{DEPRECATED}}</li>
+<li>[SendMany][rpc sendmany]: {{summary_sendMany}}</li>
+<li>[SendToAddress][rpc sendtoaddress]: {{summary_sendToAddress}}</li>
+<li>[SetAccount][rpc setaccount]: {{summary_setAccount}} {{DEPRECATED}}</li>
+<li>[SetTxFee][rpc settxfee]: {{summary_setTxFee}}</li>
+<li>[SignMessage][rpc signmessage]: {{summary_signMessage}}</li>
+<li>[WalletLock][rpc walletlock]: {{summary_walletLock}}</li>
+<li>[WalletPassphrase][rpc walletpassphrase]: {{summary_walletPassphrase}}</li>
+<li><p>[WalletPassphraseChange][rpc walletpassphrasechange]: {{summary_walletPassphraseChange}}</p></li>
+<li><p>{{DASH_NOT_IMPLEMENTED}}  [AddWitnessAddress][rpc addwitnessaddress]: {{summary_addWitnessAddress}} {{NEW0_13_0}}</p></li>
+<li><p>{{DASH_NOT_IMPLEMENTED}}  [BumpFee][rpc bumpfee]: {{summary_bumpFee}} {{NEW0_14_0}}</p></li>
+</ul>
+<h2 id='removed-rpcs'>Removed RPCs</h2>
+<ul>
+<li>[GetHashesPerSec][rpc gethashespersec]: {{summary_getHashesPerSec}}</li>
+<li>[GetWork][rpc getwork]: {{summary_getWork}}</li>
+<li>[GetGenerate][rpc getgenerate]: {{summary_getGenerate}}</li>
+<li>[SetGenerate][rpc setgenerate]: {{summary_setGenerate}}</li>
+</ul>

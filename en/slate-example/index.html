@@ -1,0 +1,763 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Reference</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .cd {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
+  </head>
+
+  <body class="index" data-languages="[&quot;cli&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <img src="images/logo.png" class="logo" alt="Logo" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="cli">cli</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <div id="toc" class="toc-list-h1">
+          <li>
+            <a href="#dash-core-rpcs" class="toc-h1 toc-link" data-title="dash-core-rpcs">Dash Core RPCs</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#abandontransaction" class="toc-h2 toc-link" data-title="abandontransaction">AbandonTransaction</a>
+
+
+
+
+                  </li>
+                  <li>
+                    <a href="#getblock" class="toc-h2 toc-link" data-title="getblock">GetBlock</a>
+
+
+
+
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#authentication" class="toc-h1 toc-link" data-title="authentication">Authentication</a>
+          </li>
+          <li>
+            <a href="#kittens" class="toc-h1 toc-link" data-title="kittens">Kittens</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-all-kittens" class="toc-h2 toc-link" data-title="get-all-kittens">Get All Kittens</a>
+
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#http-request" class="toc-h3 toc-link" data-title="HTTP Request">HTTP Request</a>
+                          </li>
+                          <li>
+                            <a href="#query-parameters" class="toc-h3 toc-link" data-title="Query Parameters">Query Parameters</a>
+                          </li>
+                      </ul>
+
+
+
+                  </li>
+                  <li>
+                    <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="get-a-specific-kitten">Get a Specific Kitten</a>
+
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#http-request-2" class="toc-h3 toc-link" data-title="HTTP Request">HTTP Request</a>
+                          </li>
+                          <li>
+                            <a href="#url-parameters" class="toc-h3 toc-link" data-title="URL Parameters">URL Parameters</a>
+                          </li>
+                      </ul>
+
+
+
+                  </li>
+                  <li>
+                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="delete-a-specific-kitten">Delete a Specific Kitten</a>
+
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#http-request-3" class="toc-h3 toc-link" data-title="HTTP Request">HTTP Request</a>
+                          </li>
+                          <li>
+                            <a href="#url-parameters-2" class="toc-h3 toc-link" data-title="URL Parameters">URL Parameters</a>
+                          </li>
+                      </ul>
+
+
+
+                  </li>
+              </ul>
+          </li>
+      </div>
+        <ul class="toc-footer">
+            <li><a href='#'>Sign Up for a Developer Key</a></li>
+            <li><a href='https://github.com/lord/slate'>Documentation Powered by Slate</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='dash-core-rpcs'>Dash Core RPCs</h1><h2 id='abandontransaction'>AbandonTransaction</h2>
+<p><em>Added in Bitcoin Core 0.12.0</em></p>
+
+<p>The <code>abandontransaction</code> RPC marks an in-wallet transaction and all its in-wallet descendants as abandoned. This allows their inputs to be respent.</p>
+
+<p><em>Parameter #1---a transaction identifier (TXID)</em></p>
+
+<blockquote>
+<p>Abandons the transaction on your node.</p>
+</blockquote>
+<pre class="highlight plaintext"><code>dash-cli abandontransaction fa3970c341c9f5de6ab13f128cbfec58d732e736a505fe32137ad551c799ecc4
+</code></pre>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>TXID</td>
+<td>string (hex)</td>
+<td>Required<br>(exactly 1)</td>
+<td>The TXID of the transaction that you want to abandon.  The TXID must be encoded as hex in RPC byte order</td>
+</tr>
+</tbody></table>
+
+<p><em>Result---<code>null</code> on success</em></p>
+
+<blockquote>
+<p>Result (no output from <code>dash-cli</code> because result is set to <code>null</code>).</p>
+</blockquote>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>result</code></td>
+<td>null</td>
+<td>Required<br>(exactly 1)</td>
+<td>JSON <code>null</code> when the transaction and all descendants were abandoned</td>
+</tr>
+</tbody></table>
+
+<p><em>See also</em></p>
+
+<ul>
+<li><a href="#getblock">Some other RPC</a>: Link to somewhere</li>
+</ul>
+<h2 id='getblock'>GetBlock</h2>
+<p>The <code>getblock</code> RPC gets a block with a particular header hash from the local block database either as a JSON object or as a serialized block.</p>
+
+<blockquote>
+<p>Get a block in raw hex:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>dash-cli -testnet getblock \
+            0000000037955fcc39af8b1ae75914ffb422313c0fca7eba96a1ac99c2e57f84 \
+            false
+
+0100002011f5719a0a0c4881ff98b4a68c1c828dc3b10f5b51033f5f93d48dbf\
+000000004b8e38f197d6ee878e160d2bae3ce05ab898a6252458ec67ce770140\
+260397c4dd2ed659a1dd001d00636b5601010000000100000000000000000000\
+00000000000000000000000000000000000000000000ffffffff4b02041204dd\
+2ed65908fabe6d6d7445746d63506b62572d2d35584853467a765a6748696972\
+30657a3a6f6d656e010000000000000017fffff9020000000d2f6e6f64655374\
+726174756d2f00000000058028bb13010000001976a914bad55652dffb1af943\
+41015c94feea79793442fd88ac40e553b1020000001976a9142b7856de53d4c1\
+823090c98f8ad79862842c09b588ac4094dd89000000001976a914c2c29ebc78\
+7954ef99d01c5f79115abf7012fb8e88ac4094dd89000000001976a914d7b47d\
+4b40a23c389f5a17754d7f60f511c7d0ec88ac4094dd89000000001976a914dc\
+3e0793134b081145ec0c67a9c72a7b297df27c88ac00000000
+</code></pre>
+<p><em>Parameter #1---header hash</em></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Header Hash</td>
+<td>string (hex)</td>
+<td>Required<br>(exactly 1)</td>
+<td>The hash of the header of the block to get, encoded as hex in RPC byte order</td>
+</tr>
+</tbody></table>
+
+<p><em>Parameter #2---whether to get JSON or hex output</em></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Format</td>
+<td>boolean</td>
+<td>Optional<br>(true or false)</td>
+<td>Set to <code>false</code> to get the block in serialized block format; set to <code>true</code> (the default) to get the decoded block as a JSON object</td>
+</tr>
+</tbody></table>
+
+<p><em>Result (if format was <code>false</code>)---a serialized block</em></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>result</code></td>
+<td>string (hex)/null</td>
+<td>Required<br>(exactly 1</td>
+<td>&quot;The requested block as a serialized block, encoded as hex, or JSON <code>null</code> if an error occurred</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Get the same block in JSON:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>dash-cli -testnet getblock \
+  0000000037955fcc39af8b1ae75914ffb422313c0fca7eba96a1ac99c2e57f84
+</code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0000000037955fcc39af8b1ae75914ffb422313c0fca7eba96a1ac99c2e57f84"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"confirmations"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">377</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"height"</span><span class="p">:</span><span class="w"> </span><span class="mi">4612</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="mi">536870913</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"merkleroot"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c4970326400177ce67ec582425a698b85ae03cae2b0d168e87eed697f1388e4b"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tx"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"c4970326400177ce67ec582425a698b85ae03cae2b0d168e87eed697f1388e4b"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1507208925</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"mediantime"</span><span class="p">:</span><span class="w"> </span><span class="mi">1507208645</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">1449878272</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"bits"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1d00dda1"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"difficulty"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.155066358813473</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"chainwork"</span><span class="p">:</span><span class="w"> </span><span class="s2">"000000000000000000000000000000000000000000000000000001c3e86f0f04"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"previousblockhash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"00000000bf8dd4935f3f03515b0fb1c38d821c8ca6b498ff81480c0a9a71f511"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"nextblockhash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0000000028817c7fce55d802f3647640600535a983d00e16076f284ec6cb001b"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p><em>Result (if format was <code>true</code> or omitted)---a JSON block</em></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>result</code></td>
+<td>object/null</td>
+<td>Required<br>(exactly 1)</td>
+<td>An object containing the requested block, or JSON <code>null</code> if an error occurred</td>
+</tr>
+<tr>
+<td>→<br><code>hash</code></td>
+<td>string (hex)</td>
+<td>Required<br>(exactly 1)</td>
+<td>The hash of this block&#39;s block header encoded as hex in RPC byte order.  This is the same as the hash provided in parameter #1</td>
+</tr>
+<tr>
+<td>→<br><code>confirmations</code></td>
+<td>number (int)</td>
+<td>Required<br>(exactly 1)</td>
+<td>The number of confirmations the transactions in this block have, starting at 1 when this block is at the tip of the best block chain.  This score will be -1 if the the block is not part of the best block chain&quot;</td>
+</tr>
+<tr>
+<td>→<br><code>size</code></td>
+<td>number (int)</td>
+<td>Required<br>(exactly 1)</td>
+<td>The size of this block in serialized block format, counted in bytes&quot;</td>
+</tr>
+<tr>
+<td>→<br><code>height</code></td>
+<td>number (int)</td>
+<td>Required<br>(exactly 1)</td>
+<td>The height of this block on its block chain&quot;</td>
+</tr>
+<tr>
+<td>→<br><code>version</code></td>
+<td>number (int)</td>
+<td>Required<br>(exactly 1)</td>
+<td>This block&#39;s version number.  See [block version numbers][section block versions]&quot;</td>
+</tr>
+<tr>
+<td>→<br><code>merkleroot</code></td>
+<td>string (hex)</td>
+<td>Required<br>(exactly 1)</td>
+<td>The merkle root for this block, encoded as hex in RPC byte order&quot;</td>
+</tr>
+<tr>
+<td>→<br><code>tx</code></td>
+<td>array</td>
+<td>Required<br>(exactly 1)</td>
+<td>An array containing the TXIDs of all transactions in this block.  The transactions appear in the array in the same order they appear in the serialized block&quot;</td>
+</tr>
+<tr>
+<td>→ →<br>TXID</td>
+<td>string (hex)</td>
+<td>Required<br>(1 or more)</td>
+<td>The TXID of a transaction in this block, encoded as hex in RPC byte order&quot;</td>
+</tr>
+<tr>
+<td>→<br><code>time</code></td>
+<td>number (int)</td>
+<td>Required<br>(exactly 1)</td>
+<td>The value of the <em>time</em> field in the block header, indicating approximately when the block was created&quot;</td>
+</tr>
+<tr>
+<td>→<br><code>mediantime</code></td>
+<td>number (int)</td>
+<td>Required<br>(exactly 1)</td>
+<td><em>Added in Bitcoin Core 0.12.0</em><br><br>The median block time in Unix epoch time&quot;</td>
+</tr>
+<tr>
+<td>→<br><code>nonce</code></td>
+<td>number (int)</td>
+<td>Required<br>(exactly 1)</td>
+<td>The nonce which was successful at turning this particular block into one that could be added to the best block chain&quot;</td>
+</tr>
+<tr>
+<td>→<br><code>bits</code></td>
+<td>string (hex)</td>
+<td>Required<br>(exactly 1)</td>
+<td>The value of the <em>nBits</em> field in the block header, indicating the target threshold this block&#39;s header had to pass&quot;</td>
+</tr>
+<tr>
+<td>→<br><code>difficulty</code></td>
+<td>number (real)</td>
+<td>Required<br>(exactly 1)</td>
+<td>The estimated amount of work done to find this block relative to the estimated amount of work done to find block 0&quot;</td>
+</tr>
+<tr>
+<td>→<br><code>chainwork</code></td>
+<td>string (hex)</td>
+<td>Required<br>(exactly 1)</td>
+<td>The estimated number of block header hashes miners had to check from the genesis block to this block, encoded as big-endian hex&quot;</td>
+</tr>
+<tr>
+<td>→<br><code>previousblockhash</code></td>
+<td>string (hex)</td>
+<td>Optional<br>(0 or 1)</td>
+<td>The hash of the header of the previous block, encoded as hex in RPC byte order.  Not returned for genesis block&quot;</td>
+</tr>
+<tr>
+<td>→<br><code>nextblockhash</code></td>
+<td>string (hex)</td>
+<td>Optional<br>(0 or 1)</td>
+<td>The hash of the next block on the best block chain, if known, encoded as hex in RPC byte order&quot;</td>
+</tr>
+</tbody></table>
+<h1 id='introduction'>Introduction</h1>
+<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+
+<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+
+<p>This example API documentation page was created with <a href="https://github.com/lord/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
+<h1 id='authentication'>Authentication</h1>
+<blockquote>
+<p>To authorize, use this code:</p>
+</blockquote>
+<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
+curl <span class="s2">"api_endpoint_here"</span>
+  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
+</code></pre>
+<blockquote>
+<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
+</blockquote>
+
+<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+
+<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+
+<p><code>Authorization: meowmeowmeow</code></p>
+
+<aside class="notice">
+You must replace <code>meowmeowmeow</code> with your personal API key.
+</aside>
+<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
+  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p>This endpoint retrieves all kittens.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET http://example.com/api/kittens</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>include_cats</td>
+<td>false</td>
+<td>If set to true, the result will also include cats.</td>
+</tr>
+<tr>
+<td>available</td>
+<td>true</td>
+<td>If set to false, the result will include kittens that have already been adopted.</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+Remember — a happy kitten is an authenticated kitten!
+</aside>
+<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
+  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint retrieves a specific kitten.</p>
+
+<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the kitten to retrieve</td>
+</tr>
+</tbody></table>
+<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
+  -X DELETE
+  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint deletes a specific kitten.</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
+<h3 id='url-parameters-2'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the kitten to delete</td>
+</tr>
+</tbody></table>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="cli">cli</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
