@@ -144,7 +144,7 @@ check-for-missing-anchors:
 check-for-broken-markdown-reference-links:
 ## Report Markdown reference-style links which weren't converted to HTML
 ## links in the output, indicating there's no reference definition
-	$S find $(SITEDIR) -name '*.html' -type f -not -path "*/doxygen/html/*" | xargs grep '\]\[' | eval $(ERROR_ON_OUTPUT)
+	$S find $(SITEDIR) -name '*.html' -type f -not -path "*/doxygen/html/*" -not -path "*/slate-example/*" | xargs grep '\]\[' | eval $(ERROR_ON_OUTPUT)
 
 check-for-non-ascii-urls:
 ## Always check all translated urls don't contain non-ASCII
@@ -273,4 +273,4 @@ check-for-javascript-in-svgs:
 
 check-for-english-in-en-dir:
 ## All pages must have page.lang set to work properly with the site templates
-	$S grep -rl \\'---' en/ --exclude-dir=doxygen | xargs grep -L '^ *lang: *en' | eval $(ERROR_ON_OUTPUT)
+	$S grep -rl \\'---' en/ --exclude-dir=doxygen --exclude-dir=slate-example | xargs grep -L '^ *lang: *en' | eval $(ERROR_ON_OUTPUT)
