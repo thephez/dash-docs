@@ -2584,6 +2584,16 @@ The `mnget` message requests masternode payment sync. The response to an
 `mnget` message is `mnw` message inventories. Masternodes ignore this request if
 they are not fully synced.
 
+{% highlight text %}
+Note: Dash Core limits how frequently a masternode payment sync can be
+requested. Frequent requests will result in the node being banned.
+{% endhighlight %}
+
+There is no payload in a `mnget` message.  See the [message header
+section][section message header] for an example of a message without a payload.
+
+![Warning icon](/img/icons/icon_warning.svg) **The following information is provided for historical reference only.**
+
 In protocol versions <=70208, the `mnget` message has a payload consisting of an
 integer value requesting a specific number of payment votes. In protocol versions
 >70208, the `mnget` message has no payload.
@@ -2591,11 +2601,6 @@ integer value requesting a specific number of payment votes. In protocol version
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
 | 4 | nMnCount | int | Deprecated | _Deprecated in Dash Core 0.12.3_<br><br>Number of masternode payment votes to request
-
-{% highlight text %}
-Note: Dash Core limits how frequently a masternode payment sync can be
-requested. Frequent requests will result in the node being banned.
-{% endhighlight %}
 
 The following annotated hexdump shows a pre-0.12.3 `mnget` message. (The
 message header has been omitted.)
