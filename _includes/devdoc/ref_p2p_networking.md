@@ -442,14 +442,16 @@ The structure of `BlockTransactionsRequest` is defined below.
 | *Varies* | indexes_length  | CompactSize uint     | As used to encode array lengths elsewhere | The number of transactions requested
 | *Varies* | indexes         | CompactSize uint[]   | Differentially encoded | Vector of compactSize containing the indexes of the transactions being requested in the block.
 
-<!-- HEXDUMP NEEDED
 The following annotated hexdump shows a `getblocktxn` message.  (The
 message header has been omitted.)
 
 {% highlight text %}
-**ADD HEXDUMP HERE**
+182327cb727da7d60541da793831fd0a
+b0509e79c8cd3d654cdf3a0100000000 ... Block Hash
+
+01 ................................. Index length: 1
+01 ................................. Index: 1
 {% endhighlight %}
--->
 
 {% endautocrossref %}
 
