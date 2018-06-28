@@ -232,14 +232,55 @@ The structure of `BlockTransactions` is defined below.
 | 1 or 3   | transactions<br>_length | CompactSize          | As used to encode array lengths elsewhere | The number of transactions provided
 | *Varies* | transactions         | List of transactions | As encoded in `tx` messages in response to `getdata MSG_TX` | The transactions provided
 
-<!-- HEXDUMP NEEDED
 The following annotated hexdump shows a `blocktxn` message.  (The
 message header has been omitted.)
 
 {% highlight text %}
-**ADD HEXDUMP HERE**
+182327cb727da7d60541da793831fd0ab0509e79c8cd
+3d654cdf3a0100000000 ....................... Block Hash
+
+01 ......................................... Transactions Provided: 1
+
+Transaction(s)
+| Transaction 1
+| | 01000000 ................................ Transaction Version: 1
+| | 01 ...................................... Input count: 1
+| |
+| | Transaction input #1
+| | |
+| | | 0952617a516d956e2ecee71a6adc249f
+| | | 4bb757adcc409452ab98c8e55c31e62a ..... Outpoint TXID
+| | | 00000000 ............................. Outpoint index number: 0
+| | |
+| | | 6b ................................... Bytes in sig. script: 107
+| | | 483045022100d10edf447252e1e69ff1
+| | | 77330bb2c889a50be02e00cc5d79c0d0
+| | | 79ae56518fc40220245d36905dc950fc
+| | | d55694cfde8cde3109dc80b12aca3a6e
+| | | 332033802ee36e1b01210272cc6e7660
+| | | 2648831d8e80fca8eb24369cd0f23ff0
+| | | 79cf20ae9d9beee05de6db ............... Secp256k1 signature
+| | |
+| | | ffffffff ............................. Sequence number: UINT32_MAX
+| |
+| | 02 ..................................... Number of outputs: 02
+| |
+| | Transaction output #1
+| | | 0be0f50500000000 ..................... Duffs (0.99999755 Dash)
+| | |
+| | | 19 ................................... Bytes in pubkey script: 25
+| | | | 76 ................................. OP_DUP
+| | | | a9 ................................. OP_HASH160
+| | | | 14 ................................. Push 20 bytes as data
+| | | | | 923d91ed359f650eec6ea8b9030b340d
+| | | | | ea63d590 ......................... PubKey hash
+| | | | 88 ................................. OP_EQUALVERIFY
+| | | | ac ................................. OP_CHECKSIG
+| |
+| | [...] .................................. 1 more tx output omitted
+| |
+| | 00000000 ............................... locktime: 0 (a block height)
 {% endhighlight %}
--->
 
 {% endautocrossref %}
 
