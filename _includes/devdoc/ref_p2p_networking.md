@@ -232,14 +232,55 @@ The structure of `BlockTransactions` is defined below.
 | 1 or 3   | transactions<br>_length | CompactSize          | As used to encode array lengths elsewhere | The number of transactions provided
 | *Varies* | transactions         | List of transactions | As encoded in `tx` messages in response to `getdata MSG_TX` | The transactions provided
 
-<!-- HEXDUMP NEEDED
 The following annotated hexdump shows a `blocktxn` message.  (The
 message header has been omitted.)
 
 {% highlight text %}
-**ADD HEXDUMP HERE**
+182327cb727da7d60541da793831fd0ab0509e79c8cd
+3d654cdf3a0100000000 ....................... Block Hash
+
+01 ......................................... Transactions Provided: 1
+
+Transaction(s)
+| Transaction 1
+| | 01000000 ................................ Transaction Version: 1
+| | 01 ...................................... Input count: 1
+| |
+| | Transaction input #1
+| | |
+| | | 0952617a516d956e2ecee71a6adc249f
+| | | 4bb757adcc409452ab98c8e55c31e62a ..... Outpoint TXID
+| | | 00000000 ............................. Outpoint index number: 0
+| | |
+| | | 6b ................................... Bytes in sig. script: 107
+| | | 483045022100d10edf447252e1e69ff1
+| | | 77330bb2c889a50be02e00cc5d79c0d0
+| | | 79ae56518fc40220245d36905dc950fc
+| | | d55694cfde8cde3109dc80b12aca3a6e
+| | | 332033802ee36e1b01210272cc6e7660
+| | | 2648831d8e80fca8eb24369cd0f23ff0
+| | | 79cf20ae9d9beee05de6db ............... Secp256k1 signature
+| | |
+| | | ffffffff ............................. Sequence number: UINT32_MAX
+| |
+| | 02 ..................................... Number of outputs: 02
+| |
+| | Transaction output #1
+| | | 0be0f50500000000 ..................... Duffs (0.99999755 Dash)
+| | |
+| | | 19 ................................... Bytes in pubkey script: 25
+| | | | 76 ................................. OP_DUP
+| | | | a9 ................................. OP_HASH160
+| | | | 14 ................................. Push 20 bytes as data
+| | | | | 923d91ed359f650eec6ea8b9030b340d
+| | | | | ea63d590 ......................... PubKey hash
+| | | | 88 ................................. OP_EQUALVERIFY
+| | | | ac ................................. OP_CHECKSIG
+| |
+| | [...] .................................. 1 more tx output omitted
+| |
+| | 00000000 ............................... locktime: 0 (a block height)
 {% endhighlight %}
--->
 
 {% endautocrossref %}
 
@@ -319,8 +360,8 @@ e9600194d85a64a50d1cc02b0181 ................ Block Header
 
 3151b67e5b418b9d ............................ Nonce
 
-00 .......................................... Short IDs Length: 0
-............................................. Short IDs: None
+01 .......................................... Short IDs Length: 1
+483edcd3c799 ................................ Short IDs
 
 01 .......................................... Prefilled Transaction Length: 1
 
@@ -442,14 +483,16 @@ The structure of `BlockTransactionsRequest` is defined below.
 | *Varies* | indexes_length  | CompactSize uint     | As used to encode array lengths elsewhere | The number of transactions requested
 | *Varies* | indexes         | CompactSize uint[]   | Differentially encoded | Vector of compactSize containing the indexes of the transactions being requested in the block.
 
-<!-- HEXDUMP NEEDED
 The following annotated hexdump shows a `getblocktxn` message.  (The
 message header has been omitted.)
 
 {% highlight text %}
-**ADD HEXDUMP HERE**
+182327cb727da7d60541da793831fd0a
+b0509e79c8cd3d654cdf3a0100000000 ... Block Hash
+
+01 ................................. Index length: 1
+01 ................................. Index: 1
 {% endhighlight %}
--->
 
 {% endautocrossref %}
 
@@ -2584,6 +2627,16 @@ The `mnget` message requests masternode payment sync. The response to an
 `mnget` message is `mnw` message inventories. Masternodes ignore this request if
 they are not fully synced.
 
+{% highlight text %}
+Note: Dash Core limits how frequently a masternode payment sync can be
+requested. Frequent requests will result in the node being banned.
+{% endhighlight %}
+
+There is no payload in a `mnget` message.  See the [message header
+section][section message header] for an example of a message without a payload.
+
+![Warning icon](/img/icons/icon_warning.svg) **The following information is provided for historical reference only.**
+
 In protocol versions <=70208, the `mnget` message has a payload consisting of an
 integer value requesting a specific number of payment votes. In protocol versions
 >70208, the `mnget` message has no payload.
@@ -2591,11 +2644,6 @@ integer value requesting a specific number of payment votes. In protocol version
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
 | 4 | nMnCount | int | Deprecated | _Deprecated in Dash Core 0.12.3_<br><br>Number of masternode payment votes to request
-
-{% highlight text %}
-Note: Dash Core limits how frequently a masternode payment sync can be
-requested. Frequent requests will result in the node being banned.
-{% endhighlight %}
 
 The following annotated hexdump shows a pre-0.12.3 `mnget` message. (The
 message header has been omitted.)
@@ -2630,22 +2678,26 @@ message header has been omitted.)
 
 {% highlight text %}
 Masternode Unspent Outpoint
-| 0bfa3616099771bb5f36181ff4060a9b
-| 9afe7b3e47d7f4327800f0f8ce586c6e ......... Outpoint TXID
-| 01000000 ................................. Outpoint index number: 1
+| ce12d7f32945c9544c5aeb0dcf131174
+| a6269b64b40f9461595e26689b573c58 ......... Outpoint TXID
+| 00000000 ................................. Outpoint index number: 0
 
-a26a68ebb733192c1c40f9b42f872ac0
-e23d4c360e20d5ab6608000000000000 ........... Chaintip block hash
+6c7da9d9eae78644a3406eac8ed0be3b
+f15eb4bc369acc95b106f37400000000 ........... Chaintip block hash
 
-1bbfa95900000000 ........................... Sig. Timestamp: 2017-10-01 20:12:11 UTC
+3c84025a00000000 ........................... Sig. Timestamp: 2017-11-08 04:12:44 UTC
 
 Masternode Signature
 | 41 ....................................... Bytes in signature: 65
-| 1c2b205bd6ba472d7a9495f049ef66dc
-| f844154846e25f2389385ba2d3e95cde
-| cf3ccf82bc26d94c6fdafcd7b965bb61
-| db02d05483595196ea4d92b2e797612b
-| 79 ....................................... Masternode Signature
+| 1c7572842058a2075b8a996c3905e306
+| 27a581a0b0702842ac4088e6c1a61b22
+| 8e79a4d8aed0f413150f976045f256ef
+| 2727e68a36622efcabfd60a554533b8c
+| 6f ....................................... Masternode Signature
+
+01 ......................................... Sentinel Current: true
+02000100 ................................... Sentinel Version (1.0.2)
+ecd50100 ................................... Dashd Deamon Version (12.3.0)
 {% endhighlight %}
 
 {% endautocrossref %}
