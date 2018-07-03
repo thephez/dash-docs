@@ -228,15 +228,15 @@ devsearches:
     - 'GetChainTips': "/en/developer-reference#getchaintips"
     - 'GetConnectionCount': "/en/developer-reference#getconnectioncount"
     - 'GetDifficulty': "/en/developer-reference#getdifficulty"
-    - 'GetGovernanceInfo': "/en/developer-reference#getgovernanceinfo"
     - 'GetGenerate': "/en/developer-reference#getgenerate"
+    - 'GetGovernanceInfo': "/en/developer-reference#getgovernanceinfo"
     - 'GetHashesPerSec': "/en/developer-reference#gethashespersec"
     - 'GetInfo': "/en/developer-reference#getinfo"
     - 'GetMemoryInfo': "/en/developer-reference#getmemoryinfo"
-    - 'GetMempoolInfo': "/en/developer-reference#getmempoolinfo"
-    - 'GetMempoolEntry': "/en/developer-reference#getmempoolentry"
     - 'GetMempoolAncestors': "/en/developer-reference#getmempoolancestors"
     - 'GetMempoolDescendants': "/en/developer-reference#getmempooldescendants"
+    - 'GetMempoolEntry': "/en/developer-reference#getmempoolentry"
+    - 'GetMempoolInfo': "/en/developer-reference#getmempoolinfo"
     - 'GetMiningInfo': "/en/developer-reference#getmininginfo"
     - 'GetNetTotals': "/en/developer-reference#getnettotals"
     - 'GetNetworkHashPS': "/en/developer-reference#getnetworkhashps"
@@ -271,6 +271,7 @@ devsearches:
     - 'KeePass': "/en/developer-reference#keepass"
     - 'KeypoolRefill': "/en/developer-reference#keypoolrefill"
     - 'ListAccounts': "/en/developer-reference#listaccounts"
+    - 'ListAddressBalances': "/en/developer-reference#listaddressbalances"
     - 'ListAddressGroupings': "/en/developer-reference#listaddressgroupings"
     - 'ListBanned': "/en/developer-reference#listbanned"
     - 'ListLockUnspent': "/en/developer-reference#listlockunspent"
@@ -297,6 +298,7 @@ devsearches:
     - 'SendToAddress': "/en/developer-reference#sendtoaddress"
     - 'SetAccount': "/en/developer-reference#setaccount"
     - 'SetBan': "/en/developer-reference#setban"
+    - 'SetBIP69Enabled': "/en/developer-reference#setbip69enabled"
     - 'SetGenerate': "/en/developer-reference#setgenerate"
     - 'SetNetworkActive': "/en/developer-reference#setnetworkactive"
     - 'SetTxFee': "/en/developer-reference#settxfee"
@@ -326,6 +328,7 @@ devsearches:
     - 'GetHeaders': "/en/developer-reference#get-headers"
     - 'GetMemPool-contents': "/en/developer-reference#get-mempoolcontents"
     - 'GetMemPool-info': "/en/developer-reference#get-mempoolinfo"
+    - 'GetTx': "/en/developer-reference#get-tx"
 
   ## Opcodes currently implemented in Bitcoin Core master branch. After
   ## we document them on Bitcoin.org, these links will be updated
@@ -483,10 +486,12 @@ devsearches:
     - "BIP64: P2P geutxos message": "https://github.com/bitcoin/bips/blob/master/bip-0064.mediawiki"
     - "BIP65: OP_CHECKLOCKTIMEVERIFY": "https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki"
     - "BIP66: strict DER signatures": "https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki"
+    - "BIP68: relative lock-time": "https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki"
     - "BIP70: payment protocol": "https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki"
     - "BIP71: payment protocol MIME types": "https://github.com/bitcoin/bips/blob/master/bip-0071.mediawiki"
     - "BIP72: payment protocol URIs": "https://github.com/bitcoin/bips/blob/master/bip-0072.mediawiki"
     - "BIP73: accept header with payment protocol": "https://github.com/bitcoin/bips/blob/master/bip-0073.mediawiki"
+    - "BIP90: buried deployments": "https://github.com/bitcoin/bips/blob/master/bip-0090.mediawiki"
     - "BIP111: NODE_BLOOM service bit": "https://github.com/bitcoin/bips/blob/master/bip-0111.mediawiki"
     - "BIP112: OP_CHECKSEQUENCEVERIFY": "https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki"
     - "BIP113: median time for lock-time": "https://github.com/bitcoin/bips/blob/master/bip-0113.mediawiki"
@@ -494,20 +499,30 @@ devsearches:
     - "BIP130: sendheaders message": "https://github.com/bitcoin/bips/blob/master/bip-0130.mediawiki"
     - "BIP133: feefilter message": "https://github.com/bitcoin/bips/blob/master/bip-0133.mediawiki"
     - "BIP141: segregated witness": "https://github.com/bitcoin/bips/blob/master/bip-0141.mediawiki"
+    - "BIP147: NULLYDUMMY enforcement": "https://github.com/bitcoin/bips/blob/master/bip-0147.mediawiki"
     - "BIP151: P2P communication encryption": "https://github.com/bitcoin/bips/blob/master/bip-0151.mediawiki"
     - "BIP152: compact block relay": "https://github.com/bitcoin/bips/blob/master/bip-0152.mediawiki"
+
+  "DIPs":
+    - "DIP1: 2MB Blocks": "https://github.com/dashpay/dips/blob/master/dip-0001.md"
+    - "DIP2: Special Transactions": "https://github.com/dashpay/dips/blob/master/dip-0002.md"
+    - "DIP3: Deterministic Masternode Lists": "https://github.com/dashpay/dips/blob/master/dip-0003.md"
+    - "DIP4: Simplified Verification of Deterministic Masternode Lists": "https://github.com/dashpay/dips/blob/master/dip-0004.md"
 
   ## Bitcoin P2P Protocol messages documented on Bitcoin.org
   "P2P Messages":
     - "addr":  "/en/developer-reference#addr"
     - "alert":  "/en/developer-reference#alert"
     - "block": "/en/developer-reference#block"
+    - "blocktxn": "/en/developer-reference#blocktxn"
+    - "cmpctblock": "/en/developer-reference#cmpctblock"
     #- "feefilter": "/en/developer-reference#feefilter"
     - "filteradd": "/en/developer-reference#filteradd"
     - "filterclear": "/en/developer-reference#filterclear"
     - "filterload": "/en/developer-reference#filterload"
     - "getaddr": "/en/developer-reference#getaddr"
     - "getblocks": "/en/developer-reference#getblocks"
+    - "getblocktxn": "/en/developer-reference#getblocktxn"
     - "getdata": "/en/developer-reference#getdata"
     - "getheaders": "/en/developer-reference#getheaders"
     - "headers": "/en/developer-reference#headers"
@@ -518,9 +533,43 @@ devsearches:
     - "ping": "/en/developer-reference#ping"
     - "pong": "/en/developer-reference#pong"
     - "reject": "/en/developer-reference#reject"
+    - "sendcmpct": "/en/developer-reference#sendcmpct"
     - "tx": "/en/developer-reference#tx"
     - "verack": "/en/developer-reference#verack"
     - "version": "/en/developer-reference#version"
+
+    # Dash - sporks
+    - "getsporks": "/en/developer-reference#getsporks"
+    - "spork": "/en/developer-reference#spork"
+
+    # Dash - instantsend
+    - "ix": "/en/developer-reference#ix"
+    - "txlvote": "/en/developer-reference#txlvote"
+
+    # Dash - privatesend
+    - "dsa": "/en/developer-reference#dsa"
+    - "dsc": "/en/developer-reference#dsc"
+    - "dsf": "/en/developer-reference#dsf"
+    - "dsi": "/en/developer-reference#dsi"
+    - "dsq": "/en/developer-reference#dsq"
+    - "dss": "/en/developer-reference#dss"
+    - "dssu": "/en/developer-reference#dssu"
+    - "dstx": "/en/developer-reference#dstx"
+
+    # Dash - masternode
+    - "dseg": "/en/developer-reference#dseg"
+    - "mnb": "/en/developer-reference#mnb"
+    - "mnget": "/en/developer-reference#mnget"
+    - "mnp": "/en/developer-reference#mnp"
+    - "mnv": "/en/developer-reference#mnv"
+    - "mnw": "/en/developer-reference#mnw"
+    - "mnwb": "/en/developer-reference#mnwb"
+    - "ssc": "/en/developer-reference#ssc"
+
+    # Dash - governance
+    - "govobj": "/en/developer-reference#govobj"
+    - "govobjvote": "/en/developer-reference#govobjvote"
+    - "govsync": "/en/developer-reference#govsync"
 
 donation_banner:
   address: 1GwV7fPX97hmavc6iNrUZUogmjpLPrPFoE

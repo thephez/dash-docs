@@ -7,15 +7,13 @@ http://opensource.org/licenses/MIT.
 ##### PruneBlockChain
 {% include helpers/subhead-links.md %}
 
+<!-- __ -->
+
 {% assign summary_pruneBlockChain="prunes the blockchain up to a specified height or timestamp." %}
 
 {% autocrossref %}
 
-*Added in Bitcoin Core 0.14.0*
-
-**_Not implemented in Dash Core (as of 0.12.2)_**
-
-{% comment %}
+*Added in Dash Core 0.12.3 / Bitcoin Core 0.14.0*
 
 The `pruneblockchain` RPC {{summary_pruneBlockChain}} The `-prune` option needs to be enabled (disabled by default).
 
@@ -39,10 +37,10 @@ The `pruneblockchain` RPC {{summary_pruneBlockChain}} The `-prune` option needs 
 
 {% enditemplate %}
 
-*Examples from Bitcoin Core 0.14.1*
+*Examples from Dash Core 0.12.3*
 
 {% highlight bash %}
-bitcoin-cli pruneblockchain 413555
+dash-cli pruneblockchain 413555
 {% endhighlight %}
 
 Result:
@@ -54,7 +52,5 @@ Result:
 *See also*
 
 * [ImportPrunedFunds][rpc importprunedfunds]: {{summary_importPrunedFunds}}
-
-{% endcomment %}
 
 {% endautocrossref %}

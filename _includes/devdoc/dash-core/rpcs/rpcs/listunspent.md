@@ -54,6 +54,17 @@ the *spendable* field in the results described below.
 
 {% enditemplate %}
 
+*Parameter #4---include unsafe outputs*
+
+{% itemplate ntpd1 %}
+- n: "Include Unsafe"
+  t: "bool"
+  p: "Optional<br>(false or true)"
+  d: "Include outputs that are not safe to spend because they come from unconfirmed untrusted transactions or unconfirmed replacement transactions (cases where we are less sure that a conflicting transaction won't be mined).  Default is `true`"
+
+{% enditemplate %}
+
+
 *Result---the list of unspent outputs*
 
 {% itemplate ntpd1 %}
@@ -107,11 +118,6 @@ the *spendable* field in the results described below.
   p: "Required<br>(exactly 1)"
   d: "The number of confirmations received for the transaction containing this output"
 
-- n: "→ →<br>`ps_rounds`"
-  t: "number (int)"
-  p: "Required<br>(exactly 1)"
-  d: "The number of PrivateSend rounds"
-
 - n: "→ →<br>`spendable`"
   t: "bool"
   p: "Required<br>(exactly 1)"
@@ -122,9 +128,14 @@ the *spendable* field in the results described below.
   p: "Required<br>(exactly 1)"
   d: "*Added in Bitcoin Core 0.13.0*<br><br>Set to `true` if the wallet knows how to spend this output.  Set to `false` if the wallet does not know how to spend the output.  It is ignored if the private keys are available "
 
+- n: "→ →<br>`ps_rounds`"
+  t: "number (int)"
+  p: "Required<br>(exactly 1)"
+  d: "The number of PrivateSend rounds"
+
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.12.3*
 
 Get all outputs confirmed at least 6 times for a particular
 address:
@@ -132,7 +143,7 @@ address:
 {% highlight bash %}
 dash-cli -testnet listunspent 6 99999999 '''
   [
-    "yTQNnbby2yhxoK1UtL9E5J9epGtkAoFWSm"
+    "yXGNabkdQ3JZ7LZ9RCnFe5dqhtBA3hVmU8"
   ]
 '''
 {% endhighlight %}
@@ -142,15 +153,15 @@ Result:
 {% highlight json %}
 [
   {
-    "txid": "52e34eec71a4cf95c043b76567f55cec1bc293c444810d454a2d05f2a819b5ed",
-    "vout": 3,
-    "address": "yTQNnbby2yhxoK1UtL9E5J9epGtkAoFWSm",
-    "scriptPubKey": "76a9144db791c2388be4716f048be2648bafe1944f787688ac",
+    "txid": "0e86f58c56648175362443c1ef28e473acb4c4adc1b3f7983deaddfa3a61a4d7",
+    "vout": 4,
+    "address": "yXGNabkdQ3JZ7LZ9RCnFe5dqhtBA3hVmU8",
+    "scriptPubKey": "76a91478149277b5d820b04e60cbf96ff81fd1ccc6533388ac",
     "amount": 0.01000010,
-    "confirmations": 113,
-    "ps_rounds": 4,
+    "confirmations": 609,
     "spendable": true,
-    "solvable": true
+    "solvable": true,
+    "ps_rounds": 5
   }
 ]
 {% endhighlight %}

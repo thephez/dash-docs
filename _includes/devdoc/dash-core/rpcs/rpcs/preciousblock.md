@@ -7,15 +7,13 @@ http://opensource.org/licenses/MIT.
 ##### PreciousBlock
 {% include helpers/subhead-links.md %}
 
+<!-- __ -->
+
 {% assign summary_preciousBlock="treats a block as if it were received before others with the same work." %}
 
 {% autocrossref %}
 
-*Added in Bitcoin Core 0.14.0*
-
-**_Not implemented in Dash Core (as of 0.12.2)_**
-
-{% comment %}
+*Added in Dash Core 0.12.3 / Bitcoin Core 0.14.0*
 
 The `preciousblock` RPC {{summary_preciousBlock}} A later `preciousblock` call can override the effect of an earlier one. The effects of `preciousblock` are not retained across restarts.
 
@@ -39,15 +37,13 @@ The `preciousblock` RPC {{summary_preciousBlock}} A later `preciousblock` call c
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.14.1*
+*Example from Dash Core 0.12.3*
 
 {% highlight bash %}
-bitcoin-cli preciousblock 000000000000000001517a0bac70b8cd6f27ee\
-1b50a8f12bf606ea6fb6d561cd
+dash-cli preciousblock 00000000034d77e287b63922a94f12e8c4ab9e\
+1d8056060fd51f6153ea5dc757
 {% endhighlight %}
 
-Result (no output from `bitcoin-cli` because result is set to `null`).
-
-{% endcomment %}
+Result (no output from `dash-cli` because result is set to `null`).
 
 {% endautocrossref %}

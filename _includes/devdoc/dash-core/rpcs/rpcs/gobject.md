@@ -423,7 +423,79 @@ Result (wrapped):
 
 The `gobject count` RPC returns the count of governance objects and votes.
 
-*Parameters: none*
+*Parameter #1---mode*
+
+{% itemplate ntpd1 %}
+- n: "`mode`"
+  t: "string"
+  p: "Optional<br>(exactly 1)"
+  d: "Result return format:<br>`json` (default)<br>`all` - Default before Dash Core 0.12.3 (for backwards compatibility)"
+
+{% enditemplate %}
+
+
+**Command Mode - `json`**
+
+*Result---count of governance objects and votes*
+
+{% itemplate ntpd1 %}
+- n: "Result"
+  t: "object"
+  p: "Required<br>(exactly 1)"
+  d: "Information about the governance object"
+
+- n: "→<br>`objects_total`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Total object count"
+
+- n: "→<br>`proposals`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Proposal count"
+
+- n: "→<br>`triggers`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Trigger count"
+
+- n: "→<br>`other`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Non-proposal/trigger count"
+
+- n: "→<br>`erased`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Erased count"
+
+- n: "→<br>`votes`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Vote count"
+
+{% enditemplate %}
+
+*Example from Dash Core 0.12.3 (mode: `json`/default)*
+
+{% highlight bash %}
+dash-cli -testnet gobject count
+{% endhighlight %}
+
+Result (wrapped):
+{% highlight json %}
+{
+  "objects_total": 177,
+  "proposals": 177,
+  "triggers": 0,
+  "other": 0,
+  "erased": 5,
+  "votes": 9680
+}
+{% endhighlight %}
+
+
+**Command Mode - `all`**
 
 *Result---count of governance objects and votes*
 
@@ -435,10 +507,10 @@ The `gobject count` RPC returns the count of governance objects and votes.
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.12.3 (mode: `all`)*
 
 {% highlight bash %}
-dash-cli -testnet gobject count
+dash-cli -testnet gobject count all
 {% endhighlight %}
 
 Result (wrapped):
@@ -717,7 +789,7 @@ The `gobject getvotes` RPC gets all votes for a governance object hash (includin
 - n: "→<br>Vote Info"
   t: "string"
   p: "Required<br>(1 or more)"
-  d: "Key: vote-hash<br><br>Value: vinMasternode, time, outcome, and signal of the vote"
+  d: "Key: vote-hash<br><br>Value: Masternode's unspent outpoint, time, outcome, and signal of the vote"
 
 {% enditemplate %}
 
@@ -731,13 +803,13 @@ dash-cli -testnet gobject getvotes 78941af577f639ac94440e4855a1ed8f\
 Result (truncated):
 {% highlight json %}
 {
-  "174aaba65982d25a23f437e2a66ec3836146ba7b7ce5b3fe2d5476907f7079d9": "CTxIn(COutPoint(2eab488e3a7b030303de0d18e357ce17a9fc6b8876705d61076bbe923b2e5fc8, 1), scriptSig=):1509354047:YES:DELETE",
-  "216cbc42addec1a6b83e1f2b0b3779594bd879f5671dd76a9826cc690c68286d": "CTxIn(COutPoint(b0320c1eff10ccb5e26086017a09e77dacb30fdcafccb3d98db3e5b610b9f1bd, 1), scriptSig=):1509117256:YES:DELETE",
-  "aa4dc9d3b9e74e8c1ffc725b737d07f8a32e43c64907e4bea19e64a86135f08a": "CTxIn(COutPoint(af9f5646ace92f76b3a01b0abe08716a0a7ded64074c2d2e712c93174b9013d1, 1), scriptSig=):1508866932:YES:FUNDING",
-  "73dd135ea7bece0f2047de75d8ca04f2985daebed9568d28ee58a60a12a2a082": "CTxIn(COutPoint(8e3fee7f668fed7019588be616225c6c4762ee632470878b2dc8eae3f0b3f67d, 1), scriptSig=):1508866932:YES:FUNDING",
-  "d13b9c5c28bbc8684a7291961a1023abbbe65b534804d0629fb44166cc1a6148": "CTxIn(COutPoint(08b2dbffd61d927bc12c20f6853513f41fbf7737446632b13c7ca0df8c6da282, 1), scriptSig=):1508866932:YES:FUNDING",
-  "8a4283d457d8635b43c6fa6cbf865813a80d965c777e8ba07364eb6468200ae1": "CTxIn(COutPoint(76c40abd280441b75577e99e9e4f253f9281a7deb4feebff83860f9cede7a09b, 1), scriptSig=):1508866932:YES:FUNDING",
-  "313e19607813cb0db3b3fb477982b4d3418f13f8511295419df8fe1f7ff6668f": "CTxIn(COutPoint(0fd502f28b9a9a256d9ba29a047c375fe2823b6e76e4853af16e079a709ab72a, 1), scriptSig=):1508866932:YES:FUNDING"
+  "174aaba65982d25a23f437e2a66ec3836146ba7b7ce5b3fe2d5476907f7079d9": "2eab488e3a7b030303de0d18e357ce17a9fc6b8876705d61076bbe923b2e5fc8-1:1509354047:YES:DELETE",
+  "216cbc42addec1a6b83e1f2b0b3779594bd879f5671dd76a9826cc690c68286d": "b0320c1eff10ccb5e26086017a09e77dacb30fdcafccb3d98db3e5b610b9f1bd-1:1509117256:YES:DELETE",
+  "aa4dc9d3b9e74e8c1ffc725b737d07f8a32e43c64907e4bea19e64a86135f08a": "af9f5646ace92f76b3a01b0abe08716a0a7ded64074c2d2e712c93174b9013d1-1:1508866932:YES:FUNDING",
+  "73dd135ea7bece0f2047de75d8ca04f2985daebed9568d28ee58a60a12a2a082": "8e3fee7f668fed7019588be616225c6c4762ee632470878b2dc8eae3f0b3f67d-1:1508866932:YES:FUNDING",
+  "d13b9c5c28bbc8684a7291961a1023abbbe65b534804d0629fb44166cc1a6148": "08b2dbffd61d927bc12c20f6853513f41fbf7737446632b13c7ca0df8c6da282-1:1508866932:YES:FUNDING",
+  "8a4283d457d8635b43c6fa6cbf865813a80d965c777e8ba07364eb6468200ae1": "76c40abd280441b75577e99e9e4f253f9281a7deb4feebff83860f9cede7a09b-1:1508866932:YES:FUNDING",
+  "313e19607813cb0db3b3fb477982b4d3418f13f8511295419df8fe1f7ff6668f": "0fd502f28b9a9a256d9ba29a047c375fe2823b6e76e4853af16e079a709ab72a-1:1508866932:YES:FUNDING"
 }
 {% endhighlight %}
 
@@ -785,11 +857,11 @@ dash-cli -testnet gobject getcurrentvotes 78941af577f639ac94440e4855a1ed8f\
 Result (truncated):
 {% highlight json %}
 {
-  "174aaba65982d25a23f437e2a66ec3836146ba7b7ce5b3fe2d5476907f7079d9": "CTxIn(COutPoint(2eab488e3a7b030303de0d18e357ce17a9fc6b8876705d61076bbe923b2e5fc8, 1), scriptSig=):1509354047:YES:DELETE",
-  "444d4d871ec35479804f060c733f516908382642ec2dfce6044a59fcadfdcd60": "CTxIn(COutPoint(18e496fe85b61ac9a5fcaec1ef683c7e3fc9bce4a83c883608427ecfb1002fca, 1), scriptSig=):1508866932:YES:FUNDING",
-  "d49a472c62e9d8105931829fc50ef6c6ce04a230507646ee0eaa615e863ef3a0": "CTxIn(COutPoint(18e496fe85b61ac9a5fcaec1ef683c7e3fc9bce4a83c883608427ecfb1002fca, 1), scriptSig=):1509117071:YES:DELETE",
-  "78442507441d4524d2493b8568d130415c1eb394adb2fe38d6ffeb199115bc5d": "CTxIn(COutPoint(3df7fb192e21c34da99bdd10c34e58ecaf3f3c37d6b2289f0ffedba5050188cc, 1), scriptSig=):1509312524:YES:DELETE",
-  "aa4dc9d3b9e74e8c1ffc725b737d07f8a32e43c64907e4bea19e64a86135f08a": "CTxIn(COutPoint(af9f5646ace92f76b3a01b0abe08716a0a7ded64074c2d2e712c93174b9013d1, 1), scriptSig=):1508866932:YES:FUNDING",
+  "174aaba65982d25a23f437e2a66ec3836146ba7b7ce5b3fe2d5476907f7079d9": "2eab488e3a7b030303de0d18e357ce17a9fc6b8876705d61076bbe923b2e5fc8-1:1509354047:YES:DELETE",
+  "444d4d871ec35479804f060c733f516908382642ec2dfce6044a59fcadfdcd60": "18e496fe85b61ac9a5fcaec1ef683c7e3fc9bce4a83c883608427ecfb1002fca-1:1508866932:YES:FUNDING",
+  "d49a472c62e9d8105931829fc50ef6c6ce04a230507646ee0eaa615e863ef3a0": "18e496fe85b61ac9a5fcaec1ef683c7e3fc9bce4a83c883608427ecfb1002fca-1:1509117071:YES:DELETE",
+  "78442507441d4524d2493b8568d130415c1eb394adb2fe38d6ffeb199115bc5d": "3df7fb192e21c34da99bdd10c34e58ecaf3f3c37d6b2289f0ffedba5050188cc-1:1509312524:YES:DELETE",
+  "aa4dc9d3b9e74e8c1ffc725b737d07f8a32e43c64907e4bea19e64a86135f08a": "af9f5646ace92f76b3a01b0abe08716a0a7ded64074c2d2e712c93174b9013d1-1:1508866932:YES:FUNDING",
 }
 {% endhighlight %}
 

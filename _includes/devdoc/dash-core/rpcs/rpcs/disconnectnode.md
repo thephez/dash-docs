@@ -18,7 +18,7 @@ The `disconnectnode` RPC {{summary_disconnectNode}}
 *Parameter #1---hostname/IP address and port of node to disconnect*
 
 {% itemplate ntpd1 %}
-- n: "`node`"
+- n: "`address`"
   t: "string"
   p: "Required<br>(exactly 1)"
   d: "The node you want to disconnect from as a string in the form of `<IP address>:<port>`.<br><br>*Updated in Bitcoin Core 0.14.1*"

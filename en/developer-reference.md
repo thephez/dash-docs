@@ -248,6 +248,8 @@ untrusted source.
 
 {% include devdoc/dash-core/rpcs/rpcs/listaccounts.md %}
 
+{% include devdoc/dash-core/rpcs/rpcs/listaddressbalances.md %}
+
 {% include devdoc/dash-core/rpcs/rpcs/listaddressgroupings.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/listbanned.md %}
@@ -299,6 +301,8 @@ untrusted source.
 {% include devdoc/dash-core/rpcs/rpcs/setaccount.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/setban.md %}
+
+{% include devdoc/dash-core/rpcs/rpcs/setbip69enabled.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/setgenerate.md %}
 

@@ -74,11 +74,18 @@ transaction lock, it reverts to being a standard transaction.
 
 There are a number of limitations on InstantSend transactions:
 
-* To be used in an InstantSend transaction, an input must have 6+ confirmations (a block depth of 6+) (`INSTANTSEND_CONFIRMATIONS_REQUIRED`)
 * The lock request will timeout 15 seconds after the first vote is seen (`INSTANTSEND_LOCK_TIMEOUT_SECONDS`)
 * The lock request will fail if it has not been locked after 60 seconds (`INSTANTSEND_FAILED_TIMEOUT_SECONDS`)
 * A minimum fee (0.0001 Dash) is required since the transaction involves the masternodes in addition to miners. This fee was most
 recently decreased by [DIP-0001](https://github.com/dashpay/dips/blob/master/dip-0001.md).
+* To be used in an InstantSend transaction, an input must have at least the number confirmations (block depth) indicated by the table below
+
+| **Network** | **Confirmations Required** |
+|---------|--------------|
+| Mainnet | 6 Blocks |
+| Testnet | 2 Blocks |
+| Regtest | 2 Blocks |
+| Devnet  | 2 Blocks |
 
 {% endautocrossref %}
 
@@ -138,9 +145,14 @@ directly without requiring additional inputs or creating change (for example,
 **Creating Collaterals**
 
 PrivateSend collaterals are used to pay mixing fees, but are kept separate from
-the denominations to maximize privacy. The collateral fees are 0.001 DASH for
+the denominations to maximize privacy. The minimum collateral fee is 0.001 DASH for
 all mixing sessions regardless of denomination. In Dash Core, collaterals are
 created with enough value to pay 4 collateral fees (4 x 0.001 DASH). ([Dash Core Reference](https://github.com/dashpay/dash/blob/e596762ca22d703a79c6880a9d3edb1c7c972fd3/src/privatesend<!--noref-->.h#L313))
+
+In protocol version 70208, collateral inputs can be anything from 2x the
+minimum collateral amount to the maximum collateral amount (currently defined as
+4x the minimum collateral). In protocol versions > 70208, Dash Core can use any
+input from 1x the minimum collateral amount to the maximum collateral amount.
 
 {% endautocrossref %}
 
@@ -191,10 +203,12 @@ mixing pool.
   * The `dsa` message contains a collateral transaction
     * This transaction uses a collateral input created in the [Wallet Preparation](#privatesend<!--noref-->-wallet<!--noref-->-preparation) phase
     * The collateral is a signed transaction that pays the collateral back to a client address minus a fee of 0.001 DASH
+  * As of protocol version 70209, the `dsa` message indicates how many inputs will be provided to the pool when Spork 6 is active
 
   _**Step 3 - Queue**_
 
   * A masternode broadcasts `dsq` messages when it starts a new queue. These message are relayed by all peers.
+  * As of protocol version 70209, when Spork 6 is active the `dsq` message indicates how many inputs must be provided to participate in the pool.
   * Once the masternode has received valid `dsa` messages from 3 clients (`nPoolMaxTransactions`), it sends a `dsq` message with the ready bit set ([Dash Core Reference](https://github.com/dashpay/dash/blob/e596762ca22d703a79c6880a9d3edb1c7c972fd3/src/chainparams.cpp#L173))
     * Clients must respond to the Queue ready within 30 seconds or risk forfeiting the collateral they provided in the `dsa` message (Step 1) ([Dash Core Reference](https://github.com/dashpay/dash/blob/e596762ca22d703a79c6880a9d3edb1c7c972fd3/src/privatesend<!--noref-->.h#L22))
 

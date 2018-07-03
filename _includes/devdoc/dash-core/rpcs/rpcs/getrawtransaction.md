@@ -7,11 +7,18 @@ http://opensource.org/licenses/MIT.
 ##### GetRawTransaction
 {% include helpers/subhead-links.md %}
 
+<!-- __ -->
+
 {% assign summary_getRawTransaction="gets a hex-encoded serialized transaction or a JSON object describing the transaction. By default, Dash Core only stores complete transaction data for UTXOs and your own transactions, so the RPC may fail on historic transactions unless you use the non-default `txindex=1` in your Dash Core startup settings." %}
 
 {% autocrossref %}
 
 The `getrawtransaction` RPC {{summary_getRawTransaction}}
+
+Note: By default this function only works for mempool transactions. If the
+`-txindex` option is enabled, it also works for blockchain transactions. For now,
+it also works for transactions with unspent outputs although this feature is
+deprecated.
 
 {{reindexNote}}
 
@@ -31,7 +38,7 @@ The `getrawtransaction` RPC {{summary_getRawTransaction}}
 - n: "Format"
   t: "bool"
   p: "Optional<br>(0 or 1)"
-  d: "For Dash:<br>Set to `0` (the default) to return the serialized transaction as hex.  Set to `1` to return a decoded transaction.<br><br>*Updated in Bitcoin Core 0.14.0*<br><br>Set to `false` (the default) to return the serialized transaction as hex.  Set to `true` to return a decoded transaction.  Before 0.14.0, use `0` and `1`, respectively"
+  d: "*Updated in Dash Core 0.12.3 / Bitcoin Core 0.14.0*<br><br>Set to `false` (the default) to return the serialized transaction as hex.  Set to `true` to return a decoded transaction.  Before 0.12.3, use `0` and `1`, respectively"
 
 {% enditemplate %}
 

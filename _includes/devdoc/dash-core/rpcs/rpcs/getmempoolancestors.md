@@ -9,22 +9,21 @@ http://opensource.org/licenses/MIT.
 
 {% assign summary_getMemPoolAncestors="returns all in-mempool ancestors for a transaction in the mempool." %}
 
+<!-- __ -->
+
 {% autocrossref %}
 
-*Added in Bitcoin Core 0.13.0*
+*Added in Dash Core 0.12.3*
 
-**_Not implemented in Dash Core (as of 0.12.2)_**
-
-{% comment %}
 The `getmempoolancestors` RPC {{summary_getMemPoolAncestors}}
 
 *Parameter #1---a transaction identifier (TXID)*
 
 {% itemplate ntpd1 %}
-- n: "Address"
-  t: "string"
+- n: "TXID"
+  t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "The address whose transactions should be tallied"
+  d: "The TXID of a transaction in the memory pool, encoded as hex in RPC byte order"
 
 {% enditemplate %}
 
@@ -143,66 +142,48 @@ The `getmempoolancestors` RPC {{summary_getMemPoolAncestors}}
 
 {% enditemplate %}
 
-*Examples from Bitcoin Core 0.13.1*
+*Examples from Dash Core 0.12.3*
 
 The default (`false`):
 
 {% highlight bash %}
-bitcoin-cli getmempoolancestors 52273e0ce6cf3452932cfbc1c517c0ce\
-1af1d255fda67a6e3bd63ba1d908c8c2
+dash-cli getmempoolancestors 49a512c3d567effd4f605a6023df8b4b523\
+ac0ae7bccbaeed1c8a7db1e05e15a
 {% endhighlight %}
 
 Result:
 
 {% highlight json %}
 [
-    "b104586f229e330caf42c475fd52684e9eb5e2d02f0fcd216d9554c5347b0873",
-    "094f7dcbc7494510d4daeceb2941ed73b1bd011bf527f6c3b7c897fee85c11d4"
+  "d1eefe8a006e2c21b55bc97c1f5b10000d63aa6a777bb11abc0daf62e4296660"
 ]
 {% endhighlight %}
 
 Verbose output (`true`):
 
 {% highlight bash %}
-bitcoin-cli getmempoolancestors 52273e0ce6cf3452932cfbc1c517c0ce\
-1af1d255fda67a6e3bd63ba1d908c8c2 true
+dash-cli getmempoolancestors 49a512c3d567effd4f605a6023df8b4b523\
+ac0ae7bccbaeed1c8a7db1e05e15a true
 {% endhighlight %}
 
 Result:
 
 {% highlight json %}
 {
-  "b104586f229e330caf42c475fd52684e9eb5e2d02f0fcd216d9554c5347b0873": {
-    "size": 485,
-    "fee": 0.00009700,
-    "modifiedfee": 0.00009700,
-    "time": 1479423635,
-    "height": 439431,
-    "startingpriority": 15327081.81818182,
-    "currentpriority": 21536936.36363636,
-    "descendantcount": 1,
-    "descendantsize": 485,
-    "descendantfees": 9700,
+  "d1eefe8a006e2c21b55bc97c1f5b10000d63aa6a777bb11abc0daf62e4296660": {
+    "size": 963,
+    "fee": 0.00000966,
+    "modifiedfee": 0.00000966,
+    "time": 1519160516,
+    "height": 79045,
+    "startingpriority": 4514051697.115385,
+    "currentpriority": 4520474899.74359,
+    "descendantcount": 2,
+    "descendantsize": 1189,
+    "descendantfees": 1192,
     "ancestorcount": 1,
-    "ancestorsize": 485,
-    "ancestorfees": 9700,
-    "depends": [
-    ]
-  },
-  "094f7dcbc7494510d4daeceb2941ed73b1bd011bf527f6c3b7c897fee85c11d4": {
-    "size": 554,
-    "fee": 0.00005540,
-    "modifiedfee": 0.00005540,
-    "time": 1479423327,
-    "height": 439430,
-    "startingpriority": 85074.91071428571,
-    "currentpriority": 3497174.4375,
-    "descendantcount": 1,
-    "descendantsize": 554,
-    "descendantfees": 5540,
-    "ancestorcount": 1,
-    "ancestorsize": 554,
-    "ancestorfees": 5540,
+    "ancestorsize": 963,
+    "ancestorfees": 966,
     "depends": [
     ]
   }
@@ -213,7 +194,5 @@ Result:
 
 * [GetMemPoolDescendants][rpc getmempooldescendants]: {{summary_getMemPoolDescendants}}
 * [GetRawMemPool][rpc getrawmempool]: {{summary_getRawMemPool}}
-
-{% endcomment %}
 
 {% endautocrossref %}

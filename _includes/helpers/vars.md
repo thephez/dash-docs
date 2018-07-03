@@ -427,4 +427,4 @@ NOT IN DASH
 {% assign WARNING="![Warning icon](/img/icons/icon_warning.svg) **Warning:**" %}
 {% assign WARNING_ICON="![Warning icon](/img/icons/icon_warning.svg)" %}
 
-{% assign reindexNote="Note: if you begin using `txindex=1` after downloading the block chain, you must rebuild your indexes by starting Bitcoin Core with the option  `-reindex`.  This may take several hours to complete, during which time your node will not process new blocks or transactions. This reindex only needs to be done once." %}
+{% assign reindexNote="Note: if you begin using `txindex=1` after downloading the block chain, you must rebuild your indexes by starting Dash Core with the option  `-reindex`.  This may take several hours to complete, during which time your node will not process new blocks or transactions. This reindex only needs to be done once." %}

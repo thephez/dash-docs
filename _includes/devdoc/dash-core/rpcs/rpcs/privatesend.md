@@ -11,6 +11,8 @@ http://opensource.org/licenses/MIT.
 
 {% autocrossref %}
 
+As of Dash Core 0.12.3, client-side mixing is not supported on masternodes.
+
 The `privatesend` RPC {{summary_privateSend}}
 
 {% itemplate ntpd1 %}

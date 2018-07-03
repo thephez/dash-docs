@@ -44,7 +44,7 @@ To display the status of sporks, use the `show` or `active` syntax.
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.12.3*
 
 {% highlight bash %}
 dash-cli -testnet spork show
@@ -55,12 +55,12 @@ Result:
 {
   "SPORK_2_INSTANTSEND_ENABLED": 0,
   "SPORK_3_INSTANTSEND_BLOCK_FILTERING": 0,
-  "SPORK_5_INSTANTSEND_MAX_VALUE": 1000,
+  "SPORK_5_INSTANTSEND_MAX_VALUE": 3000,
+  "SPORK_6_NEW_SIGS": 4000000000,
   "SPORK_8_MASTERNODE_PAYMENT_ENFORCEMENT": 0,
   "SPORK_9_SUPERBLOCKS_ENABLED": 0,
   "SPORK_10_MASTERNODE_PAY_UPDATED_NODES": 0,
   "SPORK_12_RECONSIDER_BLOCKS": 0,
-  "SPORK_13_OLD_SUPERBLOCK_FLAG": 4070908800,
   "SPORK_14_REQUIRE_SENTINEL_FLAG": 0
 }
 {% endhighlight %}
@@ -82,7 +82,7 @@ Result:
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.12.3*
 
 {% highlight bash %}
 dash-cli -testnet spork active
@@ -94,11 +94,11 @@ Result:
   "SPORK_2_INSTANTSEND_ENABLED": true,
   "SPORK_3_INSTANTSEND_BLOCK_FILTERING": true,
   "SPORK_5_INSTANTSEND_MAX_VALUE": true,
+  "SPORK_6_NEW_SIGS": false,
   "SPORK_8_MASTERNODE_PAYMENT_ENFORCEMENT": true,
   "SPORK_9_SUPERBLOCKS_ENABLED": true,
   "SPORK_10_MASTERNODE_PAY_UPDATED_NODES": true,
   "SPORK_12_RECONSIDER_BLOCKS": true,
-  "SPORK_13_OLD_SUPERBLOCK_FLAG": false,
   "SPORK_14_REQUIRE_SENTINEL_FLAG": true
 }
 {% endhighlight %}

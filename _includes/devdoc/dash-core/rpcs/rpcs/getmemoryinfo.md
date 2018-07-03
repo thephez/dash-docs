@@ -13,11 +13,8 @@ http://opensource.org/licenses/MIT.
 
 {% autocrossref %}
 
-*Added in Bitcoin Core 0.14.0*
+*Added in Dash Core 0.12.3 / Bitcoin Core 0.14.0*
 
-**_Not implemented in Dash Core (as of 0.12.2)_**
-
-{% comment %}
 The `getmemoryinfo` RPC {{summary_getMemoryInfo}}
 
 *Parameters: none*
@@ -67,10 +64,10 @@ The `getmemoryinfo` RPC {{summary_getMemoryInfo}}
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.14.1*
+*Example from Dash Core 0.12.3*
 
 {% highlight bash %}
-bitcoin-cli getmemoryinfo
+dash-cli getmemoryinfo
 {% endhighlight %}
 
 Result:
@@ -78,11 +75,11 @@ Result:
 {% highlight json %}
 {
   "locked": {
-    "used": 0,
-    "free": 65536,
+    "used": 32,
+    "free": 65504,
     "total": 65536,
     "locked": 65536,
-    "chunks_used": 0,
+    "chunks_used": 1,
     "chunks_free": 1
   }
 }
@@ -92,7 +89,5 @@ Result:
 *See also*
 
 * [GetMemPoolInfo][rpc getmempoolinfo]: {{summary_getMemPoolInfo}}
-
-{% endcomment %}
 
 {% endautocrossref %}

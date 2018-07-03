@@ -210,16 +210,19 @@ transaction---making the transaction format part of the consensus rules.
 Dash Core and many other tools print and accept raw transactions
 encoded as hex.
 
-All transactions use the version 1 format described below.
+Transactions prior to protocol version 70209 defaulted to version 1. Transaction
+version 2 became the default in protocol version 70209. Version 2 transactions
+have the same format, but the `lock_time` parameter was redefined by BIP68
+to enable relative lock-times.
 (Note: transactions in the block chain are allowed to list a higher version
-number to permit soft forks, but they are treated as version 1 transactions
+number to permit soft forks, but they are treated as version 2 transactions
 by current software.)
 
 A raw transaction has the following top-level format:
 
 | Bytes    | Name         | Data Type           | Description
 |----------|--------------|---------------------|-------------
-| 4        | version      | uint32_t            | Transaction version number; currently version 1.  Programs creating transactions using newer consensus rules may use higher version numbers.
+| 4        | version      | uint32_t            | Transaction version number; currently version 2.  Programs creating transactions using newer consensus rules may use higher version numbers.
 | *Varies* | tx_in count  | compactSize uint    | Number of inputs in this transaction.
 | *Varies* | tx_in        | txIn                | Transaction inputs.  See description of txIn below.
 | *Varies* | tx_out count | compactSize uint    | Number of outputs in this transaction.

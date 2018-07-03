@@ -7,6 +7,8 @@ http://opensource.org/licenses/MIT.
 ##### GetGovernanceInfo
 {% include helpers/subhead-links.md %}
 
+<!-- __ -->
+
 {% assign summary_getGovernanceInfo="returns an object containing governance parameters." %}
 
 {% autocrossref %}
@@ -31,7 +33,12 @@ The `getgovernanceinfo` RPC {{summary_getGovernanceInfo}}
 - n: "→<br>`masternodewatchdogmaxseconds`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
-  d: "Sentinel watchdog expiration time in seconds"
+  d: "*DEPRECATED in Dash Core 0.12.3*<br><br>Sentinel watchdog expiration time in seconds"
+
+- n: "→<br>`sentinelpingmaxseconds`"
+  t: "number (int)"
+  p: "Required<br>(exactly 1)"
+  d: "*Added in Dash Core 0.12.3.0*<br><br>Sentinel ping expiration time in seconds"
 
 - n: "→<br>`proposalfee`"
   t: "number (int)"
@@ -60,7 +67,7 @@ The `getgovernanceinfo` RPC {{summary_getGovernanceInfo}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2.2*
+*Example from Dash Core 0.12.3.0*
 
 {% highlight bash %}
 dash-cli -testnet getgovernanceinfo
@@ -71,10 +78,11 @@ Result:
 {
   "governanceminquorum": 1,
   "masternodewatchdogmaxseconds": 7200,
+  "sentinelpingmaxseconds": 7200,
   "proposalfee": 5.00000000,
   "superblockcycle": 24,
-  "lastsuperblock": 52872,
-  "nextsuperblock": 52896,
+  "lastsuperblock": 82704,
+  "nextsuperblock": 82728,
   "maxgovobjdatasize": 16384
 }
 {% endhighlight %}

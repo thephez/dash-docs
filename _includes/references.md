@@ -4,8 +4,11 @@ http://opensource.org/licenses/MIT.
 {% endcomment %}
 
 {% comment %}<!-- Terms; must have tooltip description in "quotes"; alphabetical order -->{% endcomment %}
+[blocktransactions]: /en/developer-reference#blocktxn "A P2P Networking data structure used to provide some of the transactions in a block as requested"
+[blocktransactionsrequest]: /en/developer-reference#getblocktxn "A P2P Networking data structure used to list transaction indexes in a block being requested by a peer"
 [coinbase block height]: /en/developer-reference#term-coinbase-block-height "The current block's height encoded into the first bytes of the coinbase field"
 [data-pushing opcode]: https://en.bitcoin.it/wiki/Script#Constants "Any opcode from 0x01 to 0x4e which pushes data on to the script evaluation stack"
+[headerandshortids]: /en/developer-reference#cmpctblock "A P2P Networking data structure used to relay a block header, the short transactions IDs used for matching already-available transactions, and a select few transactions which a peer may be missing"
 [key index]: /en/developer-guide#term-key-index "An index number used in the HD wallet formula to generate child keys from a parent key"
 [key pair]: /en/developer-guide#term-key-pair "A private key and its derived public key"
 <!-- Inventory Messages -->
@@ -29,6 +32,7 @@ http://opensource.org/licenses/MIT.
 [msg_governance_object]: /en/developer-reference#term-msg_governance_object "Governance object data type identifier of an inventory on the P2P network"
 [msg_governance_object_vote]: /en/developer-reference#term-msg_governance_object_vote "Governance object vote data type identifier of an inventory on the P2P network"
 [msg_masternode_verify]: /en/developer-reference#term-msg_masternode_verify "Masternode Verify data type identifier of an inventory on the P2P network"
+[msg_cmpct_block]: /en/developer-reference#term-msg_cmpct_block "An alternative to the block header hash data type identifier of an inventory on the P2P network used to request a compact block"
 
 [network]: /en/developer-guide#term-network "The Dash P2P network which broadcasts transactions and blocks"
 [op_checkmultisig]: /en/developer-reference#term-op-checkmultisig "Opcode which returns true if one or more provided signatures (m) sign the correct parts of a transaction and match one or more provided public keys (n)"
@@ -41,6 +45,7 @@ http://opensource.org/licenses/MIT.
 [op_verify]: /en/developer-reference#term-op-verify "Operation which terminates the script if the entry below it on the stack is non-true (zero)"
 [output index]: /en/developer-guide#term-output-index "The sequentially-numbered index of outputs in a single transaction starting from 0"
 [point function]: /en/developer-guide#term-point-function "The ECDSA function used to create a public key from a private key"
+[prefilledtransaction]: /en/developer-reference#cmpctblock "A P2P Networking data structure used to represent a vector of a few transactions"
 [previous block header hash]: /en/developer-reference#term-previous-block-header-hash "A field in the block header which contains the SHA256(SHA256()) hash of the previous block's header"
 [proper money handling]: /en/developer-reference#term-proper-money-handling "Bitcoin amounts need to be correctly processed without introducing rounding errors that could cause monetary loss"
 [standard block relay]: /en/developer-guide#term-standard-block-relay "The regular block relay method: announcing a block with an inv message and waiting for a response"
@@ -144,6 +149,7 @@ http://opensource.org/licenses/MIT.
 [rpc keepass]: /en/developer-reference#keepass
 [rpc keypoolrefill]: /en/developer-reference#keypoolrefill
 [rpc listaccounts]: /en/developer-reference#listaccounts
+[rpc listaddressbalances]: /en/developer-reference#listaddressbalances
 [rpc listaddressgroupings]: /en/developer-reference#listaddressgroupings
 [rpc listbanned]: /en/developer-reference#listbanned
 [rpc listlockunspent]: /en/developer-reference#listlockunspent
@@ -170,6 +176,7 @@ http://opensource.org/licenses/MIT.
 [rpc sendtoaddress]: /en/developer-reference#sendtoaddress
 [rpc setaccount]: /en/developer-reference#setaccount
 [rpc setban]: /en/developer-reference#setban
+[rpc setbip69enabled]: /en/developer-reference#setbip69enabled
 [rpc setgenerate]: /en/developer-reference#setgenerate
 [rpc setnetworkactive]: /en/developer-reference#setnetworkactive
 [rpc settxfee]: /en/developer-reference#settxfee
@@ -203,6 +210,8 @@ http://opensource.org/licenses/MIT.
 [addr message]: /en/developer-reference#addr "The P2P network message which relays IP addresses and port numbers of active nodes to other nodes and clients, allowing decentralized peer discovery."
 [alert message]: /en/developer-reference#alert "The P2P network message which sends alerts in case of major software problems."
 [block message]: /en/developer-reference#block "The P2P network message which sends a serialized block"
+[blocktxn message]: /en/developer-reference#blocktxn "The P2P network message which sends a list of requested transactions from a compact block"
+[cmpctblock message]: /en/developer-reference#cmpctblock "The P2P network message which sends a serialized compact block"
 [dsa message]: /en/developer-reference#dsa "A P2P network message used to join a mixing pool"
 [dsc message]: /en/developer-reference#dsc "A P2P network message used to indicates a PrivateSend mixing session is complete"
 [dsf message]: /en/developer-reference#dsf "A P2P network message sent as the final mixing transaction in a session asking users to sign the final mixing TX messages"
@@ -218,6 +227,7 @@ http://opensource.org/licenses/MIT.
 [filterload message]: /en/developer-reference#filterclear "A P2P protocol message used to send a filter to a remote peer, requesting that they only send transactions which match the filter."
 [getaddr message]: /en/developer-reference#getaddr "A P2P protool message used to request an addr message containing connection information for other nodes"
 [getblocks message]: /en/developer-reference#getblocks "A P2P protocol message used to request an inv message containing a range of block header hashes"
+[getblocktxn message]: /en/developer-reference#getblocktxn "A P2P protocol message used to request transactions from a compact block"
 [getdata message]: /en/developer-reference#getdata "A P2P protocol message used to request one or more transactions, blocks, or merkle blocks"
 [getheaders message]: /en/developer-reference#getheaders "A P2P protocol message used to request a range of block headers"
 [getsporks message]: /en/developer-reference#getsporks "A P2P network message used to request the status of sporks"
@@ -238,6 +248,7 @@ http://opensource.org/licenses/MIT.
 [ping message]: /en/developer-reference#ping "A P2P network message used to see if the remote host is still connected"
 [pong message]: /en/developer-reference#pong "A P2P network message used to reply to a P2P network ping message"
 [reject message]: /en/developer-reference#reject "A P2P network message used to indicate a previously-received message was rejected for some reason"
+[sendcmpct message]: /en/developer-reference#sendcmpct "A P2P network message used to request new blocks be announced as compact blocks"
 [sendheaders message]: /en/developer-reference#sendheaders "A P2P network message used to request new blocks be announced through headers messages rather than inv messages"
 [spork message]: /en/developer-reference#spork "A P2P network message used to send the activation status of a spork"
 [ssc message]: /en/developer-reference#ssc "A P2P network message used to track the sync status of masternode objects ()"
@@ -312,9 +323,11 @@ http://opensource.org/licenses/MIT.
 [BIP62]: https://github.com/bitcoin/bips/blob/master/bip-0062.mediawiki
 [BIP65]: https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki
 [BIP66]: https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki
+[BIP68]: https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki
 [BIP70]: https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki
 [BIP71]: https://github.com/bitcoin/bips/blob/master/bip-0071.mediawiki
 [BIP72]: https://github.com/bitcoin/bips/blob/master/bip-0072.mediawiki
+[BIP90]: https://github.com/bitcoin/bips/blob/master/bip-0090.mediawiki
 [BIP111]: https://github.com/bitcoin/bips/blob/master/bip-0111.mediawiki
 [BIP112]: https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki
 [BIP113]: https://github.com/bitcoin/bips/blob/master/bip-0113.mediawiki
@@ -322,6 +335,7 @@ http://opensource.org/licenses/MIT.
 [BIP130]: https://github.com/bitcoin/bips/blob/master/bip-0130.mediawiki
 [BIP133]: https://github.com/bitcoin/bips/blob/master/bip-0133.mediawiki
 [BIP141]: https://github.com/bitcoin/bips/blob/master/bip-0141.mediawiki
+[BIP147]: https://github.com/bitcoin/bips/blob/master/bip-0147.mediawiki
 [BIP151]: https://github.com/bitcoin/bips/blob/master/bip-0151.mediawiki
 [BIP152]: https://github.com/bitcoin/bips/blob/master/bip-0152.mediawiki
 [CVE-2012-2459]: https://en.bitcoin.it/wiki/CVEs#CVE-2012-2459

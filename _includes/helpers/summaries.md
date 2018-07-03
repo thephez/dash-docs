@@ -47,7 +47,7 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_getChainTips="returns information about the highest-height block (tip) of each local block chain." %}
 {% assign summary_getConnectionCount="returns the number of connections to other nodes." %}
 {% assign summary_getDifficulty="returns the proof-of-work difficulty as a multiple of the minimum difficulty." %}
-{% assign summary_getGenerate="returns if the server is set to generate coins or not." %}
+{% assign summary_getGenerate="was removed in Dash Core 0.12.3." %}
 {% assign summary_getGovernanceInfo="returns an object containing governance parameters." %}
 {% assign summary_getHashesPerSec="was removed in Bitcoin Core 0.11.0 and is not part of Dash." %}
 {% assign summary_getInfo="prints various information about the node and the network." %}
@@ -89,6 +89,7 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_keepass="provides commands for configuring and managing KeePass authentication" %}
 {% assign summary_keyPoolRefill="fills the cache of unused pre-generated keys (the keypool)." %}
 {% assign summary_listAccounts="lists accounts and their balances." %}
+{% assign summary_listAddressBalances="lists addresses of this wallet and their balances" %}
 {% assign summary_listAddressGroupings="lists groups of addresses that may have had their common ownership made public by common use as inputs in the same transaction or from being used as change from a previous transaction." %}
 {% assign summary_listBanned="lists all banned IPs/Subnets." %}
 {% assign summary_listLockUnspent="returns a list of temporarily unspendable (locked) outputs." %}
@@ -123,8 +124,9 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_sendToAddress="spends an amount to a given address." %}
 {% assign summary_sentinelPing="sends a Sentinel Ping to the network." %}
 {% assign summary_setAccount="puts the specified address in the given account." %}
+{% assign summary_setBIP69Enabled="enables or disables BIP69 input/output sorting (regtest network only)" %}
 {% assign summary_setBan="attempts add or remove a IP/Subnet from the banned list." %}
-{% assign summary_setGenerate="enables or disables hashing to attempt to find the next block." %}
+{% assign summary_setGenerate="was removed in Dash Core 0.12.3." %}
 {% assign summary_setNetworkActive="disables/enables all P2P network activity." %}
 {% assign summary_setTxFee="sets the transaction fee per kilobyte paid by transactions created by this wallet." %}
 {% assign summary_signMessage="signs a message with the private key of an address." %}

@@ -101,6 +101,11 @@ The `validateaddress` RPC {{summary_validateAddress}}
   p: "Optional<br>(0 or 1)"
   d: "*Deprecated: will be removed in a later version of Bitcoin Core*<br><br>The account this address belong to.  May be an empty string for the default account.  Only returned if the address belongs to the wallet"
 
+- n: "→<br>`timestamp`"
+  t: "number (int)"
+  p: "Optional<br>(0 or 1)"
+  d: "*Added in Dash Core 0.12.3*<br><br>The creation time of the key if available in seconds since epoch (Jan 1 1970 GMT)"
+
 - n: "→<br>`hdkeypath`"
   t: "string"
   p: "Optional<br>(0 or 1)"
@@ -113,7 +118,7 @@ The `validateaddress` RPC {{summary_validateAddress}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.12.3*
 
 Validate the following P2PKH address from the wallet:
 
@@ -133,7 +138,8 @@ Result:
   "isscript": false,
   "pubkey": "02eacba539d92eb88d4e73bb32749d79f53f6e8d7947ac40a71bd4b26c13b6ec29",
   "iscompressed": true,
-  "account": "Test"
+  "account": "Msig 1",
+  "timestamp": 0
 }
 {% endhighlight %}
 
@@ -162,6 +168,7 @@ Result:
   ],
   "sigsrequired": 2,
   "account": "test account"
+  "timestamp": 0  
 }
 {% endhighlight %}
 

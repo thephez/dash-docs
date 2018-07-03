@@ -7,15 +7,14 @@ http://opensource.org/licenses/MIT.
 ##### RemovePrunedFunds
 {% include helpers/subhead-links.md %}
 
+<!-- __ -->
+
 {% assign summary_removePrunedFunds="deletes the specified transaction from the wallet. Meant for use with pruned wallets and as a companion to importprunedfunds." %}
 
 {% autocrossref %}
 
-*Added in Bitcoin Core 0.13.0*
+*Added in Dash Core 0.12.3 / Bitcoin Core 0.13.0*
 
-{{WARNING_ICON}} **_Not implemented in Dash Core (as of 0.12.2)_**
-
-{% comment %}
 *Requires wallet support.*
 
 The `removeprunedfunds` RPC {{summary_removePrunedFunds}} This will effect wallet balances.
@@ -40,11 +39,11 @@ The `removeprunedfunds` RPC {{summary_removePrunedFunds}} This will effect walle
 
 {% enditemplate %}
 
-*Example from Bitcoin Core 0.13.1*
+*Example from Dash Core 0.12.3*
 
 {% highlight bash %}
-bitcoin-cli removeprunedfunds a8d0c0184dde994a09ec054286f1ce581b\
-ebf46446a512166eae7628734ea0a5
+dash-cli removeprunedfunds bb7daff525b83fa6a847ab50bf7f8f14d6\
+22761a19f69157b362ef3f25bda687
 {% endhighlight %}
 
 (Success: no result displayed.)
@@ -53,7 +52,5 @@ ebf46446a512166eae7628734ea0a5
 
 * [ImportPrivKey][rpc importprivkey]: {{summary_importPrivKey}}
 * [ImportPrunedFunds][rpc importprunedfunds]: {{summary_importPrunedFunds}}
-
-{% endcomment %}
 
 {% endautocrossref %}
