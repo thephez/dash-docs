@@ -3084,8 +3084,8 @@ b8b4d39e5fda71f015996dbf14a51bff...... Parent Hash (0 = root)
 01000000 ............................. Vote Outcome: VOTE_OUTCOME_NONE (1)
 02000000 ............................. Vote Signal: VOTE_SIGNAL_VALID (2)
 b517a85900000000 ..................... Vote Create Timestamp: 2017-08-31 14:05:41 UTC
-00000000000000000000000000000000 ..... Collateral Hash
 
+41 ................................... Signature length: 65
 1b049113a81fe913f061ad295561d267
 00b8135a021ab0356a1e89b18d663d0b
 dc45e9c09ee0427223e332b52e8d709e
