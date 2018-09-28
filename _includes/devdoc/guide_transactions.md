@@ -756,6 +756,14 @@ be added to the block chain immediately. But it does become a problem
 when the output from a transaction is spent before that transaction is
 added to the block chain.
 
+Dash Core 12.3 implemented [BIP-147: Dealing with dummy stack element malleability](https://github.com/bitcoin/bips/blob/master/bip-0147.mediawiki)
+which fixes a design flaw in OP_CHECKMULTISIG and OP_CHECKMULTISIGVERIFY that
+caused them to consume an extra stack element ("dummy element") after signature
+validation. Previously, the dummy element was not inspected in any manner, and could be
+replaced by any value without invalidating the script. BIP147 removed this
+malleability vector by forcing the dummy element to be an empty byte array and
+rejecting anything else.
+
 <!-- Not applicable to Dash
 Bitcoin developers have been working to reduce transaction malleability
 among standard transaction types, one outcome of those efforts is
@@ -785,5 +793,9 @@ disappear from the network and needs to be reissued, that it be reissued
 in a way that invalidates the lost transaction. One method which will
 always work is to ensure the reissued payment spends all of the same
 outputs that the lost transaction used as inputs.
+
+For additional information regarding the types transaction malleability,
+reference [this blog post](https://blog.dash.org/segwit-lighting-rbf<!--noref-->-in-dash-9536868ca861)
+by one of the Dash Core developers.
 
 {% endautocrossref %}
