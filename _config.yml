@@ -508,6 +508,9 @@ devsearches:
     - "DIP2: Special Transactions": "https://github.com/dashpay/dips/blob/master/dip-0002.md"
     - "DIP3: Deterministic Masternode Lists": "https://github.com/dashpay/dips/blob/master/dip-0003.md"
     - "DIP4: Simplified Verification of Deterministic Masternode Lists": "https://github.com/dashpay/dips/blob/master/dip-0004.md"
+    - "DIP5: Blockchain Users": "https://github.com/dashpay/dips/blob/master/dip-0005.md"
+    - "DIP6: Long-Living Masternode Quorums": "https://github.com/dashpay/dips/blob/master/dip-0006.md"
+    - "DIP7: LLMQ Signing Requests / Sessions": "https://github.com/dashpay/dips/blob/master/dip-0007.md"    
 
   ## Bitcoin P2P Protocol messages documented on Bitcoin.org
   "P2P Messages":

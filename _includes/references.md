@@ -343,6 +343,12 @@ http://opensource.org/licenses/MIT.
 [secp256k1]: http://www.secg.org/sec2-v2.pdf
 
 [DIP1]: https://github.com/dashpay/dips/blob/master/dip-0001.md
+[DIP2]: https://github.com/dashpay/dips/blob/master/dip-0002.md
+[DIP3]: https://github.com/dashpay/dips/blob/master/dip-0003.md
+[DIP4]: https://github.com/dashpay/dips/blob/master/dip-0004.md
+[DIP5]: https://github.com/dashpay/dips/blob/master/dip-0005.md
+[DIP6]: https://github.com/dashpay/dips/blob/master/dip-0006.md
+[DIP7]: https://github.com/dashpay/dips/blob/master/dip-0007.md
 
 {% comment %}<!-- Other external site links; alphabetical order -->{% endcomment %}
 [#bitcoin]: https://webchat.freenode.net/?channels=bitcoin&uio=d4
