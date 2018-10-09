@@ -7,6 +7,8 @@ http://opensource.org/licenses/MIT.
 ## Transactions
 {% include helpers/subhead-links.md %}
 
+<!-- __ -->
+
 The following subsections briefly document core transaction details.
 
 #### OpCodes
@@ -395,6 +397,65 @@ An itemized coinbase transaction:
 Note: currently the normal coinbase has 2 outputs (1 for the miner and 1 for
 the selected masternode). Superblocks ([superblock example][superblock example])
 have multiple outputs depending on the number of proposals being funded.
+
+{% endautocrossref %}
+
+### Special Transactions
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The Special Transaction framework established by DIP2 enabled the implementation
+of new on-chain features and consensus mechanisms. These transactions provide the
+flexibility to expand beyond the financial uses of classical transactions. DIP2
+transactions modified classical transactions by:
+
+1. Splitting the 32 bit `version` field into two 16 bit fields (`version` and `type`)
+2. Adding support for a generic extra payload following the `lock_time` field
+
+Classical (financial) transactions have a `type` of 0 while special transactions
+have a `type` defined in the DIP describing them. A list of current special
+transaction types is maintained in the [DIP repository](https://github.com/dashpay/dips/blob/master/dip-0002-special-transactions.md).
+
+#### ProRegTx
+
+Masternode - Registration
+
+#### ProUpServTx
+
+Masternode Provider - Update Service
+
+#### ProUpRegTx
+
+Masternode Provider - Update Registrar
+
+#### ProUpRevTx
+
+Masternode Provider - Update Revocation
+
+#### CbTx
+
+Coinbase
+
+#### Quorum Commitment
+
+Quorum Commitment
+
+#### SubTxRegister
+
+Register Blockchain User
+
+#### SubTxTopup
+
+Topup Blockchain User Credit
+
+#### SubTxResetKey
+
+Change Blockchain User Public Key
+
+#### SubTxCloseAccount
+
+Close Blockchain User Account
 
 {% endautocrossref %}
 
