@@ -417,43 +417,93 @@ Classical (financial) transactions have a `type` of 0 while special transactions
 have a `type` defined in the DIP describing them. A list of current special
 transaction types is maintained in the [DIP repository](https://github.com/dashpay/dips/blob/master/dip-0002-special-transactions.md).
 
+{% endautocrossref %}
+
 #### ProRegTx
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
 
 Masternode - Registration
 
+{% endautocrossref %}
+
 #### ProUpServTx
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
 
 Masternode Provider - Update Service
 
+{% endautocrossref %}
+
 #### ProUpRegTx
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
 
 Masternode Provider - Update Registrar
 
+{% endautocrossref %}
+
 #### ProUpRevTx
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
 
 Masternode Provider - Update Revocation
 
+{% endautocrossref %}
+
 #### CbTx
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
 
 Coinbase
 
+{% endautocrossref %}
+
 #### Quorum Commitment
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
 
 Quorum Commitment
 
+{% endautocrossref %}
+
 #### SubTxRegister
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
 
 Register Blockchain User
 
+{% endautocrossref %}
+
 #### SubTxTopup
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
 
 Topup Blockchain User Credit
 
+{% endautocrossref %}
+
 #### SubTxResetKey
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
 
 Change Blockchain User Public Key
 
+{% endautocrossref %}
+
 #### SubTxCloseAccount
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
 
 Close Blockchain User Account
 
