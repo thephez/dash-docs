@@ -55,9 +55,9 @@ Core.  Use the RPCs listed in the See Also subsection below instead.
 
 {{INCLUDE_SPEND_CONFIRMATIONS}}
 
-*Parameter #5---whether to add 5 confirmations to transactions locked via InstantSend*
+*Parameter #5---whether to add the balance from transactions locked via InstantSend*
 
-{{INCLUDE_ADD_LOCK_CONFIRMATIONS_PARAMETER}}
+{{INCLUDE_ADD_LOCKED_PARAMETER}}
 
 *Parameter #6---a comment*
 

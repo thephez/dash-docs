@@ -319,12 +319,12 @@ NOT IN DASH
 {% enditemplate %}
 {% endcapture %}
 
-{% capture INCLUDE_ADD_LOCK_CONFIRMATIONS_PARAMETER %}
+{% capture INCLUDE_ADD_LOCKED_PARAMETER %}
 {% itemplate ntpd1 %}
-- n: "addlockconf"
+- n: "addlocked"
   t: "bool"
   p: "Optional<br>(0 or 1)"
-  d: "If set to `true`, add the number of InstantSend confirmations (default=5) to the confirmation count for transactions locked via InstantSend. If set to `false` (the default), the standard confirmation count is not modified for InstantSend transactions."
+  d: "If set to `true`, add the balance from InstantSend locked transactions. If set to `false` (the default), InstantSend locked transaction balances are not included."
 
 {% enditemplate %}
 {% endcapture %}
