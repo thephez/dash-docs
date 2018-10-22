@@ -21,13 +21,13 @@ The `listreceivedbyaddress` RPC {{summary_listReceivedByAddress}}
 
 {{INCLUDE_CONFIRMATIONS_PARAMETER}}
 
-*Parameter #2---whether to add 5 confirmations to transactions locked via InstantSend*
+*Parameter #2---whether to include transactions locked via InstantSend*
 
 {% itemplate ntpd1 %}
-- n: "addlockconf"
+- n: "addlocked"
   t: "bool"
   p: "Optional<br>(exactly 1)"
-  d: "Add the number of InstantSend confirmations to InstantSend locked transactions"
+  d: "Add the balance from InstantSend locked transactions"
 
 {% enditemplate %}
 

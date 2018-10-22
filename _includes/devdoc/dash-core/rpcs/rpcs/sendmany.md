@@ -47,8 +47,8 @@ The `sendmany` RPC {{summary_sendMany}}
 
 {{INCLUDE_SPEND_CONFIRMATIONS}}
 
-*Parameter #4--whether to add 5 confirmations to transactions locked via InstantSend*
-{{INCLUDE_ADD_LOCK_CONFIRMATIONS_PARAMETER}}
+*Parameter #4--whether to add the balance from transactions locked via InstantSend*
+{{INCLUDE_ADD_LOCKED_PARAMETER}}
 
 *Parameter #5---a comment*
 
