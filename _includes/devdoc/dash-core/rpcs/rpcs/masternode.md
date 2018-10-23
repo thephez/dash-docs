@@ -17,6 +17,62 @@ The `masternode` RPC {{summary_masternode}}
 
 {% endautocrossref %}
 
+###### Masternode<!--noref--> Check
+<!-- no subhead-links here -->
+
+{% autocrossref %}
+
+The `masternode<!--noref--> check` RPC forces a check of all masternodes and removes invalid ones.
+
+*Parameters: none*
+
+*Result---number of removed and total masternodes*
+
+{% itemplate ntpd1 %}
+- n: "`result`"
+  t: "object"
+  p: "Required<br>(exactly 1)"
+  d: "Masternode check results"
+
+- n: "→<br>`removedTotalCount`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Count of all masternodes that were removed"
+
+- n: "→<br>`removedEnabledCount`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Count of enabled masternodes that were removed"
+
+- n: "→<br>`totalCount`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Count of all masternodes"
+
+- n: "→<br>`enabledCount`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Count of enabled masternodes"
+
+{% enditemplate %}
+
+*Example from Dash Core 0.12.4*
+
+{% highlight bash %}
+dash-cli -testnet masternode check
+{% endhighlight %}
+
+Result:
+{% highlight bash %}
+{
+  "removedTotalCount": 0,
+  "removedEnabledCount": 0,
+  "totalCount": 15,
+  "enabledCount": 15
+}
+{% endhighlight %}
+{% endautocrossref %}
+
 ###### Masternode<!--noref--> Count
 <!-- no subhead-links here -->
 
