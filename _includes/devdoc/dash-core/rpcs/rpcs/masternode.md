@@ -245,7 +245,15 @@ Masternode successfully started
 
 The `masternode<!--noref--> genkey` RPC generates a new masternodeprivkey.
 
-*Parameters: none*
+*Parameter #1---generate compressed key*
+
+{% itemplate ntpd1 %}
+- n: "Compressed"
+  t: "bool"
+  p: "Optional<br>(0 or 1)"
+  d: "*Added in Dash Core 0.12.4*<br><br>If set to `true`, generates a compressed private key (default: false)"
+
+{% enditemplate %}
 
 *Result---masternode private key*
 
@@ -257,7 +265,7 @@ The `masternode<!--noref--> genkey` RPC generates a new masternodeprivkey.
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.12.4*
 
 {% highlight bash %}
 dash-cli -testnet masternode genkey
@@ -267,6 +275,18 @@ Result:
 {% highlight bash %}
 92Mn5DQpnBHjFPbS3ZXcX3EdhuET18u3eXTTtVsdDzdcAMaXqtG
 {% endhighlight %}
+
+*Example from Dash Core 0.12.4 (compressed key)*
+
+{% highlight bash %}
+dash-cli -testnet masternode genkey true
+{% endhighlight %}
+
+Result:
+{% highlight bash %}
+cUHWQZQQNtrnvyYS3hERYyuzttvFAdw6JkrwS6T2gTZreH3oY6NJ
+{% endhighlight %}
+
 
 {% endautocrossref %}
 
