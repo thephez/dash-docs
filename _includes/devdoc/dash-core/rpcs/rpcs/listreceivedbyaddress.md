@@ -100,11 +100,10 @@ The `listreceivedbyaddress` RPC {{summary_listReceivedByAddress}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.12.4*
 
 List addresses with balances confirmed by at least six blocks, including
-watch-only addresses (include InstantSend confirmations for locked InstantSend
-transactions):
+watch-only addresses. Also include the balance from InstantSend locked transactions:
 
 {% highlight bash %}
 dash-cli -testnet listreceivedbyaddress 6 true false true

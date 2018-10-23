@@ -51,11 +51,10 @@ The `getreceivedbyaddress` RPC {{summary_getReceivedByAddress}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.12.4*
 
 Get the dash received for a particular address, only counting
-transactions with six or more confirmations (ignore InstantSend confirmations for
-locked InstantSend transactions):
+transactions with six or more confirmations (ignore InstantSend locked transactions):
 
 {% highlight bash %}
 dash-cli -testnet getreceivedbyaddress yYoCWcjbykWsQJ7MVJrTMeQd8TZe5N4Q7g 6
@@ -68,8 +67,7 @@ Result:
 {% endhighlight %}
 
 Get the dash received for a particular address, only counting
-transactions with six or more confirmations (include InstantSend confirmations for
-locked InstantSend transactions):
+transactions with six or more confirmations (include InstantSend locked transactions):
 
 {% highlight bash %}
 dash-cli -testnet getreceivedbyaddress yYoCWcjbykWsQJ7MVJrTMeQd8TZe5N4Q7g 6 true
