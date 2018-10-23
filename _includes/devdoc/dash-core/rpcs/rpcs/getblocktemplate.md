@@ -229,21 +229,26 @@ information, please see the following resources:
   d: "The height of the next block"
 
 - n: "→<br>`masternode`"
-  t: "object"
-  p: "Required<br>(exactly 1)"
-  d: "The masternode payee that must be included in the next block"
+  t: "array (objects)"
+  p: "Required<br>(0 or more)"
+  d: "Required masternode payments that must be included in the next block"
 
-- n: "→ →<br>`payee`"
+- n: "→ →<br>Masternode Payee"
+  t: "object"
+  p: "Optional (0 or more)"
+  d: "Object containing a masternode payee's information"  
+
+- n: "→ → →<br>`payee`"
   t: "string"
   p: "Required<br>(exactly 1)"
   d: "Payee address"
 
-- n: "→ →<br>`script`"
+- n: "→ → →<br>`script`"
   t: "string"
   p: "Required<br>(exactly 1)"
   d: "Payee scriptPubKey"
 
-- n: "→ →<br>`amount`"
+- n: "→ → →<br>`amount`"
   t: "number"
   p: "Required<br>(exactly 1)"
   d: "Required amount to pay"
@@ -355,11 +360,13 @@ Result:
   "bits": "1c103bdf",
   "previousbits": "1c1548b5",
   "height": 7967,
-  "masternode": {
-    "payee": "yaJc6tADbEjxQBAC69ugWNoTFpzxqkcgWd",
-    "script": "76a914996911b133d83de25d1f169c7046d74b728a757b88ac",
-    "amount": 6615000108
-  },
+  "masternode": [
+    {
+      "payee": "yaJc6tADbEjxQBAC69ugWNoTFpzxqkcgWd",
+      "script": "76a914996911b133d83de25d1f169c7046d74b728a757b88ac",
+      "amount": 6615000108
+    }
+  ],  
   "masternode_payments_started": true,
   "masternode_payments_enforced": true,
   "superblock": [
