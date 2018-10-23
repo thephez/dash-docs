@@ -34,7 +34,7 @@ The `decoderawtransaction` RPC {{summary_decodeRawTransaction}}
 {{INCLUDE_DECODE_RAW_TRANSACTION}}
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.12.4*
 
 Decode a signed one-input, two-output transaction:
 
@@ -55,6 +55,7 @@ Result:
   "txid": "2f124cb550d9967b81914b544dea3783de23e85d67a9816f9bada665ecfe1cd5",
   "size": 224,
   "version": 1,
+  "type": 0,
   "locktime": 0,
   "vin": [
     {
@@ -96,7 +97,8 @@ Result:
         ]
       }
     }
-  ]
+  ],
+  "instantlock": false
 }
 {% endhighlight %}
 
