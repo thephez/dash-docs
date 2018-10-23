@@ -55,11 +55,11 @@ The `getbalance` RPC {{summary_getBalance}}
 
 {% enditemplate %}
 
-*Examples from Dash Core 0.12.2*
+*Examples from Dash Core 0.12.4*
 
 Get the balance for the main ("") account, including transactions with
 at least five confirmations and those spent to watch-only addresses in
-that account. Do not add the InstantSend confirmations (5) for locked transactions.
+that account. Do not include InstantSend locked transactions.
 
 {% highlight bash %}
 dash-cli -testnet getbalance "" 3 false true
@@ -73,7 +73,7 @@ Result:
 
 Get the balance for the main ("") account, including transactions with
 at least one confirmation and those spent to watch-only addresses in
-that account. Add the InstantSend confirmations (5) for locked transactions.
+that account. Include the balance from InstantSend locked transactions.
 
 {% highlight bash %}
 dash-cli -testnet getbalance "" 3 true true

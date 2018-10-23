@@ -88,11 +88,10 @@ Core.  Use the RPCs listed in the See Also subsection below instead.
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.12.4*
 
-Get the balances for all non-empty accounts, including only transactions
-which have been confirmed at least six times (include InstantSend confirmations
-for locked InstantSend transactions):
+Get the balances for all non-empty accounts, including transactions
+which have been confirmed at least six times and InstantSend locked transactions:
 
 {% highlight bash %}
 dash-cli -testnet listreceivedbyaccount 6 true false true

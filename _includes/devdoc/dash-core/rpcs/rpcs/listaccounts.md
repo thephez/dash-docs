@@ -53,10 +53,10 @@ Core.  Use the RPCs listed in the See Also subsection below instead.
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.12.4*
 
 Display account balances with one confirmation and watch-only addresses
-included. Add the InstantSend confirmations (5) for locked transactions.
+included. Add the balance of InstantSend locked transactions also.
 
 {% highlight bash %}
 dash-cli -testnet listaccounts 1 true true
