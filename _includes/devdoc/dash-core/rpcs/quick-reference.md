@@ -291,6 +291,8 @@ default.
 * [SendMany][rpc sendmany]: {{summary_sendMany}}
 * [SendToAddress][rpc sendtoaddress]: {{summary_sendToAddress}}
 * [SetAccount][rpc setaccount]: {{summary_setAccount}} {{DEPRECATED}}
+* [SetPrivateSendAmount][rpc setprivatesendamount]: {{summary_setPrivateSendAmount}}
+* [SetPrivateSendRounds][rpc setprivatesendrounds]: {{summary_setPrivateSendRounds}}
 * [SetTxFee][rpc settxfee]: {{summary_setTxFee}}
 * [SignMessage][rpc signmessage]: {{summary_signMessage}}
 * [WalletLock][rpc walletlock]: {{summary_walletLock}}

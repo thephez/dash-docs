@@ -491,6 +491,10 @@ DIP1:
 '`setgenerate` RPC': rpc setgenerate
 '`setnetworkactive`': rpc setnetworkactive
 '`setnetworkactive` RPC': rpc setnetworkactive
+'`setprivatesendamount`': rpc setprivatesendamount
+'`setprivatesendamount` RPC': rpc setprivatesendamount
+'`setprivatesendrounds`': rpc setprivatesendrounds
+'`setprivatesendrounds` RPC': rpc setprivatesendrounds
 '`settxfee`': rpc settxfee
 '`settxfee` RPC': rpc settxfee
 '`signmessage`': rpc signmessage

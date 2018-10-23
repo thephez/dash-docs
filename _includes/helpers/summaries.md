@@ -128,6 +128,8 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_setBan="attempts add or remove a IP/Subnet from the banned list." %}
 {% assign summary_setGenerate="was removed in Dash Core 0.12.3." %}
 {% assign summary_setNetworkActive="disables/enables all P2P network activity." %}
+{% assign summary_setPrivateSendAmount="sets the amount of DASH to be mixed with PrivateSend" %}
+{% assign summary_setPrivateSendRounds="sets the number of PrivateSend mixing rounds to use" %}
 {% assign summary_setTxFee="sets the transaction fee per kilobyte paid by transactions created by this wallet." %}
 {% assign summary_signMessage="signs a message with the private key of an address." %}
 {% assign summary_signMessageWithPrivKey="signs a message with a given private key." %}

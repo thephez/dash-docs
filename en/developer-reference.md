@@ -308,6 +308,10 @@ untrusted source.
 
 {% include devdoc/dash-core/rpcs/rpcs/setnetworkactive.md %}
 
+{% include devdoc/dash-core/rpcs/rpcs/setprivatesendamount.md %}
+
+{% include devdoc/dash-core/rpcs/rpcs/setprivatesendrounds.md %}
+
 {% include devdoc/dash-core/rpcs/rpcs/settxfee.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/signmessage.md %}
