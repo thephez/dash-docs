@@ -301,6 +301,8 @@ devsearches:
     - 'SetBIP69Enabled': "/en/developer-reference#setbip69enabled"
     - 'SetGenerate': "/en/developer-reference#setgenerate"
     - 'SetNetworkActive': "/en/developer-reference#setnetworkactive"
+    - 'SetPrivateSendAmount': "/en/developer-reference#setprivatesendamount"
+    - 'SetPrivateSendRounds': "/en/developer-reference#setprivatesendrounds"
     - 'SetTxFee': "/en/developer-reference#settxfee"
     - 'SignMessage': "/en/developer-reference#signmessage"
     - 'SignMessageWithPrivKey': "/en/developer-reference#signmessagewithprivkey"

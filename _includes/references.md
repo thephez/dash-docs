@@ -179,6 +179,8 @@ http://opensource.org/licenses/MIT.
 [rpc setbip69enabled]: /en/developer-reference#setbip69enabled
 [rpc setgenerate]: /en/developer-reference#setgenerate
 [rpc setnetworkactive]: /en/developer-reference#setnetworkactive
+[rpc setprivatesendamount]: /en/developer-reference#setprivatesendamount
+[rpc setprivatesendrounds]: /en/developer-reference#setprivatesendrounds
 [rpc settxfee]: /en/developer-reference#settxfee
 [rpc signmessage]: /en/developer-reference#signmessage
 [rpc signmessagewithprivkey]: /en/developer-reference#signmessagewithprivkey
