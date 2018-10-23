@@ -36,9 +36,43 @@ The `dumpwallet` RPC {{summary_dumpWallet}}
   p: "Required<br>(exactly 1)"
   d: "Always `null` whether success or failure.  The JSON-RPC error and message fields will be set if a failure occurred"
 
+- n: "→<br>`dashcoreversion`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "Dash Core build details"
+
+- n: "→<br>`lastblockheight`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Height of the most recent block received"
+
+- n: "→<br>`lastblockhash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "Hash of the most recent block received"
+
+- n: "→<br>`lastblocktime`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "Timestamp of the most recent block received"
+
+- n: "→<br>`keys`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Number of keys dumped"
+
+- n: "→<br>`file`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "Name of the file the wallet was dumped to"
+
+- n: "→<br>`warning`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "Warning to not share the file due to it containing the private keys"
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.12.4*
 
 Create a wallet dump and then print its first 10 lines.
 
@@ -47,13 +81,27 @@ dash-cli -testnet dumpwallet /tmp/dump.txt
 head /tmp/dump.txt
 {% endhighlight %}
 
-Results (only showing the first 10 lines):
+Results:
+
+{% highlight json %}
+{
+  "dashcoreversion": "v0.12.4.0",
+  "lastblockheight": 250186,
+  "lastblockhash": "0000000000a82fb1890de5da4740d0671910a436fe6fc4503a3e553adef073b4",
+  "lastblocktime": "2018-10-23T12:50:44Z",
+  "keys": 8135,
+  "file": "/tmp/dump.txt",
+  "warning": "/tmp/dump.txt file contains all private keys from this wallet. Do not share it with anyone!"
+}
+{% endhighlight %}
+
+Results (the first 10 lines of the file):
 
 {% highlight bash %}
-# Wallet dump created by Dash Core v0.12.2.1 (2017-11-11 10:02:45 +0300)
-# * Created on 2017-11-28T19:52:46Z
-# * Best block at time of backup was 33750 (0000000005d5d1651f3b52d7a7158e350261519c52a28527c6053a8f5989a5a4),
-#   mined on 2017-11-28T19:48:05Z
+# Wallet dump created by Dash Core v0.12.4.0
+# * Created on 2018-10-23T12:55:38Z
+# * Best block at time of backup was 250186 (0000000000a82fb1890de5da4740d0671910a436fe6fc4503a3e553adef073b4),
+#   mined on 2018-10-23T12:50:44Z
 
 cQZZ4awQvcXXyES3CmUJqSgeTobQm9t9nyUr337kvUtsWsnvvMyw 2017-11-28T18:21:36Z label=test%20label # addr=ycBuREgSskHHkWLxDa9A5WppCki6PfFycL
 cTBRPnJoPjEMh67v1zes437v8Po5bFLDWKgEudTJMhVaLs1ZVGJe 2017-11-28T18:21:37Z reserve=1 # addr=yNsWkgPLN1u7p5dfWYnasYdgirU2J3tjUj
