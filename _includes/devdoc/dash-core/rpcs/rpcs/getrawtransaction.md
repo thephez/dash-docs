@@ -95,27 +95,33 @@ deprecated.
   p: "Optional<br>(0 or 1)"
   d: "This field is currently identical to the time field described above"
 
+- n: "<br>`instantlock`"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: "If set to `true`, this transaction is locked"
+
 {% enditemplate %}
 
-*Examples from Dash Core 0.12.2*
+*Examples from Dash Core 0.12.4*
 
 A transaction in serialized transaction format:
 
 {% highlight bash %}
 dash-cli getrawtransaction \
-  2f124cb550d9967b81914b544dea3783de23e85d67a9816f9bada665ecfe1cd5
+  83f94090899fa63ea6ef913fe13cba851fd07c801bea7eedf73958c58936c19c
 {% endhighlight %}
 
 Result (wrapped):
 
 {% highlight text %}
-01000000016b490886c0198b028c6c5cb145c4eb3b1055a224a7a105aadeff41\
-b69ec91e060100000069463043022033a61c56fa0867ed67b76b023204a9dc0e\
-e6b0d63305dc5f65fe94335445ff2f021f712f55399d5238fc7146497c431fc4\
-182a1de0b96fc22716e0845f561d542e012102eacba539d92eb88d4e73bb3274\
-9d79f53f6e8d7947ac40a71bd4b26c13b6ec29ffffffff0200205fa012000000\
-1976a914485485425fa99504ec1638ac4213f3cfc9f32ef388acc0a8f9be0100\
-00001976a914811eacc14db8ebb5b64486dc43400c0226b428a488ac00000000
+0200000001f28cab548af92fa2183e6615d133c4a0f0167de0a2acb6307335dc\
+a57fd71855010000006b483045022100c3d0d9b01a6654f536fd0c5bbf919b16\
+30d2e71807ba15a1f517b5c44ca35912022065825e727c8c916910a740434bc0\
+c7b8cc609424ac3ad06193efba4133616ce401210267fae84ef6aa6ab3d877b4\
+7932915a9b406566c873ea025986fc7e15a15fd2f2feffffff020f0b0c0a0000\
+00001976a9149f55b3dd67f76dd5ae11a5703481eb2f279041eb88ac0065cd1d\
+000000001976a914485485425fa99504ec1638ac4213f3cfc9f32ef388acf5d1\
+0300
 {% endhighlight %}
 
 Get the same transaction in JSON:
@@ -130,30 +136,42 @@ Result:
 
 {% highlight json %}
 {
-  "hex": "01000000016b490886c0198b028c6c5cb145c4eb3b1055a224a7a105aadeff41b69ec91e060100000069463043022033a61c56fa0867ed67b76b023204a9dc0ee6b0d63305dc5f65fe94335445ff2f021f712f55399d5238fc7146497c431fc4182a1de0b96fc22716e0845f561d542e012102eacba539d92eb88d4e73bb32749d79f53f6e8d7947ac40a71bd4b26c13b6ec29ffffffff0200205fa0120000001976a914485485425fa99504ec1638ac4213f3cfc9f32ef388acc0a8f9be010000001976a914811eacc14db8ebb5b64486dc43400c0226b428a488ac00000000",
-  "txid": "2f124cb550d9967b81914b544dea3783de23e85d67a9816f9bada665ecfe1cd5",
-  "size": 224,
-  "version": 1,
-  "locktime": 0,
+  "hex": "0200000001f28cab548af92fa2183e6615d133c4a0f0167de0a2acb6307335dca57fd71855010000006b483045022100c3d0d9b01a6654f536fd0c5bbf919b1630d2e71807ba15a1f517b5c44ca35912022065825e727c8c916910a740434bc0c7b8cc609424ac3ad06193efba4133616ce401210267fae84ef6aa6ab3d877b47932915a9b406566c873ea025986fc7e15a15fd2f2feffffff020f0b0c0a000000001976a9149f55b3dd67f76dd5ae11a5703481eb2f279041eb88ac0065cd1d000000001976a914485485425fa99504ec1638ac4213f3cfc9f32ef388acf5d10300",
+  "txid": "83f94090899fa63ea6ef913fe13cba851fd07c801bea7eedf73958c58936c19c",
+  "size": 226,
+  "version": 2,
+  "type": 0,
+  "locktime": 250357,
   "vin": [
     {
-      "txid": "061ec99eb641ffdeaa05a1a724a255103bebc445b15c6c8c028b19c08608496b",
+      "txid": "5518d77fa5dc357330b6aca2e07d16f0a0c433d115663e18a22ff98a54ab8cf2",
       "vout": 1,
       "scriptSig": {
-        "asm": "3043022033a61c56fa0867ed67b76b023204a9dc0ee6b0d63305dc5f65fe94335445ff2f021f712f55399d5238fc7146497c431fc4182a1de0b96fc22716e0845f561d542e[ALL] 02eacba539d92eb88d4e73bb32749d79f53f6e8d7947ac40a71bd4b26c13b6ec29",
-        "hex": "463043022033a61c56fa0867ed67b76b023204a9dc0ee6b0d63305dc5f65fe94335445ff2f021f712f55399d5238fc7146497c431fc4182a1de0b96fc22716e0845f561d542e012102eacba539d92eb88d4e73bb32749d79f53f6e8d7947ac40a71bd4b26c13b6ec29"
+        "asm": "3045022100c3d0d9b01a6654f536fd0c5bbf919b1630d2e71807ba15a1f517b5c44ca35912022065825e727c8c916910a740434bc0c7b8cc609424ac3ad06193efba4133616ce4[ALL] 0267fae84ef6aa6ab3d877b47932915a9b406566c873ea025986fc7e15a15fd2f2",
+        "hex": "483045022100c3d0d9b01a6654f536fd0c5bbf919b1630d2e71807ba15a1f517b5c44ca35912022065825e727c8c916910a740434bc0c7b8cc609424ac3ad06193efba4133616ce401210267fae84ef6aa6ab3d877b47932915a9b406566c873ea025986fc7e15a15fd2f2"
       },
-      "value": 874.99879200,
-      "valueSat": 87499879200,
-      "address": "yNpezfFDfoikDuT1f4iK75AiLp2YLPsGAb",
-      "sequence": 4294967295
+      "sequence": 4294967294
     }
   ],
   "vout": [
     {
-      "value": 800.00000000,
-      "valueSat": 80000000000,
+      "value": 1.68561423,
+      "valueSat": 168561423,
       "n": 0,
+      "scriptPubKey": {
+        "asm": "OP_DUP OP_HASH160 9f55b3dd67f76dd5ae11a5703481eb2f279041eb OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a9149f55b3dd67f76dd5ae11a5703481eb2f279041eb88ac",
+        "reqSigs": 1,
+        "type": "pubkeyhash",
+        "addresses": [
+          "yaqvxRbjheVBuVcKRFV8JHuaNumR6NB9RC"
+        ]
+      }
+    },
+    {
+      "value": 5.00000000,
+      "valueSat": 500000000,
+      "n": 1,
       "scriptPubKey": {
         "asm": "OP_DUP OP_HASH160 485485425fa99504ec1638ac4213f3cfc9f32ef3 OP_EQUALVERIFY OP_CHECKSIG",
         "hex": "76a914485485425fa99504ec1638ac4213f3cfc9f32ef388ac",
@@ -163,27 +181,14 @@ Result:
           "ySutkc49Khpz1HQN8AfWNitVBLwqtyaxvv"
         ]
       }
-    },
-    {
-      "value": 74.99000000,
-      "valueSat": 7499000000,
-      "n": 1,
-      "scriptPubKey": {
-        "asm": "OP_DUP OP_HASH160 811eacc14db8ebb5b64486dc43400c0226b428a4 OP_EQUALVERIFY OP_CHECKSIG",
-        "hex": "76a914811eacc14db8ebb5b64486dc43400c0226b428a488ac",
-        "reqSigs": 1,
-        "type": "pubkeyhash",
-        "addresses": [
-          "yY6AmGopsZS31wy1JLHR9P6AC6owFaXwuh"
-        ]
-      }
     }
   ],
-  "blockhash": "00000000e679e76eabc913b15c7f202e7ea831b8fb07beb28ca2a047b03ff3cc",
-  "height": 19560,
-  "confirmations": 6,
-  "time": 1509568811,
-  "blocktime": 1509568811
+  "blockhash": "0000000004acaea045b4ebe5b3663f8c235934149a72c8ab0c5a703fe594408e",
+  "height": 250358,
+  "confirmations": 1,
+  "time": 1540323061,
+  "blocktime": 1540323061,
+  "instantlock": true
 }
 {% endhighlight %}
 
