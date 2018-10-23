@@ -218,6 +218,11 @@ information, please see the following resources:
   p: "Required<br>(exactly 1)"
   d: "The compressed target of next block"
 
+- n: "→<br>`previousbits`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "The compressed target of  the current highest block"
+
 - n: "→<br>`height`"
   t: "number"
   p: "Required<br>(exactly 1)"
@@ -347,7 +352,8 @@ Result:
   "sigoplimit": 40000,
   "sizelimit": 2000000,
   "curtime": 1507738818,
-  "bits": "1d01231e",
+  "bits": "1c103bdf",
+  "previousbits": "1c1548b5",
   "height": 7967,
   "masternode": {
     "payee": "yaJc6tADbEjxQBAC69ugWNoTFpzxqkcgWd",
