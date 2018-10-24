@@ -524,6 +524,8 @@ ProRegTx Payload
 
 {% autocrossref %}
 
+*Added in protocol version 70211 of Dash Core as described by DIP3*
+
 Masternode Provider - Update Service
 
 {% endautocrossref %}
@@ -532,6 +534,8 @@ Masternode Provider - Update Service
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
+
+*Added in protocol version 70211 of Dash Core as described by DIP3*
 
 Masternode Provider - Update Registrar
 
@@ -542,6 +546,8 @@ Masternode Provider - Update Registrar
 
 {% autocrossref %}
 
+*Added in protocol version 70211 of Dash Core as described by DIP3*
+
 Masternode Provider - Update Revocation
 
 {% endautocrossref %}
@@ -551,9 +557,17 @@ Masternode Provider - Update Revocation
 
 {% autocrossref %}
 
+*Added in protocol version 70211 of Dash Core as described by DIP4*
+
 Coinbase
 
 {% endautocrossref %}
+
+
+<!--
+
+NOT IN DASH CORE 12.4
+
 
 #### Quorum Commitment
 {% include helpers/subhead-links.md %}
@@ -599,6 +613,8 @@ Change Blockchain User Public Key
 Close Blockchain User Account
 
 {% endautocrossref %}
+
+-->
 
 ### CompactSize Unsigned Integers
 {% include helpers/subhead-links.md %}
