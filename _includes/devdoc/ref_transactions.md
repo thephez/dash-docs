@@ -526,7 +526,71 @@ ProRegTx Payload
 
 *Added in protocol version 70211 of Dash Core as described by DIP3*
 
-Masternode Provider - Update Service
+The Masternode Provider Update Service (ProUpServTx) special transaction is used
+to update the IP Address and port of a masternode. If a non-zero operatorReward
+was set in the initial ProRegTx, the operator may also set the scriptOperatorPayout
+field in the ProUpServTx.
+
+A ProUpServTx is only valid for masternodes in the registered masternodes subset.
+When processed, it updates the metadata of the masternode entry and revives the
+masternode if it was previously marked as PoSe-banned.
+
+A ProRegTx is created and sent using the `protx update_service` RPC.
+
+The special transaction type used for ProUpServTx Transactions is 2 and the extra
+payload consists of the following data:
+
+| Bytes | Name | Data type |  Description |
+| ---------- | ----------- | -------- | -------- |
+| 2 | version | uint_16 | ProUpServTx version number. Currently set to 1.
+| 32 | proTXHash | uint256 | The hash of the initial ProRegTx
+| 16 | ipAddress | byte[] | IPv6 address in network byte order. Only IPv4 mapped addresses are allowed (to be extended in the future)
+| 2 | port | uint_16 | Port (network byte order)
+| 1-9 | scriptOperator<br>PayoutSize | compactSize uint | Size of the Operator Payee Script.
+| Variable | scriptOperator<br>Payout | Script | Operator Payee script (p2pkh/p2sh)
+| 32 | inputsHash | uint256 | Hash of all the outpoints of the transaction inputs
+| 1-9 | payloadSigSize |compactSize uint | Size of the Signature
+| Variable | payloadSig | vector | BLS Signature of the hash of the ProUpServTx fields. Signed by the Operator.
+
+
+The following annotated hexdump shows a ProUpServTx transaction. (Parts of the
+classical transaction section have been omitted.)
+
+{% highlight text %}
+0300 ....................................... Version (3)
+0100 ....................................... Type (2 - ProUpServTx)
+00000000 ................................... locktime: 0 (a block height)
+
+[...] ...................................... Transaction inputs omitted
+[...] ...................................... Transaction outputs omitted
+
+b5 ......................................... Extra payload size (181)
+
+ProUpServTx Payload
+| 0100 ..................................... Version (1)
+|
+| db60b8cecae691a3d078a2341d460b06
+| b2914f6b092f1906b5c815589399b0ff ......... ProRegTx Hash
+|
+| 00000000000000000000ffffc0000233 ......... IP Address: ::ffff:192.0.2.51
+| 270f ..................................... Port: 9999
+|
+| 00 ....................................... Operator payout script size (0)
+| .......................................... Operator payout script (Empty)
+|
+| a9569d037b0eacc8bca05c5829c95283
+| 4ac27d1c7e7df610500b7ba70fd46507 ......... Inputs hash
+|
+| Payload signature (BLS)
+| ?? ....................................... Signature Size??
+| 0267702ef85d186ef7fa32dc40c65f2f
+| eca0a7465715eb7c30f81beb69e35ee4
+| 1f6ff7f292b82a9caebb5aa961b0f915
+| 02501becf629e93c0a01c76162d56a6c
+| 65a9675c3ca9d5297f053e68f91393dd
+| 789beed8ef7e8839695a334c2e1bd37c ......... Signature
+
+{% endhighlight %}
 
 {% endautocrossref %}
 
