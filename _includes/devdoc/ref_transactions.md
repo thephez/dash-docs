@@ -563,12 +563,6 @@ Coinbase
 
 {% endautocrossref %}
 
-
-<!--
-
-NOT IN DASH CORE 12.4
-
-
 #### Quorum Commitment
 {% include helpers/subhead-links.md %}
 
@@ -613,8 +607,6 @@ Change Blockchain User Public Key
 Close Blockchain User Account
 
 {% endautocrossref %}
-
--->
 
 ### CompactSize Unsigned Integers
 {% include helpers/subhead-links.md %}
