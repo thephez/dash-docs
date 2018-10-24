@@ -424,7 +424,98 @@ transaction types is maintained in the [DIP repository](https://github.com/dashp
 
 {% autocrossref %}
 
-Masternode - Registration
+*Added in protocol version 70211 of Dash Core as described by DIP3*
+
+The Masternode Registration (ProRegTx) special transaction is used to join the
+masternode list by proving ownership of the 1000 DASH necessary to create a
+masternode.
+
+The ProRegTx must either include an output with 1000 DASH or refer to an existing
+unspent output holding 1000 DASH. If the 1000 DASH is an output of the ProRegTx,
+the collateralOutpoint field should be null. A ProRegTx is created and sent using
+the `protx` RPC.
+
+The special transaction type is 1 and the extra payload consists of the following
+data:
+
+| Bytes | Name | Data type |  Description |
+| ---------- | ----------- | -------- | -------- |
+| 2 | version | uint_16 | Provider transaction version number. Currently set to 1.
+| 2 | type | uint_16 | Masternode type. Default set to 0.
+| 2 | mode | uint_16 | Masternode mode. Default set to 0.
+| 36 | collateralOutpoint | COutpoint | The collateral outpoint.
+| 16 | ipAddress | byte[] | IPv6 address in network byte order. Only IPv4 mapped addresses are allowed (to be extended in the future)
+| 2 | port | uint_16 | Port (network byte order)
+| 20 | KeyIdOwner | CKeyID | The public key hash used for owner related signing (ProTx updates, governance voting)
+| 48 | KeyIdOperator | CKeyID | The public key hash used for operational related signing (network messages, ProTx updates)
+| 20 | KeyIdVoting | CKeyID | The public key hash used for voting.
+| 2 | operatorReward | uint_16 | A value from 0 to 10000.
+| 1-9 | scriptPayoutSize | compactSize uint | Size of the Payee Script.
+| Variable | scriptPayout | Script | Payee script (p2pkh/p2sh)
+| 32 | inputsHash | uint256 | Hash of all the outpoints of the transaction inputs
+| 1-9 | payloadSigSize |compactSize uint | Size of the Signature
+| Variable | payloadSig | vector | Signature of the hash of the ProTx fields. Signed with the key corresponding to the collateral outpoint in case the collateral is not part of the ProRegTx itself, empty otherwise.
+
+The following annotated hexdump shows a ProRegTx transaction. (Parts of the
+classical transaction section have been omitted.)
+
+{% highlight text %}
+0300 ....................................... Version (3)
+0100 ....................................... Type (1 - ProRegTx)
+00000000 ................................... locktime: 0 (a block height)
+
+[...] ...................................... Transaction inputs omitted
+
+01 ......................................... Number of outputs
+|
+| Masternode collateral output
+| | 00e8764817000000 ....................... Duffs (1000 DASH)
+| | 1976a91486a8a072b856cfb273
+| | b407487cccbbabef41d4eb88ac ............. Script
+
+f2 ......................................... Extra payload size (242)
+
+ProRegTx Payload
+| 0100 ..................................... Version (1)
+| 0000 ..................................... Type (0)
+| 0000 ..................................... Mode (0)
+|
+| 00000000000000000000000000000000
+| 00000000000000000000000000000000 ......... Outpoint TXID
+| 00000000 ................................. Outpoint index number: 0
+|
+| 00000000000000000000ffffc0000233 ......... IP Address: ::ffff:192.0.2.51
+| 270f ..................................... Port: 9999
+
+| 126b1e623ce22ece37062d29fee489eb5ef170a9 . Owner pubkey hash
+| 89df78462fdce7bdce1d6cb16f799835d08cca9e
+| 7ddae78750e432760c7e077d40f1e6d4e1bf9920
+| 85b89ae58b0d7c9e ......................... Operator pubKey hash (BLS Key)
+| 126b1e623ce22ece37062d29fee489eb5ef170a9 . Voting pubkey hash
+|
+| 1027 ..................................... Operator reward (100%)
+|
+| Payout script
+| 19 ....................................... Bytes in pubkey script: 25
+| | 76 ..................................... OP_DUP
+| | a9 ..................................... OP_HASH160
+| | 14 ..................................... Push 20 bytes as data
+| | | 1845a3c3953d44de1b5546a19f31f5f1
+| | | d04704a7 ............................. PubKey hash
+| | 88 ..................................... OP_EQUALVERIFY
+| | ac ..................................... OP_CHECKSIG
+|
+| 65b00dcd064420172d48cfbbd72a62ac
+| 5dfc0aa44858fb4c888c3ec684621793 ......... Inputs hash
+|
+| Payload signature
+| 41 ....................................... Signature Size (65)
+| 20423f1bed9491fbb5528d426ce2c0e7
+| 0395238684c18493b688e3de9969a184
+| 7a7b638b5461ce83ea90286a41bad563
+| 453ef3a7fb62440865435232c5953f0b2c ....... Signature
+{% endhighlight %}
+
 
 {% endautocrossref %}
 
