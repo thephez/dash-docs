@@ -447,7 +447,7 @@ data:
 | 16 | ipAddress | byte[] | IPv6 address in network byte order. Only IPv4 mapped addresses are allowed (to be extended in the future)
 | 2 | port | uint_16 | Port (network byte order)
 | 20 | KeyIdOwner | CKeyID | The public key hash used for owner related signing (ProTx updates, governance voting)
-| 48 | KeyIdOperator | CKeyID | The public key hash used for operational related signing (network messages, ProTx updates)
+| 48 | PubKeyOperator | CBLSPublicKey | The BLS public key used for operational related signing (network messages, ProTx updates)
 | 20 | KeyIdVoting | CKeyID | The public key hash used for voting.
 | 2 | operatorReward | uint_16 | A value from 0 to 10000.
 | 1-9 | scriptPayoutSize | compactSize uint | Size of the Payee Script.
@@ -487,11 +487,11 @@ ProRegTx Payload
 | 00000000000000000000ffffc0000233 ......... IP Address: ::ffff:192.0.2.51
 | 270f ..................................... Port: 9999
 
-| 126b1e623ce22ece37062d29fee489eb5ef170a9 . Owner pubkey hash
+| 126b1e623ce22ece37062d29fee489eb5ef170a9 . Owner pubkey hash (ECDSA)
 | 89df78462fdce7bdce1d6cb16f799835d08cca9e
 | 7ddae78750e432760c7e077d40f1e6d4e1bf9920
-| 85b89ae58b0d7c9e ......................... Operator pubKey hash (BLS Key)
-| 126b1e623ce22ece37062d29fee489eb5ef170a9 . Voting pubkey hash
+| 85b89ae58b0d7c9e ......................... Operator public key (BLS)
+| 126b1e623ce22ece37062d29fee489eb5ef170a9 . Voting pubkey hash (ECDSA)
 |
 | 1027 ..................................... Operator reward (100%)
 |
