@@ -430,10 +430,10 @@ The Masternode Registration (ProRegTx) special transaction is used to join the
 masternode list by proving ownership of the 1000 DASH necessary to create a
 masternode.
 
-The ProRegTx must either include an output with 1000 DASH or refer to an existing
-unspent output holding 1000 DASH. If the 1000 DASH is an output of the ProRegTx,
-the collateralOutpoint field should be null. A ProRegTx is created and sent using
-the `protx` RPC.
+A ProRegTx is created and sent using the `protx` RPC. The ProRegTx must either
+include an output with 1000 DASH (`protx register`) or refer to an existing
+unspent output holding 1000 DASH (`protx fund_register`). If the 1000 DASH is an
+output of the ProRegTx, the collateralOutpoint hash field should be null.
 
 The special transaction type is 1 and the extra payload consists of the following
 data:
@@ -443,7 +443,7 @@ data:
 | 2 | version | uint_16 | Provider transaction version number. Currently set to 1.
 | 2 | type | uint_16 | Masternode type. Default set to 0.
 | 2 | mode | uint_16 | Masternode mode. Default set to 0.
-| 36 | collateralOutpoint | COutpoint | The collateral outpoint.
+| 36 | collateralOutpoint | COutpoint | The collateral outpoint.<br>**Note:** The hash will be null if the collateral is part of this transaction, otherwise it will reference an existing collateral.
 | 16 | ipAddress | byte[] | IPv6 address in network byte order. Only IPv4 mapped addresses are allowed (to be extended in the future)
 | 2 | port | uint_16 | Port (network byte order)
 | 20 | KeyIdOwner | CKeyID | The public key hash used for owner related signing (ProTx updates, governance voting)
@@ -456,24 +456,86 @@ data:
 | 1-9 | payloadSigSize |compactSize uint | Size of the Signature
 | Variable | payloadSig | vector | Signature of the hash of the ProTx fields. Signed with the key corresponding to the collateral outpoint in case the collateral is not part of the ProRegTx itself, empty otherwise.
 
-The following annotated hexdump shows a ProRegTx transaction. (Parts of the
-classical transaction section have been omitted.)
+The following annotated hexdump shows a ProRegTx transaction referencing an
+existing collateral. (Parts of the classical transaction section have been omitted.)
 
 {% highlight text %}
 0300 ....................................... Version (3)
 0100 ....................................... Type (1 - ProRegTx)
+
+[...] ...................................... Transaction inputs omitted
+[...] ...................................... Transaction outputs omitted
+
 00000000 ................................... locktime: 0 (a block height)
+
+fd1201 ..................................... Extra payload size (274)
+
+ProRegTx Payload
+| 0100 ..................................... Version (1)
+| 0000 ..................................... Type (0)
+| 0000 ..................................... Mode (0)
+|
+| 4859747b0eb19bb2dae5a12ef7b6a69b
+| 03712bfeded1174de0b6ab1334ab2e8b ......... Outpoint TXID
+| 01000000 ................................. Outpoint index number: 1
+|
+| 00000000000000000000ffffc0000233 ......... IP Address: ::ffff:192.0.2.51
+| 270f ..................................... Port: 9999
+|
+|
+| 1636e84d02310b0b458f3eb51d8ea8b2e684b7ce . Owner pubkey hash (ECDSA)
+| 88d719278eef605d9c19037366910b59bc28d437
+| de4a8db4d76fda6d6985dbdf10404fb9bb5cd0e8
+| c22f4a914a6c5566 ......................... Operator public key (BLS)
+| 1636e84d02310b0b458f3eb51d8ea8b2e684b7ce . Voting pubkey hash (ECDSA)
+|
+| f401 ..................................... Operator reward (500 -> 5%)
+|
+| Payout script
+| 19 ....................................... Bytes in pubkey script: 25
+| | 76 ..................................... OP_DUP
+| | a9 ..................................... OP_HASH160
+| | 14 ..................................... Push 20 bytes as data
+| | | fc136008111fcc7a05be6cec66f97568
+| | | 727a9e51 ............................. PubKey hash
+| | 88 ..................................... OP_EQUALVERIFY
+| | ac ..................................... OP_CHECKSIG
+|
+| 0fcfb7d939078ba6a6b81ecf1dc2e05d
+| e2776f49f7b503ac254798be6a672699 ......... Inputs hash
+|
+| Payload signature
+| 41 ....................................... Signature Size (65)
+| 200476f193b465764093014ba44bd4ff
+| de2b3fc92794c4acda9cad6305ca172e
+| 9e3d6b1cd6e30f86678dae8e6595e53d
+| 2b30bc32141b6c0151eb58479121b3e6a4 ....... Signature
+{% endhighlight %}
+
+The following annotated hexdump shows a ProRegTx transaction creating a new
+collateral.
+
+**Note the presence of the output, a null Outpoint TXID and the
+absence of a signature (since it isn't referring to an existing collateral).**
+(Parts of the classical transaction section have been omitted.)
+
+{% highlight text %}
+0300 ....................................... Version (3)
+0100 ....................................... Type (1 - ProRegTx)
 
 [...] ...................................... Transaction inputs omitted
 
-01 ......................................... Number of outputs
+02 ......................................... Number of outputs
+| [...] .................................... 1 output omitted
 |
 | Masternode collateral output
 | | 00e8764817000000 ....................... Duffs (1000 DASH)
-| | 1976a91486a8a072b856cfb273
-| | b407487cccbbabef41d4eb88ac ............. Script
+| | 1976a9149e648c7e4b61482aa3
+| | 9bd10e0bf0b5268768005f88ac ............. Script
 
-f2 ......................................... Extra payload size (242)
+00000000 ................................... locktime: 0 (a block height)
+
+d1 ......................................... Extra payload size (209)
 
 ProRegTx Payload
 | 0100 ..................................... Version (1)
@@ -482,40 +544,36 @@ ProRegTx Payload
 |
 | 00000000000000000000000000000000
 | 00000000000000000000000000000000 ......... Outpoint TXID
-| 00000000 ................................. Outpoint index number: 0
+| 01000000 ................................. Outpoint index number: 1
 |
 | 00000000000000000000ffffc0000233 ......... IP Address: ::ffff:192.0.2.51
 | 270f ..................................... Port: 9999
-
-| 126b1e623ce22ece37062d29fee489eb5ef170a9 . Owner pubkey hash (ECDSA)
-| 89df78462fdce7bdce1d6cb16f799835d08cca9e
-| 7ddae78750e432760c7e077d40f1e6d4e1bf9920
-| 85b89ae58b0d7c9e ......................... Operator public key (BLS)
-| 126b1e623ce22ece37062d29fee489eb5ef170a9 . Voting pubkey hash (ECDSA)
 |
-| 1027 ..................................... Operator reward (100%)
+| 757a2171bbf92517e358249f20c37a8ad2d7a5bc . Owner pubkey hash (ECDSA)
+| 0e02146e9c34cfbcb3f3037574a1abb35525e2ca
+| 0c3c6901dbf82ac591e30218d1711223b7ca956e
+| df39f3d984d06d51 ......................... Operator public key (BLS)
+| 757a2171bbf92517e358249f20c37a8ad2d7a5bc . Voting pubkey hash (ECDSA)
+|
+| f401 ..................................... Operator reward (500 -> 5%)
 |
 | Payout script
 | 19 ....................................... Bytes in pubkey script: 25
 | | 76 ..................................... OP_DUP
 | | a9 ..................................... OP_HASH160
 | | 14 ..................................... Push 20 bytes as data
-| | | 1845a3c3953d44de1b5546a19f31f5f1
-| | | d04704a7 ............................. PubKey hash
+| | | 9e648c7e4b61482aa39bd10e0bf0b526
+| | | 8768005f ............................. PubKey hash
 | | 88 ..................................... OP_EQUALVERIFY
 | | ac ..................................... OP_CHECKSIG
 |
-| 65b00dcd064420172d48cfbbd72a62ac
-| 5dfc0aa44858fb4c888c3ec684621793 ......... Inputs hash
+| 57b115d681b9aff82824ff7e22af99d4
+| ac4b39ad7be7cb70b662e9011827d589 ......... Inputs hash
 |
 | Payload signature
-| 41 ....................................... Signature Size (65)
-| 20423f1bed9491fbb5528d426ce2c0e7
-| 0395238684c18493b688e3de9969a184
-| 7a7b638b5461ce83ea90286a41bad563
-| 453ef3a7fb62440865435232c5953f0b2c ....... Signature
+| 00 ....................................... Signature Size (0)
+| .......................................... Signature (Empty)
 {% endhighlight %}
-
 
 {% endautocrossref %}
 
