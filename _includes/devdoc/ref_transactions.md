@@ -607,20 +607,20 @@ payload consists of the following data:
 | 1-9 | scriptOperator<br>PayoutSize | compactSize uint | Size of the Operator Payee Script.
 | Variable | scriptOperator<br>Payout | Script | Operator Payee script (p2pkh/p2sh)
 | 32 | inputsHash | uint256 | Hash of all the outpoints of the transaction inputs
-| 1-9 | payloadSigSize |compactSize uint | Size of the Signature
-| Variable | payloadSig | vector | BLS Signature of the hash of the ProUpServTx fields. Signed by the Operator.
-
+| 1-9 | payloadSigSize |compactSize uint | Size of the Signature<br>**Note:** not present in current implementation
+| Variable | payloadSig | vector | BLS Signature of the hash of the ProUpServTx fields. Signed by the Operator. (96 bytes)
 
 The following annotated hexdump shows a ProUpServTx transaction. (Parts of the
 classical transaction section have been omitted.)
 
 {% highlight text %}
 0300 ....................................... Version (3)
-0100 ....................................... Type (2 - ProUpServTx)
-00000000 ................................... locktime: 0 (a block height)
+0200 ....................................... Type (2 - ProUpServTx)
 
 [...] ...................................... Transaction inputs omitted
 [...] ...................................... Transaction outputs omitted
+
+00000000 ................................... locktime: 0 (a block height)
 
 b5 ......................................... Extra payload size (181)
 
@@ -640,13 +640,12 @@ ProUpServTx Payload
 | 4ac27d1c7e7df610500b7ba70fd46507 ......... Inputs hash
 |
 | Payload signature (BLS)
-| ?? ....................................... Signature Size??
 | 0267702ef85d186ef7fa32dc40c65f2f
 | eca0a7465715eb7c30f81beb69e35ee4
 | 1f6ff7f292b82a9caebb5aa961b0f915
 | 02501becf629e93c0a01c76162d56a6c
 | 65a9675c3ca9d5297f053e68f91393dd
-| 789beed8ef7e8839695a334c2e1bd37c ......... Signature
+| 789beed8ef7e8839695a334c2e1bd37c ......... BLS Signature (96 bytes)
 
 {% endhighlight %}
 
