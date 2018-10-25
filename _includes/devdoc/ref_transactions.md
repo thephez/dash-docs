@@ -593,7 +593,7 @@ A ProUpServTx is only valid for masternodes in the registered masternodes subset
 When processed, it updates the metadata of the masternode entry and revives the
 masternode if it was previously marked as PoSe-banned.
 
-A ProRegTx is created and sent using the `protx update_service` RPC.
+A ProUpServTx is created and sent using the `protx update_service` RPC.
 
 The special transaction type used for ProUpServTx Transactions is 2 and the extra
 payload consists of the following data:
@@ -607,8 +607,8 @@ payload consists of the following data:
 | 1-9 | scriptOperator<br>PayoutSize | compactSize uint | Size of the Operator Payee Script.
 | Variable | scriptOperator<br>Payout | Script | Operator Payee script (p2pkh/p2sh)
 | 32 | inputsHash | uint256 | Hash of all the outpoints of the transaction inputs
-| 1-9 | payloadSigSize |compactSize uint | Size of the Signature<br>**Note:** not present in current implementation
-| Variable | payloadSig | vector | BLS Signature of the hash of the ProUpServTx fields. Signed by the Operator. (96 bytes)
+| 1-9 | payloadSigSize |compactSize uint | Size of the Signature<br>**Note:** not present in BLS implementation
+| 96 | payloadSig | vector | BLS Signature of the hash of the ProUpServTx fields. Signed by the Operator.
 
 The following annotated hexdump shows a ProUpServTx transaction. (Parts of the
 classical transaction section have been omitted.)
@@ -646,7 +646,6 @@ ProUpServTx Payload
 | 02501becf629e93c0a01c76162d56a6c
 | 65a9675c3ca9d5297f053e68f91393dd
 | 789beed8ef7e8839695a334c2e1bd37c ......... BLS Signature (96 bytes)
-
 {% endhighlight %}
 
 {% endautocrossref %}
