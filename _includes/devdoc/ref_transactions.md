@@ -668,7 +668,58 @@ Masternode Provider - Update Registrar
 
 *Added in protocol version 70211 of Dash Core as described by DIP3*
 
-Masternode Provider - Update Revocation
+The Masternode Operator Revocation (ProUpRevTx) special transaction allows an
+operator to revoke their key in case of compromise or if they wish to terminate
+service. If a masternode's operator key is revoked, the masternode becomes
+ineligible for payment until the owner provides a new operator key (via a ProUpRegTx).
+
+A ProUpRevTx is created and sent using the `protx revoke` RPC.
+
+The special transaction type used for ProUpServTx Transactions is 4 and the extra
+payload consists of the following data:
+
+| Bytes | Name | Data type |  Description |
+| ---------- | ----------- | -------- | -------- |
+| 2 | version | uint_16 | ProUpRevTx version number. Currently set to 1.
+| 32 | proTXHash | uint256 | The hash of the initial ProRegTx
+| 2 | reason | uint_16 | The reason for revoking the key.<br>`0` - Not specified<br>`1` - Termination of Service<br>`2` - Compromised Key<br>`3` - Change of key
+| 32 | inputsHash | uint256 | Hash of all the outpoints of the transaction inputs
+| 1-9 | payloadSigSize |compactSize uint | Size of the Signature<br>**Note:** not present in BLS implementation
+| 96 | payloadSig | vector | BLS Signature of the hash of the ProUpServTx fields. Signed by the Operator.
+
+The following annotated hexdump shows a ProUpRevTx transaction. (Parts of the
+classical transaction section have been omitted.)
+
+{% highlight text %}
+0300 ....................................... Version (3)
+0400 ....................................... Type (4 - ProUpRevTx)
+
+[...] ...................................... Transaction inputs omitted
+[...] ...................................... Transaction outputs omitted
+
+00000000 ................................... locktime: 0 (a block height)
+
+a4 ......................................... Extra payload size (164)
+
+ProUpRevTx Payload
+| 0100 ..................................... Version (1)
+|
+| ddaf13bf1b02de39711de911e646c63e
+| f089b6cee786a1b776086ae130331bba ......... ProRegTx Hash
+|
+| 0000 ..................................... Reason: 0 (Not specified)
+|
+| cb0dfe113c87f8e9cde2c5d18aae12fc
+| 8d0617c42c34ca5c2f2f6ab4b1dae164 ......... Inputs hash
+|
+| Payload signature (BLS)
+| 0adaef4bf1a904308f1b0efbdfaffc93
+| 864f9e047fd83415c831589180303711
+| 0f0d8adb312ab43ddd7f8086042d3f5b
+| 09029a6a16c341c9d2a62789b495fef4
+| e068da711dac28106ff354db7249ae88
+| 05877d82ff7d1af00ae2d303dea5eb3b ......... BLS Signature (96 bytes)
+{% endhighlight %}
 
 {% endautocrossref %}
 
