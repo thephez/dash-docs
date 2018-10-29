@@ -730,7 +730,67 @@ ProUpRevTx Payload
 
 *Added in protocol version 70211 of Dash Core as described by DIP4*
 
-Coinbase
+The Coinbase (CbTx) special transaction adds information to the block’s coinbase
+transaction that enables verification of the deterministic masternode list without
+the full chain (e.g. from SPV clients). This allows light-clients to properly
+verify InstantSend transactions and support additional deterministic masternode
+list functionality in the future.
+
+The special transaction type used for CbTx Transactions is 5 and the extra
+payload consists of the following data:
+
+| Bytes | Name | Data type |  Description |
+| ---------- | ----------- | -------- | -------- |
+| 2 | version | uint_16 | CbTx version number. Currently set to 1.
+| 4 | height | uint32_t | Height of the block
+| 32 | merkleRootMNList | uint256 | Merkle root of the masternode list
+
+The following annotated hexdump shows a CbTx transaction.
+
+<!--devnet-DRA getrawtransaction 072b8eb47a87799a1242a8bd959a9c5eab93a346700d2f674420cfea70b2ed1c true-->
+
+An itemized coinbase transaction:
+
+{% highlight text %}
+0300 ....................................... Version (3)
+0500 ....................................... Type (5 - Coinbase)
+
+01 ......................................... Number of inputs
+| 00000000000000000000000000000000
+| 00000000000000000000000000000000 ......... Previous outpoint TXID
+| ffffffff ................................. Previous outpoint index
+|
+| 05 ....................................... Bytes in coinbase: 5
+| |
+| | 02 ..................................... Bytes in height
+| | | 0608 ................................. Height: 2054
+| |
+| | 0101 ................................... Arbitrary data
+| ffffffff ................................. Sequence
+
+02 ......................................... Output count
+| Transaction Output 1
+| | 00902f5009000000 ....................... Duffs (400 DASH)
+| | 2102c633b7022b4dab169c8a8459d83b7e0
+| | 6e0f8da0f89bf7e788ec98c8038107989ac .... Script
+|
+| Transaction Output 2
+| | 00e40b5402000000 ....................... Duffs (100 DASH)
+| | 1976a914ebafa153cffbb5b37c30fb93
+| | 886f2fe0f1d549ed88ac ................... P2PKH script
+
+00000000 ................................... Locktime
+
+26 ......................................... Extra payload size (38)
+
+Coinbase Transaction Payload
+| 0100 ..................................... Version (1)
+|
+| 06080000 ................................. Block height: 2054
+|
+| 69010fa8b729b53c78a1e209946c82e2
+| 3159439022ea4055aa60d4393fffba46 ......... MN List merkle root
+{% endhighlight %}
 
 {% endautocrossref %}
 
