@@ -224,12 +224,15 @@ A raw transaction has the following top-level format:
 
 | Bytes    | Name         | Data Type           | Description
 |----------|--------------|---------------------|-------------
-| 4        | version      | uint32_t            | Transaction version number; currently version 2.  Programs creating transactions using newer consensus rules may use higher version numbers.
+| 2        | version      | uint16_t            | Transaction version number; currently version 3.  Programs creating transactions using newer consensus rules may use higher version numbers.
+| 2        | type         | uint16_t            | Transaction type number; 0 for classical transactions; Non-zero for DIP2 special transactions.
 | *Varies* | tx_in count  | compactSize uint    | Number of inputs in this transaction.
 | *Varies* | tx_in        | txIn                | Transaction inputs.  See description of txIn below.
 | *Varies* | tx_out count | compactSize uint    | Number of outputs in this transaction.
 | *Varies* | tx_out       | txOut               | Transaction outputs.  See description of txOut below.
 | 4        | lock_time    | uint32_t            | A time (Unix epoch time) or block number.  See the [locktime parsing rules][].
+| *Varies* | extra_payload size | compactSize uint | *Added by DIP2*<br><br>Variable number of bytes of extra payload for DIP2-based special transactions
+| *Varies* | extra_payload | blob               | *Added by DIP2*<br><br>Special transaction payload.
 
 A transaction may have multiple inputs and outputs, so the txIn and
 txOut structures may recur within a transaction. CompactSize unsigned
