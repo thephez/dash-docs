@@ -660,7 +660,77 @@ ProUpServTx Payload
 
 *Added in protocol version 70211 of Dash Core as described by DIP3*
 
-Masternode Provider - Update Registrar
+The Masternode Provider Update Registrar (ProUpRegTx) special transaction is used
+by a masternode owner to update masternode metadata (e.g. operator/voting key
+details or the payout script).
+
+A ProUpRegTx is created and sent using the `protx update_registrar` RPC.
+
+The special transaction type is 3 and the extra payload consists of the following
+data:
+
+| Bytes | Name | Data type |  Description |
+| ---------- | ----------- | -------- | -------- |
+| 2 | version | uint_16 | Provider update registrar transaction version number. Currently set to 1.
+| 32 | proTXHash | uint256 | The hash of the initial ProRegTx
+| 2 | mode | uint_16 | Masternode mode. Default set to 0.
+| 48 | PubKeyOperator | CBLSPublicKey | The BLS public key used for operational related signing (network messages, ProTx updates)
+| 20 | KeyIdVoting | CKeyID | The public key hash used for voting.
+| 1-9 | scriptPayoutSize | compactSize uint | Size of the Payee Script.
+| Variable | scriptPayout | Script | Payee script (p2pkh/p2sh)
+| 32 | inputsHash | uint256 | Hash of all the outpoints of the transaction inputs
+| 1-9 | payloadSigSize |compactSize uint | Size of the Signature
+| Variable | payloadSig | vector | Signature of the hash of the ProTx fields. Signed with the key corresponding to the collateral outpoint in case the collateral is not part of the ProRegTx itself, empty otherwise.
+
+The following annotated hexdump shows a ProUpRegTx transaction referencing an
+existing collateral. (Parts of the classical transaction section have been omitted.)
+
+<!--devnet-dashdocs getrawtransaction 702390ef06b10c174841ad7b863df23c166c27815e3be2438e2fee6f87882b91 true-->
+
+{% highlight text %}
+0300 ....................................... Version (3)
+0300 ....................................... Type (3 - ProUpRegTx)
+
+[...] ...................................... Transaction inputs omitted
+[...] ...................................... Transaction outputs omitted
+
+00000000 ................................... locktime: 0 (a block height)
+
+e4 ......................................... Extra payload size (228)
+
+ProRegTx Payload
+| 0100 ..................................... Version (1)
+|
+| ddaf13bf1b02de39711de911e646c63e
+| f089b6cee786a1b776086ae130331bba ......... ProRegTx Hash
+|
+| 0000 ..................................... Mode (0)
+|
+| 0e02146e9c34cfbcb3f3037574a1abb35525e2ca
+| 0c3c6901dbf82ac591e30218d1711223b7ca956e
+| df39f3d984d06d51 ......................... Operator public key (BLS)
+| 757a2171bbf92517e358249f20c37a8ad2d7a5bc . Voting pubkey hash (ECDSA)
+|
+| Payout script
+| 19 ....................................... Bytes in pubkey script: 25
+| | 76 ..................................... OP_DUP
+| | a9 ..................................... OP_HASH160
+| | 14 ..................................... Push 20 bytes as data
+| | | 9e648c7e4b61482aa39bd10e0bf0b526
+| | | 8768005f ............................. PubKey hash
+| | 88 ..................................... OP_EQUALVERIFY
+| | ac ..................................... OP_CHECKSIG
+|
+| 50b50b24193b2b16f0383125c1f4426e
+| 883d256eeadee96d500f8c08b0e0f9e4 ......... Inputs hash
+|
+| Payload signature
+| 41 ....................................... Signature Size (65)
+| 1ffa8a27ae0301e414176d4c876cff2e
+| 20b810683a68ab7dcea95de1f8f36441
+| 4c56368f189a3ef7a59b83bd77f22431
+| a73d347841a58768b94c771819dc2bbce3 ....... Signature
+{% endhighlight %}
 
 {% endautocrossref %}
 
