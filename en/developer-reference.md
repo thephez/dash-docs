@@ -80,6 +80,8 @@ untrusted source.
 
 {% include devdoc/dash-core/rpcs/rpcs/backupwallet.md %}
 
+{% include devdoc/dash-core/rpcs/rpcs/bls.md %}
+
 {% include devdoc/dash-core/rpcs/rpcs/bumpfee.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/clearbanned.md %}

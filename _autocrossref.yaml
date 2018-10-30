@@ -260,6 +260,8 @@ DIP1:
 '`addwitnessaddress` RPC': rpc addwitnessaddress
 '`backupwallet`': rpc backupwallet
 '`backupwallet` RPC': rpc backupwallet
+'`bls`': rpc bls
+'`bls` RPC': rpc bls
 '`bumpfee`': rpc bumpfee
 '`bumpfee` RPC': rpc bumpfee
 '`clearbanned`': rpc clearbanned

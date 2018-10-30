@@ -65,6 +65,7 @@ http://opensource.org/licenses/MIT.
 [rpc addnode]: /en/developer-reference#addnode
 [rpc addwitnessaddress]: /en/developer-reference#addwitnessaddress
 [rpc backupwallet]: /en/developer-reference#backupwallet
+[rpc bls]: /en/developer-reference#bls
 [rpc bumpfee]: /en/developer-reference#bumpfee
 [rpc clearbanned]: /en/developer-reference#clearbanned
 [rpc createmultisig]: /en/developer-reference#createmultisig
