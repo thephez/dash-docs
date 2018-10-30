@@ -62,7 +62,7 @@ The `getgovernanceinfo` RPC {{summary_getGovernanceInfo}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.4.0*
+*Example from Dash Core 0.13.0.0*
 
 {% highlight bash %}
 dash-cli -testnet getgovernanceinfo

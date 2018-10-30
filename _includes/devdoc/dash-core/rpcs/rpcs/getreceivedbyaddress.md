@@ -51,7 +51,7 @@ The `getreceivedbyaddress` RPC {{summary_getReceivedByAddress}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.4*
+*Example from Dash Core 0.13.0*
 
 Get the dash received for a particular address, only counting
 transactions with six or more confirmations (ignore InstantSend locked transactions):

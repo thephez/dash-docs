@@ -55,7 +55,7 @@ The `getbalance` RPC {{summary_getBalance}}
 
 {% enditemplate %}
 
-*Examples from Dash Core 0.12.4*
+*Examples from Dash Core 0.13.0*
 
 Get the balance for the main ("") account, including transactions with
 at least five confirmations and those spent to watch-only addresses in

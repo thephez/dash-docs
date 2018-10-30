@@ -27,7 +27,7 @@ The `setprivatesendrounds` RPC {{summary_setPrivateSendRounds}}
 
 *Result---`null` on success*
 
-*Example from Dash Core 0.12.4*
+*Example from Dash Core 0.13.0*
 
 {% highlight bash %}
 dash-cli -testnet setprivatesendrounds 4

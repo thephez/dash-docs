@@ -56,7 +56,7 @@ The `masternode<!--noref--> check` RPC forces a check of all masternodes and rem
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.4*
+*Example from Dash Core 0.13.0*
 
 {% highlight bash %}
 dash-cli -testnet masternode check
@@ -307,7 +307,7 @@ The `masternode<!--noref--> genkey` RPC generates a new masternodeprivkey.
 - n: "Compressed"
   t: "bool"
   p: "Optional<br>(0 or 1)"
-  d: "*Added in Dash Core 0.12.4*<br><br>If set to `true`, generates a compressed private key (default: false)"
+  d: "*Added in Dash Core 0.13.0*<br><br>If set to `true`, generates a compressed private key (default: false)"
 
 {% enditemplate %}
 
@@ -321,7 +321,7 @@ The `masternode<!--noref--> genkey` RPC generates a new masternodeprivkey.
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.4*
+*Example from Dash Core 0.13.0*
 
 {% highlight bash %}
 dash-cli -testnet masternode genkey
@@ -332,7 +332,7 @@ Result:
 92Mn5DQpnBHjFPbS3ZXcX3EdhuET18u3eXTTtVsdDzdcAMaXqtG
 {% endhighlight %}
 
-*Example from Dash Core 0.12.4 (compressed key)*
+*Example from Dash Core 0.13.0 (compressed key)*
 
 {% highlight bash %}
 dash-cli -testnet masternode genkey true

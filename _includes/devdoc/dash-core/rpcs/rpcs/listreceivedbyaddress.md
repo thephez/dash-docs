@@ -100,7 +100,7 @@ The `listreceivedbyaddress` RPC {{summary_listReceivedByAddress}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.4*
+*Example from Dash Core 0.13.0*
 
 List addresses with balances confirmed by at least six blocks, including
 watch-only addresses. Also include the balance from InstantSend locked transactions:

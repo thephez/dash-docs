@@ -72,7 +72,7 @@ The `dumpwallet` RPC {{summary_dumpWallet}}
   d: "Warning to not share the file due to it containing the private keys"
 {% enditemplate %}
 
-*Example from Dash Core 0.12.4*
+*Example from Dash Core 0.13.0*
 
 Create a wallet dump and then print its first 10 lines.
 
@@ -85,7 +85,7 @@ Results:
 
 {% highlight json %}
 {
-  "dashcoreversion": "v0.12.4.0",
+  "dashcoreversion": "v0.13.0.0",
   "lastblockheight": 250186,
   "lastblockhash": "0000000000a82fb1890de5da4740d0671910a436fe6fc4503a3e553adef073b4",
   "lastblocktime": "2018-10-23T12:50:44Z",
@@ -98,7 +98,7 @@ Results:
 Results (the first 10 lines of the file):
 
 {% highlight bash %}
-# Wallet dump created by Dash Core v0.12.4.0
+# Wallet dump created by Dash Core v0.13.0.0
 # * Created on 2018-10-23T12:55:38Z
 # * Best block at time of backup was 250186 (0000000000a82fb1890de5da4740d0671910a436fe6fc4503a3e553adef073b4),
 #   mined on 2018-10-23T12:50:44Z
