@@ -19,6 +19,10 @@ Use v0.n.n in abbreviation title to prevent autocrossrefing.
 <!-- Dash - Not Implemented -->
 {% assign DASH_NOT_IMPLEMENTED='**<abbr title="Not Implemented in Dash">Not Implemented</abbr>**' %}
 
+<!-- Dash Core 0.13.0.0 Nov 2018 -->
+{% assign DASH_NEW0_13_0='**<abbr title="New in Dash Core v0.13.0">New in Dash Core 0.13.0</abbr>**' %}
+{% assign DASH_UPDATED0_13_0='**<abbr title="Updated in Dash Core v0.13.0">Updated in Dash Core 0.13.0</abbr>**' %}
+
 <!-- Dash Core 0.12.3.0 July 2018 -->
 {% assign DASH_NEW0_12_3='**<abbr title="New in Dash Core v0.12.3">New in Dash Core 0.12.3</abbr>**' %}
 {% assign DASH_UPDATED0_12_3='**<abbr title="Updated in Dash Core v0.12.3">Updated in Dash Core 0.12.3</abbr>**' %}
@@ -154,6 +158,16 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 * [SentinelPing][rpc sentinelping]: {{summary_sentinelPing}}
 * [Spork][rpc spork]: {{summary_spork-rpc}}
 * [VoteRaw][rpc voteraw]: {{summary_voteRaw}}
+
+{% endautocrossref %}
+
+#### Evolution RPCs
+{:.no_toc}
+<!-- no subhead-links here -->
+
+{% autocrossref %}
+
+* [BLS][rpc bls]: {{summary_bls}} {{DASH_NEW0_13_0}}
 
 {% endautocrossref %}
 
