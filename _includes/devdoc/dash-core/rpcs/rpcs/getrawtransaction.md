@@ -102,7 +102,7 @@ deprecated.
 
 {% enditemplate %}
 
-*Examples from Dash Core 0.12.4*
+*Examples from Dash Core 0.13.0*
 
 A transaction in serialized transaction format:
 

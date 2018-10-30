@@ -27,7 +27,7 @@ The `setprivatesendamount` RPC {{summary_setPrivateSendAmount}}
 
 *Result---`null` on success*
 
-*Example from Dash Core 0.12.4*
+*Example from Dash Core 0.13.0*
 
 {% highlight bash %}
 dash-cli -testnet setprivatesendamount 2000

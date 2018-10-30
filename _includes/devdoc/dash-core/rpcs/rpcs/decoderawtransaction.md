@@ -34,7 +34,7 @@ The `decoderawtransaction` RPC {{summary_decodeRawTransaction}}
 {{INCLUDE_DECODE_RAW_TRANSACTION}}
 {% enditemplate %}
 
-*Example from Dash Core 0.12.4*
+*Example from Dash Core 0.13.0*
 
 Decode a signed one-input, two-output transaction:
 

@@ -160,7 +160,7 @@ NOT IN DASH
 - n: "{{DEPTH}} →<br>`type`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
-  d: "*Added in Dash Core 0.12.4.0*<br><br>The transaction format type"
+  d: "*Added in Dash Core 0.13.0.0*<br><br>The transaction format type"
 
 - n: "{{DEPTH}} →<br>`locktime`"
   t: "number (int)"
@@ -303,12 +303,12 @@ NOT IN DASH
 - n: "{{DEPTH}} →<br>`extraPayloadSize`"
   t: "number (int)"
   p: "Optional<br>(0 or 1)"
-  d: "*Added in Dash Core 0.12.4.0*<br><br>Size of the DIP2 extra payload. Only present if it's a DIP2 special transaction"
+  d: "*Added in Dash Core 0.13.0.0*<br><br>Size of the DIP2 extra payload. Only present if it's a DIP2 special transaction"
 
 - n: "{{DEPTH}} →<br>`extraPayload`"
   t: "string (hex)"
   p: "Optional<br>(0 or 1)"
-  d: "*Added in Dash Core 0.12.4.0*<br><br>Hex encoded DIP2 extra payload data. Only present if it's a DIP2 special transaction"
+  d: "*Added in Dash Core 0.13.0.0*<br><br>Hex encoded DIP2 extra payload data. Only present if it's a DIP2 special transaction"
 {% endcapture %}
 
 {% assign INCLUDE_WALLET_UNLOCKED="If the wallet has been encrypted either through the GUI or with the `encryptwallet` RPC, it must first be unlocked with the `walletpassphrase` RPC" %}

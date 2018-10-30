@@ -88,7 +88,7 @@ Core.  Use the RPCs listed in the See Also subsection below instead.
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.4*
+*Example from Dash Core 0.13.0*
 
 Get the balances for all non-empty accounts, including transactions
 which have been confirmed at least six times and InstantSend locked transactions:

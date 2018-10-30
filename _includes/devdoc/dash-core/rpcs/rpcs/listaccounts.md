@@ -53,7 +53,7 @@ Core.  Use the RPCs listed in the See Also subsection below instead.
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.4*
+*Example from Dash Core 0.13.0*
 
 Display account balances with one confirmation and watch-only addresses
 included. Add the balance of InstantSend locked transactions also.
