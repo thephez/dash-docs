@@ -462,6 +462,7 @@ http://opensource.org/licenses/MIT.
 [Testnet Faucet - Dash.org]: https://test.faucet.dash.org/
 [Testnet Faucet - Masternode.io]: http://test.faucet.masternode.io/
 [Testnet Faucet - Dashninja.pl]: https://test.faucet.dashninja.pl/
+[Testnet Faucet - Crowdnode.io]: http://faucet.test.dash.crowdnode.io/
 [Tor]: https://en.wikipedia.org/wiki/Tor_%28anonymity_network%29
 [transifex]: https://www.transifex.com/projects/p/bitcoinorg/
 [unix epoch time]: https://en.wikipedia.org/wiki/Unix_time
