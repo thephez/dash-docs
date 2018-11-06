@@ -2498,6 +2498,9 @@ and [Masternode Payment](developer-guide#masternode<!--noref-->-payment) section
 
 {% autocrossref %}
 
+![Warning icon](/img/icons/icon_warning.svg) NOTE: This message will be deprecated
+following activation of DIP3 which implements deterministic masternode lists.
+
 The `dseg` message requests either the entire masternode list or a specific
 entry. To request the list of all masternodes, use an empty txIn (TXID of all
 zeros and an index of 0xFFFFFFFF).  To request information about a specific
@@ -2543,6 +2546,9 @@ Masternode Unspent Outpoint
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
+
+![Warning icon](/img/icons/icon_warning.svg) NOTE: This message will be deprecated
+following activation of DIP3 which implements deterministic masternode lists.
 
 The `mnb` message is sent whenever a masternode comes online or a client is
 syncing.  The masternode will send this message which describes the masternode
@@ -2626,6 +2632,9 @@ Masternode Ping Message
 
 {% autocrossref %}
 
+![Warning icon](/img/icons/icon_warning.svg) NOTE: This message will be deprecated
+following activation of DIP3 which implements deterministic masternode lists.
+
 The `mnget` message requests masternode payment sync. The response to an
 `mnget` message is `mnw` message inventories. Masternodes ignore this request if
 they are not fully synced.
@@ -2661,6 +2670,9 @@ a8170000 ................................... Count: 6056
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
+
+![Warning icon](/img/icons/icon_warning.svg) NOTE: This message will be deprecated
+following activation of DIP3 which implements deterministic masternode lists.
 
 The `mnp` message is sent by masternodes every few minutes to ping the network
 with a message that propagates across the whole network. Dash Core currently
@@ -2822,6 +2834,9 @@ Masternode 2 Signature
 
 {% autocrossref %}
 
+![Warning icon](/img/icons/icon_warning.svg) NOTE: This message will be deprecated
+following activation of DIP3 which implements deterministic masternode lists.
+
 The `mnw` message is used to pick the next winning masternode. When a new block
 is found on the network, a masternode quorum will be determined and those 10
 selected masternodes will issue the masternode payment vote message.
@@ -2869,6 +2884,9 @@ Masternode Signature
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
+
+![Warning icon](/img/icons/icon_warning.svg) NOTE: This message will be deprecated
+following activation of DIP3 which implements deterministic masternode lists.
 
 There is no message for `mnwb` (`inv` message only).
 
@@ -3140,7 +3158,6 @@ message header has been omitted.)
 {% endhighlight %}
 
 {% endautocrossref %}
-
 
 ### Deprecated Messages
 {% include helpers/subhead-links.md %}
