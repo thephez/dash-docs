@@ -224,7 +224,7 @@ ba1b3330e16a0876b7a186e7ceb689f03ec646e611e91d7139de021bbf13afdd
 
 {% autocrossref %}
 
-The `protx<!--noref--> register prepare` RPC creates an unsigned ProTx and
+The `protx<!--noref--> register_prepare` RPC creates an unsigned ProTx and
 returns it. The ProTx must be signed externally with the collateral key and then
 passed to "protx register_submit". The prepared transaction will also contain inputs
 and outputs to cover fees.
@@ -301,13 +301,28 @@ and outputs to cover fees.
   d: "The Dash address to use for masternode reward payments. Must match `collateralAddress`."
 {% enditemplate %}
 
-*Result---provider registration transaction hash*
+*Result---unsigned transaction and message to sign*
 
 {% itemplate ntpd1 %}
 - n: "`result`"
+  t: "object"
+  p: "Required<br>(exactly 1)"
+  d: "JSON object containing an unsigned provider transaction and the message to be signed externally, or JSON `null` if an error occurred"
+
+- n: "→<br>`tx`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "Provider registration transaction (ProRegTx) hash"
+  d: "The serialized ProRegTx in hex format"
+
+- n: "→<br>`collateralAddress`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The collateral address"
+
+- n: "→<br>`signMessage`"
+  t: "string (base64)"
+  p: "Required<br>(exactly 1)"
+  d: "The string message that needs to be signed with the collateral key."
 {% enditemplate %}
 
 *Example from Dash Core 0.13.0*
@@ -327,6 +342,67 @@ Result:
   "collateralAddress": "yWuKWhDzGQqZL8rw6kGxGrfe6P8bUC2S4f",
   "signMessage": "yjJJLkYDUN6X8gWjXbCoKEXoiLeKxxMMRt|120|yemjhGQ99V5ayJMjoyGGPtxteahii6G1Jz|yemjhGQ99V5ayJMjoyGGPtxteahii6G1Jz|69a49e18c1253b90d39322f7e2f7af74524401bc33a27645e697e74a214e3e1e"
 }
+{% endhighlight %}
+
+{% endautocrossref %}
+
+###### ProTx<!--noref--> Register Submit
+<!-- no subhead-links here -->
+
+{% autocrossref %}
+
+The `protx<!--noref--> register_submit` RPC submits the specified ProTx to the
+network. This command will also sign the inputs of the transaction which were
+previously added by `protx register_prepare` to cover transaction fees.
+
+*Parameter #1---collateral address*
+
+{% itemplate ntpd1 %}
+- n: "`tx`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The serialized transaction previously returned by `protx register_prepare`"
+{% enditemplate %}
+
+*Parameter #2---collateral index*
+
+{% itemplate ntpd1 %}
+- n: "`sig`"
+  t: "string (base64)"
+  p: "Required<br>(exactly 1)"
+  d: "The signature signed with the collateral key. Must be in base64 format."
+{% enditemplate %}
+
+*Result---provider registration transaction hash*
+
+{% itemplate ntpd1 %}
+- n: "`result`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "Provider registration transaction (ProRegTx) hash"
+{% enditemplate %}
+
+*Example from Dash Core 0.13.0*
+
+{% highlight bash %}
+dash-cli -testnet protx register_submit\
+ 03000100012d988526d5d1efd32320023c92eff09c2963dcb021b0de9761\
+ 17e5e37dc7a7870000000000feffffff015f603ba40b0000001976a9140c\
+ 37e07eb5c608961769e6506c23c11e9f9fe00988ac00000000d101000000\
+ 00002d988526d5d1efd32320023c92eff09c2963dcb021b0de976117e5e3\
+ 7dc7a7870100000000000000000000000000ffff05060708162e243dd366\
+ bf4a329968d77eac9fb63481a600938d125e1b7cba03ca2a097e402185e6\
+ 160232ea53e6d62898a3be8617b06ff347d967543228bd9b605547c3d478\
+ b0a838ca243dd366bf4a329968d77eac9fb63481a600938dc4091976a914\
+ e9bf4e6f26fecf1dfc1e04dde43472df378628b888ac6a048e7f645e8adc\
+ 305ccfd8652066046a0702596af13b8ac97803ade256da2900\
+ \
+ H90IvqVtFjZkwLJb08yMEgGixs0/FpcdvwImBcir4cYLJhD3pdX+lKD2GsPl6KNxghVXNk5/HpOdBoWAHo9u++Y=
+{% endhighlight %}
+
+Result:
+{% highlight bash %}
+273ce3ebe24183ee4117b10e054cdbb108a3bde5d2f286129e29480d46a3f573
 {% endhighlight %}
 
 {% endautocrossref %}
