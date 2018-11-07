@@ -124,12 +124,12 @@ Result:
 
 {% endautocrossref %}
 
-###### ProTx<!--noref--> Fund-Register
+###### ProTx<!--noref--> Register Fund
 <!-- no subhead-links here -->
 
 {% autocrossref %}
 
-The `protx<!--noref--> fund_register` RPC creates and funds a ProRegTx with the 1,000 DASH necessary for a masternode and then sends it to the network.
+The `protx<!--noref--> register_fund` RPC creates and funds a ProRegTx with the 1,000 DASH necessary for a masternode and then sends it to the network.
 
 *Parameter #1---collateral address*
 
@@ -206,7 +206,7 @@ The `protx<!--noref--> fund_register` RPC creates and funds a ProRegTx with the 
 *Example from Dash Core 0.13.0*
 
 {% highlight bash %}
-dash-cli -testnet protx fund_register yakx4mMRptKhgfjedNzX5FGQq7kSSBF2e7\
+dash-cli -testnet protx register_fund yakx4mMRptKhgfjedNzX5FGQq7kSSBF2e7\
  3.4.5.6:3456 yX2cDS4kcJ4LK4uq9Hd4TG7kURV3sGLZrw\
  0e02146e9c34cfbcb3f3037574a1abb35525e2ca0c3c6901dbf82ac591e30218d1711223b7ca956edf39f3d984d06d51\
  yX2cDS4kcJ4LK4uq9Hd4TG7kURV3sGLZrw 5 yakx4mMRptKhgfjedNzX5FGQq7kSSBF2e7
@@ -215,6 +215,118 @@ dash-cli -testnet protx fund_register yakx4mMRptKhgfjedNzX5FGQq7kSSBF2e7\
 Result:
 {% highlight bash %}
 ba1b3330e16a0876b7a186e7ceb689f03ec646e611e91d7139de021bbf13afdd
+{% endhighlight %}
+
+{% endautocrossref %}
+
+###### ProTx<!--noref--> Register Prepare
+<!-- no subhead-links here -->
+
+{% autocrossref %}
+
+The `protx<!--noref--> register prepare` RPC creates an unsigned ProTx and
+returns it. The ProTx must be signed externally with the collateral key and then
+passed to "protx register_submit". The prepared transaction will also contain inputs
+and outputs to cover fees.
+
+*Parameter #1---collateral address*
+
+{% itemplate ntpd1 %}
+- n: "`collateralHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The collateral transaction hash"
+{% enditemplate %}
+
+*Parameter #2---collateral index*
+
+{% itemplate ntpd1 %}
+- n: "`collateralIndex`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The collateral transaction output index"
+{% enditemplate %}
+
+*Parameter #3---IP Address and port*
+
+{% itemplate ntpd1 %}
+- n: "`ipAndPort`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "IP and port in the form 'IP:PORT'.<br>Must be unique on the network.<br>Can be set to '0', which will require a ProUpServTx afterwards."
+{% enditemplate %}
+
+*Parameter #4---owner key address*
+
+{% itemplate ntpd1 %}
+- n: "`ownerKeyAddr`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The owner key used for payee updates and proposal voting. The private key belonging to this address be known in your wallet. The address must be unused and must differ from the `collateralAddress`."
+{% enditemplate %}
+
+*Parameter #5---operator public key*
+
+{% itemplate ntpd1 %}
+- n: "`operatorPubKey`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: " The operator public key. The private key does not have to be known. It has to match the private key which is later used when operating the masternode."
+{% enditemplate %}
+
+*Parameter #6---voting key address*
+
+{% itemplate ntpd1 %}
+- n: "`votingKeyAddr`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The voting key address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to '0' or an empty string, `ownerAddr` will be used."
+{% enditemplate %}
+
+*Parameter #7---operator reward*
+
+{% itemplate ntpd1 %}
+- n: "`operatorReward`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "The fraction in % to share with the operator. If non-zero, `ipAndPort` must be zero as well.<br>The value must be between '0.00' and '100.00'."
+{% enditemplate %}
+
+*Parameter #8---payout address*
+
+{% itemplate ntpd1 %}
+- n: "`payoutAddress`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The Dash address to use for masternode reward payments. Must match `collateralAddress`."
+{% enditemplate %}
+
+*Result---provider registration transaction hash*
+
+{% itemplate ntpd1 %}
+- n: "`result`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "Provider registration transaction (ProRegTx) hash"
+{% enditemplate %}
+
+*Example from Dash Core 0.13.0*
+
+{% highlight bash %}
+dash-cli -testnet protx register_prepare\
+ df41e398bb245e973340d434d386f431dbd69735a575721b0b6833856e7d31ec 1 \
+ 9.8.7.6:9876 yemjhGQ99V5ayJMjoyGGPtxteahii6G1Jz\
+ 06849865d01e4f73a6d5a025117e48f50b897e14235800501c8bfb8a6365cc8dbf5ddb67a3635d0f1dcc7d46a7ee280c\
+ yemjhGQ99V5ayJMjoyGGPtxteahii6G1Jz 1.2 yjJJLkYDUN6X8gWjXbCoKEXoiLeKxxMMRt
+{% endhighlight %}
+
+Result:
+{% highlight json %}
+{
+  "tx": "0300010001912b88876fee2f8e43e23b5e81276c163cf23d867bad4148170cb106ef9023700000000000feffffff0125623ba40b0000001976a914736e155c1039a269d4019c66219d2a18f0fee27588ac00000000d1010000000000ec317d6e8533680b1b7275a53597d6db31f486d334d44033975e24bb98e341df0100000000000000000000000000ffff090807062694ca6b243168b30461d1f19e2bb89a965a5bac067e06849865d01e4f73a6d5a025117e48f50b897e14235800501c8bfb8a6365cc8dbf5ddb67a3635d0f1dcc7d46a7ee280cca6b243168b30461d1f19e2bb89a965a5bac067e78001976a914fc136008111fcc7a05be6cec66f97568727a9e5188ace5f6b70ac55411727e25178bd417b9b03f837ad7155d90ad286f3a427203fb9f00",
+  "collateralAddress": "yWuKWhDzGQqZL8rw6kGxGrfe6P8bUC2S4f",
+  "signMessage": "yjJJLkYDUN6X8gWjXbCoKEXoiLeKxxMMRt|120|yemjhGQ99V5ayJMjoyGGPtxteahii6G1Jz|yemjhGQ99V5ayJMjoyGGPtxteahii6G1Jz|69a49e18c1253b90d39322f7e2f7af74524401bc33a27645e697e74a214e3e1e"
+}
 {% endhighlight %}
 
 {% endautocrossref %}
