@@ -10,6 +10,7 @@ edge [ penwidth = 1.75, fontname="Sans", dir="none" ]
 node [ penwidth = 1.75, shape = "box", fontname="Sans", ]
 graph [ penwidth = 1.75, fontname="Sans" ]
 
+getmnlistd -> mnlistdiff [ minlen = 3 ];
 getblocktxn -> blocktxn [ minlen = 3 ];
 
 getblocks -> inv;
