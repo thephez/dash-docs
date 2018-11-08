@@ -456,6 +456,29 @@ number of data pushes, provided the total byte limit is not exceeded.
 There must still only be a single null data output and it must still pay
 exactly 0 duffs.
 
+**Note:** Since the null data output must include opcodes, the limit for data
+is less than 83 bytes. A typical OP_RETURN is limited to 80 bytes
+due to the following 3 required bytes:
+
+ * OP_RETURN (0x6a)
+ * OP_PUSHDATA1 (0x4c)
+ * Data Size (e.g. 0x50 for 80 bytes)
+
+
+The following annotated hexdump shows an example OP_RETURN output:
+
+{% highlight bash %}
+6a ......................................... OP_RETURN Opcode
+4c ......................................... OP_PUSHDATA1 Opcode
+50 ......................................... Bytes to push: 80
+
+48656c6c6f2066726f6d207468657068657a203
+a2d29205468697320697320746865206d617869
+6d756d2074657874206c656e67746820616c6c6
+f77656420666f7220616e204f505f5245545552
+4e2e ....................................... Data
+{% endhighlight %}
+
 The `-datacarriersize` Dash Core configuration option allows you to
 set the maximum number of bytes in null data outputs that you will relay
 or mine.
