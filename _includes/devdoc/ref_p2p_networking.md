@@ -542,6 +542,34 @@ to the `getheaders` message will include as many as 2,000 block headers.
 
 {% endautocrossref %}
 
+#### GetMNListD
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70211*
+
+The `getmnlistd` message is sent to request a full masternode list or an
+update to a previously requested masternode list.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 32 | baseBlockHash | uint256 | Required | Hash of a block the requester already has a valid masternode list of.<br>_Note: Can be all-zero to indicate that a full masternode list is requested._
+| 32 | blockHash | uint256 | Required | Hash of the block for which the masternode list diff is requested
+
+The following annotated hexdump shows a `getmnlistd` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+000001ee5108348a2c59396da29dc576
+9b2a9bb303d7577aee9cd95136c49b9b ........... Base block hash
+
+0000030f51f12e7069a7aa5f1bc9085d
+db3fe368976296fd3b6d73fdaf898cc0 ........... Block hash
+{% endhighlight %}
+
+{% endautocrossref %}
+
 #### Headers
 {% include helpers/subhead-links.md %}
 
@@ -846,6 +874,87 @@ After you fully process the merkle root node according to the
 instructions in the table above, processing is complete.  Pad your flag
 list to a byte boundary and construct the `merkleblock` message using the
 template near the beginning of this subsection.
+
+{% endautocrossref %}
+
+#### MnListDiff
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70211*
+
+The `mnlistdiff` message is a reply to a `getmnlistd` message which
+requested either a full masternode list or a diff for a range of blocks.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 32 | baseBlockHash | uint256 | Required | Hash of a block the requester already has a valid masternode list of. Can be all-zero to indicate that a full masternode list is requested.
+| 32 | blockHash | uint256 | Required | Hash of the block for which the masternode list diff is requested
+| 4 | totalTransactions | uint32_t  | Required | Number of total transactions in `blockHash`
+| 1-9 | merkleHashesCount | compactSize uint | Required | Number of Merkle hashes
+| variable | merkleHashes | vector | Required | Merkle hashes in depth-first order
+| 1-9 | merkleFlagsCount | compactSize uint | Required | Number of Merkle flag bytes
+| variable | merkleFlags | vector<uint8_t> | Required | Merkle flag bits, packed per 8 in a byte, least significant bit first
+| variable | cbTx | CTransaction | Required | The fully serialized coinbase transaction of `blockHash`
+| variable | deletedMNs | vector | Required | A list of ProRegTx hashes for masternode which were deleted after `baseBlockHash`
+| variable | mnList | vector | Required | The list of SML entries which were added or updated since `baseBlockHash`
+
+The following annotated hexdump shows a `mnlistdiff` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+000001ee5108348a2c59396da29dc576
+9b2a9bb303d7577aee9cd95136c49b9b ........... Base block hash
+
+0000030f51f12e7069a7aa5f1bc9085d
+db3fe368976296fd3b6d73fdaf898cc0 ........... Block hash
+
+05000000 ................................... Transactions: 5
+
+04 ......................................... Merkle hash count: 4
+
+4488a599e5d61709664c32305befd58b
+ef29e33bc6e718af0233f938557a57a9 ........... Merkle hash 1
+5c8119b7b136d94e477a0d2917d5f724
+5ff299cc6e31994f6236a8fb34fec88f ........... Merkle hash 2
+905efa3e6743c889823f00147d36d12f
+d12ad401c19089f0affcabd423deef67 ........... Merkle hash 3
+3f3a7f84d7ad33214994b5aecf4c1e19
+2cb65b86750b1377e069073d1eba477a ........... Merkle hash 4
+
+01 ......................................... Merkle flag count: 1
+0f ......................................... Flags: 0 0 0 0 1 1 1 1
+
+[...]....................................... Coinbase Tx (Not shown)
+
+00 ......................................... Deleted masternodes: 0
+
+02 ......................................... Masternode list entries: 2
+
+Masternode List
+| Masternode 1
+| | 01040eb32f760490054543356cff4638
+| | 65633439dd073cffa570305eb086f70e ....... ProRegTx hash
+| | 00000000000000000000000000000000 ....... IP Address: ::ffff:0.0.0.0
+| | 0000 ................................... Port: 0
+| |
+| | 0000000000000000000000000000000000000000
+| | 0000000000000000000000000000000000000000
+| | 0000000000000000 ....................... Operator public key (BLS)
+| | c2ae01fb4084cbc3bc31e7f59b36be228a320404 Voting pubkey hash (ECDSA)
+|
+| Masternode 2
+| | f7737beb39779971e9bc59632243e13f
+| | c5fc9ada93b69bf48c2d4c463296cd5a ....... ProRegTx hash
+| | 000000000000000000000000cf9af40d ....... IP Address: ::ffff:207.154.244.13
+| | 4e1f ................................... Port: 19999
+| |
+| | 88d719278eef605d9c19037366910b59bc28d437
+| | de4a8db4d76fda6d6985dbdf10404fb9bb5cd0e8
+| | c22f4a914a6c5566 ....................... Operator public key (BLS)
+| | 43ce12751c4ba45dcdfe2c16cefd61461e17a54d Voting pubkey hash (ECDSA)
+{% endhighlight %}
 
 {% endautocrossref %}
 
