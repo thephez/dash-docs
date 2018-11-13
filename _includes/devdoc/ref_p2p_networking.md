@@ -66,7 +66,7 @@ with the most recent versions listed first. (If you know of a protocol
 version that implemented a major change but which is not listed here,
 please [open an issue][docs issue].)
 
-As of Dash Core 0.13.0.0, the most recent protocol version is 70211.
+As of Dash Core 0.13.0.0, the most recent protocol version is 70212.
 
 | Version | Initial Release                    | Major Changes
 |---------|------------------------------------|--------------
@@ -547,7 +547,7 @@ to the `getheaders` message will include as many as 2,000 block headers.
 
 {% autocrossref %}
 
-*Added in protocol version 70211*
+*Added in protocol version 70212*
 
 The `getmnlistd` message is sent to request a full masternode list or an
 update to a previously requested masternode list.
@@ -882,7 +882,7 @@ template near the beginning of this subsection.
 
 {% autocrossref %}
 
-*Added in protocol version 70211*
+*Added in protocol version 70212*
 
 The `mnlistdiff` message is a reply to a `getmnlistd` message which
 requested either a full masternode list or a diff for a range of blocks.

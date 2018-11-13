@@ -427,7 +427,7 @@ transaction types is maintained in the [DIP repository](https://github.com/dashp
 
 {% autocrossref %}
 
-*Added in protocol version 70211 of Dash Core as described by DIP3*
+*Added in protocol version 70212 of Dash Core as described by DIP3*
 
 The Masternode Registration (ProRegTx) special transaction is used to join the
 masternode list by proving ownership of the 1000 DASH necessary to create a
@@ -585,7 +585,7 @@ ProRegTx Payload
 
 {% autocrossref %}
 
-*Added in protocol version 70211 of Dash Core as described by DIP3*
+*Added in protocol version 70212 of Dash Core as described by DIP3*
 
 The Masternode Provider Update Service (ProUpServTx) special transaction is used
 to update the IP Address and port of a masternode. If a non-zero operatorReward
@@ -658,7 +658,7 @@ ProUpServTx Payload
 
 {% autocrossref %}
 
-*Added in protocol version 70211 of Dash Core as described by DIP3*
+*Added in protocol version 70212 of Dash Core as described by DIP3*
 
 The Masternode Provider Update Registrar (ProUpRegTx) special transaction is used
 by a masternode owner to update masternode metadata (e.g. operator/voting key
@@ -739,7 +739,7 @@ ProRegTx Payload
 
 {% autocrossref %}
 
-*Added in protocol version 70211 of Dash Core as described by DIP3*
+*Added in protocol version 70212 of Dash Core as described by DIP3*
 
 The Masternode Operator Revocation (ProUpRevTx) special transaction allows an
 operator to revoke their key in case of compromise or if they wish to terminate
@@ -801,7 +801,7 @@ ProUpRevTx Payload
 
 {% autocrossref %}
 
-*Added in protocol version 70211 of Dash Core as described by DIP4*
+*Added in protocol version 70212 of Dash Core as described by DIP4*
 
 The Coinbase (CbTx) special transaction adds information to the block’s coinbase
 transaction that enables verification of the deterministic masternode list without
