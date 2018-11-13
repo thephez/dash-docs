@@ -13,7 +13,7 @@ http://opensource.org/licenses/MIT.
 
 {% autocrossref %}
 
-*Requires wallet support. Can only be used on the regtest network.*
+*Requires wallet support.*
 
 The `generate` RPC {{summary_generate}}
 
