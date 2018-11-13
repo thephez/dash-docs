@@ -115,17 +115,17 @@ information, please see the following resources:
 
 - n: "→ →<br>Transaction"
   t: "object"
-  p: "Optional (0 or more)"
+  p: "Optional<br>(0 or more)"
   d: "Non-coinbase transaction"
 
 - n: "→ → →<br>`data`"
   t: "string (hex)"
-  p: "Optional (0 or more)"
+  p: "Optional<br>(0 or more)"
   d: "Transaction data encoded in hex (byte-for-byte)"
 
 - n: "→ → →<br>`hash`"
   t: "string (hex)"
-  p: "Optional (0 or more)"
+  p: "Optional<br>(0 or more)"
   d: "The hash/id encoded in little-endian hex"
 
 - n: "→ → →<br>`depends`"
@@ -235,7 +235,7 @@ information, please see the following resources:
 
 - n: "→ →<br>Masternode Payee"
   t: "object"
-  p: "Optional (0 or more)"
+  p: "Optional<br>(0 or more)"
   d: "Object containing a masternode payee's information"  
 
 - n: "→ → →<br>`payee`"
@@ -270,7 +270,7 @@ information, please see the following resources:
 
 - n: "→ →<br>Superblock Payee"
   t: "object"
-  p: "Optional (0 or more)"
+  p: "Optional<br>(0 or more)"
   d: "Object containing a superblock payee's information"
 
 - n: "→ → →<br>`payee`"
@@ -298,9 +298,13 @@ information, please see the following resources:
   p: "Required<br>(exactly 1)"
   d: "True if superblock payments enabled"
 
+- n: "→<br>`coinbase_payload`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "_Added in Dash Core 0.13.0_<br><br>Coinbase transaction payload data encoded in hexadecimal"
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.13.0*
 
 {% highlight bash %}
 dash-cli -testnet getblocktemplate
@@ -313,41 +317,26 @@ Result:
   "capabilities": [
     "proposal"
   ],
-  "version": 536870913,
+  "version": 536870920,
   "rules": [
-    "dip0001"
+    "csv",
+    "dip0001",
+    "bip147"
   ],
   "vbavailable": {
-    "csv": 0
+    "dip0003": 3
   },
   "vbrequired": 0,
-  "previousblockhash": "000000003d5c325259275fbf51a5dd623a13aade887cf83e5fdc3b\
-                        11898a71ce",
+  "previousblockhash": "0000000004dd4bf3ed4f4bac4a8f8c781a73bff32886390ec15fa0c5686476ac",
   "transactions": [
-    {
-      "data": "01000000013e9e7e2116d8546a54d8531092d50e2da705a6f229f91a6d129f\
-               3f3e529d2bdb010000006a473044022044569ec727012e06bd4fa853fdcb2d\
-               c268f193ca00b68649f3dee0c0ca3207ff02206dc8656025c2f503e58779e6\
-               8a14ed18a7134f2c7d2c4235269bd70a3d6d5bd301210226d4ce54b37c1886\
-               92844201edbfb19e37cdbe7138a133b92b7d3d43ec157da6feffffff02a00b\
-               d100000000001976a914d7b47d4b40a23c389f5a17754d7f60f511c7d0ec88\
-               ac43321005140000001976a914616fdfd6eae0548f0b0f51bef165974abc10\
-               511688ac1e1f0000",
-      "hash": "9fd01aafcb4c59741ddfef41da2ec0eb3e1cc5b740150320b29534abdcd67e77",
-      "depends": [
-      ],
-      "fee": 226,
-      "sigops": 2
-    }
   ],
   "coinbaseaux": {
     "flags": ""
   },
-  "coinbasevalue": 13230000226,
-  "longpollid": "000000003d5c325259275fbf51a5dd623a13aade887cf83e5fdc3b11898a\
-                 71ce316",
-  "target": "00000001231e0000000000000000000000000000000000000000000000000000",
-  "mintime": 1507737402,
+  "coinbasevalue": 2089285715,
+  "longpollid": "0000000004dd4bf3ed4f4bac4a8f8c781a73bff32886390ec15fa0c5686476ac4",
+  "target": "000000000eeb4b00000000000000000000000000000000000000000000000000",
+  "mintime": 1542118149,
   "mutable": [
     "time",
     "transactions",
@@ -356,23 +345,24 @@ Result:
   "noncerange": "00000000ffffffff",
   "sigoplimit": 40000,
   "sizelimit": 2000000,
-  "curtime": 1507738818,
-  "bits": "1c103bdf",
-  "previousbits": "1c1548b5",
-  "height": 7967,
+  "curtime": 1542119335,
+  "bits": "1c0eeb4b",
+  "previousbits": "1c0e639b",
+  "height": 263905,
   "masternode": [
     {
-      "payee": "yaJc6tADbEjxQBAC69ugWNoTFpzxqkcgWd",
-      "script": "76a914996911b133d83de25d1f169c7046d74b728a757b88ac",
-      "amount": 6615000108
+      "payee": "yedxgyCLu7BpxBbpeLUw4vAkxNrcEgHt57",
+      "script": "76a914c8f2a948efe84e9d9795aa473c5afb6023d6c07488ac",
+      "amount": 1044642850
     }
-  ],  
+  ],
   "masternode_payments_started": true,
   "masternode_payments_enforced": true,
   "superblock": [
   ],
   "superblocks_started": true,
-  "superblocks_enabled": true
+  "superblocks_enabled": true,
+  "coinbase_payload": ""
 }
 {% endhighlight %}
 
