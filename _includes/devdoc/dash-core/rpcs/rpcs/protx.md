@@ -86,7 +86,7 @@ The `protx<!--noref--> register` RPC creates a ProRegTx referencing an existing 
 - n: "`operatorReward`"
   t: "number"
   p: "Required<br>(exactly 1)"
-  d: "The fraction in % to share with the operator. If non-zero, `ipAndPort` must be zero as well.<br>The value must be between '0.00' and '100.00'."
+  d: "The fraction in % to share with the operator. If non-zero, `ipAndPort` must be zero as well (which will require a ProUpServTx afterwards).<br>The value must be between '0.00' and '100.00'."
 {% enditemplate %}
 
 *Parameter #8---payout address*
@@ -182,7 +182,7 @@ The `protx<!--noref--> register_fund` RPC creates and funds a ProRegTx with the 
 - n: "`operatorReward`"
   t: "number"
   p: "Required<br>(exactly 1)"
-  d: "The fraction in % to share with the operator. If non-zero, `ipAndPort` must be zero as well.<br>The value must be between '0.00' and '100.00'."
+  d: "The fraction in % to share with the operator. If non-zero, `ipAndPort` must be zero as well (which will require a ProUpServTx afterwards).<br>The value must be between '0.00' and '100.00'."
 {% enditemplate %}
 
 *Parameter #7---payout address*
@@ -289,7 +289,7 @@ and outputs to cover fees.
 - n: "`operatorReward`"
   t: "number"
   p: "Required<br>(exactly 1)"
-  d: "The fraction in % to share with the operator. If non-zero, `ipAndPort` must be zero as well.<br>The value must be between '0.00' and '100.00'."
+  d: "The fraction in % to share with the operator. If non-zero, `ipAndPort` must be zero as well (which will require a ProUpServTx afterwards).<br>The value must be between '0.00' and '100.00'."
 {% enditemplate %}
 
 *Parameter #8---payout address*
