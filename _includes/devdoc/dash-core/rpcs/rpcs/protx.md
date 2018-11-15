@@ -59,7 +59,7 @@ The `protx<!--noref--> register` RPC creates a ProRegTx referencing an existing 
 - n: "`ownerKeyAddr`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "The owner key used for payee updates and proposal voting. The private key belonging to this address be known in your wallet. The address must be unused and must differ from the `collateralAddress`."
+  d: "The owner key is used for payee updates. The private key belonging to this address be known in your wallet. The address must be unused and must differ from the `collateralAddress`."
 {% enditemplate %}
 
 *Parameter #5---operator public key*
@@ -155,7 +155,7 @@ The `protx<!--noref--> register_fund` RPC creates and funds a ProRegTx with the 
 - n: "`ownerKeyAddr`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "The owner key used for payee updates and proposal voting. The private key belonging to this address be known in your wallet. The address must be unused and must differ from the `collateralAddress`."
+  d: "The owner key is used for payee updates. The private key belonging to this address be known in your wallet. The address must be unused and must differ from the `collateralAddress`."
 {% enditemplate %}
 
 *Parameter #4---operator public key*
@@ -262,7 +262,7 @@ and outputs to cover fees.
 - n: "`ownerKeyAddr`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "The owner key used for payee updates and proposal voting. The private key belonging to this address be known in your wallet. The address must be unused and must differ from the `collateralAddress`."
+  d: "The owner key is used for payee updates. The private key belonging to this address be known in your wallet. The address must be unused and must differ from the `collateralAddress`."
 {% enditemplate %}
 
 *Parameter #5---operator public key*
