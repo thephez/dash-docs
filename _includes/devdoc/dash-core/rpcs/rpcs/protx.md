@@ -77,7 +77,7 @@ The `protx<!--noref--> register` RPC creates a ProRegTx referencing an existing 
 - n: "`votingKeyAddr`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "The voting key address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to '0' or an empty string, `ownerAddr` will be used."
+  d: "The voting key address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to '0' or an empty string, `ownerKeyAddr` will be used.<br><br>Note: Must be the same as `ownerKeyAddr` prior to Spork 15 activation."
 {% enditemplate %}
 
 *Parameter #7---operator reward*
@@ -95,7 +95,7 @@ The `protx<!--noref--> register` RPC creates a ProRegTx referencing an existing 
 - n: "`payoutAddress`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "The Dash address to use for masternode reward payments. Must match `collateralAddress`."
+  d: "The Dash address to use for masternode reward payments."
 {% enditemplate %}
 
 *Result---provider registration transaction hash*
@@ -173,7 +173,7 @@ The `protx<!--noref--> register_fund` RPC creates and funds a ProRegTx with the 
 - n: "`votingKeyAddr`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "The voting key address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to '0' or an empty string, `ownerAddr` will be used."
+  d: "The voting key address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to '0' or an empty string, `ownerKeyAddr` will be used.<br><br>Note: Must be the same as `ownerKeyAddr` prior to Spork 15 activation."
 {% enditemplate %}
 
 *Parameter #6---operator reward*
@@ -191,7 +191,7 @@ The `protx<!--noref--> register_fund` RPC creates and funds a ProRegTx with the 
 - n: "`payoutAddress`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "The Dash address to use for masternode reward payments. Must match `collateralAddress`."
+  d: "The Dash address to use for masternode reward payments."
 {% enditemplate %}
 
 *Result---provider registration transaction hash*
@@ -280,7 +280,7 @@ and outputs to cover fees.
 - n: "`votingKeyAddr`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "The voting key address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to '0' or an empty string, `ownerAddr` will be used."
+  d: "The voting key address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to '0' or an empty string, `ownerKeyAddr` will be used.<br><br>Note: Must be the same as `ownerKeyAddr` prior to Spork 15 activation."
 {% enditemplate %}
 
 *Parameter #7---operator reward*
@@ -298,7 +298,7 @@ and outputs to cover fees.
 - n: "`payoutAddress`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "The Dash address to use for masternode reward payments. Must match `collateralAddress`."
+  d: "The Dash address to use for masternode reward payments."
 {% enditemplate %}
 
 *Result---unsigned transaction and message to sign*
