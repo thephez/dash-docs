@@ -1906,32 +1906,41 @@ is sent by masternodes to indicate approval of a transaction lock request
 | 32 | txHash | uint256 | Required | TXID of the transaction to lock
 | 36 | outPoint | outpoint | Required | The unspent outpoint to lock in this transaction
 | 36 | outpointMasternode | outpoint | Required | The outpoint of the masternode which is signing the vote
-| 66* | vchMasternodeSignature | char[] | Required | 66 bytes in most cases. Length (1 byte) + Signature (65 bytes)
+| 32 | quorumModifierHash | uint256 | Required | *Added in protocol version 70212. Only present when Spork 15 is active.*<br><br>
+| 32 | masternodeProTxHash | uint256 | Required | *Added in protocol version 70212. Only present when Spork 15 is active.*<br><br>The proTxHash of the DIP3 masternode which is signing the vote
+| 96 | vchMasternodeSignature | char[] | Required | Masternode BLS signature
 
 The following annotated hexdump shows a `txlvote` message. (The
 message header has been omitted.)
 
 {% highlight text %}
-3c121fb4a12b2f715e2f70a9fa282115
-be197dde14073959fb2a2b8e95a7418f ..... TXID
+84a27bb879f316482598fe65b0b51544
+e85490d85fc36af1c293e186da373c02 ..... TXID
 
 Outpoint to lock
-| bb607995757c6a6efd6429215dcb3688
-| b252d34d835c81fed310fd905f487020 ... Outpoint TXID
-| 01000000 ........................... Outpoint index number: 1
-
-Masternode Outpoint
-| de9029c7e9b7eb7cd11f27ba670b2349
-| 0c3f0717b86ed949c316874589405cd2 ... Outpoint TXID
+| 4c1e6318bab4f9284d3bc0e49ec7fe76
+| 1e9c914b8ea0bcac4563005daa451221 ... Outpoint TXID
 | 00000000 ........................... Outpoint index number: 0
 
-41 ................................... Signature length: 65
+Masternode Outpoint
+| 5d02f07c7318411e41fdd4be9f1e5ece
+| 16d680cfe318306087edc8fb205e507b ... Outpoint TXID
+| 01000000 ........................... Outpoint index number: 1
 
-1ccc39ffb9c62111a8c82823d3ce61d2
-380db4e8f76ec238d568908f37558a90
-4e79566a53663de12ec2be1183c87d61
-250e8ebd57be171be1d4b5e89b69c263
-88 ................................... Masternode Signature
+b62cb5007704d2db8595d5b31cfb7cb0
+8d7e530c16a7597e1db4430a00000000 ..... Quorum Modifier hash
+
+569abbea4ab45f36dd059c44f1dc0804
+f3f13071379c2f418d3637fb548c4159 ..... Masternode ProRegTx hash
+
+60 ................................... Signature length: 96
+
+0b0b97ec14fbc1f12566c3a90ed113e4
+e9c5ee6cdcf2fe2171e4b5f387286146
+a0632a250d64ea507ce5e1d1f1983aae
+0b70e568ad2856a0cc13008001c6d0f3
+5bdeb380f6aba0c54663a3b5e2d86d44
+305c2e5d855c72588ffb0e8e2a36482c ..... Masternode BLS Signature
 {% endhighlight %}
 
 {% endautocrossref %}
