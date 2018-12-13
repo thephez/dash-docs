@@ -165,6 +165,31 @@ The `getblockchaininfo` RPC {{summary_getBlockChainInfo}}
   p: "Optional<br>(0 or 1)"
   d: "The bit (0-28) in the block version field used to signal this softfork.  Field is only shown when status is `started`"
 
+- n: "→ → →<br>`period`"
+  t: "numeric<br>(int)"
+  p: "Optional<br>(0 or 1)"
+  d: "*Added in Dash Core 0.13.0*<br><br>The window size/period for this softfork.  Field is only shown when status is `started`"
+
+- n: "→ → →<br>`threshold`"
+  t: "numeric<br>(int)"
+  p: "Optional<br>(0 or 1)"
+  d: "*Added in Dash Core 0.13.0*<br><br>The threshold for this softfork.  Field is only shown when status is `started`"
+
+- n: "→ → →<br>`windowStart`"
+  t: "numeric<br>(int)"
+  p: "Optional<br>(0 or 1)"
+  d: "*Added in Dash Core 0.13.0*<br><br>The starting block height of the current window.  Field is only shown when status is `started`"
+
+- n: "→ → →<br>`windowBlocks`"
+  t: "numeric<br>(int)"
+  p: "Optional<br>(0 or 1)"
+  d: "*Added in Dash Core 0.13.0*<br><br>The number of blocks in the current window that had the version bit set for this softfork.  Field is only shown when status is `started`"
+
+- n: "→ → →<br>`windowProgress`"
+  t: "numeric<br>(int)"
+  p: "Optional<br>(0 or 1)"
+  d: "*Added in Dash Core 0.13.0*<br><br>The progress (between 0 and 1) for activation of this softfork.  Field is only shown when status is `started`"
+
 - n: "→ → →<br>`startTime`"
   t: "numeric<br>(int)"
   p: "Required<br>(exactly 1)"
