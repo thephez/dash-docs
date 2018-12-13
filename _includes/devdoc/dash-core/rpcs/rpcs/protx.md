@@ -415,7 +415,7 @@ Result:
 The `protx<!--noref--> list` RPC returns a list of provider transactions.
 
 Lists all ProTxs in your wallet or on-chain, depending on the given type. If
-`type` is not specified, it defaults to `wallet`. All types have the optional
+`type` is not specified, it defaults to `registered`. All types have the optional
 argument `detailed` which if set to `true` will result in a detailed list being
 returned. If set to `false`, only the hashes of the ProTx will be returned.
 
