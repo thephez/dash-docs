@@ -174,6 +174,7 @@ The currently-available type identifiers are:
 | 18               | [`MSG_GOVERNANCE_OBJECT_VOTE`][msg_governance_object_vote]{:#term-msg_governance_object_vote}{:.term}                                     | The hash is a Governance Object Vote.
 | 19               | [`MSG_MASTERNODE_VERIFY`][msg_masternode_verify]{:#term-msg_masternode_verify}{:.term}                                     | The hash is a Masternode Verify.
 | 20               | [`MSG_CMPCT_BLOCK`][msg_cmpct_block]{:#term-msg_cmpct_block}{:.term}                                     | The hash is of a block header; identical to `MSG_BLOCK`. When used in a `getdata` message, this indicates the response should be a `cmpctblock` message. **Only for use in `getdata` messages.**
+| 21               | [`MSG_QUORUM_FINAL_COMMITMENT`][msg_quorum_final_commitment]{:#term-msg_quorum_final_commitment}{:.term}                                     | The hash is a long-living masternode quorum final commitment.
 
 Type identifier zero and type identifiers greater than twenty are reserved
 for future implementations. Dash Core ignores all inventories with

@@ -872,43 +872,34 @@ Coinbase Transaction Payload
 
 {% autocrossref %}
 
-Quorum Commitment
+*Added in protocol version 70212 of Dash Core as described by DIP6*
 
-{% endautocrossref %}
+The Quorum Commitment special transaction adds the best final commitment from a
+Long-Living Masternode Quorum (LLMQ) Distributed Key Generation (DKG) session to
+the chain. This special transaction has no inputs and no outputs and thus also
+pays no fee.
 
-#### SubTxRegister
-{% include helpers/subhead-links.md %}
+Since this special transaction pays no fees, it is mandatory by consensus rules
+to ensure that miners include it. Exactly one quorum commitment transaction MUST
+be included in every block while in the mining phase of the LLMQ process until a
+valid commitment is present in a block.
 
-{% autocrossref %}
+If a DKG failed or a miner did not receive a final commitment in-time, a null
+commitment has to be included in the special transaction payload. A null
+commitment must have the `signers` and `validMembers` bitsets set to the
+`quorumSize` and all bits set to zero. All other fields must be set to the null
+representation of the field’s types.
 
-Register Blockchain User
+The special transaction type used for Quorum Commitment Transactions is 6 and
+the extra payload consists of the following data:
 
-{% endautocrossref %}
+| Bytes | Name | Data type |  Description |
+| ---------- | ----------- | -------- | -------- |
+| 2 | version | uint_16 | Quorum Commitment version number. Currently set to 1.
+| 4 | height | uint32_t | Height of the block
+| Variable | commitment | qfcommit | The payload of the `qfcommit` message
 
-#### SubTxTopup
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-Topup Blockchain User Credit
-
-{% endautocrossref %}
-
-#### SubTxResetKey
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-Change Blockchain User Public Key
-
-{% endautocrossref %}
-
-#### SubTxCloseAccount
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-Close Blockchain User Account
+<!-- hexdump needed -->
 
 {% endautocrossref %}
 
