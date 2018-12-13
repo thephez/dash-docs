@@ -40,7 +40,7 @@ Mode | Description
 `lastseen` | Print timestamp of when a masternode was last seen on the network
 `payee` | Print Dash address associated with a masternode (can be additionally filtered, partial match)
 `protocol` | Print protocol of a masternode (can be additionally filtered, exact match)
-`pubkey` | Print the masternode (not collateral) public key
+`keyid` | Print the masternode (not collateral) key id
 `rank` | Print rank of a masternode based on current block
 `sentinel` | Print sentinel version of a masternode (can be additionally filtered, exact match)
 `status` | Print masternode status: PRE_ENABLED / ENABLED / EXPIRED / SENTINEL_PING_EXPIRED / NEW_START_REQUIRED / UPDATE_REQUIRED / POSE_BAN / OUTPOINT_SPENT (can be additionally filtered, partial match)
