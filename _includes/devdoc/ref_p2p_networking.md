@@ -1742,6 +1742,7 @@ Sporks (per [`src/spork.h`][spork.h])
 | 10013 | 14 | `REQUIRE_SENTINEL_FLAG` | Only masternode's running sentinel will be paid
 | 10014 | 15 | `DETERMINISTIC_MNS_ENABLED` | Deterministic masternode lists are enabled
 | 10015 | 16 | `INSTANTSEND_AUTOLOCKS` | Automatic InstantSend for transactions with <=4 inputs (also eliminates the special InstantSend fee requirement for these transactions)
+| 10016 | 17 | `SPORK_17_QUORUM_DKG_ENABLED` | Enable long-living masternode quorum (LLMQ) distributed key generation (DKG). When enabled, simple PoSe  scoring and banning is active as well.
 | | | |
 | | | **Removed Sporks** |
 | _10012_ | _13_ | _`OLD_SUPERBLOCK_FLAG`_ | _Removed in Dash Core 0.12.3. No network function since block 614820_
