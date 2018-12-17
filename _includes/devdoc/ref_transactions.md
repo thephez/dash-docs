@@ -414,7 +414,9 @@ flexibility to expand beyond the financial uses of classical transactions. DIP2
 transactions modified classical transactions by:
 
 1. Splitting the 32 bit `version` field into two 16 bit fields (`version` and `type`)
-2. Adding support for a generic extra payload following the `lock_time` field
+2. Adding support for a generic extra payload following the `lock_time` field. The
+   maximum allowed size for a transaction version 3 extra payload is 10000 bytes
+   (`MAX_TX_EXTRA_PAYLOAD`).
 
 Classical (financial) transactions have a `type` of 0 while special transactions
 have a `type` defined in the DIP describing them. A list of current special
