@@ -3079,7 +3079,7 @@ valid final commitment.
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
 | 2 | version | uint16_t | Version of the final commitment message
-| 1 | llmqType | uint8_t | Version of the final commitment message
+| 1 | llmqType | uint8_t | The type of LLMQ
 | 32 | quorumHash | uint256 | The quorum identifier
 | 1-9 | signersSize | compactSize uint | Bit size of the signers bitvector
 | (bitSize + 7) / 8 | signers | byte[] | Bitset representing the aggregated signers of this final commitment
