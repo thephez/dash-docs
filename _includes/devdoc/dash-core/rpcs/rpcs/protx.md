@@ -428,29 +428,6 @@ returned. If set to `false`, only the hashes of the ProTx will be returned.
   d: "The type of ProTxs to list:<br>`registered` - all ProTxs registered at height<br>`valid` - all active/valid ProTxs at height<br>`wallet` - all ProTxs found in the current wallet<br><br>Height defaults to current chain-tip if one is not provided"
 {% enditemplate %}
 
-**List Type - `registered` or `valid`**
-
-*Parameter #2---height*
-
-{% itemplate ntpd1 %}
-- n: "`height`"
-  t: "bool"
-  p: "Optional<br>(0 or 1)"
-  d: "List ProTxs from this height."
-{% enditemplate %}
-
-*Parameter #3---detailed*
-
-{% itemplate ntpd1 %}
-- n: "`detailed`"
-  t: "bool"
-  p: "Optional<br>(0 or 1)"
-  d: "If set to `false` (default), only ProTx hashes are returned. If set to `true`, a detailed list of ProTx details is returned."
-{% enditemplate %}
-
-
-**List Type - `wallet`**
-
 *Parameter #2---detailed*
 
 {% itemplate ntpd1 %}
@@ -460,6 +437,14 @@ returned. If set to `false`, only the hashes of the ProTx will be returned.
   d: "If set to `false` (default), only ProTx hashes are returned. If set to `true`, a detailed list of ProTx details is returned."
 {% enditemplate %}
 
+*Parameter #3---height*
+
+{% itemplate ntpd1 %}
+- n: "`height`"
+  t: "bool"
+  p: "Optional<br>(0 or 1)"
+  d: "List ProTxs from this height (default: current chain tip)."
+{% enditemplate %}
 
 *Result (if `detailed` was `false`)---provider registration transaction hash*
 
@@ -505,7 +490,7 @@ Result:
 List of ProTxs which are active/valid at the given chain height.
 
 {% highlight bash %}
-dash-cli -testnet protx list valid 700
+dash-cli -testnet protx list valid false 700
 {% endhighlight %}
 
 Result:
@@ -518,7 +503,7 @@ Result:
 Detailed list of ProTxs which are active/valid at the given chain height.
 
 {% highlight bash %}
-dash-cli -testnet protx list valid 700 true
+dash-cli -testnet protx list valid true 700
 {% endhighlight %}
 
 Result:
