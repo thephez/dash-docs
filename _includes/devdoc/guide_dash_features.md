@@ -251,6 +251,13 @@ mixing pool.
     * Inputs/outputs are ordered deterministically as defined by [BIP-69](https://github.com/quantumexplorer/bips/blob/master/bip-0069.mediawiki#Abstract) to avoid leaking any data ([Dash Core Reference](https://github.com/dashpay/dash/blob/e596762ca22d703a79c6880a9d3edb1c7c972fd3/src/privatesend<!--noref-->-server.cpp#L321-#L322))
     * Clients must sign their inputs to the Final Transaction within 15 seconds or risk forfeiting the collateral they provided in the `dsi` message (Step 4) ([Dash Core Reference](https://github.com/dashpay/dash/blob/e596762ca22d703a79c6880a9d3edb1c7c972fd3/src/privatesend<!--noref-->.h#L23))
 
+  _**Step 10 - Final Transaction broadcast**_
+
+  * Prior to protocol version 70213, masternodes could only send a single
+    un-mined `dstx` message at a time. As of protocol version 70213, up to 5
+    (`MASTERNODE_MAX_MIXING_TXES`) un-mined `dstx` messages per masternode are
+    allowed.
+
   _**General**_
 
   With the exception of the `dsq` message and the `dstx` message (which need
