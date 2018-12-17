@@ -154,7 +154,7 @@ integer value used in P2P messages, and the actual Dash value.
 | 3   |  8 | 00.0100001           |
 | 4   | 16 | 00.00100001          |
 
-Protocol version 70212 added a 5th denomination (0.001 DASH).
+Protocol version 70213 added a 5th denomination (0.001 DASH).
 
 The denominations are structured to allow converting between denominations
 directly without requiring additional inputs or creating change (for example,
@@ -169,7 +169,7 @@ directly without requiring additional inputs or creating change (for example,
 **Creating Collaterals**
 
 PrivateSend collaterals are used to pay mixing fees, but are kept separate from
-the denominations to maximize privacy. Since protocol version 70212, the minimum
+the denominations to maximize privacy. Since protocol version 70213, the minimum
 collateral fee is 1/10 of the smallest denomination for all mixing sessions
 regardless of denomination.
 In Dash Core, collaterals are created with enough value to pay 4 collateral fees

@@ -66,7 +66,7 @@ with the most recent versions listed first. (If you know of a protocol
 version that implemented a major change but which is not listed here,
 please [open an issue][docs issue].)
 
-As of Dash Core 0.13.0.0, the most recent protocol version is 70212.
+As of Dash Core 0.13.0.0, the most recent protocol version is 70213.
 
 | Version | Initial Release                    | Major Changes
 |---------|------------------------------------|--------------
@@ -548,7 +548,7 @@ to the `getheaders` message will include as many as 2,000 block headers.
 
 {% autocrossref %}
 
-*Added in protocol version 70212*
+*Added in protocol version 70213*
 
 The `getmnlistd` message is sent to request a full masternode list or an
 update to a previously requested masternode list.
@@ -883,7 +883,7 @@ template near the beginning of this subsection.
 
 {% autocrossref %}
 
-*Added in protocol version 70212*
+*Added in protocol version 70213*
 
 The `mnlistdiff` message is a reply to a `getmnlistd` message which
 requested either a full masternode list or a diff for a range of blocks.
@@ -1906,8 +1906,8 @@ is sent by masternodes to indicate approval of a transaction lock request
 | 32 | txHash | uint256 | Required | TXID of the transaction to lock
 | 36 | outPoint | outpoint | Required | The unspent outpoint to lock in this transaction
 | 36 | outpointMasternode | outpoint | Required | The outpoint of the masternode which is signing the vote
-| 32 | quorumModifierHash | uint256 | Required | *Added in protocol version 70212. Only present when Spork 15 is active.*<br><br>
-| 32 | masternodeProTxHash | uint256 | Required | *Added in protocol version 70212. Only present when Spork 15 is active.*<br><br>The proTxHash of the DIP3 masternode which is signing the vote
+| 32 | quorumModifierHash | uint256 | Required | *Added in protocol version 70213. Only present when Spork 15 is active.*<br><br>
+| 32 | masternodeProTxHash | uint256 | Required | *Added in protocol version 70213. Only present when Spork 15 is active.*<br><br>The proTxHash of the DIP3 masternode which is signing the vote
 | 96 | vchMasternodeSignature | char[] | Required | Masternode BLS signature
 
 The following annotated hexdump shows a `txlvote` message. (The
