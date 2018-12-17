@@ -572,6 +572,7 @@ devsearches:
     - "mnw": "/en/developer-reference#mnw"
     - "mnwb": "/en/developer-reference#mnwb"
     - "ssc": "/en/developer-reference#ssc"
+    - "qfcommit": "/en/developer-reference#qfcommit"
 
     # Dash - governance
     - "govobj": "/en/developer-reference#govobj"

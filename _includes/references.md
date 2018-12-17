@@ -251,6 +251,7 @@ http://opensource.org/licenses/MIT.
 [notfound message]: /en/developer-reference#notfound "A P2P protocol message sent to indicate that the requested data was not available"
 [ping message]: /en/developer-reference#ping "A P2P network message used to see if the remote host is still connected"
 [pong message]: /en/developer-reference#pong "A P2P network message used to reply to a P2P network ping message"
+[qfcommit message]: /en/developer-reference#qfcommit "A P2P network message used to finalize the members of a long-living masternode quorum (LLMQ)"
 [reject message]: /en/developer-reference#reject "A P2P network message used to indicate a previously-received message was rejected for some reason"
 [sendcmpct message]: /en/developer-reference#sendcmpct "A P2P network message used to request new blocks be announced as compact blocks"
 [sendheaders message]: /en/developer-reference#sendheaders "A P2P network message used to request new blocks be announced through headers messages rather than inv messages"
@@ -458,6 +459,7 @@ http://opensource.org/licenses/MIT.
 [proupservtx special tx]: /en/developer-reference#proupservtx
 [python-bitcoinlib]: https://github.com/petertodd/python-bitcoinlib
 [python-blkmaker]: https://gitorious.org/bitcoin/python-blkmaker
+[quorum commitment special tx]: /en/developer-reference#quorum-commitment
 [Satoshi Nakamoto]: https://en.bitcoin.it/wiki/Satoshi_Nakamoto
 [setup tor]: https://www.torproject.org/
 [SHA256]: https://en.wikipedia.org/wiki/SHA-2

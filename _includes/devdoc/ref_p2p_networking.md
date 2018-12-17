@@ -3057,6 +3057,49 @@ bf110000 ................................... Count: 4543
 
 {% endautocrossref %}
 
+#### qfcommit
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `qfcommit` message is used to finalize a long-living masternode quorum setup
+by aggregating the information necessary to mine the on-chain Quorum Commitment
+special transaction. The message contains all the necessary information required
+to validate the long-living masternode quorum's signing results.
+
+It is possible to receive multiple valide final commitments for the same DKG
+session. These should only differ in the number of signers, which can be ignored
+as long as there are at least `quorumThreshold` number of signers. The set of
+valid members for these final commitments should always be the same, as each
+member only creates a single premature commitment. This means that only one set
+of valid members (and thus only one quorum verification vector and quorum public
+key) can gain a majority. If the threshold is not reached, there will be no
+valid final commitment.
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 2 | version | uint16_t | Version of the final commitment message
+| 1 | llmqType | uint8_t | Version of the final commitment message
+| 32 | quorumHash | uint256 | The quorum identifier
+| 1-9 | signersSize | compactSize uint | Bit size of the signers bitvector
+| (bitSize + 7) / 8 | signers | byte[] | Bitset representing the aggregated signers of this final commitment
+| 1-9 | validMembersSize | compactSize uint | Bit size of the `validMembers` bitvector
+| (bitSize + 7) / 8 | validMembers | byte[] | Bitset of valid members in this commitment
+| 48 | quorumPublicKey | BLSPubKey | The quorum public key
+| 32 | quorumVvecHash | uint256 | The hash of the quorum verification vector
+| 96 | quorumSig | BLSSig | Recovered threshold signature
+| 96 | sig | BLSSig | Aggregated BLS signatures from all included commitments
+
+<!--
+The following annotated hexdump shows a `qfcommit` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
+{% endautocrossref %}
 
 ### Governance Messages
 {% include helpers/subhead-links.md %}
