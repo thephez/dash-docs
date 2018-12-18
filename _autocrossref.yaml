@@ -170,7 +170,7 @@ protocol version 70012: section protocol versions
 protocol version 70013: section protocol versions
 protocol version 70014: section protocol versions
 public key infrastructure: pki
-'Quorum Commitment': quorum commitment special tx
+'QcTx': quorum commitment special tx
 '`qfcommit` message': qfcommit message
 '`qfcommit` messages': qfcommit message
 '`r`': r

@@ -3063,7 +3063,7 @@ bf110000 ................................... Count: 4543
 {% autocrossref %}
 
 The `qfcommit` message is used to finalize a long-living masternode quorum setup
-by aggregating the information necessary to mine the on-chain Quorum Commitment
+by aggregating the information necessary to mine the on-chain QcTx
 special transaction. The message contains all the necessary information required
 to validate the long-living masternode quorum's signing results.
 

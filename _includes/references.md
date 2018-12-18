@@ -459,7 +459,7 @@ http://opensource.org/licenses/MIT.
 [proupservtx special tx]: /en/developer-reference#proupservtx
 [python-bitcoinlib]: https://github.com/petertodd/python-bitcoinlib
 [python-blkmaker]: https://gitorious.org/bitcoin/python-blkmaker
-[quorum commitment special tx]: /en/developer-reference#quorum-commitment
+[quorum commitment special tx]: /en/developer-reference#qctx
 [Satoshi Nakamoto]: https://en.bitcoin.it/wiki/Satoshi_Nakamoto
 [setup tor]: https://www.torproject.org/
 [SHA256]: https://en.wikipedia.org/wiki/SHA-2
