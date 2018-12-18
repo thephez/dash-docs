@@ -302,6 +302,20 @@ value of only 0.00000546 DASH as shown by the calculation below.
 
 {% autocrossref %}
 
+Since DIP3 (introduced in Dash Core 0.13.0), masternode reward payments are based
+on the deterministic masternode list information found on-chain in each block.
+This results in a transparent, deterministic process that operates using the
+[algorithm described in DIP3](https://github.com/dashpay/dips/blob/master/dip-0003.md#masternode-rewards).
+
+On-chain masternode lists reduce the complexity of reward payments, make
+payments much more predictable, and also allow masternode payments to be
+enforced for all blocks (enforcement for superblocks was not possible in the
+previous system).
+
+**Historical Note**
+
+Prior to DIP3, the masternode payment process operated as described below.
+
 Masternode payment uses a verifiable process to determine which masternode is
 paid in each block. When a new block is processed, a quorum of
 `MNPAYMENTS_SIGNATURES_TOTAL` (10) masternodes vote on the next masternode
