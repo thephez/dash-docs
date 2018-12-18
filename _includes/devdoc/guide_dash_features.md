@@ -162,7 +162,7 @@ directly without requiring additional inputs or creating change (for example,
 
 {% endautocrossref %}
 
-[Example Testnet denomination creation transaction](https://testnet-insight.dashevo.org/insight/tx/702e77d19dcb0fbfe7d7daa5543bcfeacec0f552c49e398b27fb8141ae52d3e2)
+[Example Testnet denomination creation transaction](https://testnet-insight.dashevo.org/insight/tx/f0174fc87d68a18617c2990df4d9455c0459c601d2d6473934357a66f9b8b70a)
 
 {% autocrossref %}
 
@@ -182,9 +182,9 @@ input from 1x the minimum collateral amount to the maximum collateral amount.
 
 {% endautocrossref %}
 
-[Example Testnet collateral creation transaction](https://testnet-insight.dashevo.org/insight/tx/c2fc4af6a9940bf33446f3dddf6892c3dac4351fd0add89157666ca1019454ca)
+[Example Testnet collateral creation transaction](https://testnet-insight.dashevo.org/insight/tx/8f9b15973983876f7ce4eb2c32b09690dfb0432d2caf6c6df516196a8d17689f)
 
-[Example Testnet collateral payment transaction](https://testnet-insight.dashevo.org/insight/tx/70404808f1871e600cc8d30ad1eaf2bab63906dd1f3ae4a799b7182e1689721b)
+[Example Testnet collateral payment transaction](https://testnet-insight.dashevo.org/insight/tx/de51e6f7c5ef75aad0dbb0a808ef4873d7ef6d67b25f3a658d5a241db4f3eeeb)
 
 
 #### PrivateSend Mixing
