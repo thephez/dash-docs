@@ -550,8 +550,10 @@ to the `getheaders` message will include as many as 2,000 block headers.
 
 *Added in protocol version 70213*
 
-The `getmnlistd` message is sent to request a full masternode list or an
-update to a previously requested masternode list.
+The `getmnlistd` message requests a `mnlistdiff` message that provides either:
+
+  1. A full masternode list (if `baseBlockHash` is all-zero)
+  2. An update to a previously requested masternode list
 
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
@@ -899,7 +901,19 @@ requested either a full masternode list or a diff for a range of blocks.
 | variable | merkleFlags | vector<uint8_t> | Required | Merkle flag bits, packed per 8 in a byte, least significant bit first
 | variable | cbTx | CTransaction | Required | The fully serialized coinbase transaction of `blockHash`
 | variable | deletedMNs | vector | Required | A list of ProRegTx hashes for masternode which were deleted after `baseBlockHash`
-| variable | mnList | vector | Required | The list of SML entries which were added or updated since `baseBlockHash`
+| variable | mnList | vector | Required | The list of Simplified Masternode List (SML) entries which were added or updated since `baseBlockHash`
+
+Simplified Masternode List (SML) Entry
+
+| Bytes | Name | Data type | Description |
+| ---------- | ----------- | -------- | -------- |
+| 32 | proRegTxHash | uint256 | The hash of the ProRegTx that identifies the masternode
+| 32 | confirmedHash | uint256 | The hash of the block at which the masternode got confirmed
+| 16 | ipAddress | byte[] | IPv6 address in network byte order. Only IPv4 mapped addresses are allowed (to be extended in the future)
+| 2 | port | uint_16 | Port (network byte order)
+| 48 | pubKeyOperator | BLSPubKey | The operators public key
+| 20 |keyIDVoting | CKeyID | The public key hash used for voting.
+| 1 | isValid | bool | True if a masternode is not PoSe-banned
 
 The following annotated hexdump shows a `mnlistdiff` message. (The
 message header has been omitted.)
@@ -937,6 +951,10 @@ Masternode List
 | Masternode 1
 | | 01040eb32f760490054543356cff4638
 | | 65633439dd073cffa570305eb086f70e ....... ProRegTx hash
+| |
+| | 000001ee5108348a2c59396da29dc576
+| | 9b2a9bb303d7577aee9cd95136c49b9b ....... Confirmed block hash
+| |
 | | 00000000000000000000000000000000 ....... IP Address: ::ffff:0.0.0.0
 | | 0000 ................................... Port: 0
 | |
@@ -944,10 +962,16 @@ Masternode List
 | | 0000000000000000000000000000000000000000
 | | 0000000000000000 ....................... Operator public key (BLS)
 | | c2ae01fb4084cbc3bc31e7f59b36be228a320404 Voting pubkey hash (ECDSA)
+| |
+| | 0 ...................................... Valid (0 - No)
 |
 | Masternode 2
 | | f7737beb39779971e9bc59632243e13f
 | | c5fc9ada93b69bf48c2d4c463296cd5a ....... ProRegTx hash
+| |
+| | 0000030f51f12e7069a7aa5f1bc9085d
+| | db3fe368976296fd3b6d73fdaf898cc0 ....... Confirmed block hash
+| |
 | | 000000000000000000000000cf9af40d ....... IP Address: ::ffff:207.154.244.13
 | | 4e1f ................................... Port: 19999
 | |
@@ -955,6 +979,8 @@ Masternode List
 | | de4a8db4d76fda6d6985dbdf10404fb9bb5cd0e8
 | | c22f4a914a6c5566 ....................... Operator public key (BLS)
 | | 43ce12751c4ba45dcdfe2c16cefd61461e17a54d Voting pubkey hash (ECDSA)
+| |
+| | 1 ...................................... Valid (1 - Yes)
 {% endhighlight %}
 
 {% endautocrossref %}

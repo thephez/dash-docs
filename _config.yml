@@ -514,7 +514,7 @@ devsearches:
     - "DIP4: Simplified Verification of Deterministic Masternode Lists": "https://github.com/dashpay/dips/blob/master/dip-0004.md"
     - "DIP5: Blockchain Users": "https://github.com/dashpay/dips/blob/master/dip-0005.md"
     - "DIP6: Long-Living Masternode Quorums": "https://github.com/dashpay/dips/blob/master/dip-0006.md"
-    - "DIP7: LLMQ Signing Requests / Sessions": "https://github.com/dashpay/dips/blob/master/dip-0007.md"    
+    - "DIP7: LLMQ Signing Requests / Sessions": "https://github.com/dashpay/dips/blob/master/dip-0007.md"
 
   ## Bitcoin P2P Protocol messages documented on Bitcoin.org
   "P2P Messages":
@@ -532,10 +532,12 @@ devsearches:
     - "getblocktxn": "/en/developer-reference#getblocktxn"
     - "getdata": "/en/developer-reference#getdata"
     - "getheaders": "/en/developer-reference#getheaders"
+    - "getmnlistd": "/en/developer-reference#getmnlistd"
     - "headers": "/en/developer-reference#headers"
     - "inv": "/en/developer-reference#inv"
     - "mempool": "/en/developer-reference#mempool"
     - "merkleblock": "/en/developer-reference#merkleblock"
+    - "mnlistdiff": "/en/developer-reference#mnlistdiff"
     - "notfound": "/en/developer-reference#notfound"
     - "ping": "/en/developer-reference#ping"
     - "pong": "/en/developer-reference#pong"
