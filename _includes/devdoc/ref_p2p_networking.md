@@ -66,7 +66,7 @@ with the most recent versions listed first. (If you know of a protocol
 version that implemented a major change but which is not listed here,
 please [open an issue][docs issue].)
 
-As of Dash Core 0.13.0.0, the most recent protocol version is 70212.
+As of Dash Core 0.13.0.0, the most recent protocol version is 70213.
 
 | Version | Initial Release                    | Major Changes
 |---------|------------------------------------|--------------
@@ -174,6 +174,7 @@ The currently-available type identifiers are:
 | 18               | [`MSG_GOVERNANCE_OBJECT_VOTE`][msg_governance_object_vote]{:#term-msg_governance_object_vote}{:.term}                                     | The hash is a Governance Object Vote.
 | 19               | [`MSG_MASTERNODE_VERIFY`][msg_masternode_verify]{:#term-msg_masternode_verify}{:.term}                                     | The hash is a Masternode Verify.
 | 20               | [`MSG_CMPCT_BLOCK`][msg_cmpct_block]{:#term-msg_cmpct_block}{:.term}                                     | The hash is of a block header; identical to `MSG_BLOCK`. When used in a `getdata` message, this indicates the response should be a `cmpctblock` message. **Only for use in `getdata` messages.**
+| 21               | [`MSG_QUORUM_FINAL_COMMITMENT`][msg_quorum_final_commitment]{:#term-msg_quorum_final_commitment}{:.term}                                     | The hash is a long-living masternode quorum final commitment.
 
 Type identifier zero and type identifiers greater than twenty are reserved
 for future implementations. Dash Core ignores all inventories with
@@ -547,10 +548,12 @@ to the `getheaders` message will include as many as 2,000 block headers.
 
 {% autocrossref %}
 
-*Added in protocol version 70212*
+*Added in protocol version 70213*
 
-The `getmnlistd` message is sent to request a full masternode list or an
-update to a previously requested masternode list.
+The `getmnlistd` message requests a `mnlistdiff` message that provides either:
+
+  1. A full masternode list (if `baseBlockHash` is all-zero)
+  2. An update to a previously requested masternode list
 
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
@@ -882,7 +885,7 @@ template near the beginning of this subsection.
 
 {% autocrossref %}
 
-*Added in protocol version 70212*
+*Added in protocol version 70213*
 
 The `mnlistdiff` message is a reply to a `getmnlistd` message which
 requested either a full masternode list or a diff for a range of blocks.
@@ -898,7 +901,19 @@ requested either a full masternode list or a diff for a range of blocks.
 | variable | merkleFlags | vector<uint8_t> | Required | Merkle flag bits, packed per 8 in a byte, least significant bit first
 | variable | cbTx | CTransaction | Required | The fully serialized coinbase transaction of `blockHash`
 | variable | deletedMNs | vector | Required | A list of ProRegTx hashes for masternode which were deleted after `baseBlockHash`
-| variable | mnList | vector | Required | The list of SML entries which were added or updated since `baseBlockHash`
+| variable | mnList | vector | Required | The list of Simplified Masternode List (SML) entries which were added or updated since `baseBlockHash`
+
+Simplified Masternode List (SML) Entry
+
+| Bytes | Name | Data type | Description |
+| ---------- | ----------- | -------- | -------- |
+| 32 | proRegTxHash | uint256 | The hash of the ProRegTx that identifies the masternode
+| 32 | confirmedHash | uint256 | The hash of the block at which the masternode got confirmed
+| 16 | ipAddress | byte[] | IPv6 address in network byte order. Only IPv4 mapped addresses are allowed (to be extended in the future)
+| 2 | port | uint_16 | Port (network byte order)
+| 48 | pubKeyOperator | BLSPubKey | The operators public key
+| 20 |keyIDVoting | CKeyID | The public key hash used for voting.
+| 1 | isValid | bool | True if a masternode is not PoSe-banned
 
 The following annotated hexdump shows a `mnlistdiff` message. (The
 message header has been omitted.)
@@ -936,6 +951,10 @@ Masternode List
 | Masternode 1
 | | 01040eb32f760490054543356cff4638
 | | 65633439dd073cffa570305eb086f70e ....... ProRegTx hash
+| |
+| | 000001ee5108348a2c59396da29dc576
+| | 9b2a9bb303d7577aee9cd95136c49b9b ....... Confirmed block hash
+| |
 | | 00000000000000000000000000000000 ....... IP Address: ::ffff:0.0.0.0
 | | 0000 ................................... Port: 0
 | |
@@ -943,10 +962,16 @@ Masternode List
 | | 0000000000000000000000000000000000000000
 | | 0000000000000000 ....................... Operator public key (BLS)
 | | c2ae01fb4084cbc3bc31e7f59b36be228a320404 Voting pubkey hash (ECDSA)
+| |
+| | 0 ...................................... Valid (0 - No)
 |
 | Masternode 2
 | | f7737beb39779971e9bc59632243e13f
 | | c5fc9ada93b69bf48c2d4c463296cd5a ....... ProRegTx hash
+| |
+| | 0000030f51f12e7069a7aa5f1bc9085d
+| | db3fe368976296fd3b6d73fdaf898cc0 ....... Confirmed block hash
+| |
 | | 000000000000000000000000cf9af40d ....... IP Address: ::ffff:207.154.244.13
 | | 4e1f ................................... Port: 19999
 | |
@@ -954,6 +979,8 @@ Masternode List
 | | de4a8db4d76fda6d6985dbdf10404fb9bb5cd0e8
 | | c22f4a914a6c5566 ....................... Operator public key (BLS)
 | | 43ce12751c4ba45dcdfe2c16cefd61461e17a54d Voting pubkey hash (ECDSA)
+| |
+| | 1 ...................................... Valid (1 - Yes)
 {% endhighlight %}
 
 {% endautocrossref %}
@@ -1742,6 +1769,7 @@ Sporks (per [`src/spork.h`][spork.h])
 | 10013 | 14 | `REQUIRE_SENTINEL_FLAG` | Only masternode's running sentinel will be paid
 | 10014 | 15 | `DETERMINISTIC_MNS_ENABLED` | Deterministic masternode lists are enabled
 | 10015 | 16 | `INSTANTSEND_AUTOLOCKS` | Automatic InstantSend for transactions with <=4 inputs (also eliminates the special InstantSend fee requirement for these transactions)
+| 10016 | 17 | `SPORK_17_QUORUM_DKG_ENABLED` | Enable long-living masternode quorum (LLMQ) distributed key generation (DKG). When enabled, simple PoSe  scoring and banning is active as well.
 | | | |
 | | | **Removed Sporks** |
 | _10012_ | _13_ | _`OLD_SUPERBLOCK_FLAG`_ | _Removed in Dash Core 0.12.3. No network function since block 614820_
@@ -1904,32 +1932,41 @@ is sent by masternodes to indicate approval of a transaction lock request
 | 32 | txHash | uint256 | Required | TXID of the transaction to lock
 | 36 | outPoint | outpoint | Required | The unspent outpoint to lock in this transaction
 | 36 | outpointMasternode | outpoint | Required | The outpoint of the masternode which is signing the vote
-| 66* | vchMasternodeSignature | char[] | Required | 66 bytes in most cases. Length (1 byte) + Signature (65 bytes)
+| 32 | quorumModifierHash | uint256 | Required | *Added in protocol version 70213. Only present when Spork 15 is active.*<br><br>
+| 32 | masternodeProTxHash | uint256 | Required | *Added in protocol version 70213. Only present when Spork 15 is active.*<br><br>The proTxHash of the DIP3 masternode which is signing the vote
+| 96 | vchMasternodeSignature | char[] | Required | Masternode BLS signature
 
 The following annotated hexdump shows a `txlvote` message. (The
 message header has been omitted.)
 
 {% highlight text %}
-3c121fb4a12b2f715e2f70a9fa282115
-be197dde14073959fb2a2b8e95a7418f ..... TXID
+84a27bb879f316482598fe65b0b51544
+e85490d85fc36af1c293e186da373c02 ..... TXID
 
 Outpoint to lock
-| bb607995757c6a6efd6429215dcb3688
-| b252d34d835c81fed310fd905f487020 ... Outpoint TXID
-| 01000000 ........................... Outpoint index number: 1
-
-Masternode Outpoint
-| de9029c7e9b7eb7cd11f27ba670b2349
-| 0c3f0717b86ed949c316874589405cd2 ... Outpoint TXID
+| 4c1e6318bab4f9284d3bc0e49ec7fe76
+| 1e9c914b8ea0bcac4563005daa451221 ... Outpoint TXID
 | 00000000 ........................... Outpoint index number: 0
 
-41 ................................... Signature length: 65
+Masternode Outpoint
+| 5d02f07c7318411e41fdd4be9f1e5ece
+| 16d680cfe318306087edc8fb205e507b ... Outpoint TXID
+| 01000000 ........................... Outpoint index number: 1
 
-1ccc39ffb9c62111a8c82823d3ce61d2
-380db4e8f76ec238d568908f37558a90
-4e79566a53663de12ec2be1183c87d61
-250e8ebd57be171be1d4b5e89b69c263
-88 ................................... Masternode Signature
+b62cb5007704d2db8595d5b31cfb7cb0
+8d7e530c16a7597e1db4430a00000000 ..... Quorum Modifier hash
+
+569abbea4ab45f36dd059c44f1dc0804
+f3f13071379c2f418d3637fb548c4159 ..... Masternode ProRegTx hash
+
+60 ................................... Signature length: 96
+
+0b0b97ec14fbc1f12566c3a90ed113e4
+e9c5ee6cdcf2fe2171e4b5f387286146
+a0632a250d64ea507ce5e1d1f1983aae
+0b70e568ad2856a0cc13008001c6d0f3
+5bdeb380f6aba0c54663a3b5e2d86d44
+305c2e5d855c72588ffb0e8e2a36482c ..... Masternode BLS Signature
 {% endhighlight %}
 
 {% endautocrossref %}
@@ -2831,6 +2868,9 @@ ecd50100 ................................... Dashd Deamon Version (12.3.0)
 
 {% autocrossref %}
 
+![Warning icon](/img/icons/icon_warning.svg) NOTE: This message will be deprecated
+following activation of DIP3 which implements deterministic masternode lists.
+
 The `mnv` message is used by masternodes to verify each other. Several `mnv`
 messages are exchanged in the process. This results in the IP address of
 masternode 1 being validated as of the provided block height.
@@ -3031,8 +3071,8 @@ Sync Item IDs
 
 | ID | Description | Response To
 |------|--------------|---------------
-| 2 | MASTERNODE_SYNC_LIST | `dseg` message
-| 3 | MASTERNODE_SYNC_MNW | `mnget` message
+| 2 | MASTERNODE_SYNC_LIST | _Deprecated following activation of DIP3 in Dash Core 0.13.0_<br><br>`dseg` message
+| 3 | MASTERNODE_SYNC_MNW | _Deprecated following activation of DIP3 in Dash Core 0.13.0_<br><br>`mnget` message
 | 10 | MASTERNODE_SYNC_GOVOBJ | `govsync` message
 | 11 | MASTERNODE_SYNC_GOVOBJ_VOTE | `govsync` message with non-zero hash
 
@@ -3046,6 +3086,49 @@ bf110000 ................................... Count: 4543
 
 {% endautocrossref %}
 
+#### qfcommit
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `qfcommit` message is used to finalize a long-living masternode quorum setup
+by aggregating the information necessary to mine the on-chain QcTx
+special transaction. The message contains all the necessary information required
+to validate the long-living masternode quorum's signing results.
+
+It is possible to receive multiple valide final commitments for the same DKG
+session. These should only differ in the number of signers, which can be ignored
+as long as there are at least `quorumThreshold` number of signers. The set of
+valid members for these final commitments should always be the same, as each
+member only creates a single premature commitment. This means that only one set
+of valid members (and thus only one quorum verification vector and quorum public
+key) can gain a majority. If the threshold is not reached, there will be no
+valid final commitment.
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 2 | version | uint16_t | Version of the final commitment message
+| 1 | llmqType | uint8_t | The type of LLMQ
+| 32 | quorumHash | uint256 | The quorum identifier
+| 1-9 | signersSize | compactSize uint | Bit size of the signers bitvector
+| (bitSize + 7) / 8 | signers | byte[] | Bitset representing the aggregated signers of this final commitment
+| 1-9 | validMembersSize | compactSize uint | Bit size of the `validMembers` bitvector
+| (bitSize + 7) / 8 | validMembers | byte[] | Bitset of valid members in this commitment
+| 48 | quorumPublicKey | BLSPubKey | The quorum public key
+| 32 | quorumVvecHash | uint256 | The hash of the quorum verification vector
+| 96 | quorumSig | BLSSig | Recovered threshold signature
+| 96 | sig | BLSSig | Aggregated BLS signatures from all included commitments
+
+<!--
+The following annotated hexdump shows a `qfcommit` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
+{% endautocrossref %}
 
 ### Governance Messages
 {% include helpers/subhead-links.md %}

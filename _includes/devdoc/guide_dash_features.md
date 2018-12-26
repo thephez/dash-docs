@@ -154,7 +154,7 @@ integer value used in P2P messages, and the actual Dash value.
 | 3   |  8 | 00.0100001           |
 | 4   | 16 | 00.00100001          |
 
-Protocol version 70212 added a 5th denomination (0.001 DASH).
+Protocol version 70213 added a 5th denomination (0.001 DASH).
 
 The denominations are structured to allow converting between denominations
 directly without requiring additional inputs or creating change (for example,
@@ -162,14 +162,14 @@ directly without requiring additional inputs or creating change (for example,
 
 {% endautocrossref %}
 
-[Example Testnet denomination creation transaction](https://testnet-insight.dashevo.org/insight/tx/702e77d19dcb0fbfe7d7daa5543bcfeacec0f552c49e398b27fb8141ae52d3e2)
+[Example Testnet denomination creation transaction](https://testnet-insight.dashevo.org/insight/tx/f0174fc87d68a18617c2990df4d9455c0459c601d2d6473934357a66f9b8b70a)
 
 {% autocrossref %}
 
 **Creating Collaterals**
 
 PrivateSend collaterals are used to pay mixing fees, but are kept separate from
-the denominations to maximize privacy. Since protocol version 70212, the minimum
+the denominations to maximize privacy. Since protocol version 70213, the minimum
 collateral fee is 1/10 of the smallest denomination for all mixing sessions
 regardless of denomination.
 In Dash Core, collaterals are created with enough value to pay 4 collateral fees
@@ -182,9 +182,9 @@ input from 1x the minimum collateral amount to the maximum collateral amount.
 
 {% endautocrossref %}
 
-[Example Testnet collateral creation transaction](https://testnet-insight.dashevo.org/insight/tx/c2fc4af6a9940bf33446f3dddf6892c3dac4351fd0add89157666ca1019454ca)
+[Example Testnet collateral creation transaction](https://testnet-insight.dashevo.org/insight/tx/8f9b15973983876f7ce4eb2c32b09690dfb0432d2caf6c6df516196a8d17689f)
 
-[Example Testnet collateral payment transaction](https://testnet-insight.dashevo.org/insight/tx/70404808f1871e600cc8d30ad1eaf2bab63906dd1f3ae4a799b7182e1689721b)
+[Example Testnet collateral payment transaction](https://testnet-insight.dashevo.org/insight/tx/de51e6f7c5ef75aad0dbb0a808ef4873d7ef6d67b25f3a658d5a241db4f3eeeb)
 
 
 #### PrivateSend Mixing
@@ -251,6 +251,13 @@ mixing pool.
     * Inputs/outputs are ordered deterministically as defined by [BIP-69](https://github.com/quantumexplorer/bips/blob/master/bip-0069.mediawiki#Abstract) to avoid leaking any data ([Dash Core Reference](https://github.com/dashpay/dash/blob/e596762ca22d703a79c6880a9d3edb1c7c972fd3/src/privatesend<!--noref-->-server.cpp#L321-#L322))
     * Clients must sign their inputs to the Final Transaction within 15 seconds or risk forfeiting the collateral they provided in the `dsi` message (Step 4) ([Dash Core Reference](https://github.com/dashpay/dash/blob/e596762ca22d703a79c6880a9d3edb1c7c972fd3/src/privatesend<!--noref-->.h#L23))
 
+  _**Step 10 - Final Transaction broadcast**_
+
+  * Prior to protocol version 70213, masternodes could only send a single
+    un-mined `dstx` message at a time. As of protocol version 70213, up to 5
+    (`MASTERNODE_MAX_MIXING_TXES`) un-mined `dstx` messages per masternode are
+    allowed.
+
   _**General**_
 
   With the exception of the `dsq` message and the `dstx` message (which need
@@ -294,6 +301,20 @@ value of only 0.00000546 DASH as shown by the calculation below.
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
+
+Since DIP3 (introduced in Dash Core 0.13.0), masternode reward payments are based
+on the deterministic masternode list information found on-chain in each block.
+This results in a transparent, deterministic process that operates using the
+[algorithm described in DIP3](https://github.com/dashpay/dips/blob/master/dip-0003.md#masternode<!--noref-->-rewards).
+
+On-chain masternode lists reduce the complexity of reward payments, make
+payments much more predictable, and also allow masternode payments to be
+enforced for all blocks (enforcement for superblocks was not possible in the
+previous system).
+
+**Historical Note**
+
+Prior to DIP3, the masternode payment process operated as described below.
 
 Masternode payment uses a verifiable process to determine which masternode is
 paid in each block. When a new block is processed, a quorum of

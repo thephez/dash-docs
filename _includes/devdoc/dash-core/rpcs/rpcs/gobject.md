@@ -116,6 +116,37 @@ The `gobject prepare` RPC prepares a governance object by signing and creating a
 
 {% enditemplate %}
 
+*Parameter #5---use-IS*
+
+{% itemplate ntpd1 %}
+- n: "`use-IS`"
+  t: "boolean"
+  p: "Optional<br>(0 or 1)"
+  d: "*Added in Dash Core 0.13.0*<br><br>InstantSend lock the collateral, only requiring one chain confirmation"
+
+{% enditemplate %}
+
+*Parameter #6---outputHash*
+
+{% itemplate ntpd1 %}
+- n: "`outputHash`"
+  t: "string (hex)"
+  p: "Optional<br>(0 or 1)"
+  d: "*Added in Dash Core 0.13.0*<br><br>The single output to submit the proposal fee from"
+
+{% enditemplate %}
+
+*Parameter #7---outputIndex*
+
+{% itemplate ntpd1 %}
+- n: "`outputIndex`"
+  t: "numeric"
+  p: "Optional<br>(0 or 1)"
+  d: "*Added in Dash Core 0.13.0*<br><br>The output index (required if the `outputHash` parameter is provided)"
+
+{% enditemplate %}
+
+
 *Result---collateral transaction ID*
 
 {% itemplate ntpd1 %}

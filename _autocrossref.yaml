@@ -69,6 +69,8 @@ fiat:
 '`getheaders` messages': getheaders message
 '`getaddr` message': getaddr message
 '`getaddr` messages': getaddr message
+'`getmnlistd` message': getmnlistd message
+'`getmnlistd` messages': getmnlistd message
 '`getsporks` message': getsporks message
 '`getsporks` messages': getsporks message
 '`govobj` message': govobj message
@@ -114,6 +116,8 @@ micropayment channels: micropayment channel
 '`mnb` messages': mnb message
 '`mnget` message': mnget message
 '`mnget` messages': mnget message
+'`mnlistdiff` message': mnlistdiff message
+'`mnlistdiff` messages': mnlistdiff message
 '`mnp` message': mnp message
 '`mnp` messages': mnp message
 '`mnv` message': mnv message
@@ -170,6 +174,9 @@ protocol version 70012: section protocol versions
 protocol version 70013: section protocol versions
 protocol version 70014: section protocol versions
 public key infrastructure: pki
+'QcTx': quorum commitment special tx
+'`qfcommit` message': qfcommit message
+'`qfcommit` messages': qfcommit message
 '`r`': r
 receipt: DO NOT AUTOCROSSREF
 recurrent rebilling:

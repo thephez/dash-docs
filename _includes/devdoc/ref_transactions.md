@@ -414,7 +414,9 @@ flexibility to expand beyond the financial uses of classical transactions. DIP2
 transactions modified classical transactions by:
 
 1. Splitting the 32 bit `version` field into two 16 bit fields (`version` and `type`)
-2. Adding support for a generic extra payload following the `lock_time` field
+2. Adding support for a generic extra payload following the `lock_time` field. The
+   maximum allowed size for a transaction version 3 extra payload is 10000 bytes
+   (`MAX_TX_EXTRA_PAYLOAD`).
 
 Classical (financial) transactions have a `type` of 0 while special transactions
 have a `type` defined in the DIP describing them. A list of current special
@@ -427,7 +429,7 @@ transaction types is maintained in the [DIP repository](https://github.com/dashp
 
 {% autocrossref %}
 
-*Added in protocol version 70212 of Dash Core as described by DIP3*
+*Added in protocol version 70213 of Dash Core as described by DIP3*
 
 The Masternode Registration (ProRegTx) special transaction is used to join the
 masternode list by proving ownership of the 1000 DASH necessary to create a
@@ -585,7 +587,7 @@ ProRegTx Payload
 
 {% autocrossref %}
 
-*Added in protocol version 70212 of Dash Core as described by DIP3*
+*Added in protocol version 70213 of Dash Core as described by DIP3*
 
 The Masternode Provider Update Service (ProUpServTx) special transaction is used
 to update the IP Address and port of a masternode. If a non-zero operatorReward
@@ -658,7 +660,7 @@ ProUpServTx Payload
 
 {% autocrossref %}
 
-*Added in protocol version 70212 of Dash Core as described by DIP3*
+*Added in protocol version 70213 of Dash Core as described by DIP3*
 
 The Masternode Provider Update Registrar (ProUpRegTx) special transaction is used
 by a masternode owner to update masternode metadata (e.g. operator/voting key
@@ -739,7 +741,7 @@ ProRegTx Payload
 
 {% autocrossref %}
 
-*Added in protocol version 70212 of Dash Core as described by DIP3*
+*Added in protocol version 70213 of Dash Core as described by DIP3*
 
 The Masternode Operator Revocation (ProUpRevTx) special transaction allows an
 operator to revoke their key in case of compromise or if they wish to terminate
@@ -801,7 +803,7 @@ ProUpRevTx Payload
 
 {% autocrossref %}
 
-*Added in protocol version 70212 of Dash Core as described by DIP4*
+*Added in protocol version 70213 of Dash Core as described by DIP4*
 
 The Coinbase (CbTx) special transaction adds information to the block’s coinbase
 transaction that enables verification of the deterministic masternode list without
@@ -867,48 +869,95 @@ Coinbase Transaction Payload
 
 {% endautocrossref %}
 
-#### Quorum Commitment
+#### QcTx
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
 
-Quorum Commitment
+*Added in protocol version 70213 of Dash Core as described by DIP6*
 
-{% endautocrossref %}
+The Quorum Commitment (QcTx) special transaction adds the best final commitment from a
+Long-Living Masternode Quorum (LLMQ) Distributed Key Generation (DKG) session to
+the chain. This special transaction has no inputs and no outputs and thus also
+pays no fee.
 
-#### SubTxRegister
-{% include helpers/subhead-links.md %}
+Since this special transaction pays no fees, it is mandatory by consensus rules
+to ensure that miners include it. Exactly one quorum commitment transaction MUST
+be included in every block while in the mining phase of the LLMQ process until a
+valid commitment is present in a block.
 
-{% autocrossref %}
+If a DKG failed or a miner did not receive a final commitment in-time, a null
+commitment has to be included in the special transaction payload. A null
+commitment must have the `signers` and `validMembers` bitsets set to the
+`quorumSize` and all bits set to zero. All other fields must be set to the null
+representation of the field’s types.
 
-Register Blockchain User
+The special transaction type used for Quorum Commitment Transactions is 6 and
+the extra payload consists of the following data:
 
-{% endautocrossref %}
+| Bytes | Name | Data type |  Description |
+| ---------- | ----------- | -------- | -------- |
+| 2 | version | uint_16 | Quorum Commitment version number. Currently set to 1.
+| 4 | height | uint32_t | Height of the block
+| Variable | commitment | qfcommit | The payload of the `qfcommit` message
 
-#### SubTxTopup
-{% include helpers/subhead-links.md %}
+The following annotated hexdump shows a QcTx transaction.
 
-{% autocrossref %}
+<!--getrawtransaction f218f2d5b8003bc530016dc510b3d982a5cf43ff76313b991ac5aa90a91065b7 true-->
 
-Topup Blockchain User Credit
+An itemized quorum commitment transaction:
 
-{% endautocrossref %}
+{% highlight text %}
+0300 ....................................... Version (3)
+0600 ....................................... Type (6 - Quorum Commitment)
 
-#### SubTxResetKey
-{% include helpers/subhead-links.md %}
+00 ......................................... Number of inputs
+00 ......................................... Number of outputs
 
-{% autocrossref %}
+00000000 ................................... Locktime
 
-Change Blockchain User Public Key
+fd4901 ..................................... Extra payload size (329)
 
-{% endautocrossref %}
-
-#### SubTxCloseAccount
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-Close Blockchain User Account
+Quorum Commitment Transaction Payload
+| 0100 ..................................... Version (1)
+|
+| 921d0000 ................................. Block height: 7570
+|
+| Payload from the qfcommit message
+| | 01 ..................................... LLMQ Type (1)
+| |
+| | 8d80561839648b844ade10b6e81069fa
+| | 6c4bde6166dd59242be3487a00000000 ....... Quorum hash
+| |
+| | 32 ..................................... Number of signers (50)
+| | ff7effffbebe02 ......................... Aggregrated signers bitvector
+| |
+| | 32 ..................................... Number of valid members (50)
+| | ff7effffbebe02 ......................... Valid members bitvector
+| |
+| | 81d0717b893b557f54daacbd060bcffa
+| | 2dc341175d0b89c7974dc57ef482ae27
+| | e10fb273eda534596993999950817cd4 ....... Quorum public key (BLS)
+| |
+| | ed93bc215d15350bd7030be811cf1df2
+| | c114f6b34df9bd4095161af93608ed90 ....... Quorum verification vector hash
+| |
+| | Quorum threshold signature (BLS)
+| | 8d2bbb0b9c5b8626eb852ea0ff4f2509
+| | 19becc2d24653910fb8e11cf5573062f
+| | 9f64c03a5031f1d462163ce98e8bf78a
+| | 1470f7074a8e6fe23ccb53d73635ecd5
+| | ad71b26a938fc21638bcae7d272af9fa
+| | 919f296a17e77191e3d4c708bc6e1b9a ....... BLS Signatures (96 bytes)
+| |
+| | Aggregated signatures from all commitments (BLS)
+| | 19e702ff84ff851312cceba1de528ee7
+| | ffe33647ae28ef895b35558512901394
+| | b430c804c7c42494a3312545606b5598
+| | 0480985494fa2c49f50c65d47570380f
+| | 13c2851ce33d8584b64e8b659146d732
+| | 67d821c78d09ba7caea3d03641f78c7a ....... BLS Signature (96 bytes)
+{% endhighlight %}
 
 {% endautocrossref %}
 
