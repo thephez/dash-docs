@@ -348,8 +348,15 @@ several conditions that initiate a start/restart the sync process:
 * A failure occurred during the last sync attempt (after a 1 minute cooldown before sync restarts)
 * Issuing a `mnsync reset` RPC command
 
+{% endautocrossref %}
+
 #### Initial Masternode<!--noref--> Sync
 {% include helpers/subhead-links.md %}
+
+##### Before DIP3 Activation
+<!-- no subhead-links here -->
+
+{% autocrossref %}
 
 This diagram shows the order in which P2P messages are sent to perform
 masternode synchronization initially after startup.
@@ -357,7 +364,7 @@ masternode synchronization initially after startup.
 ![Masternode Sync (Initial)](/img/dev/en-masternode-sync-initial.svg)
 
 The following table details the data flow of P2P messages exchanged during
-initial masternode synchronization.
+initial masternode synchronization before the activation of DIP3 and Spork 15.
 
 | **Syncing Node Message** | **Direction**  | **Masternode Response**   | **Description** |
 | **1. Sporks** |   |  |  |
@@ -380,6 +387,31 @@ initial masternode synchronization.
 |                                                | ← | `mnw` message(s)          | (If requested) Masternode payment vote message
 | **4. Governance** |   |  | See [Governance sync](#governance) |
 
+{% endautocrossref %}
+
+##### After DIP3 Activation
+<!-- no subhead-links here -->
+
+{% autocrossref %}
+
+The deterministic masternode lists introduced by DIP3 make the masternode
+list and masternode payments steps of the sync process obsolete. Since the
+information is available on-chain, the P2P messages related to those steps
+are no longer required.
+
+This diagram shows the order in which P2P messages are sent to perform
+masternode synchronization initially after startup.
+
+![Masternode Sync (Initial)](/img/dev/en-masternode-sync-initial-dip3.svg)
+
+The following table details the data flow of P2P messages exchanged during
+initial masternode synchronization after the activation of DIP3 and Spork 15.
+
+| **Syncing Node Message** | **Direction**  | **Masternode Response**   | **Description** |
+| **1. Sporks** |   |  |  |
+| `getsporks` message                            | → |                           | Syncing node requests sporks
+|                                                | ← | `spork` message(s)        |
+| **2. Governance** |   |  | See [Governance sync](#governance) |
 
 *Masternode Sync Status*
 
@@ -390,8 +422,8 @@ are used in both `ssc` messages and the `mnsync` RPC.
 | -1  | `MASTERNODE_SYNC_FAILED`      | Synchronization failed |
 | 0   | `MASTERNODE_SYNC_INITIAL`     | Synchronization just started, was reset recently, or is still in IBD |
 | 1   | `MASTERNODE_SYNC_WAITING`     | Synchronization pending - waiting after initial to check for more headers/blocks |
-| 2   | `MASTERNODE_SYNC_LIST`        | Synchronizing masternode list |
-| 3   | `MASTERNODE_SYNC_MNW`         | Synchronizing masternode payments |
+| 2   | `MASTERNODE_SYNC_LIST`        | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Synchronizing masternode list |
+| 3   | `MASTERNODE_SYNC_MNW`         | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Synchronizing masternode payments |
 | 4   | `MASTERNODE_SYNC_GOVERNANCE`  | Synchronizing governance objects  |
 | 999 | `MASTERNODE_SYNC_FINISHED`    | Synchronization finished |
 
@@ -408,12 +440,18 @@ payments, and governance objects synchronized between masternodes.
 
 **Recurring Ping**
 
+![Warning icon](/img/icons/icon_warning.svg) NOTE: This will be deprecated
+following activation of DIP3 which implements deterministic masternode lists.
+
 Each masternode issues a ping (`mnp` message) periodically to notify the network
 that it is still online. Masternodes that do not issue a ping for 3 hours will
 be put into the `MASTERNODE_NEW_START_REQUIRED` state and will need to issue a
 masternode announce (`mnb` message).
 
 **Masternode List**
+
+![Warning icon](/img/icons/icon_warning.svg) NOTE: This will be deprecated
+following activation of DIP3 which implements deterministic masternode lists.
 
 After the initial masternode list has been received, it is kept current by a
 combination of the periodic `mnp` messages received from other masternodes,
@@ -428,6 +466,9 @@ unspent 1000 Dash).
 Unsynchronized peers may send a `dseg` message to request the entire masternode list.
 
 **Masternode Payment**
+
+![Warning icon](/img/icons/icon_warning.svg) NOTE: This will be deprecated
+following activation of DIP3 which implements deterministic masternode lists.
 
 After the initial masternode payment synchronization, payment information is
 kept current via the `mnw` messages relayed on the network. Unsynchronized peers
@@ -453,14 +494,14 @@ scheduler section of `AppInitMain` in `src/init.cpp`.
 The following actions only run when the masternode sync is past `MASTERNODE_SYNC_WAITING` status.
 
 | **Period (seconds)** | **Action** | **Description** |
-| 1   | MN Check                  | Check the state of each masternode that is still funded and not banned. The action occurs once per second, but individual masternodes are only checked at most every 5 seconds (only a subset of masternodes are checked each time it runs) (masternodeman.cpp) |
+| 1   | MN Check                  | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Check the state of each masternode that is still funded and not banned. The action occurs once per second, but individual masternodes are only checked at most every 5 seconds (only a subset of masternodes are checked each time it runs) (masternodeman.cpp) |
 | 60  | Process MN Connections    | Disconnects some masternodes (masternodeman.cpp) |
-| 60  | MN Check/Remove           | Remove spent masternodes and check the state of inactive ones (masternodeman.cpp) |
-| 60  | MN Payment Check/Remove   | Remove old masternode payment votes/blocks (masternode-payments.cpp) |
+| 60  | MN Check/Remove           | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Remove spent masternodes and check the state of inactive ones (masternodeman.cpp) |
+| 60  | MN Payment Check/Remove   | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Remove old masternode payment votes/blocks (masternode-payments.cpp) |
 | 60  | InstantSend<!--noref--> Check/Remove  | Remove expired/orphaned/invalid InstantSend candidates and votes (instantx.cpp) |
-| 300 | Full verification         | Verify masternodes via direct requests (`mnv` messages - note time constraints in the Developer Reference section) (masternodeman.cpp) |
+| 300 | Full verification         | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Verify masternodes via direct requests (`mnv` messages - note time constraints in the Developer Reference section) (masternodeman.cpp) |
 | 300 | Maintenance               | Check/remove/reprocess governance objects (governance.cpp) |
-| 600 | Manage State              | Sends masternode pings (`mnp` message). Also sends initial masternode broadcast (`mnb` message) for local masternodes. (activemasternode.cpp) |
+| 600 | Manage State              | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Sends masternode pings (`mnp` message). Also sends initial masternode broadcast (`mnb` message) for local masternodes. (activemasternode.cpp) |
 
 {% endautocrossref %}
 
