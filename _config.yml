@@ -135,13 +135,21 @@ kramdown:
     ## Might be useful in the future, but turn off for upgrade to Jekyll 3.0
     css_class:
 
-  coderay:
-    coderay_wrap: div
-    coderay_line_numbers: inline
-    coderay_line_numbers_start: 1
-    coderay_tab_width: 4
-    coderay_bold_every: 10
-    coderay_css: style
+    # Moved here from coderay
+    wrap: div
+    line_numbers: inline
+    line_numbers_start: 1
+    tab_width: 4
+    bold_every: 10
+    css: style
+
+  #coderay:
+  #  coderay_wrap: div
+  #  coderay_line_numbers: inline
+  #  coderay_line_numbers_start: 1
+  #  coderay_tab_width: 4
+  #  coderay_bold_every: 10
+  #  coderay_css: style
 
 text:
   ## Values last updated 2017-05-21
