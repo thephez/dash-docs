@@ -213,31 +213,107 @@ Dash Core and many other tools print and accept raw transactions
 encoded as hex.
 
 Transactions prior to protocol version 70209 defaulted to version 1. Transaction
-version 2 became the default in protocol version 70209. Version 2 transactions
-have the same format, but the `lock_time` parameter was redefined by BIP68
-to enable relative lock-times.
+version 2 was the default in protocol versions => 70209 and < 70213. Version 2
+transactions have the same format, but the `lock_time` parameter was redefined
+by BIP68 to enable relative lock-times.
 (Note: transactions in the block chain are allowed to list a higher version
 number to permit soft forks, but they are treated as version 2 transactions
 by current software.)
+
+Dash Core 0.13.0 (protocol version 70213) introduced transaction version 3 as
+part of the [DIP2 - Special Transactions](https://github.com/dashpay/dips/blob/master/dip-0002.md)
+ implementation. Details of the changes introduced by
+this feature and currently implemented special transactions can be found in the
+[Special Transactions section](#special-transactions) below as well as in the
+[DIP](https://github.com/dashpay/dips/blob/master/dip-0002.md).
 
 A raw transaction has the following top-level format:
 
 | Bytes    | Name         | Data Type           | Description
 |----------|--------------|---------------------|-------------
-| 2        | version      | uint16_t            | Transaction version number; currently version 3.  Programs creating transactions using newer consensus rules may use higher version numbers.
-| 2        | type         | uint16_t            | Transaction type number; 0 for classical transactions; Non-zero for DIP2 special transactions.
+| 2        | version      | uint16_t            | *Converted from 4 bytes to 2 bytes by DIP2 in v0.13.0*<br><br>Transaction version number; currently version 3.  Programs creating transactions using newer consensus rules may use higher version numbers.
+| 2        | type         | uint16_t            | *Added by DIP2 in v0.13.0. Uses 2 bytes that were previously part of `version`*<br><br>Transaction type number; 0 for classical transactions; Non-zero for DIP2 special transactions.
 | *Varies* | tx_in count  | compactSize uint    | Number of inputs in this transaction.
 | *Varies* | tx_in        | txIn                | Transaction inputs.  See description of txIn below.
 | *Varies* | tx_out count | compactSize uint    | Number of outputs in this transaction.
 | *Varies* | tx_out       | txOut               | Transaction outputs.  See description of txOut below.
 | 4        | lock_time    | uint32_t            | A time (Unix epoch time) or block number.  See the [locktime parsing rules][].
-| *Varies* | extra_payload size | compactSize uint | *Added by DIP2*<br><br>Variable number of bytes of extra payload for DIP2-based special transactions
-| *Varies* | extra_payload | blob               | *Added by DIP2*<br><br>Special transaction payload.
+| *Varies* | extra_payload size | compactSize uint | *Added by DIP2 in v0.13.0*<br><br>Variable number of bytes of extra payload for DIP2-based special transactions
+| *Varies* | extra_payload | blob               | *Added by DIP2 in v0.13.0*<br><br>Special transaction payload.
 
 A transaction may have multiple inputs and outputs, so the txIn and
 txOut structures may recur within a transaction. CompactSize unsigned
 integers are a form of variable-length integers; they are described in
 the [CompactSize section][section CompactSize unsigned integer].
+
+##### JSON-RPC<!--noref--> Responses
+{% include helpers/subhead-links.md %}
+
+When retrieving transaction data via Dash Core RPCs (e.g. the `getrawtransaction` RPC),
+the transaction data is returned in the following format.
+
+Version 1 and 2 Transaction Structure (prior to DIP2 activation in Dash Core v0.13.0):
+{% highlight json %}
+{
+  "txid": <string>,
+  "size": <int>,
+  "version": 2,
+  "locktime": 0,
+  "vin": [ ],
+  "vout": [ ]
+}
+{% endhighlight %}
+
+Version 3 Transaction Structure (Dash Core v0.13.0+ and activated DIP2):
+{% highlight json %}
+{
+  "txid": <string>,
+  "size": <int>,
+  "version": 3,
+  "type": <int>,
+  "locktime": 0,
+  "vin": [ ],
+  "vout": [ ],
+  "extraPayloadSize": <variable int>,
+  "extraPayload": …
+}
+{% endhighlight %}
+
+For special transactions (those using the extraPayload fields), JSON-RPC
+responses contain a parsed JSON representation of the Transaction Payload.
+
+The sample transaction below shows the response for a quorum commitment special
+transaction:
+
+{% highlight json %}
+{
+  "txid": "592a09d08348d970b4d9ba216246a23dac866717b460d3f369a86293b9839eea",
+  "size": 342,
+  "version": 3,
+  "type": 6,
+  "locktime": 0,
+  "vin": [
+  ],
+  "vout": [
+  ],
+  "extraPayloadSize": 329,
+  "extraPayload": "0100841b0000010001211cd3e4230b2bc47530e200447e998a38e960d4ed5f5251e26892130c000000320000000000000032000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  "qcTx": {
+    "version": 1,
+    "height": 7044,
+    "commitment": {
+      "version": 1,
+      "llmqType": 1,
+      "quorumHash": "0000000c139268e251525fedd460e9388a997e4400e23075c42b0b23e4d31c21",
+      "signersCount": 0,
+      "validMembersCount": 0,
+      "quorumPublicKey": "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    }
+  },
+  "instantlock": false
+}
+
+{% endhighlight %}
 
 {% endautocrossref %}
 
@@ -421,6 +497,19 @@ transactions modified classical transactions by:
 Classical (financial) transactions have a `type` of 0 while special transactions
 have a `type` defined in the DIP describing them. A list of current special
 transaction types is maintained in the [DIP repository](https://github.com/dashpay/dips/blob/master/dip-0002-special-transactions.md).
+
+**Implemented Special Transactions**
+
+| Release | Tx Version | Tx Type | Payload Size | Payload | Payload JSON | Tx Purpose
+| - | - | - | - | - | - |
+| v0.12.3 | 2 | - | n/a | n/a | n/a |
+| v0.13.0 | 3 | 0 | n/a | n/a | n/a | Standard (Classical) Transaction
+| v0.13.0 | 3 | 1 | compactSize uint | hex | ProRegTx | Masternode Registration
+| v0.13.0 | 3 | 2 | compactSize uint | hex | ProUpServTx | Update Masternode Service
+| v0.13.0 | 3 | 3 | compactSize uint | hex | ProUpRegTx| Update Masternode Operator
+| v0.13.0 | 3 | 4 | compactSize uint | hex | ProUpRevTx| Masternode Operator Revocation
+| v0.13.0 | 3 | 5 | compactSize uint | hex | CbTx| Masternode List Merkle Proof
+| v0.13.0 | 3 | 6 | compactSize uint | hex | QcTx| Long-Living Masternode Quorum Commitment
 
 {% endautocrossref %}
 
@@ -876,10 +965,12 @@ Coinbase Transaction Payload
 
 *Added in protocol version 70213 of Dash Core as described by DIP6*
 
+**NOTE: This special transaction has no inputs and no outputs and thus also
+pays no fee.**
+
 The Quorum Commitment (QcTx) special transaction adds the best final commitment from a
 Long-Living Masternode Quorum (LLMQ) Distributed Key Generation (DKG) session to
-the chain. This special transaction has no inputs and no outputs and thus also
-pays no fee.
+the chain.
 
 Since this special transaction pays no fees, it is mandatory by consensus rules
 to ensure that miners include it. Exactly one quorum commitment transaction MUST
