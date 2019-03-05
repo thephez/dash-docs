@@ -398,6 +398,8 @@ DIP1:
 '`getreceivedbyaccount` RPC': rpc getreceivedbyaccount
 '`getreceivedbyaddress`': rpc getreceivedbyaddress
 '`getreceivedbyaddress` RPC': rpc getreceivedbyaddress
+'`getspecialtxes`': rpc getspecialtxes
+'`getspecialtxes` RPC': rpc getspecialtxes
 '`getspentinfo`': rpc getspentinfo
 '`getspentinfo` RPC': rpc getspentinfo
 '`getsuperblockbudget`': rpc getsuperblockbudget

@@ -19,7 +19,11 @@ Use v0.n.n in abbreviation title to prevent autocrossrefing.
 <!-- Dash - Not Implemented -->
 {% assign DASH_NOT_IMPLEMENTED='**<abbr title="Not Implemented in Dash">Not Implemented</abbr>**' %}
 
-<!-- Dash Core 0.13.0.0 Nov 2018 -->
+<!-- Dash Core 0.13.0.0 Feb 2019 -->
+{% assign DASH_NEW0_13_1='**<abbr title="New in Dash Core v0.13.1">New in Dash Core 0.13.1</abbr>**' %}
+{% assign DASH_UPDATED0_13_1='**<abbr title="Updated in Dash Core v0.13.1">Updated in Dash Core 0.13.1</abbr>**' %}
+
+<!-- Dash Core 0.13.0.0 Jan 2019 -->
 {% assign DASH_NEW0_13_0='**<abbr title="New in Dash Core v0.13.0">New in Dash Core 0.13.0</abbr>**' %}
 {% assign DASH_UPDATED0_13_0='**<abbr title="Updated in Dash Core v0.13.0">Updated in Dash Core 0.13.0</abbr>**' %}
 
@@ -115,6 +119,7 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 * [GetMemPoolEntry][rpc  getmempoolentry]: {{summary_getMemPoolEntry}} {{DASH_NEW0_12_3}} {{NEW0_13_0}}
 * [GetMemPoolInfo][rpc getmempoolinfo]: {{summary_getMemPoolInfo}} {{UPDATED0_12_0}}
 * [GetRawMemPool][rpc getrawmempool]: {{summary_getRawMemPool}} {{DASH_UPDATED0_12_3}} {{UPDATED0_13_0}}
+* [GetSpecialTxes][rpc getspecialtxes]: {{summary_getSpecialTxes}} {{DASH_NEW0_13_1}}
 * [GetSpentInfo][rpc getspentinfo]: {{summary_getSpentInfo}} {{DASH_NEW0_12_1}}
 * [GetTxOut][rpc gettxout]: {{summary_getTxOut}}
 * [GetTxOutProof][rpc gettxoutproof]: {{summary_getTxOutProof}} {{NEW0_11_0}}

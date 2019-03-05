@@ -69,6 +69,7 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_getRawTransaction="gets a hex-encoded serialized transaction or a JSON object describing the transaction. By default, Dash Core only stores complete transaction data for UTXOs and your own transactions, so the RPC may fail on historic transactions unless you use the non-default `txindex=1` in your Dash Core startup settings." %}
 {% assign summary_getReceivedByAccount="returns the total amount received by addresses in a particular account from transactions with the specified number of confirmations.  It does not count coinbase transactions." %}
 {% assign summary_getReceivedByAddress="returns the total amount received by the specified address in transactions with the specified number of confirmations. It does not count coinbase transactions." %}
+{% assign summary_getSpecialTxes="returns an array of special transactions found in the specified block" %}
 {% assign summary_getSpentInfo="returns the txid and index where an output is spent (requires `spentindex` to be enabled)." %}
 {% assign summary_getSuperblockBudget="returns the absolute maximum sum of superblock payments allowed." %}
 {% assign summary_getTransaction="gets detailed information about an in-wallet transaction." %}
