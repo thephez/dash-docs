@@ -206,6 +206,8 @@ untrusted source.
 
 {% include devdoc/dash-core/rpcs/rpcs/getreceivedbyaddress.md %}
 
+{% include devdoc/dash-core/rpcs/rpcs/getspecialtxes.md %}
+
 {% include devdoc/dash-core/rpcs/rpcs/getspentinfo.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/getsuperblockbudget.md %}

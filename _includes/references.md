@@ -128,6 +128,7 @@ http://opensource.org/licenses/MIT.
 [rpc getrawtransaction]: /en/developer-reference#getrawtransaction
 [rpc getreceivedbyaccount]: /en/developer-reference#getreceivedbyaccount
 [rpc getreceivedbyaddress]: /en/developer-reference#getreceivedbyaddress
+[rpc getspecialtxes]: /en/developer-reference#getspecialtxes
 [rpc getspentinfo]: /en/developer-reference#getspentinfo
 [rpc getsuperblockbudget]: /en/developer-reference#getsuperblockbudget
 [rpc gettransaction]: /en/developer-reference#gettransaction

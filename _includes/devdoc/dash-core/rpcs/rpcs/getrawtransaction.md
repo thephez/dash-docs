@@ -284,6 +284,7 @@ Result:
 
 *See also*
 
+* [GetSpecialTxes][rpc getspecialtxes]: {{summary_getSpecialTxes}}
 * [GetTransaction][rpc gettransaction]: {{summary_getTransaction}}
 
 {% endautocrossref %}
