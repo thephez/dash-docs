@@ -459,6 +459,11 @@ NOT IN DASH
   p: "Required<br>(exactly 1)"
   d: "The collateral index"
 
+- n: "{{DEPTH}} → →<br>`collateralAddress`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The collateral address"
+
 - n: "{{DEPTH}} →<br>`operatorReward`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
@@ -468,6 +473,11 @@ NOT IN DASH
   t: "object/null"
   p: "Required<br>(exactly 1)"
   d: "An object containing a provider transaction state"
+
+- n: "{{DEPTH}} → →<br>`service`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "The masternode's IP:Port"
 
 - n: "{{DEPTH}} → →<br>`registeredHeight`"
   t: "number (int)"
@@ -499,30 +509,30 @@ NOT IN DASH
   p: "Required<br>(exactly 1)"
   d: "The reason for a ProUpRegTx revocation"
 
-- n: "{{DEPTH}} → →<br>`keyIDOwner`"
+- n: "{{DEPTH}} → →<br>`ownerAddress`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "The owner key"
+  d: "The owner address"
+
+- n: "{{DEPTH}} → →<br>`votingAddress`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The voting address"
+
+- n: "{{DEPTH}} → →<br>`payoutAddress`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The owner's payout address"
 
 - n: "{{DEPTH}} → →<br>`pubKeyOperator`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
   d: "The operator public key"
 
-- n: "{{DEPTH}} → →<br>`keyIDVoting`"
+- n: "{{DEPTH}} → →<br>`operatorPayoutAddress`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "The voting key"
-
-- n: "{{DEPTH}} → →<br>`addr`"
-  t: "string"
-  p: "Required<br>(exactly 1)"
-  d: "The masternode's IP:Port"
-
-- n: "{{DEPTH}} → →<br>`payoutAddress`"
-  t: "string (hex)"
-  p: "Required<br>(exactly 1)"
-  d: "The payout address"
+  d: "The operator's payout address"
 
 - n: "{{DEPTH}} →<br>`confirmations`"
   t: "number (int)"
