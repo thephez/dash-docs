@@ -2648,419 +2648,6 @@ and [Masternode Payment](developer-guide#masternode<!--noref-->-payment) section
 
 {% endautocrossref %}
 
-#### dseg
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-![Warning icon](/img/icons/icon_warning.svg) NOTE: This message will be deprecated
-following activation of DIP3 which implements deterministic masternode lists.
-
-The `dseg` message requests either the entire masternode list or a specific
-entry. To request the list of all masternodes, use an empty txIn (TXID of all
-zeros and an index of 0xFFFFFFFF).  To request information about a specific
-masternode, use the unspent outpoint associated with that masternode.
-
-The response to a `dseg` message is an `mnb` message inventory and an
-`mnp` message inventory for each requested masternode. Masternodes ignore this
-request if they are not fully synced.
-
-| Bytes | Name | Data type | Required | Description |
-| ---------- | ----------- | --------- | -------- | -------- |
-| 36 | masternodeOutPoint | outPoint | Required | Request options:<br>`All Entries` - empty txIn<br>`Single Entry` - Masternode's unspent outpoint which is holding 1000 DASH
-
-
-{% highlight text %}
-Note: Dash Core only allows nodes to request the entire list every 3 hours.
-Additional requests sent prior to then may result in the node being banned.
-{% endhighlight %}
-
-The following annotated hexdump shows a `dseg` message requesting **all**
-masternodes. (The message header has been omitted.)
-
-{% highlight text %}
-Masternode Unspent Outpoint
-| 00000000000000000000000000000000
-| 00000000000000000000000000000000 ......... Outpoint TXID
-| ffffffff ................................. Outpoint index number: 0
-{% endhighlight %}
-
-The following annotated hexdump shows a `dseg` message requesting a specific
-masternode. (The message header has been omitted.)
-
-{% highlight text %}
-Masternode Unspent Outpoint
-| 7fe33a2901aa654598ae0af572d4fbec
-| ee97af2d0276f189d177dee5848ef3da ......... Outpoint TXID
-| 00000000 ................................. Outpoint index number: 0
-{% endhighlight %}
-
-{% endautocrossref %}
-
-#### mnb
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-![Warning icon](/img/icons/icon_warning.svg) NOTE: This message will be deprecated
-following activation of DIP3 which implements deterministic masternode lists.
-
-The `mnb` message is sent whenever a masternode comes online or a client is
-syncing.  The masternode will send this message which describes the masternode
-entry and how to validate messages from it.
-
-| Bytes | Name | Data type | Required | Description |
-| ---------- | ----------- | --------- | -------- | -------- |
-| 36 | outPoint | outPoint | Required | The unspent outpoint of the masternode (holding 1000 DASH) which is signing the message
-| # | addr | CService | Required | IPv4 address of the masternode
-| 33-65 | pubKeyCollateralAddress | CPubKey | Required | CPubKey of the main 1000 DASH unspent outpoint. Length determined by if it is a compressed public key or not.
-| 33-65 | pubKeyMasternode | CPubKey | Required | CPubKey of the secondary signing key (For all messaging other than the announce message). Length determined by if it is a compressed public key or not.
-| 66 | sig | char[] | Required | Signature of this message verifiable via pubKeyMasternode (Length (1 byte) + Signature (65 bytes))
-| 8 | sigTime | int64_t | Required | Time which the signature was created
-| 4 | nProtocolVersion | int | Required | The protocol version of the masternode
-| # | lastPing | `mnp` message | Required | The last known ping of the masternode
-| 8 | nLastDsq | int64_t | Deprecated | **Removed in Dash Core 0.12.3.0**<br><br>The last time the masternode sent a `dsq` message (for mixing) (DEPRECATED)
-
-The following annotated hexdump shows a `mnb` message. (The
-message header has been omitted and the actual IP address has been replaced
-with a RFC5737 reserved IP address.)
-
-{% highlight text %}
-Masternode Unspent Outpoint
-| 3fbc7d4a8f68ba6ecb02a8db34d1f5b6
-| 2dc105f0b5c3505243435cf815d02394 ......... Outpoint TXID
-| 01000000 ................................. Outpoint index number: 1
-
-Masternode Address
-| 00000000000000000000ffffc0000233 ......... IP Address: ::ffff:192.0.2.51
-| 270f ..................................... Port: 9999
-
-Collateral Public Key
-| 21 ....................................... Key Size: 33
-| 02 ....................................... Key Type: 2 - Compressed (even)
-| 02a47a6845936a4199e126d35399dd09
-| 97c1aaf89a3fe70d474c53f29624a43a5b ....... Public Key
-
-Masternode Public Key
-| 41 ....................................... Key Size: 65
-| 04 ....................................... Key Type: 4 - Uncompressed
-| 04da252243305d604cab90480880af4a
-| b5cea3a934c91393452e9b7b4c97a87e
-| 198bc809916ac2c27436a1db9c28d0aa
-| bfefec4dc3c2193835fd9a56c31150c633 ....... Public Key
-
-Message Signature
-| 41 ....................................... Bytes in signature: 65
-| 1fb80f9ba8c110835e4a7dd4c8deccd7
-| 89027663d00084d9a99ef579a9b5601f
-| 40727b27e91aab2897a078f63976ae25
-| 3ff8f01e56862e953278f432530f6ee080 ....... Signature
-
-4728ef5800000000 ........................... Sig. Timestamp: 2017-04-13 07:27:03 UTC
-
-3e120100 ................................... Protocol Version: 70206
-
-Masternode Ping Message
-| Masternode Unspent Outpoint
-| | 3fbc7d4a8f68ba6ecb02a8db34d1f5b6
-| | 2dc105f0b5c3505243435cf815d02394 ........ Outpoint TXID
-| | 01000000 ................................ Outpoint index number: 1
-|
-| 94fc0fad18b166c2fedf1a5dc0511372
-| 26c353d57e086737ff05000000000000 ......... Chaintip block hash
-|
-| 66c1a95900000000 ......................... Sig. Timestamp: 2017-10-01 21:21:58 UTC
-|
-| Masternode Signature
-| | 41 ..................................... Bytes in signature: 65
-| | 1b3017c49a03e2d77083f3c92a8c2e4c
-| | d815d068b6256498a719e3cb6a34f774
-| | ec6434cfcbb7a5a51704350a05903287
-| | eecc82e6b40ac2fcfa2df29ddaa6c4fc
-| | b8 ..................................... Masternode Signature
-{% endhighlight %}
-
-{% endautocrossref %}
-
-#### mnget
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-![Warning icon](/img/icons/icon_warning.svg) NOTE: This message will be deprecated
-following activation of DIP3 which implements deterministic masternode lists.
-
-The `mnget` message requests masternode payment sync. The response to an
-`mnget` message is `mnw` message inventories. Masternodes ignore this request if
-they are not fully synced.
-
-{% highlight text %}
-Note: Dash Core limits how frequently a masternode payment sync can be
-requested. Frequent requests will result in the node being banned.
-{% endhighlight %}
-
-There is no payload in a `mnget` message.  See the [message header
-section][section message header] for an example of a message without a payload.
-
-![Warning icon](/img/icons/icon_warning.svg) **The following information is provided for historical reference only.**
-
-In protocol versions <=70208, the `mnget` message has a payload consisting of an
-integer value requesting a specific number of payment votes. In protocol versions
->70208, the `mnget` message has no payload.
-
-| Bytes | Name | Data type | Required | Description |
-| ---------- | ----------- | --------- | -------- | -------- |
-| 4 | nMnCount | int | Deprecated | _Deprecated in Dash Core 0.12.3_<br><br>Number of masternode payment votes to request
-
-The following annotated hexdump shows a pre-0.12.3 `mnget` message. (The
-message header has been omitted.)
-
-{% highlight text %}
-a8170000 ................................... Count: 6056
-{% endhighlight %}
-
-{% endautocrossref %}
-
-#### mnp
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-![Warning icon](/img/icons/icon_warning.svg) NOTE: This message will be deprecated
-following activation of DIP3 which implements deterministic masternode lists.
-
-The `mnp` message is sent by masternodes every few minutes to ping the network
-with a message that propagates across the whole network. Dash Core currently
-uses a minimum masternode ping time of 10 minutes.
-
-| Bytes | Name | Data type | Required | Description |
-| ---------- | ----------- | --------- | -------- | -------- |
-| 36 | masternodeOutPoint | outPoint | Required | The unspent outpoint of the masternode (holding 1000 DASH) which is signing the message
-| 32 | blockHash | uint256 | Required | Block hash from 12 blocks ago (current chaintip minus 12). This offset allows nodes to be slightly out of sync.
-| 8 | sigTime | int64_t | Required | Time which the signature was created
-| 66* | vchSig | char[] | Required | Signature of this message by masternode - verifiable via pubKeyMasternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
-| 1 | fSentinelIsCurrent | bool | Required | True if last sentinel ping was current
-| 4 | nSentinelVersion | uint32_t | Required | The version of Sentinel running on the masternode which is signing the message
-| 4 | nDaemonVersion | uint32_t | Required | The version of dashd on the masternode which is signing the message (i.e. CLIENT_VERSION)
-
-The following annotated hexdump shows a `mnp` message. (The
-message header has been omitted.)
-
-{% highlight text %}
-Masternode Unspent Outpoint
-| ce12d7f32945c9544c5aeb0dcf131174
-| a6269b64b40f9461595e26689b573c58 ......... Outpoint TXID
-| 00000000 ................................. Outpoint index number: 0
-
-6c7da9d9eae78644a3406eac8ed0be3b
-f15eb4bc369acc95b106f37400000000 ........... Chaintip block hash
-
-3c84025a00000000 ........................... Sig. Timestamp: 2017-11-08 04:12:44 UTC
-
-Masternode Signature
-| 41 ....................................... Bytes in signature: 65
-| 1c7572842058a2075b8a996c3905e306
-| 27a581a0b0702842ac4088e6c1a61b22
-| 8e79a4d8aed0f413150f976045f256ef
-| 2727e68a36622efcabfd60a554533b8c
-| 6f ....................................... Masternode Signature
-
-01 ......................................... Sentinel Current: true
-02000100 ................................... Sentinel Version (1.0.2)
-ecd50100 ................................... Dashd Deamon Version (12.3.0)
-{% endhighlight %}
-
-{% endautocrossref %}
-
-#### mnv
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-![Warning icon](/img/icons/icon_warning.svg) NOTE: This message will be deprecated
-following activation of DIP3 which implements deterministic masternode lists.
-
-The `mnv` message is used by masternodes to verify each other. Several `mnv`
-messages are exchanged in the process. This results in the IP address of
-masternode 1 being validated as of the provided block height.
-
-| Bytes | Name | Data type | Required | Description |
-| ---------- | ----------- | --------- | -------- | -------- |
-| 36 | masternodeOutPoint1 | outPoint | Required | The unspent outpoint which is holding 1000 DASH for masternode 1
-| 36 | masternodeOutPoint2 | outPoint | Required | The unspent outpoint which is holding 1000 DASH for masternode 2
-| # | addr | CService | Required | IPv4 address and port of masternode 1
-| 4 | nonce | int | Required | Random nonce
-| 4 | nBlockHeight | int | Required | Block height
-| 66 | vchSig1 | char[] | Required*<br><br>Added in Step 2 | Signature of this message by masternode 1 - verifiable via pubKeyMasternode (Length (1 byte) + Signature (65 bytes))<br><br>
-| 66 | vchSig2 | char[] | Required*<br><br>Added in Step 3 | Signature of this message by masternode 2 - verifiable via pubKeyMasternode (Length (1 byte) + Signature (65 bytes))<br><br>
-
-Initially, `vin1`, `vin2`, `vchSig1` and `vchSig2` are empty. They are
-updated as the exchange of messages between the masternodes occurs as detailed
-in the table below.
-
-*Masternode Verify Data Flow*
-
-| Step  | **MN 2 (Verifier)** | **Direction**  | **MN 1 (Being verified)**   | **Description** |
-|   | **Verification request** | |                   | **`mnv` message with no signatures** |
-| 1 | `mnv` message    | → |                   | Contains `addr`, `nonce`, and `nBlockHeight`.<br>Sent by _SendVerifyRequest()_.
-| 2 |                  | ← | `mnv` message     | Add `vchSig1` (signature of the IP address + nonce + hash of the requested block).<br>Sent by _SendVerifyReply()_.
-| 3 | `mnv` message    | → |                   | Verify `vchSig1` <br><br>Add `masternodeOutPoint1`, `masternodeOutPoint2`, and `vchSig2` (signature of the IP address + nonce + hash of the requested block + `masternodeOutPoint1` + `masternodeOutPoint2`) and relay message to peers if valid.<br>Sent by _ProcessVerifyReply()_.
-
-Nodes receiving a relayed `mnv` message (one in which `masternodeOutPoint1`, `masternodeOutPoint2`, `vchSig1`
-and `vchSig2` are already present) use it to update the PoSe ban score. If the
-ban score reaches `MASTERNODE_POSE_BAN_MAX_SCORE` (5), the masternode will be
-considered malicious and banned. If the received message is valid, nodes
-receiving it will relay it on to their connected peers.
-
-{% highlight text %}
-Important Notes:
-* Dash Core limits how frequently a masternode verify request can be
-  requested. Frequent requests will result in the node being banned.
-
-* Only masternodes in the top `MAX_POSE_RANK` (10) can send an `mnv` request
-  (to no more than `MAX_POSE_CONNECTIONS` (10)).
-
-{% endhighlight %}
-
-<!-- Need example from Wireshark -->
-The following annotated hexdump shows a `mnv` message. This is an example of the
-initial request (Step 1) so it does not contain any signatures. (The message
-header has been omitted.)
-
-{% highlight text %}
-Masternode 1 Unspent Outpoint (empty)
-| 00000000000000000000000000000000
-| 00000000000000000000000000000000 ......... Outpoint TXID
-| ffffffff ................................. Outpoint index number: 0
-
-Masternode 2 Unspent Outpoint (empty)
-| 00000000000000000000000000000000
-| 00000000000000000000000000000000 ......... Outpoint TXID
-| ffffffff ................................. Outpoint index number: 0
-
-00000000000000000000ffff2d20ed4c ........... IP Address: ::ffff:45.32.237.76
-4e1f ....................................... Port: 19999
-9d090000 ................................... Nonce: 2641
-ed5c0000 ................................... Block height: 23789
-
-Masternode 1 Signature
-| 00 ....................................... Bytes in signature: 0
-| .......................................... Signature: Empty
-
-Masternode 2 Signature
-| 00 ....................................... Bytes in signature: 0
-| .......................................... Signature: Empty
-{% endhighlight %}
-
-
-The following annotated hexdump shows a `mnv` message. This is an example of the
-initial response (Step 2) so it only contains the signature of masternode 1 (the
-masternode being verified). (The message header has been omitted.)
-
-{% highlight text %}
-Masternode 1 Unspent Outpoint (empty)
-| 00000000000000000000000000000000
-| 00000000000000000000000000000000 ......... Outpoint TXID
-| ffffffff ................................. Outpoint index number: 0
-
-Masternode 2 Unspent Outpoint (empty)
-| 00000000000000000000000000000000
-| 00000000000000000000000000000000 ......... Outpoint TXID
-| ffffffff ................................. Outpoint index number: 0
-
-00000000000000000000ffff2d20ed4c ........... IP Address: ::ffff:45.32.237.76
-4e1f ....................................... Port: 19999
-9d090000 ................................... Nonce: 2641
-ed5c0000 ................................... Block height: 23789
-
-Masternode 1 Signature
-| 41 ....................................... Bytes in signature: 65
-| 1bf5bd6e6eda0cd32aafb826c4066fa5
-| 4a53baa6f4211528e51716054b4df981
-| d97a77e633947bbbfafd6882324b76a0
-| 90c6e65c16ca1222db48f8558537c062
-| f6 ....................................... Signature
-
-Masternode 2 Signature
-| 00 ....................................... Bytes in signature: 0
-| .......................................... Signature: Empty
-{% endhighlight %}
-{% endautocrossref %}
-
-#### mnw
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-![Warning icon](/img/icons/icon_warning.svg) NOTE: This message will be deprecated
-following activation of DIP3 which implements deterministic masternode lists.
-
-The `mnw` message is used to pick the next winning masternode. When a new block
-is found on the network, a masternode quorum will be determined and those 10
-selected masternodes will issue the masternode payment vote message.
-
-| Bytes | Name | Data type | Required | Description |
-| ---------- | ----------- | --------- | -------- | -------- |
-| 36 | masternodeOutPoint | outPoint | Required | The unspent outpoint of the masternode (holding 1000 DASH) which is signing the message
-| 4 | nBlockHeight | int | Required | The blockheight which the payee should be paid
-| ? | payeeAddress | CScript | Required | The address receiving payment
-| 66* | vchSig | char[] | Required | Signature of the masternode which is signing the message (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
-
-The following annotated hexdump shows a `mnw` message. (The
-message header has been omitted.)
-
-{% highlight text %}
-Masternode Unspent Outpoint
-| 0c1b5c5846792b25b05eeea9586d8c34
-| ecb996c566bedb4ecf6a68fe8ffa9582 ......... Outpoint TXID
-| 00000000 ................................. Outpoint index number: 0
-
-fb4f0a00 ................................... Block pay height: 675835
-
-Payee Address
-| 19 ....................................... Address Length: 25
-| | 76 ..................................... OP_DUP
-| | a9 ..................................... OP_HASH160
-| | 14 ..................................... Push 20 bytes as data
-| | | 1767c363646be7d8e4475c0aa85ea454
-| | | 9fd102c4 ............................. Pubkey hash
-| | 88 ..................................... OP_EQUALVERIFY
-| | ac ..................................... OP_CHECKSIG
-
-Masternode Signature
-| 41 ....................................... Bytes in signature: 65
-| 1c25da47190a83937fb5ef607235703a
-| 7cdda155bf5a1ae6139929024750f899
-| a90a4f57cdf9d54c9d9603c1f31009f8
-| e257355b49c0484fb4c31bc412c73dd9
-| 20 ....................................... Signature
-{% endhighlight %}
-
-{% endautocrossref %}
-
-#### mnwb
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-![Warning icon](/img/icons/icon_warning.svg) NOTE: This message will be deprecated
-following activation of DIP3 which implements deterministic masternode lists.
-
-There is no message for `mnwb` (`inv` message only).
-
-The following annotated hexdump shows an `inv` message with a `mnwb`
-inventory entry.  (The message header has been omitted.)
-
-{% highlight text %}
-01 ................................. Count: 1
-
-08000000 ........................... Type: MSG_MASTERNODE_PAYMENT_BLOCK (8)
-dd6cc6c11211793b239c2e311f1496e2
-2281b200b35233eaae465d2aa3c9d537 ... Hash: mnwb
-{% endhighlight %}
-
-{% endautocrossref %}
-
 #### ssc
 {% include helpers/subhead-links.md %}
 
@@ -3368,6 +2955,412 @@ message header has been omitted.)
 {% autocrossref %}
 
 The following network messages have been deprecated and should no longer be used.
+
+{% endautocrossref %}
+
+#### dseg
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.14.0
+
+The `dseg` message requests either the entire masternode list or a specific
+entry. To request the list of all masternodes, use an empty txIn (TXID of all
+zeros and an index of 0xFFFFFFFF).  To request information about a specific
+masternode, use the unspent outpoint associated with that masternode.
+
+The response to a `dseg` message is an `mnb` message inventory and an
+`mnp` message inventory for each requested masternode. Masternodes ignore this
+request if they are not fully synced.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 36 | masternodeOutPoint | outPoint | Required | Request options:<br>`All Entries` - empty txIn<br>`Single Entry` - Masternode's unspent outpoint which is holding 1000 DASH
+
+
+{% highlight text %}
+Note: Dash Core only allows nodes to request the entire list every 3 hours.
+Additional requests sent prior to then may result in the node being banned.
+{% endhighlight %}
+
+The following annotated hexdump shows a `dseg` message requesting **all**
+masternodes. (The message header has been omitted.)
+
+{% highlight text %}
+Masternode Unspent Outpoint
+| 00000000000000000000000000000000
+| 00000000000000000000000000000000 ......... Outpoint TXID
+| ffffffff ................................. Outpoint index number: 0
+{% endhighlight %}
+
+The following annotated hexdump shows a `dseg` message requesting a specific
+masternode. (The message header has been omitted.)
+
+{% highlight text %}
+Masternode Unspent Outpoint
+| 7fe33a2901aa654598ae0af572d4fbec
+| ee97af2d0276f189d177dee5848ef3da ......... Outpoint TXID
+| 00000000 ................................. Outpoint index number: 0
+{% endhighlight %}
+
+{% endautocrossref %}
+
+#### mnb
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.14.0
+
+The `mnb` message is sent whenever a masternode comes online or a client is
+syncing.  The masternode will send this message which describes the masternode
+entry and how to validate messages from it.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 36 | outPoint | outPoint | Required | The unspent outpoint of the masternode (holding 1000 DASH) which is signing the message
+| # | addr | CService | Required | IPv4 address of the masternode
+| 33-65 | pubKeyCollateralAddress | CPubKey | Required | CPubKey of the main 1000 DASH unspent outpoint. Length determined by if it is a compressed public key or not.
+| 33-65 | pubKeyMasternode | CPubKey | Required | CPubKey of the secondary signing key (For all messaging other than the announce message). Length determined by if it is a compressed public key or not.
+| 66 | sig | char[] | Required | Signature of this message verifiable via pubKeyMasternode (Length (1 byte) + Signature (65 bytes))
+| 8 | sigTime | int64_t | Required | Time which the signature was created
+| 4 | nProtocolVersion | int | Required | The protocol version of the masternode
+| # | lastPing | `mnp` message | Required | The last known ping of the masternode
+| 8 | nLastDsq | int64_t | Deprecated | **Removed in Dash Core 0.12.3.0**<br><br>The last time the masternode sent a `dsq` message (for mixing) (DEPRECATED)
+
+The following annotated hexdump shows a `mnb` message. (The
+message header has been omitted and the actual IP address has been replaced
+with a RFC5737 reserved IP address.)
+
+{% highlight text %}
+Masternode Unspent Outpoint
+| 3fbc7d4a8f68ba6ecb02a8db34d1f5b6
+| 2dc105f0b5c3505243435cf815d02394 ......... Outpoint TXID
+| 01000000 ................................. Outpoint index number: 1
+
+Masternode Address
+| 00000000000000000000ffffc0000233 ......... IP Address: ::ffff:192.0.2.51
+| 270f ..................................... Port: 9999
+
+Collateral Public Key
+| 21 ....................................... Key Size: 33
+| 02 ....................................... Key Type: 2 - Compressed (even)
+| 02a47a6845936a4199e126d35399dd09
+| 97c1aaf89a3fe70d474c53f29624a43a5b ....... Public Key
+
+Masternode Public Key
+| 41 ....................................... Key Size: 65
+| 04 ....................................... Key Type: 4 - Uncompressed
+| 04da252243305d604cab90480880af4a
+| b5cea3a934c91393452e9b7b4c97a87e
+| 198bc809916ac2c27436a1db9c28d0aa
+| bfefec4dc3c2193835fd9a56c31150c633 ....... Public Key
+
+Message Signature
+| 41 ....................................... Bytes in signature: 65
+| 1fb80f9ba8c110835e4a7dd4c8deccd7
+| 89027663d00084d9a99ef579a9b5601f
+| 40727b27e91aab2897a078f63976ae25
+| 3ff8f01e56862e953278f432530f6ee080 ....... Signature
+
+4728ef5800000000 ........................... Sig. Timestamp: 2017-04-13 07:27:03 UTC
+
+3e120100 ................................... Protocol Version: 70206
+
+Masternode Ping Message
+| Masternode Unspent Outpoint
+| | 3fbc7d4a8f68ba6ecb02a8db34d1f5b6
+| | 2dc105f0b5c3505243435cf815d02394 ........ Outpoint TXID
+| | 01000000 ................................ Outpoint index number: 1
+|
+| 94fc0fad18b166c2fedf1a5dc0511372
+| 26c353d57e086737ff05000000000000 ......... Chaintip block hash
+|
+| 66c1a95900000000 ......................... Sig. Timestamp: 2017-10-01 21:21:58 UTC
+|
+| Masternode Signature
+| | 41 ..................................... Bytes in signature: 65
+| | 1b3017c49a03e2d77083f3c92a8c2e4c
+| | d815d068b6256498a719e3cb6a34f774
+| | ec6434cfcbb7a5a51704350a05903287
+| | eecc82e6b40ac2fcfa2df29ddaa6c4fc
+| | b8 ..................................... Masternode Signature
+{% endhighlight %}
+
+{% endautocrossref %}
+
+#### mnget
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.14.0
+
+The `mnget` message requests masternode payment sync. The response to an
+`mnget` message is `mnw` message inventories. Masternodes ignore this request if
+they are not fully synced.
+
+{% highlight text %}
+Note: Dash Core limits how frequently a masternode payment sync can be
+requested. Frequent requests will result in the node being banned.
+{% endhighlight %}
+
+There is no payload in a `mnget` message.  See the [message header
+section][section message header] for an example of a message without a payload.
+
+![Warning icon](/img/icons/icon_warning.svg) **The following information is provided for historical reference only.**
+
+In protocol versions <=70208, the `mnget` message has a payload consisting of an
+integer value requesting a specific number of payment votes. In protocol versions
+>70208, the `mnget` message has no payload.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 4 | nMnCount | int | Deprecated | _Deprecated in Dash Core 0.12.3_<br><br>Number of masternode payment votes to request
+
+The following annotated hexdump shows a pre-0.12.3 `mnget` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+a8170000 ................................... Count: 6056
+{% endhighlight %}
+
+{% endautocrossref %}
+
+#### mnp
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.14.0
+
+The `mnp` message is sent by masternodes every few minutes to ping the network
+with a message that propagates across the whole network. Dash Core currently
+uses a minimum masternode ping time of 10 minutes.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 36 | masternodeOutPoint | outPoint | Required | The unspent outpoint of the masternode (holding 1000 DASH) which is signing the message
+| 32 | blockHash | uint256 | Required | Block hash from 12 blocks ago (current chaintip minus 12). This offset allows nodes to be slightly out of sync.
+| 8 | sigTime | int64_t | Required | Time which the signature was created
+| 66* | vchSig | char[] | Required | Signature of this message by masternode - verifiable via pubKeyMasternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
+| 1 | fSentinelIsCurrent | bool | Required | True if last sentinel ping was current
+| 4 | nSentinelVersion | uint32_t | Required | The version of Sentinel running on the masternode which is signing the message
+| 4 | nDaemonVersion | uint32_t | Required | The version of dashd on the masternode which is signing the message (i.e. CLIENT_VERSION)
+
+The following annotated hexdump shows a `mnp` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+Masternode Unspent Outpoint
+| ce12d7f32945c9544c5aeb0dcf131174
+| a6269b64b40f9461595e26689b573c58 ......... Outpoint TXID
+| 00000000 ................................. Outpoint index number: 0
+
+6c7da9d9eae78644a3406eac8ed0be3b
+f15eb4bc369acc95b106f37400000000 ........... Chaintip block hash
+
+3c84025a00000000 ........................... Sig. Timestamp: 2017-11-08 04:12:44 UTC
+
+Masternode Signature
+| 41 ....................................... Bytes in signature: 65
+| 1c7572842058a2075b8a996c3905e306
+| 27a581a0b0702842ac4088e6c1a61b22
+| 8e79a4d8aed0f413150f976045f256ef
+| 2727e68a36622efcabfd60a554533b8c
+| 6f ....................................... Masternode Signature
+
+01 ......................................... Sentinel Current: true
+02000100 ................................... Sentinel Version (1.0.2)
+ecd50100 ................................... Dashd Deamon Version (12.3.0)
+{% endhighlight %}
+
+{% endautocrossref %}
+
+#### mnv
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.14.0
+
+The `mnv` message is used by masternodes to verify each other. Several `mnv`
+messages are exchanged in the process. This results in the IP address of
+masternode 1 being validated as of the provided block height.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 36 | masternodeOutPoint1 | outPoint | Required | The unspent outpoint which is holding 1000 DASH for masternode 1
+| 36 | masternodeOutPoint2 | outPoint | Required | The unspent outpoint which is holding 1000 DASH for masternode 2
+| # | addr | CService | Required | IPv4 address and port of masternode 1
+| 4 | nonce | int | Required | Random nonce
+| 4 | nBlockHeight | int | Required | Block height
+| 66 | vchSig1 | char[] | Required*<br><br>Added in Step 2 | Signature of this message by masternode 1 - verifiable via pubKeyMasternode (Length (1 byte) + Signature (65 bytes))<br><br>
+| 66 | vchSig2 | char[] | Required*<br><br>Added in Step 3 | Signature of this message by masternode 2 - verifiable via pubKeyMasternode (Length (1 byte) + Signature (65 bytes))<br><br>
+
+Initially, `vin1`, `vin2`, `vchSig1` and `vchSig2` are empty. They are
+updated as the exchange of messages between the masternodes occurs as detailed
+in the table below.
+
+*Masternode Verify Data Flow*
+
+| Step  | **MN 2 (Verifier)** | **Direction**  | **MN 1 (Being verified)**   | **Description** |
+|   | **Verification request** | |                   | **`mnv` message with no signatures** |
+| 1 | `mnv` message    | → |                   | Contains `addr`, `nonce`, and `nBlockHeight`.<br>Sent by _SendVerifyRequest()_.
+| 2 |                  | ← | `mnv` message     | Add `vchSig1` (signature of the IP address + nonce + hash of the requested block).<br>Sent by _SendVerifyReply()_.
+| 3 | `mnv` message    | → |                   | Verify `vchSig1` <br><br>Add `masternodeOutPoint1`, `masternodeOutPoint2`, and `vchSig2` (signature of the IP address + nonce + hash of the requested block + `masternodeOutPoint1` + `masternodeOutPoint2`) and relay message to peers if valid.<br>Sent by _ProcessVerifyReply()_.
+
+Nodes receiving a relayed `mnv` message (one in which `masternodeOutPoint1`, `masternodeOutPoint2`, `vchSig1`
+and `vchSig2` are already present) use it to update the PoSe ban score. If the
+ban score reaches `MASTERNODE_POSE_BAN_MAX_SCORE` (5), the masternode will be
+considered malicious and banned. If the received message is valid, nodes
+receiving it will relay it on to their connected peers.
+
+{% highlight text %}
+Important Notes:
+* Dash Core limits how frequently a masternode verify request can be
+  requested. Frequent requests will result in the node being banned.
+
+* Only masternodes in the top `MAX_POSE_RANK` (10) can send an `mnv` request
+  (to no more than `MAX_POSE_CONNECTIONS` (10)).
+
+{% endhighlight %}
+
+<!-- Need example from Wireshark -->
+The following annotated hexdump shows a `mnv` message. This is an example of the
+initial request (Step 1) so it does not contain any signatures. (The message
+header has been omitted.)
+
+{% highlight text %}
+Masternode 1 Unspent Outpoint (empty)
+| 00000000000000000000000000000000
+| 00000000000000000000000000000000 ......... Outpoint TXID
+| ffffffff ................................. Outpoint index number: 0
+
+Masternode 2 Unspent Outpoint (empty)
+| 00000000000000000000000000000000
+| 00000000000000000000000000000000 ......... Outpoint TXID
+| ffffffff ................................. Outpoint index number: 0
+
+00000000000000000000ffff2d20ed4c ........... IP Address: ::ffff:45.32.237.76
+4e1f ....................................... Port: 19999
+9d090000 ................................... Nonce: 2641
+ed5c0000 ................................... Block height: 23789
+
+Masternode 1 Signature
+| 00 ....................................... Bytes in signature: 0
+| .......................................... Signature: Empty
+
+Masternode 2 Signature
+| 00 ....................................... Bytes in signature: 0
+| .......................................... Signature: Empty
+{% endhighlight %}
+
+
+The following annotated hexdump shows a `mnv` message. This is an example of the
+initial response (Step 2) so it only contains the signature of masternode 1 (the
+masternode being verified). (The message header has been omitted.)
+
+{% highlight text %}
+Masternode 1 Unspent Outpoint (empty)
+| 00000000000000000000000000000000
+| 00000000000000000000000000000000 ......... Outpoint TXID
+| ffffffff ................................. Outpoint index number: 0
+
+Masternode 2 Unspent Outpoint (empty)
+| 00000000000000000000000000000000
+| 00000000000000000000000000000000 ......... Outpoint TXID
+| ffffffff ................................. Outpoint index number: 0
+
+00000000000000000000ffff2d20ed4c ........... IP Address: ::ffff:45.32.237.76
+4e1f ....................................... Port: 19999
+9d090000 ................................... Nonce: 2641
+ed5c0000 ................................... Block height: 23789
+
+Masternode 1 Signature
+| 41 ....................................... Bytes in signature: 65
+| 1bf5bd6e6eda0cd32aafb826c4066fa5
+| 4a53baa6f4211528e51716054b4df981
+| d97a77e633947bbbfafd6882324b76a0
+| 90c6e65c16ca1222db48f8558537c062
+| f6 ....................................... Signature
+
+Masternode 2 Signature
+| 00 ....................................... Bytes in signature: 0
+| .......................................... Signature: Empty
+{% endhighlight %}
+{% endautocrossref %}
+
+#### mnw
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.14.0
+
+The `mnw` message is used to pick the next winning masternode. When a new block
+is found on the network, a masternode quorum will be determined and those 10
+selected masternodes will issue the masternode payment vote message.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 36 | masternodeOutPoint | outPoint | Required | The unspent outpoint of the masternode (holding 1000 DASH) which is signing the message
+| 4 | nBlockHeight | int | Required | The blockheight which the payee should be paid
+| ? | payeeAddress | CScript | Required | The address receiving payment
+| 66* | vchSig | char[] | Required | Signature of the masternode which is signing the message (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
+
+The following annotated hexdump shows a `mnw` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+Masternode Unspent Outpoint
+| 0c1b5c5846792b25b05eeea9586d8c34
+| ecb996c566bedb4ecf6a68fe8ffa9582 ......... Outpoint TXID
+| 00000000 ................................. Outpoint index number: 0
+
+fb4f0a00 ................................... Block pay height: 675835
+
+Payee Address
+| 19 ....................................... Address Length: 25
+| | 76 ..................................... OP_DUP
+| | a9 ..................................... OP_HASH160
+| | 14 ..................................... Push 20 bytes as data
+| | | 1767c363646be7d8e4475c0aa85ea454
+| | | 9fd102c4 ............................. Pubkey hash
+| | 88 ..................................... OP_EQUALVERIFY
+| | ac ..................................... OP_CHECKSIG
+
+Masternode Signature
+| 41 ....................................... Bytes in signature: 65
+| 1c25da47190a83937fb5ef607235703a
+| 7cdda155bf5a1ae6139929024750f899
+| a90a4f57cdf9d54c9d9603c1f31009f8
+| e257355b49c0484fb4c31bc412c73dd9
+| 20 ....................................... Signature
+{% endhighlight %}
+
+{% endautocrossref %}
+
+#### mnwb
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.14.0
+
+There is no message for `mnwb` (`inv` message only).
+
+The following annotated hexdump shows an `inv` message with a `mnwb`
+inventory entry.  (The message header has been omitted.)
+
+{% highlight text %}
+01 ................................. Count: 1
+
+08000000 ........................... Type: MSG_MASTERNODE_PAYMENT_BLOCK (8)
+dd6cc6c11211793b239c2e311f1496e2
+2281b200b35233eaae465d2aa3c9d537 ... Hash: mnwb
+{% endhighlight %}
 
 {% endautocrossref %}
 
