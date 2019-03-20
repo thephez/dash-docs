@@ -58,16 +58,6 @@ The `mnsync` RPC {{summary_mnSync}}
   p: "Required<br>(exactly 1)"
   d: "Blockchain sync status"
 
-- n: "→<br>`IsMasternodeListSynced`"
-  t: "boolean"
-  p: "Required<br>(exactly 1)"
-  d: "Masternode list sync status"
-
-- n: "→<br>`IsWinnersListSynced`"
-  t: "boolean"
-  p: "Required<br>(exactly 1)"
-  d: "Masternode winners list sync status"		
-
 - n: "→<br>`IsSynced`"
   t: "boolean"
   p: "Required<br>(exactly 1)"
@@ -86,13 +76,13 @@ AssetID | AssetName
 --- | --- | --- |
 0 | MASTERNODE_SYNC_INITIAL
 1 | MASTERNODE_SYNC_WAITING
-2 | MASTERNODE_SYNC_LIST
-3 | MASTERNODE_SYNC_MNW
+_2_ | **Deprecated since 0.14.0**<br>_MASTERNODE_SYNC_LIST_
+_3_ | **Deprecated since 0.14.0**<br>_MASTERNODE_SYNC_MNW_
 4 | MASTERNODE_SYNC_GOVERNANCE
 -1 | MASTERNODE_SYNC_FAILED
 999 | MASTERNODE_SYNC_FINISHED
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.14.0*
 
 Get Masternode sync status
 
@@ -108,8 +98,6 @@ Result:
   "AssetStartTime": 1507662300,
   "Attempt": 0,
   "IsBlockchainSynced": true,
-  "IsMasternodeListSynced": true,
-  "IsWinnersListSynced": true,
   "IsSynced": true,
   "IsFailed": false
 }
@@ -136,7 +124,7 @@ dash-cli -testnet mnsync next
 
 Result:
 {% highlight text %}
-sync updated to MASTERNODE_SYNC_LIST
+sync updated to MASTERNODE_SYNC_GOVERNANCE
 {% endhighlight %}
 
 
