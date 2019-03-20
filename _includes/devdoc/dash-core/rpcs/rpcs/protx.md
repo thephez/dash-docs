@@ -497,7 +497,7 @@ returned. If set to `false`, only the hashes of the ProTx will be returned.
 
 {% enditemplate %}
 
-*Example from Dash Core 0.13.0*
+*Example from Dash Core 0.13.2*
 
 {% highlight bash %}
 dash-cli -testnet protx list
@@ -537,30 +537,31 @@ Result:
 {% highlight json %}
 [
   {
-    "proTxHash": "2b4a07a9b04dc42a0c19b85edb60954a27acaadfe3ee21d0171385778f34e1c2",
-    "collateralHash": "8d23d08ee6e2e0577550c90afde9bc63745f734605724ba9908e0220c48dec04",
-    "collateralIndex": 1,
-    "operatorReward": 5,
+    "proTxHash": "c48a44a9493eae641bea36992bc8c27eaaa33adb1884960f55cd259608d26d2f",
+    "collateralHash": "e3270ff48c4b802d56ee58d3d53777f7f9c289964e4df0842518075fc81345b1",
+    "collateralIndex": 3,
+    "collateralAddress": "yYpzTXjVx7A5uohsmW8sRy7TJp4tihVuZg",
+    "operatorReward": 0,
     "state": {
-      "registeredHeight": 683,
-      "lastPaidHeight": 700,
+      "service": "1.2.3.4:1234",
+      "registeredHeight": 7090,
+      "lastPaidHeight": 0,
       "PoSePenalty": 0,
       "PoSeRevivedHeight": -1,
       "PoSeBanHeight": -1,
       "revocationReason": 0,
-      "keyIDOwner": "29705bab955f252f876cbe47958b20feaa2b3e99",
-      "pubKeyOperator": "0bfd3d519f16de1669e977c316bd53fc902f83a75b6008dff3a7037ab4d3edaa39eadb13f5d6d1f192673f9ab86f17a2",
-      "keyIDVoting": "29705bab955f252f876cbe47958b20feaa2b3e99",
-      "addr": "1.2.3.4:1234",
-      "payoutAddress": "ybeK49S8ineDqNV698GZdMpdiHaYsZUJ2g"
+      "ownerAddress": "yTMDce5yEpiPqmgPrPmTj7yAmQPJERUSVy",
+      "votingAddress": "yTMDce5yEpiPqmgPrPmTj7yAmQPJERUSVy",
+      "payoutAddress": "yU3UdrmS6KpWwBDLQTkp1KjXePwWsMbYdj",
+      "pubKeyOperator": "8700add55a28ef22ec042a2f28e25fb4ef04b3024a7c56ad7eed4aebc736f312d18f355370dfb6a5fec9258f464b227e"
     },
-    "confirmations": -1,
+    "confirmations": 1,
     "wallet": {
-      "hasOwnerKey": true,
+      "hasOwnerKey": false,
       "hasOperatorKey": false,
-      "hasVotingKey": true,
-      "ownsCollateral": true,
-      "ownsPayeeScript": true,
+      "hasVotingKey": false,
+      "ownsCollateral": false,
+      "ownsPayeeScript": false,
       "ownsOperatorRewardScript": false
     }
   }
