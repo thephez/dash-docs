@@ -81,69 +81,49 @@ dash-cli -testnet masternodelist
 Result:
 {% highlight json %}
 {
-  "c568e386687bb317e52f4dcb402e83a93a13a43df6da029c95834ed2603c1f01-0": {
-    "address": "173.61.30.231:19003",
-    "payee": "yWc9sVgvRi6mB81KZLwchwUjjCNmF6ktaJ",
+  "64fbf05880cdbd35a0278ba01a5edf0c20a9c756d15f883d496f5df35b31b542-1": {
+    "address": "167.99.164.60:19999",
+    "payee": "ycZgaHNb8AQq7HnJ3rTwx2fXUd7VCWQumX",
     "status": "ENABLED",
-    "protocol": 70213,
-    "daemonversion": "Unknown",
-    "sentinelversion": "Unknown",
-    "sentinelstate": "expired",
-    "lastseen": 0,
-    "activeseconds": -1553091168,
-    "lastpaidtime": 1553077123,
-    "lastpaidblock": 64693,
-    "owneraddress": "yjW7bQrKBsMV8Wh19LgT8Z1uLkWY8P2EBd",
-    "votingaddress": "yjW7bQrKBsMV8Wh19LgT8Z1uLkWY8P2EBd",
-    "collateraladdress": "yVZjfAYphQeyFj3XKGJ7FE7n4A9Lok1X7y"
+    "lastpaidtime": 1553155206,
+    "lastpaidblock": 65121,
+    "owneraddress": "yisedvAxYga44V9bTABzoQ7KoQMugyfU1E",
+    "votingaddress": "yVpKfQgjkRkezFS5SpZvAEVFsbv9zJedf4",
+    "collateraladdress": "yeXE94admJeH3oKiaB7UpwWnPZD6Q8srhT",
+    "pubkeyoperator": "8072ac9a55d1cf5bf9c4262d49e2ef1ffcd716b8983ffdc62b940fec6cb4179d6275f8b68316f29c6c2ad540db329258"
   },
-  "bc3b58904a9f09b4641ffece61af28744826fffa00aabe45ef40af959a78690c-1": {
-    "address": "52.42.213.147:19999",
-    "payee": "yXsKagNKcHkE2eUKQe8Sf2Z32SKrmQ6XEJ",
+  "6ed4aa5fa90565c2331bcd22275f684ecdca5da8dd7f83ca943aadc6f44e6746-0": {
+    "address": "3.209.222.37:19999",
+    "payee": "yiVDR2HothEwH2Ss17GntqNp1rBUthnyje",
     "status": "ENABLED",
-    "protocol": 70213,
-    "daemonversion": "Unknown",
-    "sentinelversion": "Unknown",
-    "sentinelstate": "expired",
-    "lastseen": 0,
-    "activeseconds": -1553091168,
-    "lastpaidtime": 1553078267,
-    "lastpaidblock": 64747,
-    "owneraddress": "yeARCinqiurM9oni3VQ2Grm3Z6tXYxfKAR",
-    "votingaddress": "yeARCinqiurM9oni3VQ2Grm3Z6tXYxfKAR",
-    "collateraladdress": "yUq2J9YhZXSTQ76ifm9BHFvTtDMhWR8v6k"
+    "lastpaidtime": 1553156846,
+    "lastpaidblock": 65140,
+    "owneraddress": "ycAZ9adjpGfZ2WLEpyfyUWAjkF6sXdD5df",
+    "votingaddress": "ycAZ9adjpGfZ2WLEpyfyUWAjkF6sXdD5df",
+    "collateraladdress": "ya82BzRBhuFZAPhgXvhkzZgqiVsMdnfan7",
+    "pubkeyoperator": "0a7fd01cfd502296cfd523d58ee9f4cff34243abb0dcc543ec237ff4d73938e69d187f0b6838bbaf9d54b89adc0d4c8e"
   },
-  "8b4a475fec02166c0d4a1dc6ede23e236a4cd07bb31d959fe5ed155fdc902b18-0": {
-    "address": "95.183.53.17:10003",
-    "payee": "yYdXDDtfzSkRKUBDLH8qW2AfvehD1M9gM8",
+  "4ee8c581255b643d805502e2997acb3c38deb57dc9483659d77332fd5a17de9d-6": {
+    "address": "52.50.208.53:20005",
+    "payee": "ybFPBD7hm9KVd2Dubj97K5mw2ymR8gWJre",
     "status": "ENABLED",
-    "protocol": 70213,
-    "daemonversion": "Unknown",
-    "sentinelversion": "Unknown",
-    "sentinelstate": "expired",
-    "lastseen": 0,
-    "activeseconds": -1553091168,
-    "lastpaidtime": 1553078177,
-    "lastpaidblock": 64743,
-    "owneraddress": "yW9zeJrPv5yJf71qvNfyPrJg8Me9UdaDP3",
-    "votingaddress": "yW9zeJrPv5yJf71qvNfyPrJg8Me9UdaDP3",
-    "collateraladdress": "yX91ss7HuAH85TAv7tq5dVdMXJ68d4vJHT"
+    "lastpaidtime": 1553168003,
+    "lastpaidblock": 65194,
+    "owneraddress": "yV97rchAqU7UGyXPZe392TNARfR93VKuU2",
+    "votingaddress": "ygtDvoyioQ8Dc87A3moFgBrd97QxuiMiAR",
+    "collateraladdress": "ySQwPov5nLCJ4qWAB31tPTyY8kDZVNZrXM",
+    "pubkeyoperator": "8dfa69a96f23bd77e72c1a00984bb0df5ce93a76ca1d20694e8ad20b1dfea530cb6ee0b964b78ebb2bc8bfac22f61647"
   },
-  "d0a5d2bb6316a78e1e82569f625b56f68d7578eb2e22949f2a652bb1915f881b-1": {
-    "address": "140.82.59.51:19999",
-    "payee": "yYRfiUCoTjYAontZHqd7wAw7PhR2zru55V",
+  "4758b97bbd20024e171767b8baf4290bec1475b254180869cdfe0db75d7faefb-0": {
+    "address": "68.183.167.16:19999",
+    "payee": "ycZgaHNb8AQq7HnJ3rTwx2fXUd7VCWQumX",
     "status": "ENABLED",
-    "protocol": 70213,
-    "daemonversion": "Unknown",
-    "sentinelversion": "Unknown",
-    "sentinelstate": "expired",
-    "lastseen": 0,
-    "activeseconds": -1553091168,
-    "lastpaidtime": 1553077735,
-    "lastpaidblock": 64724,
-    "owneraddress": "yX2VYLpM9ybXZHTbTEmND581QZSNRHucWm",
-    "votingaddress": "yX2VYLpM9ybXZHTbTEmND581QZSNRHucWm",
-    "collateraladdress": "ygkUtF9AbUwmGVjq2vfCUp4Znd3X9QiEqv"
+    "lastpaidtime": 1553157194,
+    "lastpaidblock": 65147,
+    "owneraddress": "yPmESxMJhZYuKDLJ1oYdH6kpE8oADVAPUQ",
+    "votingaddress": "yLvTNLDLHa3pDMbFDRBX5mVMjCshzrDD1X",
+    "collateraladdress": "ydGCjUEVRHkQZK3ajCsGJGDE9sjrbbS56v",
+    "pubkeyoperator": "18af4d035eed23d30eb02808af0c133d9879c0fb82c72329ab2ed208ebc1631641ca42bbf462239d151f4e84d8dcde7b"
   }
 }
 {% endhighlight %}
@@ -157,19 +137,20 @@ dash-cli -testnet masternodelist full "NEW"
 Result:
 {% highlight json %}
 {
-  "6125fc1da46cd2fdd013b1fbb02144367a95feffd379c08064f38de0e3deb80c-1": "NEW_START_REQUIRED 70208 yh7RGWjZN8yDAAzPpYFUJZAj41jG7G43c8 1507401630        0 1507409411   5874 1.1.1.1:19999",
-  "866d66b88afed15ed1a936b680ace1a99e0ca14d0242bc2983c5fdd2c16c1637-1": "NEW_START_REQUIRED 70208 yQHJ4muL7FyhUj1x8iBr2Ws9E4cJ68DKin 1507626190   138962 1507620650   7215 178.62.203.249:19999",
-  "7c17695bdccc617410164882bd8b5fb7bf4f5a3dceb0a7476800e161cba1c57f-1": "NEW_START_REQUIRED 70208 yjWGCrz6iJnDsrog5FX6ag3iQUNor9UFj5 1507636178        0          0      0 83.1.99.1:19999",
-  "0512f77ebceaf288386e9a050e3c80652c7bfb6e993659ded2dff43eae6904ac-1": "NEW_START_REQUIRED 70208 ydahSbZKWUjBi6jHeWjLgr7navPoZVCgwH 1507646277    32460 1507649163   7397 172.104.45.115:19999",
-  "4222505288507e0f1abc32f0323cce1d6c4d22c8e785adb0cf8075b70ae92ddf-1": "NEW_START_REQUIRED 70208 yUznkRL396PewekhtCpUJkfJcxt8fhDyoX 1507646174     9996 1507642757   7355 83.1.99.2:19999",
-  "b454dd0efc19657f8d56a750385b90ebfb53dce5182a21238b225d6cbb3307f0-1": "NEW_START_REQUIRED 70208 yYR5dcULfpnbPSixorzMkQ9SGwzPPsXcuC 1507401632        0 1507408648   5868 2.2.2.2:19999"
+  "64fbf05880cdbd35a0278ba01a5edf0c20a9c756d15f883d496f5df35b31b542-1": "           ENABLED ycZgaHNb8AQq7HnJ3rTwx2fXUd7VCWQumX 1553155206  65121 167.99.164.60:19999",
+  "809818107c1104bbba6d386567aa231a294219387e591542df599b7ae7d23339-1": "       POSE_BANNED yLriZkwBhftk8VBUqrSykhFhAi4PowZ2Rs 1547488185  24447 45.48.177.222:19999",
+  "d9fd715b7d896f5426e90bd3383a67fd3e311e00c021750560c6e5c5f9cdac85-1": "           ENABLED yRbiW3dguCym4fzUGZCf2kWzKUgw97zEqE 1553155396  65122 109.235.71.56:19999",
+  "0950cce784fadcc2df4febb19d3a21eab4836ba22ea996ce7e2dde32b6c31431-0": "           ENABLED ycZgaHNb8AQq7HnJ3rTwx2fXUd7VCWQumX 1553154969  65119 165.227.63.223:19999",
+  "08b493929f61a3205f09af9290af9034bec6a8355040a82ce4413f294c703e9a-0": "           ENABLED ybCE7m9oPjvCjm8MzPdbMBGgkF7p9wXsFq 1553153959  65110 34.207.45.58:19999",
+  "b4f9de65ae676b63f84f2865317b8b512a12516c4459f2f59ca2626c71f7dda3-1": "       POSE_BANNED yYmromZERpc15GTDvgvjmjChPmgHbhWf1r          0      0 1.1.1.1:19999",
+  "b7ec36db0c4ece8018183dcb90eed910e38e1c8d3641bbb4facced9a48a283a3-5": "           ENABLED ybFPBD7hm9KVd2Dubj97K5mw2ymR8gWJre 1553164088  65172 18.202.52.170:20028",
+  "71fa05269adf3efc9ffa9a9ce33d27320de61c230cdf4a3835ba7f707bd7807a-1": "       POSE_BANNED yVxBZ8JeM5qRbLnUnswZ2APV3rgeZ7C9n9 1552466625  61158 167.99.110.59:19999"
 }
 {% endhighlight %}
 
 *See also:*
 
 * [Masternode][rpc masternode]: {{summary_masternode}}
-* [MasternodeBroadcast][rpc masternodebroadcast]: {{summary_masternodeBroadcast}}
 * [MnSync][rpc mnsync]: {{summary_mnSync}}
 
 {% endautocrossref %}
