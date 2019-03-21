@@ -250,7 +250,7 @@ The `masternode<!--noref--> status` RPC prints masternode status information.
 
 - n: "→<br>`outpoint`"
   t: "string"
-  p: "Required<br>(1 or more)"
+  p: "Required<br>(exactly 1)"
   d: "The masternode's outpoint"
 
 - n: "→<br>`service`"
@@ -258,10 +258,85 @@ The `masternode<!--noref--> status` RPC prints masternode status information.
   p: "Required<br>(exactly 1)"
   d: "The IP address/port of the masternode"
 
-- n: "→<br>`payee`"
+- n: "→<br>`proTxHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The masternode's ProRegTx hash"
+
+- n: "→<br>`collateralHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The masternode's collateral hash"
+
+- n: "→<br>`collateralIndex`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Index of the collateral"
+
+- n: "→<br>`dmnState`"
+  t: "object"
+  p: "Required<br>(exactly 1)"
+  d: "Deterministic Masternode State"
+
+- n: "→<br>`service`"
   t: "string"
   p: "Required<br>(exactly 1)"
-  d: "Payee address"
+  d: "The IP address/port of the masternode"
+
+- n: "→ →<br>`registeredHeight`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Block height at which the masternode was registered"
+
+- n: "→ →<br>`lastPaidHeight`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Block height at which the masternode was last paid"
+
+- n: "→ →<br>`PoSePenalty`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Current proof-of-service penalty"
+
+- n: "→ →<br>`PoSeRevivedHeight`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Block height at which the masternode was last revived from a PoSe ban"
+
+- n: "→ →<br>`PoSeBanHeight`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Block height at which the masternode was last PoSe banned"
+
+- n: "→ →<br>`revocationReason`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Reason code for of masternode operator key revocation"
+
+- n: "→ →<br>`ownerAddress`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "The owner address"
+
+- n: "→ →<br>`votingAddress`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "The voting address"
+
+- n: "→ →<br>`payoutAddress`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "The payout address"
+
+- n: "→ →<br>`pubKeyOperator`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "The operator public key"
+
+- n: "→ →<br>`operatorPayoutAddress`"
+  t: "string"
+  p: "Optional<br>(0 or 1)"
+  d: "The operator payout address"
 
 - n: "→<br>`status`"
   t: "string"
@@ -270,7 +345,7 @@ The `masternode<!--noref--> status` RPC prints masternode status information.
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.13.2*
 
 {% highlight bash %}
 dash-cli -testnet masternode status
@@ -279,10 +354,26 @@ dash-cli -testnet masternode status
 Result:
 {% highlight json %}
 {
-  "outpoint": "f6c83fd96bfaa47887c4587cceadeb9af6238a2c86fe36b883c4d7a6867eab0f-1",
-  "service": "45.32.237.77:19999",
-  "payee": "yY6AmGopsZS31wy1JLHR9P6AC6owFaXwuh",
-  "status": "Masternode successfully started"
+  "outpoint": "d1be3a1aa0b9516d06ed180607c168724c21d8ccf6c5a3f5983769830724c357-0",
+  "service": "45.32.237.76:19999",
+  "proTxHash": "04d06d16b3eca2f104ef9749d0c1c17d183eb1b4fe3a16808fd70464f03bcd63",
+  "collateralHash": "d1be3a1aa0b9516d06ed180607c168724c21d8ccf6c5a3f5983769830724c357",
+  "collateralIndex": 0,
+  "dmnState": {
+    "service": "45.32.237.76:19999",
+    "registeredHeight": 7402,
+    "lastPaidHeight": 59721,
+    "PoSePenalty": 0,
+    "PoSeRevivedHeight": 61915,
+    "PoSeBanHeight": -1,
+    "revocationReason": 0,
+    "ownerAddress": "yT8DDY5NkX4ZtBkUVz7y1RgzbakCnMPogh",
+    "votingAddress": "yMLrhooXyJtpV3R2ncsxvkrh6wRennNPoG",
+    "payoutAddress": "yTsGq4wV8WF5GKLaYV2C43zrkr2sfTtysT",
+    "pubKeyOperator": "02a2e2673109a5e204f8a82baf628bb5f09a8dfc671859e84d2661cae03e6c6e198a037e968253e94cd099d07b98e94e"
+  },
+  "state": "READY",
+  "status": "Ready"
 }
 {% endhighlight %}
 
