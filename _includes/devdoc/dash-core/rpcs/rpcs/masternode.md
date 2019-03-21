@@ -17,62 +17,6 @@ The `masternode` RPC {{summary_masternode}}
 
 {% endautocrossref %}
 
-###### Masternode<!--noref--> Check
-<!-- no subhead-links here -->
-
-{% autocrossref %}
-
-The `masternode<!--noref--> check` RPC forces a check of all masternodes and removes invalid ones.
-
-*Parameters: none*
-
-*Result---number of removed and total masternodes*
-
-{% itemplate ntpd1 %}
-- n: "`result`"
-  t: "object"
-  p: "Required<br>(exactly 1)"
-  d: "Masternode check results"
-
-- n: "→<br>`removedTotalCount`"
-  t: "int"
-  p: "Required<br>(exactly 1)"
-  d: "Count of all masternodes that were removed"
-
-- n: "→<br>`removedEnabledCount`"
-  t: "int"
-  p: "Required<br>(exactly 1)"
-  d: "Count of enabled masternodes that were removed"
-
-- n: "→<br>`totalCount`"
-  t: "int"
-  p: "Required<br>(exactly 1)"
-  d: "Count of all masternodes"
-
-- n: "→<br>`enabledCount`"
-  t: "int"
-  p: "Required<br>(exactly 1)"
-  d: "Count of enabled masternodes"
-
-{% enditemplate %}
-
-*Example from Dash Core 0.13.0*
-
-{% highlight bash %}
-dash-cli -testnet masternode check
-{% endhighlight %}
-
-Result:
-{% highlight bash %}
-{
-  "removedTotalCount": 0,
-  "removedEnabledCount": 0,
-  "totalCount": 15,
-  "enabledCount": 15
-}
-{% endhighlight %}
-{% endautocrossref %}
-
 ###### Masternode<!--noref--> Count
 <!-- no subhead-links here -->
 
@@ -85,7 +29,7 @@ The `masternode<!--noref--> count` RPC prints the number of all known masternode
 {% itemplate ntpd1 %}
 - n: "Mode"
   t: "string (hex)"
-  p: "Optional<br>(exactly 1)"
+  p: "Deprecated"
   d: "Which masternodes to count:<br>`total` - Pre-0.12.3 default result,<br>`ps` - PrivateSend capable,<br>`enabled` - Enabled,<br>`all` - All,<br>`qualify` - Eligible for payment"
 
 {% enditemplate %}
@@ -103,24 +47,14 @@ The `masternode<!--noref--> count` RPC prints the number of all known masternode
   p: "Required<br>(exactly 1)"
   d: "Count of all masternodes"
 
-- n: "→<br>`ps_compatible`"
-  t: "int"
-  p: "Required<br>(exactly 1)"
-  d: "Count of PrivateSend compatible masternodes"
-
 - n: "→<br>`enabled`"
   t: "int"
   p: "Required<br>(exactly 1)"
   d: "Count of enabled masternodes"
 
-- n: "→<br>`qualify`"
-  t: "int"
-  p: "Required<br>(exactly 1)"
-  d: "Count of masternodes qualified to receive payment"
-
 {% enditemplate %}
 
-*Example from Dash Core 0.12.3*
+*Example from Dash Core 0.14.0*
 
 {% highlight bash %}
 dash-cli -testnet masternode count
@@ -129,10 +63,8 @@ dash-cli -testnet masternode count
 Result:
 {% highlight bash %}
 {
-  "total": 142,
-  "ps_compatible": 13,
-  "enabled": 13,
-  "qualify": 6
+  "total": 185,
+  "enabled": 130
 }
 {% endhighlight %}
 
@@ -149,7 +81,7 @@ Result:
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.3*
+*Example from Dash Core 0.14.0*
 
 {% highlight bash %}
 dash-cli -testnet masternode count all
@@ -157,7 +89,7 @@ dash-cli -testnet masternode count all
 
 Result:
 {% highlight bash %}
-Total: 129 (PS Compatible: 97 / Enabled: 97 / Qualify: 90)
+Total: 185 (Enabled: 130)
 {% endhighlight %}
 
 **Get total count of all masternodes (default output of `masternode<!--noref--> count` pre-0.12.3)**
@@ -260,92 +192,6 @@ Result:
 
 {% endautocrossref %}
 
-###### Masternode<!--noref--> Debug
-<!-- no subhead-links here -->
-
-{% autocrossref %}
-
-The `masternode<!--noref--> debug` RPC prints masternode status.
-
-{{WARNING}} `masternode<!--noref--> debug` was removed in Dash Core 0.12.2.2.
-
-*Parameters: none*
-
-*Result---masternode status*
-
-{% itemplate ntpd1 %}
-- n: "Result"
-  t: "string"
-  p: "Required<br>(exactly 1)"
-  d: "Masternode status"
-
-{% enditemplate %}
-
-*Example from Dash Core 0.12.2*
-
-{% highlight bash %}
-dash-cli -testnet masternode debug
-{% endhighlight %}
-
-Result:
-{% highlight bash %}
-Masternode successfully started
-{% endhighlight %}
-
-{% endautocrossref %}
-
-###### Masternode<!--noref--> Genkey
-<!-- no subhead-links here -->
-
-{% autocrossref %}
-
-The `masternode<!--noref--> genkey` RPC generates a new masternodeprivkey.
-
-*Parameter #1---generate compressed key*
-
-{% itemplate ntpd1 %}
-- n: "Compressed"
-  t: "bool"
-  p: "Optional<br>(0 or 1)"
-  d: "*Added in Dash Core 0.13.0*<br><br>If set to `true`, generates a compressed private key (default: false)"
-
-{% enditemplate %}
-
-*Result---masternode private key*
-
-{% itemplate ntpd1 %}
-- n: "Result"
-  t: "string"
-  p: "Required<br>(exactly 1)"
-  d: "Masternode private key"
-
-{% enditemplate %}
-
-*Example from Dash Core 0.13.0*
-
-{% highlight bash %}
-dash-cli -testnet masternode genkey
-{% endhighlight %}
-
-Result:
-{% highlight bash %}
-92Mn5DQpnBHjFPbS3ZXcX3EdhuET18u3eXTTtVsdDzdcAMaXqtG
-{% endhighlight %}
-
-*Example from Dash Core 0.13.0 (compressed key)*
-
-{% highlight bash %}
-dash-cli -testnet masternode genkey true
-{% endhighlight %}
-
-Result:
-{% highlight bash %}
-cUHWQZQQNtrnvyYS3hERYyuzttvFAdw6JkrwS6T2gTZreH3oY6NJ
-{% endhighlight %}
-
-
-{% endautocrossref %}
-
 ###### Masternode<!--noref--> Outputs<!--noref-->
 <!-- no subhead-links here -->
 
@@ -385,189 +231,6 @@ Result:
 
 {% endautocrossref %}
 
-###### Masternode<!--noref--> Start
-<!-- no subhead-links here -->
-
-{% autocrossref %}
-
-The `masternode<!--noref--> start` RPC starts a local hot masternode configure in dash.conf.
-
-{{WARNING}} `masternode<!--noref--> start` was removed in Dash Core 0.12.2.2. Local
-masternode support was removed for security reasons.
-
-*Parameters: none*
-
-*Result---masternode status*
-
-{% itemplate ntpd1 %}
-- n: "Result"
-  t: "string"
-  p: "Required<br>(exactly 1)"
-  d: "Masternode status"
-
-{% enditemplate %}
-
-*Example from Dash Core 0.12.2*
-
-{% highlight bash %}
-dash-cli -testnet masternode start
-{% endhighlight %}
-
-Result:
-{% highlight bash %}
-Masternode successfully started
-{% endhighlight %}
-
-{% endautocrossref %}
-
-###### Masternode<!--noref--> Start-alias
-<!-- no subhead-links here -->
-
-{% autocrossref %}
-
-The `masternode<!--noref--> start-alias` starts a single remote masternode by assigned alias configured in masternode<!--noref-->.conf.
-
-*Parameter #1---masternode alias*
-
-{% itemplate ntpd1 %}
-- n: "Alias"
-  t: "string"
-  p: "Required<br>(exactly 1)"
-  d: "Alias of the masternode to start"
-
-{% enditemplate %}
-
-*Result---masternode status*
-
-{% itemplate ntpd1 %}
-- n: "Result"
-  t: "string"
-  p: "Required<br>(exactly 1)"
-  d: "Masternode status"
-
-{% enditemplate %}
-
-*Example from Dash Core 0.12.2*
-
-{% highlight bash %}
-dash-cli -testnet masternode start-alias MN01
-{% endhighlight %}
-
-Result:
-{% highlight json %}
-{
-  "alias": "MN01",
-  "result": "successful"
-}
-{% endhighlight %}
-
-{% endautocrossref %}
-
-###### Masternode<!--noref--> Start-mode
-<!-- no subhead-links here -->
-
-{% autocrossref %}
-
-The `masternode<!--noref--> start-<mode>` RPC starts remote masternodes configured in
-masternode<!--noref-->.conf. Valid modes are: `all`, `missing`, or `disabled`.
-
-*Parameters: none*
-
-*Result---masternode status*
-
-{% itemplate ntpd1 %}
-- n: "Result"
-  t: "string"
-  p: "Required<br>(exactly 1)"
-  d: "Masternode status"
-
-- n: "→<br>`overall`"
-  t: "string"
-  p: "Required<br>(1 or more)"
-  d: "Reports masternode start successes/failures"
-
-- n: "→<br>`detail`"
-  t: "object"
-  p: "Required<br>(exactly 1)"
-  d: "Start details"
-
-- n: "→ →<br>`status`"
-  t: "object"
-  p: "Required<br>(1 or more)"
-  d: "Name of the masternode alias"
-
-- n: "→ → →<br>`alias`"
-  t: "string"
-  p: "Required<br>(exactly 1)"
-  d: "Masternode alias"
-
-- n: "→ → →<br>`result`"
-  t: "string"
-  p: "Required<br>(exactly 1)"
-  d: "Start result"
-
-{% enditemplate %}
-
-
-*Example from Dash Core 0.12.2*
-
-Start all masternodes in masternodes<!--noref-->.conf
-
-{% highlight bash %}
-dash-cli -testnet masternode start-all
-{% endhighlight %}
-
-Result:
-{% highlight json %}
-{
-  "overall": "Successfully started 1 masternodes, failed to start 0, total 1",
-  "detail": {
-    "status": {
-      "alias": "MN01",
-      "result": "successful"
-    }
-  }
-}
-{% endhighlight %}
-
-
-Start missing masternodes in masternodes<!--noref-->.conf
-
-{% highlight bash %}
-dash-cli -testnet masternode start-missing
-{% endhighlight %}
-
-Result:
-{% highlight json %}
-{
-  "overall": "Successfully started 0 masternodes, failed to start 0, total 0",
-  "detail": {
-  }
-}
-{% endhighlight %}
-
-
-Start disabled masternodes in masternodes<!--noref-->.conf
-
-{% highlight bash %}
-dash-cli -testnet masternode start-disabled
-{% endhighlight %}
-
-Result:
-{% highlight json %}
-{
-  "overall": "Successfully started 1 masternodes, failed to start 0, total 1",
-  "detail": {
-    "status": {
-      "alias": "MN01",
-      "result": "successful"
-    }
-  }
-}
-{% endhighlight %}
-
-{% endautocrossref %}
-
 ###### Masternode<!--noref--> Status
 <!-- no subhead-links here -->
 
@@ -587,7 +250,7 @@ The `masternode<!--noref--> status` RPC prints masternode status information.
 
 - n: "→<br>`outpoint`"
   t: "string"
-  p: "Required<br>(1 or more)"
+  p: "Required<br>(exactly 1)"
   d: "The masternode's outpoint"
 
 - n: "→<br>`service`"
@@ -595,10 +258,85 @@ The `masternode<!--noref--> status` RPC prints masternode status information.
   p: "Required<br>(exactly 1)"
   d: "The IP address/port of the masternode"
 
-- n: "→<br>`payee`"
+- n: "→<br>`proTxHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The masternode's ProRegTx hash"
+
+- n: "→<br>`collateralHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The masternode's collateral hash"
+
+- n: "→<br>`collateralIndex`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Index of the collateral"
+
+- n: "→<br>`dmnState`"
+  t: "object"
+  p: "Required<br>(exactly 1)"
+  d: "Deterministic Masternode State"
+
+- n: "→<br>`service`"
   t: "string"
   p: "Required<br>(exactly 1)"
-  d: "Payee address"
+  d: "The IP address/port of the masternode"
+
+- n: "→ →<br>`registeredHeight`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Block height at which the masternode was registered"
+
+- n: "→ →<br>`lastPaidHeight`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Block height at which the masternode was last paid"
+
+- n: "→ →<br>`PoSePenalty`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Current proof-of-service penalty"
+
+- n: "→ →<br>`PoSeRevivedHeight`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Block height at which the masternode was last revived from a PoSe ban"
+
+- n: "→ →<br>`PoSeBanHeight`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Block height at which the masternode was last PoSe banned"
+
+- n: "→ →<br>`revocationReason`"
+  t: "int"
+  p: "Required<br>(exactly 1)"
+  d: "Reason code for of masternode operator key revocation"
+
+- n: "→ →<br>`ownerAddress`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "The owner address"
+
+- n: "→ →<br>`votingAddress`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "The voting address"
+
+- n: "→ →<br>`payoutAddress`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "The payout address"
+
+- n: "→ →<br>`pubKeyOperator`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "The operator public key"
+
+- n: "→ →<br>`operatorPayoutAddress`"
+  t: "string"
+  p: "Optional<br>(0 or 1)"
+  d: "The operator payout address"
 
 - n: "→<br>`status`"
   t: "string"
@@ -607,7 +345,7 @@ The `masternode<!--noref--> status` RPC prints masternode status information.
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.13.2*
 
 {% highlight bash %}
 dash-cli -testnet masternode status
@@ -616,10 +354,26 @@ dash-cli -testnet masternode status
 Result:
 {% highlight json %}
 {
-  "outpoint": "f6c83fd96bfaa47887c4587cceadeb9af6238a2c86fe36b883c4d7a6867eab0f-1",
-  "service": "45.32.237.77:19999",
-  "payee": "yY6AmGopsZS31wy1JLHR9P6AC6owFaXwuh",
-  "status": "Masternode successfully started"
+  "outpoint": "d1be3a1aa0b9516d06ed180607c168724c21d8ccf6c5a3f5983769830724c357-0",
+  "service": "45.32.237.76:19999",
+  "proTxHash": "04d06d16b3eca2f104ef9749d0c1c17d183eb1b4fe3a16808fd70464f03bcd63",
+  "collateralHash": "d1be3a1aa0b9516d06ed180607c168724c21d8ccf6c5a3f5983769830724c357",
+  "collateralIndex": 0,
+  "dmnState": {
+    "service": "45.32.237.76:19999",
+    "registeredHeight": 7402,
+    "lastPaidHeight": 59721,
+    "PoSePenalty": 0,
+    "PoSeRevivedHeight": 61915,
+    "PoSeBanHeight": -1,
+    "revocationReason": 0,
+    "ownerAddress": "yT8DDY5NkX4ZtBkUVz7y1RgzbakCnMPogh",
+    "votingAddress": "yMLrhooXyJtpV3R2ncsxvkrh6wRennNPoG",
+    "payoutAddress": "yTsGq4wV8WF5GKLaYV2C43zrkr2sfTtysT",
+    "pubKeyOperator": "02a2e2673109a5e204f8a82baf628bb5f09a8dfc671859e84d2661cae03e6c6e198a037e968253e94cd099d07b98e94e"
+  },
+  "state": "READY",
+  "status": "Ready"
 }
 {% endhighlight %}
 
@@ -646,90 +400,6 @@ Result:
 {% highlight json %}
 {
   "f6c83fd96bfaa47887c4587cceadeb9af6238a2c86fe36b883c4d7a6867eab0f-1": 11
-}
-{% endhighlight %}
-
-{% endautocrossref %}
-
-###### Masternode<!--noref--> List-conf
-<!-- no subhead-links here -->
-
-{% autocrossref %}
-
-The `masternode<!--noref--> list-conf` RPC prints masternode<!--noref-->.conf in JSON format.
-
-*Parameters: none*
-
-*Result---masternode info*
-
-{% itemplate ntpd1 %}
-- n: "Result"
-  t: "object"
-  p: "Required<br>(exactly 1)"
-  d: "Masternode status info"
-
-- n: "→<br>`masternode`"
-  t: "object"
-  p: "Required<br>(1 or more)"
-  d: "Object containing masternode info"
-
-- n: "→ →<br>`alias`"
-  t: "string"
-  p: "Required<br>(exactly 1)"
-  d: "Masternode alias"
-
-- n: "→ →<br>`address`"
-  t: "string"
-  p: "Required<br>(exactly 1)"
-  d: "The IP address/port of the masternode"
-
-- n: "→ →<br>`privateKey`"
-  t: "string"
-  p: "Required<br>(exactly 1)"
-  d: "Masternode private key"
-
-- n: "→ →<br>`txHash`"
-  t: "string (hex)"
-  p: "Required<br>(exactly 1)"
-  d: "Masternode collateral transaction hash"
-
-- n: "→ →<br>`outputIndex`"
-  t: "int"
-  p: "Required<br>(exactly 1)"
-  d: "Masternode collateral transaction index"
-
-- n: "→ →<br>`status`"
-  t: "string"
-  p: "Required<br>(exactly 1)"
-  d: "The masternode's status"
-
-{% enditemplate %}
-
-*Example from Dash Core 0.12.2*
-
-{% highlight bash %}
-dash-cli -testnet masternode status
-{% endhighlight %}
-
-Result:
-{% highlight json %}
-{
-  "masternode": {
-    "alias": "MN01",
-    "address": "45.32.237.77:19999",
-    "privateKey": "92woG282ZQMASn8BAah6H8QmiE5NsPwucv7cu9eTVG1uU63fcfs",
-    "txHash": "f6c83fd96bfaa47887c4587cceadeb9af6238a2c86fe36b883c4d7a6867eab0f",
-    "outputIndex": "1",
-    "status": "ENABLED"
-  },
-  "masternode": {
-    "alias": "MN02",
-    "address": "45.32.237.78:19999",
-    "privateKey": "92woG282ZQMASn8BAah6H8QmiE5NsPwucv7cu9eTVG1uU63fcfs",
-    "txHash": "f6c83fd96bfaa47887c4587cceadeb9af6238a2c86fe36b883c4d7a6867eab0f",
-    "outputIndex": "1",
-    "status": "ENABLED"
-  }
 }
 {% endhighlight %}
 
@@ -913,6 +583,36 @@ Result:
   "37433": "yTZ99fCnjNu33RDRtawf81iwJ9uxXFmkgM:9"
 }
 {% endhighlight %}
+
+
+**Deprecated RPCs**
+
+![Warning icon](/img/icons/icon_warning.svg) The following RPCs were deprecated by Dash Core 0.14.0
+
+**Masternode<!--noref--> Check**
+
+Forces a check of all masternodes and removes invalid ones.
+
+
+**Masternode<!--noref--> Genkey**
+
+Generates a new masternodeprivkey.
+
+
+**Masternode<!--noref--> Start-alias**
+
+Starts a single remote masternode by assigned alias configured in masternode<!--noref-->.conf.
+
+
+**Masternode<!--noref--> Start-mode**
+
+Starts remote masternodes configured in masternode<!--noref-->.conf. Valid modes are: `all`, `missing`, or `disabled`.
+
+
+**Masternode<!--noref--> List-conf**
+
+Prints masternode.conf in JSON format.
+
 
 *See also:*
 
