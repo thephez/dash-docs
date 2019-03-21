@@ -544,6 +544,7 @@ devsearches:
     - "pong": "/en/developer-reference#pong"
     - "reject": "/en/developer-reference#reject"
     - "sendcmpct": "/en/developer-reference#sendcmpct"
+    - "senddsq": "/en/developer-reference#senddsq"
     - "tx": "/en/developer-reference#tx"
     - "verack": "/en/developer-reference#verack"
     - "version": "/en/developer-reference#version"
@@ -553,6 +554,8 @@ devsearches:
     - "spork": "/en/developer-reference#spork"
 
     # Dash - instantsend
+    - "clsig": "/en/developer-reference#clsig"
+    - "islock": "/en/developer-reference#islock"
     - "ix": "/en/developer-reference#ix"
     - "txlvote": "/en/developer-reference#txlvote"
 
@@ -567,6 +570,28 @@ devsearches:
     - "dstx": "/en/developer-reference#dstx"
 
     # Dash - masternode
+    - "ssc": "/en/developer-reference#ssc"
+    - "mnauth": "/en/developer-reference#mnauth"
+
+    # Dash - quorums
+    - "qbsigs": "/en/developer-reference#qbsigs"
+    - "qcomplaint": "/en/developer-reference#qcomplaint"
+    - "qdebugstatus": "/en/developer-reference#qdebugstatus"
+    - "qfcommit": "/en/developer-reference#qfcommit"
+    - "qgetsigs": "/en/developer-reference#qgetsigs"
+    - "qjustify": "/en/developer-reference#qjustify"
+    - "qpcommit": "/en/developer-reference#qpcommit"
+    - "qsigrec": "/en/developer-reference#qsigrec"
+    - "qsigsesann": "/en/developer-reference#qsigsesann"
+    - "qsigsinv": "/en/developer-reference#qsigsinv"
+    - "qwatch": "/en/developer-reference#qwatch"
+
+    # Dash - governance
+    - "govobj": "/en/developer-reference#govobj"
+    - "govobjvote": "/en/developer-reference#govobjvote"
+    - "govsync": "/en/developer-reference#govsync"
+
+    # Dash - deprecated
     - "dseg": "/en/developer-reference#dseg"
     - "mnb": "/en/developer-reference#mnb"
     - "mnget": "/en/developer-reference#mnget"
@@ -574,13 +599,6 @@ devsearches:
     - "mnv": "/en/developer-reference#mnv"
     - "mnw": "/en/developer-reference#mnw"
     - "mnwb": "/en/developer-reference#mnwb"
-    - "ssc": "/en/developer-reference#ssc"
-    - "qfcommit": "/en/developer-reference#qfcommit"
-
-    # Dash - governance
-    - "govobj": "/en/developer-reference#govobj"
-    - "govobjvote": "/en/developer-reference#govobjvote"
-    - "govsync": "/en/developer-reference#govsync"
 
 donation_banner:
   address: 1GwV7fPX97hmavc6iNrUZUogmjpLPrPFoE
