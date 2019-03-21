@@ -497,7 +497,7 @@ returned. If set to `false`, only the hashes of the ProTx will be returned.
 
 {% enditemplate %}
 
-*Example from Dash Core 0.13.2*
+*Example from Dash Core 0.14.0*
 
 {% highlight bash %}
 dash-cli -testnet protx list
@@ -589,7 +589,7 @@ The `protx<!--noref--> info` RPC returns detailed information about a determinis
   {{INCLUDE_PROTX}}
 {% enditemplate %}
 
-*Example from Dash Core 0.13.0*
+*Example from Dash Core 0.14.0*
 
 {% highlight bash %}
 dash-cli -testnet protx info\
@@ -602,19 +602,20 @@ Result:
   "proTxHash": "2b4a07a9b04dc42a0c19b85edb60954a27acaadfe3ee21d0171385778f34e1c2",
   "collateralHash": "8d23d08ee6e2e0577550c90afde9bc63745f734605724ba9908e0220c48dec04",
   "collateralIndex": 1,
+  "collateralAddress": "ygp7ZJGQZsVvuU11shixkNZSq9Uw4QrdWj",
   "operatorReward": 5,
   "state": {
+    "service": "54.149.207.193:19999",
     "registeredHeight": 683,
     "lastPaidHeight": 785,
     "PoSePenalty": 0,
     "PoSeRevivedHeight": -1,
     "PoSeBanHeight": -1,
     "revocationReason": 0,
-    "keyIDOwner": "29705bab955f252f876cbe47958b20feaa2b3e99",
-    "pubKeyOperator": "0bfd3d519f16de1669e977c316bd53fc902f83a75b6008dff3a7037ab4d3edaa39eadb13f5d6d1f192673f9ab86f17a2",
-    "keyIDVoting": "29705bab955f252f876cbe47958b20feaa2b3e99",
-    "addr": "1.2.3.4:1234",
-    "payoutAddress": "ybeK49S8ineDqNV698GZdMpdiHaYsZUJ2g"
+    "ownerAddress": "ycdU6EyVggw4RaW3EKPHCMBeT6vzRDXgbJ",
+    "votingAddress": "ycdU6EyVggw4RaW3EKPHCMBeT6vzRDXgbJ",
+    "payoutAddress": "yXsKagNKcHkE2eUKQe8Sf2Z32SKrmQ6XEJ",
+    "pubKeyOperator": "8ad9500ef26ae510e0dd8cf0568b2a89d1234697873db2fcdd11674a73caba91cd416f9ac701f4f7807d8db102bc4a39"
   },
   "confirmations": 192,
   "wallet": {
@@ -922,15 +923,25 @@ The `protx<!--noref--> diff` RPC calculates a diff and a proof between two maste
   p: "Required<br>(exactly 1)"
   d: "The hash of the initial provider registration transaction as hex in RPC byte order"
 
+- n: "→ →<br>`confirmedHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The hash of the block where the ProRegTx was mined"
+
+- n: "→ →<br>`service`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "The IP address/Port of the masternode"
+
 - n: "→ →<br>`pubKeyOperator`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
   d: "The operator public key"
 
-- n: "→ →<br>`keyIDVoting`"
+- n: "→ →<br>`votingAddress`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "The voting key"
+  d: "The voting address"
 
 - n: "→ →<br>`isValid`"
   t: "bool"
@@ -943,7 +954,7 @@ The `protx<!--noref--> diff` RPC calculates a diff and a proof between two maste
   d: "Merkle root of the masternode list"
 {% enditemplate %}
 
-*Example from Dash Core 0.13.0*
+*Example from Dash Core 0.14.0*
 
 {% highlight bash %}
 dash-cli -testnet protx diff 600 700
@@ -952,22 +963,48 @@ dash-cli -testnet protx diff 600 700
 Result:
 {% highlight json %}
 {
-  "baseBlockHash": "0000a691fd23e6e51368b9204ae9ae67fecdda2fd51ab29fde964e335c84f962",
-  "blockHash": "0000b8291620f592a16eea5bbb937c992217d3ff676aa08a5c4e8d4c1d353c61",
-  "cbTxMerkleTree": "0100000001351a1d8f0bb20542ce1a83729cdf0048e2deb777e641f7db89b94b0c76544e980101",
-  "cbTx": "03000500010000000000000000000000000000000000000000000000000000000000000000ffffffff0502bc020101ffffffff0100743ba40b000000232103ad831efe17ae73c016883085313aaa80365218cc029152edc2886c162048bd0bac00000000260100bc02000043ef07f248e6d6beb10c203a17f434201edba8b85d46699728b7a8e048c339fc",
+  "baseBlockHash": "0000002b88258091c9f343e124040fb7b2e0d88afe4a99d213c046792c183a49",
+  "blockHash": "0000051bbea86db62be46c0beae2cb34110e928ace42683ab189e8db9874308f",
+  "cbTxMerkleTree": "0200000002a4eaaaaaf7e260b90b1a7987eb269da110559343be5746ac5ef7f39b79c1228e4f7e074272c7e3814f630ce4f2f52f80c0b814fb1ce0e4d954b7b583a55ff0a50103",
+  "cbTx": "03000500010000000000000000000000000000000000000000000000000000000000000000ffffffff060369fe000102ffffffff0340230e43000000001976a914323a8b6425ea6f8dafd411db13bc303219a9e4f088ac44aab141000000001976a914870ca3662658f261952cbfa56969283ad1e84dc588acfc785c01000000001976a91487da2642cf967c493f126137d4f15e9de36b976888ac0000000026010069fe000068cadec8342737e3f2dddc713b3a206390996c8b806fb5a8a2ccc71240cf7a97",
   "deletedMNs": [
+    "285d7da8e94b2348689aca4a63bc6cbbeeb8e912c2088fb9a01e295e3eeeb2ff"
   ],
   "mnList": [
     {
-      "proRegTxHash": "2b4a07a9b04dc42a0c19b85edb60954a27acaadfe3ee21d0171385778f34e1c2",
-      "service": "1.2.3.4:1234",
-      "pubKeyOperator": "0bfd3d519f16de1669e977c316bd53fc902f83a75b6008dff3a7037ab4d3edaa39eadb13f5d6d1f192673f9ab86f17a2",
-      "keyIDVoting": "29705bab955f252f876cbe47958b20feaa2b3e99",
+      "proRegTxHash": "39a1339d9bf26de701345beecc5de75a690bc9533741a3dbe90f2fd88b8ed461",
+      "confirmedHash": "0000030c37a946836029eeca338604c652e3c6cd368eb54bdfa8553213954f74",
+      "service": "198.199.74.241:19999",
+      "pubKeyOperator": "0efda51589f86e30cc2305e7388c01ce0309c19a182cf37bced97c7da72236f660c0a395e765e6e06962ecff5a69d7de",
+      "votingAddress": "yRCunhZVjbMxDr1C6fD6Pf37sTwH6wG7Uu",
+      "isValid": true
+    },
+    {
+      "proRegTxHash": "3dbb7de94e219e8f7eaea4f3c01cf97d77372e10152734c1959f17302369aa49",
+      "confirmedHash": "0000043c0d46d3e6b84c1b420b77b65e962207fb6427361f74d243b9b1fd51cb",
+      "service": "52.36.64.148:19999",
+      "pubKeyOperator": "139b654f0b1c031e1cf2b934c2d895178875cfe7c6a4f6758f02bc66eea7fc292d0040701acbe31f5e14a911cb061a2f",
+      "votingAddress": "yWEZQmGADmdSk6xCai7TPcmiSZuY65hBmo",
+      "isValid": true
+    },
+    {
+      "proRegTxHash": "851a17fa224374b52b1626f4fb6b5158f2a6add3061e65ef03e1ff13c610c550",
+      "confirmedHash": "000009a21e82163268330855c9ef13f938a802e46db0fc8a6b1f97161e9d60d8",
+      "service": "104.196.245.194:19999",
+      "pubKeyOperator": "0a6bd57731d85539e62c4b46ec150343a0faba9f08af509309634a6e7e016e26b5e809f0e4cc68252c3c46e3a4b35e57",
+      "votingAddress": "ycppuGB8m2zn5xRfXyJV8U1nNgT7bFs7u5",
+      "isValid": true
+    },
+    {
+      "proRegTxHash": "9e9f7a6d63358ff6e7633d4bb5a3c9eaaebaf29437d5917565ed73f5bcc03dbf",
+      "confirmedHash": "00000020b973dddd9dfd392f118d0094adc86bd8bfe9bee67d08705155bc7aaf",
+      "service": "207.246.101.212:19999",
+      "pubKeyOperator": "02a37189354135fed49de66a43d59590824579ccfa7e9512f50aeaff641e1b78cc5c798c5ae4a35b11958fd153f0a0e3",
+      "votingAddress": "yRH7EYkGQgdKvmfdskcMRphdDumLdP6fq1",
       "isValid": true
     }
   ],
-  "merkleRootMNList": "fc39c348e0a8b7289769465db8a8db1e2034f4173a200cb1bed6e648f207ef43"
+  "merkleRootMNList": "977acf4012c7cca2a8b56f808b6c999063203a3b71dcddf2e3372734c8deca68"
 }
 {% endhighlight %}
 
