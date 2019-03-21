@@ -7,9 +7,11 @@ http://opensource.org/licenses/MIT.
 ##### SentinelPing
 {% include helpers/subhead-links.md %}
 <!-- __ -->
-{% assign summary_sentinelPing="sends a Sentinel Ping to the network." %}
+{% assign summary_sentinelPing="was removed in Dash Core 0.14.0." %}
 
 {% autocrossref %}
+
+**_Removed in Dash Core 0.14.0._**
 
 The `sentinelping` RPC {{summary_sentinelPing}}
 

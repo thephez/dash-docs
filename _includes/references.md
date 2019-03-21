@@ -495,7 +495,7 @@ periodically to point to recent code. Last update: 2017-09-05 --> {% endcomment 
 [MAX_SIZE]: https://github.com/dashpay/dash/blob/c31ba8ba4c07e72620bd71753f2103ca103bb1c2/src/serialize.h#L26
 [privatesend denominations]: https://github.com/dashpay/dash/blob/753b1e486b2757b1dba59998ee477e7ceff04f2d/src/privatesend.cpp#L149-L171
 [rpcprotocol.h]: https://github.com/dashpay/dash/blob/3e0eee4c84f40b3cf277e8d03e004249d03c081d/src/rpcprotocol.h
-[spork.h]: https://github.com/dashpay/dash/blob/e1702cd4eca5f276c75cae9de0eb274369b031f6/src/spork.h#L22
+[spork.h]: https://github.com/dashpay/dash/blob/a4f5ba38b65384fb9243ce78c111feceb377e1a9/src/spork.h#L20
 [spork pubkey]: https://github.com/dashpay/dash/blob/eaf90b77177efbaf9cbed46e822f0d794f1a0ee5/src/chainparams.cpp#L158
 [masternode payments pubkey]: https://github.com/dashpay/dash/blob/eaf90b77177efbaf9cbed46e822f0d794f1a0ee5/src/chainparams.cpp#L159
 [block subsidy]: https://github.com/dashpay/dash/blob/9ed9474a9eb007bba70278ce19df68e84aeeb712/src/main.cpp#L1741

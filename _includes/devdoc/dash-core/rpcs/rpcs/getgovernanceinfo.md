@@ -30,16 +30,6 @@ The `getgovernanceinfo` RPC {{summary_getGovernanceInfo}}
   p: "Required<br>(exactly 1)"
   d: "The absolute minimum number of votes needed to trigger a governance action"
 
-- n: "→<br>`masternodewatchdogmaxseconds`"
-  t: "number (int)"
-  p: "Required<br>(exactly 1)"
-  d: "*DEPRECATED in Dash Core 0.12.3*<br><br>Sentinel watchdog expiration time in seconds"
-
-- n: "→<br>`sentinelpingmaxseconds`"
-  t: "number (int)"
-  p: "Required<br>(exactly 1)"
-  d: "*Added in Dash Core 0.12.3.0*<br><br>Sentinel ping expiration time in seconds"
-
 - n: "→<br>`proposalfee`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
@@ -62,7 +52,7 @@ The `getgovernanceinfo` RPC {{summary_getGovernanceInfo}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.13.0.0*
+*Example from Dash Core 0.14.0*
 
 {% highlight bash %}
 dash-cli -testnet getgovernanceinfo
@@ -70,10 +60,8 @@ dash-cli -testnet getgovernanceinfo
 
 Result:
 {% highlight json %}
-
+{
   "governanceminquorum": 1,
-  "masternodewatchdogmaxseconds": 3600,
-  "sentinelpingmaxseconds": 3600,
   "proposalfee": 5.00000000,
   "superblockcycle": 24,
   "lastsuperblock": 250824,
