@@ -165,7 +165,15 @@ The currently-available type identifiers are:
 | 17               | [`MSG_GOVERNANCE_OBJECT`][msg_governance_object]{:#term-msg_governance_object}{:.term}                                     | The hash is a Governance Object.
 | 18               | [`MSG_GOVERNANCE_OBJECT_VOTE`][msg_governance_object_vote]{:#term-msg_governance_object_vote}{:.term}                                     | The hash is a Governance Object Vote.
 | 20               | [`MSG_CMPCT_BLOCK`][msg_cmpct_block]{:#term-msg_cmpct_block}{:.term}                                     | The hash is of a block header; identical to `MSG_BLOCK`. When used in a `getdata` message, this indicates the response should be a `cmpctblock` message. **Only for use in `getdata` messages.**
-| 21               | [`MSG_QUORUM_FINAL_COMMITMENT`][msg_quorum_final_commitment]{:#term-msg_quorum_final_commitment}{:.term}                                     | The hash is a long-living masternode quorum final commitment.
+| 21               | [`MSG_QUORUM_FINAL_COMMITMENT`][msg_quorum_final_commitment]{:#term-msg_quorum_final_commitment}{:.term}                | The hash is a long-living masternode quorum final commitment.<br>_Added in 0.13.0_
+| 23               | [`MSG_QUORUM_CONTRIB`][msg_quorum_contrib]{:#term-msg_quorum_contrib}{:.term}                                     | The hash is a long-living masternode quorum contribution.<br>_Added in 0.14.0_
+| 24               | [`MSG_QUORUM_COMPLAINT`][msg_quorum_complaint]{:#term-msg_quorum_complaint}{:.term}                                     | The hash is a long-living masternode quorum complaint.<br>_Added in 0.14.0_
+| 25               | [`MSG_QUORUM_JUSTIFICATION`][msg_quorum_justification]{:#term-msg_quorum_justification}{:.term}                   | The hash is a long-living masternode quorum justification.<br>_Added in 0.14.0_
+| 26               | [`MSG_QUORUM_PREMATURE_COMMITMENT`][msg_quorum_premature_commitment]{:#term-msg_quorum_premature_commitment}{:.term}    | The hash is a long-living masternode quorum premature commitment.<br>_Added in 0.14.0_
+| 27               | [`MSG_QUORUM_DEBUG_STATUS`][msg_quorum_debug_status]{:#term-msg_quorum_debug_status}{:.term}                            | The hash is a long-living masternode quorum debug status.<br>_Added in 0.14.0_
+| 28               | [`MSG_QUORUM_RECOVERED_SIG`][msg_quorum_recovered_sig]{:#term-msg_quorum_recovered_sig}{:.term}                        | The hash is a long-living masternode quorum recovered signature.<br>_Added in 0.14.0_
+| 29               | [`MSG_CLSIG`][msg_clsig]{:#term-msg_clsig}{:.term}                                     | The hash is a ChainLock signature.<br>_Added in 0.14.0_
+| 30               | [`MSG_ISLOCK`][msg_islock]{:#term-msg_islock}{:.term}                                   | The hash is an LLMQ-based InstantSend lock.<br>_Added in 0.14.0_
 
 The deprecated type identifiers are:
 
@@ -182,6 +190,7 @@ The deprecated type identifiers are:
 | 14               | [`MSG_MASTERNODE_ANNOUNCE`][msg_masternode_announce]{:#term-msg_masternode_announce}{:.term}                                     | **Deprecated in 0.14.0**<br><br>The hash is a Masternode Broadcast.
 | 15               | [`MSG_MASTERNODE_PING`][msg_masternode_ping]{:#term-msg_masternode_ping}{:.term}                                     | **Deprecated in 0.14.0**<br><br>The hash is a Masternode Ping.
 | 19               | [`MSG_MASTERNODE_VERIFY`][msg_masternode_verify]{:#term-msg_masternode_verify}{:.term}                                     | **Deprecated in 0.14.0**<br><br>The hash is a Masternode Verify.
+| 22               | `MSG_QUORUM_DUMMY_COMMITMENT`                                     | **Deprecated in 0.14.0**<br><br>Temporarily used on Testnet only.
 
 Type identifier zero and type identifiers greater than twenty are reserved
 for future implementations. Dash Core ignores all inventories with
