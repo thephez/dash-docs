@@ -19,6 +19,10 @@ Use v0.n.n in abbreviation title to prevent autocrossrefing.
 <!-- Dash - Not Implemented -->
 {% assign DASH_NOT_IMPLEMENTED='**<abbr title="Not Implemented in Dash">Not Implemented</abbr>**' %}
 
+<!-- Dash Core 0.14.0.0 ??? 2019 -->
+{% assign DASH_NEW0_14_0='**<abbr title="New in Dash Core v0.14.0">New in Dash Core 0.14.0</abbr>**' %}
+{% assign DASH_UPDATED0_14_0='**<abbr title="Updated in Dash Core v0.14.0">Updated in Dash Core 0.14.0</abbr>**' %}
+
 <!-- Dash Core 0.13.2.0 Mar 2019 -->
 {% assign DASH_NEW0_13_2='**<abbr title="New in Dash Core v0.13.2">New in Dash Core 0.13.2</abbr>**' %}
 {% assign DASH_UPDATED0_13_2='**<abbr title="Updated in Dash Core v0.13.2">Updated in Dash Core 0.13.2</abbr>**' %}
@@ -155,16 +159,14 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 
 {% autocrossref %}
 
-* [GetGovernanceInfo][rpc getgovernanceinfo]: {{summary_getGovernanceInfo}} {{DASH_UPDATED0_13_0}}
+* [GetGovernanceInfo][rpc getgovernanceinfo]: {{summary_getGovernanceInfo}} {{DASH_UPDATED0_14_0}}
 * [GetPoolInfo][rpc getpoolinfo]: {{summary_getPoolInfo}}
 * [GetSuperblockBudget][rpc getsuperblockbudget]: {{summary_getSuperblockBudget}}
 * [GObject][rpc gobject]: {{summary_gObject}} {{DASH_UPDATED0_13_0}}
-* [Masternode][rpc masternode]: {{summary_masternode}} {{DASH_UPDATED0_13_0}}
-* [MasternodeBroadcast][rpc masternodebroadcast]: {{summary_masternodeBroadcast}}
-* [MasternodeList][rpc masternodelist]: {{summary_masternodeList}} {{DASH_UPDATED0_12_3}}
-* [MnSync][rpc mnsync]: {{summary_mnSync}}
+* [Masternode][rpc masternode]: {{summary_masternode}} {{DASH_UPDATED0_14_0}}
+* [MasternodeList][rpc masternodelist]: {{summary_masternodeList}} {{DASH_UPDATED0_14_0}}
+* [MnSync][rpc mnsync]: {{summary_mnSync}} {{DASH_UPDATED0_14_0}}
 * [PrivateSend][rpc privatesend]: {{summary_privateSend}} {{DASH_UPDATED0_12_3}}
-* [SentinelPing][rpc sentinelping]: {{summary_sentinelPing}}
 * [Spork][rpc spork]: {{summary_spork-rpc}}
 * [VoteRaw][rpc voteraw]: {{summary_voteRaw}}
 
@@ -337,5 +339,7 @@ default.
 * [GetHashesPerSec][rpc gethashespersec]: {{summary_getHashesPerSec}}
 * [GetWork][rpc getwork]: {{summary_getWork}}
 * [GetGenerate][rpc getgenerate]: {{summary_getGenerate}}
+* [MasternodeBroadcast][rpc masternodebroadcast]: {{summary_masternodeBroadcast}}
+* [SentinelPing][rpc sentinelping]: {{summary_sentinelPing}}
 * [SetGenerate][rpc setgenerate]: {{summary_setGenerate}}
 {% endautocrossref %}

@@ -154,7 +154,6 @@ success
 *See also:*
 
 * [Masternode][rpc masternode]: {{summary_masternode}}
-* [MasternodeBroadcast][rpc masternodebroadcast]: {{summary_masternodeBroadcast}}
 * [MasternodeList][rpc masternodelist]: {{summary_masternodeList}}
 
 {% endautocrossref %}
