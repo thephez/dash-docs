@@ -29,21 +29,17 @@ The `masternodelist` RPC {{summary_masternodeList}}
 
 Mode | Description
 --- | --- | --- |
-`activeseconds` | Print number of seconds masternode recognized by the network as enabled (since latest issued \"masternodestart/start-many/start-alias\")
-`addr` | Print ip address associated with a masternode (can be additionally filtered, partial match)
-`daemon` | Print daemon version of a masternode (can be additionally filtered, exact match)
-`full` | Print info in format 'status protocol payee lastseen activeseconds lastpaidtime lastpaidblock IP' (can be additionally filtered, partial match)
-`info` | Print info in format 'status protocol payee lastseen activeseconds sentinelversion sentinelstate IP' (can be additionally filtered, partial match)
+`addr` | Print IP address associated with a masternode (can be additionally filtered, partial match)
+`full` | Print info in format 'status payee lastpaidtime lastpaidblock IP' (can be additionally filtered, partial match)
+`info` | Print info in format 'status payee IP' (can be additionally filtered, partial match)
 `json` (Default) | Print info in JSON format (can be additionally filtered, partial match)
 `lastpaidblock` | Print the last block height a node was paid on the network
 `lastpaidtime` | Print the last time a node was paid on the network
-`lastseen` | Print timestamp of when a masternode was last seen on the network
+`owneraddress` | Print the masternode owner Dash address
 `payee` | Print Dash address associated with a masternode (can be additionally filtered, partial match)
-`protocol` | Print protocol of a masternode (can be additionally filtered, exact match)
-`keyid` | Print the masternode (not collateral) key id
-`rank` | Print rank of a masternode based on current block
-`sentinel` | Print sentinel version of a masternode (can be additionally filtered, exact match)
-`status` | Print masternode status: PRE_ENABLED / ENABLED / EXPIRED / SENTINEL_PING_EXPIRED / NEW_START_REQUIRED / UPDATE_REQUIRED / POSE_BAN / OUTPOINT_SPENT (can be additionally filtered, partial match)
+`pubKeyOperator` | Print the masternode operator public key
+`status` | Print masternode status: ENABLED / POSE_BANNED (can be additionally filtered, partial match)
+`votingaddress` | Print the masternode voting Dash address
 
 *Parameter #2---List filter*
 
