@@ -7,9 +7,11 @@ http://opensource.org/licenses/MIT.
 ##### MasternodeBroadcast
 {% include helpers/subhead-links.md %}
 <!-- __ -->
-{% assign summary_masternodeBroadcast="provides a set of commands to create and relay masternode broadcast messages." %}
+{% assign summary_masternodeBroadcast="was removed in Dash Core 0.14.0." %}
 
 {% autocrossref %}
+
+**_Removed in Dash Core 0.14.0._**
 
 The `masternodebroadcast` RPC {{summary_masternodeBroadcast}}
 
