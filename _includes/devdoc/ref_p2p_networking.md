@@ -2879,6 +2879,10 @@ message header has been omitted.)
 
 *Added in protocol version 70214 of Dash Core*
 
+![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
+intra-quorum communication and is only sent to the masternodes in the LLMQ and
+nodes that are monitoring in Watch Mode for auditing/debugging purposes.
+
 The `qcomplaint` message is used to...
 
 | Bytes | Name | Data type | Description |
@@ -2904,6 +2908,10 @@ message header has been omitted.)
 
 *Added in protocol version 70214 of Dash Core*
 
+![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
+intra-quorum communication and is only sent to the masternodes in the LLMQ and
+nodes that are monitoring in Watch Mode for auditing/debugging purposes.
+
 The `qjustify` message is used to...
 
 | Bytes | Name | Data type | Description |
@@ -2928,6 +2936,10 @@ message header has been omitted.)
 {% autocrossref %}
 
 *Added in protocol version 70214 of Dash Core*
+
+![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
+intra-quorum communication and is only sent to the masternodes in the LLMQ and
+nodes that are monitoring in Watch Mode for auditing/debugging purposes.
 
 The `qpcommit` message is used to...
 
@@ -3004,6 +3016,10 @@ message header has been omitted.)
 
 *Added in protocol version 70214 of Dash Core*
 
+![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
+intra-quorum communication and is only sent to the masternodes in the LLMQ and
+nodes that are monitoring in Watch Mode for auditing/debugging purposes.
+
 The `qsigsesann` message is used to...
 
 | Bytes | Name | Data type | Description |
@@ -3028,6 +3044,10 @@ message header has been omitted.)
 {% autocrossref %}
 
 *Added in protocol version 70214 of Dash Core*
+
+![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
+intra-quorum communication and is only sent to the masternodes in the LLMQ and
+nodes that are monitoring in Watch Mode for auditing/debugging purposes.
 
 The `qsigsinv` message is used to...
 
@@ -3054,6 +3074,10 @@ message header has been omitted.)
 
 *Added in protocol version 70214 of Dash Core*
 
+![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
+intra-quorum communication and is only sent to the masternodes in the LLMQ and
+nodes that are monitoring in Watch Mode for auditing/debugging purposes.
+
 The `qgetsigs` message is used to...
 
 | Bytes | Name | Data type | Description |
@@ -3078,6 +3102,10 @@ message header has been omitted.)
 {% autocrossref %}
 
 *Added in protocol version 70214 of Dash Core*
+
+![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
+intra-quorum communication and is only sent to the masternodes in the LLMQ and
+nodes that are monitoring in Watch Mode for auditing/debugging purposes.
 
 The `qbsigs` message is used to...
 
