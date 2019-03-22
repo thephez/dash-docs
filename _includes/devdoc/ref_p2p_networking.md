@@ -1743,11 +1743,13 @@ header has been omitted.)
 
 *Added in protocol version 70214 of Dash Core*
 
-The `senddsq` message is used to...
+The `senddsq` message is used to notify a peer whether or not to send `dsq` messages.
+This allows clients that are not interested in PrivateSend mixing (e.g. mobile
+wallet) to minimize data usage. 
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| 1 | | bool |
+| 1 | fSendDSQueue | bool | 0 - Notify peer to not send any `dsq messages`<br>1 - Notify peer to send all `dsq` messages
 
 <!--
 The following annotated hexdump shows a `senddsq` message. (The
