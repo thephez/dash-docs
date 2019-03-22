@@ -2803,6 +2803,90 @@ features built in to Dash.
 
 {% endautocrossref %}
 
+
+#### qbsigs
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
+intra-quorum communication and is only sent to the masternodes in the LLMQ and
+nodes that are monitoring in Watch Mode for auditing/debugging purposes.
+
+The `qbsigs` message is used to...
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 2 | version | uint16_t | Version of the  message
+
+<!--
+The following annotated hexdump shows a `qbsigs` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
+{% endautocrossref %}
+
+
+#### qcomplaint
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
+intra-quorum communication and is only sent to the masternodes in the LLMQ and
+nodes that are monitoring in Watch Mode for auditing/debugging purposes.
+
+The `qcomplaint` message is used to...
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 2 | version | uint16_t | Version of the  message
+
+<!--
+The following annotated hexdump shows a `qcomplaint` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
+{% endautocrossref %}
+
+
+#### qdebugstatus
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+The `qdebugstatus` message is used to...
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 2 | version | uint16_t | Version of the  message
+
+<!--
+The following annotated hexdump shows a `qdebugstatus` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
+{% endautocrossref %}
+
+
 #### qfcommit
 {% include helpers/subhead-links.md %}
 
@@ -2847,32 +2931,8 @@ message header has been omitted.)
 -->
 {% endautocrossref %}
 
-#### qsendrecsigs
-{% include helpers/subhead-links.md %}
 
-{% autocrossref %}
-
-*Added in protocol version 70214 of Dash Core*
-
-The `qsendrecsigs` message is used to...
-
-| Bytes | Name | Data type | Description |
-| --- | --- | --- | --- |
-| 2 | version | uint16_t | Version of the  message
-
-<!--
-The following annotated hexdump shows a `qsendrecsigs` message. (The
-message header has been omitted.)
-
-{% highlight text %}
-
-{% endhighlight %}
-
--->
-{% endautocrossref %}
-
-
-#### qcomplaint
+#### qgetsigs
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
@@ -2883,14 +2943,14 @@ message header has been omitted.)
 intra-quorum communication and is only sent to the masternodes in the LLMQ and
 nodes that are monitoring in Watch Mode for auditing/debugging purposes.
 
-The `qcomplaint` message is used to...
+The `qgetsigs` message is used to...
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
 | 2 | version | uint16_t | Version of the  message
 
 <!--
-The following annotated hexdump shows a `qcomplaint` message. (The
+The following annotated hexdump shows a `qgetsigs` message. (The
 message header has been omitted.)
 
 {% highlight text %}
@@ -2959,21 +3019,21 @@ message header has been omitted.)
 {% endautocrossref %}
 
 
-#### qwatch
+#### qsendrecsigs
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
 
 *Added in protocol version 70214 of Dash Core*
 
-The `qwatch` message is used to...
+The `qsendrecsigs` message is used to...
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
 | 2 | version | uint16_t | Version of the  message
 
 <!--
-The following annotated hexdump shows a `qwatch` message. (The
+The following annotated hexdump shows a `qsendrecsigs` message. (The
 message header has been omitted.)
 
 {% highlight text %}
@@ -2984,21 +3044,21 @@ message header has been omitted.)
 {% endautocrossref %}
 
 
-#### qdebugstatus
+#### qsigrec
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
 
 *Added in protocol version 70214 of Dash Core*
 
-The `qdebugstatus` message is used to...
+The `qsigrec` message is used to...
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
 | 2 | version | uint16_t | Version of the  message
 
 <!--
-The following annotated hexdump shows a `qdebugstatus` message. (The
+The following annotated hexdump shows a `qsigrec` message. (The
 message header has been omitted.)
 
 {% highlight text %}
@@ -3067,79 +3127,21 @@ message header has been omitted.)
 {% endautocrossref %}
 
 
-#### qgetsigs
+#### qwatch
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
 
 *Added in protocol version 70214 of Dash Core*
 
-![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
-intra-quorum communication and is only sent to the masternodes in the LLMQ and
-nodes that are monitoring in Watch Mode for auditing/debugging purposes.
-
-The `qgetsigs` message is used to...
+The `qwatch` message is used to...
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
 | 2 | version | uint16_t | Version of the  message
 
 <!--
-The following annotated hexdump shows a `qgetsigs` message. (The
-message header has been omitted.)
-
-{% highlight text %}
-
-{% endhighlight %}
-
--->
-{% endautocrossref %}
-
-
-#### qbsigs
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-*Added in protocol version 70214 of Dash Core*
-
-![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
-intra-quorum communication and is only sent to the masternodes in the LLMQ and
-nodes that are monitoring in Watch Mode for auditing/debugging purposes.
-
-The `qbsigs` message is used to...
-
-| Bytes | Name | Data type | Description |
-| --- | --- | --- | --- |
-| 2 | version | uint16_t | Version of the  message
-
-<!--
-The following annotated hexdump shows a `qbsigs` message. (The
-message header has been omitted.)
-
-{% highlight text %}
-
-{% endhighlight %}
-
--->
-{% endautocrossref %}
-
-
-#### qsigrec
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-*Added in protocol version 70214 of Dash Core*
-
-The `qsigrec` message is used to...
-
-| Bytes | Name | Data type | Description |
-| --- | --- | --- | --- |
-| 2 | version | uint16_t | Version of the  message
-
-<!--
-The following annotated hexdump shows a `qsigrec` message. (The
+The following annotated hexdump shows a `qwatch` message. (The
 message header has been omitted.)
 
 {% highlight text %}
