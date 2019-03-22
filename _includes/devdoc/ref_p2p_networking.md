@@ -1964,7 +1964,9 @@ The `clsig` message is used to...
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| 2 | version | uint16_t | Version of the  message
+| 4 | nHeight | int32_t | Block height
+| 32 | blockHash | uint256 | Block hash
+| 96 | sig | CBLSSignature | LLMQ BLS signature
 
 <!--
 The following annotated hexdump shows a `clsig` message. (The
