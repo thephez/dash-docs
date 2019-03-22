@@ -2821,7 +2821,8 @@ The `qbsigs` message is used to...
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| 2 | version | uint16_t | Version of the  message
+| 4 | sessionId | uint32_t | Signing session ID
+|  | sigShares |  |
 
 <!--
 The following annotated hexdump shows a `qbsigs` message. (The
@@ -3086,7 +3087,11 @@ The `qsigsesann` message is used to...
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| 2 | version | uint16_t | Version of the  message
+| 4 | sessionId | uint32_t | Signing session ID
+| 1 | llmqType | uint8_t |
+| 32 | quorumHash | uint256 |
+| 32 | id | uint256 |
+| 32 | msgHash | uint256 |
 
 <!--
 The following annotated hexdump shows a `qsigsesann` message. (The
@@ -3115,7 +3120,9 @@ The `qsigsinv` message is used to...
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| 2 | version | uint16_t | Version of the  message
+| 4 | sessionId | uint32_t | Signing session ID
+| 8 | invSize | uint64_t |
+|  | inv |  |
 
 <!--
 The following annotated hexdump shows a `qsigsinv` message. (The
