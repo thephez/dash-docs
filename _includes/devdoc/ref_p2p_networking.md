@@ -2863,6 +2863,8 @@ any members that provided an invalid secret key contribution.
 | (`complaints`<br>`BitSize` + 7) / 8 | complaints | byte[] | The complaints bitvector
 | 96 | sig | BLSSig | BLS signature, signed with the operator key of the contributing masternode
 
+More information can be found in the [Complaining phase section of DIP8](https://github.com/dashpay/dips/blob/master/dip-0006.md#3-complaining-phase).
+
 <!--
 The following annotated hexdump shows a `qcomplaint` message. (The
 message header has been omitted.)
@@ -2899,6 +2901,8 @@ contributions to all other members.
 | 1-9 | skCount | compactSize uint | Number of encrypted secret key contributions
 | 32 * `skCount` | skContributions | byte[] | Secret key contributions encrypted to recipient masternodes’ BLS public operator key
 | 96 | sig | BLSSig | BLS signature, signed with the operator key of the contributing masternode
+
+More information can be found in the [Contribution phase section of DIP8](https://github.com/dashpay/dips/blob/master/dip-0006.md#2-contribution-phase).
 
 <!--
 The following annotated hexdump shows a `qcontrib` message. (The
@@ -2969,6 +2973,8 @@ valid final commitment.
 | 32 | quorumVvecHash | uint256 | The hash of the quorum verification vector
 | 96 | quorumSig | BLSSig | Recovered threshold signature
 | 96 | sig | BLSSig | Aggregated BLS signatures from all included commitments
+
+More information can be found in the [Finalization phase section of DIP8](https://github.com/dashpay/dips/blob/master/dip-0006.md#6-finalization-phase).
 
 <!--
 The following annotated hexdump shows a `qfcommit` message. (The
