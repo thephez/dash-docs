@@ -2861,7 +2861,7 @@ any members that provided an invalid secret key contribution.
 | (`badBitSize` + 7) / 8 | badMembers | byte[] | The bad members bitvector
 | 1-9 | complaintsBitSize | compactSize uint | Number of bits in the complaints bitvector
 | (`complaints`<br>`BitSize` + 7) / 8 | complaints | byte[] | The complaints bitvector
-| 96 | sig | BLSSig | BLS signature, signed with the operator key of the contributing masternode
+| 96 | sig | byte[] | BLS signature, signed with the operator key of the contributing masternode
 
 More information can be found in the [Complaining phase section of DIP8](https://github.com/dashpay/dips/blob/master/dip-0006.md#3-complaining-phase).
 
@@ -2900,7 +2900,7 @@ contributions to all other members.
 | 48 * `vvecSize` | vvec | BLSPubKey[] | The verification vector
 | 1-9 | skCount | compactSize uint | Number of encrypted secret key contributions
 | 32 * `skCount` | skContributions | byte[] | Secret key contributions encrypted to recipient masternodes’ BLS public operator key
-| 96 | sig | BLSSig | BLS signature, signed with the operator key of the contributing masternode
+| 96 | sig | byte[] | BLS signature, signed with the operator key of the contributing masternode
 
 More information can be found in the [Contribution phase section of DIP8](https://github.com/dashpay/dips/blob/master/dip-0006.md#2-contribution-phase).
 
@@ -2994,8 +2994,8 @@ valid final commitment.
 | (bitSize + 7) / 8 | validMembers | byte[] | Bitset of valid members in this commitment
 | 48 | quorumPublicKey | BLSPubKey | The quorum public key
 | 32 | quorumVvecHash | uint256 | The hash of the quorum verification vector
-| 96 | quorumSig | BLSSig | Recovered threshold signature
-| 96 | sig | BLSSig | Aggregated BLS signatures from all included commitments
+| 96 | quorumSig | byte[] | Recovered threshold signature
+| 96 | sig | byte[] | Aggregated BLS signatures from all included commitments
 
 More information can be found in the [Finalization phase section of DIP8](https://github.com/dashpay/dips/blob/master/dip-0006.md#6-finalization-phase).
 
@@ -3060,7 +3060,7 @@ The `qjustify` message is used to...
 | 32 | proTxHash | uint256 | The ProRegTx hash of the complaining member
 | 1-9 | skContributions<br>Count | compactSize uint | Number of unencrypted secret key contributions
 | 36 * `skContributions`<br>`Count` | skContribution | SKContribution | Member index and secret key contribution for members justifying complaints
-| 96 | sig | BLSSig | BLS signature, signed with the operator key of the contributing masternode
+| 96 | sig | byte[] | BLS signature, signed with the operator key of the contributing masternode
 
 An `SKContribution` consists of:
 
@@ -3107,7 +3107,7 @@ verification and selection of the final commitment.
 | 48 | quorumPublicKey | uint256 | The quorum public key
 | (`complaints`<br>`BitSize` + 7) / 8 | quorumVvecHash | byte[] | The complaints bitvector
 | 96 | quorumSig | BLSSig | Threshold signature, signed with the threshold signature share of the committing member
-| 96 | sig | BLSSig | BLS signature, signed with the operator key of the contributing masternode
+| 96 | sig | byte[] | BLS signature, signed with the operator key of the contributing masternode
 
 More information can be found in the [Commitment phase section of DIP8](https://github.com/dashpay/dips/blob/master/dip-0006.md#5-commitment-phase).
 
