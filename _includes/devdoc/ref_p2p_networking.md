@@ -2849,14 +2849,59 @@ message header has been omitted.)
 intra-quorum communication and is only sent to the masternodes in the LLMQ and
 nodes that are monitoring in Watch Mode for auditing/debugging purposes.
 
-The `qcomplaint` message is used to...
+The `qcomplaint` message is used to notify other members of the DKG process of
+any members that provided an invalid secret key contribution.
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| 2 | version | uint16_t | Version of the  message
+| 1 | llmqType | uint8_t | The type of LLMQ
+| 1 | quorumHash | uint256 | 	The quorum identifier
+| 1 | proTxHash | uint256 | The ProRegTx hash of the complaining member
+| 1-9 | badBitSize | compactSize uint | Number of bits in the bad members bitvector
+| (`badBitSize` + 7) / 8 | badMembers | byte[] | The bad members bitvector
+| 1-9 | complaintsBitSize | compactSize uint | Number of bits in the complaints bitvector
+| (`complaints`<br>`BitSize` + 7) / 8 | complaints | byte[] | The complaints bitvector
+| 96 | sig | BLSSig | BLS signature, signed with the operator key of the contributing masternode
 
 <!--
 The following annotated hexdump shows a `qcomplaint` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
+{% endautocrossref %}
+
+
+#### qcontrib
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
+intra-quorum communication and is only sent to the masternodes in the LLMQ and
+nodes that are monitoring in Watch Mode for auditing/debugging purposes.
+
+The `qcontrib` message is used by each member of the DKG process to send key
+contributions to all other members.
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 1 | llmqType | uint8_t | The type of LLMQ
+| 1 | quorumHash | uint256 | 	The quorum identifier
+| 1 | proTxHash | uint256 | The ProRegTx hash of the complaining member
+| 1-9 | vvecSize | compactSize uint | The size of the verification vector
+| 48 * `vvecSize` | vvec | BLSPubKey[] | The verification vector
+| 1-9 | skCount | compactSize uint | Number of encrypted secret key contributions
+| 32 * `skCount` | skContributions | byte[] | Secret key contributions encrypted to recipient masternodes’ BLS public operator key
+| 96 | sig | BLSSig | BLS signature, signed with the operator key of the contributing masternode
+
+<!--
+The following annotated hexdump shows a `qcontrib` message. (The
 message header has been omitted.)
 
 {% highlight text %}
