@@ -3032,7 +3032,21 @@ The `qjustify` message is used to...
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| 2 | version | uint16_t | Version of the  message
+| 1 | llmqType | uint8_t | The type of LLMQ
+| 32 | quorumHash | uint256 | 	The quorum identifier
+| 32 | proTxHash | uint256 | The ProRegTx hash of the complaining member
+| 1-9 | skContributions<br>Count | compactSize uint | Number of unencrypted secret key contributions
+| 36 * `skContributions`<br>`Count` | skContribution | SKContribution | Member index and secret key contribution for members justifying complaints
+| 96 | sig | BLSSig | BLS signature, signed with the operator key of the contributing masternode
+
+An `SKContribution` consists of:
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 4 | skContributionMember | uint32_t | Index of the member for which justification is provided
+| 32 | skContributions | byte[] | Unencrypted secret key contribution for the member contained in skContributionMember
+
+More information can be found in the [Justification phase section of DIP8](https://github.com/dashpay/dips/blob/master/dip-0006.md#4-justification-phase).
 
 <!--
 The following annotated hexdump shows a `qjustify` message. (The
@@ -3057,11 +3071,22 @@ message header has been omitted.)
 intra-quorum communication and is only sent to the masternodes in the LLMQ and
 nodes that are monitoring in Watch Mode for auditing/debugging purposes.
 
-The `qpcommit` message is used to...
+The `qpcommit` message is used to exchange premature commitment messages for
+verification and selection of the final commitment.
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| 2 | version | uint16_t | Version of the  message
+| 1 | llmqType | uint8_t | The type of LLMQ
+| 32 | quorumHash | uint256 | 	The quorum identifier
+| 32 | proTxHash | uint256 | The ProRegTx hash of the complaining member
+| 1-9 | validMembersSize | compactSize uint | Bit size of the `validMembers` bitvector
+| (`valid`<br>`MembersSize` + 7) / 8 | validMembers | byte[] | Bitset of valid members in this commitment
+| 48 | quorumPublicKey | uint256 | The quorum public key
+| (`complaints`<br>`BitSize` + 7) / 8 | quorumVvecHash | byte[] | The complaints bitvector
+| 96 | quorumSig | BLSSig | Threshold signature, signed with the threshold signature share of the committing member
+| 96 | sig | BLSSig | BLS signature, signed with the operator key of the contributing masternode
+
+More information can be found in the [Commitment phase section of DIP8](https://github.com/dashpay/dips/blob/master/dip-0006.md#5-commitment-phase).
 
 <!--
 The following annotated hexdump shows a `qpcommit` message. (The
