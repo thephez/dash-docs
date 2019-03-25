@@ -2855,8 +2855,8 @@ any members that provided an invalid secret key contribution.
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
 | 1 | llmqType | uint8_t | The type of LLMQ
-| 1 | quorumHash | uint256 | 	The quorum identifier
-| 1 | proTxHash | uint256 | The ProRegTx hash of the complaining member
+| 32 | quorumHash | uint256 | 	The quorum identifier
+| 32 | proTxHash | uint256 | The ProRegTx hash of the complaining member
 | 1-9 | badBitSize | compactSize uint | Number of bits in the bad members bitvector
 | (`badBitSize` + 7) / 8 | badMembers | byte[] | The bad members bitvector
 | 1-9 | complaintsBitSize | compactSize uint | Number of bits in the complaints bitvector
@@ -2894,8 +2894,8 @@ contributions to all other members.
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
 | 1 | llmqType | uint8_t | The type of LLMQ
-| 1 | quorumHash | uint256 | 	The quorum identifier
-| 1 | proTxHash | uint256 | The ProRegTx hash of the complaining member
+| 32 | quorumHash | uint256 | 	The quorum identifier
+| 32 | proTxHash | uint256 | The ProRegTx hash of the complaining member
 | 1-9 | vvecSize | compactSize uint | The size of the verification vector
 | 48 * `vvecSize` | vvec | BLSPubKey[] | The verification vector
 | 1-9 | skCount | compactSize uint | Number of encrypted secret key contributions
