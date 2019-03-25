@@ -2927,7 +2927,30 @@ The `qdebugstatus` message is used to...
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| 2 | version | uint16_t | Version of the  message
+| 32 | proTxHash | uint256 | The ProRegTx hash
+| 8 | nTime | int64_t |
+| 1-9 | sessionsSize | compactSize uint |
+| `sessionsSize` * <> | sessions | <uint8_t, CDKGDebugSessionStatus> |
+| 96 | sig | byte[] | BLS signature
+
+`CDKGDebugSessionStatus`:
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 1 | llmqType | uint8_t | The type of LLMQ
+| 32 | quorumHash | uint256 | The quorum identifier
+| 4 | quorumHeight | uint32_t | The quorum height
+| 1 | phase | uint8_t | The DKG phase of the quorum
+| 1-9 | membersSize | compactSize uint |
+| `membersSize` * <> | members | CDKGDebugMemberStatus |
+
+`CDKGDebugMemberStatus`:
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 1 | statusBitset | uint8_t |
+| 32 * <> | complaintsFromMembers | uint16_t |
+
 
 <!--
 The following annotated hexdump shows a `qdebugstatus` message. (The
