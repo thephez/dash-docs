@@ -1749,7 +1749,7 @@ wallet) to minimize data usage.
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| 1 | fSendDSQueue | bool | 0 - Notify peer to not send any `dsq messages`<br>1 - Notify peer to send all `dsq` messages
+| 1 | fSendDSQueue | bool | 0 - Notify peer to not send any `dsq` messages<br>1 - Notify peer to send all `dsq` messages
 
 <!--
 The following annotated hexdump shows a `senddsq` message. (The
@@ -1990,9 +1990,10 @@ The `islock` message is used to...
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| | inputs | | |
-| | txid | | |
-| | sig | | |
+| 1-9 | inputsSize | compactSize uint | Number of inputs|
+| 36 * `inputsSize`| inputs | COutPoint | Outpoints used in the transaction |
+| 32 | txid | uint256 | TXID of the locked transaction |
+| 96 | sig | byte[] | LLMQ BLS Signature |
 
 <!--
 The following annotated hexdump shows a `islock` message. (The
@@ -2779,11 +2780,22 @@ bf110000 ................................... Count: 4543
 
 *Added in protocol version 70214 of Dash Core*
 
-The `mnauth` message is used to...
+The `mnauth` message is sent by a masternode immediately after sending a
+`verack` message to authenticate that the sender is a masternode. It is only
+sent when the sender is actually a masternode.
+
+The `mnauth` message signs a challenge that was previously sent via a
+`version` message. The challenge is signed differently depending on depending on
+if the connection is inbound or outbound.
+
+This is primarily used as a DoS protection mechanism to allow persistent
+connections between masternodes to remain open even if inbound connection limits
+are reached.
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| 2 | version | uint16_t | Version of the  message
+| 2 | proRegTxHash | uint256 | Version of the  message
+| 96 | sig | byte[] | BLS signature, signed with the operator key of the masternode
 
 <!--
 The following annotated hexdump shows a `mnauth` message. (The
