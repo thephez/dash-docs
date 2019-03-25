@@ -3221,21 +3221,13 @@ message header has been omitted.)
 
 *Added in protocol version 70214 of Dash Core*
 
-The `qwatch` message is used to...
+The `qwatch` message tells the receiving peer to relay LLMQ messages
+(`qcontrib` messages, `qcomplaint` messages, `qjustify` messages, and
+`qpcommit` messages).
 
-| Bytes | Name | Data type | Description |
-| --- | --- | --- | --- |
-| 2 | version | uint16_t | Version of the  message
+There is no payload in a `qwatch` message.  See the [message header
+section][section message header] for an example of a message without a payload.
 
-<!--
-The following annotated hexdump shows a `qwatch` message. (The
-message header has been omitted.)
-
-{% highlight text %}
-
-{% endhighlight %}
-
--->
 {% endautocrossref %}
 
 
