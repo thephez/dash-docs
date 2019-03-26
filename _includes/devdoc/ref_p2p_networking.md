@@ -3216,7 +3216,7 @@ details to nodes that have requested this information via the `qsendrecsigs` mes
 | 32 | msgHash | uint256 | The message hash
 | 96 | sig | byte[] | The final recovered BLS threshold signature
 
-More information can be found in the [Recovered threshold signatures section of DIP7](https://github.com/dashpay/dips/blob/master/dip-0007.md#recovered-threshold-signatures).
+More information can be found in the [Recovered threshold signatures<!--noref--> section of DIP7](https://github.com/dashpay/dips/blob/master/dip-0007.md#recovered-threshold-signatures<!--noref-->).
 
 <!--
 The following annotated hexdump shows a `qsigrec` message. (The
