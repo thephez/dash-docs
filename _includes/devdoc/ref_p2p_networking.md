@@ -3153,7 +3153,9 @@ The `qgetsigs` message is used to...
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| 2 | version | uint16_t | Version of the  message
+| 4 | sessionId | uint32_t | Signing session ID
+| 1-9 | invSize | compactSize uint | Number of inventory
+| * `invSize` | inv | | Signing shares
 
 <!--
 The following annotated hexdump shows a `qgetsigs` message. (The
@@ -3241,15 +3243,17 @@ message header has been omitted.)
 intra-quorum communication and is only sent to the masternodes in the LLMQ and
 nodes that are monitoring in Watch Mode for auditing/debugging purposes.
 
-The `qsigsesann` message is used to...
+The `qsigsesann` message is used to announce the sessionId for a signing
+session. The sessionId will be used for all P2P messages related to that
+session.
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
 | 4 | sessionId | uint32_t | Signing session ID (must be less than the maximum uint32_t value)
-| 1 | llmqType | uint8_t |
-| 32 | quorumHash | uint256 |
-| 32 | id | uint256 |
-| 32 | msgHash | uint256 |
+| 1 | llmqType | uint8_t | The LLMQ type
+| 32 | quorumHash | uint256 | The quorum identifier
+| 32 | id | uint256 | The signing request id
+| 32 | msgHash | uint256 | The message hash
 
 <!--
 The following annotated hexdump shows a `qsigsesann` message. (The
