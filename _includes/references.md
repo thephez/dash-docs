@@ -267,6 +267,7 @@ http://opensource.org/licenses/MIT.
 [pong message]: /en/developer-reference#pong "A P2P network message used to reply to a P2P network ping message"
 [qbsigs message]: /en/developer-reference#qbsigs "A P2P network message used to ..."
 [qcomplaint message]: /en/developer-reference#qcomplaint "A P2P network message used to ..."
+[qcontrib message]: /en/developer-reference#qcontrib "A P2P network message used to ..."
 [qdebugstatus message]: /en/developer-reference#qdebugstatus "A P2P network message used to ..."
 [qfcommit message]: /en/developer-reference#qfcommit "A P2P network message used to finalize the members of a long-living masternode quorum (LLMQ)"
 [qgetsigs message]: /en/developer-reference#qgetsigs "A P2P network message used to ..."

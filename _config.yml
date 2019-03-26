@@ -250,7 +250,7 @@ devsearches:
     - 'GetRawTransaction': "/en/developer-reference#getrawtransaction"
     - 'GetReceivedByAccount': "/en/developer-reference#getreceivedbyaccount"
     - 'GetReceivedByAddress': "/en/developer-reference#getreceivedbyaddress"
-    - 'GetSpecialTxes': "/en/developer-reference#getspecialtxes"    
+    - 'GetSpecialTxes': "/en/developer-reference#getspecialtxes"
     - 'GetSpentInfo': "/en/developer-reference#getspentinfo"
     - 'GetSuperblockBudget': "/en/developer-reference#getsuperblockbudget"
     - 'GetTransaction': "/en/developer-reference#gettransaction"
@@ -576,6 +576,7 @@ devsearches:
     # Dash - quorums
     - "qbsigs": "/en/developer-reference#qbsigs"
     - "qcomplaint": "/en/developer-reference#qcomplaint"
+    - "qcontrib": "/en/developer-reference#qcontrib"    
     - "qdebugstatus": "/en/developer-reference#qdebugstatus"
     - "qfcommit": "/en/developer-reference#qfcommit"
     - "qgetsigs": "/en/developer-reference#qgetsigs"
