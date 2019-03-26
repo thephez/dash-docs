@@ -3142,11 +3142,17 @@ message header has been omitted.)
 
 *Added in protocol version 70214 of Dash Core*
 
-The `qsendrecsigs` message is used to...
+The `qsendrecsigs` message is used to notify a peer to send plain LLMQ recovered
+signatures (inventory type `MSG_QUORUM_RECOVERED_SIG`). Otherwise the peer would
+only announce/send the higher level messages produced when a recovered signature
+is found (e.g. InstantSend `islock` messages or ChainLock `clsig` messages).
+
+Note: SPV nodes should not send this message as they are usually only interested
+in the higher level messages.
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| 2 | version | uint16_t | Version of the  message
+| 1 | fSendRecSigs | bool | 0 - Notify peer to not send plain LLMQ recovered signatures<br>1 - Notify peer to send plain LLMQ recovered signatures (default for Dash Core nodes)
 
 <!--
 The following annotated hexdump shows a `qsendrecsigs` message. (The
@@ -3167,11 +3173,18 @@ message header has been omitted.)
 
 *Added in protocol version 70214 of Dash Core*
 
-The `qsigrec` message is used to...
+The `qsigrec` message is used to provide recovered signatures and related quorum
+details to nodes that have requested this information via the `qsendrecsigs` message.
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| 2 | version | uint16_t | Version of the  message
+| 1 | llmqType | uint8_t | The type of LLMQ
+| 32 | quorumHash | uint256 | The quorum hash
+| 32 | id | uint256 | The signing request id
+| 32 | msgHash | uint256 | The message hash
+| 96 | sig | byte[] | The final recovered BLS threshold signature
+
+More information can be found in the [Recovered threshold signatures section of DIP7](https://github.com/dashpay/dips/blob/master/dip-0007.md#recovered-threshold-signatures).
 
 <!--
 The following annotated hexdump shows a `qsigrec` message. (The
