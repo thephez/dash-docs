@@ -2820,115 +2820,11 @@ features built in to Dash.
 {% endautocrossref %}
 
 
-#### qbsigs
+#### Debugging
 {% include helpers/subhead-links.md %}
 
-{% autocrossref %}
 
-*Added in protocol version 70214 of Dash Core*
-
-![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
-intra-quorum communication and is only sent to the masternodes in the LLMQ and
-nodes that are monitoring in Watch Mode for auditing/debugging purposes.
-
-The `qbsigs` message is used to...
-
-| Bytes | Name | Data type | Description |
-| --- | --- | --- | --- |
-| 4 | sessionId | uint32_t | Signing session ID
-|  | sigShares |  |
-
-<!--
-The following annotated hexdump shows a `qbsigs` message. (The
-message header has been omitted.)
-
-{% highlight text %}
-
-{% endhighlight %}
-
--->
-{% endautocrossref %}
-
-
-#### qcomplaint
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-*Added in protocol version 70214 of Dash Core*
-
-![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
-intra-quorum communication and is only sent to the masternodes in the LLMQ and
-nodes that are monitoring in Watch Mode for auditing/debugging purposes.
-
-The `qcomplaint` message is used to notify other members of the DKG process of
-any members that provided an invalid secret key contribution.
-
-| Bytes | Name | Data type | Description |
-| --- | --- | --- | --- |
-| 1 | llmqType | uint8_t | The type of LLMQ
-| 32 | quorumHash | uint256 | 	The quorum identifier
-| 32 | proTxHash | uint256 | The ProRegTx hash of the complaining member
-| 1-9 | badBitSize | compactSize uint | Number of bits in the bad members bitvector
-| (`badBitSize` + 7) / 8 | badMembers | byte[] | The bad members bitvector
-| 1-9 | complaintsBitSize | compactSize uint | Number of bits in the complaints bitvector
-| (`complaints`<br>`BitSize` + 7) / 8 | complaints | byte[] | The complaints bitvector
-| 96 | sig | byte[] | BLS signature, signed with the operator key of the contributing masternode
-
-More information can be found in the [Complaining phase section of DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#3-complaining-phase).
-
-<!--
-The following annotated hexdump shows a `qcomplaint` message. (The
-message header has been omitted.)
-
-{% highlight text %}
-
-{% endhighlight %}
-
--->
-{% endautocrossref %}
-
-
-#### qcontrib
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-*Added in protocol version 70214 of Dash Core*
-
-![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
-intra-quorum communication and is only sent to the masternodes in the LLMQ and
-nodes that are monitoring in Watch Mode for auditing/debugging purposes.
-
-The `qcontrib` message is used by each member of the DKG process to send key
-contributions to all other members.
-
-| Bytes | Name | Data type | Description |
-| --- | --- | --- | --- |
-| 1 | llmqType | uint8_t | The type of LLMQ
-| 32 | quorumHash | uint256 | 	The quorum identifier
-| 32 | proTxHash | uint256 | The ProRegTx hash of the complaining member
-| 1-9 | vvecSize | compactSize uint | The size of the verification vector
-| 48 * `vvecSize` | vvec | BLSPubKey[] | The verification vector
-| 1-9 | skCount | compactSize uint | Number of encrypted secret key contributions
-| 32 * `skCount` | skContributions | byte[] | Secret key contributions encrypted to recipient masternodes’ BLS public operator key
-| 96 | sig | byte[] | BLS signature, signed with the operator key of the contributing masternode
-
-More information can be found in the [Contribution phase section of DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#2-contribution-phase).
-
-<!--
-The following annotated hexdump shows a `qcontrib` message. (The
-message header has been omitted.)
-
-{% highlight text %}
-
-{% endhighlight %}
-
--->
-{% endautocrossref %}
-
-
-#### qdebugstatus
+##### qdebugstatus
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
@@ -2976,7 +2872,189 @@ message header has been omitted.)
 {% endautocrossref %}
 
 
-#### qfcommit
+##### qwatch
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+The `qwatch` message tells the receiving peer to relay LLMQ messages
+(`qcontrib` messages, `qcomplaint` messages, `qjustify` messages, and
+`qpcommit` messages).
+
+There is no payload in a `qwatch` message.  See the [message header
+section][section message header] for an example of a message without a payload.
+
+{% endautocrossref %}
+
+
+#### Distributed Key Generation
+{% include helpers/subhead-links.md %}
+
+
+##### qcontrib
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
+intra-quorum communication and is only sent to the masternodes in the LLMQ and
+nodes that are monitoring in Watch Mode for auditing/debugging purposes.
+
+The `qcontrib` message is used by each member of the DKG process to send key
+contributions to all other members.
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 1 | llmqType | uint8_t | The type of LLMQ
+| 32 | quorumHash | uint256 | 	The quorum identifier
+| 32 | proTxHash | uint256 | The ProRegTx hash of the complaining member
+| 1-9 | vvecSize | compactSize uint | The size of the verification vector
+| 48 * `vvecSize` | vvec | BLSPubKey[] | The verification vector
+| 1-9 | skCount | compactSize uint | Number of encrypted secret key contributions
+| 32 * `skCount` | skContributions | byte[] | Secret key contributions encrypted to recipient masternodes’ BLS public operator key
+| 96 | sig | byte[] | BLS signature, signed with the operator key of the contributing masternode
+
+More information can be found in the [Contribution phase section of DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#2-contribution-phase).
+
+<!--
+The following annotated hexdump shows a `qcontrib` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
+{% endautocrossref %}
+
+
+##### qcomplaint
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
+intra-quorum communication and is only sent to the masternodes in the LLMQ and
+nodes that are monitoring in Watch Mode for auditing/debugging purposes.
+
+The `qcomplaint` message is used to notify other members of the DKG process of
+any members that provided an invalid secret key contribution.
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 1 | llmqType | uint8_t | The type of LLMQ
+| 32 | quorumHash | uint256 | 	The quorum identifier
+| 32 | proTxHash | uint256 | The ProRegTx hash of the complaining member
+| 1-9 | badBitSize | compactSize uint | Number of bits in the bad members bitvector
+| (`badBitSize` + 7) / 8 | badMembers | byte[] | The bad members bitvector
+| 1-9 | complaintsBitSize | compactSize uint | Number of bits in the complaints bitvector
+| (`complaints`<br>`BitSize` + 7) / 8 | complaints | byte[] | The complaints bitvector
+| 96 | sig | byte[] | BLS signature, signed with the operator key of the contributing masternode
+
+More information can be found in the [Complaining phase section of DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#3-complaining-phase).
+
+<!--
+The following annotated hexdump shows a `qcomplaint` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
+{% endautocrossref %}
+
+
+##### qjustify
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
+intra-quorum communication and is only sent to the masternodes in the LLMQ and
+nodes that are monitoring in Watch Mode for auditing/debugging purposes.
+
+The `qjustify` message is used to...
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 1 | llmqType | uint8_t | The type of LLMQ
+| 32 | quorumHash | uint256 | 	The quorum identifier
+| 32 | proTxHash | uint256 | The ProRegTx hash of the complaining member
+| 1-9 | skContributions<br>Count | compactSize uint | Number of unencrypted secret key contributions
+| 36 * `skContributions`<br>`Count` | skContribution | SKContribution | Member index and secret key contribution for members justifying complaints
+| 96 | sig | byte[] | BLS signature, signed with the operator key of the contributing masternode
+
+An `SKContribution` consists of:
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 4 | skContributionMember | uint32_t | Index of the member for which justification is provided
+| 32 | skContributions | byte[] | Unencrypted secret key contribution for the member contained in skContributionMember
+
+More information can be found in the [Justification phase section of DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#4-justification-phase).
+
+<!--
+The following annotated hexdump shows a `qjustify` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
+{% endautocrossref %}
+
+
+##### qpcommit
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
+intra-quorum communication and is only sent to the masternodes in the LLMQ and
+nodes that are monitoring in Watch Mode for auditing/debugging purposes.
+
+The `qpcommit` message is used to exchange premature commitment messages for
+verification and selection of the final commitment.
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 1 | llmqType | uint8_t | The type of LLMQ
+| 32 | quorumHash | uint256 | The quorum identifier
+| 32 | proTxHash | uint256 | The ProRegTx hash of the complaining member
+| 1-9 | validMembersSize | compactSize uint | Bit size of the `validMembers` bitvector
+| (`valid`<br>`MembersSize` + 7) / 8 | validMembers | byte[] | Bitset of valid members in this commitment
+| 48 | quorumPublicKey | uint256 | The quorum public key
+| (`complaints`<br>`BitSize` + 7) / 8 | quorumVvecHash | byte[] | The complaints bitvector
+| 96 | quorumSig | BLSSig | Threshold signature, signed with the threshold signature share of the committing member
+| 96 | sig | byte[] | BLS signature, signed with the operator key of the contributing masternode
+
+More information can be found in the [Commitment phase section of DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#5-commitment-phase).
+
+<!--
+The following annotated hexdump shows a `qpcommit` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
+{% endautocrossref %}
+
+
+##### qfcommit
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
@@ -3023,7 +3101,44 @@ message header has been omitted.)
 {% endautocrossref %}
 
 
-#### qgetsigs
+#### Signing Sessions
+{% include helpers/subhead-links.md %}
+
+
+##### qbsigs
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
+intra-quorum communication and is only sent to the masternodes in the LLMQ and
+nodes that are monitoring in Watch Mode for auditing/debugging purposes.
+
+The `qbsigs` message is used to send batched signature shares.
+
+
+CBatchedSigShares:
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 4 | sessionId | uint32_t | Signing session ID
+|  | sigShares | <uint16_t, CBLSLazySignature> |
+
+<!--
+The following annotated hexdump shows a `qbsigs` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
+{% endautocrossref %}
+
+
+##### qgetsigs
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
@@ -3052,90 +3167,7 @@ message header has been omitted.)
 {% endautocrossref %}
 
 
-#### qjustify
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-*Added in protocol version 70214 of Dash Core*
-
-![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
-intra-quorum communication and is only sent to the masternodes in the LLMQ and
-nodes that are monitoring in Watch Mode for auditing/debugging purposes.
-
-The `qjustify` message is used to...
-
-| Bytes | Name | Data type | Description |
-| --- | --- | --- | --- |
-| 1 | llmqType | uint8_t | The type of LLMQ
-| 32 | quorumHash | uint256 | 	The quorum identifier
-| 32 | proTxHash | uint256 | The ProRegTx hash of the complaining member
-| 1-9 | skContributions<br>Count | compactSize uint | Number of unencrypted secret key contributions
-| 36 * `skContributions`<br>`Count` | skContribution | SKContribution | Member index and secret key contribution for members justifying complaints
-| 96 | sig | byte[] | BLS signature, signed with the operator key of the contributing masternode
-
-An `SKContribution` consists of:
-
-| Bytes | Name | Data type | Description |
-| --- | --- | --- | --- |
-| 4 | skContributionMember | uint32_t | Index of the member for which justification is provided
-| 32 | skContributions | byte[] | Unencrypted secret key contribution for the member contained in skContributionMember
-
-More information can be found in the [Justification phase section of DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#4-justification-phase).
-
-<!--
-The following annotated hexdump shows a `qjustify` message. (The
-message header has been omitted.)
-
-{% highlight text %}
-
-{% endhighlight %}
-
--->
-{% endautocrossref %}
-
-
-#### qpcommit
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-*Added in protocol version 70214 of Dash Core*
-
-![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
-intra-quorum communication and is only sent to the masternodes in the LLMQ and
-nodes that are monitoring in Watch Mode for auditing/debugging purposes.
-
-The `qpcommit` message is used to exchange premature commitment messages for
-verification and selection of the final commitment.
-
-| Bytes | Name | Data type | Description |
-| --- | --- | --- | --- |
-| 1 | llmqType | uint8_t | The type of LLMQ
-| 32 | quorumHash | uint256 | The quorum identifier
-| 32 | proTxHash | uint256 | The ProRegTx hash of the complaining member
-| 1-9 | validMembersSize | compactSize uint | Bit size of the `validMembers` bitvector
-| (`valid`<br>`MembersSize` + 7) / 8 | validMembers | byte[] | Bitset of valid members in this commitment
-| 48 | quorumPublicKey | uint256 | The quorum public key
-| (`complaints`<br>`BitSize` + 7) / 8 | quorumVvecHash | byte[] | The complaints bitvector
-| 96 | quorumSig | BLSSig | Threshold signature, signed with the threshold signature share of the committing member
-| 96 | sig | byte[] | BLS signature, signed with the operator key of the contributing masternode
-
-More information can be found in the [Commitment phase section of DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#5-commitment-phase).
-
-<!--
-The following annotated hexdump shows a `qpcommit` message. (The
-message header has been omitted.)
-
-{% highlight text %}
-
-{% endhighlight %}
-
--->
-{% endautocrossref %}
-
-
-#### qsendrecsigs
+##### qsendrecsigs
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
@@ -3166,7 +3198,7 @@ message header has been omitted.)
 {% endautocrossref %}
 
 
-#### qsigrec
+##### qsigrec
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
@@ -3198,7 +3230,7 @@ message header has been omitted.)
 {% endautocrossref %}
 
 
-#### qsigsesann
+##### qsigsesann
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
@@ -3231,7 +3263,7 @@ message header has been omitted.)
 {% endautocrossref %}
 
 
-#### qsigsinv
+##### qsigsinv
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
@@ -3259,23 +3291,6 @@ message header has been omitted.)
 {% endhighlight %}
 
 -->
-{% endautocrossref %}
-
-
-#### qwatch
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-*Added in protocol version 70214 of Dash Core*
-
-The `qwatch` message tells the receiving peer to relay LLMQ messages
-(`qcontrib` messages, `qcomplaint` messages, `qjustify` messages, and
-`qpcommit` messages).
-
-There is no payload in a `qwatch` message.  See the [message header
-section][section message header] for an example of a message without a payload.
-
 {% endautocrossref %}
 
 
