@@ -3116,8 +3116,15 @@ message header has been omitted.)
 intra-quorum communication and is only sent to the masternodes in the LLMQ and
 nodes that are monitoring in Watch Mode for auditing/debugging purposes.
 
-The `qbsigs` message is used to send batched signature shares.
+The `qbsigs` message is used to send batched signature shares in response to a
+`qgetsigs` message.
 
+Note: The number of messages that can be sent in a batch is limited to 400
+(as defined by `MAX_MSGS_TOTAL_BATCHED_SIGS`).
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| Varies | msgs | CBatchedSigShares | Batches of signature shares
 
 CBatchedSigShares:
 
@@ -3149,7 +3156,11 @@ message header has been omitted.)
 intra-quorum communication and is only sent to the masternodes in the LLMQ and
 nodes that are monitoring in Watch Mode for auditing/debugging purposes.
 
-The `qgetsigs` message is used to...
+The `qgetsigs` message is used to request signature shares. The response to a
+`qgetsigs` message is a `qbsigs` message.
+
+Note: The number of inventories in a `qgetsigs` message is limited to 200
+(as defined by `MAX_MSGS_CNT_QGETSIGSHARES`).
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
@@ -3247,6 +3258,9 @@ The `qsigsesann` message is used to announce the sessionId for a signing
 session. The sessionId will be used for all P2P messages related to that
 session.
 
+Note: The maximum number of announcements in a `qsigsesann` message is limited to
+100 (as defined by `MAX_MSGS_CNT_QSIGSESANN`).
+
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
 | 4 | sessionId | uint32_t | Signing session ID (must be less than the maximum uint32_t value)
@@ -3278,7 +3292,11 @@ message header has been omitted.)
 intra-quorum communication and is only sent to the masternodes in the LLMQ and
 nodes that are monitoring in Watch Mode for auditing/debugging purposes.
 
-The `qsigsinv` message is used to...
+The `qsigsinv` message (quorum signature inventory) announces one or more quorum
+signature share inventories known by the transmitting peer.
+
+Note: The maximum number of inventories in a `qsigsinv` message is limited to
+200 (as defined by `MAX_MSGS_CNT_QSIGSHARESINV`).
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
