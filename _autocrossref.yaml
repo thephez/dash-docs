@@ -24,6 +24,8 @@ bitcoinj:
 '`blocktxn` messages': blocktxn message
 'CbTx': coinbase special tx
 certificate chain:
+'`clsig` message': clsig message
+'`clsig` messages': clsig message
 '`cmpctblock` message': cmpctblock message
 '`cmpctblock` messages': cmpctblock message
 DER:
@@ -86,6 +88,8 @@ intermediate certificate:
 intermediate certificates: intermediate certificate
 '`inv` message': inv message
 '`inv` messages': inv message
+'`islock` message': islock message
+'`islock` messages': islock message
 '`ix` message': ix message
 '`ix` messages': ix message
 IP address: DO NOT AUTOCROSSREF
@@ -113,6 +117,8 @@ merge:
 Merge avoidance: DO NOT AUTOCROSSREF
 micropayment channel:
 micropayment channels: micropayment channel
+'`mnauth` message': mnauth message
+'`mnauth` messages': mnauth message
 '`mnb` message': mnb message
 '`mnb` messages': mnb message
 '`mnget` message': mnget message
@@ -176,8 +182,30 @@ protocol version 70013: section protocol versions
 protocol version 70014: section protocol versions
 public key infrastructure: pki
 'QcTx': quorum commitment special tx
+'`qbsigs` message': qbsigs message
+'`qbsigs` messages': qbsigs message
+'`qcomplaint` message': qcomplaint message
+'`qcomplaint` messages': qcomplaint message
+'`qcontrib` message': qcontrib message
+'`qcontrib` messages': qcontrib message
+'`qdebugstatus` message': qdebugstatus message
+'`qdebugstatus` messages': qdebugstatus message
 '`qfcommit` message': qfcommit message
 '`qfcommit` messages': qfcommit message
+'`qgetsigs` message': qgetsigs message
+'`qgetsigs` messages': qgetsigs message
+'`qjustify` message': qjustify message
+'`qjustify` messages': qjustify message
+'`qpcommit` message': qpcommit message
+'`qpcommit` messages': qpcommit message
+'`qsigrec` message': qsigrec message
+'`qsigrec` messages': qsigrec message
+'`qsigsesann` message': qsigsesann message
+'`qsigsesann` messages': qsigsesann message
+'`qsigsinv` message': qsigsinv message
+'`qsigsinv` messages': qsigsinv message
+'`qwatch` message': qwatch message
+'`qwatch` messages': qwatch message
 '`r`': r
 receipt: DO NOT AUTOCROSSREF
 recurrent rebilling:
@@ -192,6 +220,8 @@ RPCs: rpc
 secp256k1:
 '`sendcmpct` message': sendcmpct message
 '`sendcmpct` messages': sendcmpct message
+'`senddsq` message': senddsq message
+'`senddsq` messages': senddsq message
 '`spork` message': spork message
 '`spork` messages': spork message
 '`ssc` message': ssc message

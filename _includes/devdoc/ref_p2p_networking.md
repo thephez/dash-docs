@@ -165,7 +165,15 @@ The currently-available type identifiers are:
 | 17               | [`MSG_GOVERNANCE_OBJECT`][msg_governance_object]{:#term-msg_governance_object}{:.term}                                     | The hash is a Governance Object.
 | 18               | [`MSG_GOVERNANCE_OBJECT_VOTE`][msg_governance_object_vote]{:#term-msg_governance_object_vote}{:.term}                                     | The hash is a Governance Object Vote.
 | 20               | [`MSG_CMPCT_BLOCK`][msg_cmpct_block]{:#term-msg_cmpct_block}{:.term}                                     | The hash is of a block header; identical to `MSG_BLOCK`. When used in a `getdata` message, this indicates the response should be a `cmpctblock` message. **Only for use in `getdata` messages.**
-| 21               | [`MSG_QUORUM_FINAL_COMMITMENT`][msg_quorum_final_commitment]{:#term-msg_quorum_final_commitment}{:.term}                                     | The hash is a long-living masternode quorum final commitment.
+| 21               | [`MSG_QUORUM_FINAL_COMMITMENT`][msg_quorum_final_commitment]{:#term-msg_quorum_final_commitment}{:.term}                | The hash is a long-living masternode quorum final commitment.<br>_Added in 0.13.0_
+| 23               | [`MSG_QUORUM_CONTRIB`][msg_quorum_contrib]{:#term-msg_quorum_contrib}{:.term}                                     | The hash is a long-living masternode quorum contribution.<br>_Added in 0.14.0_
+| 24               | [`MSG_QUORUM_COMPLAINT`][msg_quorum_complaint]{:#term-msg_quorum_complaint}{:.term}                                     | The hash is a long-living masternode quorum complaint.<br>_Added in 0.14.0_
+| 25               | [`MSG_QUORUM_JUSTIFICATION`][msg_quorum_justification]{:#term-msg_quorum_justification}{:.term}                   | The hash is a long-living masternode quorum justification.<br>_Added in 0.14.0_
+| 26               | [`MSG_QUORUM_PREMATURE_COMMITMENT`][msg_quorum_premature_commitment]{:#term-msg_quorum_premature_commitment}{:.term}    | The hash is a long-living masternode quorum premature commitment.<br>_Added in 0.14.0_
+| 27               | [`MSG_QUORUM_DEBUG_STATUS`][msg_quorum_debug_status]{:#term-msg_quorum_debug_status}{:.term}                            | The hash is a long-living masternode quorum debug status.<br>_Added in 0.14.0_
+| 28               | [`MSG_QUORUM_RECOVERED_SIG`][msg_quorum_recovered_sig]{:#term-msg_quorum_recovered_sig}{:.term}                        | The hash is a long-living masternode quorum recovered signature.<br>_Added in 0.14.0_
+| 29               | [`MSG_CLSIG`][msg_clsig]{:#term-msg_clsig}{:.term}                                     | The hash is a ChainLock signature.<br>_Added in 0.14.0_
+| 30               | [`MSG_ISLOCK`][msg_islock]{:#term-msg_islock}{:.term}                                   | The hash is an LLMQ-based InstantSend lock.<br>_Added in 0.14.0_
 
 The deprecated type identifiers are:
 
@@ -182,6 +190,7 @@ The deprecated type identifiers are:
 | 14               | [`MSG_MASTERNODE_ANNOUNCE`][msg_masternode_announce]{:#term-msg_masternode_announce}{:.term}                                     | **Deprecated in 0.14.0**<br><br>The hash is a Masternode Broadcast.
 | 15               | [`MSG_MASTERNODE_PING`][msg_masternode_ping]{:#term-msg_masternode_ping}{:.term}                                     | **Deprecated in 0.14.0**<br><br>The hash is a Masternode Ping.
 | 19               | [`MSG_MASTERNODE_VERIFY`][msg_masternode_verify]{:#term-msg_masternode_verify}{:.term}                                     | **Deprecated in 0.14.0**<br><br>The hash is a Masternode Verify.
+| 22               | `MSG_QUORUM_DUMMY_COMMITMENT`                                     | **Deprecated in 0.14.0**<br><br>Temporarily used on Testnet only.
 
 Type identifier zero and type identifiers greater than twenty are reserved
 for future implementations. Dash Core ignores all inventories with
@@ -1726,6 +1735,34 @@ header has been omitted.)
 
 {% endautocrossref %}
 
+
+#### SendDsq
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+The `senddsq` message is used to notify a peer whether or not to send `dsq` messages.
+This allows clients that are not interested in PrivateSend mixing (e.g. mobile
+wallet) to minimize data usage.
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 1 | fSendDSQueue | bool | 0 - Notify peer to not send any `dsq` messages<br>1 - Notify peer to send all `dsq` messages
+
+<!--
+The following annotated hexdump shows a `senddsq` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
+{% endautocrossref %}
+
+
 #### SendHeaders
 {% include helpers/subhead-links.md %}
 
@@ -1914,6 +1951,59 @@ the Developer Guide [InstantSend section](developer-guide#instantsend<!--noref--
 ![Overview Of P2P Protocol InstantSend Request And Reply Messages](/img/dev/en-p2p-instantsend-messages.svg)
 
 
+{% endautocrossref %}
+
+#### clsig
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+The `clsig` message is used to...
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 4 | nHeight | int32_t | Block height
+| 32 | blockHash | uint256 | Block hash
+| 96 | sig | CBLSSignature | LLMQ BLS signature
+
+<!--
+The following annotated hexdump shows a `clsig` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
+{% endautocrossref %}
+
+#### islock
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+The `islock` message is used to...
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 1-9 | inputsSize | compactSize uint | Number of inputs|
+| 36 * `inputsSize`| inputs | COutPoint | Outpoints used in the transaction |
+| 32 | txid | uint256 | TXID of the locked transaction |
+| 96 | sig | byte[] | LLMQ BLS Signature |
+
+<!--
+The following annotated hexdump shows a `islock` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
 {% endautocrossref %}
 
 #### ix
@@ -2683,7 +2773,288 @@ bf110000 ................................... Count: 4543
 
 {% endautocrossref %}
 
-#### qfcommit
+#### mnauth
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+The `mnauth` message is sent by a masternode immediately after sending a
+`verack` message to authenticate that the sender is a masternode. It is only
+sent when the sender is actually a masternode.
+
+The `mnauth` message signs a challenge that was previously sent via a
+`version` message. The challenge is signed differently depending on depending on
+if the connection is inbound or outbound.
+
+This is primarily used as a DoS protection mechanism to allow persistent
+connections between masternodes to remain open even if inbound connection limits
+are reached.
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 2 | proRegTxHash | uint256 | Version of the  message
+| 96 | sig | byte[] | BLS signature, signed with the operator key of the masternode
+
+<!--
+The following annotated hexdump shows a `mnauth` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
+{% endautocrossref %}
+
+
+### Quorum Messages
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The following network messages enable the long-living masternode quorum (LLMQ)
+features built in to Dash.
+
+{% endautocrossref %}
+
+
+#### Debugging
+{% include helpers/subhead-links.md %}
+
+
+##### qdebugstatus
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+The `qdebugstatus` message is used to...
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 32 | proTxHash | uint256 | The ProRegTx hash
+| 8 | nTime | int64_t |
+| 1-9 | sessionsSize | compactSize uint |
+| `sessionsSize` * <> | sessions | <uint8_t, CDKGDebugSessionStatus> |
+| 96 | sig | byte[] | BLS signature
+
+`CDKGDebugSessionStatus`:
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 1 | llmqType | uint8_t | The type of LLMQ
+| 32 | quorumHash | uint256 | The quorum identifier
+| 4 | quorumHeight | uint32_t | The quorum height
+| 1 | phase | uint8_t | The DKG phase of the quorum
+| 1-9 | membersSize | compactSize uint |
+| `membersSize` * <> | members | CDKGDebugMemberStatus |
+
+`CDKGDebugMemberStatus`:
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 1 | statusBitset | uint8_t |
+| 32 * <> | complaintsFromMembers | uint16_t |
+
+
+<!--
+The following annotated hexdump shows a `qdebugstatus` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
+{% endautocrossref %}
+
+
+##### qwatch
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+The `qwatch` message tells the receiving peer to relay LLMQ messages
+(`qcontrib` messages, `qcomplaint` messages, `qjustify` messages, and
+`qpcommit` messages).
+
+There is no payload in a `qwatch` message.  See the [message header
+section][section message header] for an example of a message without a payload.
+
+{% endautocrossref %}
+
+
+#### Distributed Key Generation
+{% include helpers/subhead-links.md %}
+
+
+##### qcontrib
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
+intra-quorum communication and is only sent to the masternodes in the LLMQ and
+nodes that are monitoring in Watch Mode for auditing/debugging purposes.
+
+The `qcontrib` message is used by each member of the DKG process to send key
+contributions to all other members.
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 1 | llmqType | uint8_t | The type of LLMQ
+| 32 | quorumHash | uint256 | 	The quorum identifier
+| 32 | proTxHash | uint256 | The ProRegTx hash of the complaining member
+| 1-9 | vvecSize | compactSize uint | The size of the verification vector
+| 48 * `vvecSize` | vvec | BLSPubKey[] | The verification vector
+| 1-9 | skCount | compactSize uint | Number of encrypted secret key contributions
+| 32 * `skCount` | skContributions | byte[] | Secret key contributions encrypted to recipient masternodes’ BLS public operator key
+| 96 | sig | byte[] | BLS signature, signed with the operator key of the contributing masternode
+
+More information can be found in the [Contribution phase section of DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#2-contribution-phase).
+
+<!--
+The following annotated hexdump shows a `qcontrib` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
+{% endautocrossref %}
+
+
+##### qcomplaint
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
+intra-quorum communication and is only sent to the masternodes in the LLMQ and
+nodes that are monitoring in Watch Mode for auditing/debugging purposes.
+
+The `qcomplaint` message is used to notify other members of the DKG process of
+any members that provided an invalid secret key contribution.
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 1 | llmqType | uint8_t | The type of LLMQ
+| 32 | quorumHash | uint256 | 	The quorum identifier
+| 32 | proTxHash | uint256 | The ProRegTx hash of the complaining member
+| 1-9 | badBitSize | compactSize uint | Number of bits in the bad members bitvector
+| (`badBitSize` + 7) / 8 | badMembers | byte[] | The bad members bitvector
+| 1-9 | complaintsBitSize | compactSize uint | Number of bits in the complaints bitvector
+| (`complaints`<br>`BitSize` + 7) / 8 | complaints | byte[] | The complaints bitvector
+| 96 | sig | byte[] | BLS signature, signed with the operator key of the contributing masternode
+
+More information can be found in the [Complaining phase section of DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#3-complaining-phase).
+
+<!--
+The following annotated hexdump shows a `qcomplaint` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
+{% endautocrossref %}
+
+
+##### qjustify
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
+intra-quorum communication and is only sent to the masternodes in the LLMQ and
+nodes that are monitoring in Watch Mode for auditing/debugging purposes.
+
+The `qjustify` message is used to...
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 1 | llmqType | uint8_t | The type of LLMQ
+| 32 | quorumHash | uint256 | 	The quorum identifier
+| 32 | proTxHash | uint256 | The ProRegTx hash of the complaining member
+| 1-9 | skContributions<br>Count | compactSize uint | Number of unencrypted secret key contributions
+| 36 * `skContributions`<br>`Count` | skContribution | SKContribution | Member index and secret key contribution for members justifying complaints
+| 96 | sig | byte[] | BLS signature, signed with the operator key of the contributing masternode
+
+An `SKContribution` consists of:
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 4 | skContributionMember | uint32_t | Index of the member for which justification is provided
+| 32 | skContributions | byte[] | Unencrypted secret key contribution for the member contained in skContributionMember
+
+More information can be found in the [Justification phase section of DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#4-justification-phase).
+
+<!--
+The following annotated hexdump shows a `qjustify` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
+{% endautocrossref %}
+
+
+##### qpcommit
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
+intra-quorum communication and is only sent to the masternodes in the LLMQ and
+nodes that are monitoring in Watch Mode for auditing/debugging purposes.
+
+The `qpcommit` message is used to exchange premature commitment messages for
+verification and selection of the final commitment.
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 1 | llmqType | uint8_t | The type of LLMQ
+| 32 | quorumHash | uint256 | The quorum identifier
+| 32 | proTxHash | uint256 | The ProRegTx hash of the complaining member
+| 1-9 | validMembersSize | compactSize uint | Bit size of the `validMembers` bitvector
+| (`valid`<br>`MembersSize` + 7) / 8 | validMembers | byte[] | Bitset of valid members in this commitment
+| 48 | quorumPublicKey | uint256 | The quorum public key
+| (`complaints`<br>`BitSize` + 7) / 8 | quorumVvecHash | byte[] | The complaints bitvector
+| 96 | quorumSig | BLSSig | Threshold signature, signed with the threshold signature share of the committing member
+| 96 | sig | byte[] | BLS signature, signed with the operator key of the contributing masternode
+
+More information can be found in the [Commitment phase section of DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#5-commitment-phase).
+
+<!--
+The following annotated hexdump shows a `qpcommit` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
+{% endautocrossref %}
+
+
+##### qfcommit
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
@@ -2713,8 +3084,10 @@ valid final commitment.
 | (bitSize + 7) / 8 | validMembers | byte[] | Bitset of valid members in this commitment
 | 48 | quorumPublicKey | BLSPubKey | The quorum public key
 | 32 | quorumVvecHash | uint256 | The hash of the quorum verification vector
-| 96 | quorumSig | BLSSig | Recovered threshold signature
-| 96 | sig | BLSSig | Aggregated BLS signatures from all included commitments
+| 96 | quorumSig | byte[] | Recovered threshold signature
+| 96 | sig | byte[] | Aggregated BLS signatures from all included commitments
+
+More information can be found in the [Finalization phase section of DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#6-finalization-phase).
 
 <!--
 The following annotated hexdump shows a `qfcommit` message. (The
@@ -2726,6 +3099,222 @@ message header has been omitted.)
 
 -->
 {% endautocrossref %}
+
+
+#### Signing Sessions
+{% include helpers/subhead-links.md %}
+
+
+##### qbsigs
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
+intra-quorum communication and is only sent to the masternodes in the LLMQ and
+nodes that are monitoring in Watch Mode for auditing/debugging purposes.
+
+The `qbsigs` message is used to send batched signature shares in response to a
+`qgetsigs` message.
+
+Note: The number of messages that can be sent in a batch is limited to 400
+(as defined by `MAX_MSGS_TOTAL_BATCHED_SIGS`).
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| Varies | msgs | CBatchedSigShares | Batches of signature shares
+
+CBatchedSigShares:
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 4 | sessionId | uint32_t | Signing session ID
+|  | sigShares | <uint16_t, CBLSLazySignature> |
+
+<!--
+The following annotated hexdump shows a `qbsigs` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
+{% endautocrossref %}
+
+
+##### qgetsigs
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
+intra-quorum communication and is only sent to the masternodes in the LLMQ and
+nodes that are monitoring in Watch Mode for auditing/debugging purposes.
+
+The `qgetsigs` message is used to request signature shares. The response to a
+`qgetsigs` message is a `qbsigs` message.
+
+Note: The number of inventories in a `qgetsigs` message is limited to 200
+(as defined by `MAX_MSGS_CNT_QGETSIGSHARES`).
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 4 | sessionId | uint32_t | Signing session ID
+| 1-9 | invSize | compactSize uint | Number of inventory
+| * `invSize` | inv | | Signing shares
+
+<!--
+The following annotated hexdump shows a `qgetsigs` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
+{% endautocrossref %}
+
+
+##### qsendrecsigs
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+The `qsendrecsigs` message is used to notify a peer to send plain LLMQ recovered
+signatures (inventory type `MSG_QUORUM_RECOVERED_SIG`). Otherwise the peer would
+only announce/send the higher level messages produced when a recovered signature
+is found (e.g. InstantSend `islock` messages or ChainLock `clsig` messages).
+
+Note: SPV nodes should not send this message as they are usually only interested
+in the higher level messages.
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 1 | fSendRecSigs | bool | 0 - Notify peer to not send plain LLMQ recovered signatures<br>1 - Notify peer to send plain LLMQ recovered signatures (default for Dash Core nodes)
+
+<!--
+The following annotated hexdump shows a `qsendrecsigs` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
+{% endautocrossref %}
+
+
+##### qsigrec
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+The `qsigrec` message is used to provide recovered signatures and related quorum
+details to nodes that have requested this information via the `qsendrecsigs` message.
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 1 | llmqType | uint8_t | The type of LLMQ
+| 32 | quorumHash | uint256 | The quorum hash
+| 32 | id | uint256 | The signing request id
+| 32 | msgHash | uint256 | The message hash
+| 96 | sig | byte[] | The final recovered BLS threshold signature
+
+More information can be found in the [Recovered threshold signatures<!--noref--> section of DIP7](https://github.com/dashpay/dips/blob/master/dip-0007.md#recovered-threshold-signatures<!--noref-->).
+
+<!--
+The following annotated hexdump shows a `qsigrec` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
+{% endautocrossref %}
+
+
+##### qsigsesann
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
+intra-quorum communication and is only sent to the masternodes in the LLMQ and
+nodes that are monitoring in Watch Mode for auditing/debugging purposes.
+
+The `qsigsesann` message is used to announce the sessionId for a signing
+session. The sessionId will be used for all P2P messages related to that
+session.
+
+Note: The maximum number of announcements in a `qsigsesann` message is limited to
+100 (as defined by `MAX_MSGS_CNT_QSIGSESANN`).
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 4 | sessionId | uint32_t | Signing session ID (must be less than the maximum uint32_t value)
+| 1 | llmqType | uint8_t | The LLMQ type
+| 32 | quorumHash | uint256 | The quorum identifier
+| 32 | id | uint256 | The signing request id
+| 32 | msgHash | uint256 | The message hash
+
+<!--
+The following annotated hexdump shows a `qsigsesann` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
+{% endautocrossref %}
+
+
+##### qsigsinv
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+![Warning icon](/img/icons/icon_warning.svg) Note: This message is used for
+intra-quorum communication and is only sent to the masternodes in the LLMQ and
+nodes that are monitoring in Watch Mode for auditing/debugging purposes.
+
+The `qsigsinv` message (quorum signature inventory) announces one or more quorum
+signature share inventories known by the transmitting peer.
+
+Note: The maximum number of inventories in a `qsigsinv` message is limited to
+200 (as defined by `MAX_MSGS_CNT_QSIGSHARESINV`).
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 4 | sessionId | uint32_t | Signing session ID (must be less than the maximum uint32_t value)
+| 8 | invSize | uint64_t |
+|  | inv |  |
+
+<!--
+The following annotated hexdump shows a `qsigsinv` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+-->
+{% endautocrossref %}
+
 
 ### Governance Messages
 {% include helpers/subhead-links.md %}
