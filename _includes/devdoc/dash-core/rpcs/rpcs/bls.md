@@ -9,13 +9,13 @@ http://opensource.org/licenses/MIT.
 ##### BLS
 {% include helpers/subhead-links.md %}
 
-{% assign summary_bLS="provides a set of commands to execute BLS-related actions." %}
+{% assign summary_bls="provides a set of commands to execute BLS-related actions." %}
 
 {% autocrossref %}
 
 *Added in Dash Core 0.13.0*
 
-The `bls` RPC {{summary_bLS}}
+The `bls` RPC {{summary_bls}}
 
 {% endautocrossref %}
 
