@@ -103,7 +103,7 @@ The `getnetworkinfo` RPC {{summary_getNetworkInfo}}
 - n: "→<br>`relayfee`"
   t: "number (DASH)"
   p: "Required<br>(exactly 1)"
-  d: "The minimum relay fee for non-free transactions in order for this node to accept it into its memory pool"
+  d: "The minimum relay fee per kilobyte for transactions in order for this node to accept it into its memory pool"
 
 - n: "→<br>`incrementalfee`"
   t: "number (DASH)"

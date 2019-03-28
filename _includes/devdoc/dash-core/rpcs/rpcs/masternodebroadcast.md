@@ -11,7 +11,7 @@ http://opensource.org/licenses/MIT.
 
 {% autocrossref %}
 
-**_Removed in Dash Core 0.14.0._**
+{{WARNING}} **_Removed in Dash Core 0.14.0._**
 
 The `masternodebroadcast` RPC {{summary_masternodeBroadcast}}
 

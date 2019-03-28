@@ -3,6 +3,7 @@ This file is licensed under the MIT License (MIT) available on
 http://opensource.org/licenses/MIT.
 {% endcomment %}
 {% assign filename="_includes/devdoc/dash-core/rpcs/rpcs/prioritisetransaction.md" %}
+<!--__-->
 
 ##### PrioritiseTransaction
 {% include helpers/subhead-links.md %}
@@ -23,17 +24,7 @@ The `prioritisetransaction` RPC {{summary_prioritiseTransaction}}
 
 {% enditemplate %}
 
-*Parameter #2---the change to make to the virtual priority*
-
-{% itemplate ntpd1 %}
-- n: "Priority"
-  t: "number (real)"
-  p: "Required<br>(exactly 1)"
-  d: "If positive, the priority to add to the transaction in addition to its computed priority; if negative, the priority to subtract from the transaction's computed priory.  Computed priority is the age of each input in days since it was added to the block chain as an output (coinage) times the value of the input in satoshis (value) divided by the size of the serialized transaction (size), which is `coinage * value / size`"
-
-{% enditemplate %}
-
-*Parameter #3---the change to make to the virtual fee*
+*Parameter #2---the change to make to the virtual fee*
 
 {% itemplate ntpd1 %}
 - n: "Fee"
@@ -53,12 +44,12 @@ The `prioritisetransaction` RPC {{summary_prioritiseTransaction}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.14.0*
 
 {% highlight bash %}
 dash-cli -testnet prioritisetransaction \
     f86c74f27fdd9c7e618d69b3606eeae1710b3f02fabede6ae8c88dd7bb756942 \
-    1234 456789
+    456789
 {% endhighlight %}
 
 Result:

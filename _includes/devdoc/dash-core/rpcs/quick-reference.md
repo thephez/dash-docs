@@ -145,8 +145,8 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 
 {% autocrossref %}
 
-* [Debug][rpc debug]: {{summary_debug}} {{DASH_UPDATED0_12_3}}
-* [GetInfo][rpc getinfo]: {{summary_getInfo}} {{DEPRECATED}}
+* [Debug][rpc debug]: {{summary_debug}} {{DASH_UPDATED0_14_0}}
+* [GetInfo][rpc getinfo]: {{summary_getInfo}} {{DASH_UPDATED0_14_0}} {{DEPRECATED}}
 * [GetMemoryInfo][rpc getmemoryinfo]: {{summary_getMemoryInfo}} {{DASH_NEW0_12_3}} {{NEW_14_0}}
 * [Help][rpc help]: {{summary_help}}
 * [Stop][rpc stop]: {{summary_stop}}
@@ -203,7 +203,7 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 * [GetBlockTemplate][rpc getblocktemplate]: {{summary_getBlockTemplate}} {{DASH_UPDATED0_13_0}}
 * [GetMiningInfo][rpc getmininginfo]: {{summary_getMiningInfo}} {{UPDATED0_14_0}}
 * [GetNetworkHashPS][rpc getnetworkhashps]: {{summary_getNetworkHashPS}}
-* [PrioritiseTransaction][rpc prioritisetransaction]: {{summary_prioritiseTransaction}}
+* [PrioritiseTransaction][rpc prioritisetransaction]: {{summary_prioritiseTransaction}} {{UPDATED0_14_0}}
 * [SubmitBlock][rpc submitblock]: {{summary_submitBlock}}
 
 {% endautocrossref %}
@@ -220,7 +220,7 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 * [GetAddedNodeInfo][rpc getaddednodeinfo]: {{summary_getAddedNodeInfo}} {{DASH_UPDATED0_12_3}} {{UPDATED0_14_0}}
 * [GetConnectionCount][rpc getconnectioncount]: {{summary_getConnectionCount}}
 * [GetNetTotals][rpc getnettotals]: {{summary_getNetTotals}} {{UPDATED0_12_0}}
-* [GetNetworkInfo][rpc getnetworkinfo]: {{summary_getNetworkInfo}} {{DASH_UPDATED0_12_3}} {{UPDATED0_13_0}}
+* [GetNetworkInfo][rpc getnetworkinfo]: {{summary_getNetworkInfo}} {{DASH_UPDATED0_14_0}}
 * [GetPeerInfo][rpc getpeerinfo]: {{summary_getPeerInfo}} {{UPDATED0_13_0}}
 * [ListBanned][rpc listbanned]: {{summary_listBanned}} {{NEW0_12_0}}
 * [Ping][rpc ping]: {{summary_ping-rpc}}
@@ -253,9 +253,7 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 
 * [CreateMultiSig][rpc createmultisig]: {{summary_createMultiSig}}
 * [EstimateFee][rpc estimatefee]: {{summary_estimateFee}}
-* [EstimatePriority][rpc estimatepriority]: {{summary_estimatePriority}} {{DEPRECATED}}
 * [EstimateSmartFee][rpc estimatesmartfee]: {{summary_estimateSmartFee}} {{DEPRECATED}}
-* [EstimateSmartPriority][rpc estimatesmartpriority]: {{summary_estimateSmartPriority}} {{DEPRECATED}}
 * [SetBIP69Enabled][rpc setbip69enabled]: {{summary_setBIP69Enabled}}  {{DASH_NEW0_12_3}}
 * [SignMessageWithPrivKey][rpc signmessagewithprivkey]: {{summary_signMessageWithPrivKey}}  {{DASH_NEW0_12_3}} {{NEW0_13_0}}
 * [ValidateAddress][rpc validateaddress]: {{summary_validateAddress}} {{DASH_UPDATED0_12_3}} {{UPDATED0_13_0}}
@@ -336,6 +334,8 @@ default.
 
 {% autocrossref %}
 
+* [EstimatePriority][rpc estimatepriority]: {{summary_estimatePriority}}
+* [EstimateSmartPriority][rpc estimatesmartpriority]: {{summary_estimateSmartPriority}}
 * [GetHashesPerSec][rpc gethashespersec]: {{summary_getHashesPerSec}}
 * [GetWork][rpc getwork]: {{summary_getWork}}
 * [GetGenerate][rpc getgenerate]: {{summary_getGenerate}}
