@@ -3,6 +3,7 @@ This file is licensed under the MIT License (MIT) available on
 http://opensource.org/licenses/MIT.
 {% endcomment %}
 {% assign filename="_includes/devdoc/dash-core/rpcs/rpcs/getinfo.md" %}
+<!--__ -->
 
 ##### GetInfo
 {% include helpers/subhead-links.md %}
@@ -104,7 +105,7 @@ Core.  Use the RPCs listed in the See Also subsection below instead.
 - n: "→<br>`relayfee`"
   t: "number (duffs)"
   p: "Required<br>(exactly 1)"
-  d: "The minimum fee a low-priority transaction must pay in order for this node to accept it into its memory pool"
+  d: "The minimum fee per kilobyte a transaction must pay in order for this node to accept it into its memory pool"
 
 - n: "→<br>`errors`"
   t: "string"

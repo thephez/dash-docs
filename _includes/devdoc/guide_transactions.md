@@ -671,18 +671,12 @@ Dash miner, as explained in the [block chain section][section block chain], and
 so it is ultimately up to each miner to choose the minimum transaction fee they
 will accept.
 
-There is also a concept of so-called "[high-priority transactions][/en/glossary/high-priority-transaction]{:#term-high-priority-transactions}{:.term}"
-which spend duffs that have not moved for a long time.
-
-These "priority" transaction can be often exempt from the normal fee
-requirements. As of Dash Core 0.12.2, 10 KB of each block are reserved for these
-high-priority transactions.  After the priority area, all transactions are
-prioritized based on their fee per byte, with higher-paying transactions being
-added in sequence until all of the available space is filled.
+All transactions are prioritized based on their fee per byte, with higher-paying
+transactions being added in sequence until all of the available space is filled.
 <!-- Consider adding links to blockmaxsize and blockmaxweight options once available in the glossary. -->
 
-As of Dash Core 0.12.2.x, a [minimum fee][/en/glossary/minimum-relay-fee]{:#term-minimum-fee}{:.term}(1,000 duffs following [DIP1][] activation) is required to
-broadcast a non-priority transaction across the network. Any transaction paying
+As of Dash Core 0.12.2.x, a [minimum fee][/en/glossary/minimum-relay-fee]{:#term-minimum-fee}{:.term} (1,000 duffs following [DIP1][] activation) is required to
+broadcast a transaction across the network. Any transaction paying
 only the minimum fee should be prepared to wait a long time before there's
 enough spare space in a block to include it.
 
