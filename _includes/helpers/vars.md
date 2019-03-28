@@ -48,6 +48,16 @@ http://opensource.org/licenses/MIT.
   p: "Required<br>(exactly 1)"
   d: "The number of confirmations the transaction has received.  Will be `0` for unconfirmed and `-1` for conflicted"
 
+- n: "→<br>`instantlock`"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: "Current transaction lock state"
+
+- n: "<br>`chainlock`"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: "*Added in Dash Core 0.14.0*<br><br>If set to `true`, this transaction is in a block that is locked (not susceptible to a chain re-org)"  
+
 - n: "{{DEPTH}}<br>`generated`"
   t: "bool"
   p: "Optional<br>(0 or 1)"
