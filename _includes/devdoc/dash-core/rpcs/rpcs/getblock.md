@@ -3,6 +3,7 @@ This file is licensed under the MIT License (MIT) available on
 http://opensource.org/licenses/MIT.
 {% endcomment %}
 {% assign filename="_includes/devdoc/dash-core/rpcs/rpcs/getblock.md" %}
+<!--__-->
 
 ##### GetBlock
 {% include helpers/subhead-links.md %}
@@ -95,6 +96,26 @@ The `getblock` RPC {{summary_getBlock}}
   t: "string (hex)"
   p: "Required<br>(1 or more)"
   d: "The TXID of a transaction in this block, encoded as hex in RPC byte order"
+
+- n: "→<br>`cbTx`"
+  t: "object"
+  p: "Required<br>(exactly 1)"
+  d: "Coinbase special transaction details"
+
+- n: "→ →<br>`version`"
+  t: "number (int)"
+  p: "Required<br>(exactly 1)"
+  d: "The version of the Coinbase special transaction (CbTx)"
+
+- n: "→ →<br>`height`"
+  t: "number (int)"
+  p: "Required<br>(exactly 1)"
+  d: "The height of this block on its block chain"
+
+- n: "→ →<br>`merkleRootMNList`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The merkle root for the masternode list"
 
 - n: "→<br>`time`"
   t: "number (int)"
@@ -190,6 +211,26 @@ The `getblock` RPC {{summary_getBlock}}
   d: "An array containing the TXIDs of all transactions in this block.  The transactions appear in the array in the same order they appear in the serialized block"
 
 {{INCLUDE_DECODE_RAW_TRANSACTION}}
+
+- n: "→<br>`cbTx`"
+  t: "object"
+  p: "Required<br>(exactly 1)"
+  d: "Coinbase special transaction details"
+
+- n: "→ →<br>`version`"
+  t: "number (int)"
+  p: "Required<br>(exactly 1)"
+  d: "The version of the Coinbase special transaction (CbTx)"
+
+- n: "→ →<br>`height`"
+  t: "number (int)"
+  p: "Required<br>(exactly 1)"
+  d: "The height of this block on its block chain"
+
+- n: "→ →<br>`merkleRootMNList`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The merkle root for the masternode list"
 
 - n: "→<br>`time`"
   t: "number (int)"
