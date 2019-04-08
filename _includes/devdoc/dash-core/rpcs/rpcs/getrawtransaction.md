@@ -100,9 +100,14 @@ deprecated.
   p: "Required<br>(exactly 1)"
   d: "If set to `true`, this transaction is locked"
 
+- n: "<br>`chainlock`"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: "*Added in Dash Core 0.14.0*<br><br>If set to `true`, this transaction is in a block that is locked (not susceptible to a chain re-org)"
+
 {% enditemplate %}
 
-*Examples from Dash Core 0.13.0*
+*Examples from Dash Core 0.14.0*
 
 A classical transaction in serialized transaction format:
 
@@ -188,6 +193,7 @@ Result:
   "time": 1546278750,
   "blocktime": 1546278750,
   "instantlock": true
+  "chainlock": false
 }
 {% endhighlight %}
 

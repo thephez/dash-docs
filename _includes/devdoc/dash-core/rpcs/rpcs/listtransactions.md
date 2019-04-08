@@ -109,15 +109,20 @@ The `listtransactions` RPC {{summary_listTransactions}}
   p: "Required<br>(exactly 1)"
   d: "Current transaction lock state"  
 
-- n: "→ →<br>`trusted`"
+- n: "<br>`chainlock`"
   t: "bool"
-  p: "Optional<br>(0 or 1)"
-  d: "Indicates whether we consider the outputs of this unconfirmed transaction safe to spend.  Only returned for unconfirmed transactions"
+  p: "Required<br>(exactly 1)"
+  d: "*Added in Dash Core 0.14.0*<br><br>If set to `true`, this transaction is in a block that is locked (not susceptible to a chain re-org)"
 
 - n: "→ →<br>`generated`"
   t: "bool"
   p: "Optional<br>(0 or 1)"
   d: "Set to `true` if the transaction is a coinbase.  Not returned for regular transactions or *move* category payments"
+
+- n: "→ →<br>`trusted`"
+  t: "bool"
+  p: "Optional<br>(0 or 1)"
+  d: "Indicates whether we consider the outputs of this unconfirmed transaction safe to spend.  Only returned for unconfirmed transactions"
 
 - n: "→ →<br>`blockhash`"
   t: "string (hex)"
@@ -174,11 +179,6 @@ The `listtransactions` RPC {{summary_listTransactions}}
   p: "Optional<br>(0 or 1)"
   d: "This is the account the dash were moved from or moved to, as indicated by a negative or positive *amount* field in this payment.  Only returned by *move* category payments"
 
-- n: "→ →<br>`bip125-replaceable`"
-  t: "string"
-  p: "Required<br>(exactly 1)"
-  d: "*Added in Bitcoin Core 0.12.0*<br><br>Indicates if a transaction is replaceable under BIP125:<br>• `yes` replaceable<br>• `no` not replaceable<br>• `unknown` for unconfirmed transactions not in the mempool"
-
 - n: "→ →<br>`abandoned`"
   t: "bool"
   p: "Optional<br>(0 or 1)"
@@ -186,7 +186,7 @@ The `listtransactions` RPC {{summary_listTransactions}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.14.0*
 
 List the most recent transaction from the main account including watch-only addresses.
 
@@ -199,24 +199,25 @@ Result:
 {% highlight json %}
 [
   {
-    "account": "MN Setup",
-    "address": "yY6AmGopsZS31wy1JLHR9P6AC6owFaXwuh",
-    "category": "immature",
-    "amount": 11.25000000,
-    "label": "MN Setup",
-    "vout": 3,
-    "confirmations": 20,
-    "instantlock": false,
-    "generated": true,
-    "blockhash": "000000000207e556193e19287d2e554a5f99e1ff7cb19367e8de8ad6bacc494e",
-    "blockindex": 0,
-    "blocktime": 1511986957,
-    "txid": "cd9d44cd87ffb784f9dac384bad7db55324d3f47724eb60e16b3de6a26175936",
+    "account": "",
+    "address": "ySGKtDZ3qBHRqk7mHsdofShQkqMcAS7SYJ",
+    "category": "send",
+    "amount": -0.50000000,
+    "label": "",
+    "vout": 1,
+    "fee": -0.00040000,
+    "confirmations": 3,
+    "instantlock": true,
+    "chainlock": false,
+    "blockhash": "000000000327ff7785d799dde99949457ac231ef1d956a2287c2f7bb84d9738c",
+    "blockindex": 2,
+    "blocktime": 1553798971,
+    "txid": "048aae3ad194f5398b67fc7029b26bf50d66ecc7d185fd6d26f8c6ec5a4ed1f9",
     "walletconflicts": [
     ],
-    "time": 1511986957,
-    "timereceived": 1511986982,
-    "bip125-replaceable": "no"
+    "time": 1553798920,
+    "timereceived": 1553798920,
+    "abandoned": false
   }
 ]
 {% endhighlight %}
