@@ -305,7 +305,7 @@ default.
 * [ListLockUnspent][rpc listlockunspent]: {{summary_listLockUnspent}}
 * [ListReceivedByAccount][rpc listreceivedbyaccount]: {{summary_listReceivedByAccount}} {{DASH_UPDATED0_13_0}} {{DEPRECATED}}
 * [ListReceivedByAddress][rpc listreceivedbyaddress]: {{summary_listReceivedByAddress}} {{DASH_UPDATED0_13_0}}
-* [ListSinceBlock][rpc listsinceblock]: {{summary_listSinceBlock}}
+* [ListSinceBlock][rpc listsinceblock]: {{summary_listSinceBlock}} {{DASH_UPDATED0_14_0}}
 * [ListTransactions][rpc listtransactions]: {{summary_listTransactions}} {{DASH_UPDATED0_14_0}}
 * [ListUnspent][rpc listunspent]: {{summary_listUnspent}} {{DASH_UPDATED0_12_3}} {{UPDATED0_13_0}}
 * [LockUnspent][rpc lockunspent]: {{summary_lockUnspent}}
