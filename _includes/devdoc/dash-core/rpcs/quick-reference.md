@@ -162,7 +162,7 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 * [GetGovernanceInfo][rpc getgovernanceinfo]: {{summary_getGovernanceInfo}} {{DASH_UPDATED0_14_0}}
 * [GetPoolInfo][rpc getpoolinfo]: {{summary_getPoolInfo}}
 * [GetSuperblockBudget][rpc getsuperblockbudget]: {{summary_getSuperblockBudget}}
-* [GObject][rpc gobject]: {{summary_gObject}} {{DASH_UPDATED0_13_0}}
+* [GObject][rpc gobject]: {{summary_gObject}} {{DASH_UPDATED0_14_0}}
 * [Masternode][rpc masternode]: {{summary_masternode}} {{DASH_UPDATED0_14_0}}
 * [MasternodeList][rpc masternodelist]: {{summary_masternodeList}} {{DASH_UPDATED0_14_0}}
 * [MnSync][rpc mnsync]: {{summary_mnSync}} {{DASH_UPDATED0_14_0}}
