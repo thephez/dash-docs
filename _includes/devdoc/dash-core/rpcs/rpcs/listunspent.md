@@ -60,7 +60,7 @@ the *spendable* field in the results described below.
 - n: "Include Unsafe"
   t: "bool"
   p: "Optional<br>(false or true)"
-  d: "Include outputs that are not safe to spend because they come from unconfirmed untrusted transactions or unconfirmed replacement transactions (cases where we are less sure that a conflicting transaction won't be mined).  Default is `true`"
+  d: "Include outputs that are not safe to spend . See description of `safe` attribute below.  Default is `true`"
 
 {% enditemplate %}
 
@@ -133,9 +133,14 @@ the *spendable* field in the results described below.
   p: "Required<br>(exactly 1)"
   d: "The number of PrivateSend rounds"
 
+- n: "→ →<br>`safe`"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: "*Added in Bitcoin Core 0.15.0*<br><br>Whether this output is considered safe to spend. Unconfirmed transactions from outside keys and unconfirmed replacement transactions are considered unsafe and are not eligible for spending by `fundrawtransaction` and `sendtoaddress`."
+
 {% enditemplate %}
 
-*Example from Dash Core 0.12.3*
+*Example from Dash Core 0.14.0*
 
 Get all outputs confirmed at least 6 times for a particular
 address:
@@ -143,7 +148,7 @@ address:
 {% highlight bash %}
 dash-cli -testnet listunspent 6 99999999 '''
   [
-    "yXGNabkdQ3JZ7LZ9RCnFe5dqhtBA3hVmU8"
+    "yLki4jbxX28JB3TThm1DTgRfbKVhhiMx3d"
   ]
 '''
 {% endhighlight %}
@@ -153,15 +158,16 @@ Result:
 {% highlight json %}
 [
   {
-    "txid": "0e86f58c56648175362443c1ef28e473acb4c4adc1b3f7983deaddfa3a61a4d7",
-    "vout": 4,
-    "address": "yXGNabkdQ3JZ7LZ9RCnFe5dqhtBA3hVmU8",
-    "scriptPubKey": "76a91478149277b5d820b04e60cbf96ff81fd1ccc6533388ac",
-    "amount": 0.01000010,
-    "confirmations": 609,
+    "txid": "534fe12e360773dddf8aa125a4027d2d8c0073e13ff2f04fd733202b85dbdcf1",
+    "vout": 0,
+    "address": "yLki4jbxX28JB3TThm1DTgRfbKVhhiMx3d",
+    "scriptPubKey": "76a91404c719ccf48d39d3e6253ac98edaf2b5d24f0c0588ac",
+    "amount": 1.00001000,
+    "confirmations": 85,
     "spendable": true,
     "solvable": true,
-    "ps_rounds": 5
+    "safe": true,
+    "ps_rounds": 13
   }
 ]
 {% endhighlight %}
