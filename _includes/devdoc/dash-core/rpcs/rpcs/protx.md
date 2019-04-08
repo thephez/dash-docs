@@ -736,10 +736,10 @@ The `protx<!--noref--> update_registrar` RPC creates and sends a ProUpRegTx to t
 *Parameter #3---voting key address*
 
 {% itemplate ntpd1 %}
-- n: "`votingKeyAddr`"
+- n: "`votingAddress`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "The voting key address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to '0' or an empty string, the last on-chain voting key of the masternode will be used."
+  d: "The voting key address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to an empty string, `ownerAddress` will be used."
 {% enditemplate %}
 
 *Parameter #4---operator payout address*
