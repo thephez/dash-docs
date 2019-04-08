@@ -71,7 +71,7 @@ The `listsinceblock` RPC {{summary_listSinceBlock}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.14.0*
 
 Get all transactions since a particular block (including watch-only
 transactions) and the header hash of the sixth most recent block.
@@ -89,48 +89,43 @@ Result (edited to show only two payments):
   "transactions": [
     {
       "account": "",
-      "address": "yfCjqf9F7oNGD1sRqta2rNpCXSQ9dknDf5",
+      "address": "yLXe1NwXmhZbtM6drTXbWFvtEqpsJZkKd2",
       "category": "send",
-      "amount": -0.01000010,
-      "vout": 7,
-      "fee": 0.05000050,
-      "confirmations": 95,
-      "instantlock": false,
-      "blockhash": "0000000002aa705754c6ab4e15cf2183a1d174e61c080f64eb469c458669144b",
-      "blockindex": 1,
-      "blocktime": 1511972930,
-      "txid": "52e34eec71a4cf95c043b76567f55cec1bc293c444810d454a2d05f2a819b5ed",
+      "amount": -1.00000000,
+      "label": "Receiving",
+      "vout": 0,
+      "fee": -0.00000226,
+      "confirmations": 0,
+      "instantlock": true,
+      "chainlock": false,
+      "trusted": true,
+      "txid": "cc2e6c49faae395d79cfc91d188881e479f544c220e4dfee016889cd53b32645",
       "walletconflicts": [
       ],
-      "time": 1511972930,
-      "timereceived": 1511974218,
-      "bip125-replaceable": "no",
+      "time": 1554734925,
+      "timereceived": 1554734925,
       "abandoned": false
     },
     {
       "account": "",
-      "address": "yi2U4Cx2QH33LdNwk2c2oLABWzEZWhYU9k",
-      "category": "send",
-      "amount": -0.01000010,
-      "vout": 8,
-      "fee": 0.05000050,
-      "confirmations": 95,
-      "instantlock": false,
-      "blockhash": "0000000002aa705754c6ab4e15cf2183a1d174e61c080f64eb469c458669144b",
-      "blockindex": 1,
-      "blocktime": 1511972930,
-      "txid": "52e34eec71a4cf95c043b76567f55cec1bc293c444810d454a2d05f2a819b5ed",
+      "address": "yLXe1NwXmhZbtM6drTXbWFvtEqpsJZkKd2",
+      "category": "receive",
+      "amount": 1.00000000,
+      "label": "Receiving",
+      "vout": 0,
+      "confirmations": 0,
+      "instantlock": true,
+      "chainlock": false,
+      "trusted": true,
+      "txid": "cc2e6c49faae395d79cfc91d188881e479f544c220e4dfee016889cd53b32645",
       "walletconflicts": [
       ],
-      "time": 1511972930,
-      "timereceived": 1511974218,
-      "bip125-replaceable": "no",
-      "abandoned": false
+      "time": 1554734925,
+      "timereceived": 1554734925
     }
   ],
-  "lastblock": "000000000dba5583e3fc5c2df06b478e922702f53a1476aac8eb4322f648ccea"
+  "lastblock": "0000000006be841cd8534b02733d833ad9dd7634ab0897a7e5cd92c574a529a3"
 }
-
 {% endhighlight %}
 
 *See also*

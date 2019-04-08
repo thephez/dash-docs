@@ -48,6 +48,16 @@ http://opensource.org/licenses/MIT.
   p: "Required<br>(exactly 1)"
   d: "The number of confirmations the transaction has received.  Will be `0` for unconfirmed and `-1` for conflicted"
 
+- n: "→<br>`instantlock`"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: "Current transaction lock state"
+
+- n: "<br>`chainlock`"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: "*Added in Dash Core 0.14.0*<br><br>If set to `true`, this transaction is in a block that is locked (not susceptible to a chain re-org)"  
+
 - n: "{{DEPTH}}<br>`generated`"
   t: "bool"
   p: "Optional<br>(0 or 1)"
@@ -92,11 +102,6 @@ http://opensource.org/licenses/MIT.
   t: "number (int)"
   p: "Required<br>(exactly 1)"
   d: "A Unix epoch time when the transaction was detected by the local node, or the time of the block on the local best block chain that included the transaction"
-
-- n: "{{DEPTH}}<br>`bip125-replaceable`"
-  t: "string"
-  p: "Required<br>(exactly 1)"
-  d: "*Added in Bitcoin Core 0.12.0*<br><br>Indicates if a transaction is replaceable under BIP 125:<br>• `yes` is replaceable<br>• `no` not replaceable<br>• `unknown` for unconfirmed transactions not in the mempool"
 
 - n: "{{DEPTH}}<br>`comment`"
   t: "string"

@@ -52,11 +52,6 @@ The `gettransaction` RPC {{summary_getTransaction}}
   p: "Optional<br>(0 or 1)"
   d: "If an outgoing transaction, this is the fee paid by the transaction reported as negative dash"
 
-- n: "→<br>`instantlock`"
-  t: "bool"
-  p: "Required<br>(exactly 1)"
-  d: "Current transaction lock state"
-
 {{INCLUDE_F_LIST_TRANSACTIONS_F_FULL}}
 
 - n: "→<br>`DS`"
@@ -94,6 +89,11 @@ The `gettransaction` RPC {{summary_getTransaction}}
   p: "Required<br>(exactly 1)"
   d: "A negative dash amount if sending payment; a positive dash amount if receiving payment (including coinbases)"
 
+- n: "→ →<br>`label`"
+  t: "string"
+  p: "Optional<br>(0 or 1)"
+  d: "An optional comment for the address/transaction"
+
 - n: "→ →<br>`vout`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
@@ -116,52 +116,44 @@ The `gettransaction` RPC {{summary_getTransaction}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.14.0*
 
 {% highlight bash %}
 dash-cli -testnet gettransaction \
-  345d5f708b047b145f6a40a4e1e36c76648611cd009bd073e607c8ddf47bb797
+  c099c882745ad150e9b2a55ef5818683c7ef597e1e5fc20856c67eabc3778ccc
 {% endhighlight %}
 
 Result:
-
 {% highlight json %}
 {
-  "amount": 0.00000000,
-  "fee": -0.00010000,
-  "confirmations": 20,
+  "amount": -50.00000000,
+  "fee": -0.00030000,
+  "confirmations": 3064,
   "instantlock": false,
+  "chainlock": false,
+  "blockhash": "00000a01007be2912c3123085534b58d341cb5e5980b967e8dcc021089487a1e",
+  "blockindex": 1,
+  "blocktime": 1553290594,
   "trusted": true,
-  "txid": "345d5f708b047b145f6a40a4e1e36c76648611cd009bd073e607c8ddf47bb797",
+  "txid": "c099c882745ad150e9b2a55ef5818683c7ef597e1e5fc20856c67eabc3778ccc",
   "walletconflicts": [
   ],
-  "time": 1511967821,
-  "timereceived": 1511967821,
-  "bip125-replaceable": "no",
-  "DS": "1",
+  "time": 1553290584,
+  "timereceived": 1553290584,
   "details": [
     {
       "account": "",
-      "address": "ybTSbNqB7nG4ZVbHyati6GbfFz5w7tDnHf",
-      "category": "privatesend",
-      "amount": -10.00000000,
-      "label": "PS",
-      "vout": 0,
-      "fee": -0.00010000,
+      "address": "ycCsAUKsjdmoP4qAXiS1cjYA4ixM48zJWe",
+      "category": "send",
+      "amount": -50.00000000,
+      "label": "Electrum",
+      "vout": 1,
+      "fee": -0.00030000,
       "abandoned": false
-    },
-    {
-      "account": "PS",
-      "address": "ybTSbNqB7nG4ZVbHyati6GbfFz5w7tDnHf",
-      "category": "receive",
-      "amount": 10.00000000,
-      "label": "PS",
-      "vout": 0
     }
   ],
-  "hex": "010000000156d338508686982770a101c9fd41ce8b2c6ff4eb17dac6b1e7a32dfc5d2ae6e9030000006b4830450221008e8bf68440818d2b2fe8bcc2447d3b455f4e27864dae3f2bc62d2c8d1fdadaad0220390a0810f7f75436a7ebb0bc5c5a5e377b2330e1395f42b5f96d249ac9705ffc012103f4398f7e93dcc64a24191dbae57ef1ccbfcbd867f39a714020e66cf5b10050c4feffffff0100ca9a3b000000001976a914a60d00463c9eed290555e8f719333fc6b21c636088ac89850000"
+  "hex": "0200000003aac865dba0e98fe32533df6bc3eaac160d04bb02966584fb61fc8d7788e09537010000006a47304402202d537257f23ab42b3e14f2ab533f39bb4586aa1b29a1f833f718a59493c8a601022019c6c156c20e66ef256519592b3c977b64d417c94aea4dca20cf18522a138993012103c67d86944315838aea7ec80d390b5d09b91b62483370d4979da5ccf7a7df77a9feffffff47833a270d2e2bac47bc5dc0df576c3a68b01bedbc89692060ac4113a6f9cb67010000006a4730440220442c19a913b10edc533bf63310f5294d6d91eec0eb9c510a3c6b0f33333f27320220501d5093ecdf603b8af9734e21d5de4710c8500309bfa4acdda243a294442b2c012103c67d86944315838aea7ec80d390b5d09b91b62483370d4979da5ccf7a7df77a9feffffffdcfd2d0fb30d79ffeadab8832e65be2310b67043ff3d74deac9a9cb825acda67000000006b483045022100cae8c025d3bec82903f356a5ec38d78a141447b6562e3aceac901f5fcc6f8567022076407835937514d6690c81c0c3b97f92d2b0ae9749249affaf539ead825692f4012102d6be44ab930ff67f084fbaf47a38b539b8d5da65c010952a972c9e524b6009dffeffffff0204fe2b00000000001976a914e3b0093477c2f629430d0a7b5813fe8b0153b0fd88ac00f2052a010000001976a914ae4365dedb1836ba215b9149602e0787a23376d288ac42010100"
 }
-
 {% endhighlight %}
 
 *See also*
