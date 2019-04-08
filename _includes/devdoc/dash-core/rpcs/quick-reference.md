@@ -179,7 +179,7 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 {% autocrossref %}
 
 * [BLS][rpc bls]: {{summary_bls}} {{DASH_NEW0_13_0}}
-* [ProTx][rpc protx]: {{summary_proTx}} {{DASH_UPDATED0_13_2}}
+* [ProTx][rpc protx]: {{summary_proTx}} {{DASH_UPDATED0_14_0}}
 
 {% endautocrossref %}
 
