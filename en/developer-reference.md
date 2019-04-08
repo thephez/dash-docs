@@ -294,6 +294,8 @@ untrusted source.
 
 {% include devdoc/dash-core/rpcs/rpcs/pruneblockchain.md %}
 
+{% include devdoc/dash-core/rpcs/rpcs/quorum.md %}
+
 {% include devdoc/dash-core/rpcs/rpcs/removeprunedfunds.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/sendfrom.md %}

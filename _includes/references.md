@@ -180,6 +180,7 @@ http://opensource.org/licenses/MIT.
 [rpc pruneblockchain]: /en/developer-reference#pruneblockchain
 [rpc prioritisetransaction]: /en/developer-reference#prioritisetransaction
 [rpc privatesend]: /en/developer-reference#privatesend
+[rpc quorum]: /en/developer-reference#quorum
 [rpc removeprunedfunds]: /en/developer-reference#removeprunedfunds
 [rpc sendfrom]: /en/developer-reference#sendfrom
 [rpc sendmany]: /en/developer-reference#sendmany

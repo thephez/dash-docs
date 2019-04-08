@@ -180,6 +180,7 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 
 * [BLS][rpc bls]: {{summary_bls}} {{DASH_UPDATED0_14_0}}
 * [ProTx][rpc protx]: {{summary_proTx}} {{DASH_UPDATED0_14_0}}
+* [Quorum][rpc quorum]: {{summary_quorum}} {{DASH_NEW0_14_0}}
 
 {% endautocrossref %}
 

@@ -112,6 +112,7 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_privateSend="controls the mixing process." %}
 {% assign summary_proTx="provides a set of commands to execute ProTx related actions." %}
 {% assign summary_pruneBlockChain="prunes the blockchain up to a specified height or timestamp." %}
+{% assign summary_quorum="provides a set of commands for quorums (LLMQs)." %}
 {% assign summary_removePrunedFunds="deletes the specified transaction from the wallet. Meant for use with pruned wallets and as a companion to importprunedfunds." %}
 {% assign summary_restGetBlock-noTxDetails="gets a block with a particular header hash from the local block database either as a JSON object or as a serialized block.  The JSON object includes TXIDs for transactions within the block rather than the complete transactions [GET block][rest get block] returns." %}
 {% assign summary_restGetBlock="gets a block with a particular header hash from the local block database either as a JSON object or as a serialized block." %}
