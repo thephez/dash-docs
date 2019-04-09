@@ -153,7 +153,7 @@ The `quorum<!--noref--> info` RPC returns information about a specific quorums.
   d: "An object describing a particular member"
 
 - n: "→ → →<br>`proTxHash`"
-  t: "string"
+  t: "string (hex)"
   p: "Required<br>(exactly 1)"
   d: "The masternode's Provider Registration transaction hash"
 
@@ -234,6 +234,145 @@ Result (truncated):
 ###### Quorum<!--noref--> DKGStatus
 <!-- no subhead-links here -->
 
+{% autocrossref %}
+
+The `quorum<!--noref--> list` RPC displays a list of on-chain quorums.
+
+*Parameter #1---provider registration hash*
+
+{% itemplate ntpd1 %}
+- n: "`proTxHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The Provider Registration transaction hash of the masternode to show status for. If set to an empty string, the local status is shown."
+{% enditemplate %}
+
+*Parameter #2---detail level*
+
+{% itemplate ntpd1 %}
+- n: "`detail_level`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "Detail level of output:<br>`0` - Only show counts<br>`1` - Show member indexes<br>`2` - Show member's ProTxHashes"
+{% enditemplate %}
+
+*Result---JSON DKG details (detail level = 0)*
+
+{% itemplate ntpd1 %}
+- n: "`result`"
+  t: "array"
+  p: "Required<br>(exactly 1)"
+  d: "An array of objects each containing a provider transaction, or JSON `null` if an error occurred"
+
+- n: "→<br>`proTxHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The hash of the initial provider registration transaction as hex in RPC byte order"
+
+- n: "→<br>`time`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: ""
+
+- n: "→<br>`timeStr`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: ""
+
+- n: "→<br>`session`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: ""
+
+- n: "→ →<br>LLMQ Type"
+  t: "object"
+  p: "Required<br>(exactly 1)"
+  d: ""
+
+- n: "→ → →<br>`llmqType`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: ""
+
+- n: "→ → →<br>`quorumHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: ""
+
+- n: "→ → →<br>`quorumHeight`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: ""
+
+- n: "→ → →<br>`phase`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: ""
+
+- n: "→ → →<br>`sentContributions`"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: ""
+
+- n: "→ → →<br>`sentComplaint`"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: ""
+
+- n: "→ → →<br>`sentJustification`"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: ""
+
+- n: "→ → →<br>`sentPrematureCommitment`"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: ""
+
+- n: "→ → →<br>`aborted`"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: ""
+
+- n: "→ → →<br>`badMembers`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: ""
+
+- n: "→ → →<br>`weComplain`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: ""
+
+- n: "→ → →<br>`receivedContributions`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: ""
+
+- n: "→ → →<br>`receivedComplaints`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: ""
+
+- n: "→ → →<br>`receivedJustifications`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: ""
+
+- n: "→ → →<br>`receivedPrematureCommitments`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: ""
+
+- n: "→<br>`minableCommitments`"
+  t: "object"
+  p: "Required<br>(exactly 1)"
+  d: ""
+
+{% enditemplate %}
+
+*Example from Dash Core 0.14.0*
+
 {% highlight bash %}
 dash-cli -testnet quorum dkgstatus
 {% endhighlight %}
@@ -267,6 +406,8 @@ Result:
   }
 }
 {% endhighlight %}
+
+{% endautocrossref %}
 
 {% highlight bash %}
 dash-cli -testnet quorum dkgstatus "" 1
