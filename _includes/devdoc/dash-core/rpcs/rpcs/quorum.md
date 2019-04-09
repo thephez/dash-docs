@@ -518,6 +518,8 @@ Result (truncated):
 
 The `quorum<!--noref--> sign` RPC requests threshold-signing for a message.
 
+![Warning icon](/img/icons/icon_warning.svg) Note: Used for RegTest testing only.
+
 *Parameter #1---LLMQ Type*
 
 {% itemplate ntpd1 %}
@@ -576,6 +578,8 @@ false
 
 The `quorum<!--noref--> hasrecsig` RPC checks for a recovered signature for a previous threshold-signing message request.
 
+![Warning icon](/img/icons/icon_warning.svg) Note: Used for RegTest testing only.
+
 *Parameter #1---LLMQ Type*
 
 {% itemplate ntpd1 %}
@@ -633,6 +637,8 @@ false
 {% autocrossref %}
 
 The `quorum<!--noref--> isconflicting` RPC checks if there is a conflict for a threshold-signing message request.
+
+![Warning icon](/img/icons/icon_warning.svg) Note: Used for RegTest testing only.
 
 *Parameter #1---LLMQ Type*
 
