@@ -514,16 +514,176 @@ Result (truncated):
 ###### Quorum<!--noref--> Sign
 <!-- no subhead-links here -->
 
+{% autocrossref %}
+
+The `quorum<!--noref--> sign` RPC requests threshold-signing for a message.
+
+*Parameter #1---LLMQ Type*
+
+{% itemplate ntpd1 %}
+- n: "`llmqType`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "[Type of quorum](https://github.com/dashpay/dips/blob/master/dip-0006.md#current-llmq-types):<br>`1` - LLMQ_50_60<br>`2` - LLMQ_400_60<br>`3` - LLMQ_400_85"
+{% enditemplate %}
+
+*Parameter #2---id*
+
+{% itemplate ntpd1 %}
+- n: "`id`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "Signing request ID"
+{% enditemplate %}
+
+*Parameter #3---message hash*
+
+{% itemplate ntpd1 %}
+- n: "`msgHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "Hash of the message to be signed"
+{% enditemplate %}
+
+*Result---status*
+
+{% itemplate ntpd1 %}
+- n: "result"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: "True or false depending on success"
+
+{% enditemplate %}
+
+*Example from Dash Core 0.14.0*
+
+{% highlight bash %}
+dash-cli -testnet quorum sign 1 \
+  "abcd1234abcd1234abcd1234abcd1234abcd1234abcd1234abcd1234abcd1234" "51c11d287dfa85aef3eebb5420834c8e443e01d15c0b0a8e397d67e2e51aa239"
+{% endhighlight %}
+
+Result:
+{% highlight json %}
+false
+{% endhighlight %}
+
+{% endautocrossref %}
 
 ###### Quorum<!--noref--> HasRecSig
 <!-- no subhead-links here -->
 
+{% autocrossref %}
+
+The `quorum<!--noref--> hasrecsig` RPC checks for a recovered signature for a previous threshold-signing message request.
+
+*Parameter #1---LLMQ Type*
+
+{% itemplate ntpd1 %}
+- n: "`llmqType`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "[Type of quorum](https://github.com/dashpay/dips/blob/master/dip-0006.md#current-llmq-types):<br>`1` - LLMQ_50_60<br>`2` - LLMQ_400_60<br>`3` - LLMQ_400_85"
+{% enditemplate %}
+
+*Parameter #2---id*
+
+{% itemplate ntpd1 %}
+- n: "`id`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "Signing request ID"
+{% enditemplate %}
+
+*Parameter #3---message hash*
+
+{% itemplate ntpd1 %}
+- n: "`msgHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "Hash of the message to be signed"
+{% enditemplate %}
+
+*Result---status*
+
+{% itemplate ntpd1 %}
+- n: "result"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: "True or false depending on success"
+
+{% enditemplate %}
+
+*Example from Dash Core 0.14.0*
+
+{% highlight bash %}
+dash-cli -testnet quorum hasrecsig 1 \
+ "1746e9e82fde8bbda5407551f22b63794894cef0f761ba43f58fd9a9654ff205" "1746e9e82fde8bbda5407551f22b63794894cef0f761ba43f58fd9a9654ff205"
+{% endhighlight %}
+
+Result:
+{% highlight json %}
+false
+{% endhighlight %}
+
+{% endautocrossref %}
 
 ###### Quorum<!--noref--> IsConflicting
 <!-- no subhead-links here -->
 
+{% autocrossref %}
 
+The `quorum<!--noref--> isconflicting` RPC checks if there is a conflict for a threshold-signing message request.
 
+*Parameter #1---LLMQ Type*
+
+{% itemplate ntpd1 %}
+- n: "`llmqType`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "[Type of quorum](https://github.com/dashpay/dips/blob/master/dip-0006.md#current-llmq-types):<br>`1` - LLMQ_50_60<br>`2` - LLMQ_400_60<br>`3` - LLMQ_400_85"
+{% enditemplate %}
+
+*Parameter #2---id*
+
+{% itemplate ntpd1 %}
+- n: "`id`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "Signing request ID"
+{% enditemplate %}
+
+*Parameter #3---message hash*
+
+{% itemplate ntpd1 %}
+- n: "`msgHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "Hash of the message to be signed"
+{% enditemplate %}
+
+*Result---status*
+
+{% itemplate ntpd1 %}
+- n: "result"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: "True or false depending on success"
+
+{% enditemplate %}
+
+*Example from Dash Core 0.14.0*
+
+{% highlight bash %}
+dash-cli -testnet quorum isconflicting 1 \
+ "1746e9e82fde8bbda5407551f22b63794894cef0f761ba43f58fd9a9654ff205" "1746e9e82fde8bbda5407551f22b63794894cef0f761ba43f58fd9a9654ff205"
+{% endhighlight %}
+
+Result:
+{% highlight json %}
+false
+{% endhighlight %}
+
+{% endautocrossref %}
 
 {% autocrossref %}
 
