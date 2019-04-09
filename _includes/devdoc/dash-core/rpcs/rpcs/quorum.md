@@ -35,7 +35,7 @@ The `quorum<!--noref--> list` RPC displays a list of on-chain quorums.
   d: "Number of quorums to list (default: 10)"
 {% enditemplate %}
 
-*Result---a secret/public key pair*
+*Result---a list of quorums*
 
 {% itemplate ntpd1 %}
 - n: "`result`"
