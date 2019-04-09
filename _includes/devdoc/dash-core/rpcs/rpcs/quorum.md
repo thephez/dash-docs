@@ -32,7 +32,7 @@ The `quorum<!--noref--> list` RPC displays a list of on-chain quorums.
 - n: "`count`"
   t: "number"
   p: "Optional<br>(0 or 1)"
-  d: "Number of quorums to list"
+  d: "Number of quorums to list (default: 10)"
 {% enditemplate %}
 
 *Result---a secret/public key pair*
@@ -85,11 +85,154 @@ Result:
 
 {% endautocrossref %}
 
+###### Quorum<!--noref--> Info
+<!-- no subhead-links here -->
 
+{% autocrossref %}
+
+The `quorum<!--noref--> info` RPC returns information about a specific quorums.
+
+*Parameter #1---LLMQ Type*
+
+{% itemplate ntpd1 %}
+- n: "`llmqType`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "[Type of quorums](https://github.com/dashpay/dips/blob/master/dip-0006.md#current-llmq-types) to list:<br>`1` - LLMQ_50_60<br>`2` - LLMQ_400_60<br>`3` - LLMQ_400_85"
+{% enditemplate %}
+
+*Parameter #2---quorum hash*
+
+{% itemplate ntpd1 %}
+- n: "`quorumHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The block hash of the quorum"
+{% enditemplate %}
+
+*Parameter #3---secret key share*
+
+{% itemplate ntpd1 %}
+- n: "`includeSkShare`"
+  t: "bool"
+  p: "Optional<br>(0 or 1)"
+  d: "Include the secret key share (default: `false`)"
+{% enditemplate %}
+
+*Result---information about a quorum*
+
+{% itemplate ntpd1 %}
+- n: "`result`"
+  t: "object"
+  p: "Required<br>(exactly 1)"
+  d: "Quorum list"
+
+- n: "→<br>`height`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "Block height of the quorum"
+
+- n: "→<br>`quorumHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The hash of the quorum"
+
+- n: "→<br>`minedBlock`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The hash of the block that established the quorum"
+
+- n: "→<br>`members`"
+  t: "array"
+  p: "Required<br>(exactly 1)"
+  d: "An array containing quorum member details"
+
+- n: "→ →<br>Member"
+  t: "object"
+  p: "Required<br>(1 or more)"
+  d: "An object describing a particular member"
+
+- n: "→ → →<br>`proTxHash`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "The masternode's Provider Registration transaction hash"
+
+- n: "→ → →<br>`valid`"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: "Indicates if the member is valid"
+
+- n: "→ → →<br>`pubKeyShare`"
+  t: "string"
+  p: "Optional<br>(0 or 1)"
+  d: "Member public key share"
+
+- n: "→<br>`quorumPublicKey`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "Quorum public key"
+
+- n: "→<br>`secretKeyShare`"
+  t: "string"
+  p: "Optional<br>(exactly 1)"
+  d: "Quorum secret key share"
+{% enditemplate %}
+
+*Example from Dash Core 0.14.0*
+
+{% highlight bash %}
+dash-cli -testnet quorum info 1 \
+  0000000003284177404622ea79491cb19855254627751cfbbb0035a62d17ab6a true
+{% endhighlight %}
+
+Result (truncated):
+{% highlight json %}
+{
+  "height": 76728,
+  "quorumHash": "0000000003284177404622ea79491cb19855254627751cfbbb0035a62d17ab6a",
+  "minedBlock": "0000000009d8c183650d12e9ff952967ecfde58404e80db1bf5a7d1a31ccd4ee",
+  "members": [
+    {
+      "proTxHash": "5eccc0b9a1a2b8a9c3511cae98a664c377e8493c35cdd120e0d71f0b6b0f62c5",
+      "valid": true,
+      "pubKeyShare": "04a4ae5cb7f598d1bcc6fa49162fe8c19f6ad763ce3959f5afdc3c00e19d8261af37729ae8a707860ecdea067029d3e9"
+    },
+    {
+      "proTxHash": "1e17ddf8748ed5e6696255da61922bd3985fd15a33fcb2d051cf84242e89f121",
+      "valid": true,
+      "pubKeyShare": "8239b67aff5368e710a8ebe5f1f3e9087e8f9c52ed165293779f40b0e764a20972f2ade9367f41cd4f64a3516ad8c90c"
+    },
+    {
+      "proTxHash": "f1eb4ac02ab1acbace0a01328e204c4fd7dec5e53a72cccac7729c5802dbeaf4",
+      "valid": true,
+      "pubKeyShare": "969655b04484de85b3f1ecce5a9745ec7fd0a34533e13fcf285e15ed034578a604e0e2af98cd12cf89d1cfcc167c978d"
+    },
+    {
+      "proTxHash": "a288f5de676eb63dee13a618d39bd6b07ad73e9ae40148202fc5b5f32e1b0bfb",
+      "valid": true,
+      "pubKeyShare": "047bee41fdce58f8d87ba6820c784f2a096d85d1ceec62520013c7c3ef9de9203b82eadc910b197a906be2cd5fd21c53"
+    },
+    {
+      "proTxHash": "57795a35a3a127e817704b6b8ce64ac7f6afc49f0d0172c1e4125987c31dd1d7",
+      "valid": true,
+      "pubKeyShare": "168b9cb406bc44348b5de18c9017817f4e1b15c304ab8d365ba3828712ab1f64c1e4715715d61a96c5923fbe8c470788"
+    },
+    {
+      "proTxHash": "04d06d16b3eca2f104ef9749d0c1c17d183eb1b4fe3a16808fd70464f03bcd63",
+      "valid": true,
+      "pubKeyShare": "93a85894c04dbc06e9a598126aa8ba9983427a089710c4ff37b9b9f12980780e988f89192b5feaa25f907b8db9efb930"
+    }
+  ],
+  "quorumPublicKey": "18772a3ca86f47795f4e9fa40babe89c7be6bc15bb4e4c8a137715a814a4118516a63b89c5c415b9dfe956f2d6a4fde3",
+  "secretKeyShare": "3da0d8f532309660f7f44aa0ed42c1569773b39c70f5771ce5604be77e50759e"
+}
+{% endhighlight %}
+
+{% endautocrossref %}
 
 
 {% autocrossref %}
 
-*See also:*
+*See also: none*
 
 {% endautocrossref %}
