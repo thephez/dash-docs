@@ -3223,15 +3223,13 @@ in the higher level messages.
 | --- | --- | --- | --- |
 | 1 | fSendRecSigs | bool | 0 - Notify peer to not send plain LLMQ recovered signatures<br>1 - Notify peer to send plain LLMQ recovered signatures (default for Dash Core nodes)
 
-<!--
 The following annotated hexdump shows a `qsendrecsigs` message. (The
 message header has been omitted.)
 
 {% highlight text %}
-
+01 ................................. Request recovered signatures: Enabled (1)
 {% endhighlight %}
 
--->
 {% endautocrossref %}
 
 
