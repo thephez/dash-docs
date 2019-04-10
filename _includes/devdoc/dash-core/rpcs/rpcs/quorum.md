@@ -253,7 +253,7 @@ The `quorum<!--noref--> list` RPC displays a list of on-chain quorums.
 - n: "`detail_level`"
   t: "number"
   p: "Required<br>(exactly 1)"
-  d: "Detail level of output:<br>`0` - Only show counts (_default_)<br>`1` - Show member indexes<br>`2` - Show member's ProTxHashes"
+  d: "Detail level of output<!--noref-->:<br>`0` - Only show counts (_default_)<br>`1` - Show member indexes<br>`2` - Show member's ProTxHashes"
 {% enditemplate %}
 
 *Result (if detail level was 0 or omitted)---JSON DKG details*
@@ -368,7 +368,173 @@ The `quorum<!--noref--> list` RPC displays a list of on-chain quorums.
   t: "object"
   p: "Required<br>(exactly 1)"
   d: "Object containing minable commitments"
+{% enditemplate %}
 
+*Result (if detail level was 1)---JSON DKG details including member index*
+
+Note: detail level 1 includes all level 0 fields and expands the following fields.
+
+{% itemplate ntpd1 %}
+- n: "→ → →<br>`badMembers`"
+  t: "array"
+  p: "Required<br>(exactly 1)"
+  d: "Array containing the member index for each bad member"
+
+- n: "→ → →<br>`weComplain`"
+  t: "array"
+  p: "Required<br>(exactly 1)"
+  d: "Array containing the member index for each complaint sent"
+
+- n: "→ → →<br>`receivedContributions`"
+  t: "array"
+  p: "Required<br>(exactly 1)"
+  d: "Array containing the member index for each contribution received"
+
+- n: "→ → →<br>`receivedComplaints`"
+  t: "array"
+  p: "Required<br>(exactly 1)"
+  d: "Array containing the member index for each complaint received"
+
+- n: "→ → →<br>`receivedJustifications`"
+  t: "array"
+  p: "Required<br>(exactly 1)"
+  d: "Array containing the member index for each justification received"
+
+- n: "→ → →<br>`receivedPrematureCommitments`"
+  t: "array"
+  p: "Required<br>(exactly 1)"
+  d: "Array containing the member index for each commitment received"
+{% enditemplate %}
+
+*Result (if detail level was 2)---JSON DKG details including member index and ProTx hash*
+
+Note: detail level 2 includes all level 0 fields, adds the `allMembers` field, and expands several fields.
+
+{% itemplate ntpd1 %}
+- n: "→ → →<br>`badMembers`"
+  t: "array"
+  p: "Required<br>(exactly 1)"
+  d: "An array of objects with each object containing the member index and ProTx hash for a bad member"
+
+- n: "→ → → →<br>Member"
+  t: "object"
+  p: "Required<br>(0 or more)"
+  d: "An object describing quorum member details"
+
+- n: "→ → → → →<br>`memberIndex`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "The quorum member's index"
+
+- n: "→ → → → →<br>`proTxHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The hash of the quorum member's provider registration transaction as hex in RPC byte order"
+
+- n: "→ → →<br>`weComplain`"
+  t: "object"
+  p: "Required<br>(exactly 1)"
+  d: "An array of objects with each object containing the member index and ProTx hash for a member being complained about"
+
+- n: "→ → → →<br>Member"
+  t: "object"
+  p: "Required<br>(0 or more)"
+  d: "An object describing quorum member details"
+
+- n: "→ → → → →<br>`memberIndex`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "The quorum member's index"
+
+- n: "→ → → → →<br>`proTxHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The hash of the quorum member's provider registration transaction as hex in RPC byte order"
+
+- n: "→ → →<br>`receivedContributions`"
+  t: "object"
+  p: "Required<br>(exactly 1)"
+  d: "An array of objects with each object containing the member index and ProTx hash for a member a contribution was received from"
+
+- n: "→ → → →<br>Member"
+  t: "object"
+  p: "Required<br>(0 or more)"
+  d: "An object describing quorum member details"
+
+- n: "→ → → → →<br>`memberIndex`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "The quorum member's index"
+
+- n: "→ → → → →<br>`proTxHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The hash of the quorum member's provider registration transaction as hex in RPC byte order"
+
+- n: "→ → →<br>`receivedComplaints`"
+  t: "object"
+  p: "Required<br>(exactly 1)"
+  d: "An array of objects with each object containing the member index and ProTx hash for a member a complaint was received from"
+
+- n: "→ → → →<br>Member"
+  t: "object"
+  p: "Required<br>(0 or more)"
+  d: "An object describing quorum member details"
+
+- n: "→ → → → →<br>`memberIndex`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "The quorum member's index"
+
+- n: "→ → → → →<br>`proTxHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The hash of the quorum member's provider registration transaction as hex in RPC byte order"
+
+- n: "→ → →<br>`receivedJustifications`"
+  t: "object"
+  p: "Required<br>(exactly 1)"
+  d: "An array of objects with each object containing the member index and ProTx hash for a member a justification was received from"
+
+- n: "→ → → →<br>Member"
+  t: "object"
+  p: "Required<br>(0 or more)"
+  d: "An object describing quorum member details"
+
+- n: "→ → → → →<br>`memberIndex`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "The quorum member's index"
+
+- n: "→ → → → →<br>`proTxHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The hash of the quorum member's provider registration transaction as hex in RPC byte order"
+
+- n: "→ → →<br>`receivedPrematureCommitments`"
+  t: "object"
+  p: "Required<br>(exactly 1)"
+  d: "An array of objects with each object containing the member index and ProTx hash for a member a premature commitment was received from"
+
+- n: "→ → → →<br>Member"
+  t: "object"
+  p: "Required<br>(0 or more)"
+  d: "An object describing quorum member details"
+
+- n: "→ → → → →<br>`memberIndex`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "The quorum member's index"
+
+- n: "→ → → → →<br>`proTxHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The hash of the quorum member's provider registration transaction as hex in RPC byte order"
+
+- n: "→ → →<br>`allMembers`"
+  t: "array"
+  p: "Required<br>(exactly 1)"
+  d: "Array containing the provider registration transaction hash for all quorum members"
 {% enditemplate %}
 
 *Example from Dash Core 0.14.0*
