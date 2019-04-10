@@ -253,10 +253,10 @@ The `quorum<!--noref--> list` RPC displays a list of on-chain quorums.
 - n: "`detail_level`"
   t: "number"
   p: "Required<br>(exactly 1)"
-  d: "Detail level of output:<br>`0` - Only show counts<br>`1` - Show member indexes<br>`2` - Show member's ProTxHashes"
+  d: "Detail level of output:<br>`0` - Only show counts (_default_)<br>`1` - Show member indexes<br>`2` - Show member's ProTxHashes"
 {% enditemplate %}
 
-*Result---JSON DKG details (detail level = 0)*
+*Result (if detail level was 0 or omitted)---JSON DKG details*
 
 {% itemplate ntpd1 %}
 - n: "`result`"
@@ -409,6 +409,8 @@ Result:
 
 {% endautocrossref %}
 
+*Example from Dash Core 0.14.0 (detail_level: 1)*
+
 {% highlight bash %}
 dash-cli -testnet quorum dkgstatus "" 1
 {% endhighlight %}
@@ -471,6 +473,7 @@ Result (truncated):
 }
 {% endhighlight %}
 
+*Example from Dash Core 0.14.0 (detail_level: 2)*
 
 {% highlight bash %}
 dash-cli -testnet quorum dkgstatus "" 2
@@ -598,49 +601,7 @@ Result (truncated):
         "1e17ddf8748ed5e6696255da61922bd3985fd15a33fcb2d051cf84242e89f121",
         "f1eb4ac02ab1acbace0a01328e204c4fd7dec5e53a72cccac7729c5802dbeaf4",
         "a288f5de676eb63dee13a618d39bd6b07ad73e9ae40148202fc5b5f32e1b0bfb",
-        "57795a35a3a127e817704b6b8ce64ac7f6afc49f0d0172c1e4125987c31dd1d7",
-        "a6670caf2842a4ae5cb4bb78b3c10343456922b500693f6da043af541d58d9cb",
-        "999d7bdf3c9247c61681148dafe7406c8407f0d07c4d699a1f501adc075248ca",
-        "e34052172edc2f5ef68168e6fc66587bbae579687b1ffe2204800abee3d1040d",
-        "8f1eb06abb7f1c9ee589e1a92b372516f401d96c35e24da5ff16268cb73802eb",
-        "66c56c1c0b49cb13873f8322627417f57e02b4d8e4803f95726960a441998409",
-        "422669636372bc785042c91eab3e08b727ae172d9cb7010e3c00192e81dead7a",
-        "e9914229a74d9a517c095d82d8d5910d88b775d1fac666136181b319094fb776",
-        "3f6f791ce3e28829a43c0cb5c95ffdfbfdb4463c5b180386e9bd955f43cb7440",
-        "d567ac9cc7437848210365a0225271ec26a6a6c7d852544a6e9cbd40756075b3",
-        "d469a3275751be369a457fa0cc7b39630ce9ced8af7bbcc7e958f6773c1c0ff6",
-        "04d06d16b3eca2f104ef9749d0c1c17d183eb1b4fe3a16808fd70464f03bcd63",
-        "ad6c16051b50199247a64144498c745578f1259a7aa070d5360f9042fd86c44f",
-        "596be0851532a66037744afa694e4de6485f326f4638e704db93cc726866cda3",
-        "39ec834a6c7ac5ebf5fd885a271e2149099e87e89a9ea30f573b4b699b9399c6",
-        "27a6ff2f188c6190d44b657f54bd831f57228f918cbb7fd6026f5cf5c443d496",
-        "32e5ad5cf9a06eb13e0f65cb7ecde1a93ef24995d07355fac2ff05ebd5b9ddbf",
-        "3a8738860323ed3868f0e4a26d852bbea4feb3850674e5ca1c27fa15d0b707b6",
-        "4e60af72569f2922b1bd0dc630e38b3d0be8ec0960467a0aab45abe52696cbf3",
-        "21c0923badd20f953360c586edfcbb1a830be83206e30b3f65765f7794f2a640",
-        "8d2f4505922cb82f7ec601deeba318ca7ed2f47b89274792dc9001ab62112ef9",
-        "ebf4b6337e25b975eb23ba6d113f94882196d7259749acaad952acf48025f590",
-        "a28dbe8916ff45144efd8bec463cc9fa57604e6eba6e6a49329d61bd44d6963b",
-        "ca6ffccd65d35bc6d31fd5ad79815c3d840ce65351a094484bcdc3f0d4ea3c63",
-        "0fb12eef8c8736fc3e537a531facc6a6b445ea4394a008314d06684f4d43de1b",
-        "374b30e042714cafd20e7e1d584611c8ca35317b1bfddc325c0da2d884990983",
-        "136d0821dd4af5cae8cb5b03306c42dfebff3469539dd48c84e15ff865d2b1ab",
-        "0ae0edf8d2e2e17f7bc4415a78bad97828de3ca94cb7ab1b108303b6f40c97f6",
-        "14f2f481ca295a5bdb3e3d7f50ff87f205230609c53989da809420b874a17f34",
-        "b1f19b9a0b254c4586c3446427333e1c3c99c1a724fa4ad1d38e45f88611e805",
-        "3667fe83d6c334eae930252ca9bdd22d3eed1aee1c3b5b40d7244b98bea2c77b",
-        "2b0be708179cabb17ab839d2e8c44a78aacec1409f5c54f9a265027207b73661",
-        "cc7041c869c7c1c0bae7c137f0cda708ad492bc89c4b8f7a40a353d90335febf",
-        "db85af3dad4d35c89f9c2ae0f932c70216b588611f3d250f71145a64cd0cc814",
-        "bfded3caf1b068acce07ab235fc6823048bdaf1db3cfa6ad804f7e89039bfd59",
-        "f51b426420ac4c518ad07c2bb03e434389337b4e2977d39233114d5e8ef21f69",
-        "6f0bdd7034ce8d3a6976a15e4b4442c274b5c1739fb63fc0a50f01425580e17e",
-        "944ac1d12972e795139af01657a2669a24aa581d496995889a4c8e31fe8b248f",
-        "6a5be5c068a0be432b7db0772b25094a59ce1f433dd2df0d410511ac641c3768",
-        "8cef1945dabb3d64084997145746d121ae932f54d772d8d753c4883559077f9c",
-        "5720c99f699f7e5666520cadebb9b3db322f862a6163eb8ba6bb177e468867f4",
-        "fa3b3b0d3522becb02ddd15dd075f3d6ecc6a5a50b43c6c9f6d4703a9a8509d5",
-        "c0eddda2bfa98443feccc9bc8f7f8b4856243fd7edaedce25fc9a2320a697453",
+        "...",
         "1c3618f7228fc4b5e5694dd1be72b633e179b1c17e57d7380992ecb1af6e5fc1",
         "8390acf4e1db828c53804b7cb2db81db0732239c0da51a7a923e4e1e073c2cb2",
         "51c11d287dfa85aef3eebb5420834c8e443e01d15c0b0a8e397d67e2e51aa239"
