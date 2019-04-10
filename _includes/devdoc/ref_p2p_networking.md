@@ -1751,17 +1751,14 @@ wallet) to minimize data usage.
 | --- | --- | --- | --- |
 | 1 | fSendDSQueue | bool | 0 - Notify peer to not send any `dsq` messages<br>1 - Notify peer to send all `dsq` messages
 
-<!--
 The following annotated hexdump shows a `senddsq` message. (The
 message header has been omitted.)
 
 {% highlight text %}
-
+01 ................................. PrivateSend participation: Enabled (1)
 {% endhighlight %}
 
--->
 {% endautocrossref %}
-
 
 #### SendHeaders
 {% include helpers/subhead-links.md %}
