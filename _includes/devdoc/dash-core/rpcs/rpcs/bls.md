@@ -61,6 +61,57 @@ Result:
 }
 {% endhighlight %}
 
+{% endautocrossref %}
+
+###### BLS<!--noref--> FromSecret
+<!-- no subhead-links here -->
+
+{% autocrossref %}
+
+The `bls<!--noref--> fromsecret` RPC parses a BLS secret key and returns the secret/public key pair.
+
+*Parameter #1---secret key*
+
+{% itemplate ntpd1 %}
+- n: "`secret`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The BLS secret key"
+{% enditemplate %}
+
+*Result---the secret/public key pair*
+
+{% itemplate ntpd1 %}
+- n: "`result`"
+  t: "object"
+  p: "Required<br>(exactly 1)"
+  d: "BLS key pair"
+
+- n: "→<br>`secret`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "A BLS secret key"
+
+- n: "→<br>`public`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "A BLS public key"
+{% enditemplate %}
+
+*Example from Dash Core 0.14.0*
+
+{% highlight bash %}
+dash-cli -testnet bls fromsecret 52f35cd3d977a505485f2474e7e71ef3f60f859603d72ad6b0fa7f7bd163e144
+{% endhighlight %}
+
+Result:
+{% highlight json %}
+{
+  "secret": "52f35cd3d977a505485f2474e7e71ef3f60f859603d72ad6b0fa7f7bd163e144",
+  "public": "885d01d746c3e4d2093b0975de2d8c1f3e5a2c3e8fdaaed929f86fc9fbb278a095248163c101a2456650b415776b7990"
+}
+{% endhighlight %}
+
 *See also: none*
 
 {% endautocrossref %}

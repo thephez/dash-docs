@@ -53,10 +53,10 @@ The `protx<!--noref--> register` RPC creates a ProRegTx referencing an existing 
   d: "IP and port in the form 'IP:PORT'.<br>Must be unique on the network.<br>Can be set to '0', which will require a ProUpServTx afterwards."
 {% enditemplate %}
 
-*Parameter #4---owner key address*
+*Parameter #4---owner address*
 
 {% itemplate ntpd1 %}
-- n: "`ownerKeyAddr`"
+- n: "`ownerAddress`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
   d: "The owner key used for payee updates and proposal voting. The private key belonging to this address be known in your wallet. The address must be unused and must differ from the `collateralAddress`."
@@ -71,13 +71,13 @@ The `protx<!--noref--> register` RPC creates a ProRegTx referencing an existing 
   d: " The operator public key. The private key does not have to be known. It has to match the private key which is later used when operating the masternode."
 {% enditemplate %}
 
-*Parameter #6---voting key address*
+*Parameter #6---voting address*
 
 {% itemplate ntpd1 %}
-- n: "`votingKeyAddr`"
+- n: "`votingAddress`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "The voting key address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to '0' or an empty string, `ownerAddr` will be used."
+  d: "The voting address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to an empty string, `ownerAddress` will be used."
 {% enditemplate %}
 
 *Parameter #7---operator reward*
@@ -158,10 +158,10 @@ The `protx<!--noref--> register_fund` RPC creates and funds a ProRegTx with the 
   d: "IP and port in the form 'IP:PORT'.<br>Must be unique on the network.<br>Can be set to '0', which will require a ProUpServTx afterwards."
 {% enditemplate %}
 
-*Parameter #3---owner key address*
+*Parameter #3---owner address*
 
 {% itemplate ntpd1 %}
-- n: "`ownerKeyAddr`"
+- n: "`ownerAddress`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
   d: "The owner key used for payee updates and proposal voting. The private key belonging to this address be known in your wallet. The address must be unused and must differ from the `collateralAddress`."
@@ -176,13 +176,13 @@ The `protx<!--noref--> register_fund` RPC creates and funds a ProRegTx with the 
   d: " The operator public key. The private key does not have to be known. It has to match the private key which is later used when operating the masternode."
 {% enditemplate %}
 
-*Parameter #5---voting key address*
+*Parameter #5---voting address*
 
 {% itemplate ntpd1 %}
-- n: "`votingKeyAddr`"
+- n: "`votingAddress`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "The voting key address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to '0' or an empty string, `ownerAddr` will be used."
+  d: "The voting address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to an empty string, `ownerAddress` will be used."
 {% enditemplate %}
 
 *Parameter #6---operator reward*
@@ -274,10 +274,10 @@ and outputs to cover fees.
   d: "IP and port in the form 'IP:PORT'.<br>Must be unique on the network.<br>Can be set to '0', which will require a ProUpServTx afterwards."
 {% enditemplate %}
 
-*Parameter #4---owner key address*
+*Parameter #4---owner address*
 
 {% itemplate ntpd1 %}
-- n: "`ownerKeyAddr`"
+- n: "`ownerAddress`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
   d: "The owner key used for payee updates and proposal voting. The private key belonging to this address be known in your wallet. The address must be unused and must differ from the `collateralAddress`."
@@ -292,13 +292,13 @@ and outputs to cover fees.
   d: " The operator public key. The private key does not have to be known. It has to match the private key which is later used when operating the masternode."
 {% enditemplate %}
 
-*Parameter #6---voting key address*
+*Parameter #6---voting address*
 
 {% itemplate ntpd1 %}
-- n: "`votingKeyAddr`"
+- n: "`votingAddress`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "The voting key address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to '0' or an empty string, `ownerAddr` will be used."
+  d: "The voting address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to an empty string, `ownerAddress` will be used."
 {% enditemplate %}
 
 *Parameter #7---operator reward*
@@ -671,7 +671,7 @@ The `protx<!--noref--> update_service` RPC creates and sends a ProUpServTx to th
 - n: "`operatorPayoutAddress`"
   t: "string (hex)"
   p: "Optional<br>(0 or 1)"
-  d: "The Dash address used for operator reward payments. Only allowed when the ProRegTx had a non-zero `operatorReward` value."
+  d: "The Dash address used for operator reward payments. Only allowed when the ProRegTx had a non-zero `operatorReward` value. If set to an empty string, the currently active payout address is reused."
 {% enditemplate %}
 
 *Parameter #5---fee source address*
@@ -730,16 +730,16 @@ The `protx<!--noref--> update_registrar` RPC creates and sends a ProUpRegTx to t
 - n: "`operatorPubKey`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: " The operator public key. The private key does not have to be known. It has to match the private key which is later used when operating the masternode."
+  d: " The operator public key. The private key does not have to be known. It has to match the private key which is later used when operating the masternode. If set to an empty string, the last on-chain operator key of the masternode will be used."
 {% enditemplate %}
 
-*Parameter #3---voting key address*
+*Parameter #3---voting address*
 
 {% itemplate ntpd1 %}
-- n: "`votingKeyAddr`"
+- n: "`votingAddress`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "The voting key address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to '0' or an empty string, the last on-chain voting key of the masternode will be used."
+  d: "The voting address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to an empty string, `ownerAddress` will be used."
 {% enditemplate %}
 
 *Parameter #4---operator payout address*
@@ -748,7 +748,7 @@ The `protx<!--noref--> update_registrar` RPC creates and sends a ProUpRegTx to t
 - n: "`payoutAddress`"
   t: "string (hex)"
   p: "Optional<br>(0 or 1)"
-  d: "The Dash address to use for masternode reward payments. If set to '0' or an empty string, the last on-chain payout address of the masternode will be used."
+  d: "The Dash address to use for masternode reward payments. If set to an empty string, the last on-chain payout address of the masternode will be used."
 {% enditemplate %}
 
 *Parameter #5---fee source address*
@@ -948,63 +948,161 @@ The `protx<!--noref--> diff` RPC calculates a diff and a proof between two maste
   p: "Required<br>(exactly 1)"
   d: "Set to `true` if masternode is valid"
 
+- n: "→<br>`deletedQuorums`"
+  t: "array"
+  p: "Required<br>(exactly 1)"
+  d: "An array of deleted quorums"
+
+- n: "→ →<br>`llmqType`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "The quorum type"
+
+- n: "→ →<br>`quorumHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The hash of the quorum"
+
+- n: "→<br>`newQuorums`"
+  t: "array"
+  p: "Required<br>(exactly 1)"
+  d: "An array of new quorums"
+
+- n: "→ →<br>`version`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "The quorum version"
+
+- n: "→ →<br>`llmqType`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "The quorum type"
+
+- n: "→ →<br>`quorumHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The hash of the quorum"
+
+- n: "→ →<br>`signersCount`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "The number of signers for the quorum"
+
+- n: "→ →<br>`validMembersCount`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "The number of valid members in the quorum"
+
+- n: "→ →<br>`quorumPublicKey`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The public key of the quorum"
+
 - n: "→<br>`merkleRootMNList`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
   d: "Merkle root of the masternode list"
+
+- n: "→<br>`merkleRootQuorums`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "*Added in Coinbase Transaction version 2 (Dash Core 0.14.0)*<br><br>Merkle root of the masternode list"
 {% enditemplate %}
 
 *Example from Dash Core 0.14.0*
 
 {% highlight bash %}
-dash-cli -testnet protx diff 600 700
+dash-cli -testnet protx diff 75000 76000
 {% endhighlight %}
 
-Result:
+Result (truncated):
 {% highlight json %}
 {
-  "baseBlockHash": "0000002b88258091c9f343e124040fb7b2e0d88afe4a99d213c046792c183a49",
-  "blockHash": "0000051bbea86db62be46c0beae2cb34110e928ace42683ab189e8db9874308f",
-  "cbTxMerkleTree": "0200000002a4eaaaaaf7e260b90b1a7987eb269da110559343be5746ac5ef7f39b79c1228e4f7e074272c7e3814f630ce4f2f52f80c0b814fb1ce0e4d954b7b583a55ff0a50103",
-  "cbTx": "03000500010000000000000000000000000000000000000000000000000000000000000000ffffffff060369fe000102ffffffff0340230e43000000001976a914323a8b6425ea6f8dafd411db13bc303219a9e4f088ac44aab141000000001976a914870ca3662658f261952cbfa56969283ad1e84dc588acfc785c01000000001976a91487da2642cf967c493f126137d4f15e9de36b976888ac0000000026010069fe000068cadec8342737e3f2dddc713b3a206390996c8b806fb5a8a2ccc71240cf7a97",
+  "baseBlockHash": "0000000003deb00bba101ee581cdc4e1cbd1243ec5cd190472ae93eff07c8881",
+  "blockHash": "0000000000c0279636003ed0042c9a454b4c39e9a6c49bb92d420e0bf4e0f49b",
+  "cbTxMerkleTree": "01000000015ef8245e2a381174f5e2cc701d5d067d9f16945179380a3ce54415114426eb510101",
+  "cbTx": "03000500010000000000000000000000000000000000000000000000000000000000000000ffffffff4c03e02801043619ab5c08fabe6d6d736170747365743a7265737574736574d6e48c2ebd4e147373617074736574730100000000000000380000ae250000000d2f6e6f64655374726174756d2f000000000340230e43000000001976a914cb594917ad4e5849688ec63f29a0f7f3badb5da688ac4cfe1c3e000000001976a91470da282ad16926e127064b7d3d787d7f3793014788acf424f104000000001976a914312d9ccd4e73f2e66006e45701bce17125ba681e88ac00000000260100e0280100d26df127ba2765c8f098ab71199c82c59509418efe26cdf02f7c92ce738e2247",
   "deletedMNs": [
-    "285d7da8e94b2348689aca4a63bc6cbbeeb8e912c2088fb9a01e295e3eeeb2ff"
   ],
   "mnList": [
     {
-      "proRegTxHash": "39a1339d9bf26de701345beecc5de75a690bc9533741a3dbe90f2fd88b8ed461",
-      "confirmedHash": "0000030c37a946836029eeca338604c652e3c6cd368eb54bdfa8553213954f74",
-      "service": "198.199.74.241:19999",
-      "pubKeyOperator": "0efda51589f86e30cc2305e7388c01ce0309c19a182cf37bced97c7da72236f660c0a395e765e6e06962ecff5a69d7de",
-      "votingAddress": "yRCunhZVjbMxDr1C6fD6Pf37sTwH6wG7Uu",
+      "proRegTxHash": "fef106ff6420f9c6638c9676988a8fc655750caafb506c98cb5ff3d4fea99a41",
+      "confirmedHash": "0000000005d5635228f113b50fb5ad66995a7476ed20374e6e159f1f9e62347b",
+      "service": "45.48.177.222:19999",
+      "pubKeyOperator": "842476e8d82327adfb9b617a7ac3f62868946c0c4b6b0e365747cfb8825b8b79ba0eb1fa62e8583ae7102f59bf70c7c7",
+      "votingAddress": "yf7QHemCfbmKEncwZxroTj8JtShXsC28V6",
       "isValid": true
     },
     {
-      "proRegTxHash": "3dbb7de94e219e8f7eaea4f3c01cf97d77372e10152734c1959f17302369aa49",
-      "confirmedHash": "0000043c0d46d3e6b84c1b420b77b65e962207fb6427361f74d243b9b1fd51cb",
-      "service": "52.36.64.148:19999",
-      "pubKeyOperator": "139b654f0b1c031e1cf2b934c2d895178875cfe7c6a4f6758f02bc66eea7fc292d0040701acbe31f5e14a911cb061a2f",
-      "votingAddress": "yWEZQmGADmdSk6xCai7TPcmiSZuY65hBmo",
+      "proRegTxHash": "7d56a2cf814b344f54ac4b6485a7a5b2b5a439ea796defff67f2a5872c9df5c3",
+      "confirmedHash": "00000c66555eea6272e5c7bcdb2648e1a63fd5b23a6d1d4c3f9dc5df43c6a5a8",
+      "service": "178.151.192.107:19999",
+      "pubKeyOperator": "8631b1ba19ed23fdab61db7a81c9aa1356eaf37d0a29a14cc493e2f863080bf909b4d3e23d536be1d18e4c842566ed67",
+      "votingAddress": "yP2LXCZTVVjBFQiN2bhghQvNwdUQG8NMX8",
       "isValid": true
     },
     {
-      "proRegTxHash": "851a17fa224374b52b1626f4fb6b5158f2a6add3061e65ef03e1ff13c610c550",
-      "confirmedHash": "000009a21e82163268330855c9ef13f938a802e46db0fc8a6b1f97161e9d60d8",
-      "service": "104.196.245.194:19999",
-      "pubKeyOperator": "0a6bd57731d85539e62c4b46ec150343a0faba9f08af509309634a6e7e016e26b5e809f0e4cc68252c3c46e3a4b35e57",
-      "votingAddress": "ycppuGB8m2zn5xRfXyJV8U1nNgT7bFs7u5",
-      "isValid": true
-    },
-    {
-      "proRegTxHash": "9e9f7a6d63358ff6e7633d4bb5a3c9eaaebaf29437d5917565ed73f5bcc03dbf",
-      "confirmedHash": "00000020b973dddd9dfd392f118d0094adc86bd8bfe9bee67d08705155bc7aaf",
-      "service": "207.246.101.212:19999",
-      "pubKeyOperator": "02a37189354135fed49de66a43d59590824579ccfa7e9512f50aeaff641e1b78cc5c798c5ae4a35b11958fd153f0a0e3",
-      "votingAddress": "yRH7EYkGQgdKvmfdskcMRphdDumLdP6fq1",
-      "isValid": true
+      "proRegTxHash": "be32ec53dbbfb64e5ba29e25e3716f6f4024291914ce4c858cd69f0b4e371dda",
+      "confirmedHash": "0000000015717296254a7c6139a50c34ad481dc8fdf7b0ea4c8320dc3fff2759",
+      "service": "173.61.30.231:19025",
+      "pubKeyOperator": "86ce02e551a46f1ca9a734104b4e387984d733ba99930eb677aae126fa142f201049842422ab2f105e3c9805f1bd54e8",
+      "votingAddress": "ySBU7oXuuTSJqtmUArMRFsKefJPtEDkESG",
+      "isValid": false
     }
   ],
-  "merkleRootMNList": "977acf4012c7cca2a8b56f808b6c999063203a3b71dcddf2e3372734c8deca68"
+  "deletedQuorums": [
+    {
+      "llmqType": 1,
+      "quorumHash": "00000000052b95b036c87f82d19878f69bf940e6acf9f03cd818bd07a5686d0e"
+    },
+    {
+      "llmqType": 1,
+      "quorumHash": "0000000000e8b557ea26921f4bb143e961dd35209cf8c1c7b73397322c1a5018"
+    },
+    {
+      "llmqType": 1,
+      "quorumHash": "000000000b259f422fe3b647b8f1553b846d95dc8c79699d60e48a81dcf14747"
+    },
+    {
+      "llmqType": 1,
+      "quorumHash": "00000000143365adb3c3de6a35ae247120df8ca53a61afd82cd6fd4126ca8a4d"
+    }
+  ],
+  "newQuorums": [
+    {
+      "version": 1,
+      "llmqType": 1,
+      "quorumHash": "0000000001427858db64213ed3ef32ffb2546ca7f2a096adbefc197437b90612",
+      "signersCount": 50,
+      "validMembersCount": 50,
+      "quorumPublicKey": "922e3683358f09a2619efb9e8329f90d5a8a608a18e26db212613ef7f95818eb6f68372fb313edbf96fdd2cdee20a66d"
+    },
+    {
+      "version": 1,
+      "llmqType": 1,
+      "quorumHash": "000000000148a6fced08763f3f31dd68a3d88d2d4f2d48eef44eb9311de66129",
+      "signersCount": 50,
+      "validMembersCount": 50,
+      "quorumPublicKey": "814973fcf54892fa4edbf9e732341ff1227e2a89bf59cb22b52082e940f7c3ac8a7c25163cb375b3cfe3654e86eaa65d"
+    },
+    {
+      "version": 1,
+      "llmqType": 1,
+      "quorumHash": "0000000009931a8a6dcdf21a869739356e7715eb155c1a18a58c8bf13382ac33",
+      "signersCount": 50,
+      "validMembersCount": 50,
+      "quorumPublicKey": "0694b46d8581423f2f68196dcc2d06be0b6b365a4100b54e351ab42f5828d09fd03941f8a1255363753a53d32b43f63b"
+    },
+    {
+      "version": 1,
+      "llmqType": 1,
+      "quorumHash": "0000000006097e9d08a4ca9bedbe4a97bb9bf3fe8d09372d18d2398f185cff5d",
+      "signersCount": 50,
+      "validMembersCount": 50,
+      "quorumPublicKey": "10d0488558afd929508cd2d11bda7564333a904aa23c8b4a1ed57d86b217e3181497469e7220e9421e14f645a00940fc"
+    }
+  ],
+  "merkleRootMNList": "47228e73ce927c2ff0cd26fe8e410995c5829c1971ab98f0c86527ba27f16dd2"
 }
 {% endhighlight %}
 

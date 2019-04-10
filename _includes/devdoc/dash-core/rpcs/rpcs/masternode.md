@@ -144,14 +144,14 @@ The `masternode<!--noref--> current` RPC prints info on current masternode winne
   p: "Required<br>(exactly 1)"
   d: "The IP address/port of the masternode"
 
-- n: "→<br>`protocol`"
-  t: "number (int)"
+- n: "→<br>`proTxHash`"
+  t: "string"
   p: "Required<br>(exactly 1)"
-  d: "The protocol version number used by this node.  See the [protocol versions section][section protocol versions] for more information"
+  d: "The masternode's Provider Registration transaction hash"
 
 - n: "→<br>`outpoint`"
   t: "string"
-  p: "Required<br>(1 or more)"
+  p: "Required<br>(exactly 1)"
   d: "The masternode's outpoint"
 
 - n: "→<br>`payee`"
@@ -159,19 +159,9 @@ The `masternode<!--noref--> current` RPC prints info on current masternode winne
   p: "Required<br>(exactly 1)"
   d: "Payee address"
 
-- n: "→<br>`lastseen`"
-  t: "number (int)"
-  p: "Required<br>(exactly 1)"
-  d: "The Unix epoch time when the masternode was last seen"
-
-- n: "→<br>`activeseconds`"
-  t: "number (int)"
-  p: "Required<br>(exactly 1)"
-  d: "The number of seconds the masternode has been active"
-
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.14.0*
 
 {% highlight bash %}
 dash-cli -testnet masternode current
@@ -180,13 +170,11 @@ dash-cli -testnet masternode current
 Result:
 {% highlight json %}
 {
-  "height": 37375,
-  "IP:port": "108.61.192.47:19999",
-  "protocol": 70208,
-  "outpoint": "3df7fb192e21c34da99bdd10c34e58ecaf3f3c37d6b2289f0ffedba5050188cc-1",
-  "payee": "ydGgePy4a3zza37Zm4D44B99czyo6TftU1",
-  "lastseen": 1512482630,
-  "activeseconds": 3170434
+  "height": 76179,
+  "IP:port": "34.242.53.163:26155",
+  "proTxHash": "9de76b8291d00026ab0af86306023c7b90f8e9229dc04916fe1335bf5e11f15d",
+  "outpoint": "9de76b8291d00026ab0af86306023c7b90f8e9229dc04916fe1335bf5e11f15d-1",
+  "payee": "yZnU7YJJgGQKvKPQFqXJ4k4DGSsRMhgLXx"
 }
 {% endhighlight %}
 
@@ -432,14 +420,14 @@ The `masternode<!--noref--> winner` RPC prints info on the next masternode winne
   p: "Required<br>(exactly 1)"
   d: "The IP address/port of the masternode"
 
-- n: "→<br>`protocol`"
-  t: "number (int)"
+- n: "→<br>`proTxHash`"
+  t: "string"
   p: "Required<br>(exactly 1)"
-  d: "The protocol version number used by this node.  See the [protocol versions section][section protocol versions] for more information"
+  d: "The masternode's Provider Registration transaction hash"
 
 - n: "→<br>`outpoint`"
   t: "string"
-  p: "Required<br>(1 or more)"
+  p: "Required<br>(exactly 1)"
   d: "The masternode's outpoint"
 
 - n: "→<br>`payee`"
@@ -447,19 +435,9 @@ The `masternode<!--noref--> winner` RPC prints info on the next masternode winne
   p: "Required<br>(exactly 1)"
   d: "Payee address"
 
-- n: "→<br>`lastseen`"
-  t: "number (int)"
-  p: "Required<br>(exactly 1)"
-  d: "The Unix epoch time when the masternode was last seen"
-
-- n: "→<br>`activeseconds`"
-  t: "number (int)"
-  p: "Required<br>(exactly 1)"
-  d: "The number of seconds the masternode has been active"
-
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.14.0*
 
 {% highlight bash %}
 dash-cli -testnet masternode winner
@@ -468,13 +446,11 @@ dash-cli -testnet masternode winner
 Result:
 {% highlight json %}
 {
-  "height": 37384,
-  "IP:port": "145.239.235.17:29999",
-  "protocol": 70208,
-  "outpoint": "66eddd00e5927d0a03437d5b8a2f15367c978ef7951c80ae1608a45b1bf64318-1",
-  "payee": "yY3q6wqRe1y7xzHbGE88YfRg4t97GU7BJ6",
-  "lastseen": 1512482474,
-  "activeseconds": 1180019
+  "height": 76191,
+  "IP:port": "34.242.53.163:26173",
+  "proTxHash": "024608d03beb6a6065f14a29a837c68ae449ac1e17056819366ca0b72b6dd81f",
+  "outpoint": "024608d03beb6a6065f14a29a837c68ae449ac1e17056819366ca0b72b6dd81f-1",
+  "payee": "yhp182AnF7gUAyHiWgSbDrKqHKt2dzhoyW"
 }
 {% endhighlight %}
 
