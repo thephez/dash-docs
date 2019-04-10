@@ -2008,7 +2008,6 @@ Input 1
 
 Input 2
 | 05f24f65a9d98ff543ba61f7f0ce9448
-| 79632bf2517540a5bd8bde2fe8e94617
 | 79632bf2517540a5bd8bde2fe8e94617 ......... Previous outpoint TXID
 | 01000000 ................................. Previous outpoint index: 1
 
