@@ -162,7 +162,7 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 * [GetGovernanceInfo][rpc getgovernanceinfo]: {{summary_getGovernanceInfo}} {{DASH_UPDATED0_14_0}}
 * [GetPoolInfo][rpc getpoolinfo]: {{summary_getPoolInfo}}
 * [GetSuperblockBudget][rpc getsuperblockbudget]: {{summary_getSuperblockBudget}}
-* [GObject][rpc gobject]: {{summary_gObject}} {{DASH_UPDATED0_13_0}}
+* [GObject][rpc gobject]: {{summary_gObject}} {{DASH_UPDATED0_14_0}}
 * [Masternode][rpc masternode]: {{summary_masternode}} {{DASH_UPDATED0_14_0}}
 * [MasternodeList][rpc masternodelist]: {{summary_masternodeList}} {{DASH_UPDATED0_14_0}}
 * [MnSync][rpc mnsync]: {{summary_mnSync}} {{DASH_UPDATED0_14_0}}
@@ -178,8 +178,9 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 
 {% autocrossref %}
 
-* [BLS][rpc bls]: {{summary_bls}} {{DASH_NEW0_13_0}}
-* [ProTx][rpc protx]: {{summary_proTx}} {{DASH_UPDATED0_13_2}}
+* [BLS][rpc bls]: {{summary_bls}} {{DASH_UPDATED0_14_0}}
+* [ProTx][rpc protx]: {{summary_proTx}} {{DASH_UPDATED0_14_0}}
+* [Quorum][rpc quorum]: {{summary_quorum}} {{DASH_NEW0_14_0}}
 
 {% endautocrossref %}
 
@@ -307,7 +308,7 @@ default.
 * [ListReceivedByAddress][rpc listreceivedbyaddress]: {{summary_listReceivedByAddress}} {{DASH_UPDATED0_13_0}}
 * [ListSinceBlock][rpc listsinceblock]: {{summary_listSinceBlock}} {{DASH_UPDATED0_14_0}}
 * [ListTransactions][rpc listtransactions]: {{summary_listTransactions}} {{DASH_UPDATED0_14_0}}
-* [ListUnspent][rpc listunspent]: {{summary_listUnspent}} {{DASH_UPDATED0_12_3}} {{UPDATED0_13_0}}
+* [ListUnspent][rpc listunspent]: {{summary_listUnspent}} {{DASH_UPDATED0_14_0}}
 * [LockUnspent][rpc lockunspent]: {{summary_lockUnspent}}
 * [Move][rpc move]: {{summary_move}} {{DEPRECATED}}
 * [RemovePrunedFunds][rpc removeprunedfunds]: {{summary_removePrunedFunds}} {{DASH_NEW0_12_3}} {{NEW0_13_0}}

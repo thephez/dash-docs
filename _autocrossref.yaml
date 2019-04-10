@@ -516,6 +516,8 @@ DIP1:
 '`privatesend` RPC': rpc privatesend
 '`pruneblockchain`': rpc pruneblockchain
 '`pruneblockchain` RPC': rpc pruneblockchain
+'`quorum`': rpc quorum
+'`quorum` RPC': rpc quorum
 '`removeprunedfunds`': rpc removeprunedfunds
 '`removeprunedfunds` RPC': rpc removeprunedfunds
 '`sendfrom`': rpc sendfrom

@@ -294,6 +294,7 @@ devsearches:
     - 'PrioritiseTransaction': "/en/developer-reference#prioritisetransaction"
     - 'PrivateSend': "/en/developer-reference#privatesend"
     - 'PruneBlockChain': "/en/developer-reference#pruneblockchain"
+    - 'Quorum': "/en/developer-reference#quorum"
     - 'RemovePrunedFunds': "/en/developer-reference#removeprunedfunds"
     - 'SendFrom': "/en/developer-reference#sendfrom"
     - 'SendMany': "/en/developer-reference#sendmany"
