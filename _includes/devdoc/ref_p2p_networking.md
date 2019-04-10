@@ -3253,15 +3253,33 @@ details to nodes that have requested this information via the `qsendrecsigs` mes
 
 More information can be found in the [Recovered threshold signatures<!--noref--> section of DIP7](https://github.com/dashpay/dips/blob/master/dip-0007.md#recovered-threshold-signatures<!--noref-->).
 
-<!--
 The following annotated hexdump shows a `qsigrec` message. (The
 message header has been omitted.)
 
-{% highlight text %}
+Note: The following `qsigrec` message corresponds to the example `islock` message
+hexdump. The message hash below corresponds to the `islock` TXID field
+and the BLS signature matches the BLS signature of the `islock` example.
 
+{% highlight text %}
+01 ......................................... LLMQ Type: 1 (LLMQ_50_60)
+
+7d0befca14fa9e594aa19deab138ef28
+23fe838c89ed9be6ddc63c0200000000 ........... Quorum Hash
+
+0f1937c60f35640d063eae8eb288af21
+a2ec0ec69b58b20c52f5d438eaabd54d ........... Signing Request ID
+
+e2e1c797576d8b13c83e929684b9aacd
+553c20a34e2d11e38bdcaaf8e1de1680 ........... Message Hash
+
+0f055c2064885d446f83d51b9bb09892
+7ea0375a0f6a3f3402abf158ece67e00
+81049b8a8f45d254b64574cef194ef31
+197e450fba1196d652f2e1421d3b80ae
+f429c10eabd4ab9289e9a8f80f6989b7
+a11e5e7930deccc3e11a931fc9524f06 ........... LLMQ BLS Signature (96 bytes)
 {% endhighlight %}
 
--->
 {% endautocrossref %}
 
 
