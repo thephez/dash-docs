@@ -53,10 +53,10 @@ The `protx<!--noref--> register` RPC creates a ProRegTx referencing an existing 
   d: "IP and port in the form 'IP:PORT'.<br>Must be unique on the network.<br>Can be set to '0', which will require a ProUpServTx afterwards."
 {% enditemplate %}
 
-*Parameter #4---owner key address*
+*Parameter #4---owner address*
 
 {% itemplate ntpd1 %}
-- n: "`ownerKeyAddr`"
+- n: "`ownerAddress`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
   d: "The owner key used for payee updates and proposal voting. The private key belonging to this address be known in your wallet. The address must be unused and must differ from the `collateralAddress`."
@@ -71,13 +71,13 @@ The `protx<!--noref--> register` RPC creates a ProRegTx referencing an existing 
   d: " The operator public key. The private key does not have to be known. It has to match the private key which is later used when operating the masternode."
 {% enditemplate %}
 
-*Parameter #6---voting key address*
+*Parameter #6---voting address*
 
 {% itemplate ntpd1 %}
-- n: "`votingKeyAddr`"
+- n: "`votingAddress`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "The voting key address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to '0' or an empty string, `ownerAddr` will be used."
+  d: "The voting address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to an empty string, `ownerAddress` will be used."
 {% enditemplate %}
 
 *Parameter #7---operator reward*
@@ -158,10 +158,10 @@ The `protx<!--noref--> register_fund` RPC creates and funds a ProRegTx with the 
   d: "IP and port in the form 'IP:PORT'.<br>Must be unique on the network.<br>Can be set to '0', which will require a ProUpServTx afterwards."
 {% enditemplate %}
 
-*Parameter #3---owner key address*
+*Parameter #3---owner address*
 
 {% itemplate ntpd1 %}
-- n: "`ownerKeyAddr`"
+- n: "`ownerAddress`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
   d: "The owner key used for payee updates and proposal voting. The private key belonging to this address be known in your wallet. The address must be unused and must differ from the `collateralAddress`."
@@ -176,13 +176,13 @@ The `protx<!--noref--> register_fund` RPC creates and funds a ProRegTx with the 
   d: " The operator public key. The private key does not have to be known. It has to match the private key which is later used when operating the masternode."
 {% enditemplate %}
 
-*Parameter #5---voting key address*
+*Parameter #5---voting address*
 
 {% itemplate ntpd1 %}
-- n: "`votingKeyAddr`"
+- n: "`votingAddress`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "The voting key address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to '0' or an empty string, `ownerAddr` will be used."
+  d: "The voting address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to an empty string, `ownerAddress` will be used."
 {% enditemplate %}
 
 *Parameter #6---operator reward*
@@ -274,10 +274,10 @@ and outputs to cover fees.
   d: "IP and port in the form 'IP:PORT'.<br>Must be unique on the network.<br>Can be set to '0', which will require a ProUpServTx afterwards."
 {% enditemplate %}
 
-*Parameter #4---owner key address*
+*Parameter #4---owner address*
 
 {% itemplate ntpd1 %}
-- n: "`ownerKeyAddr`"
+- n: "`ownerAddress`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
   d: "The owner key used for payee updates and proposal voting. The private key belonging to this address be known in your wallet. The address must be unused and must differ from the `collateralAddress`."
@@ -292,13 +292,13 @@ and outputs to cover fees.
   d: " The operator public key. The private key does not have to be known. It has to match the private key which is later used when operating the masternode."
 {% enditemplate %}
 
-*Parameter #6---voting key address*
+*Parameter #6---voting address*
 
 {% itemplate ntpd1 %}
-- n: "`votingKeyAddr`"
+- n: "`votingAddress`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "The voting key address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to '0' or an empty string, `ownerAddr` will be used."
+  d: "The voting address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to an empty string, `ownerAddress` will be used."
 {% enditemplate %}
 
 *Parameter #7---operator reward*
@@ -671,7 +671,7 @@ The `protx<!--noref--> update_service` RPC creates and sends a ProUpServTx to th
 - n: "`operatorPayoutAddress`"
   t: "string (hex)"
   p: "Optional<br>(0 or 1)"
-  d: "The Dash address used for operator reward payments. Only allowed when the ProRegTx had a non-zero `operatorReward` value."
+  d: "The Dash address used for operator reward payments. Only allowed when the ProRegTx had a non-zero `operatorReward` value. If set to an empty string, the currently active payout address is reused."
 {% enditemplate %}
 
 *Parameter #5---fee source address*
@@ -730,16 +730,16 @@ The `protx<!--noref--> update_registrar` RPC creates and sends a ProUpRegTx to t
 - n: "`operatorPubKey`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: " The operator public key. The private key does not have to be known. It has to match the private key which is later used when operating the masternode."
+  d: " The operator public key. The private key does not have to be known. It has to match the private key which is later used when operating the masternode. If set to an empty string, the last on-chain operator key of the masternode will be used."
 {% enditemplate %}
 
-*Parameter #3---voting key address*
+*Parameter #3---voting address*
 
 {% itemplate ntpd1 %}
 - n: "`votingAddress`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "The voting key address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to an empty string, `ownerAddress` will be used."
+  d: "The voting address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to an empty string, `ownerAddress` will be used."
 {% enditemplate %}
 
 *Parameter #4---operator payout address*
@@ -748,7 +748,7 @@ The `protx<!--noref--> update_registrar` RPC creates and sends a ProUpRegTx to t
 - n: "`payoutAddress`"
   t: "string (hex)"
   p: "Optional<br>(0 or 1)"
-  d: "The Dash address to use for masternode reward payments. If set to '0' or an empty string, the last on-chain payout address of the masternode will be used."
+  d: "The Dash address to use for masternode reward payments. If set to an empty string, the last on-chain payout address of the masternode will be used."
 {% enditemplate %}
 
 *Parameter #5---fee source address*
