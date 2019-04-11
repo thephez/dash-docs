@@ -3408,14 +3408,19 @@ Note: The maximum number of inventories in a `qsigsinv` message is limited to
 The following annotated hexdump shows a `qsigsinv` message. (The
 message header has been omitted.)
 
+<!--
+Match  qbsigs and qsigsesann
+0284d84432011a04020084d84332011a0700
+-->
+
 {% highlight text %}
 02 ......................................... Count: 2
 
-80b176 ..................................... Session ID
-32012900 ................................... Inventory
+84d844 ..................................... Session ID
+32011a040200 ............................... Inventory
 
-80b175 ..................................... Session ID
-32012900 ................................... Inventory
+84d843 ..................................... Session ID
+32011a0700 ................................. Inventory
 {% endhighlight %}
 
 {% endautocrossref %}
