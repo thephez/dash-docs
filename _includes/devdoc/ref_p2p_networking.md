@@ -3148,24 +3148,52 @@ Note: The number of messages that can be sent in a batch is limited to 400
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| Varies | msgs | CBatchedSigShares | Batches of signature shares
+| Varies | count | compactSize uint | Number of batched signature shares |
+| Varies | msgs | CBatchedSigShares | Batches of signature shares |
 
 CBatchedSigShares:
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| 4 | sessionId | uint32_t | Signing session ID
-|  | sigShares | <uint16_t, CBLSLazySignature> |
+| 4 | sessionId | uint32_t | Signing session ID |
+| Varies | count | compactSize uint | Number of shares |
+| count * 98 | sigShares | <uint16_t, CBLSLazySignature> | Index (2 bytes) and BLS Signature share (96 bytes) |
 
-<!--
 The following annotated hexdump shows a `qbsigs` message. (The
 message header has been omitted.)
 
-{% highlight text %}
+<!--
+cee2caff716273696773000000000000cd000000a892e03f
+0284d8430121000fbd0c0981b79544c3e80d1a2eed13fef08c731b0156654675209812f9b2b8f3ec23868d26890a0e85e5cec4ad0e2d4601293cf7e41841fda5865063e7354f36e8a5c13d2c2d265a778f41e807b3cc6381e202ecf923c62bbb69ecc713bdf86d84d8440121009570d97e41b78045b51fba3d4f1ea38d7a0e007535ce6beb1e03eff163b421fdb8125142a12f92aa82770de7bb03820713ccc72dd6d9bf91ecc2835da54a0afb0c0fa5d7a214a020ca650ca202ddff29c3cac4033098297d2aaee098db5bfe2f
+-->
 
+{% highlight text %}
+02 ......................................... Number of signature share batches: 2
+
+Signature Shares
+| 84d843 ................................... Session ID
+|
+| 01 ....................................... Number of shares
+| 2100 ..................................... Index
+| 0fbd0c0981b79544c3e80d1a2eed13fe
+| f08c731b0156654675209812f9b2b8f3
+| ec23868d26890a0e85e5cec4ad0e2d46
+| 01293cf7e41841fda5865063e7354f36
+| e8a5c13d2c2d265a778f41e807b3cc63
+| 81e202ecf923c62bbb69ecc713bdf86d ......... BLS Signature share
+
+Signature Shares
+| 84d844 ................................... Session ID
+| 01 ....................................... Number of shares
+| 2100 ..................................... Index
+| 9570d97e41b78045b51fba3d4f1ea38d
+| 7a0e007535ce6beb1e03eff163b421fd
+| b8125142a12f92aa82770de7bb038207
+| 13ccc72dd6d9bf91ecc2835da54a0afb
+| 0c0fa5d7a214a020ca650ca202ddff29
+| c3cac4033098297d2aaee098db5bfe2f ......... BLS Signature share
 {% endhighlight %}
 
--->
 {% endautocrossref %}
 
 
