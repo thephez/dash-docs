@@ -2916,6 +2916,11 @@ section][section message header] for an example of a message without a payload.
 #### Distributed Key Generation
 {% include helpers/subhead-links.md %}
 
+The following network messages enable the creation of long living masternode
+quorums (LLMQs) as described in [DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md).
+
+With the exception of the `qfcommit` message, these messages are for intra-quorum
+communication only and are not propagated on the Dash network.
 
 ##### qcontrib
 {% include helpers/subhead-links.md %}
@@ -3128,6 +3133,12 @@ message header has been omitted.)
 #### Signing Sessions
 {% include helpers/subhead-links.md %}
 
+The following network messages enable the long living masternode quorum (LLMQ)
+message signing sessions described in [DIP7](https://github.com/dashpay/dips/blob/master/dip-0007.md).
+
+With the exception of the `qsendrecsigs` message and the `qsigrec` message,
+these messages are for intra-quorum communication only and are not
+propagated on the Dash network.
 
 ##### qbsigs
 {% include helpers/subhead-links.md %}
