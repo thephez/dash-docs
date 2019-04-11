@@ -3223,19 +3223,29 @@ Note: The number of inventories in a `qgetsigs` message is limited to 200
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| 4 | sessionId | uint32_t | Signing session ID
-| 1-9 | invSize | compactSize uint | Number of inventory
-| * `invSize` | inv | | Signing shares
+| Varies | count | compactSize uint | Number of signature shares requested |
+| Varies | sessionId | varint | Signing session ID
+| Varies | inv |  | Quorum signature inventory |
 
-<!--
 The following annotated hexdump shows a `qgetsigs` message. (The
 message header has been omitted.)
 
-{% highlight text %}
+<!--
+02 83831d 32011900 83831e 32011900
+-->
 
+{% highlight text %}
+02 ......................................... Count: 2
+
+Signature share request 1
+| 80db21 ................................... Session ID
+| 32012900 ................................. Inventory
+
+Signature share request 2
+| 80db22 ................................... Session ID
+| 32012900 ................................. Inventory
 {% endhighlight %}
 
--->
 {% endautocrossref %}
 
 
