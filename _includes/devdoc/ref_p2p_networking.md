@@ -3303,21 +3303,52 @@ Note: The maximum number of announcements in a `qsigsesann` message is limited t
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| 4 | sessionId | uint32_t | Signing session ID (must be less than the maximum uint32_t value)
+| 1-9 | sessionCount | compactSize uint | Number of session announcements |
+| Varies | sessionId | varint | Signing session ID (must be less than the maximum uint32_t value)
 | 1 | llmqType | uint8_t | The LLMQ type
 | 32 | quorumHash | uint256 | The quorum identifier
 | 32 | id | uint256 | The signing request id
 | 32 | msgHash | uint256 | The message hash
 
-<!--
 The following annotated hexdump shows a `qsigsesann` message. (The
 message header has been omitted.)
 
-{% highlight text %}
+<!-- Example
+0280db2101a34d3ae6b33cb1199c3e5e1cb5a2a55c91e69bb5df2bf80ba1cb0a0d0000000054f73deb42a8ed9b72b9c0535a72f54d5789bbe0dbea2e184c3089f9e8f65c3eaf2e5d730cd37cd911b92db117b4ab9990a3c0300ce39177d0d31be5b47c236180db2201a34d3ae6b33cb1199c3e5e1cb5a2a55c91e69bb5df2bf80ba1cb0a0d0000000089bbc2e5741a9f706e8d33dee41320378c33511768c5e3d6cdb2a1b7b731360bd2b41a19237e370b4b091545b203bc0c02ca7e0d5daebf12bb24b13064ed4149
+-->
 
+{% highlight text %}
+02 ......................................... Number of announcements: 2
+
+Session Announcement 1
+| 80db21 ................................... Session ID
+|
+| 01 ....................................... LLMQ Type: 1 (LLMQ_50_60)
+|
+| a34d3ae6b33cb1199c3e5e1cb5a2a55c
+| 91e69bb5df2bf80ba1cb0a0d00000000 ......... Quorum Hash
+|
+| 54f73deb42a8ed9b72b9c0535a72f54d
+| 5789bbe0dbea2e184c3089f9e8f65c3e ......... Signing request ID
+|
+| af2e5d730cd37cd911b92db117b4ab99
+| 90a3c0300ce39177d0d31be5b47c2361 ......... Message Hash
+
+Session Announcement 2
+| 80db22 ................................... Session ID
+|
+| 01 ....................................... LLMQ Type: 1 (LLMQ_50_60)
+|
+| a34d3ae6b33cb1199c3e5e1cb5a2a55c
+| 91e69bb5df2bf80ba1cb0a0d00000000 ......... Quorum Hash
+|
+| 89bbc2e5741a9f706e8d33dee4132037
+| 8c33511768c5e3d6cdb2a1b7b731360b ......... Signing request ID
+|
+| d2b41a19237e370b4b091545b203bc0c
+| 02ca7e0d5daebf12bb24b13064ed4149 ......... Message Hash
 {% endhighlight %}
 
--->
 {% endautocrossref %}
 
 
