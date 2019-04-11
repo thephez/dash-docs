@@ -3303,7 +3303,7 @@ Note: The maximum number of announcements in a `qsigsesann` message is limited t
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| 1-9 | sessionCount | compactSize uint | Number of session announcements |
+| Varies | count | compactSize uint | Number of session announcements |
 | Varies | sessionId | varint | Signing session ID (must be less than the maximum uint32_t value)
 | 1 | llmqType | uint8_t | The LLMQ type
 | 32 | quorumHash | uint256 | The quorum identifier
@@ -3369,21 +3369,27 @@ signature share inventories known by the transmitting peer.
 Note: The maximum number of inventories in a `qsigsinv` message is limited to
 200 (as defined by `MAX_MSGS_CNT_QSIGSHARESINV`).
 
+<!-- See quorum_signing_shares.h (CSigSharesInv) -->
+
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| 4 | sessionId | uint32_t | Signing session ID (must be less than the maximum uint32_t value)
-| 8 | invSize | uint64_t |
-|  | inv |  |
+| Varies | count | compactSize uint | Number of session announcements |
+| Varies | sessionId | varint | Signing session ID (must be less than the maximum uint32_t value) |
+| Varies | inv |  | Quorum signature inventory |
 
-<!--
 The following annotated hexdump shows a `qsigsinv` message. (The
 message header has been omitted.)
 
 {% highlight text %}
+02 ......................................... Count: 2
 
+80b176 ..................................... Session ID
+32012900 ................................... Inventory
+
+80b175 ..................................... Session ID
+32012900 ................................... Inventory
 {% endhighlight %}
 
--->
 {% endautocrossref %}
 
 
