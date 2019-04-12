@@ -1957,7 +1957,15 @@ the Developer Guide [InstantSend section](developer-guide#instantsend<!--noref--
 
 *Added in protocol version 70214 of Dash Core*
 
-The `clsig` message is used to...
+The `clsig` message is used to indicate a successful ChainLock for the designated
+block height. The Chainlock ensures that no other blocks can replace the one with
+the indicated block hash. This determination is made by agreement of a long-living
+masternode quorum (LLMQ) which creates the BLS signature in the message.
+
+Once a `clsig` message is received, clients must reject any other blocks for the
+indicated block height as described in [DIP8 (ChainLocks)](https://github.com/dashpay/dips/blob/master/dip-0008.md).
+This increases security by preventing reorganization of a block with a ChainLock
+(and all blocks below it).
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
@@ -1965,15 +1973,27 @@ The `clsig` message is used to...
 | 32 | blockHash | uint256 | Block hash
 | 96 | sig | CBLSSignature | LLMQ BLS signature
 
-<!--
 The following annotated hexdump shows a `clsig` message. (The
 message header has been omitted.)
 
-{% highlight text %}
+<!--
+c131010003bb286a877135fad3b33ea9cce9a525e5edc0879411afaff513b3010000000012a3331fd8d0008804edaaf94c57b491d36f38f1993d06dfff71df9ec83da463dcd5497d105932e609016dac075f02df1259951e3bcebfcc26afc904f6cd92df7ff9b8c6c2ac9dcc9cb1a7dc7ec03bcc005574710c3aabc2f8670959cf8bc9b5
+-->
 
+{% highlight text %}
+c1310100 ................................... Block Height: 78273
+
+03bb286a877135fad3b33ea9cce9a525
+e5edc0879411afaff513b30100000000 ........... Block Hash
+
+12a3331fd8d0008804edaaf94c57b491
+d36f38f1993d06dfff71df9ec83da463
+dcd5497d105932e609016dac075f02df
+1259951e3bcebfcc26afc904f6cd92df
+7ff9b8c6c2ac9dcc9cb1a7dc7ec03bcc
+005574710c3aabc2f8670959cf8bc9b5 ........... LLMQ BLS Signature
 {% endhighlight %}
 
--->
 {% endautocrossref %}
 
 #### islock
