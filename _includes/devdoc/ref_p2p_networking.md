@@ -1751,17 +1751,14 @@ wallet) to minimize data usage.
 | --- | --- | --- | --- |
 | 1 | fSendDSQueue | bool | 0 - Notify peer to not send any `dsq` messages<br>1 - Notify peer to send all `dsq` messages
 
-<!--
 The following annotated hexdump shows a `senddsq` message. (The
 message header has been omitted.)
 
 {% highlight text %}
-
+01 ................................. PrivateSend participation: Enabled (1)
 {% endhighlight %}
 
--->
 {% endautocrossref %}
-
 
 #### SendHeaders
 {% include helpers/subhead-links.md %}
@@ -1960,7 +1957,15 @@ the Developer Guide [InstantSend section](developer-guide#instantsend<!--noref--
 
 *Added in protocol version 70214 of Dash Core*
 
-The `clsig` message is used to...
+The `clsig` message is used to indicate a successful ChainLock for the designated
+block height. The Chainlock ensures that no other blocks can replace the one with
+the indicated block hash. This determination is made by agreement of a long-living
+masternode quorum (LLMQ) which creates the BLS signature in the message.
+
+Once a `clsig` message is received, clients must reject any other blocks for the
+indicated block height as described in [DIP8 (ChainLocks)](https://github.com/dashpay/dips/blob/master/dip-0008.md).
+This increases security by preventing reorganization of a block with a ChainLock
+(and all blocks below it).
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
@@ -1968,15 +1973,27 @@ The `clsig` message is used to...
 | 32 | blockHash | uint256 | Block hash
 | 96 | sig | CBLSSignature | LLMQ BLS signature
 
-<!--
 The following annotated hexdump shows a `clsig` message. (The
 message header has been omitted.)
 
-{% highlight text %}
+<!--
+c131010003bb286a877135fad3b33ea9cce9a525e5edc0879411afaff513b3010000000012a3331fd8d0008804edaaf94c57b491d36f38f1993d06dfff71df9ec83da463dcd5497d105932e609016dac075f02df1259951e3bcebfcc26afc904f6cd92df7ff9b8c6c2ac9dcc9cb1a7dc7ec03bcc005574710c3aabc2f8670959cf8bc9b5
+-->
 
+{% highlight text %}
+c1310100 ................................... Block Height: 78273
+
+03bb286a877135fad3b33ea9cce9a525
+e5edc0879411afaff513b30100000000 ........... Block Hash
+
+12a3331fd8d0008804edaaf94c57b491
+d36f38f1993d06dfff71df9ec83da463
+dcd5497d105932e609016dac075f02df
+1259951e3bcebfcc26afc904f6cd92df
+7ff9b8c6c2ac9dcc9cb1a7dc7ec03bcc
+005574710c3aabc2f8670959cf8bc9b5 ........... LLMQ BLS Signature
 {% endhighlight %}
 
--->
 {% endautocrossref %}
 
 #### islock
@@ -1986,24 +2003,45 @@ message header has been omitted.)
 
 *Added in protocol version 70214 of Dash Core*
 
-The `islock` message is used to...
+The `islock` message is used to provide details of transactions that have been
+locked by LLMQ-based InstantSend. The message includes the details of all
+transaction inputs along with the transaction ID and the BLS signature of the
+LLMQ that approved the transaction lock.
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| 1-9 | inputsSize | compactSize uint | Number of inputs|
+| 1-9 | inputsSize | compactSize uint | Number of inputs |
 | 36 * `inputsSize`| inputs | COutPoint | Outpoints used in the transaction |
 | 32 | txid | uint256 | TXID of the locked transaction |
 | 96 | sig | byte[] | LLMQ BLS Signature |
 
-<!--
 The following annotated hexdump shows a `islock` message. (The
 message header has been omitted.)
 
 {% highlight text %}
+02 ......................................... Number of inputs: 2
 
+Input 1
+| 05f24f65a9d98ff543ba61f7f0ce9448
+| 79632bf2517540a5bd8bde2fe8e94617 ......... Previous outpoint TXID
+| 00000000 ................................. Previous outpoint index: 0
+
+Input 2
+| 05f24f65a9d98ff543ba61f7f0ce9448
+| 79632bf2517540a5bd8bde2fe8e94617 ......... Previous outpoint TXID
+| 01000000 ................................. Previous outpoint index: 1
+
+e2e1c797576d8b13c83e929684b9aacd
+553c20a34e2d11e38bdcaaf8e1de1680 ........... TXID
+
+0f055c2064885d446f83d51b9bb09892
+7ea0375a0f6a3f3402abf158ece67e00
+81049b8a8f45d254b64574cef194ef31
+197e450fba1196d652f2e1421d3b80ae
+f429c10eabd4ab9289e9a8f80f6989b7
+a11e5e7930deccc3e11a931fc9524f06 ........... LLMQ BLS Signature (96 bytes)
 {% endhighlight %}
 
--->
 {% endautocrossref %}
 
 #### ix
@@ -2785,7 +2823,7 @@ The `mnauth` message is sent by a masternode immediately after sending a
 sent when the sender is actually a masternode.
 
 The `mnauth` message signs a challenge that was previously sent via a
-`version` message. The challenge is signed differently depending on depending on
+`version` message. The challenge is signed differently depending on
 if the connection is inbound or outbound.
 
 This is primarily used as a DoS protection mechanism to allow persistent
@@ -2794,18 +2832,24 @@ are reached.
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| 2 | proRegTxHash | uint256 | Version of the  message
+| 32 | proRegTxHash | uint256 | Version of the message
 | 96 | sig | byte[] | BLS signature, signed with the operator key of the masternode
 
-<!--
 The following annotated hexdump shows a `mnauth` message. (The
 message header has been omitted.)
 
 {% highlight text %}
+63cd3bf06404d78f80163afeb4b13e18
+7dc1c1d04997ef04f1a2ecb3166dd004 ........... ProRegTx Hash
 
+12f2706bc75e9cb14a9ebf1d93d177d5
+f266ad2eddc49ad463810cb976a3e4bb
+abffc96819c5030fd5a7601af9c8ee50
+0feb066b38a48af1a31b7242bd814bab
+91e2a887f963904f33af851ddc9167d5
+66d6d3bd6c07e99091edd8867d0dd56e ........... Masternode BLS Signature (96 bytes)
 {% endhighlight %}
 
--->
 {% endautocrossref %}
 
 
@@ -2892,6 +2936,11 @@ section][section message header] for an example of a message without a payload.
 #### Distributed Key Generation
 {% include helpers/subhead-links.md %}
 
+The following network messages enable the creation of long living masternode
+quorums (LLMQs) as described in [DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md).
+
+With the exception of the `qfcommit` message, these messages are for intra-quorum
+communication only and are not propagated on the Dash network.
 
 ##### qcontrib
 {% include helpers/subhead-links.md %}
@@ -3104,6 +3153,12 @@ message header has been omitted.)
 #### Signing Sessions
 {% include helpers/subhead-links.md %}
 
+The following network messages enable the long living masternode quorum (LLMQ)
+message signing sessions described in [DIP7](https://github.com/dashpay/dips/blob/master/dip-0007.md).
+
+With the exception of the `qsendrecsigs` message and the `qsigrec` message,
+these messages are for intra-quorum communication only and are not
+propagated on the Dash network.
 
 ##### qbsigs
 {% include helpers/subhead-links.md %}
@@ -3124,24 +3179,59 @@ Note: The number of messages that can be sent in a batch is limited to 400
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| Varies | msgs | CBatchedSigShares | Batches of signature shares
+| Varies | batchCount | compactSize uint | Number of batched signature shares |
+| Varies | msgs | CBatchedSigShares | Batches of signature shares |
 
 CBatchedSigShares:
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| 4 | sessionId | uint32_t | Signing session ID
-|  | sigShares | <uint16_t, CBLSLazySignature> |
+| Varies | sessionId | varint | Signing session ID |
+| Varies | shareCount | compactSize uint | Number of shares |
+| shareCount * 98 | sigShares | <uint16_t, CBLSLazySignature> | Index (2 bytes) and BLS Signature share (96 bytes) |
 
-<!--
 The following annotated hexdump shows a `qbsigs` message. (The
 message header has been omitted.)
 
-{% highlight text %}
+<!--
+cee2caff716273696773000000000000cd000000a892e03f
+0284d8430121000fbd0c0981b79544c3e80d1a2eed13fef08c731b0156654675209812f9b2b8f3ec23868d26890a0e85e5cec4ad0e2d4601293cf7e41841fda5865063e7354f36e8a5c13d2c2d265a778f41e807b3cc6381e202ecf923c62bbb69ecc713bdf86d84d8440121009570d97e41b78045b51fba3d4f1ea38d7a0e007535ce6beb1e03eff163b421fdb8125142a12f92aa82770de7bb03820713ccc72dd6d9bf91ecc2835da54a0afb0c0fa5d7a214a020ca650ca202ddff29c3cac4033098297d2aaee098db5bfe2f
+-->
 
+{% highlight text %}
+02 ......................................... Number of signature share batches: 2
+
+Signature Share Batch 1
+| 84d843 ................................... Session ID
+|
+| 01 ....................................... Share count: 1
+|
+| Share
+| | 2100 ................................... Index
+|
+| | 0fbd0c0981b79544c3e80d1a2eed13fe
+| | f08c731b0156654675209812f9b2b8f3
+| | ec23868d26890a0e85e5cec4ad0e2d46
+| | 01293cf7e41841fda5865063e7354f36
+| | e8a5c13d2c2d265a778f41e807b3cc63
+| | 81e202ecf923c62bbb69ecc713bdf86d ....... BLS Signature share
+
+Signature Share Batch 2
+| 84d844 ................................... Session ID
+|
+| 01 ....................................... Share Count: 1
+|
+| Share
+| | 2100 ................................... Index
+| |
+| | 9570d97e41b78045b51fba3d4f1ea38d
+| | 7a0e007535ce6beb1e03eff163b421fd
+| | b8125142a12f92aa82770de7bb038207
+| | 13ccc72dd6d9bf91ecc2835da54a0afb
+| | 0c0fa5d7a214a020ca650ca202ddff29
+| | c3cac4033098297d2aaee098db5bfe2f ....... BLS Signature share
 {% endhighlight %}
 
--->
 {% endautocrossref %}
 
 
@@ -3164,19 +3254,29 @@ Note: The number of inventories in a `qgetsigs` message is limited to 200
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| 4 | sessionId | uint32_t | Signing session ID
-| 1-9 | invSize | compactSize uint | Number of inventory
-| * `invSize` | inv | | Signing shares
+| Varies | count | compactSize uint | Number of signature shares requested |
+| Varies | sessionId | varint | Signing session ID
+| Varies | inv |  | Quorum signature inventory |
 
-<!--
 The following annotated hexdump shows a `qgetsigs` message. (The
 message header has been omitted.)
 
-{% highlight text %}
+<!--
+02 83831d 32011900 83831e 32011900
+-->
 
+{% highlight text %}
+02 ......................................... Count: 2
+
+Signature share request 1
+| 80db21 ................................... Session ID
+| 32012900 ................................. Inventory
+
+Signature share request 2
+| 80db22 ................................... Session ID
+| 32012900 ................................. Inventory
 {% endhighlight %}
 
--->
 {% endautocrossref %}
 
 
@@ -3199,15 +3299,13 @@ in the higher level messages.
 | --- | --- | --- | --- |
 | 1 | fSendRecSigs | bool | 0 - Notify peer to not send plain LLMQ recovered signatures<br>1 - Notify peer to send plain LLMQ recovered signatures (default for Dash Core nodes)
 
-<!--
 The following annotated hexdump shows a `qsendrecsigs` message. (The
 message header has been omitted.)
 
 {% highlight text %}
-
+01 ................................. Request recovered signatures: Enabled (1)
 {% endhighlight %}
 
--->
 {% endautocrossref %}
 
 
@@ -3231,15 +3329,33 @@ details to nodes that have requested this information via the `qsendrecsigs` mes
 
 More information can be found in the [Recovered threshold signatures<!--noref--> section of DIP7](https://github.com/dashpay/dips/blob/master/dip-0007.md#recovered-threshold-signatures<!--noref-->).
 
-<!--
 The following annotated hexdump shows a `qsigrec` message. (The
 message header has been omitted.)
 
-{% highlight text %}
+Note: The following `qsigrec` message corresponds to the example `islock` message
+hexdump. The message hash below corresponds to the `islock` TXID field
+and the BLS signature matches the BLS signature of the `islock` example.
 
+{% highlight text %}
+01 ......................................... LLMQ Type: 1 (LLMQ_50_60)
+
+7d0befca14fa9e594aa19deab138ef28
+23fe838c89ed9be6ddc63c0200000000 ........... Quorum Hash
+
+0f1937c60f35640d063eae8eb288af21
+a2ec0ec69b58b20c52f5d438eaabd54d ........... Signing Request ID
+
+e2e1c797576d8b13c83e929684b9aacd
+553c20a34e2d11e38bdcaaf8e1de1680 ........... Message Hash
+
+0f055c2064885d446f83d51b9bb09892
+7ea0375a0f6a3f3402abf158ece67e00
+81049b8a8f45d254b64574cef194ef31
+197e450fba1196d652f2e1421d3b80ae
+f429c10eabd4ab9289e9a8f80f6989b7
+a11e5e7930deccc3e11a931fc9524f06 ........... LLMQ BLS Signature (96 bytes)
 {% endhighlight %}
 
--->
 {% endautocrossref %}
 
 
@@ -3263,21 +3379,53 @@ Note: The maximum number of announcements in a `qsigsesann` message is limited t
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| 4 | sessionId | uint32_t | Signing session ID (must be less than the maximum uint32_t value)
+| Varies | count | compactSize uint | Number of session announcements |
+| Varies | sessionId | varint | Signing session ID (must be less than the maximum uint32_t value)
 | 1 | llmqType | uint8_t | The LLMQ type
 | 32 | quorumHash | uint256 | The quorum identifier
 | 32 | id | uint256 | The signing request id
 | 32 | msgHash | uint256 | The message hash
 
-<!--
 The following annotated hexdump shows a `qsigsesann` message. (The
 message header has been omitted.)
 
-{% highlight text %}
+<!-- Example
+Match  qbsigs and qsigsinv
+0284d84301a34d3ae6b33cb1199c3e5e1cb5a2a55c91e69bb5df2bf80ba1cb0a0d0000000089bbc2e5741a9f706e8d33dee41320378c33511768c5e3d6cdb2a1b7b731360bd2b41a19237e370b4b091545b203bc0c02ca7e0d5daebf12bb24b13064ed414984d84401a34d3ae6b33cb1199c3e5e1cb5a2a55c91e69bb5df2bf80ba1cb0a0d0000000054f73deb42a8ed9b72b9c0535a72f54d5789bbe0dbea2e184c3089f9e8f65c3eaf2e5d730cd37cd911b92db117b4ab9990a3c0300ce39177d0d31be5b47c2361
+-->
 
+{% highlight text %}
+02 ......................................... Count: 2
+
+Session Announcement 1
+| 84d843 ................................... Session ID
+|
+| 01 ....................................... LLMQ Type: 1 (LLMQ_50_60)
+|
+| a34d3ae6b33cb1199c3e5e1cb5a2a55c
+| 91e69bb5df2bf80ba1cb0a0d00000000 ......... Quorum Hash
+|
+| 89bbc2e5741a9f706e8d33dee4132037
+| 8c33511768c5e3d6cdb2a1b7b731360b ......... Signing request ID
+|
+| d2b41a19237e370b4b091545b203bc0c
+| 02ca7e0d5daebf12bb24b13064ed4149 ......... Message Hash
+
+Session Announcement 2
+| 84d844 ................................... Session ID
+|
+| 01 ....................................... LLMQ Type: 1 (LLMQ_50_60)
+|
+| a34d3ae6b33cb1199c3e5e1cb5a2a55c
+| 91e69bb5df2bf80ba1cb0a0d00000000 ......... Quorum Hash
+|
+| 54f73deb42a8ed9b72b9c0535a72f54d
+| 5789bbe0dbea2e184c3089f9e8f65c3e ......... Signing request ID
+|
+| af2e5d730cd37cd911b92db117b4ab99
+| 90a3c0300ce39177d0d31be5b47c2361 ......... Message Hash
 {% endhighlight %}
 
--->
 {% endautocrossref %}
 
 
@@ -3298,21 +3446,32 @@ signature share inventories known by the transmitting peer.
 Note: The maximum number of inventories in a `qsigsinv` message is limited to
 200 (as defined by `MAX_MSGS_CNT_QSIGSHARESINV`).
 
+<!-- See quorum_signing_shares.h (CSigSharesInv) -->
+
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
-| 4 | sessionId | uint32_t | Signing session ID (must be less than the maximum uint32_t value)
-| 8 | invSize | uint64_t |
-|  | inv |  |
+| Varies | count | compactSize uint | Number of session announcements |
+| Varies | sessionId | varint | Signing session ID (must be less than the maximum uint32_t value) |
+| Varies | inv |  | Quorum signature inventory |
 
-<!--
 The following annotated hexdump shows a `qsigsinv` message. (The
 message header has been omitted.)
 
-{% highlight text %}
+<!--
+Match  qbsigs and qsigsesann
+0284d84432011a04020084d84332011a0700
+-->
 
+{% highlight text %}
+02 ......................................... Count: 2
+
+84d844 ..................................... Session ID
+32011a040200 ............................... Inventory
+
+84d843 ..................................... Session ID
+32011a0700 ................................. Inventory
 {% endhighlight %}
 
--->
 {% endautocrossref %}
 
 
