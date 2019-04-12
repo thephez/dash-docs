@@ -3085,18 +3085,51 @@ verification and selection of the final commitment.
 | 1-9 | validMembersSize | compactSize uint | Bit size of the `validMembers` bitvector
 | (`valid`<br>`MembersSize` + 7) / 8 | validMembers | byte[] | Bitset of valid members in this commitment
 | 48 | quorumPublicKey | uint256 | The quorum public key
-| (`complaints`<br>`BitSize` + 7) / 8 | quorumVvecHash | byte[] | The complaints bitvector
+| 32 | quorumVvecHash | byte[] | The hash of the quorum verification vector
 | 96 | quorumSig | BLSSig | Threshold signature, signed with the threshold signature share of the committing member
 | 96 | sig | byte[] | BLS signature, signed with the operator key of the contributing masternode
 
 More information can be found in the [Commitment phase section of DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#5-commitment-phase).
 
 <!--
+01cb9a1552340175a8232437eb8ceceaea4b90a0f75caff20ee12d230b0000000059c38b8d6a0664411f92a6326e8ef0707ecf185405252854ddb477d89127a32d32ffffffffffff03102809b8649209a15fceb3984014eb3970ca9bd2464b2f84353a3353f4d612eb7ca6daaf723170cdbdad40c5cf44f87b17431ce7dfecb9bba4ccba5921514d24fe267c61078bdfe29d90774a3b766ad594f7417e0ed56ada7116cf4f1e400748deb2e2040babd540f21925b2eec8d4df75d3e0fc3323d083db76f66ce6128a130f1b2c4725076dae2283bbecbf2e123072cc9cec244337008bf82a670ab9e2ee6220dd736a1a70c9ca87867ca55f866585723fe503bba8ac814eab0f28f1fd0749927528c01b635d11d3f2843ce3f7e16223c7e9a9e1f70916159c965acae8bf09d16dc85267ec4081907adc966eae69b6a5077267fdc61cdb192faffa27bed92883559bab2ab81cef6253452622b30c
+-->
+
 The following annotated hexdump shows a `qpcommit` message. (The
 message header has been omitted.)
 
 {% highlight text %}
+01 ......................................... LLMQ Type: 1 (LLMQ_50_60)
 
+cb9a1552340175a8232437eb8ceceaea
+4b90a0f75caff20ee12d230b00000000 ........... Quorum Hash
+
+59c38b8d6a0664411f92a6326e8ef070
+7ecf185405252854ddb477d89127a32d ........... ProRegTx hash
+
+32 ......................................... Valid member bitvector size: 50
+ffffffffffff03 ............................. Valid members
+
+102809b8649209a15fceb3984014eb39
+70ca9bd2464b2f84353a3353f4d612eb
+7ca6daaf723170cdbdad40c5cf44f87b ........... Quorum BLS Public Key
+
+17431ce7dfecb9bba4ccba5921514d24
+fe267c61078bdfe29d90774a3b766ad5 ........... Quorum Verification Vector Hash
+
+94f7417e0ed56ada7116cf4f1e400748
+deb2e2040babd540f21925b2eec8d4df
+75d3e0fc3323d083db76f66ce6128a13
+0f1b2c4725076dae2283bbecbf2e1230
+72cc9cec244337008bf82a670ab9e2ee
+6220dd736a1a70c9ca87867ca55f8665 ........... BLS Threshold signature
+
+85723fe503bba8ac814eab0f28f1fd07
+49927528c01b635d11d3f2843ce3f7e1
+6223c7e9a9e1f70916159c965acae8bf
+09d16dc85267ec4081907adc966eae69
+b6a5077267fdc61cdb192faffa27bed9
+2883559bab2ab81cef6253452622b30c ........... BLS signature (Operator Key)
 {% endhighlight %}
 
 -->
