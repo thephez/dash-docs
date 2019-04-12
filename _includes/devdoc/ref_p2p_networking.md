@@ -3172,14 +3172,47 @@ valid final commitment.
 More information can be found in the [Finalization phase section of DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#6-finalization-phase).
 
 <!--
+010001cb9a1552340175a8232437eb8ceceaea4b90a0f75caff20ee12d230b0000000032ffffffffffff0332ffffffffffff03102809b8649209a15fceb3984014eb3970ca9bd2464b2f84353a3353f4d612eb7ca6daaf723170cdbdad40c5cf44f87b17431ce7dfecb9bba4ccba5921514d24fe267c61078bdfe29d90774a3b766ad5083388b91a2f8f7f4ea35469f25ee16a21b3e03b02936675897f74424d6de74866b34dcc5861fd3f5f661ea1ed124a080b165f21b1f2db18c4c37c82f8a8d3509a6f52a14c643dab71a4dced78ae9a42dc982e89a92606df537b8918881e9c950d131c7062253671f9c8ebb39a9b0057d78dc67e236b55086cbb0624c7f4abcc0a26557bfad3092bd38ded4e3cca6c430dda2e73a99ca3d359631cb99a121c5e92cea06ef4c03bb18ad9e90559104550c8a042dc51aa58a26c134405fc3234ff
+-->
+
 The following annotated hexdump shows a `qfcommit` message. (The
 message header has been omitted.)
 
 {% highlight text %}
+0100 ....................................... Message Version: 1
+01 ......................................... LLMQ Type: 1 (LLMQ_50_60)
 
+cb9a1552340175a8232437eb8ceceaea
+4b90a0f75caff20ee12d230b00000000 ........... Quorum Hash
+
+32 ......................................... Signer bitvector size: 50
+ffffffffffff03 ............................. Signers
+
+32 ......................................... Valid member bitvector size: 50
+ffffffffffff03 ............................. Valid members
+
+102809b8649209a15fceb3984014eb39
+70ca9bd2464b2f84353a3353f4d612eb
+7ca6daaf723170cdbdad40c5cf44f87b ........... Quorum BLS Public Key
+
+17431ce7dfecb9bba4ccba5921514d24
+fe267c61078bdfe29d90774a3b766ad5 ........... Quorum Verification Vector Hash
+
+083388b91a2f8f7f4ea35469f25ee16a
+21b3e03b02936675897f74424d6de748
+66b34dcc5861fd3f5f661ea1ed124a08
+0b165f21b1f2db18c4c37c82f8a8d350
+9a6f52a14c643dab71a4dced78ae9a42
+dc982e89a92606df537b8918881e9c95 ........... Quorum BLS Recovered Threshold Sig
+
+0d131c7062253671f9c8ebb39a9b0057
+d78dc67e236b55086cbb0624c7f4abcc
+0a26557bfad3092bd38ded4e3cca6c43
+0dda2e73a99ca3d359631cb99a121c5e
+92cea06ef4c03bb18ad9e90559104550
+c8a042dc51aa58a26c134405fc3234ff ........... Quorum Aggregate BLS Sig
 {% endhighlight %}
 
--->
 {% endautocrossref %}
 
 
