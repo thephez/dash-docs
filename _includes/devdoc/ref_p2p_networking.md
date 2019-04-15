@@ -3126,15 +3126,39 @@ An `SKContribution` consists of:
 
 More information can be found in the [Justification phase section of DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#4-justification-phase).
 
-<!--
+
 The following annotated hexdump shows a `qjustify` message. (The
 message header has been omitted.)
 
 {% highlight text %}
+01 ......................................... LLMQ Type: 1 (LLMQ_50_60)
 
+bc10b9ced438052d3726085c13aa9c6e
+4f0950675f9ab1948276220100000000 ........... Quorum Hash
+
+cbd9581d54af43a06d3f6900b5226945
+4303c1b378bbb45caea44228af0c67a6 ........... ProRegTx hash
+
+-------------------------------------------------------------
+NOTE: The following fields are placeholders for actual values
+-------------------------------------------------------------
+
+01 ......................................... Contribution count: 1
+
+Contribution #1
+| 01000000 ................................. Member Index: 1
+|
+| 00000000000000000000000000000000
+| 00000000000000000000000000000000 ......... Unencrypted secret key contribution
+
+00000000000000000000000000000000
+00000000000000000000000000000000
+00000000000000000000000000000000
+00000000000000000000000000000000
+00000000000000000000000000000000
+00000000000000000000000000000000 ........... BLS signature (Operator Key)
 {% endhighlight %}
 
--->
 {% endautocrossref %}
 
 
