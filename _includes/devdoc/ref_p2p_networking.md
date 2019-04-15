@@ -2992,7 +2992,7 @@ message header has been omitted.)
 intra-quorum communication and is only sent to the masternodes in the LLMQ and
 nodes that are monitoring in Watch Mode for auditing/debugging purposes.
 
-The `qcomplaint` message is used to notify other members of the DKG process of
+The `qcomplaint` message is used to notify other members in the DKG process of
 any members that provided an invalid secret key contribution.
 
 | Bytes | Name | Data type | Description |
@@ -3009,14 +3009,34 @@ any members that provided an invalid secret key contribution.
 More information can be found in the [Complaining phase section of DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#3-complaining-phase).
 
 <!--
+01bc10b9ced438052d3726085c13aa9c6e4f0950675f9ab1948276220100000000cbd9581d54af43a06d3f6900b52269454303c1b378bbb45caea44228af0c67a63200000000000400320000000000000098e148f112fc46d233eeee230472b3050b80b2a675cf7699f97412cce3606a3c863c89aa68ed1608ed9a6503dfd1d8aa01c7a15e70cdc45afe653beaaf399aeb9b4f44cdf5eaafe223807f30c35a97fde9015178f6d642b7b25c4fd7c4ef3030
+-->
+
 The following annotated hexdump shows a `qcomplaint` message. (The
 message header has been omitted.)
 
 {% highlight text %}
+01 ......................................... LLMQ Type: 1 (LLMQ_50_60)
+bc10b9ced438052d3726085c13aa9c6e
+4f0950675f9ab1948276220100000000 ........... Quorum Hash
 
+cbd9581d54af43a06d3f6900b5226945
+4303c1b378bbb45caea44228af0c67a6 ........... ProRegTx hash
+
+32 ......................................... Bad member bitvector size: 50
+00000000000400 ............................. Bad members
+
+32 ......................................... Complaints bitvector size: 50
+00000000000000 ............................. Complaints
+
+98e148f112fc46d233eeee230472b305
+0b80b2a675cf7699f97412cce3606a3c
+863c89aa68ed1608ed9a6503dfd1d8aa
+01c7a15e70cdc45afe653beaaf399aeb
+9b4f44cdf5eaafe223807f30c35a97fd
+e9015178f6d642b7b25c4fd7c4ef3030 ........... BLS signature (Operator Key)
 {% endhighlight %}
 
--->
 {% endautocrossref %}
 
 
