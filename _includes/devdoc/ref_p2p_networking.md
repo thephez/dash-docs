@@ -2963,21 +2963,75 @@ contributions to all other members.
 | 32 | proTxHash | uint256 | The ProRegTx hash of the complaining member
 | 1-9 | vvecSize | compactSize uint | The size of the verification vector
 | 48 * `vvecSize` | vvec | BLSPubKey[] | The verification vector
+| 48 | ephemeralPubKey | BLSPubKey | Ephemeral BLS public key used to encrypt secret key contributions
+| 32 | iv | uint256 | Initialization vector
 | 1-9 | skCount | compactSize uint | Number of encrypted secret key contributions
-| 32 * `skCount` | skContributions | byte[] | Secret key contributions encrypted to recipient masternodes’ BLS public operator key
+| (1 + 32) * (`skCount`) | skContributions | byte[] | Secret key contributions encrypted to recipient masternodes’ BLS public operator key.<br><br>Each contribution consists of:<br>- Size: 1 byte<br>- Secret Key: 32 bytes
 | 96 | sig | byte[] | BLS signature, signed with the operator key of the contributing masternode
 
 More information can be found in the [Contribution phase section of DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#2-contribution-phase).
 
 <!--
+01cb9a1552340175a8232437eb8ceceaea4b90a0f75caff20ee12d230b00000000cd1c97c52ccf163ee5dc264d411efc90b07729cd34d9d2e7c7b3ca4b2a4e77cf1e8da71ba5030e28c6c4de5e0eb1660d0fa9fd21ef4fef700a556f10286c9c34fbbeb36fffb5b2a552a40d6c8e27aac338990598c80bfa709544f774aa388216712082434712c19adc00384775178f39ce05a2bb4af48038eeb994b4e623f63fe39580d5513cde5ec6967984b29eb6b9826f80a86a19359da5ac27a0a976d0fb3cba4e82df7929eb1c0a24cb36a97559b4150bb62aaacda92276db74d5ab78f62862a3e44933b20c2b3106ad530374901c2b3d3ab7ccc7f808b1a2a80e5e8c4f0e12b88db88ec3209356a0f5700ad414b1110b606fc8f7314c8f8932baf7f8df164929f7aa5d00204c566bf8faa6d11ed589fe78322d9b867d64a7f9916918acdcf2b9fe98dbf999161e28faff4eefafab3d350277d7e52ede09a8771edc17a39804edb569a186375c8a142b925e27dab7142d14f570eaf6114276572a65188ab3c24fd7292ba4bbb4d0a24d1044ed74e50c2b2330143ab3ea630f682dfa3d7c6667088070b2f5af28d67abf2d05aa20353e4a5ccc9d3ab80b35747139785dc88c86eb39e0f4bdecc5d3b5c744aeef39b6207a6e356b469eff8929276cc2ed7361ed78cf107face784334a688f94648666823eecd91296365644560d6915171b86aa037282018367b63a72357dcd118bdccef82445533194bc8e567de1b02657f598e041b66b19b89099f3ad459fe8d992cc73f31187b9c0f5cc20b5bbfeb78662d3f0b6431d85f5e08ab62bbfda8ce7b509f62a9a635a581fb46cde5ff20d6faf3e209e1acb781ca2e46fc8b081f098c47016fd67a24c2e6816e8078f631e395589b1f1dc669326cfe055a95f5c1dff06698e6070b108c08481eb2b2c18036425d5459bf8c6072842ab4faebaf797148a973c600d32467f68a202ffe8025912d4065ea137874a255f2d9163cf5e00ee6770f6fab17c464e3ea911fd3b7ea8dda303c0c96c18b4a1d55819175e6da431ec498178a496bd62b0cb4f06ca5bec4b823953d60d1fc16f2ca55140cadf478b330e8a98a8b326cd0fbb939d4a32ba054fd342c7dd948cb58704766b8e264affec0902c170fc0c08beabf70eb527cdbc838ff9b3d4b058fa90b7e98f1cdd16d9c69acd49514ed0ce91babb1d84782fe0328c11191f9d00fdfd5aabe79006b320aa141839f1af18e542d876521925e9a09a8a89dec18dd811513c3a4707857848483250cc46222c0b8266e27ff49ec408f902288df89848afccf3e63a0830454de1f27f195b3bad7b98967a0a4ce9ea4c3be5b7a700b3f811c2b0d1bcd151c84bb4838066541d9cea2ab92860ba8a90e562a786a27fd7bc1185108ee5838cb5d2de5259f7532f4a193d89534c02916ff31c934919b2ac27f484281de372a9664a5d2de779bad7325877d133540c9f46c5b36d15125ab0e1dfd4f0dd9b9f3f2eee0713b0e7cd3e7a9d3938c182b099b43d6e39f99f97bb4974af3d48d475e3d8372820fbecf29988175dfb02ab81c902bac8946ea74d9d3499452a6d3340da829112521208f598b0ccd65014166e7b80e79df2af051de12b05f761108bcd4dbc326997d161650e0aff0df576883f6c3491d9a425187ed285f139b23e4cf609a63cea57720829a00ac1b32c951dc67f2c85f305e07e728c2ff43c005364fe62c4ade86e65fc28b0173cfc54262a102074d986edfd964f2e9b95b24750ad59620151288554167d94e15b066f4a649ee1e8fa9b980d4b971ef852bc2aac60d995ba6d10f57c8048753f616fc47b20251c28cc6380a84a526adb4d6ff449638d9dac00eaed07c2ec4ff4c0bd1ba651d9034db8998c81af6c069121cf7ec84c4ce51f3ab691c9034f72976ed081d0627e74bfb7609243815ffd04fbbb5c7585c82497f9d6724bb51ef5bf93223c9900892cd9b96710bc7770df9218f67e7376b47f3109a67c97a9f8923b5274d45ccd010f1fa1acaa60351c12067f9c44bd2e6a0cbaa78d99d8649d226261162bcb5a11617d1732553b8358d85b1d9e12a88eb3e979fb7ce49b5a21a82a74e9d06233199cb73db48d664929b596cdc8eb835d652944d61b7fd21fd60ba0288af4f9e3a10658c8a856467082c728e2037791166705ada03a93037a05b65adad6f5d44edc43500bff71605f0e5f90ab92e3e0b46461c1c64d322031f3e8e5b2cc2063ee7fd1dd469dca124bdf506ee46fe825d5537aa3ce83822520a6b3ff696ffc5e0c0a9b444c515edc485a9ccea0268c2a445fac5e24feda51a920abe2d624f09ea061723cd19b7e20b97eb64c3748a3775749a01a60fcd3822adf20515d7133f8747f04302f42de2f2d477948cbdac9d31ee1ccd85024cd984ef81720a90ac025894a2d58779c16240c1c86716c3d38a2a9c021dcc916bc5acc133a7120c5a22631e02c385bf9ea352679236683bbfb905f9d519c67b3ff1301d9ccb86a2005f7443288797be0329900e314b14ab84dc4b1373db488cb2c2c0d096880baab20d512e6a170190a680cd1bc8ef5264d2a66ea02d4e369e6820ef259c30d88c65a204ba9f3ec6d82358cd25c762fdf42a5e6f2c2402dabe1b2e942a3825ca8c678ae20ebedc2e4474a3a3b4c4b0ae31315aadc9159f7c172eb5ef28953ea96d5016f212028f8e564fd16d9d620a36fbc0ba226620eacad96c1684c246a10575564f7d574205134ee79b66e04e75fdc30b6d9cf17548e7a8b1ea235802cec00f828f6a7ced420bd130840299dda687a8af77493f9c231d382ea9a626e0f4ce78c601391ed104e20a00378f1f4f7f073b44de5bb9eecba6c42acbf95629d57ec2dc2d4b3b4fa12cb20f5e01d10b5e9822604f257dae828d1cb64d0b08c3e2fac7d0f4058ea3a8af0e420195a11c3dcce878bbb8c12f4b3ccb6e21747c3271c0c277b24d92ef5d44ad6a7203ff93a3624667902ec938821c8c1ebff96bd79ce40aac06fc8b79cc1dba4f7a02074774c1c304e38f43b14e6f6e92164eaf4c300ad2364a330c83b3d34dd79f3ca20261fc38e1db0aad06de7bb1bf84e14c168d4d1865602f8fa4ce045cb6f95e50c20d802eedd6c56605df229dd192f79c8a446a7be5fe9756bf8b38706e8ffd2807d2050f586c5918c91ff0966936be3c5a63e98bc6277d1298ac106dc18917829423820501c704d841d28a6f3bddd27d52a26cd9907613b459090343591e8f32e7984642011908115dd0df04afe8cb18807a7c0c929c9fa43374113619071a4a3132839e820211e238ac56cacbc1c1b0206933b68891d51ed822488944f1d070ad2f958c3e220e3972eae5b83798d8b58702cc939118f7a63effda5e7ebeeef5a055cd85a42cf200b2175a03c335d290ebaa79e030dee8bc6a536d2940eb546d21f0a1ddfe05d4e20a5bd2ba40a8e3c06b621c89ab59e5de60d2610cfd9df07e743058bca1d1c0e2b2010e16fa4fe61548b8f5dc7624e470e03aa7a896db6706044c59faa4a46fb4d7720a6b38e903af865a759bb228142247010b729ca76b9b4a0132b11767c88c64d75204de1c55a789e9a53c053c1f6c380e037702e19a4323f62be80646af887b1003f2014de0e8099e409eff23048b03ae5c8cc708a5936c6ea058481ca593ac1875f6020a79ae0a032081fea6f2ec63aeb5c93f1c8c0ddc61e3c20456f6cf3927ccac54c20ceec022f81144e97efb55f9195d2759624ac91fff1ad5f70e1b656e3073cb74c202479d224e5d20f7a9c2669db5e87cf6dcc80c76bdef36531731c92da84aa6da62011c6f2b532f28b91ae02ee334c451ccce9f62563510b22871072bdf46ac312a32005b952596311b6fc331a43b15af97b4330dfcdb0dd4b9e0637d9acd26540512720534c894ebaa8ff766b93ae5dee0bda51e2c89df1caafda9f8a6ad436e94b936520db3d281bc942806d28d21584d0679c7053be47aaca893a4b219d549bf2d946e9204598843540d672e30613794f3ad0d6cac113c40ebac805c04f33a5df7e149b6420bcb3c9db18b5926bc8d90de1650b03e7c1f0d5f97d7fced46255ea0d4fc1b4ca20ec17ae6518b3d08da32d917735466d506dd46714f6275c59782f84845c59a3d6208f55e868bc3453a1a5396d2943d70190255f5630944505cff2038b724061562b20569cc26b832e04d210520914701b76184b77c07d9c2dbafada28135a6a479d9f20afa80be7867f8a10c22f9860886aae391c81067715edfe791634e48c0908a35f20ab2558adfa32b462d4edf4a08dff40e9e43976709d2e8a08d8491861d78bc4622066fe4240d5d1b8b527d8404d87b199bdab9e08c0a232c2867cdcc5d51de4a00b208ba042bb4f444b7732d2a94d99485a4f88a294395d55cc8dcb38c4ab12a5b09820df1dc528804e1e8b8b19050e7ca74ad171560a989aba4779a8878c5a94224caf203270258bc81e67ceb942053439bf726b7f1b5de51cfba903241814e198405af02025f54cff411a577db9a416a60067f5120750c77720207eb1484c90767b72faf881f1003546f6735849c5691af93d324d3a719fc4bb6d719907de3bce9833228e648d03cd80666d70600fa8c936d3004607bd444af3e494fb2a21273fcfa519863c4e139c67d2ffe0df07ac27ae63a0c8e000da1aeda5f98ec9e64b801681bfc1
+-->
+
 The following annotated hexdump shows a `qcontrib` message. (The
 message header has been omitted.)
 
 {% highlight text %}
+01  ........................................ LLMQ Type: 1 (LLMQ_50_60)
 
+cb9a1552340175a8232437eb8ceceaea
+4b90a0f75caff20ee12d230b00000000 ...........  Quorum Hash
+
+cd1c97c52ccf163ee5dc264d411efc90
+b07729cd34d9d2e7c7b3ca4b2a4e77cf ........... ProRegTx Hash
+
+1e ......................................... Verification Vector Size: 30
+
+Verification Vector (Truncated)
+| 8da71ba5030e28c6c4de5e0eb1660d0f
+| a9fd21ef4fef700a556f10286c9c34fb
+| beb36fffb5b2a552a40d6c8e27aac338
+| [...]
+| 99d8649d226261162bcb5a11617d1732
+| 553b8358d85b1d9e12a88eb3e979fb7c
+| e49b5a21a82a74e9d06233199cb73db4 ......... Verification Vector (1440 bytes)
+
+8d664929b596cdc8eb835d652944d61b
+7fd21fd60ba0288af4f9e3a10658c8a8
+56467082c728e2037791166705ada03a ........... Ephemeral BLS Public Key
+
+93037a05b65adad6f5d44edc43500bff
+71605f0e5f90ab92e3e0b46461c1c64d ........... IV Seed
+
+32 ......................................... Contribution count: 50
+Contributions
+| Secret Key Contribution #1
+| | 20 ..................................... Contribution Size: 32 bytes
+| | | 31f3e8e5b2cc2063ee7fd1dd469dca12
+| | | 4bdf506ee46fe825d5537aa3ce838225 ..... Encrypted Secret Key contribution
+|
+| Secret Key Contribution #2
+| | 20 ..................................... Contribution Size: 32 bytes
+| | | a6b3ff696ffc5e0c0a9b444c515edc48
+| | | 5a9ccea0268c2a445fac5e24feda51a9 ..... Encrypted Secret Key contribution
+|
+| [...] .................................... 47 contributions omitted
+|
+| Secret Key Contribution #50
+| | 20 ..................................... Contribution Size: 32 bytes
+| | | 25f54cff411a577db9a416a60067f512
+| | | 0750c77720207eb1484c90767b72faf8 ..... Encrypted Secret Key contribution
+
+81f1003546f6735849c5691af93d324d
+3a719fc4bb6d719907de3bce9833228e
+648d03cd80666d70600fa8c936d30046
+07bd444af3e494fb2a21273fcfa51986
+3c4e139c67d2ffe0df07ac27ae63a0c8
+e000da1aeda5f98ec9e64b801681bfc1 ........... BLS signature (Operator Key)
 {% endhighlight %}
 
--->
 {% endautocrossref %}
 
 
@@ -2992,7 +3046,7 @@ message header has been omitted.)
 intra-quorum communication and is only sent to the masternodes in the LLMQ and
 nodes that are monitoring in Watch Mode for auditing/debugging purposes.
 
-The `qcomplaint` message is used to notify other members of the DKG process of
+The `qcomplaint` message is used to notify other members in the DKG process of
 any members that provided an invalid secret key contribution.
 
 | Bytes | Name | Data type | Description |
@@ -3009,14 +3063,35 @@ any members that provided an invalid secret key contribution.
 More information can be found in the [Complaining phase section of DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#3-complaining-phase).
 
 <!--
+01bc10b9ced438052d3726085c13aa9c6e4f0950675f9ab1948276220100000000cbd9581d54af43a06d3f6900b52269454303c1b378bbb45caea44228af0c67a63200000000000400320000000000000098e148f112fc46d233eeee230472b3050b80b2a675cf7699f97412cce3606a3c863c89aa68ed1608ed9a6503dfd1d8aa01c7a15e70cdc45afe653beaaf399aeb9b4f44cdf5eaafe223807f30c35a97fde9015178f6d642b7b25c4fd7c4ef3030
+-->
+
 The following annotated hexdump shows a `qcomplaint` message. (The
 message header has been omitted.)
 
 {% highlight text %}
+01 ......................................... LLMQ Type: 1 (LLMQ_50_60)
 
+bc10b9ced438052d3726085c13aa9c6e
+4f0950675f9ab1948276220100000000 ........... Quorum Hash
+
+cbd9581d54af43a06d3f6900b5226945
+4303c1b378bbb45caea44228af0c67a6 ........... ProRegTx hash
+
+32 ......................................... Bad member bitvector size: 50
+00000000000400 ............................. Bad members
+
+32 ......................................... Complaints bitvector size: 50
+00000000000000 ............................. Complaints
+
+98e148f112fc46d233eeee230472b305
+0b80b2a675cf7699f97412cce3606a3c
+863c89aa68ed1608ed9a6503dfd1d8aa
+01c7a15e70cdc45afe653beaaf399aeb
+9b4f44cdf5eaafe223807f30c35a97fd
+e9015178f6d642b7b25c4fd7c4ef3030 ........... BLS signature (Operator Key)
 {% endhighlight %}
 
--->
 {% endautocrossref %}
 
 
@@ -3051,15 +3126,39 @@ An `SKContribution` consists of:
 
 More information can be found in the [Justification phase section of DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#4-justification-phase).
 
-<!--
+
 The following annotated hexdump shows a `qjustify` message. (The
 message header has been omitted.)
 
 {% highlight text %}
+01 ......................................... LLMQ Type: 1 (LLMQ_50_60)
 
+bc10b9ced438052d3726085c13aa9c6e
+4f0950675f9ab1948276220100000000 ........... Quorum Hash
+
+cbd9581d54af43a06d3f6900b5226945
+4303c1b378bbb45caea44228af0c67a6 ........... ProRegTx hash
+
+-------------------------------------------------------------
+NOTE: The following fields are placeholders for actual values
+-------------------------------------------------------------
+
+01 ......................................... Contribution count: 1
+
+Contribution #1
+| 01000000 ................................. Member Index: 1
+|
+| 00000000000000000000000000000000
+| 00000000000000000000000000000000 ......... Unencrypted secret key contribution
+
+00000000000000000000000000000000
+00000000000000000000000000000000
+00000000000000000000000000000000
+00000000000000000000000000000000
+00000000000000000000000000000000
+00000000000000000000000000000000 ........... BLS signature (Operator Key)
 {% endhighlight %}
 
--->
 {% endautocrossref %}
 
 
@@ -3085,18 +3184,51 @@ verification and selection of the final commitment.
 | 1-9 | validMembersSize | compactSize uint | Bit size of the `validMembers` bitvector
 | (`valid`<br>`MembersSize` + 7) / 8 | validMembers | byte[] | Bitset of valid members in this commitment
 | 48 | quorumPublicKey | uint256 | The quorum public key
-| (`complaints`<br>`BitSize` + 7) / 8 | quorumVvecHash | byte[] | The complaints bitvector
+| 32 | quorumVvecHash | byte[] | The hash of the quorum verification vector
 | 96 | quorumSig | BLSSig | Threshold signature, signed with the threshold signature share of the committing member
 | 96 | sig | byte[] | BLS signature, signed with the operator key of the contributing masternode
 
 More information can be found in the [Commitment phase section of DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#5-commitment-phase).
 
 <!--
+01cb9a1552340175a8232437eb8ceceaea4b90a0f75caff20ee12d230b0000000059c38b8d6a0664411f92a6326e8ef0707ecf185405252854ddb477d89127a32d32ffffffffffff03102809b8649209a15fceb3984014eb3970ca9bd2464b2f84353a3353f4d612eb7ca6daaf723170cdbdad40c5cf44f87b17431ce7dfecb9bba4ccba5921514d24fe267c61078bdfe29d90774a3b766ad594f7417e0ed56ada7116cf4f1e400748deb2e2040babd540f21925b2eec8d4df75d3e0fc3323d083db76f66ce6128a130f1b2c4725076dae2283bbecbf2e123072cc9cec244337008bf82a670ab9e2ee6220dd736a1a70c9ca87867ca55f866585723fe503bba8ac814eab0f28f1fd0749927528c01b635d11d3f2843ce3f7e16223c7e9a9e1f70916159c965acae8bf09d16dc85267ec4081907adc966eae69b6a5077267fdc61cdb192faffa27bed92883559bab2ab81cef6253452622b30c
+-->
+
 The following annotated hexdump shows a `qpcommit` message. (The
 message header has been omitted.)
 
 {% highlight text %}
+01 ......................................... LLMQ Type: 1 (LLMQ_50_60)
 
+cb9a1552340175a8232437eb8ceceaea
+4b90a0f75caff20ee12d230b00000000 ........... Quorum Hash
+
+59c38b8d6a0664411f92a6326e8ef070
+7ecf185405252854ddb477d89127a32d ........... ProRegTx hash
+
+32 ......................................... Valid member bitvector size: 50
+ffffffffffff03 ............................. Valid members
+
+102809b8649209a15fceb3984014eb39
+70ca9bd2464b2f84353a3353f4d612eb
+7ca6daaf723170cdbdad40c5cf44f87b ........... Quorum BLS Public Key
+
+17431ce7dfecb9bba4ccba5921514d24
+fe267c61078bdfe29d90774a3b766ad5 ........... Quorum Verification Vector Hash
+
+94f7417e0ed56ada7116cf4f1e400748
+deb2e2040babd540f21925b2eec8d4df
+75d3e0fc3323d083db76f66ce6128a13
+0f1b2c4725076dae2283bbecbf2e1230
+72cc9cec244337008bf82a670ab9e2ee
+6220dd736a1a70c9ca87867ca55f8665 ........... BLS Threshold signature
+
+85723fe503bba8ac814eab0f28f1fd07
+49927528c01b635d11d3f2843ce3f7e1
+6223c7e9a9e1f70916159c965acae8bf
+09d16dc85267ec4081907adc966eae69
+b6a5077267fdc61cdb192faffa27bed9
+2883559bab2ab81cef6253452622b30c ........... BLS signature (Operator Key)
 {% endhighlight %}
 
 -->
@@ -3139,14 +3271,47 @@ valid final commitment.
 More information can be found in the [Finalization phase section of DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#6-finalization-phase).
 
 <!--
+010001cb9a1552340175a8232437eb8ceceaea4b90a0f75caff20ee12d230b0000000032ffffffffffff0332ffffffffffff03102809b8649209a15fceb3984014eb3970ca9bd2464b2f84353a3353f4d612eb7ca6daaf723170cdbdad40c5cf44f87b17431ce7dfecb9bba4ccba5921514d24fe267c61078bdfe29d90774a3b766ad5083388b91a2f8f7f4ea35469f25ee16a21b3e03b02936675897f74424d6de74866b34dcc5861fd3f5f661ea1ed124a080b165f21b1f2db18c4c37c82f8a8d3509a6f52a14c643dab71a4dced78ae9a42dc982e89a92606df537b8918881e9c950d131c7062253671f9c8ebb39a9b0057d78dc67e236b55086cbb0624c7f4abcc0a26557bfad3092bd38ded4e3cca6c430dda2e73a99ca3d359631cb99a121c5e92cea06ef4c03bb18ad9e90559104550c8a042dc51aa58a26c134405fc3234ff
+-->
+
 The following annotated hexdump shows a `qfcommit` message. (The
 message header has been omitted.)
 
 {% highlight text %}
+0100 ....................................... Message Version: 1
+01 ......................................... LLMQ Type: 1 (LLMQ_50_60)
 
+cb9a1552340175a8232437eb8ceceaea
+4b90a0f75caff20ee12d230b00000000 ........... Quorum Hash
+
+32 ......................................... Signer bitvector size: 50
+ffffffffffff03 ............................. Signers
+
+32 ......................................... Valid member bitvector size: 50
+ffffffffffff03 ............................. Valid members
+
+102809b8649209a15fceb3984014eb39
+70ca9bd2464b2f84353a3353f4d612eb
+7ca6daaf723170cdbdad40c5cf44f87b ........... Quorum BLS Public Key
+
+17431ce7dfecb9bba4ccba5921514d24
+fe267c61078bdfe29d90774a3b766ad5 ........... Quorum Verification Vector Hash
+
+083388b91a2f8f7f4ea35469f25ee16a
+21b3e03b02936675897f74424d6de748
+66b34dcc5861fd3f5f661ea1ed124a08
+0b165f21b1f2db18c4c37c82f8a8d350
+9a6f52a14c643dab71a4dced78ae9a42
+dc982e89a92606df537b8918881e9c95 ........... Quorum BLS Recovered Threshold Sig
+
+0d131c7062253671f9c8ebb39a9b0057
+d78dc67e236b55086cbb0624c7f4abcc
+0a26557bfad3092bd38ded4e3cca6c43
+0dda2e73a99ca3d359631cb99a121c5e
+92cea06ef4c03bb18ad9e90559104550
+c8a042dc51aa58a26c134405fc3234ff ........... Quorum Aggregate BLS Sig
 {% endhighlight %}
 
--->
 {% endautocrossref %}
 
 
