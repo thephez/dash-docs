@@ -3830,16 +3830,14 @@ request if they are not fully synced.
 This message responds in one of two ways depending on the request:
 
 1. Object Sync - When a masternode receives a `govsync` message with a hash of all zeros, it
-responds with one `ssc` message for `govobj` objects and one for `govobjvote`
-objects. The masternode also sends an `inv` message (MSG_GOVERNANCE_OBJECT - 0x17)
-for all valid `govobj` governance objects.
+responds with a `ssc` message for `govobj` objects. The masternode also sends an
+`inv` message (MSG_GOVERNANCE_OBJECT - 0x17) for all valid `govobj` governance objects.
 *Governance object votes are excluded in this type of response.*
 
 2. Vote Sync - When a masternode receives a `govsync` message with a specific hash, it
-responds with one `ssc` message for `govobj` objects and one for `govobjvote`
-objects. The masternode also sends both a `govobj` inventory message
-(MSG_GOVERNANCE_OBJECT - 0x17) and `govobjvote` inventory messages
-(MSG_GOVERNANCE_OBJECT_VOTE - 0x18) for the single governance object requested.
+responds with an `ssc` message for `govobjvote` objects. The masternode also
+sends a `govobjvote` inventory messages (MSG_GOVERNANCE_OBJECT_VOTE - 0x18) for
+the object requested.
 
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
