@@ -3667,9 +3667,9 @@ contract, or setting. Masternodes ignore this request if they are not fully sync
 | 32 | nHashParent | uint256 | Required | Parent object (a hash of all zeros here indicates this is the root object, not a child object).
 | 4 | nRevision | int | Required | Object revision in the system
 | 8 | nTime | int64_t | Required | Time which this object was created
-| 32 | nCollateralHash | uint256 | Required* | Hash of the collateral fee transaction for proposals.<br><br>Set to all zeros for Triggers/Watchdogs.
+| 32 | nCollateralHash | uint256 | Required* | Hash of the collateral fee transaction for proposals.<br><br>Set to all zeros for Triggers.
 | 0-16384 | strData | string | Required | Data field - can be used for anything (leading varint indicates size of data)
-| 4 | nObjectType | int | Required | Type of governance object: <br>• `0` - Unknown<br>• `1` - Proposal<br>• `2` - Trigger<br>• `3` - Watchdog
+| 4 | nObjectType | int | Required | Type of governance object: <br>• `0` - Unknown<br>• `1` - Proposal<br>• `2` - Trigger
 | 36 | masternodeOutPoint | outPoint | Required* | The unspent outpoint of the masternode (holding 1000 DASH) which is signing this object.<br><br>Set to all zeros for proposals since they can be created by non-masternodes.
 | 97 | vchSig | char[] | Required* | _ECDSA signature (65 bytes) prior to DIP3 activation_<br><br>BLS Signature of the masternode (Length (1 byte) + Signature (96 bytes))<br><br>Not required for proposals - they will have a length of 0x00 and no Signature.
 
@@ -3680,7 +3680,6 @@ Governance Object Types (defined by src/governance-object.h)
 | 0 | `GOVERNANCE_OBJECT_UNKNOWN`  |
 | 1 | `GOVERNANCE_OBJECT_PROPOSAL` | Submitted proposal (requires collateral transaction - currently 5 Dash)
 | 2 | `GOVERNANCE_OBJECT_TRIGGER`  | Masternode generated. Removed after activation/execution. Used for superblocks.
-| 3 | `GOVERNANCE_OBJECT_WATCHDOG` | Masternode generated. Two hour expiration time.<br><br>DEPRECATED since 12.2.
 
 The following annotated hexdump shows a `govobj` message for a Proposal object.
 Notice the presence of a non-zero collateral hash, a masternodeOutPoint that is an

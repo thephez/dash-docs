@@ -383,7 +383,7 @@ NOT IN DASH
 - n: "→ →<br>`ObjectType`"
   t: "number"
   p: "Required<br>(exactly 1)"
-  d: "Object types:<br>`1` - Unknown<br>`2` - Proposal<br>`3` - Trigger<br>`4` - Watchdog"
+  d: "Object types:<br>`1` - Unknown<br>`2` - Proposal<br>`3` - Trigger
 
 - n: "→ →<br>`CreationTime`"
   t: "number"
