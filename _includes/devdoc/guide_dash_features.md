@@ -557,12 +557,20 @@ requested. Frequent requests will result in the node being banned.
 
 Masternodes respond to the `govsync` message with several items:
 
-* First, the Masternode sends one `ssc` message (Sync Status Count) for `govobj`
-objects and one for `govobjvote` objects. These messages indicate how many
-inventory items will be sent.
+For Object Sync:
 
-* Second, the Masternode sends `inv` messages for the `govobj` and `govobjvote`
+* First, the Masternode sends a `ssc` message (Sync Status Count) for `govobj`
+objects. This message indicates how many inventory items will be sent.
+
+* Second, the Masternode sends an `inv` message for the `govobj` and `govobjvote`
 objects.
+
+For Vote Sync:
+
+* First, the Masternode sends a `ssc` message (Sync Status Count) for `govobjvote`
+objects. This message indicates how many inventory items will be sent.
+
+* Second, the Masternode sends an `inv` message for the `govobjvote` object(s).
 
 Once the syncing node receives the counts and inventories, it may request any
 `govobj` and `govobjvote` objects from the masternode via a `getdata` message.
@@ -574,19 +582,14 @@ Once the syncing node receives the counts and inventories, it may request any
 | **Initial request** | | | **Requests all governance objects (without votes)** |
 | `govsync` message        | →              |                           | Syncing node initiates governance sync (hash set to all zeros)
 |                          | ←              | `ssc` message (govobj)    | Number of governance objects (0 or more)
-|                          | ←              | `ssc` message (govobjvote)| Number of governance object votes *(0 since votes are only returned if a specific hash is provided with the `govsync` message)*
 |                          | ←              | `inv` message (govobj)    | Governance object inventories
 | `getdata` message (govobj) | →              |                           | (Optional) Syncing node requests govobj
 |                          | ←              | `govobj` message          | (If requested) Governance object
 | | | | |
 | **Follow up requests** | | | **Requests governance object (with votes)** |
 | `govsync` message        | →              |                           | Syncing node requests governance sync for a specific governance object
-|                          | ←              | `ssc` message (govobj)    | Number of governance objects (1)
 |                          | ←              | `ssc` message (govobjvote)| Number of governance object votes (0 or more)
-|                          | ←              | `inv` message (govobj)    | Governance object inventory
 |                          | ←              | `inv` message (govobjvote)| Governance object vote inventories
-| `getdata` message (govobj) | →              |                           | (Optional) Syncing node requests govobj
-|                          | ←              | `govobj` message          | (If requested) Governance object
 | `getdata` message (govobjvote) | →              |                           | (Optional) Syncing node requests govobjvote
 |                          | ←              | `govobjvote` message      | (If requested) Governance object vote
 
