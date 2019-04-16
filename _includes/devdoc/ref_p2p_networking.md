@@ -916,8 +916,13 @@ requested either a full masternode list or a diff for a range of blocks.
 | 1-9 | merkleFlagsCount | compactSize uint | Required | Number of Merkle flag bytes
 | variable | merkleFlags | vector<uint8_t> | Required | Merkle flag bits, packed per 8 in a byte, least significant bit first
 | variable | cbTx | CTransaction | Required | The fully serialized coinbase transaction of `blockHash`
+| 1-9 | deletedMNsCount | compactSize uint | Required | Number of ProRegTx hashes which were deleted after baseBlockHash
 | variable | deletedMNs | vector | Required | A list of ProRegTx hashes for masternode which were deleted after `baseBlockHash`
 | variable | mnList | vector | Required | The list of Simplified Masternode List (SML) entries which were added or updated since `baseBlockHash`
+| 1-9 | deletedQuorumsCount | compactSize uint | Required | *Added in protocol version 70214*<br><br>Number of LLMQs which were deleted from the active set after `baseBlockHash` |
+| variable | deletedQuorums | (uint8_t+uint256)[] | Required | *Added in protocol version 70214*<br><br>A list of LLMQ type and quorum hashes for LLMQs which were deleted after `baseBlockHash` |
+| 1-9 | newQuorumsCount | compactSize uint | Required | *Added in protocol version 70214*<br><br>Number of new LLMQs which were added to the active set since `baseBlockHash` |
+| variable | newQuorums | qfcommit[] | Required | *Added in protocol version 70214*<br><br>The list of LLMQ commitments for the LLMQs which were added since `baseBlockHash` |
 
 Simplified Masternode List (SML) Entry
 
