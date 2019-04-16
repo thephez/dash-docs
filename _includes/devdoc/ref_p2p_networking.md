@@ -968,6 +968,10 @@ d12ad401c19089f0affcabd423deef67 ........... Merkle hash 3
 
 02 ......................................... Masternode list entries: 2
 
+00 ......................................... Deleted quorums: 0
+
+00 ......................................... New quorums: 0
+
 Masternode List
 | Masternode 1
 | | 01040eb32f760490054543356cff4638
