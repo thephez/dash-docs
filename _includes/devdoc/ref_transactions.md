@@ -908,10 +908,18 @@ payload consists of the following data:
 | 2 | version | uint_16 | CbTx version number. Currently set to 1.
 | 4 | height | uint32_t | Height of the block
 | 32 | merkleRootMNList | uint256 | Merkle root of the masternode list
+| 32 | merkleRootQuorums | uint256 | *Added by CbTx version 2 in v0.14.0*<br><br>Merkle root of currently active LLMQs
+
+Version History
+
+| CbTx Version | First Supported Protocol Version | Dash Core Version |  Notes |
+| ---------- | ----------- | -------- | -------- |
+| 1 | 70213 | 0.13.0 | Enabled by activation of DIP3
+| 2 | 70214 | 0.14.0 | Enabled by activation of DIP8
 
 The following annotated hexdump shows a CbTx transaction.
 
-<!--devnet-DRA getrawtransaction 072b8eb47a87799a1242a8bd959a9c5eab93a346700d2f674420cfea70b2ed1c true-->
+<!--testnet getrawtransaction 1d009d4f47d217ed5fd14e6d8b56e1e61fc7c4e9a277e310d7ea14ddc64bb91c true-->
 
 An itemized coinbase transaction:
 
@@ -924,36 +932,39 @@ An itemized coinbase transaction:
 | 00000000000000000000000000000000 ......... Previous outpoint TXID
 | ffffffff ................................. Previous outpoint index
 |
-| 05 ....................................... Bytes in coinbase: 5
+| 4c ....................................... Bytes in coinbase: 76
 | |
-| | 02 ..................................... Bytes in height
-| | | 0608 ................................. Height: 2054
+| | 03 ..................................... Bytes in height
+| | | 393d01 ............................... Height: 81209
 | |
-| | 0101 ................................... Arbitrary data
-| ffffffff ................................. Sequence
+| | 04b9...6d2f ............................ Arbitrary data (truncated)
+| 00000000 ................................. Sequence
 
 02 ......................................... Output count
 | Transaction Output 1
-| | 00902f5009000000 ....................... Duffs (400 DASH)
-| | 2102c633b7022b4dab169c8a8459d83b7e0
-| | 6e0f8da0f89bf7e788ec98c8038107989ac .... Script
+| | 40230e4300000000 ....................... Duffs (11.25 DASH)
+| | 1976a914b7ce0ea9ce2010f58ba4aaa6
+| | caa76671c438e89088ac ................... Script
 |
 | Transaction Output 2
-| | 00e40b5402000000 ....................... Duffs (100 DASH)
-| | 1976a914ebafa153cffbb5b37c30fb93
-| | 886f2fe0f1d549ed88ac ................... P2PKH script
+| | 40230e4300000000 ....................... Duffs (11.25 DASH)
+| | 1976a91405ea03a6c9dfa67e1837b3c1
+| | 4965ba3cb53bce7288ac ................... P2PKH script
 
 00000000 ................................... Locktime
 
-26 ......................................... Extra payload size (38)
+46 ......................................... Extra payload size (38)
 
 Coinbase Transaction Payload
-| 0100 ..................................... Version (1)
+| 0200 ..................................... Version (2)
 |
-| 06080000 ................................. Block height: 2054
+| 393d0100 ................................. Block height: 81209
 |
-| 69010fa8b729b53c78a1e209946c82e2
-| 3159439022ea4055aa60d4393fffba46 ......... MN List merkle root
+| e2dd012c5b0b1753cef0e32f978917ef
+| e7a484c5080b31b4e3f966ccc0e0f8dd ......... MN List merkle root
+|
+| 2ef709f55fa42cb53d29d75dad77d212
+| fb0bd72a47ecfe0e8aa6f660fb96396e ......... Active LLMQ merkle root
 {% endhighlight %}
 
 {% endautocrossref %}
