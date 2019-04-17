@@ -15,8 +15,7 @@ Dash aims to be the most user-friendly and scalable payments-focused
 cryptocurrency in the world. The Dash network features instant transaction
 confirmation, double spend protection, anonymity equal to that of physical cash,
 a self-governing, self-funding model driven by incentivized full nodes and a
-clear roadmap for on-chain scaling to up to 400MB blocks using custom-developed
-open source hardware.
+clear [roadmap](https://www.dash.org/roadmap/) for future development.
 
 While Dash is based on Bitcoin and compatible with many key components of the
 Bitcoin ecosystem, its two-tier network structure offers significant
@@ -229,19 +228,18 @@ mixing pool.
   * The `dsa` message contains a collateral transaction
     * This transaction uses a collateral input created in the [Wallet Preparation](#privatesend<!--noref-->-wallet<!--noref-->-preparation) phase
     * The collateral is a signed transaction that pays the collateral back to a client address minus a fee of 0.001 DASH
-  * As of protocol version 70209, the `dsa` message indicates how many inputs will be provided to the pool when Spork 6 is active
 
   _**Step 3 - Queue**_
 
   * A masternode broadcasts `dsq` messages when it starts a new queue. These message are relayed by all peers.
-  * As of protocol version 70209, when Spork 6 is active the `dsq` message indicates how many inputs must be provided to participate in the pool.
-  * Once the masternode has received valid `dsa` messages from 3 clients (`nPoolMaxTransactions`), it sends a `dsq` message with the ready bit set ([Dash Core Reference](https://github.com/dashpay/dash/blob/e596762ca22d703a79c6880a9d3edb1c7c972fd3/src/chainparams.cpp#L173))
-    * Clients must respond to the Queue ready within 30 seconds or risk forfeiting the collateral they provided in the `dsa` message (Step 1) ([Dash Core Reference](https://github.com/dashpay/dash/blob/e596762ca22d703a79c6880a9d3edb1c7c972fd3/src/privatesend<!--noref-->.h#L22))
+  * As of protocol version 70214, mixing sessions have a variable number of participants defined by the range `nPoolMinParticipants` (3) to `nPoolMaxParticipants` (5). Prior protocol version mixing sessions always contained exactly 3 participants
+  * Once the masternode has received valid `dsa` messages from the appropriate number of clients (`nSessionMaxParticipants`), it sends a `dsq` message with the ready bit set
+    * Clients must respond to the Queue ready within 30 seconds or risk forfeiting the collateral they provided in the `dsa` message (Step 1) ([Dash Core Reference](https://github.com/dashpay/dash/blob/e9f7142ed01c0d7b53ef8b5f6f3f6375a68ef422/src/privatesend<!--noref-->.h#L23))
 
   _**Step 4 - Inputs**_
 
   * The collateral transaction can be the same in the `dsi` message as the one in the `dsa` message (Step 1) as long as it has not been spent
-  * Each client can provide up to 9 (`PRIVATESEND_ENTRY_MAX_SIZE`) inputs (and an equal number of outputs) to be mixed ([Dash Core Reference](https://github.com/dashpay/dash/blob/e596762ca22d703a79c6880a9d3edb1c7c972fd3/src/privatesend<!--noref-->.h#L28))
+  * Each client can provide up to 9 (`PRIVATESEND_ENTRY_MAX_SIZE`) inputs (and an equal number of outputs) to be mixed ([Dash Core Reference](https://github.com/dashpay/dash/blob/e9f7142ed01c0d7b53ef8b5f6f3f6375a68ef422/src/privatesend<!--noref-->.h#L29))
   * This is the only message in the PrivateSend process that contains enough information to link a wallet's PrivateSend inputs with its outputs
     * This message is sent directly between a client and the mixing masternode (not relayed across the Dash network) so no other clients see it
 
@@ -249,7 +247,7 @@ mixing pool.
 
   * Once the masternode has received valid `dsi` messages from all clients, it creates the final transaction and sends a `dsf` message
     * Inputs/outputs are ordered deterministically as defined by [BIP-69](https://github.com/quantumexplorer/bips/blob/master/bip-0069.mediawiki#Abstract) to avoid leaking any data ([Dash Core Reference](https://github.com/dashpay/dash/blob/e596762ca22d703a79c6880a9d3edb1c7c972fd3/src/privatesend<!--noref-->-server.cpp#L321-#L322))
-    * Clients must sign their inputs to the Final Transaction within 15 seconds or risk forfeiting the collateral they provided in the `dsi` message (Step 4) ([Dash Core Reference](https://github.com/dashpay/dash/blob/e596762ca22d703a79c6880a9d3edb1c7c972fd3/src/privatesend<!--noref-->.h#L23))
+    * Clients must sign their inputs to the Final Transaction within 15 seconds or risk forfeiting the collateral they provided in the `dsi` message (Step 4) ([Dash Core Reference](https://github.com/dashpay/dash/blob/e9f7142ed01c0d7b53ef8b5f6f3f6375a68ef422/src/privatesend<!--noref-->.h#L24))
 
   _**Step 10 - Final Transaction broadcast**_
 
@@ -327,7 +325,7 @@ network. The payee is selected from a subset of masternodes made up of 10%
 of eligible nodes that have been waiting the longest since their last payment.
 The winner is then determined based on a number of parameters including the
 distance between the its hash and the block's proof of work. For additional
-detail, reference this [Official Documentation Payment Logic page](https://docs.dash.org/en/latest/masternodes<!--noref-->/understanding.html#payment-logic).
+detail, reference this [Official Documentation Payment Logic page](https://docs.dash.org/en/0.12.3/masternodes<!--noref-->/understanding.html#payment-logic).
 
 Nodes receiving a `mnw` message verify the validity of the message before
 relaying it to their peers. If the message is invalid, the sending node may be
@@ -353,7 +351,88 @@ several conditions that initiate a start/restart the sync process:
 #### Initial Masternode<!--noref--> Sync
 {% include helpers/subhead-links.md %}
 
-##### Before DIP3 Activation
+{% autocrossref %}
+
+The deterministic masternode lists introduced by DIP3 eliminated several steps
+of the sync process related to the masternode list and masternode payments.
+Since that information is now available on-chain, P2P messages related to those
+steps were deprecated.
+
+This diagram shows the order in which P2P messages are sent to perform
+masternode synchronization initially after startup.
+
+![Masternode Sync (Initial)](/img/dev/en-masternode-sync-initial-dip3.svg)
+
+The following table details the data flow of P2P messages exchanged during
+initial masternode synchronization after the activation of DIP3 and Spork 15.
+
+| **Syncing Node Message** | **Direction**  | **Masternode Response**   | **Description** |
+| **1. Sporks** |   |  |  |
+| `getsporks` message                            | → |                           | Syncing node requests sporks
+|                                                | ← | `spork` message(s)        |
+| **2. Governance** |   |  | See [Governance sync](#governance) |
+
+*Masternode Sync Status*
+
+There are several status values used to track masternode synchronization. They
+are used in both `ssc` messages and the `mnsync` RPC.
+
+| **Value** | **Status**  | **Description** |
+| -1  | `MASTERNODE_SYNC_FAILED`      | Synchronization failed |
+| 0   | `MASTERNODE_SYNC_INITIAL`     | Synchronization just started, was reset recently, or is still in IBD |
+| 1   | `MASTERNODE_SYNC_WAITING`     | Synchronization pending - waiting after initial to check for more headers/blocks |
+| 2   | `MASTERNODE_SYNC_LIST`        | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Synchronizing masternode list |
+| 3   | `MASTERNODE_SYNC_MNW`         | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Synchronizing masternode payments |
+| 4   | `MASTERNODE_SYNC_GOVERNANCE`  | Synchronizing governance objects  |
+| 999 | `MASTERNODE_SYNC_FINISHED`    | Synchronization finished |
+
+#### Ongoing Masternode<!--noref--> Sync
+{% include helpers/subhead-links.md %}
+
+Once a masternode completes an initial full sync, continuing synchronization is
+maintained by the exchange of P2P messages with other nodes. This diagram shows
+an overview of the messages exchanged to keep the masternode list, masternode
+payments, and governance objects synchronized between masternodes.
+
+![Masternode Sync (Ongoing)](/img/dev/en-masternode-sync-ongoing.svg)
+
+**Governance**
+
+After the initial governance synchronization, governance information is kept
+current by the `govobj` messages and `govobjvote` messages relayed on the
+network. Unsynchronized peers may send `govsync` messages to request governance
+sync.
+
+#### Masternode<!--noref--> Sync Schedule
+{% include helpers/subhead-links.md %}
+
+The following tables detail the timing of various functions used to keep the
+masternodes in sync with each other. This information is derived from the
+scheduler section of `AppInitMain` in `src/init.cpp`.
+
+| **Period (seconds)** | **Action** | **Description** |
+| 6   | MN Sync                   | Synchronizes sporks, masternode list, masternode payments, and governance objects (masternode-sync.cpp) |
+
+The following actions only run when the masternode sync is past `MASTERNODE_SYNC_WAITING` status.
+
+| **Period (seconds)** | **Action** | **Description** |
+| 60  | Process MN Connections    | Disconnects some masternodes (masternodeman.cpp) |
+| 60  | InstantSend<!--noref--> Check/Remove  | Remove expired/orphaned/invalid InstantSend candidates and votes (instantx.cpp) |
+| 300 | Maintenance               | Check/remove/reprocess governance objects (governance.cpp) |
+
+{% endautocrossref %}
+
+#### Previous System
+<!-- no subhead-links here -->
+
+![Warning icon](/img/icons/icon_warning.svg) **The following information is for
+historical reference only. It describes the masternode sync process that was
+used prior to the deterministic masternode list update in Dash Core v0.13 that
+implemented DIP3.**
+
+Please see [here for details of the current system](#masternode-sync)
+
+##### Initial Sync
 <!-- no subhead-links here -->
 
 {% autocrossref %}
@@ -387,48 +466,8 @@ initial masternode synchronization before the activation of DIP3 and Spork 15.
 |                                                | ← | `mnw` message(s)          | (If requested) Masternode payment vote message
 | **4. Governance** |   |  | See [Governance sync](#governance) |
 
-{% endautocrossref %}
 
-##### After DIP3 Activation
-<!-- no subhead-links here -->
-
-{% autocrossref %}
-
-The deterministic masternode lists introduced by DIP3 make the masternode
-list and masternode payments steps of the sync process obsolete. Since the
-information is available on-chain, the P2P messages related to those steps
-are no longer required.
-
-This diagram shows the order in which P2P messages are sent to perform
-masternode synchronization initially after startup.
-
-![Masternode Sync (Initial)](/img/dev/en-masternode-sync-initial-dip3.svg)
-
-The following table details the data flow of P2P messages exchanged during
-initial masternode synchronization after the activation of DIP3 and Spork 15.
-
-| **Syncing Node Message** | **Direction**  | **Masternode Response**   | **Description** |
-| **1. Sporks** |   |  |  |
-| `getsporks` message                            | → |                           | Syncing node requests sporks
-|                                                | ← | `spork` message(s)        |
-| **2. Governance** |   |  | See [Governance sync](#governance) |
-
-*Masternode Sync Status*
-
-There are several status values used to track masternode synchronization. They
-are used in both `ssc` messages and the `mnsync` RPC.
-
-| **Value** | **Status**  | **Description** |
-| -1  | `MASTERNODE_SYNC_FAILED`      | Synchronization failed |
-| 0   | `MASTERNODE_SYNC_INITIAL`     | Synchronization just started, was reset recently, or is still in IBD |
-| 1   | `MASTERNODE_SYNC_WAITING`     | Synchronization pending - waiting after initial to check for more headers/blocks |
-| 2   | `MASTERNODE_SYNC_LIST`        | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Synchronizing masternode list |
-| 3   | `MASTERNODE_SYNC_MNW`         | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Synchronizing masternode payments |
-| 4   | `MASTERNODE_SYNC_GOVERNANCE`  | Synchronizing governance objects  |
-| 999 | `MASTERNODE_SYNC_FINISHED`    | Synchronization finished |
-
-
-#### Ongoing Masternode<!--noref--> Sync
+##### Ongoing Sync
 {% include helpers/subhead-links.md %}
 
 Once a masternode completes an initial full sync, continuing synchronization is
@@ -440,8 +479,8 @@ payments, and governance objects synchronized between masternodes.
 
 **Recurring Ping**
 
-![Warning icon](/img/icons/icon_warning.svg) NOTE: This will be deprecated
-following activation of DIP3 which implements deterministic masternode lists.
+![Warning icon](/img/icons/icon_warning.svg) NOTE: Deprecated following
+activation of DIP3.
 
 Each masternode issues a ping (`mnp` message) periodically to notify the network
 that it is still online. Masternodes that do not issue a ping for 3 hours will
@@ -450,8 +489,8 @@ masternode announce (`mnb` message).
 
 **Masternode List**
 
-![Warning icon](/img/icons/icon_warning.svg) NOTE: This will be deprecated
-following activation of DIP3 which implements deterministic masternode lists.
+![Warning icon](/img/icons/icon_warning.svg) NOTE: Deprecated following
+activation of DIP3.
 
 After the initial masternode list has been received, it is kept current by a
 combination of the periodic `mnp` messages received from other masternodes,
@@ -467,41 +506,26 @@ Unsynchronized peers may send a `dseg` message to request the entire masternode 
 
 **Masternode Payment**
 
-![Warning icon](/img/icons/icon_warning.svg) NOTE: This will be deprecated
-following activation of DIP3 which implements deterministic masternode lists.
+![Warning icon](/img/icons/icon_warning.svg) NOTE: Deprecated following
+activation of DIP3.
 
 After the initial masternode payment synchronization, payment information is
 kept current via the `mnw` messages relayed on the network. Unsynchronized peers
 may send a `mnget` message to request masternode payment sync.
 
-**Governance**
-
-After the initial governance synchronization, governance information is kept
-current by the `govobj` messages and `govobjvote` messages relayed on the
-network. Unsynchronized peers may send `govsync` messages to request governance
-sync.
-
-#### Masternode<!--noref--> Sync Schedule
+##### Sync Schedule
 {% include helpers/subhead-links.md %}
 
-The following tables detail the timing of various functions used to keep the
-masternodes in sync with each other. This information is derived from the
-scheduler section of `AppInitMain` in `src/init.cpp`.
-
-| **Period (seconds)** | **Action** | **Description** |
-| 6   | MN Sync                   | Synchronizes sporks, masternode list, masternode payments, and governance objects (masternode-sync.cpp) |
-
-The following actions only run when the masternode sync is past `MASTERNODE_SYNC_WAITING` status.
+Prior to the deterministic masternode system introduced by DIP3 in Dash Core 0.13,
+the following additional sync actions were also required.
 
 | **Period (seconds)** | **Action** | **Description** |
 | 1   | MN Check                  | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Check the state of each masternode that is still funded and not banned. The action occurs once per second, but individual masternodes are only checked at most every 5 seconds (only a subset of masternodes are checked each time it runs) (masternodeman.cpp) |
-| 60  | Process MN Connections    | Disconnects some masternodes (masternodeman.cpp) |
 | 60  | MN Check/Remove           | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Remove spent masternodes and check the state of inactive ones (masternodeman.cpp) |
 | 60  | MN Payment Check/Remove   | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Remove old masternode payment votes/blocks (masternode-payments.cpp) |
-| 60  | InstantSend<!--noref--> Check/Remove  | Remove expired/orphaned/invalid InstantSend candidates and votes (instantx.cpp) |
 | 300 | Full verification         | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Verify masternodes via direct requests (`mnv` messages - note time constraints in the Developer Reference section) (masternodeman.cpp) |
-| 300 | Maintenance               | Check/remove/reprocess governance objects (governance.cpp) |
 | 600 | Manage State              | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Sends masternode pings (`mnp` message). Also sends initial masternode broadcast (`mnb` message) for local masternodes. (activemasternode.cpp) |
+
 
 {% endautocrossref %}
 
@@ -539,12 +563,20 @@ requested. Frequent requests will result in the node being banned.
 
 Masternodes respond to the `govsync` message with several items:
 
-* First, the Masternode sends one `ssc` message (Sync Status Count) for `govobj`
-objects and one for `govobjvote` objects. These messages indicate how many
-inventory items will be sent.
+For Object Sync:
 
-* Second, the Masternode sends `inv` messages for the `govobj` and `govobjvote`
+* First, the Masternode sends a `ssc` message (Sync Status Count) for `govobj`
+objects. This message indicates how many inventory items will be sent.
+
+* Second, the Masternode sends an `inv` message for the `govobj` and `govobjvote`
 objects.
+
+For Vote Sync:
+
+* First, the Masternode sends a `ssc` message (Sync Status Count) for `govobjvote`
+objects. This message indicates how many inventory items will be sent.
+
+* Second, the Masternode sends an `inv` message for the `govobjvote` object(s).
 
 Once the syncing node receives the counts and inventories, it may request any
 `govobj` and `govobjvote` objects from the masternode via a `getdata` message.
@@ -556,19 +588,14 @@ Once the syncing node receives the counts and inventories, it may request any
 | **Initial request** | | | **Requests all governance objects (without votes)** |
 | `govsync` message        | →              |                           | Syncing node initiates governance sync (hash set to all zeros)
 |                          | ←              | `ssc` message (govobj)    | Number of governance objects (0 or more)
-|                          | ←              | `ssc` message (govobjvote)| Number of governance object votes *(0 since votes are only returned if a specific hash is provided with the `govsync` message)*
 |                          | ←              | `inv` message (govobj)    | Governance object inventories
 | `getdata` message (govobj) | →              |                           | (Optional) Syncing node requests govobj
 |                          | ←              | `govobj` message          | (If requested) Governance object
 | | | | |
 | **Follow up requests** | | | **Requests governance object (with votes)** |
 | `govsync` message        | →              |                           | Syncing node requests governance sync for a specific governance object
-|                          | ←              | `ssc` message (govobj)    | Number of governance objects (1)
 |                          | ←              | `ssc` message (govobjvote)| Number of governance object votes (0 or more)
-|                          | ←              | `inv` message (govobj)    | Governance object inventory
 |                          | ←              | `inv` message (govobjvote)| Governance object vote inventories
-| `getdata` message (govobj) | →              |                           | (Optional) Syncing node requests govobj
-|                          | ←              | `govobj` message          | (If requested) Governance object
 | `getdata` message (govobjvote) | →              |                           | (Optional) Syncing node requests govobjvote
 |                          | ←              | `govobjvote` message      | (If requested) Governance object vote
 
@@ -583,8 +610,8 @@ the future. This will allow the integration between Evolution and Dash Core to
 proceed more smoothly and enable new governance object additions with minimal
 impact to Dash Core.
 
-Sentinel runs periodically and performs four main tasks as described below:
-governance sync, ping, governance object pruning, and superblock management.
+Sentinel runs periodically and performs three main tasks as described below:
+governance sync, governance object pruning, and superblock management.
 The governance object data is stored in a SQLite database.
 
 ##### Sentinel<!--noref--> Sync
@@ -593,15 +620,6 @@ The governance object data is stored in a SQLite database.
 Sentinel issues a `gobject list` RPC command and updates its database with the
 results returned from dashd. When objects are removed from the network, they are
 purged from the Sentinel database.
-
-##### Sentinel<!--noref--> Ping
-{% include helpers/subhead-links.md %}
-
-In Dash Core 12.2, use of the `watchdog` governance object type was replaced
-by integrating sentinel information into the masternode ping (`mnp` message)
-via [Pull Request #1491](https://github.com/dashpay/dash/pull/1491).
-Sentinel calls the `sentinelping` RPC which updates the masternode info to
-prevent it from entering a `MASTERNODE_WATCHDOG_EXPIRED` state.
 
 ##### Sentinel<!--noref--> Prune
 {% include helpers/subhead-links.md %}
@@ -617,6 +635,18 @@ voted to delete them.
 
 Sentinel manages superblock creation, voting, and submission to dashd for
 network propagation.
+
+##### Sentinel<!--noref--> Ping
+{% include helpers/subhead-links.md %}
+
+![Warning icon](/img/icons/icon_warning.svg) NOTE: Deprecated by [Dash Core v0.14](https://github.com/dashpay/sentinel<!--noref-->/pull/64)
+
+In Dash Core 12.2, use of the `watchdog` governance object type was replaced
+by integrating sentinel information into the masternode ping (`mnp` message)
+via [Pull Request #1491](https://github.com/dashpay/dash/pull/1491).
+
+From Dash Core 0.12.2 through Dash Core 0.13, Sentinel used the `sentinelping` RPC
+to update the masternode info and prevent it from entering a `MASTERNODE_WATCHDOG_EXPIRED` state.
 
 {% endautocrossref %}
 

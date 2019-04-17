@@ -604,7 +604,7 @@ The `gobject get` RPC returns a governance object by hash.
 - n: "→<br>`ObjectType`"
   t: "number"
   p: "Required<br>(exactly 1)"
-  d: "Object types:<br>`1` - Unknown<br>`2` - Proposal<br>`3` - Trigger<br>`4` - Watchdog"
+  d: "Object types:<br>`1` - Unknown<br>`2` - Proposal<br>`3` - Trigger"
 
 - n: "→<br>`CreationTime`"
   t: "number"
@@ -880,7 +880,7 @@ The `gobject list` RPC Lists governance objects (can be filtered by signal and/o
 - n: "`type`"
   t: "string (hex)"
   p: "Optional<br>(exactly 1)"
-  d: "Type of governance object signal: <br>• `proposals`<br>• `triggers`<br>• `watchdogs`<br>• `all` (_DEFAULT_)"
+  d: "Type of governance object signal: <br>• `proposals`<br>• `triggers`<br>• `all` (_DEFAULT_)"
 
 {% enditemplate %}
 
@@ -963,7 +963,7 @@ The `gobject diff` RPC Lists governance objects differences since last diff.
 - n: "`type`"
   t: "string (hex)"
   p: "Optional<br>(exactly 1)"
-  d: "Type of governance object signal: <br>• `proposals`<br>• `triggers`<br>• `watchdogs`<br>• `all` (_DEFAULT_)"
+  d: "Type of governance object signal: <br>• `proposals`<br>• `triggers`<br>• `all` (_DEFAULT_)"
 
 {% enditemplate %}
 
