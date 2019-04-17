@@ -66,7 +66,7 @@ with the most recent versions listed first. (If you know of a protocol
 version that implemented a major change but which is not listed here,
 please [open an issue][docs issue].)
 
-As of Dash Core 0.13.0.0, the most recent protocol version is 70213.
+As of Dash Core 0.14.0, the most recent protocol version is 70214.
 
 | Version | Initial Release                    | Major Changes
 |---------|------------------------------------|--------------
@@ -3676,9 +3676,9 @@ contract, or setting. Masternodes ignore this request if they are not fully sync
 | 32 | nHashParent | uint256 | Required | Parent object (a hash of all zeros here indicates this is the root object, not a child object).
 | 4 | nRevision | int | Required | Object revision in the system
 | 8 | nTime | int64_t | Required | Time which this object was created
-| 32 | nCollateralHash | uint256 | Required* | Hash of the collateral fee transaction for proposals.<br><br>Set to all zeros for Triggers/Watchdogs.
+| 32 | nCollateralHash | uint256 | Required* | Hash of the collateral fee transaction for proposals.<br><br>Set to all zeros for Triggers.
 | 0-16384 | strData | string | Required | Data field - can be used for anything (leading varint indicates size of data)
-| 4 | nObjectType | int | Required | Type of governance object: <br>• `0` - Unknown<br>• `1` - Proposal<br>• `2` - Trigger<br>• `3` - Watchdog
+| 4 | nObjectType | int | Required | Type of governance object: <br>• `0` - Unknown<br>• `1` - Proposal<br>• `2` - Trigger
 | 36 | masternodeOutPoint | outPoint | Required* | The unspent outpoint of the masternode (holding 1000 DASH) which is signing this object.<br><br>Set to all zeros for proposals since they can be created by non-masternodes.
 | 97 | vchSig | char[] | Required* | _ECDSA signature (65 bytes) prior to DIP3 activation_<br><br>BLS Signature of the masternode (Length (1 byte) + Signature (96 bytes))<br><br>Not required for proposals - they will have a length of 0x00 and no Signature.
 
@@ -3689,7 +3689,6 @@ Governance Object Types (defined by src/governance-object.h)
 | 0 | `GOVERNANCE_OBJECT_UNKNOWN`  |
 | 1 | `GOVERNANCE_OBJECT_PROPOSAL` | Submitted proposal (requires collateral transaction - currently 5 Dash)
 | 2 | `GOVERNANCE_OBJECT_TRIGGER`  | Masternode generated. Removed after activation/execution. Used for superblocks.
-| 3 | `GOVERNANCE_OBJECT_WATCHDOG` | Masternode generated. Two hour expiration time.<br><br>DEPRECATED since 12.2.
 
 The following annotated hexdump shows a `govobj` message for a Proposal object.
 Notice the presence of a non-zero collateral hash, a masternodeOutPoint that is an
@@ -3840,16 +3839,14 @@ request if they are not fully synced.
 This message responds in one of two ways depending on the request:
 
 1. Object Sync - When a masternode receives a `govsync` message with a hash of all zeros, it
-responds with one `ssc` message for `govobj` objects and one for `govobjvote`
-objects. The masternode also sends an `inv` message (MSG_GOVERNANCE_OBJECT - 0x17)
-for all valid `govobj` governance objects.
+responds with a `ssc` message for `govobj` objects. The masternode also sends an
+`inv` message (MSG_GOVERNANCE_OBJECT - 0x17) for all valid `govobj` governance objects.
 *Governance object votes are excluded in this type of response.*
 
 2. Vote Sync - When a masternode receives a `govsync` message with a specific hash, it
-responds with one `ssc` message for `govobj` objects and one for `govobjvote`
-objects. The masternode also sends both a `govobj` inventory message
-(MSG_GOVERNANCE_OBJECT - 0x17) and `govobjvote` inventory messages
-(MSG_GOVERNANCE_OBJECT_VOTE - 0x18) for the single governance object requested.
+responds with an `ssc` message for `govobjvote` objects. The masternode also
+sends a `govobjvote` inventory messages (MSG_GOVERNANCE_OBJECT_VOTE - 0x18) for
+the object requested.
 
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
