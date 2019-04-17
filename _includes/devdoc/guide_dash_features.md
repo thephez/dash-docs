@@ -666,3 +666,39 @@ features in a decentralized, deterministic way.
 | MN Broadcast | 10      | Majority | If a majority (6+) of nodes agree, a new `mnb` message is not required.
 
 {% endautocrossref %}
+
+
+### Masternode Quorums
+{% include helpers/subhead-links.md %}
+
+##### LLMQ Creation (DKG)
+<!-- no subhead-links here -->
+
+{% autocrossref %}
+
+*Quorum DKG Data Flow*
+
+| **Masternode** | **Direction**  | **Peers**   | **Description** |
+| **[Initialization Phase](https://github.com/dashpay/dips/blob/master/dip-0006.md#1-initialization-phase)**| | | **Deterministically evaluate if quorum participation necessary** |
+| **[Contribution Phase](https://github.com/dashpay/dips/blob/master/dip-0006.md#2-contribution-phase)** | | | **Send quorum contributions (intra-quorum communication)** |
+|`inv` message (qcontrib)                        | → |                              | Masternode sends inventory for its quorum contribution _to other masternodes in the quorum_
+|                                                | ← | `getdata` message (qcontrib) | Peer(s) respond with request for quorum contribution
+| `qcontrib` message                             | → |                              | Masternode sends the requested quorum contribution
+| **[Complaining Phase](https://github.com/dashpay/dips/blob/master/dip-0006.md#3-complaining-phase)** | | | **Send complaints for any peers with invalid or missing contributions (intra-quorum communication)** |
+|`inv` message (qcomplaint)                      | → |                              | Masternode sends inventory for any complaints _to other masternodes in the quorum_
+|                                                | ← | `getdata` message (qcomplaint) | Peer(s) respond with request for quorum complaints
+| `qcomplaint` message                           | → |                              | Masternode sends the requested complaints
+| **[Justification Phase](https://github.com/dashpay/dips/blob/master/dip-0006.md#4-justification-phase)** | | | **Send justification responses for any complaints against own contributions (intra-quorum communication)** |
+|`inv` message (qjustify)                        | → |                              | Masternode sends inventory for any justifications _to other masternodes in the quorum_
+|                                                | ← | `getdata` message (qjustify) | Peer(s) respond with request for quorum justifications
+| `qjustify` message                             | → |                              | Masternode sends the requested justifications
+| **[Commitment Phase](https://github.com/dashpay/dips/blob/master/dip-0006.md#5-commitment-phase)** | | | **Send premature commitment containing the quorum public key (intra-quorum communication)** |
+|`inv` message (qpcommit)                        | → |                              | Masternode sends inventory for its premature commitment _to other masternodes in the quorum_
+|                                                | ← | `getdata` message (qpcommit) | Peer(s) respond with request for quorum premature commitment
+| `qpcommit` message                             | → |                              | Masternode sends the requested premature commitment
+| **[Finalization Phase](https://github.com/dashpay/dips/blob/master/dip-0006.md#6-finalization-phase)** | | | **Send final commitment containing the quorum public key** |
+|`inv` message (qfcommit)                        | → |                              | Masternode sends inventory for its premature commitment **to all nodes on the network**
+|                                                | ← | `getdata` message (qfcommit) | Peer(s) respond with request for quorum final commitment
+| `qfcommit` message                             | → |                              | Masternode sends the requested final commitment
+
+{% endautocrossref %}
