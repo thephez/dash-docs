@@ -610,8 +610,8 @@ the future. This will allow the integration between Evolution and Dash Core to
 proceed more smoothly and enable new governance object additions with minimal
 impact to Dash Core.
 
-Sentinel runs periodically and performs four main tasks as described below:
-governance sync, ping, governance object pruning, and superblock management.
+Sentinel runs periodically and performs three main tasks as described below:
+governance sync, governance object pruning, and superblock management.
 The governance object data is stored in a SQLite database.
 
 ##### Sentinel<!--noref--> Sync
@@ -620,15 +620,6 @@ The governance object data is stored in a SQLite database.
 Sentinel issues a `gobject list` RPC command and updates its database with the
 results returned from dashd. When objects are removed from the network, they are
 purged from the Sentinel database.
-
-##### Sentinel<!--noref--> Ping
-{% include helpers/subhead-links.md %}
-
-In Dash Core 12.2, use of the `watchdog` governance object type was replaced
-by integrating sentinel information into the masternode ping (`mnp` message)
-via [Pull Request #1491](https://github.com/dashpay/dash/pull/1491).
-Sentinel calls the `sentinelping` RPC which updates the masternode info to
-prevent it from entering a `MASTERNODE_WATCHDOG_EXPIRED` state.
 
 ##### Sentinel<!--noref--> Prune
 {% include helpers/subhead-links.md %}
@@ -644,6 +635,18 @@ voted to delete them.
 
 Sentinel manages superblock creation, voting, and submission to dashd for
 network propagation.
+
+##### Sentinel<!--noref--> Ping
+{% include helpers/subhead-links.md %}
+
+![Warning icon](/img/icons/icon_warning.svg) NOTE: Deprecated by [Dash Core v0.14](https://github.com/dashpay/sentinel/pull/64)
+
+In Dash Core 12.2, use of the `watchdog` governance object type was replaced
+by integrating sentinel information into the masternode ping (`mnp` message)
+via [Pull Request #1491](https://github.com/dashpay/dash/pull/1491).
+
+From Dash Core 0.12.2 through Dash Core 0.13, Sentinel used the `sentinelping` RPC
+to update the masternode info and prevent it from entering a `MASTERNODE_WATCHDOG_EXPIRED` state.
 
 {% endautocrossref %}
 
