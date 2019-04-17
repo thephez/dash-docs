@@ -15,8 +15,7 @@ Dash aims to be the most user-friendly and scalable payments-focused
 cryptocurrency in the world. The Dash network features instant transaction
 confirmation, double spend protection, anonymity equal to that of physical cash,
 a self-governing, self-funding model driven by incentivized full nodes and a
-clear roadmap for on-chain scaling to up to 400MB blocks using custom-developed
-open source hardware.
+clear [roadmap](https://www.dash.org/roadmap/) for future development.
 
 While Dash is based on Bitcoin and compatible with many key components of the
 Bitcoin ecosystem, its two-tier network structure offers significant
@@ -425,6 +424,13 @@ The following actions only run when the masternode sync is past `MASTERNODE_SYNC
 
 #### Previous System
 <!-- no subhead-links here -->
+
+![Warning icon](/img/icons/icon_warning.svg) **The following information is for
+historical reference only. It describes the masternode sync process that was
+used prior to the deterministic masternode list update in Dash Core v0.13 that
+implemented DIP3.**
+
+Please see [here for details of the current system](#masternode-sync)
 
 ##### Initial Sync
 <!-- no subhead-links here -->
