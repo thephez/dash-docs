@@ -639,7 +639,7 @@ network propagation.
 ##### Sentinel<!--noref--> Ping
 {% include helpers/subhead-links.md %}
 
-![Warning icon](/img/icons/icon_warning.svg) NOTE: Deprecated by [Dash Core v0.14](https://github.com/dashpay/sentinel/pull/64)
+![Warning icon](/img/icons/icon_warning.svg) NOTE: Deprecated by [Dash Core v0.14](https://github.com/dashpay/sentinel<!--noref-->/pull/64)
 
 In Dash Core 12.2, use of the `watchdog` governance object type was replaced
 by integrating sentinel information into the masternode ping (`mnp` message)
