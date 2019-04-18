@@ -651,35 +651,40 @@ to update the masternode info and prevent it from entering a `MASTERNODE_WATCHDO
 {% endautocrossref %}
 
 
-### Quorum Selection
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-Dash quorums are used to facilitate the operation of masternode provided
-features in a decentralized, deterministic way.
-
-| Quorum Type | Members | Consensus | Description |
-| ----------- | ------- | --------- | ----------- |
-| InstantSend | 10      | Majority  | A set of 10 masternodes are selected for _each_ input of the InstantSend transaction. A majority (6+) of them must agree to lock the input. If all inputs in the transaction can be locked, it becomes a successful InstantSend.
-| MN Payments | 10      | Majority | A set of 10 masternodes are selected for each block. A majority (6+) of them must agree on the masternode payee for the next block.
-| MN Broadcast | 10      | Majority | If a majority (6+) of nodes agree, a new `mnb` message is not required.
-
-{% endautocrossref %}
-
-
 ### Masternode Quorums
 {% include helpers/subhead-links.md %}
+
+Dash's masternode quorums are used to facilitate the operation of masternode provided
+features in a decentralized, deterministic way. The original quorums (used
+largely for InstantSend and masternode payments) were ephemeral and used for a
+single purpose (e.g. voting on one specific InstantSend transaction).
+
+Dash Core 0.14 (protocol version 70214) introduced the Long Living Masternode
+Quorums (LLMQ) that are described in detail by [DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md).
+These LLMQs are deterministic subsets of the global deterministic masternode
+list that are formed via a distributed key generation (DKG) protocol and remain
+active for a long periods of time (e.g. hours to days).
+
+The main task of LLMQs is to perform threshold signing of consensus-related
+messages (e.g. ChainLocks).
 
 ##### LLMQ Creation (DKG)
 <!-- no subhead-links here -->
 
 {% autocrossref %}
 
+The following table details the data flow of P2P messages exchanged during
+the distributed key generation (DKG) protocol used to establish an LLMQ.
+
+NOTE: With the exception of the final step (`qfcommit` message broadcast), the message
+exchanges happen only between masternodes participating in the DKG process via
+the Intra-Quorum communication process described in the DIP.
+
 *Quorum DKG Data Flow*
 
 | **Masternode** | **Direction**  | **Peers**   | **Description** |
 | **[Initialization Phase](https://github.com/dashpay/dips/blob/master/dip-0006.md#1-initialization-phase)**| | | **Deterministically evaluate if quorum participation necessary** |
+| | | | Each quorum participant establishes connections to a set of quorum participants [as described in DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#building-the-set-of-deterministic-connections) |
 | **[Contribution Phase](https://github.com/dashpay/dips/blob/master/dip-0006.md#2-contribution-phase)** | | | **Send quorum contributions (intra-quorum communication)** |
 |`inv` message (qcontrib)                        | → |                              | Masternode sends inventory for its quorum contribution _to other masternodes in the quorum_
 |                                                | ← | `getdata` message (qcontrib) | Peer(s) respond with request for quorum contribution
@@ -700,5 +705,18 @@ features in a decentralized, deterministic way.
 |`inv` message (qfcommit)                        | → |                              | Masternode sends inventory for its premature commitment **to all nodes on the network**
 |                                                | ← | `getdata` message (qfcommit) | Peer(s) respond with request for quorum final commitment
 | `qfcommit` message                             | → |                              | Masternode sends the requested final commitment
+
+{% endautocrossref %}
+
+#### Quorum Selection
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+| Quorum Type | Members | Consensus | Description |
+| ----------- | ------- | --------- | ----------- |
+| InstantSend | 10      | Majority  | A set of 10 masternodes are selected for _each_ input of the InstantSend transaction. A majority (6+) of them must agree to lock the input. If all inputs in the transaction can be locked, it becomes a successful InstantSend.
+| MN Payments | 10      | Majority | A set of 10 masternodes are selected for each block. A majority (6+) of them must agree on the masternode payee for the next block.
+| MN Broadcast | 10      | Majority | _Deprecated by DIP3 (deterministic masternode list) in Dash Core 0.13._<br><br>If a majority (6+) of nodes agree, a new `mnb` message is not required.
 
 {% endautocrossref %}
