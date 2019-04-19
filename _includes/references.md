@@ -277,7 +277,7 @@ http://opensource.org/licenses/MIT.
 [qsigrec message]: /en/developer-reference#qsigrec "A P2P network message used to send recovered quorum signatures"
 [qsigsesann message]: /en/developer-reference#qsigsesann "A P2P network message used to announce signing session details"
 [qsigsinv message]: /en/developer-reference#qsigsinv "A P2P network message used to announce quorum signature share inventories"
-[qwatch message]: /en/developer-reference#qwatch "A P2P network message used to ask a peer to relay LLMQ DKG messages
+[qwatch message]: /en/developer-reference#qwatch "A P2P network message used to ask a peer to relay LLMQ DKG messages"
 [reject message]: /en/developer-reference#reject "A P2P network message used to indicate a previously-received message was rejected for some reason"
 [sendcmpct message]: /en/developer-reference#sendcmpct "A P2P network message used to request new blocks be announced as compact blocks"
 [senddsq message]: /en/developer-reference#senddsq "A P2P network message used to request that DSQ mixing messages be provided"
