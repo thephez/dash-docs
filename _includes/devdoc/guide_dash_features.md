@@ -702,7 +702,7 @@ the Intra-Quorum communication process described in the DIP.
 |                                                | ← | `getdata` message (qpcommit) | Peer(s) respond with request for quorum premature commitment
 | `qpcommit` message                             | → |                              | Masternode sends the requested premature commitment
 | **[Finalization Phase](https://github.com/dashpay/dips/blob/master/dip-0006.md#6-finalization-phase)** | | | **Send final commitment containing the quorum public key** |
-|`inv` message (qfcommit)                        | → |                              | Masternode sends inventory for its premature commitment **to all nodes on the network**
+|`inv` message (qfcommit)                        | → |                              | Masternode sends inventory for its premature commitment **to all peers**
 |                                                | ← | `getdata` message (qfcommit) | Peer(s) respond with request for quorum final commitment
 | `qfcommit` message                             | → |                              | Masternode sends the requested final commitment
 
@@ -740,7 +740,7 @@ for additional details.
 
 | Quorum Type | Members | Consensus | Description |
 | ----------- | ------- | --------- | ----------- |
-| InstantSend | 10      | Majority  | A set of 10 masternodes are selected for _each_ input of the InstantSend transaction. A majority (6+) of them must agree to lock the input. If all inputs in the transaction can be locked, it becomes a successful InstantSend.
+| Classic<br>(non-LLMQ) InstantSend | 10      | Majority  | A set of 10 masternodes are selected for _each_ input of the InstantSend transaction. A majority (6+) of them must agree to lock the input. If all inputs in the transaction can be locked, it becomes a successful InstantSend.
 | MN Payments | 10      | Majority | A set of 10 masternodes are selected for each block. A majority (6+) of them must agree on the masternode payee for the next block.
 | MN Broadcast | 10      | Majority | _Deprecated by DIP3 (deterministic masternode list) in Dash Core 0.13._<br><br>If a majority (6+) of nodes agree, a new `mnb` message is not required.
 
