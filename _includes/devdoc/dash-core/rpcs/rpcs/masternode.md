@@ -266,7 +266,7 @@ The `masternode<!--noref--> status` RPC prints masternode status information.
   p: "Required<br>(exactly 1)"
   d: "Deterministic Masternode State"
 
-- n: "→<br>`service`"
+- n: "→ →<br>`service`"
   t: "string"
   p: "Required<br>(exactly 1)"
   d: "The IP address/port of the masternode"

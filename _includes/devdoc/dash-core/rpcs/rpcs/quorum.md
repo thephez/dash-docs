@@ -32,7 +32,7 @@ The `quorum<!--noref--> list` RPC displays a list of on-chain quorums.
 - n: "`count`"
   t: "number"
   p: "Optional<br>(0 or 1)"
-  d: "Number of quorums to list (default: 10)"
+  d: "Number of quorums to list. Will list active quorums if `count` is not specified."
 {% enditemplate %}
 
 *Result---a list of quorums*
@@ -244,7 +244,7 @@ The `quorum<!--noref--> list` RPC displays a list of on-chain quorums.
 - n: "`proTxHash`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "The Provider Registration transaction hash of the masternode to show status for. If set to an empty string, the local status is shown."
+  d: "The Provider Registration transaction hash of the masternode to show status for. If set to an empty string, the local status is shown.<br>**Note: An empty string must be used unless Spork 18 (Quorum Debug Enabled) is active**"
 {% enditemplate %}
 
 *Parameter #2---detail level*
