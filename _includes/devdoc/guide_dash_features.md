@@ -709,14 +709,29 @@ the Intra-Quorum communication process described in the DIP.
 {% endautocrossref %}
 
 
-##### LLMQ Signing
+##### LLMQ Signing Session
 <!-- no subhead-links here -->
+
+The following table details the data flow of P2P messages exchanged during
+an LLMQ signing session. These sessions take advantage of BLS threshold signatures
+to enable quorums to sign arbitrary messages. For example, Dash Core 0.14 uses
+this capability to create the quorum signature found in the `clsig` message that
+enables ChainLocks.
+
+Please read [DIP7 LLMQ Signing Requests / Sessions](https://github.com/dashpay/dips/blob/master/dip-0007.md)
+for additional details.
 
 *LLMQ Signing Session Data Flow*
 
 | **Masternode** | **Direction**  | **Peers**   | **Description** |
-
-
+| **[Siging Request Phase](https://github.com/dashpay/dips/blob/master/dip-0007.md#signing-request)** | | | Request quorum signing of a message (e.g. InstantSend transaction input) (intra-quorum communication) |
+| `qsigsesann` message                             | → |                              | Masternode sends a signing session announcement _to other masternodes in the quorum_
+| **[Share Propagation Phase](https://github.com/dashpay/dips/blob/master/dip-0007.md#propagating-signature-shares)** | | | Members exchange signature shares within the quorum (intra-quorum communication) |
+| `qsigsinv` message                             | → |                              | Masternode sends one or more quorum signature share inventories _to other masternodes in the quorum_<br>_May occur multiple times in this phase_
+|                                                | ← | `qgetsigs` message (qcontrib) | Peer(s) respond with request for signature shares<br>_May occur multiple times in this phase_
+| `qbsigs` message                             | → |                              | Masternode sends the requested batched signature share(s)<br>_May occur multiple times in this phase_
+| **[Threshold Signature Recovery Phase](https://github.com/dashpay/dips/blob/master/dip-0007.md#recovered-threshold-signatures)** | | | A recovered signature is created by a quorum member once valid signature shares from at least the threshold number of members have been received |
+| `qsigrec` message                             | → |                              | Masternode sends the quorum recovered signature **to all peers** (except those that have asked to be excluded via a `qsendrecsigs` message)
 
 #### Quorum Selection
 {% include helpers/subhead-links.md %}
