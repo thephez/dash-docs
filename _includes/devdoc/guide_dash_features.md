@@ -295,6 +295,33 @@ value of only 0.00000546 DASH as shown by the calculation below.
 [Example Testnet PrivateSend transaction spending 546 duffs](https://testnet-insight.dashevo.org/insight/address/yWWNYVEQ84RM1xXJekj62wJPF3h1TKh9fS)
 
 
+### ChainLocks
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+Dash's ChainLock feature leverages [LLMQ Signing Requests/Sessions](#llmq-signing-session)
+to reduce uncertainty when receiving funds and remove the possibility of 51%
+mining attacks.
+
+For each block, an LLMQ of a few hundred masternodes is selected and each
+participating member signs the first block that it sees extending the active
+chain at the current height. If enough members (e.g. >= 60%) see the same block
+as the first block, they will be able to create a `clsig` message and propagate
+it to all nodes in the network.
+
+If a valid `clsig` message is received by a node, it must reject all blocks (and
+any descendants) at the same height that do not match the block specified in the
+`clsig` message. This makes the decision on the active chain quick, easy and
+unambiguous. It also makes reorganizations below this block impossible.
+
+Please read [DIP8 ChainLocks](https://github.com/dashpay/dips/blob/master/dip-0008.md)
+for additional details.
+
+
+{% endautocrossref %}
+
+
 ### Masternode Payment
 {% include helpers/subhead-links.md %}
 
@@ -651,18 +678,101 @@ to update the masternode info and prevent it from entering a `MASTERNODE_WATCHDO
 {% endautocrossref %}
 
 
-### Quorum Selection
+### Masternode Quorums
+{% include helpers/subhead-links.md %}
+
+Dash's masternode quorums are used to facilitate the operation of masternode provided
+features in a decentralized, deterministic way. The original quorums (used
+largely for InstantSend and masternode payments) were ephemeral and used for a
+single purpose (e.g. voting on one specific InstantSend transaction).
+
+Dash Core 0.14 (protocol version 70214) introduced the Long Living Masternode
+Quorums (LLMQ) that are described in detail by [DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md).
+These LLMQs are deterministic subsets of the global deterministic masternode
+list that are formed via a distributed key generation (DKG) protocol and remain
+active for a long periods of time (e.g. hours to days).
+
+The main task of LLMQs is to perform threshold signing of consensus-related
+messages (e.g. ChainLocks).
+
+##### LLMQ Creation (DKG)
+<!-- no subhead-links here -->
+
+{% autocrossref %}
+
+The following table details the data flow of P2P messages exchanged during
+the distributed key generation (DKG) protocol used to establish an LLMQ.
+
+NOTE: With the exception of the final step (`qfcommit` message broadcast), the message
+exchanges happen only between masternodes participating in the DKG process via
+the Intra-Quorum communication process described in the DIP.
+
+*Quorum DKG Data Flow*
+
+| **Masternode** | **Direction**  | **Peers**   | **Description** |
+| **[Initialization Phase](https://github.com/dashpay/dips/blob/master/dip-0006.md#1-initialization-phase)**| | | **Deterministically evaluate if quorum participation necessary** |
+| | | | Each quorum participant establishes connections to a set of quorum participants [as described in DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#building-the-set-of-deterministic-connections) |
+| **[Contribution Phase](https://github.com/dashpay/dips/blob/master/dip-0006.md#2-contribution-phase)** | | | **Send quorum contributions (intra-quorum communication)** |
+|`inv` message (qcontrib)                        | → |                              | Masternode sends inventory for its quorum contribution _to other masternodes in the quorum_
+|                                                | ← | `getdata` message (qcontrib) | Peer(s) respond with request for quorum contribution
+| `qcontrib` message                             | → |                              | Masternode sends the requested quorum contribution
+| **[Complaining Phase](https://github.com/dashpay/dips/blob/master/dip-0006.md#3-complaining-phase)** | | | **Send complaints for any peers with invalid or missing contributions (intra-quorum communication)** |
+|`inv` message (qcomplaint)                      | → |                              | Masternode sends inventory for any complaints _to other masternodes in the quorum_
+|                                                | ← | `getdata` message (qcomplaint) | Peer(s) respond with request for quorum complaints
+| `qcomplaint` message                           | → |                              | Masternode sends the requested complaints
+| **[Justification Phase](https://github.com/dashpay/dips/blob/master/dip-0006.md#4-justification-phase)** | | | **Send justification responses for any complaints against own contributions (intra-quorum communication)** |
+|`inv` message (qjustify)                        | → |                              | Masternode sends inventory for any justifications _to other masternodes in the quorum_
+|                                                | ← | `getdata` message (qjustify) | Peer(s) respond with request for quorum justifications
+| `qjustify` message                             | → |                              | Masternode sends the requested justifications
+| **[Commitment Phase](https://github.com/dashpay/dips/blob/master/dip-0006.md#5-commitment-phase)** | | | **Send premature commitment containing the quorum public key (intra-quorum communication)** |
+|`inv` message (qpcommit)                        | → |                              | Masternode sends inventory for its premature commitment _to other masternodes in the quorum_
+|                                                | ← | `getdata` message (qpcommit) | Peer(s) respond with request for quorum premature commitment
+| `qpcommit` message                             | → |                              | Masternode sends the requested premature commitment
+| **[Finalization Phase](https://github.com/dashpay/dips/blob/master/dip-0006.md#6-finalization-phase)** | | | **Send final commitment containing the quorum public key** |
+|`inv` message (qfcommit)                        | → |                              | Masternode sends inventory for its premature commitment **to all peers**
+|                                                | ← | `getdata` message (qfcommit) | Peer(s) respond with request for quorum final commitment
+| `qfcommit` message                             | → |                              | Masternode sends the requested final commitment
+
+{% endautocrossref %}
+
+
+##### LLMQ Signing Session
+<!-- no subhead-links here -->
+
+{% autocrossref %}
+
+The following table details the data flow of P2P messages exchanged during
+an LLMQ signing session. These sessions take advantage of BLS threshold signatures
+to enable quorums to sign arbitrary messages. For example, Dash Core 0.14 uses
+this capability to create the quorum signature found in the `clsig` message that
+enables ChainLocks.
+
+Please read [DIP7 LLMQ Signing Requests / Sessions](https://github.com/dashpay/dips/blob/master/dip-0007.md)
+for additional details.
+
+*LLMQ Signing Session Data Flow*
+
+| **Masternode** | **Direction**  | **Peers**   | **Description** |
+| **[Siging Request Phase](https://github.com/dashpay/dips/blob/master/dip-0007.md#signing-request)** | | | Request quorum signing of a message (e.g. InstantSend transaction input) (intra-quorum communication) |
+| `qsigsesann` message                             | → |                              | Masternode sends a signing session announcement _to other masternodes in the quorum_
+| **[Share Propagation Phase](https://github.com/dashpay/dips/blob/master/dip-0007.md#propagating-signature<!--noref-->-shares)** | | | Members exchange signature shares within the quorum (intra-quorum communication) |
+| `qsigsinv` message                             | → |                              | Masternode sends one or more quorum signature share inventories _to other masternodes in the quorum_<br>_May occur multiple times in this phase_
+|                                                | ← | `qgetsigs` message (qcontrib) | Peer(s) respond with request for signature shares<br>_May occur multiple times in this phase_
+| `qbsigs` message                             | → |                              | Masternode sends the requested batched signature share(s)<br>_May occur multiple times in this phase_
+| **[Threshold Signature Recovery Phase](https://github.com/dashpay/dips/blob/master/dip-0007.md#recovered-threshold-signatures<!--noref-->)** | | | A recovered signature is created by a quorum member once valid signature shares from at least the threshold number of members have been received |
+| `qsigrec` message                             | → |                              | Masternode sends the quorum recovered signature **to all peers** (except those that have asked to be excluded via a `qsendrecsigs` message)
+
+{% endautocrossref %}
+
+#### Quorum Selection
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
 
-Dash quorums are used to facilitate the operation of masternode provided
-features in a decentralized, deterministic way.
-
 | Quorum Type | Members | Consensus | Description |
 | ----------- | ------- | --------- | ----------- |
-| InstantSend | 10      | Majority  | A set of 10 masternodes are selected for _each_ input of the InstantSend transaction. A majority (6+) of them must agree to lock the input. If all inputs in the transaction can be locked, it becomes a successful InstantSend.
+| Classic<br>(non-LLMQ) InstantSend | 10      | Majority  | A set of 10 masternodes are selected for _each_ input of the InstantSend transaction. A majority (6+) of them must agree to lock the input. If all inputs in the transaction can be locked, it becomes a successful InstantSend.
 | MN Payments | 10      | Majority | A set of 10 masternodes are selected for each block. A majority (6+) of them must agree on the masternode payee for the next block.
-| MN Broadcast | 10      | Majority | If a majority (6+) of nodes agree, a new `mnb` message is not required.
+| MN Broadcast | 10      | Majority | _Deprecated by DIP3 (deterministic masternode list) in Dash Core 0.13._<br><br>If a majority (6+) of nodes agree, a new `mnb` message is not required.
 
 {% endautocrossref %}

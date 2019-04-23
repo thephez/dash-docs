@@ -3115,7 +3115,11 @@ e9015178f6d642b7b25c4fd7c4ef3030 ........... BLS signature (Operator Key)
 intra-quorum communication and is only sent to the masternodes in the LLMQ and
 nodes that are monitoring in Watch Mode for auditing/debugging purposes.
 
-The `qjustify` message is used to...
+The `qjustify` message is used to respond to complaints. This provides a way for
+nodes that have been complained about to offer proof of correct behavior. If
+a valid justification is not provided, all other nodes mark it as a bad. If a
+valid justification is provided, the complaining node is marked as bad instead
+(since it submitted a bad complaint).
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
