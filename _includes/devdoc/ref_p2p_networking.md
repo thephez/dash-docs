@@ -3284,7 +3284,7 @@ The `qbsigs` message is used to send batched signature shares in response to a
 `qgetsigs` message.
 
 Note: The number of messages that can be sent in a batch is limited to 400
-(as defined by `MAX_MSGS_TOTAL_BATCHED_SIGS`).
+(as defined by `MAX_MSGS_TOTAL_BATCHED_SIGS` in Dash Core).
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
@@ -3487,7 +3487,7 @@ session. The sessionId will be used for all P2P messages related to that
 session.
 
 Note: The maximum number of announcements in a `qsigsesann` message is limited to
-100 (as defined by `MAX_MSGS_CNT_QSIGSESANN`).
+100 (as defined by `MAX_MSGS_CNT_QSIGSESANN` in Dash Core).
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
@@ -3556,7 +3556,7 @@ The `qsigsinv` message (quorum signature inventory) announces one or more quorum
 signature share inventories known by the transmitting peer.
 
 Note: The maximum number of inventories in a `qsigsinv` message is limited to
-200 (as defined by `MAX_MSGS_CNT_QSIGSHARESINV`).
+200 (as defined by `MAX_MSGS_CNT_QSIGSHARESINV` in Dash Core).
 
 <!-- See quorum_signing_shares.h (CSigSharesInv) -->
 

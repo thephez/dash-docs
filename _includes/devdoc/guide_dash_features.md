@@ -762,6 +762,13 @@ for additional details.
 | **[Threshold Signature Recovery Phase](https://github.com/dashpay/dips/blob/master/dip-0007.md#recovered-threshold-signatures<!--noref-->)** | | | A recovered signature is created by a quorum member once valid signature shares from at least the threshold number of members have been received |
 | `qsigrec` message                             | → |                              | Masternode sends the quorum recovered signature **to all peers** (except those that have asked to be excluded via a `qsendrecsigs` message)
 
+Note the following timeouts defined by Dash Core related to signing sessions:
+
+| Parameter | Timeout, sec | Description |
+| `SESSION_NEW_SHARES_TIMEOUT` | 60 | Time to wait for new shares |
+| `SIG_SHARE_REQUEST_TIMEOUT` | 5 | Time to wait for a requested share before requesting from a different node |
+| `SESSION_TOTAL_TIMEOUT` | 300 | Time to wait for session to complete |
+
 {% endautocrossref %}
 
 #### Quorum Selection
