@@ -1887,6 +1887,11 @@ If a `version` message is accepted, the receiving node should send a
 before initializing its half of the connection by first sending a
 `version` message.
 
+Protocol version 70214 added a masternode authentication (challenge/response)
+system. Following the `verack` message, masternodes should send a `mnauth` message
+that signs the `mnauth_challenge` with their BLS operator key.
+
+
 | Bytes    | Name                  | Data Type        | Required/Optional                        | Description
 |----------|-----------------------|------------------|------------------------------------------|-------------
 | 4        | version               | int32_t          | Required                                 | The highest protocol version understood by the transmitting node.  See the [protocol version section][section protocol versions].
@@ -1903,6 +1908,7 @@ before initializing its half of the connection by first sending a
 | *Varies* | user_agent            | string           | Required if user_agent bytes > 0         | *Renamed in protocol version 60000.* <br><br>User agent as defined by BIP14. Previously called subVer.<br><br>Dash Core limits the length to 256 characters.
 | 4        | start_height          | int32_t          | Required                                 | The height of the transmitting node's best block chain or, in the case of an SPV client, best block header chain.
 | 1        | relay                 | bool             | Optional                                 | *Added in protocol version 70001 as described by BIP37.* <br><br>Transaction relay flag.  If 0x00, no `inv` messages or `tx` messages announcing new transactions should be sent to this client until it sends a `filterload` message or `filterclear` message.  If the relay field is not present or is set to 0x01, this node wants `inv` messages and `tx` messages announcing new transactions.
+| 32       | mnauth_challenge      | uint256          | Optional                                 | *Added in protocol version 70214* <br><br>A challenge to be signed by the receiving masternode. The response is returned via a `mnauth` message following the `verack` message.
 
 
 The following service identifiers have been assigned.
