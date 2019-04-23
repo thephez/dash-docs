@@ -381,6 +381,7 @@ http://opensource.org/licenses/MIT.
 [DIP5]: https://github.com/dashpay/dips/blob/master/dip-0005.md
 [DIP6]: https://github.com/dashpay/dips/blob/master/dip-0006.md
 [DIP7]: https://github.com/dashpay/dips/blob/master/dip-0007.md
+[DIP8]: https://github.com/dashpay/dips/blob/master/dip-0008.md
 
 {% comment %}<!-- Other external site links; alphabetical order -->{% endcomment %}
 [#bitcoin]: https://webchat.freenode.net/?channels=bitcoin&uio=d4

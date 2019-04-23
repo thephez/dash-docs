@@ -290,6 +290,13 @@ CVE-2012-2459:
 
 ## DIPs in numerical order; don't use padding zeros (e.g. DIP1 not DIP0001)
 DIP1:
+DIP2:
+DIP3:
+DIP4:
+DIP5:
+DIP6:
+DIP7:
+DIP8:
 
 ## RPCs
 '`abandontransaction`': rpc abandontransaction
