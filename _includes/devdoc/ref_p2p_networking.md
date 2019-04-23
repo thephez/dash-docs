@@ -3359,13 +3359,14 @@ The `qgetsigs` message is used to request signature shares. The response to a
 `qgetsigs` message is a `qbsigs` message.
 
 Note: The number of inventories in a `qgetsigs` message is limited to 200
-(as defined by `MAX_MSGS_CNT_QGETSIGSHARES`).
+(as defined by `MAX_MSGS_CNT_QGETSIGSHARES` in Dash Core).
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
 | Varies | count | compactSize uint | Number of signature shares requested |
 | Varies | sessionId | varint | Signing session ID
-| Varies | inv |  | Quorum signature inventory |
+| Varies | invSize | compactSize uint | Inventory size
+| Varies | inv | CAutoBitSet | Quorum signature inventory |
 
 The following annotated hexdump shows a `qgetsigs` message. (The
 message header has been omitted.)
@@ -3379,11 +3380,13 @@ message header has been omitted.)
 
 Signature share request 1
 | 80db21 ................................... Session ID
-| 32012900 ................................. Inventory
+| 32 ....................................... Inventory size: 50
+| 012900 ................................... Inventory
 
 Signature share request 2
 | 80db22 ................................... Session ID
-| 32012900 ................................. Inventory
+| 32 ....................................... Inventory Size: 50
+| 012900 ................................... Inventory
 {% endhighlight %}
 
 {% endautocrossref %}
@@ -3561,7 +3564,8 @@ Note: The maximum number of inventories in a `qsigsinv` message is limited to
 | --- | --- | --- | --- |
 | Varies | count | compactSize uint | Number of session announcements |
 | Varies | sessionId | varint | Signing session ID (must be less than the maximum uint32_t value) |
-| Varies | inv |  | Quorum signature inventory |
+| Varies | invSize | compactSize uint | Inventory size
+| Varies | inv | CAutoBitSet | Quorum signature inventory |
 
 The following annotated hexdump shows a `qsigsinv` message. (The
 message header has been omitted.)
@@ -3575,10 +3579,12 @@ Match  qbsigs and qsigsesann
 02 ......................................... Count: 2
 
 84d844 ..................................... Session ID
-32011a040200 ............................... Inventory
+32 ......................................... Inventory size: 50
+011a040200 ................................. Inventory
 
 84d843 ..................................... Session ID
-32011a0700 ................................. Inventory
+32 ......................................... Inventory size: 50
+011a0700 ................................... Inventory
 {% endhighlight %}
 
 {% endautocrossref %}
