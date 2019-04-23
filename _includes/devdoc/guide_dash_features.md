@@ -295,6 +295,33 @@ value of only 0.00000546 DASH as shown by the calculation below.
 [Example Testnet PrivateSend transaction spending 546 duffs](https://testnet-insight.dashevo.org/insight/address/yWWNYVEQ84RM1xXJekj62wJPF3h1TKh9fS)
 
 
+### ChainLocks
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+Dash's ChainLock feature leverages [LLMQ Signing Requests/Sessions](#llmq-signing-session)
+to reduce uncertainty when receiving funds and remove the possibility of 51%
+mining attacks.
+
+For each block, an LLMQ of a few hundred masternodes is selected and each
+participating member signs the first block that it sees extending the active
+chain at the current height. If enough members (e.g. >= 60%) see the same block
+as the first block, they will be able to create a `clsig` message and propagate
+it to all nodes in the network.
+
+If a valid `clsig` message is received by a node, it must reject all blocks (and
+any descendants) at the same height that do not match the block specified in the
+`clsig` message. This makes the decision on the active chain quick, easy and
+unambiguous. It also makes reorganizations below this block impossible.
+
+Please read [DIP8 ChainLocks](https://github.com/dashpay/dips/blob/master/dip-0008.md)
+for additional details.
+
+
+{% endautocrossref %}
+
+
 ### Masternode Payment
 {% include helpers/subhead-links.md %}
 
