@@ -269,7 +269,7 @@ http://opensource.org/licenses/MIT.
 [qbsigs message]: /en/developer-reference#qbsigs "A P2P network message used to to send batched LLMQ signature shares"
 [qcomplaint message]: /en/developer-reference#qcomplaint "A P2P network message used to send a complaint about another masternodes DKG contribution"
 [qcontrib message]: /en/developer-reference#qcontrib "A P2P network message used to send LLMQ DKG contributions"
-[qdebugstatus message]: /en/developer-reference#qdebugstatus "A P2P network message used to debug quorums"
+{% comment %}<!-- [qdebugstatus message]: /en/developer-reference#qdebugstatus "A P2P network message used to debug quorums" -->{% endcomment %}
 [qfcommit message]: /en/developer-reference#qfcommit "A P2P network message used to finalize the members of a long-living masternode quorum (LLMQ)"
 [qgetsigs message]: /en/developer-reference#qgetsigs "A P2P network message used to request signature shares"
 [qjustify message]: /en/developer-reference#qjustify "A P2P network message used to respond to another masternodes DKG complaint"
