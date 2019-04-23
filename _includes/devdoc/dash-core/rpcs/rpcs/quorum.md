@@ -307,7 +307,7 @@ The `quorum<!--noref--> list` RPC displays a list of on-chain quorums.
 - n: "→ → →<br>`phase`"
   t: "number"
   p: "Required<br>(exactly 1)"
-  d: "The active DKG phase"
+  d: "The active DKG phase<br>`1` - Initialized<br>`2` - Contributing<br>`3` - Complaining<br>`4` - Justifying<br>`5` - Committing<br>`6` - Finalizing"
 
 - n: "→ → →<br>`sentContributions`"
   t: "bool"
