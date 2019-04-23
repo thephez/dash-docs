@@ -266,18 +266,18 @@ http://opensource.org/licenses/MIT.
 [notfound message]: /en/developer-reference#notfound "A P2P protocol message sent to indicate that the requested data was not available"
 [ping message]: /en/developer-reference#ping "A P2P network message used to see if the remote host is still connected"
 [pong message]: /en/developer-reference#pong "A P2P network message used to reply to a P2P network ping message"
-[qbsigs message]: /en/developer-reference#qbsigs "A P2P network message used to ..."
-[qcomplaint message]: /en/developer-reference#qcomplaint "A P2P network message used to ..."
-[qcontrib message]: /en/developer-reference#qcontrib "A P2P network message used to ..."
-[qdebugstatus message]: /en/developer-reference#qdebugstatus "A P2P network message used to ..."
+[qbsigs message]: /en/developer-reference#qbsigs "A P2P network message used to to send batched LLMQ signature shares"
+[qcomplaint message]: /en/developer-reference#qcomplaint "A P2P network message used to send a complaint about another masternodes DKG contribution"
+[qcontrib message]: /en/developer-reference#qcontrib "A P2P network message used to send LLMQ DKG contributions"
+[qdebugstatus message]: /en/developer-reference#qdebugstatus "A P2P network message used to debug quorums"
 [qfcommit message]: /en/developer-reference#qfcommit "A P2P network message used to finalize the members of a long-living masternode quorum (LLMQ)"
-[qgetsigs message]: /en/developer-reference#qgetsigs "A P2P network message used to ..."
-[qjustify message]: /en/developer-reference#qjustify "A P2P network message used to ..."
-[qpcommit message]: /en/developer-reference#qpcommit "A P2P network message used to ..."
-[qsigrec message]: /en/developer-reference#qsigrec "A P2P network message used to ..."
-[qsigsesann message]: /en/developer-reference#qsigsesann "A P2P network message used to ..."
-[qsigsinv message]: /en/developer-reference#qsigsinv "A P2P network message used to ..."
-[qwatch message]: /en/developer-reference#qwatch "A P2P network message used to ..."
+[qgetsigs message]: /en/developer-reference#qgetsigs "A P2P network message used to request signature shares"
+[qjustify message]: /en/developer-reference#qjustify "A P2P network message used to respond to another masternodes DKG complaint"
+[qpcommit message]: /en/developer-reference#qpcommit "A P2P network message used to send an LLMQ premature commitment"
+[qsigrec message]: /en/developer-reference#qsigrec "A P2P network message used to send recovered quorum signatures"
+[qsigsesann message]: /en/developer-reference#qsigsesann "A P2P network message used to announce signing session details"
+[qsigsinv message]: /en/developer-reference#qsigsinv "A P2P network message used to announce quorum signature share inventories"
+[qwatch message]: /en/developer-reference#qwatch "A P2P network message used to ask a peer to relay LLMQ DKG messages"
 [reject message]: /en/developer-reference#reject "A P2P network message used to indicate a previously-received message was rejected for some reason"
 [sendcmpct message]: /en/developer-reference#sendcmpct "A P2P network message used to request new blocks be announced as compact blocks"
 [senddsq message]: /en/developer-reference#senddsq "A P2P network message used to request that DSQ mixing messages be provided"
@@ -381,6 +381,7 @@ http://opensource.org/licenses/MIT.
 [DIP5]: https://github.com/dashpay/dips/blob/master/dip-0005.md
 [DIP6]: https://github.com/dashpay/dips/blob/master/dip-0006.md
 [DIP7]: https://github.com/dashpay/dips/blob/master/dip-0007.md
+[DIP8]: https://github.com/dashpay/dips/blob/master/dip-0008.md
 
 {% comment %}<!-- Other external site links; alphabetical order -->{% endcomment %}
 [#bitcoin]: https://webchat.freenode.net/?channels=bitcoin&uio=d4
