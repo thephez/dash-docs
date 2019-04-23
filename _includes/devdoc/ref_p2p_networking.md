@@ -1925,9 +1925,9 @@ message header has been omitted and the actual IP addresses have been
 replaced with [RFC5737][] reserved IP addresses.)
 
 {% highlight text %}
-3e120100 .................................... Protocol version: 70206
+46120100 .................................... Protocol version: 70214
 0500000000000000 ............................ Services: NODE_NETWORK (1) + NODE_BLOOM (4)
-bc8f5e5400000000 ............................ Epoch time: 1415483324
+9c10ad5c00000000 ............................ Epoch time: 1554845852
 
 0100000000000000 ............................ Receiving node's services
 00000000000000000000ffffc61b6409 ............ Receiving node's IPv6 address
@@ -1939,11 +1939,14 @@ bc8f5e5400000000 ............................ Epoch time: 1415483324
 
 128035cbc97953f8 ............................ Nonce
 
-14 .......................................... Bytes in user agent string: 20
-2f4461736820436f72653a302e31322e312e352f..... User agent: /Satoshi:0.9.2.1/
+12 .......................................... Bytes in user agent string: 18
+2f4461736820436f72653a302e31322e312e352f..... User agent: /Dash Core:0.14.0/
 
-851f0b00 .................................... Start height: 728965
+851f0b00 .................................... Start height: 76944
 01 .......................................... Relay flag: true
+
+5dbb5d1baade6a9afa34db708f72c0dd
+b5bd82b3656493484556689640a91357 ............ Masternode Auth. Challenge
 {% endhighlight %}
 
 {% endautocrossref %}
