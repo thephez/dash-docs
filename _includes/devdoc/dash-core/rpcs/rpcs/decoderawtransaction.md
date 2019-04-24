@@ -3,6 +3,7 @@ This file is licensed under the MIT License (MIT) available on
 http://opensource.org/licenses/MIT.
 {% endcomment %}
 {% assign filename="_includes/devdoc/dash-core/rpcs/rpcs/decoderawtransaction.md" %}
+<!--__-->
 
 ##### DecodeRawTransaction
 {% include helpers/subhead-links.md %}
@@ -106,67 +107,69 @@ Decode a coinbase special transaction (CbTx):
 
 {% highlight bash %}
 dash-cli decoderawtransaction 03000500010000000000000000000000000000000000\
-000000000000000000000000000000ffffffff4b02953d045e572a5c08fabe6d6d66663734\
-36333636333230616162346432366264616530386339366263623534010000000000000010\
-00000eaf0000000d2f6e6f64655374726174756d2f0000000002b4e32237010000001976a9\
-14cb594917ad4e5849688ec63f29a0f7f3badb5da688acaae32237010000001976a914a3c5\
-284d3cd896815ac815f2dd76a3a71cb3d8e688ac00000000260100953d00007b8577a1c051\
-bcab40e08c72209f3eddc476d859c8054c57a7287700b2de2db4
+000000000000000000000000000000ffffffff2703ae50011a4d696e656420627920416e74\
+506f6f6c2021000b01201da9196f0000000007000000ffffffff02809e4730000000001976\
+a914cbd7bfcc50351180132b2c0698cb90ad74c473c788ac809e4730000000001976a91488\
+a060bc2dfe05780ae4dcb6c98b12436c35a93988ac00000000460200ae50010078e5c08b39\
+960887bf95185c381bdb719e60b6925fa12af78a8824fade927387c757acb6bac63da84f92\
+45e20cfd5d830382ac634d434725ca6349ab5db920a3
 {% endhighlight %}
 
 Result:
 
 {% highlight json %}
 {
-  "txid": "414a3911a274053beb867c79ad9a19bf508041554f147a1a2c73f8f9bc029717",
-  "size": 233,
+  "txid": "25632685ed0d7286901a80961c924c1ddd952e764754dbd8b40d0956413c8b56",
+  "size": 229,
   "version": 3,
   "type": 5,
   "locktime": 0,
   "vin": [
     {
-      "coinbase": "02953d045e572a5c08fabe6d6d666637343633363633323061616234643236626461653038633936626362353401000000000000001000000eaf0000000d2f6e6f64655374726174756d2f",
-      "sequence": 0
+      "coinbase": "03ae50011a4d696e656420627920416e74506f6f6c2021000b01201da9196f0000000007000000",
+      "sequence": 4294967295
     }
   ],
   "vout": [
     {
-      "value": 52.20000692,
-      "valueSat": 5220000692,
+      "value": 8.10000000,
+      "valueSat": 810000000,
       "n": 0,
       "scriptPubKey": {
-        "asm": "OP_DUP OP_HASH160 cb594917ad4e5849688ec63f29a0f7f3badb5da6 OP_EQUALVERIFY OP_CHECKSIG",
-        "hex": "76a914cb594917ad4e5849688ec63f29a0f7f3badb5da688ac",
+        "asm": "OP_DUP OP_HASH160 cbd7bfcc50351180132b2c0698cb90ad74c473c7 OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a914cbd7bfcc50351180132b2c0698cb90ad74c473c788ac",
         "reqSigs": 1,
         "type": "pubkeyhash",
         "addresses": [
-          "yereyozxENB9jbhqpbg1coE5c39ExqLSaG"
+          "yeuGUfPMrbEqAS2Pw1wonYgEPbM4LAA9LK"
         ]
       }
     },
     {
-      "value": 52.20000682,
-      "valueSat": 5220000682,
+      "value": 8.10000000,
+      "valueSat": 810000000,
       "n": 1,
       "scriptPubKey": {
-        "asm": "OP_DUP OP_HASH160 a3c5284d3cd896815ac815f2dd76a3a71cb3d8e6 OP_EQUALVERIFY OP_CHECKSIG",
-        "hex": "76a914a3c5284d3cd896815ac815f2dd76a3a71cb3d8e688ac",
+        "asm": "OP_DUP OP_HASH160 88a060bc2dfe05780ae4dcb6c98b12436c35a939 OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a91488a060bc2dfe05780ae4dcb6c98b12436c35a93988ac",
         "reqSigs": 1,
         "type": "pubkeyhash",
         "addresses": [
-          "ybFPBD7hm9KVd2Dubj97K5mw2ymR8gWJre"
+          "yYmrsYP3XYMZr1cGtha3QzmuNB1C7CfyhV"
         ]
       }
     }
   ],
-  "extraPayloadSize": 38,
-  "extraPayload": "0100953d00007b8577a1c051bcab40e08c72209f3eddc476d859c8054c57a7287700b2de2db4",
+  "extraPayloadSize": 70,
+  "extraPayload": "0200ae50010078e5c08b39960887bf95185c381bdb719e60b6925fa12af78a8824fade927387c757acb6bac63da84f9245e20cfd5d830382ac634d434725ca6349ab5db920a3",
   "cbTx": {
-    "version": 1,
-    "height": 15765,
-    "merkleRootMNList": "b42ddeb2007728a7574c05c859d876c4dd3e9f20728ce040abbc51c0a177857b"
+    "version": 2,
+    "height": 86190,
+    "merkleRootMNList": "877392defa24888af72aa15f92b6609e71db1b385c1895bf870896398bc0e578",
+    "merkleRootQuorums": "a320b95dab4963ca2547434d63ac8203835dfd0ce245924fa83dc6bab6ac57c7"
   },
-  "instantlock": false
+  "instantlock": false,
+  "chainlock": false
 }
 {% endhighlight %}
 

@@ -1459,6 +1459,9 @@ example, TXIDs will be in internal byte order).
   if the `BLOOM_UPDATE_P2PUBKEY_ONLY` flag was set. See the subsection
   below for details.)
 
+As of  Dash Core 0.14.0, elements in the extra payload section of DIP2-based
+special transactions are also compared against bloom filters.
+
 The following annotated hexdump of a transaction is from the [raw
 transaction format section][raw transaction format]; the elements which
 would be checked by the filter are emphasized in bold. Note that this
@@ -1887,6 +1890,11 @@ If a `version` message is accepted, the receiving node should send a
 before initializing its half of the connection by first sending a
 `version` message.
 
+Protocol version 70214 added a masternode authentication (challenge/response)
+system. Following the `verack` message, masternodes should send a `mnauth` message
+that signs the `mnauth_challenge` with their BLS operator key.
+
+
 | Bytes    | Name                  | Data Type        | Required/Optional                        | Description
 |----------|-----------------------|------------------|------------------------------------------|-------------
 | 4        | version               | int32_t          | Required                                 | The highest protocol version understood by the transmitting node.  See the [protocol version section][section protocol versions].
@@ -1903,6 +1911,7 @@ before initializing its half of the connection by first sending a
 | *Varies* | user_agent            | string           | Required if user_agent bytes > 0         | *Renamed in protocol version 60000.* <br><br>User agent as defined by BIP14. Previously called subVer.<br><br>Dash Core limits the length to 256 characters.
 | 4        | start_height          | int32_t          | Required                                 | The height of the transmitting node's best block chain or, in the case of an SPV client, best block header chain.
 | 1        | relay                 | bool             | Optional                                 | *Added in protocol version 70001 as described by BIP37.* <br><br>Transaction relay flag.  If 0x00, no `inv` messages or `tx` messages announcing new transactions should be sent to this client until it sends a `filterload` message or `filterclear` message.  If the relay field is not present or is set to 0x01, this node wants `inv` messages and `tx` messages announcing new transactions.
+| 32       | mnauth_challenge      | uint256          | Optional                                 | *Added in protocol version 70214* <br><br>A challenge to be signed by the receiving masternode. The response is returned via a `mnauth` message following the `verack` message.
 
 
 The following service identifiers have been assigned.
@@ -1919,9 +1928,9 @@ message header has been omitted and the actual IP addresses have been
 replaced with [RFC5737][] reserved IP addresses.)
 
 {% highlight text %}
-3e120100 .................................... Protocol version: 70206
+46120100 .................................... Protocol version: 70214
 0500000000000000 ............................ Services: NODE_NETWORK (1) + NODE_BLOOM (4)
-bc8f5e5400000000 ............................ Epoch time: 1415483324
+9c10ad5c00000000 ............................ Epoch time: 1554845852
 
 0100000000000000 ............................ Receiving node's services
 00000000000000000000ffffc61b6409 ............ Receiving node's IPv6 address
@@ -1933,11 +1942,14 @@ bc8f5e5400000000 ............................ Epoch time: 1415483324
 
 128035cbc97953f8 ............................ Nonce
 
-14 .......................................... Bytes in user agent string: 20
-2f4461736820436f72653a302e31322e312e352f..... User agent: /Satoshi:0.9.2.1/
+12 .......................................... Bytes in user agent string: 18
+2f4461736820436f72653a302e31322e312e352f..... User agent: /Dash Core:0.14.0/
 
-851f0b00 .................................... Start height: 728965
+851f0b00 .................................... Start height: 76944
 01 .......................................... Relay flag: true
+
+5dbb5d1baade6a9afa34db708f72c0dd
+b5bd82b3656493484556689640a91357 ............ Masternode Auth. Challenge
 {% endhighlight %}
 
 {% endautocrossref %}
@@ -2873,75 +2885,6 @@ features built in to Dash.
 {% endautocrossref %}
 
 
-#### Debugging
-{% include helpers/subhead-links.md %}
-
-
-##### qdebugstatus
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-*Added in protocol version 70214 of Dash Core*
-
-The `qdebugstatus` message is used to...
-
-| Bytes | Name | Data type | Description |
-| --- | --- | --- | --- |
-| 32 | proTxHash | uint256 | The ProRegTx hash
-| 8 | nTime | int64_t |
-| 1-9 | sessionsSize | compactSize uint |
-| `sessionsSize` * <> | sessions | <uint8_t, CDKGDebugSessionStatus> |
-| 96 | sig | byte[] | BLS signature
-
-`CDKGDebugSessionStatus`:
-
-| Bytes | Name | Data type | Description |
-| --- | --- | --- | --- |
-| 1 | llmqType | uint8_t | The type of LLMQ
-| 32 | quorumHash | uint256 | The quorum identifier
-| 4 | quorumHeight | uint32_t | The quorum height
-| 1 | phase | uint8_t | The DKG phase of the quorum
-| 1-9 | membersSize | compactSize uint |
-| `membersSize` * <> | members | CDKGDebugMemberStatus |
-
-`CDKGDebugMemberStatus`:
-
-| Bytes | Name | Data type | Description |
-| --- | --- | --- | --- |
-| 1 | statusBitset | uint8_t |
-| 32 * <> | complaintsFromMembers | uint16_t |
-
-
-<!--
-The following annotated hexdump shows a `qdebugstatus` message. (The
-message header has been omitted.)
-
-{% highlight text %}
-
-{% endhighlight %}
-
--->
-{% endautocrossref %}
-
-
-##### qwatch
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-*Added in protocol version 70214 of Dash Core*
-
-The `qwatch` message tells the receiving peer to relay LLMQ messages
-(`qcontrib` messages, `qcomplaint` messages, `qjustify` messages, and
-`qpcommit` messages).
-
-There is no payload in a `qwatch` message.  See the [message header
-section][section message header] for an example of a message without a payload.
-
-{% endautocrossref %}
-
-
 #### Distributed Key Generation
 {% include helpers/subhead-links.md %}
 
@@ -3353,7 +3296,7 @@ The `qbsigs` message is used to send batched signature shares in response to a
 `qgetsigs` message.
 
 Note: The number of messages that can be sent in a batch is limited to 400
-(as defined by `MAX_MSGS_TOTAL_BATCHED_SIGS`).
+(as defined by `MAX_MSGS_TOTAL_BATCHED_SIGS` in Dash Core).
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
@@ -3428,13 +3371,14 @@ The `qgetsigs` message is used to request signature shares. The response to a
 `qgetsigs` message is a `qbsigs` message.
 
 Note: The number of inventories in a `qgetsigs` message is limited to 200
-(as defined by `MAX_MSGS_CNT_QGETSIGSHARES`).
+(as defined by `MAX_MSGS_CNT_QGETSIGSHARES` in Dash Core).
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
 | Varies | count | compactSize uint | Number of signature shares requested |
 | Varies | sessionId | varint | Signing session ID
-| Varies | inv |  | Quorum signature inventory |
+| Varies | invSize | compactSize uint | Inventory size
+| Varies | inv | CAutoBitSet | Quorum signature inventory |
 
 The following annotated hexdump shows a `qgetsigs` message. (The
 message header has been omitted.)
@@ -3448,11 +3392,13 @@ message header has been omitted.)
 
 Signature share request 1
 | 80db21 ................................... Session ID
-| 32012900 ................................. Inventory
+| 32 ....................................... Inventory size: 50
+| 012900 ................................... Inventory
 
 Signature share request 2
 | 80db22 ................................... Session ID
-| 32012900 ................................. Inventory
+| 32 ....................................... Inventory Size: 50
+| 012900 ................................... Inventory
 {% endhighlight %}
 
 {% endautocrossref %}
@@ -3553,7 +3499,7 @@ session. The sessionId will be used for all P2P messages related to that
 session.
 
 Note: The maximum number of announcements in a `qsigsesann` message is limited to
-100 (as defined by `MAX_MSGS_CNT_QSIGSESANN`).
+100 (as defined by `MAX_MSGS_CNT_QSIGSESANN` in Dash Core).
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
@@ -3622,7 +3568,7 @@ The `qsigsinv` message (quorum signature inventory) announces one or more quorum
 signature share inventories known by the transmitting peer.
 
 Note: The maximum number of inventories in a `qsigsinv` message is limited to
-200 (as defined by `MAX_MSGS_CNT_QSIGSHARESINV`).
+200 (as defined by `MAX_MSGS_CNT_QSIGSHARESINV` in Dash Core).
 
 <!-- See quorum_signing_shares.h (CSigSharesInv) -->
 
@@ -3630,7 +3576,8 @@ Note: The maximum number of inventories in a `qsigsinv` message is limited to
 | --- | --- | --- | --- |
 | Varies | count | compactSize uint | Number of session announcements |
 | Varies | sessionId | varint | Signing session ID (must be less than the maximum uint32_t value) |
-| Varies | inv |  | Quorum signature inventory |
+| Varies | invSize | compactSize uint | Inventory size
+| Varies | inv | CAutoBitSet | Quorum signature inventory |
 
 The following annotated hexdump shows a `qsigsinv` message. (The
 message header has been omitted.)
@@ -3644,11 +3591,82 @@ Match  qbsigs and qsigsesann
 02 ......................................... Count: 2
 
 84d844 ..................................... Session ID
-32011a040200 ............................... Inventory
+32 ......................................... Inventory size: 50
+011a040200 ................................. Inventory
 
 84d843 ..................................... Session ID
-32011a0700 ................................. Inventory
+32 ......................................... Inventory size: 50
+011a0700 ................................... Inventory
 {% endhighlight %}
+
+{% endautocrossref %}
+
+
+#### Debugging
+{% include helpers/subhead-links.md %}
+
+<!-- qdebugstatus is generally not used. Leaving undocumented per discussion with codablock
+
+##### qdebugstatus
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+{% endautocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+The `qdebugstatus` message is used to...
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 32 | proTxHash | uint256 | The ProRegTx hash
+| 8 | nTime | int64_t |
+| 1-9 | sessionsSize | compactSize uint |
+| `sessionsSize` * <> | sessions | <uint8_t, CDKGDebugSessionStatus> |
+| 96 | sig | byte[] | BLS signature
+
+`CDKGDebugSessionStatus`:
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 1 | llmqType | uint8_t | The type of LLMQ
+| 32 | quorumHash | uint256 | The quorum identifier
+| 4 | quorumHeight | uint32_t | The quorum height
+| 1 | phase | uint8_t | The DKG phase of the quorum
+| 1-9 | membersSize | compactSize uint |
+| `membersSize` * <> | members | CDKGDebugMemberStatus |
+
+`CDKGDebugMemberStatus`:
+
+| Bytes | Name | Data type | Description |
+| --- | --- | --- | --- |
+| 1 | statusBitset | uint8_t |
+| 32 * <> | complaintsFromMembers | uint16_t |
+
+The following annotated hexdump shows a `qdebugstatus` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+
+{% endhighlight %}
+
+{% autocrossref %}
+{% endautocrossref %}
+-->
+
+##### qwatch
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+*Added in protocol version 70214 of Dash Core*
+
+The `qwatch` message tells the receiving peer to relay LLMQ messages
+(`qcontrib` messages, `qcomplaint` messages, `qjustify` messages, and
+`qpcommit` messages).
+
+There is no payload in a `qwatch` message.  See the [message header
+section][section message header] for an example of a message without a payload.
 
 {% endautocrossref %}
 
