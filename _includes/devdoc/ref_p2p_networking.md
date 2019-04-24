@@ -1459,6 +1459,9 @@ example, TXIDs will be in internal byte order).
   if the `BLOOM_UPDATE_P2PUBKEY_ONLY` flag was set. See the subsection
   below for details.)
 
+As of  Dash Core 0.14.0, elements in the extra payload section of DIP2-based
+special transactions are also compared against bloom filters.
+
 The following annotated hexdump of a transaction is from the [raw
 transaction format section][raw transaction format]; the elements which
 would be checked by the filter are emphasized in bold. Note that this

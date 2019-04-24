@@ -239,7 +239,7 @@ http://opensource.org/licenses/MIT.
 {% comment %}<!-- Fee Filter not currently implemented in Dash Core. [feefilter message]: /en/developer-reference#feefilter "The P2P network message which requests the receiving peer not relay any transactions below the specified fee rate" -->{% endcomment %}
 [filteradd message]: /en/developer-reference#filteradd "A P2P protocol message used to add a data element to an existing bloom filter."
 [filterclear message]: /en/developer-reference#filterclear "A P2P protocol message used to remove an existing bloom filter."
-[filterload message]: /en/developer-reference#filterclear "A P2P protocol message used to send a filter to a remote peer, requesting that they only send transactions which match the filter."
+[filterload message]: /en/developer-reference#filterload "A P2P protocol message used to send a filter to a remote peer, requesting that they only send transactions which match the filter."
 [getaddr message]: /en/developer-reference#getaddr "A P2P protool message used to request an addr message containing connection information for other nodes"
 [getblocks message]: /en/developer-reference#getblocks "A P2P protocol message used to request an inv message containing a range of block header hashes"
 [getblocktxn message]: /en/developer-reference#getblocktxn "A P2P protocol message used to request transactions from a compact block"
