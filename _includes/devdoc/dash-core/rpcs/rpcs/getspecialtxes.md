@@ -3,6 +3,7 @@ This file is licensed under the MIT License (MIT) available on
 http://opensource.org/licenses/MIT.
 {% endcomment %}
 {% assign filename="_includes/devdoc/dash-core/rpcs/rpcs/getspecialtxes.md" %}
+<!--__-->
 
 ##### GetSpecialTxes
 {% include helpers/subhead-links.md %}
@@ -130,84 +131,61 @@ List of Coinbase Special Transactions (type: 5) in JSON format.
 
 {% highlight bash %}
 dash-cli -testnet getspecialtxes \
-0000003db0006ecaccdf5ae2cfa9d94406ef40ff65b9ec34668b87fca3da9226 5 10 0 2
+00000000007b0fb99e36713cf08012482478ee496e6dcb4007ad2e806306e62b 5 10 0 2
 {% endhighlight %}
 
 Result:
 {% highlight json %}
 [
   {
-    "txid": "1572a15f56307e413afe3cb7ea0017a1a3fd6d89c6c5f258cc17b2888a8e7fff",
-    "size": 303,
+    "txid": "25632685ed0d7286901a80961c924c1ddd952e764754dbd8b40d0956413c8b56",
+    "size": 229,
     "version": 3,
     "type": 5,
     "locktime": 0,
     "vin": [
       {
-        "coinbase": "02051c0e2f5032506f6f6c2d74444153482f",
+        "coinbase": "03ae50011a4d696e656420627920416e74506f6f6c2021000b01201da9196f0000000007000000",
         "sequence": 4294967295
       }
     ],
     "vout": [
       {
-        "value": 68.17463792,
-        "valueSat": 6817463792,
+        "value": 8.10000000,
+        "valueSat": 810000000,
         "n": 0,
         "scriptPubKey": {
-          "asm": "OP_DUP OP_HASH160 4f79c383bc5d3e9d4d81b98f87337cedfa789536 OP_EQUALVERIFY OP_CHECKSIG",
-          "hex": "76a9144f79c383bc5d3e9d4d81b98f87337cedfa78953688ac",
+          "asm": "OP_DUP OP_HASH160 cbd7bfcc50351180132b2c0698cb90ad74c473c7 OP_EQUALVERIFY OP_CHECKSIG",
+          "hex": "76a914cbd7bfcc50351180132b2c0698cb90ad74c473c788ac",
           "reqSigs": 1,
           "type": "pubkeyhash",
           "addresses": [
-            "yTZg6eePKxbJZyoaC93bVrTUq5vjhFrbst"
+            "yeuGUfPMrbEqAS2Pw1wonYgEPbM4LAA9LK"
           ]
         }
       },
       {
-        "value": 68.85000588,
-        "valueSat": 6885000588,
+        "value": 8.10000000,
+        "valueSat": 810000000,
         "n": 1,
         "scriptPubKey": {
-          "asm": "OP_DUP OP_HASH160 a472d798c41ccb2890b1b932a2b8786c150cf440 OP_EQUALVERIFY OP_CHECKSIG",
-          "hex": "76a914a472d798c41ccb2890b1b932a2b8786c150cf44088ac",
+          "asm": "OP_DUP OP_HASH160 88a060bc2dfe05780ae4dcb6c98b12436c35a939 OP_EQUALVERIFY OP_CHECKSIG",
+          "hex": "76a91488a060bc2dfe05780ae4dcb6c98b12436c35a93988ac",
           "reqSigs": 1,
           "type": "pubkeyhash",
           "addresses": [
-            "ybJyF38BxTqKKL7C6VeHqbFRgViRgAfsvC"
+            "yYmrsYP3XYMZr1cGtha3QzmuNB1C7CfyhV"
           ]
-        }
-      },
-      {
-        "value": 0.67536809,
-        "valueSat": 67536809,
-        "n": 2,
-        "scriptPubKey": {
-          "asm": "047559d13c3f81b1fadbd8dd03e4b5a1c73b05e2b980e00d467aa9440b29c7de23664dde6428d75cafed22ae4f0d302e26c5c5a5dd4d3e1b796d7281bdc9430f35 OP_CHECKSIG",
-          "hex": "41047559d13c3f81b1fadbd8dd03e4b5a1c73b05e2b980e00d467aa9440b29c7de23664dde6428d75cafed22ae4f0d302e26c5c5a5dd4d3e1b796d7281bdc9430f35ac",
-          "reqSigs": 1,
-          "type": "pubkey",
-          "addresses": [
-            "yb21342iADyqAotjwcn4imqjvAcdYhnzeH"
-          ]
-        }
-      },
-      {
-        "value": 0.00000000,
-        "valueSat": 0,
-        "n": 3,
-        "scriptPubKey": {
-          "asm": "OP_RETURN 81b990d34ff599e8f472241357f565e6662ee8694b6ecc2fdbba384a5a08bc1e000000001e000000",
-          "hex": "6a2881b990d34ff599e8f472241357f565e6662ee8694b6ecc2fdbba384a5a08bc1e000000001e000000",
-          "type": "nulldata"
         }
       }
     ],
-    "extraPayloadSize": 38,
-    "extraPayload": "0100051c0000f258bbb41563f0badab6c2dd47b0d8e73f1b1d88036855223ab0455a750b3ceb",
+    "extraPayloadSize": 70,
+    "extraPayload": "0200ae50010078e5c08b39960887bf95185c381bdb719e60b6925fa12af78a8824fade927387c757acb6bac63da84f9245e20cfd5d830382ac634d434725ca6349ab5db920a3",
     "cbTx": {
-      "version": 1,
-      "height": 7173,
-      "merkleRootMNList": "eb3c0b755a45b03a22556803881d1b3fe7d8b047ddc2b6dabaf06315b4bb58f2"
+      "version": 2,
+      "height": 86190,
+      "merkleRootMNList": "877392defa24888af72aa15f92b6609e71db1b385c1895bf870896398bc0e578",
+      "merkleRootQuorums": "a320b95dab4963ca2547434d63ac8203835dfd0ce245924fa83dc6bab6ac57c7"
     },
     "instantlock": false,
     "chainlock": false
