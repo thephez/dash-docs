@@ -109,6 +109,47 @@ had already been confirmed to a block depth of 5 in the blockchain.
 
 {% endautocrossref %}
 
+#### LLMQ InstantSend
+{% include helpers/subhead-links.md %}
+
+The introduction of Long-Living Masternode Quorums in Dash Core 0.14 provides
+a foundation to further scale InstantSend. LLMQ-based InstantSend removes a
+number of previously required limitations and simplifies the process by decreasing
+the number of P2P messages clients must use.
+
+During the evaluation and transition from standard InstantSend to LLMQ-based
+InstantSend, Sporks 2 (`SPORK_2_INSTANTSEND_ENABLED`) and 20 (`SPORK_20_INSTANTSEND_LLMQ_BASED`)
+will both be used. Spork 2 enables or disables the entire InstantSend feature,
+while spork 20 determines which of the two InstantSend mechanisms is active when
+InstantSend is enabled.
+
+There are still some limitations on LLMQ-based InstantSend transactions:
+
+* Transaction inputs must either:
+  * Be in a block that has a ChainLock
+  * Have at least the number confirmations (block depth) indicated by the table below
+
+  | **Network** | **Confirmations Required** |
+  |---------|--------------|
+  | Mainnet | 6 Blocks |
+  | Testnet | 2 Blocks |
+  | Regtest | 2 Blocks |
+  | Devnet  | 2 Blocks |
+
+
+Improvements from the old InstantSend system:
+
+* Changed: Transactions can be chained if the inputs are from transactions that are also locked
+* Changed: InstantSend locks are attempted for all transactions (`tx` messages) - no need to request it via the special message (`ix` message)
+* Changed: Only need to receive a single `islock` message - no need to track votes (`txlvote` messages) for each input
+* Removed: Limit on number of inputs
+* Removed: Limit on transaction value
+* Removed: Timeout for lock - transaction locks will only be removed once the transaction is confirmed in a ChainLocked block
+* Removed: Custom InstantSend fee
+
+{% autocrossref %}
+
+{% endautocrossref %}
 
 ### PrivateSend
 {% include helpers/subhead-links.md %}
