@@ -130,6 +130,7 @@ Result:
   "fee": -0.00030000,
   "confirmations": 3064,
   "instantlock": false,
+  "instantlock_internal": false,
   "chainlock": false,
   "blockhash": "00000a01007be2912c3123085534b58d341cb5e5980b967e8dcc021089487a1e",
   "blockindex": 1,

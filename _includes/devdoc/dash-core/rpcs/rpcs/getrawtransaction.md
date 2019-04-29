@@ -100,6 +100,11 @@ deprecated.
   p: "Required<br>(exactly 1)"
   d: "If set to `true`, this transaction is locked"
 
+- n: "→<br>`instantlock_internal`"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: "If set to `true`, this transaction is internally locked"
+
 - n: "<br>`chainlock`"
   t: "bool"
   p: "Required<br>(exactly 1)"
@@ -193,6 +198,7 @@ Result:
   "time": 1546278750,
   "blocktime": 1546278750,
   "instantlock": true
+  "instantlock_internal": true  
   "chainlock": false
 }
 {% endhighlight %}
