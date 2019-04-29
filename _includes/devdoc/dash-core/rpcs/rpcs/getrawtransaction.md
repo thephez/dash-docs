@@ -197,8 +197,8 @@ Result:
   "confirmations": 1,
   "time": 1546278750,
   "blocktime": 1546278750,
-  "instantlock": true
-  "instantlock_internal": true  
+  "instantlock": true,
+  "instantlock_internal": true,
   "chainlock": false
 }
 {% endhighlight %}
