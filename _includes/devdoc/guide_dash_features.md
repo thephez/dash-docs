@@ -109,6 +109,100 @@ had already been confirmed to a block depth of 5 in the blockchain.
 
 {% endautocrossref %}
 
+#### LLMQ InstantSend
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The introduction of Long-Living Masternode Quorums in Dash Core 0.14 provides
+a foundation to further scale InstantSend. LLMQ-based InstantSend removes a
+number of previously required limitations and simplifies the process by decreasing
+the number of P2P messages clients must use.
+
+During the evaluation and transition from standard InstantSend to LLMQ-based
+InstantSend, Sporks 2 (`SPORK_2_INSTANTSEND_ENABLED`) and 20 (`SPORK_20_INSTANTSEND_LLMQ_BASED`)
+will both be used. Spork 2 enables or disables the entire InstantSend feature,
+while spork 20 determines which of the two InstantSend mechanisms is active when
+InstantSend is enabled.
+
+There are still some limitations on LLMQ-based InstantSend transactions:
+
+* Transaction inputs must either:
+  * Be in a block that has a ChainLock
+  * Have at least the number confirmations (block depth) indicated by the table below
+
+  | **Network** | **Confirmations Required** |
+  |---------|--------------|
+  | Mainnet | 6 Blocks |
+  | Testnet | 2 Blocks |
+  | Regtest | 2 Blocks |
+  | Devnet  | 2 Blocks |
+
+
+Improvements from the old InstantSend system:
+
+* Changed: Transactions can be chained if the inputs are from transactions that are also locked
+* Changed: InstantSend locks are attempted for all transactions (`tx` messages) - no need to request it via the special message (`ix` message)
+* Changed: Only need to receive a single `islock` message - no need to track votes (`txlvote` messages) for each input
+* Removed: Limit on number of inputs
+* Removed: Limit on transaction value
+* Removed: Timeout for lock - transaction locks will only be removed once the transaction is confirmed in a ChainLocked block
+* Removed: Custom InstantSend fee
+
+Note: A transaction will __not__ be included in the block template (from `getblocktemplate`) unless it:
+
+ 1. Has been locked, or
+ 2. Has been in the mempool for >=10 minutes (`WAIT_FOR_ISLOCK_TIMEOUT`)
+
+A miner may still include any transaction, but blocks containing only locked
+transactions (or ones older than the timeout) should achieve a ChainLock faster.
+This is desirable to miners since it prevents any reorgs that might orphan their
+block.
+
+*InstantSend Data Flow*
+
+| **InstantSend Client** | **Direction**  | **Peers**   | **Description** |
+| `tx` message                | → |                         | Client sends InstantSend transaction
+| **LLMQ Signing Sessions**   |   |                         | Quorums internally process locking |
+|                             |   |                         | Quorum(s) responsible for the transaction's inputs lock the inputs via LLMQ signing sessions
+|                             |   |                         | Once all inputs are locked, the quorum responsible for the overall transaction creates the transaction lock (`islock`) via an LLMQ signing session
+| **LLMQ Results**             |   |                         | Quorum results broadcast to the network |
+|                             | ← | `inv` message (islock)  | Quorum responds with lock inventory
+| `getdata` message (islock)  | → |                         | Client requests lock message
+|                             | ← | `islock` message        | Quorum responds with lock message
+
+{% endautocrossref %}
+
+### ChainLocks
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+Dash's ChainLock feature leverages [LLMQ Signing Requests/Sessions](#llmq-signing-session)
+to reduce uncertainty when receiving funds and remove the possibility of 51%
+mining attacks.
+
+For each block, an LLMQ of a few hundred masternodes (300-400) is selected and each
+participating member signs the first block that it sees extending the active
+chain at the current height. If enough members (at least 240) see the same block
+as the first block, they will be able to create a `clsig` message and propagate
+it to all nodes in the network.
+
+If a valid `clsig` message is received by a node, it must reject all blocks (and
+any descendants) at the same height that do not match the block specified in the
+`clsig` message. This makes the decision on the active chain quick, easy and
+unambiguous. It also makes reorganizations below this block impossible.
+
+When LLMQ-based InstantSend is enabled, a ChainLock is only attempted once all
+transactions in the block are locked via InstantSend. If a block contains
+unlocked transactions, retroactive InstantSend locks are established prior to
+a ChainLock.
+
+Please read [DIP8 ChainLocks](https://github.com/dashpay/dips/blob/master/dip-0008.md)
+for additional details.
+
+
+{% endautocrossref %}
 
 ### PrivateSend
 {% include helpers/subhead-links.md %}
@@ -293,33 +387,6 @@ value of only 0.00000546 DASH as shown by the calculation below.
 {% endautocrossref %}
 
 [Example Testnet PrivateSend transaction spending 546 duffs](https://testnet-insight.dashevo.org/insight/address/yWWNYVEQ84RM1xXJekj62wJPF3h1TKh9fS)
-
-
-### ChainLocks
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-Dash's ChainLock feature leverages [LLMQ Signing Requests/Sessions](#llmq-signing-session)
-to reduce uncertainty when receiving funds and remove the possibility of 51%
-mining attacks.
-
-For each block, an LLMQ of a few hundred masternodes is selected and each
-participating member signs the first block that it sees extending the active
-chain at the current height. If enough members (e.g. >= 60%) see the same block
-as the first block, they will be able to create a `clsig` message and propagate
-it to all nodes in the network.
-
-If a valid `clsig` message is received by a node, it must reject all blocks (and
-any descendants) at the same height that do not match the block specified in the
-`clsig` message. This makes the decision on the active chain quick, easy and
-unambiguous. It also makes reorganizations below this block impossible.
-
-Please read [DIP8 ChainLocks](https://github.com/dashpay/dips/blob/master/dip-0008.md)
-for additional details.
-
-
-{% endautocrossref %}
 
 
 ### Masternode Payment
