@@ -151,8 +151,8 @@ Improvements from the old InstantSend system:
 
 Note: A transaction will __not__ be included in the block template (from `getblocktemplate`) unless it:
 
- * Has been locked, or
- * Has been in the mempool for >=10 minutes (`WAIT_FOR_ISLOCK_TIMEOUT`)
+ 1. Has been locked, or
+ 2. Has been in the mempool for >=10 minutes (`WAIT_FOR_ISLOCK_TIMEOUT`)
 
 A miner may still include any transaction, but blocks containing only locked
 transactions (or ones older than the timeout) should achieve a ChainLock faster.
