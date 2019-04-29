@@ -112,6 +112,8 @@ had already been confirmed to a block depth of 5 in the blockchain.
 #### LLMQ InstantSend
 {% include helpers/subhead-links.md %}
 
+{% autocrossref %}
+
 The introduction of Long-Living Masternode Quorums in Dash Core 0.14 provides
 a foundation to further scale InstantSend. LLMQ-based InstantSend removes a
 number of previously required limitations and simplifies the process by decreasing
@@ -147,7 +149,27 @@ Improvements from the old InstantSend system:
 * Removed: Timeout for lock - transaction locks will only be removed once the transaction is confirmed in a ChainLocked block
 * Removed: Custom InstantSend fee
 
-{% autocrossref %}
+Note: A transaction will __not__ be included in the block template (from `getblocktemplate`) unless it:
+
+ * Has been locked, or
+ * Has been in the mempool for >=10 minutes (`WAIT_FOR_ISLOCK_TIMEOUT`)
+
+A miner may still include any transaction, but blocks containing only locked
+transactions (or ones older than the timeout) should achieve a ChainLock faster.
+This is desirable to miners since it prevents any reorgs that might orphan their
+block.
+
+*InstantSend Data Flow*
+
+| **InstantSend Client** | **Direction**  | **Peers**   | **Description** |
+| `tx` message                | → |                         | Client sends InstantSend transaction
+| **LLMQ Signing Sessions**   |   |                         | Quorums internally process locking |
+|                             |   |                         | Quorum(s) responsible for the transaction's input(s) lock the inputs via LLMQ signing sessions
+|                             |   |                         | Once all inputs are locked, the quorum responsible for the overall transaction creates the transaction lock (`islock`) via an LLMQ signing session
+| **LLMQ Results**             |   |                         | Quorum results broadcast to the network |
+|                             | ← | `inv` message (islock)  | Quorum responds with lock inventory
+| `getdata` message (islock)  | → |                         | Client requests lock message
+|                             | ← | `islock` message        | Quorum responds with lock message
 
 {% endautocrossref %}
 
