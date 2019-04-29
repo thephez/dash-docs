@@ -107,12 +107,12 @@ The `listtransactions` RPC {{summary_listTransactions}}
 - n: "→<br>`instantlock`"
   t: "bool"
   p: "Required<br>(exactly 1)"
-  d: "Current transaction lock state"  
+  d: "Current transaction lock state (InstantSend and/or ChainLock)"  
 
 - n: "→<br>`instantlock_internal`"
   t: "bool"
   p: "Required<br>(exactly 1)"
-  d: "Current internal transaction lock state"
+  d: "Current InstantSend transaction lock state"
 
 - n: "<br>`chainlock`"
   t: "bool"
