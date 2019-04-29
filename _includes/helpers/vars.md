@@ -51,7 +51,12 @@ http://opensource.org/licenses/MIT.
 - n: "→<br>`instantlock`"
   t: "bool"
   p: "Required<br>(exactly 1)"
-  d: "Current transaction lock state"
+  d: "Current transaction lock state (InstantSend and/or ChainLock)"
+
+- n: "→<br>`instantlock_internal`"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: "Current InstantSend transaction lock state"
 
 - n: "<br>`chainlock`"
   t: "bool"

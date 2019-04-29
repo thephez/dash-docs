@@ -107,7 +107,12 @@ The `listtransactions` RPC {{summary_listTransactions}}
 - n: "→<br>`instantlock`"
   t: "bool"
   p: "Required<br>(exactly 1)"
-  d: "Current transaction lock state"  
+  d: "Current transaction lock state (InstantSend and/or ChainLock)"  
+
+- n: "→<br>`instantlock_internal`"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: "Current InstantSend transaction lock state"
 
 - n: "<br>`chainlock`"
   t: "bool"
@@ -208,6 +213,7 @@ Result:
     "fee": -0.00040000,
     "confirmations": 3,
     "instantlock": true,
+    "instantlock_internal": true,
     "chainlock": false,
     "blockhash": "000000000327ff7785d799dde99949457ac231ef1d956a2287c2f7bb84d9738c",
     "blockindex": 2,

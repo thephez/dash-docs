@@ -169,6 +169,7 @@ Result:
     "merkleRootQuorums": "a320b95dab4963ca2547434d63ac8203835dfd0ce245924fa83dc6bab6ac57c7"
   },
   "instantlock": false,
+  "instantlock_internal": false,  
   "chainlock": false
 }
 {% endhighlight %}
