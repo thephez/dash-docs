@@ -1023,42 +1023,44 @@ fd4901 ..................................... Extra payload size (329)
 Quorum Commitment Transaction Payload
 | 0100 ..................................... Version (1)
 |
-| 921d0000 ................................. Block height: 7570
+| 934c0100 ................................. Block height: 85139
 |
 | Payload from the qfcommit message
+| | 0100 ................................... Version (1)
+| |
 | | 01 ..................................... LLMQ Type (1)
 | |
-| | 8d80561839648b844ade10b6e81069fa
-| | 6c4bde6166dd59242be3487a00000000 ....... Quorum hash
+| | 6b2fd2c61cea32d939ee7fe185c7abc5
+| | 01aa7001d973379f46b9200500000000 ....... Quorum hash
 | |
 | | 32 ..................................... Number of signers (50)
-| | ff7effffbebe02 ......................... Aggregrated signers bitvector
+| | bfffffffffff03 ......................... Aggregrated signers bitvector
 | |
 | | 32 ..................................... Number of valid members (50)
-| | ff7effffbebe02 ......................... Valid members bitvector
+| | bfffffffffff03 ......................... Valid members bitvector
 | |
-| | 81d0717b893b557f54daacbd060bcffa
-| | 2dc341175d0b89c7974dc57ef482ae27
-| | e10fb273eda534596993999950817cd4 ....... Quorum public key (BLS)
+| | 9450e90f61a24a4205c92572666ed068
+| | 40f617ac11a26d650c88769675e81197
+| | 993858d8b695f120f0af7dd38c17a67e ....... Quorum public key (BLS)
 | |
-| | ed93bc215d15350bd7030be811cf1df2
-| | c114f6b34df9bd4095161af93608ed90 ....... Quorum verification vector hash
+| | 912507814fe204c59e14720bc961c09f
+| | f88a4fd1f15e9c2efd4e4f112720967d ....... Quorum verification vector hash
 | |
 | | Quorum threshold signature (BLS)
-| | 8d2bbb0b9c5b8626eb852ea0ff4f2509
-| | 19becc2d24653910fb8e11cf5573062f
-| | 9f64c03a5031f1d462163ce98e8bf78a
-| | 1470f7074a8e6fe23ccb53d73635ecd5
-| | ad71b26a938fc21638bcae7d272af9fa
-| | 919f296a17e77191e3d4c708bc6e1b9a ....... BLS Signatures (96 bytes)
+| | 0281c321090c2d2e59a0d3754dcfbc11
+| | d76c26a152b50885d826915af4d95a73
+| | 120d0e1ba7e96d89f40252e24109c323
+| | 0971dda1f554d331985ca570c76b9a1a
+| | ec699ec132838ae097c767d65d0a51d7
+| | 017c62e062270b60b854ae912bc07437 ....... BLS Signatures (96 bytes)
 | |
 | | Aggregated signatures from all commitments (BLS)
-| | 19e702ff84ff851312cceba1de528ee7
-| | ffe33647ae28ef895b35558512901394
-| | b430c804c7c42494a3312545606b5598
-| | 0480985494fa2c49f50c65d47570380f
-| | 13c2851ce33d8584b64e8b659146d732
-| | 67d821c78d09ba7caea3d03641f78c7a ....... BLS Signature (96 bytes)
+| | 91f878a0ae620e2178bff06c3a3967d7
+| | 433d4b82e7879bb927dd5cb605423c84
+| | 0641fcddf3731da80d0515a172ff3666
+| | 0f4eac88ee8fd7779e32e4f0be704078
+| | df31601b87b95374cebb4b304afc543e
+| | e0d4f461a2ba0e32a711197ca559dacf ....... BLS Signature (96 bytes)
 {% endhighlight %}
 
 {% endautocrossref %}
