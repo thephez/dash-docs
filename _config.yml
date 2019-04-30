@@ -579,7 +579,6 @@ devsearches:
     - "qbsigs": "/en/developer-reference#qbsigs"
     - "qcomplaint": "/en/developer-reference#qcomplaint"
     - "qcontrib": "/en/developer-reference#qcontrib"
-    #- "qdebugstatus": "/en/developer-reference#qdebugstatus"
     - "qfcommit": "/en/developer-reference#qfcommit"
     - "qgetsigs": "/en/developer-reference#qgetsigs"
     - "qjustify": "/en/developer-reference#qjustify"
