@@ -170,7 +170,6 @@ The currently-available type identifiers are:
 | 24               | [`MSG_QUORUM_COMPLAINT`][msg_quorum_complaint]{:#term-msg_quorum_complaint}{:.term}                                     | The hash is a long-living masternode quorum complaint.<br>_Added in 0.14.0_
 | 25               | [`MSG_QUORUM_JUSTIFICATION`][msg_quorum_justification]{:#term-msg_quorum_justification}{:.term}                   | The hash is a long-living masternode quorum justification.<br>_Added in 0.14.0_
 | 26               | [`MSG_QUORUM_PREMATURE_COMMITMENT`][msg_quorum_premature_commitment]{:#term-msg_quorum_premature_commitment}{:.term}    | The hash is a long-living masternode quorum premature commitment.<br>_Added in 0.14.0_
-| 27               | [`MSG_QUORUM_DEBUG_STATUS`][msg_quorum_debug_status]{:#term-msg_quorum_debug_status}{:.term}                            | The hash is a long-living masternode quorum debug status.<br>_Added in 0.14.0_
 | 28               | [`MSG_QUORUM_RECOVERED_SIG`][msg_quorum_recovered_sig]{:#term-msg_quorum_recovered_sig}{:.term}                        | The hash is a long-living masternode quorum recovered signature.<br>_Added in 0.14.0_
 | 29               | [`MSG_CLSIG`][msg_clsig]{:#term-msg_clsig}{:.term}                                     | The hash is a ChainLock signature.<br>_Added in 0.14.0_
 | 30               | [`MSG_ISLOCK`][msg_islock]{:#term-msg_islock}{:.term}                                   | The hash is an LLMQ-based InstantSend lock.<br>_Added in 0.14.0_
@@ -191,6 +190,7 @@ The deprecated type identifiers are:
 | 15               | [`MSG_MASTERNODE_PING`][msg_masternode_ping]{:#term-msg_masternode_ping}{:.term}                                     | **Deprecated in 0.14.0**<br><br>The hash is a Masternode Ping.
 | 19               | [`MSG_MASTERNODE_VERIFY`][msg_masternode_verify]{:#term-msg_masternode_verify}{:.term}                                     | **Deprecated in 0.14.0**<br><br>The hash is a Masternode Verify.
 | 22               | `MSG_QUORUM_DUMMY_COMMITMENT`                                     | **Deprecated in 0.14.0**<br><br>Temporarily used on Testnet only.
+| 27               | [`MSG_QUORUM_DEBUG_STATUS`][msg_quorum_debug_status]{:#term-msg_quorum_debug_status}{:.term}                            | **Deprecated in 0.14.0**<br><br>Temporarily used on Testnet only.
 
 Type identifier zero and type identifiers greater than twenty are reserved
 for future implementations. Dash Core ignores all inventories with
@@ -1820,7 +1820,6 @@ Sporks (per [`src/spork.h`][spork.h])
 | 10014 | 15 | `DETERMINISTIC_MNS_ENABLED` | Deterministic masternode lists are enabled
 | 10015 | 16 | `INSTANTSEND_AUTOLOCKS` | Automatic InstantSend for transactions with <=4 inputs (also eliminates the special InstantSend fee requirement for these transactions)
 | 10016 | 17 | `SPORK_17_QUORUM_DKG_ENABLED` | Enable long-living masternode quorum (LLMQ) distributed key generation (DKG). When enabled, simple PoSe  scoring and banning is active as well.
-| 10017 | 18 | `SPORK_18_QUORUM_DEBUG_ENABLED` | Enable long-living masternode quorum (LLMQ) debugging.
 | 10018 | 19 | `SPORK_19_CHAINLOCKS_ENABLED` | Enable LLMQ-based ChainLocks.
 | 10019 | 20 | `SPORK_20_INSTANTSEND_LLMQ_BASED` | Enable LLMQ-based InstantSend.
 | | | |
@@ -1829,6 +1828,7 @@ Sporks (per [`src/spork.h`][spork.h])
 | _10009_ | _10_ | _`MASTERNODE_PAY_UPDATED_NODES`_ | _Removed in Dash Core 0.14.0.<br>Only current protocol version masternode's will be paid (not older nodes)_
 | _10012_ | _13_ | _`OLD_SUPERBLOCK_FLAG`_ | _Removed in Dash Core 0.12.3.<br>No network function since block 614820_
 | _10013_ | _14_ | _`REQUIRE_SENTINEL_FLAG`_ | _Removed in Dash Core 0.14.0.<br>Only masternode's running sentinel will be paid_
+| _10017_ | _18_ | _`QUORUM_DEBUG_ENABLED`_ | _Removed in Dash Core 0.14.0.<br><br>Temporarily used on Testnet only quorum debugging.
 
 To verify `vchSig`, compare the hard-coded spork public key (`strSporkPubKey`
 from [`src/chainparams.cpp`][spork pubkey]) with the public key recovered from
@@ -3604,55 +3604,6 @@ Match  qbsigs and qsigsesann
 
 #### Debugging
 {% include helpers/subhead-links.md %}
-
-<!-- qdebugstatus is generally not used. Leaving undocumented per discussion with codablock
-
-##### qdebugstatus
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-{% endautocrossref %}
-
-*Added in protocol version 70214 of Dash Core*
-
-The `qdebugstatus` message is used to...
-
-| Bytes | Name | Data type | Description |
-| --- | --- | --- | --- |
-| 32 | proTxHash | uint256 | The ProRegTx hash
-| 8 | nTime | int64_t |
-| 1-9 | sessionsSize | compactSize uint |
-| `sessionsSize` * <> | sessions | <uint8_t, CDKGDebugSessionStatus> |
-| 96 | sig | byte[] | BLS signature
-
-`CDKGDebugSessionStatus`:
-
-| Bytes | Name | Data type | Description |
-| --- | --- | --- | --- |
-| 1 | llmqType | uint8_t | The type of LLMQ
-| 32 | quorumHash | uint256 | The quorum identifier
-| 4 | quorumHeight | uint32_t | The quorum height
-| 1 | phase | uint8_t | The DKG phase of the quorum
-| 1-9 | membersSize | compactSize uint |
-| `membersSize` * <> | members | CDKGDebugMemberStatus |
-
-`CDKGDebugMemberStatus`:
-
-| Bytes | Name | Data type | Description |
-| --- | --- | --- | --- |
-| 1 | statusBitset | uint8_t |
-| 32 * <> | complaintsFromMembers | uint16_t |
-
-The following annotated hexdump shows a `qdebugstatus` message. (The
-message header has been omitted.)
-
-{% highlight text %}
-
-{% endhighlight %}
-
-{% autocrossref %}
-{% endautocrossref %}
--->
 
 ##### qwatch
 {% include helpers/subhead-links.md %}

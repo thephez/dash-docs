@@ -90,7 +90,7 @@ Result:
 
 {% autocrossref %}
 
-The `quorum<!--noref--> info` RPC returns information about a specific quorums.
+The `quorum<!--noref--> info` RPC returns information about a specific quorum.
 
 *Parameter #1---LLMQ Type*
 
@@ -236,24 +236,15 @@ Result (truncated):
 
 {% autocrossref %}
 
-The `quorum<!--noref--> list` RPC displays a list of on-chain quorums.
+The `quorum<!--noref--> list` RPC displays the status of the current DKG process.
 
-*Parameter #1---provider registration hash*
-
-{% itemplate ntpd1 %}
-- n: "`proTxHash`"
-  t: "string (hex)"
-  p: "Required<br>(exactly 1)"
-  d: "The Provider Registration transaction hash of the masternode to show status for. If set to an empty string, the local status is shown.<br>**Note: An empty string must be used unless Spork 18 (Quorum Debug Enabled) is active**"
-{% enditemplate %}
-
-*Parameter #2---detail level*
+*Parameter #1---detail level*
 
 {% itemplate ntpd1 %}
 - n: "`detail_level`"
   t: "number"
-  p: "Required<br>(exactly 1)"
-  d: "Detail level of output<!--noref-->:<br>`0` - Only show counts (_default_)<br>`1` - Show member indexes<br>`2` - Show member's ProTxHashes"
+  p: "Optional<br>(0 or 1)"
+  d: "Detail level of output (default: 0)<!--noref-->:<br>`0` - Only show counts (_default_)<br>`1` - Show member indexes<br>`2` - Show member's ProTxHashes<br><br>_Note: Works only when Spork 17 is enabled and only displays details related to the node running the command._"
 {% enditemplate %}
 
 *Result (if detail level was 0 or omitted)---JSON DKG details*
@@ -587,7 +578,7 @@ p
 *Example from Dash Core 0.14.0 (detail_level: 1)*
 
 {% highlight bash %}
-dash-cli -testnet quorum dkgstatus "" 1
+dash-cli -testnet quorum dkgstatus 1
 {% endhighlight %}
 
 Result:
@@ -775,7 +766,7 @@ Result:
 *Example from Dash Core 0.14.0 (detail_level: 2)*
 
 {% highlight bash %}
-dash-cli -testnet quorum dkgstatus "" 2
+dash-cli -testnet quorum dkgstatus 2
 {% endhighlight %}
 
 Result:
