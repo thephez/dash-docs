@@ -188,8 +188,6 @@ public key infrastructure: pki
 '`qcomplaint` messages': qcomplaint message
 '`qcontrib` message': qcontrib message
 '`qcontrib` messages': qcontrib message
-#'`qdebugstatus` message': qdebugstatus message
-#'`qdebugstatus` messages': qdebugstatus message
 '`qfcommit` message': qfcommit message
 '`qfcommit` messages': qfcommit message
 '`qgetsigs` message': qgetsigs message
