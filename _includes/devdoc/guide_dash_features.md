@@ -730,7 +730,7 @@ voted to delete them.
 Sentinel manages superblock creation, voting, and submission to dashd for
 network propagation.
 
-Beginning ~3 days (1662) blocks prior to a superblock, Sentinel selects one
+Beginning ~3 days (1662 blocks) prior to a superblock, Sentinel selects one
 masternode per block to rank proposals. This ranking is used to determine
 what a candidate superblock (or "superblock trigger") should contain. Based on
 the results, it creates and broadcasts a new superblock trigger if a matching one was not found.
