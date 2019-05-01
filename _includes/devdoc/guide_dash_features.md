@@ -733,10 +733,8 @@ network propagation.
 Beginning ~3 days (1662) blocks prior to a superblock, Sentinel selects one
 masternode per block to rank proposals. This ranking is used to determine
 what a candidate superblock (or "superblock trigger") should contain. Based on
-the results, it either:
+the results, it creates and broadcasts a new superblock trigger if a matching one was not found.
 
-1. Votes for an existing superblock trigger that matches the one calculated, or
-2. Creates and broadcasts a new superblock trigger if a matching one was not found
 
 Each masternode casts only 1 superblock trigger "Yes" vote per superblock cycle.
 It will vote "No" for any other triggers it receives.
