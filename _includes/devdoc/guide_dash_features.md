@@ -730,6 +730,13 @@ voted to delete them.
 Sentinel manages superblock creation, voting, and submission to dashd for
 network propagation.
 
+The superblock payout occurs ~3 days (1662 blocks) after proposal voting
+concludes. During this time, a masternode winner selected by Sentinel for each
+block can create a candidate superblock (also known as a "trigger") based on the
+governance objects and votes it has received. These candidate superblocks are
+voted on by the masternodes and the candidate receiving the most votes is paid
+out at the end of the period.
+
 ##### Sentinel<!--noref--> Ping
 {% include helpers/subhead-links.md %}
 
