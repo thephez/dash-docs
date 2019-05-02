@@ -587,19 +587,28 @@ information. If a peer gets a banscore above the `-banscore=<n>` threshold
 
 | Type | Misbehavior | Ban Score | Description |
 | ---- | ----------- | --------- | ----------- |
+| Net | GetBlockTxn Index Error | **100** | Peer relayed a `getblocktxn` message with out-of-bound indices
 | Net | Bloom Filter Service | **100** | Bloom filter message received from peer that has bloom filter commands disabled by default (protocol version > 70201) (`filterload` message, `filteradd` message, or `filterclear` message)
+| Net | Block Rejected | 1 | Peer rejected the block it requested from us
 | Net | Duplicate Version | 1 | Duplicate `version` message received
+| Net | Wrong Devnet | **100** | Peer responded with the wrong devnet version (`version` message)
+| Net | Wrong Devnet | 1 | Peer connected using the wrong devnet version (`version` message)
 | Net | No Version | 1 | Received a message prior to receiving a `version` message
+| Net | No Verack | 1 | After sending `version` message, received a message other than a `verack` message back first
 | Net | Address List Size | 20 | More than 1000 addresses received (`addr` message)
-| Net | Inventory List | 20 | More than 50000 inventories received (`inv` message)
-| Net | Get Data Size | 20 | More than 50000 inventories requested (`getdata` message)
+| Net | Inventory List | 20 | More than `MAX_INV_SZ` (50000) inventories received (`inv` message)
+| Net | Get Data Size | 20 | More than `MAX_INV_SZ` (50000) inventories requested (`getdata` message)
 | Net | Orphan Transaction | **Varies** | Peer relayed an invalid orphan transaction. Ban score varies from 0-100 based on the specific reason (values set by `AcceptToMemoryPoolWorker()`)
 | Net | Bad Transaction | **Varies** | Transaction rejected from the mempool
-| Net | Header List Size | 20 | More than 2000 headers received (`headers` message)
+| Net | Invalid Header | **Varies** | Invalid block header received from peer (`cmpctblock` message)
+| Net | Invalid CompactBlock | **100** | Invalid compact block /non-matching block transactions received from peer (`cmpctblock` message)
+| Net | Header List Size | 20 | More than `MAX_HEADERS_RESULTS` (2000) headers received (`headers` message)
 | Net | Header List Sequence | 20 | Non-continous headers sequence received (`headers` message)
-| Net | Invalid Block | Varies | Invalid block header received from peer
+| Net | Invalid Block | **Varies** | Invalid block header received from peer
 | Net | Invalid/Expired Alert | 10 | Invalid or expired alert received (`alert` message)
 | Net | Bloom Filter Size | **100** | Maximum script element size (520) exceeded (`filterload` message or `filteradd` message)
+| Net | MN List Diff | 1 | Failed to get masternode list diff (`getmnlistd` message)
+| Net | Unrequested MN List Diff | **100** | Peer provided an unrequested masternode list diff (`mnlistdiff` message)
 | InstantSend | Invalid Lock Message | **100** | Invalid TXID or inputs in lock message (`islock` message)
 | InstantSend | Verify Error | 20 | Peer relayed a message that failed to verify
 | LLMQ ChainLock | Invalid | 10 | Invalid ChainLock message (`clsig` message)
@@ -635,6 +644,8 @@ information. If a peer gets a banscore above the `-banscore=<n>` threshold
 | Masternode Payment | Sync | 20 | Requesting a masternode payment sync too frequently (`mnget` message)
 | Masternode Payment | Vote Signature<!--noref--> | 20 | Invalid signature on payment vote (`mnw` message)
 | Masternode Payment | Non-quorum Vote | 20 | Payment vote from masternode not in the quorum. Rule activates with DIP1 (`mnw` message)
+| PrivateSend | Signature<!--noref-->  | 10 | Peer relayed a message with an invalid signature (`dsq` message)
+| Spork | Invalid Time | **100** | Peer relayed a spork with a timestamp too far in the future (`spork` message)
 | Spork | Signature<!--noref-->  | **100** | Peer relayed a spork with an invalid signature (`spork` message)
 
 
