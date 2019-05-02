@@ -730,6 +730,23 @@ voted to delete them.
 Sentinel manages superblock creation, voting, and submission to dashd for
 network propagation.
 
+Beginning ~3 days (1662 blocks) prior to a superblock, Sentinel selects one
+masternode per block to rank proposals. This ranking is used to determine
+what a candidate superblock (or "superblock trigger") should contain. Based on
+the results, it creates and broadcasts a new superblock trigger if a matching
+one was not found.
+
+All masternodes vote for existing superblock triggers. Each masternode casts
+only 1 superblock trigger "Yes" vote per superblock cycle. It will vote "No"
+for any other triggers it receives.
+
+Note: This means that proposal votes submitted _after_ superblock trigger
+creation begins will _not_ be counted by some masternodes (those that have
+already voted on a superblock trigger).
+
+At the superblock height, the trigger with the most "Yes" votes is paid out by
+that block's miner.
+
 ##### Sentinel<!--noref--> Ping
 {% include helpers/subhead-links.md %}
 
