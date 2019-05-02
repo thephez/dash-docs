@@ -48,7 +48,7 @@ column indicates if any changes were made.
 <!-- no subhead-links here -->
 
 Dash-specific BIP information derived from Dash developer
-[QuantumExplorer's BIP repository](https://github.com/QuantumExplorer/bips/blob/master/README.mediawiki).
+[Dash's BIP repository](https://github.com/dashevo/bips/blob/master/README.mediawiki).
 
 {% include layout/base/bip-table.html %}
 
