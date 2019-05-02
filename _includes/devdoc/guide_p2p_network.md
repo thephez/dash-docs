@@ -600,6 +600,24 @@ information. If a peer gets a banscore above the `-banscore=<n>` threshold
 | Net | Invalid Block | Varies | Invalid block header received from peer
 | Net | Invalid/Expired Alert | 10 | Invalid or expired alert received (`alert` message)
 | Net | Bloom Filter Size | **100** | Maximum script element size (520) exceeded (`filterload` message or `filteradd` message)
+| InstantSend | Invalid Lock Message | **100** | Invalid TXID or inputs in lock message (`islock` message)
+| InstantSend | Verify Error | 20 | Peer relayed a message that failed to verify
+| LLMQ ChainLock | Invalid | 10 | Invalid ChainLock message (`clsig` message)
+| LLMQ Commitment | Null QcTx | **100** | Peer relayed a block with a null commitment
+| LLMQ Commitment | Invalid LLMQ Type | **100** | Peer relayed a block containing an invalid LLMQ Type
+| LLMQ Commitment | Invalid Height | **100** | Peer relayed a block that is not the first block in the DKG interval
+| LLMQ Commitment | Invalid Commitment | **100** | Peer relayed a block with an invalid quorum commitment
+| LLMQ DKG | Empty Message | **100** | Peer relayed a message with no payload
+| LLMQ DKG | Invalid LLMQ Type | **100** | Peer relayed a message for an incorrect LLMQ Type
+| LLMQ DKG | Invalid Message | **100** | Peer relayed a message that could not be deserialized
+| LLMQ DKG | Preverify Failed | **100** | Peer relayed a message that could not be pre-verified
+| LLMQ DKG | Signature<!--noref-->  | **100** | Peer relayed a message with an invalid signature
+| LLMQ DKG | Full Verify Failed | **100** | Peer relayed a message that failed full verification
+| LLMQ Signing | Too Many Messages | **100** | Maximum message count exceed in `qsigsesann` message, `qsigsinv` message, `qgetsigs` message, or `qbsigs` message
+| LLMQ Signing | Signature<!--noref-->  | **100** | Peer relayed a message with an invalid recovered signature or signature share
+| Masternode Authentication | Duplicate Message | **100** | Only 1 message allowed (`mnauth` message)
+| Masternode Authentication | Signature<!--noref--> | **100** | Peer relayed a message with an invalid signature (`mnauth` message)
+| Masternode Authentication | Invalid MN | 10 | Peer not in the valid masternode list (`mnauth` message)
 | Masternode Manager | Invalid Broadcast | **Varies** | Timestamp in past (1), public key issue (**100**), signature issue (**100**), or collateral doesn't match vin (33) (`mnb` message)
 | Masternode Manager | Invalid Ping | **Varies** | Signature too far in future (1), bad ping signature (33)
 | Masternode Manager | List Sync | 34 | Requesting a sync of the entire masternode list too frequently (`dseg` message)
