@@ -744,7 +744,7 @@ So, for both privacy and security, we encourage you to build your
 applications to avoid public key reuse and, when possible, to discourage
 users from reusing addresses. If your application needs to provide a
 fixed URI to which payments should be sent, please use `dash:` URIs as defined
-by [BIP21](https://github.com/QuantumExplorer/bips/blob/master/bip-0021.mediawiki#general-format).
+by [BIP21](https://github.com/dashevo/bips/blob/master/bip-0021.mediawiki#general-format).
 
 {% endautocrossref %}
 
