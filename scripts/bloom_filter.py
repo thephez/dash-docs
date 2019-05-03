@@ -4,7 +4,7 @@ from bitarray import bitarray  # from pypi.python.org/pypi/bitarray
 import pyhash  # from https://github.com/flier/pyfasthash
 
 # Based on BIP-37
-# https://github.com/QuantumExplorer/bips/blob/master/bip-0037.mediawiki
+# https://github.com/dashevo/bips/blob/master/bip-0037.mediawiki
 
 # Defined in bloom.h
 # https://github.com/dashpay/dash/blob/master/src/bloom.h#L17-#L18

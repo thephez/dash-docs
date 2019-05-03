@@ -340,7 +340,7 @@ mixing pool.
   _**Step 6 - Final Transaction (unsigned)**_
 
   * Once the masternode has received valid `dsi` messages from all clients, it creates the final transaction and sends a `dsf` message
-    * Inputs/outputs are ordered deterministically as defined by [BIP-69](https://github.com/quantumexplorer/bips/blob/master/bip-0069.mediawiki#Abstract) to avoid leaking any data ([Dash Core Reference](https://github.com/dashpay/dash/blob/e596762ca22d703a79c6880a9d3edb1c7c972fd3/src/privatesend<!--noref-->-server.cpp#L321-#L322))
+    * Inputs/outputs are ordered deterministically as defined by [BIP-69](https://github.com/dashevo/bips/blob/master/bip-0069.mediawiki#Abstract) to avoid leaking any data ([Dash Core Reference](https://github.com/dashpay/dash/blob/e596762ca22d703a79c6880a9d3edb1c7c972fd3/src/privatesend<!--noref-->-server.cpp#L321-#L322))
     * Clients must sign their inputs to the Final Transaction within 15 seconds or risk forfeiting the collateral they provided in the `dsi` message (Step 4) ([Dash Core Reference](https://github.com/dashpay/dash/blob/e9f7142ed01c0d7b53ef8b5f6f3f6375a68ef422/src/privatesend<!--noref-->.h#L24))
 
   _**Step 10 - Final Transaction broadcast**_
