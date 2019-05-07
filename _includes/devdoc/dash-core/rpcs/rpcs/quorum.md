@@ -1477,6 +1477,93 @@ false
 
 {% endautocrossref %}
 
+###### Quorum<!--noref--> GetRecSig
+<!-- no subhead-links here -->
+
+{% autocrossref %}
+
+The `quorum<!--noref--> getrecsig` RPC checks gets the recovered signature for a previous threshold-signing message request.
+
+*Parameter #1---LLMQ Type*
+
+{% itemplate ntpd1 %}
+- n: "`llmqType`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "[Type of quorum](https://github.com/dashpay/dips/blob/master/dip-0006.md#current-llmq-types):<br>`1` - LLMQ_50_60<br>`2` - LLMQ_400_60<br>`3` - LLMQ_400_85"
+{% enditemplate %}
+
+*Parameter #2---id*
+
+{% itemplate ntpd1 %}
+- n: "`id`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "Signing request ID"
+{% enditemplate %}
+
+*Parameter #3---message hash*
+
+{% itemplate ntpd1 %}
+- n: "`msgHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "Hash of the message to be signed"
+{% enditemplate %}
+
+*Result---recovered signature*
+
+{% itemplate ntpd1 %}
+- n: "result"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: "Recovered signature details"
+
+- n: "→<br>`llmqType`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "[Type of quorum](https://github.com/dashpay/dips/blob/master/dip-0006.md#current-llmq-types):<br>`1` - LLMQ_50_60<br>`2` - LLMQ_400_60<br>`3` - LLMQ_400_85"
+
+- n: "→<br>`quorumHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The block hash of the quorum"  
+
+- n: "→<br>`id`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The signing session ID"
+
+- n: "→<br>`msgHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The message hash"
+
+- n: "→<br>`sig`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The recovered signature"
+
+- n: "→<br>`hash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The hash of the recovered signature"
+{% enditemplate %}
+
+*Example from Dash Core 0.14.0*
+
+{% highlight bash %}
+dash-cli -testnet quorum getrecsig 1 \
+  "2fd14212e9fdb6c0616bc4e811b2b253878155b2ff2133b0242fb495f2eb80e9" "a48e377d3dcbf07439bcb3eb0da5e520d0a6d741ccb5b739e6500872d4877090"
+{% endhighlight %}
+
+Result:
+{% highlight text %}
+recovered signature not found (code -8)
+{% endhighlight %}
+
+{% endautocrossref %}
+
 ###### Quorum<!--noref--> HasRecSig
 <!-- no subhead-links here -->
 
