@@ -1477,6 +1477,100 @@ false
 
 {% endautocrossref %}
 
+###### Quorum<!--noref--> GetRecSig
+<!-- no subhead-links here -->
+
+{% autocrossref %}
+
+The `quorum<!--noref--> getrecsig` RPC checks gets the recovered signature for a previous threshold-signing message request.
+
+*Parameter #1---LLMQ Type*
+
+{% itemplate ntpd1 %}
+- n: "`llmqType`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "[Type of quorum](https://github.com/dashpay/dips/blob/master/dip-0006.md#current-llmq-types):<br>`1` - LLMQ_50_60<br>`2` - LLMQ_400_60<br>`3` - LLMQ_400_85"
+{% enditemplate %}
+
+*Parameter #2---id*
+
+{% itemplate ntpd1 %}
+- n: "`id`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "Signing request ID"
+{% enditemplate %}
+
+*Parameter #3---message hash*
+
+{% itemplate ntpd1 %}
+- n: "`msgHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "Hash of the message to be signed"
+{% enditemplate %}
+
+*Result---recovered signature*
+
+{% itemplate ntpd1 %}
+- n: "result"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: "Recovered signature details"
+
+- n: "→<br>`llmqType`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "[Type of quorum](https://github.com/dashpay/dips/blob/master/dip-0006.md#current-llmq-types):<br>`1` - LLMQ_50_60<br>`2` - LLMQ_400_60<br>`3` - LLMQ_400_85"
+
+- n: "→<br>`quorumHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The block hash of the quorum"  
+
+- n: "→<br>`id`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The signing session ID"
+
+- n: "→<br>`msgHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The message hash"
+
+- n: "→<br>`sig`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The recovered signature"
+
+- n: "→<br>`hash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The hash of the recovered signature"
+{% enditemplate %}
+
+*Example from Dash Core 0.14.0*
+
+{% highlight bash %}
+dash-cli -testnet quorum getrecsig 1 \
+  "e980ebf295b42f24b03321ffb255818753b2b211e8c46b61c0b6fde91242d12f" "907087d4720850e639b7b5cc41d7a6d020e5a50debb3bc3974f0cb3d7d378ea4"
+{% endhighlight %}
+
+Result:
+{% highlight json %}
+{
+  "llmqType": 1,
+  "quorumHash": "00000000008344da08e4d262773ea545472fbf625f78b3ebfe5fc067c33b1d22",
+  "id": "e980ebf295b42f24b03321ffb255818753b2b211e8c46b61c0b6fde91242d12f",
+  "msgHash": "907087d4720850e639b7b5cc41d7a6d020e5a50debb3bc3974f0cb3d7d378ea4",
+  "sig": "1365171c408d686af2ca8f5fae91cdf9cf0b5eec60b0b161b9288a1c68e2cd68f225495a787415c924c5953a6282d131178aa6baf4c2673d19549fc627740cf71d295f8a38b9970525a7f248d54a548e16da285b5c1f3ec0740ad40edbcc8615",
+  "hash": "d9b7f7904746fbb3eeaeec36fadc79b351f6a854cd22ee9e607592aee972fcb2"
+}
+{% endhighlight %}
+
+{% endautocrossref %}
+
 ###### Quorum<!--noref--> HasRecSig
 <!-- no subhead-links here -->
 
@@ -1527,12 +1621,12 @@ The `quorum<!--noref--> hasrecsig` RPC checks for a recovered signature for a pr
 
 {% highlight bash %}
 dash-cli -testnet quorum hasrecsig 1 \
- "1746e9e82fde8bbda5407551f22b63794894cef0f761ba43f58fd9a9654ff205" "1746e9e82fde8bbda5407551f22b63794894cef0f761ba43f58fd9a9654ff205"
+  "e980ebf295b42f24b03321ffb255818753b2b211e8c46b61c0b6fde91242d12f" "907087d4720850e639b7b5cc41d7a6d020e5a50debb3bc3974f0cb3d7d378ea4"
 {% endhighlight %}
 
 Result:
 {% highlight json %}
-false
+true
 {% endhighlight %}
 
 {% endautocrossref %}
@@ -1587,7 +1681,7 @@ The `quorum<!--noref--> isconflicting` RPC checks if there is a conflict for a t
 
 {% highlight bash %}
 dash-cli -testnet quorum isconflicting 1 \
- "1746e9e82fde8bbda5407551f22b63794894cef0f761ba43f58fd9a9654ff205" "1746e9e82fde8bbda5407551f22b63794894cef0f761ba43f58fd9a9654ff205"
+  "e980ebf295b42f24b03321ffb255818753b2b211e8c46b61c0b6fde91242d12f" "907087d4720850e639b7b5cc41d7a6d020e5a50debb3bc3974f0cb3d7d378ea4"
 {% endhighlight %}
 
 Result:
