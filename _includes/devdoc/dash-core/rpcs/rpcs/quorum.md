@@ -1554,12 +1554,19 @@ The `quorum<!--noref--> getrecsig` RPC checks gets the recovered signature for a
 
 {% highlight bash %}
 dash-cli -testnet quorum getrecsig 1 \
-  "2fd14212e9fdb6c0616bc4e811b2b253878155b2ff2133b0242fb495f2eb80e9" "a48e377d3dcbf07439bcb3eb0da5e520d0a6d741ccb5b739e6500872d4877090"
+  "e980ebf295b42f24b03321ffb255818753b2b211e8c46b61c0b6fde91242d12f" "907087d4720850e639b7b5cc41d7a6d020e5a50debb3bc3974f0cb3d7d378ea4"
 {% endhighlight %}
 
 Result:
-{% highlight text %}
-recovered signature not found (code -8)
+{% highlight json %}
+{
+  "llmqType": 1,
+  "quorumHash": "00000000008344da08e4d262773ea545472fbf625f78b3ebfe5fc067c33b1d22",
+  "id": "e980ebf295b42f24b03321ffb255818753b2b211e8c46b61c0b6fde91242d12f",
+  "msgHash": "907087d4720850e639b7b5cc41d7a6d020e5a50debb3bc3974f0cb3d7d378ea4",
+  "sig": "1365171c408d686af2ca8f5fae91cdf9cf0b5eec60b0b161b9288a1c68e2cd68f225495a787415c924c5953a6282d131178aa6baf4c2673d19549fc627740cf71d295f8a38b9970525a7f248d54a548e16da285b5c1f3ec0740ad40edbcc8615",
+  "hash": "d9b7f7904746fbb3eeaeec36fadc79b351f6a854cd22ee9e607592aee972fcb2"
+}
 {% endhighlight %}
 
 {% endautocrossref %}
@@ -1614,12 +1621,12 @@ The `quorum<!--noref--> hasrecsig` RPC checks for a recovered signature for a pr
 
 {% highlight bash %}
 dash-cli -testnet quorum hasrecsig 1 \
- "1746e9e82fde8bbda5407551f22b63794894cef0f761ba43f58fd9a9654ff205" "1746e9e82fde8bbda5407551f22b63794894cef0f761ba43f58fd9a9654ff205"
+  "e980ebf295b42f24b03321ffb255818753b2b211e8c46b61c0b6fde91242d12f" "907087d4720850e639b7b5cc41d7a6d020e5a50debb3bc3974f0cb3d7d378ea4"
 {% endhighlight %}
 
 Result:
 {% highlight json %}
-false
+true
 {% endhighlight %}
 
 {% endautocrossref %}
@@ -1674,7 +1681,7 @@ The `quorum<!--noref--> isconflicting` RPC checks if there is a conflict for a t
 
 {% highlight bash %}
 dash-cli -testnet quorum isconflicting 1 \
- "1746e9e82fde8bbda5407551f22b63794894cef0f761ba43f58fd9a9654ff205" "1746e9e82fde8bbda5407551f22b63794894cef0f761ba43f58fd9a9654ff205"
+  "e980ebf295b42f24b03321ffb255818753b2b211e8c46b61c0b6fde91242d12f" "907087d4720850e639b7b5cc41d7a6d020e5a50debb3bc3974f0cb3d7d378ea4"
 {% endhighlight %}
 
 Result:
