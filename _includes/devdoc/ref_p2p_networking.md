@@ -3082,6 +3082,10 @@ An `SKContribution` consists of:
 
 More information can be found in the [Justification phase section of DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#4-justification-phase).
 
+<!--
+cee2caff716a75737469667900000000560100005149fca7
+01b34b2bcb3430f403663e37be9c63c88e4ca1f12c41846064cf960a0800000000e7d909afba6848f3fdf98b2da31db07e3fbee621d58c469dce96d6283bcd4b25051600000057b63ec5ae0a101f0d93bb60af70bf22c21bd3a7705e1aecb9559d6b151d953f170000000ee1f0f0f2570589e81d2a4f8165b10528436a1a75cf3469fa81090f2d85615020000000501b617678c25c6534d89032862c1682c60cfc33c8c372fb818360f4a0eec0f32b00000050f0db0a0607faa3d7a46182b98af66f97b63934dcbbc74e94336fae92b3bcf030000000306238ec5ff46df48688056d8c0d497627174075a893331d602ca292cd0f35948d63d10e242ac97c6324e9a40d6e690e4bb7fe0750b7d204f7e988a32472018968408d2d0621bbaba8380ad4aaf342ea138ce9a59ed9ca82995c155609488dcc5ac35f483b695a0624e5ab0745f7f9e2051edf1b3b1f0e1b1d55d185d25e0ed7
+-->
 
 The following annotated hexdump shows a `qjustify` message. (The
 message header has been omitted.)
@@ -3089,30 +3093,34 @@ message header has been omitted.)
 {% highlight text %}
 01 ......................................... LLMQ Type: 1 (LLMQ_50_60)
 
-bc10b9ced438052d3726085c13aa9c6e
-4f0950675f9ab1948276220100000000 ........... Quorum Hash
+b34b2bcb3430f403663e37be9c63c88e
+4ca1f12c41846064cf960a0800000000 ........... Quorum Hash
 
-cbd9581d54af43a06d3f6900b5226945
-4303c1b378bbb45caea44228af0c67a6 ........... ProRegTx hash
+e7d909afba6848f3fdf98b2da31db07e
+3fbee621d58c469dce96d6283bcd4b25 ........... ProRegTx hash
 
--------------------------------------------------------------
-NOTE: The following fields are placeholders for actual values
--------------------------------------------------------------
-
-01 ......................................... Contribution count: 1
+05 ......................................... Contribution count: 5
 
 Contribution #1
-| 01000000 ................................. Member Index: 1
+| 16000000 ................................. Member Index: 22
 |
-| 00000000000000000000000000000000
-| 00000000000000000000000000000000 ......... Unencrypted secret key contribution
+| 57b63ec5ae0a101f0d93bb60af70bf22
+| c21bd3a7705e1aecb9559d6b151d953f ......... Unencrypted secret key contribution
 
-00000000000000000000000000000000
-00000000000000000000000000000000
-00000000000000000000000000000000
-00000000000000000000000000000000
-00000000000000000000000000000000
-00000000000000000000000000000000 ........... BLS signature (Operator Key)
+Contribution #2
+| 17000000 ................................. Member Index: 22
+|
+| 0ee1f0f0f2570589e81d2a4f8165b105
+| 28436a1a75cf3469fa81090f2d856150 ......... Unencrypted secret key contribution
+
+[...] ...................................... 3 more contributions omitted
+
+8d63d10e242ac97c6324e9a40d6e690e
+4bb7fe0750b7d204f7e988a324720189
+68408d2d0621bbaba8380ad4aaf342ea
+138ce9a59ed9ca82995c155609488dcc
+5ac35f483b695a0624e5ab0745f7f9e2
+051edf1b3b1f0e1b1d55d185d25e0ed7 ........... BLS signature (Operator Key)
 {% endhighlight %}
 
 {% endautocrossref %}
