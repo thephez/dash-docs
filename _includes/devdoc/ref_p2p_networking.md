@@ -2999,7 +2999,16 @@ intra-quorum communication and is only sent to the masternodes in the LLMQ and
 nodes that are monitoring in Watch Mode for auditing/debugging purposes.
 
 The `qcomplaint` message is used to notify other members in the DKG process of
-any members that provided an invalid secret key contribution.
+any members that provided no contribution or an invalid secret key contribution.
+The notifications are divided into 2 fields:
+
+ - `badMembers` - Sets a bit for each member that failed to provide a contribution
+ - `complaints` - Sets a bit for each member that provided an invalid contribution
+
+If a threshold number of quorum participants indicate a masternode didn't contribute,
+that masternode will be excluded from the quorum. Members that simply have a complaint
+against them are given an opportunity to respond (via a `qjustify` message) to
+attempt to prove to all participants that they did participate.
 
 | Bytes | Name | Data type | Description |
 | --- | --- | --- | --- |
@@ -3015,7 +3024,7 @@ any members that provided an invalid secret key contribution.
 More information can be found in the [Complaining phase section of DIP6](https://github.com/dashpay/dips/blob/master/dip-0006.md#3-complaining-phase).
 
 <!--
-01bc10b9ced438052d3726085c13aa9c6e4f0950675f9ab1948276220100000000cbd9581d54af43a06d3f6900b52269454303c1b378bbb45caea44228af0c67a63200000000000400320000000000000098e148f112fc46d233eeee230472b3050b80b2a675cf7699f97412cce3606a3c863c89aa68ed1608ed9a6503dfd1d8aa01c7a15e70cdc45afe653beaaf399aeb9b4f44cdf5eaafe223807f30c35a97fde9015178f6d642b7b25c4fd7c4ef3030
+01b34b2bcb3430f403663e37be9c63c88e4ca1f12c41846064cf960a0800000000b375607540bd9c6e4a5452d8c7a6a626ec715222a0650321487843c79cac67d5320880020000400032000200800400000639b0e8ccb667c161207ddc03183d4ebb632eeb60f29e351963032a673abd613fb3e847dff78699481193cf385f0e080fdf518e26ef1e258b724408b1ee9d70511696092b6c2ebfad5e24154a7f859f0efe3fcb8d7042da624f7298876cc98e
 -->
 
 The following annotated hexdump shows a `qcomplaint` message. (The
@@ -3024,24 +3033,24 @@ message header has been omitted.)
 {% highlight text %}
 01 ......................................... LLMQ Type: 1 (LLMQ_50_60)
 
-bc10b9ced438052d3726085c13aa9c6e
-4f0950675f9ab1948276220100000000 ........... Quorum Hash
+b34b2bcb3430f403663e37be9c63c88e
+4ca1f12c41846064cf960a0800000000 ........... Quorum Hash
 
-cbd9581d54af43a06d3f6900b5226945
-4303c1b378bbb45caea44228af0c67a6 ........... ProRegTx hash
+b375607540bd9c6e4a5452d8c7a6a626
+ec715222a0650321487843c79cac67d5 ........... ProRegTx hash
 
 32 ......................................... Bad member bitvector size: 50
-00000000000400 ............................. Bad members
+08800200004000 ............................. Bad members
 
 32 ......................................... Complaints bitvector size: 50
-00000000000000 ............................. Complaints
+00020080040000 ............................. Complaints
 
-98e148f112fc46d233eeee230472b305
-0b80b2a675cf7699f97412cce3606a3c
-863c89aa68ed1608ed9a6503dfd1d8aa
-01c7a15e70cdc45afe653beaaf399aeb
-9b4f44cdf5eaafe223807f30c35a97fd
-e9015178f6d642b7b25c4fd7c4ef3030 ........... BLS signature (Operator Key)
+0639b0e8ccb667c161207ddc03183d4e
+bb632eeb60f29e351963032a673abd61
+3fb3e847dff78699481193cf385f0e08
+0fdf518e26ef1e258b724408b1ee9d70
+511696092b6c2ebfad5e24154a7f859f
+0efe3fcb8d7042da624f7298876cc98e ........... BLS signature (Operator Key)
 {% endhighlight %}
 
 {% endautocrossref %}
