@@ -115,9 +115,16 @@ had already been confirmed to a block depth of 5 in the blockchain.
 {% autocrossref %}
 
 The introduction of Long-Living Masternode Quorums in Dash Core 0.14 provides
-a foundation to further scale InstantSend. LLMQ-based InstantSend removes a
-number of previously required limitations and simplifies the process by decreasing
-the number of P2P messages clients must use.
+a foundation to further scale InstantSend. LLMQs enable the transaction input
+locking process (and resulting network traffic) to occur within the quorum. This
+enables further scaling without introducing network congestion since only the
+output of the locking process is relayed to the entire Dash network.
+
+LLMQ-based InstantSend also removes a number of previously required limitations
+and simplifies the process by decreasing the number of P2P messages clients must
+process. Rather than tracking individual masternode votes for each transaction
+input, all required locking information is found within the single `islock` message
+for a transaction.
 
 During the evaluation and transition from standard InstantSend to LLMQ-based
 InstantSend, Sporks 2 (`SPORK_2_INSTANTSEND_ENABLED`) and 20 (`SPORK_20_INSTANTSEND_LLMQ_BASED`)
