@@ -123,8 +123,7 @@ output of the locking process is relayed to the entire Dash network.
 LLMQ-based InstantSend also removes a number of previously required limitations
 and simplifies the process by decreasing the number of P2P messages clients must
 process. Rather than tracking individual masternode votes for each transaction
-input, all required locking information is found within the single `islock` message
-for a transaction.
+input, all required locking information is found within the single `islock` message.
 
 During the evaluation and transition from standard InstantSend to LLMQ-based
 InstantSend, Sporks 2 (`SPORK_2_INSTANTSEND_ENABLED`) and 20 (`SPORK_20_INSTANTSEND_LLMQ_BASED`)
