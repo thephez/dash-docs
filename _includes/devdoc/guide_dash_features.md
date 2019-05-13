@@ -147,15 +147,19 @@ There are still some limitations on LLMQ-based InstantSend transactions:
   | Devnet  | 2 Blocks |
 
 
-Improvements from the old InstantSend system:
+The improvements over the old InstantSend system include both the addition of new
+functionality and the removal of prior limitations. The following table details
+these improvements:
 
-* Changed: Transactions can be chained if the inputs are from transactions that are also locked
-* Changed: InstantSend locks are attempted for all transactions (`tx` messages) - no need to request it via the special message (`ix` message)
-* Changed: Only need to receive a single `islock` message - no need to track votes (`txlvote` messages) for each input
-* Removed: Limit on number of inputs
-* Removed: Limit on transaction value
-* Removed: Timeout for lock - transaction locks will only be removed once the transaction is confirmed in a ChainLocked block
-* Removed: Custom InstantSend fee
+| **Status** | **Improvement** |
+|---------|--------------|
+| New | Transactions can be chained if the inputs are from transactions that are also locked |
+| New | InstantSend locks are attempted for all transactions (`tx` messages) - no need to request it via the special message (`ix` message) |
+| New | Successful locks are indicated by a single `islock` message - no need to track votes (`txlvote` messages) for each input |
+| Updated | Limit on number of inputs removed |
+| Updated | Limit on transaction value removed |
+| Updated | Timeout for locking removed - transaction locks will only be removed once the transaction is confirmed in a ChainLocked block |
+| Updated | Custom InstantSend fee removed |
 
 Note: A transaction will __not__ be included in the block template (from `getblocktemplate`) unless it:
 
