@@ -128,6 +128,7 @@ InstantSend is enabled.
 There are still some limitations on LLMQ-based InstantSend transactions:
 
 * Transaction inputs must either:
+  * Be locked by InstantSend
   * Be in a block that has a ChainLock
   * Have at least the number confirmations (block depth) indicated by the table below
 
