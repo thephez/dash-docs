@@ -136,7 +136,7 @@ the *spendable* field in the results described below.
 - n: "→ →<br>`safe`"
   t: "bool"
   p: "Required<br>(exactly 1)"
-  d: "*Added in Bitcoin Core 0.15.0*<br><br>Whether this output is considered safe to spend. Unconfirmed transactions from outside keys and unconfirmed replacement transactions are considered unsafe and are not eligible for spending by `fundrawtransaction` and `sendtoaddress`."
+  d: "*Added in Bitcoin Core 0.15.0*<br><br>Whether this output is considered safe to spend. Unconfirmed transactions from outside keys are considered unsafe and are not eligible for spending by `fundrawtransaction` and `sendtoaddress`."
 
 {% enditemplate %}
 

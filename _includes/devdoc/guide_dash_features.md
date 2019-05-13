@@ -115,9 +115,16 @@ had already been confirmed to a block depth of 5 in the blockchain.
 {% autocrossref %}
 
 The introduction of Long-Living Masternode Quorums in Dash Core 0.14 provides
-a foundation to further scale InstantSend. LLMQ-based InstantSend removes a
-number of previously required limitations and simplifies the process by decreasing
-the number of P2P messages clients must use.
+a foundation to further scale InstantSend. LLMQs enable the transaction input
+locking process (and resulting network traffic) to occur within the quorum. This
+enables further scaling without introducing network congestion since only the
+output of the locking process is relayed to the entire Dash network.
+
+LLMQ-based InstantSend also removes a number of previously required limitations
+and simplifies the process by decreasing the number of P2P messages clients must
+process. Rather than tracking individual masternode votes for each transaction
+input, all required locking information is found within the single `islock` message
+for a transaction.
 
 During the evaluation and transition from standard InstantSend to LLMQ-based
 InstantSend, Sporks 2 (`SPORK_2_INSTANTSEND_ENABLED`) and 20 (`SPORK_20_INSTANTSEND_LLMQ_BASED`)
@@ -128,6 +135,7 @@ InstantSend is enabled.
 There are still some limitations on LLMQ-based InstantSend transactions:
 
 * Transaction inputs must either:
+  * Be locked by InstantSend
   * Be in a block that has a ChainLock
   * Have at least the number confirmations (block depth) indicated by the table below
 
@@ -139,15 +147,19 @@ There are still some limitations on LLMQ-based InstantSend transactions:
   | Devnet  | 2 Blocks |
 
 
-Improvements from the old InstantSend system:
+The improvements over the old InstantSend system include both the addition of new
+functionality and the removal of prior limitations. The following table details
+these improvements:
 
-* Changed: Transactions can be chained if the inputs are from transactions that are also locked
-* Changed: InstantSend locks are attempted for all transactions (`tx` messages) - no need to request it via the special message (`ix` message)
-* Changed: Only need to receive a single `islock` message - no need to track votes (`txlvote` messages) for each input
-* Removed: Limit on number of inputs
-* Removed: Limit on transaction value
-* Removed: Timeout for lock - transaction locks will only be removed once the transaction is confirmed in a ChainLocked block
-* Removed: Custom InstantSend fee
+| **Status** | **Improvement** |
+|---------|--------------|
+| New | Transactions can be chained if the inputs are from transactions that are also locked |
+| New | InstantSend locks are attempted for all transactions (`tx` messages) - no need to request it via the special message (`ix` message) |
+| New | Successful locks are indicated by a single `islock` message - no need to track votes (`txlvote` messages) for each input |
+| Updated | Limit on number of inputs removed |
+| Updated | Limit on transaction value removed |
+| Updated | Timeout for locking removed - transaction locks will only be removed once the transaction is confirmed in a ChainLocked block |
+| Updated | Custom InstantSend fee removed |
 
 Note: A transaction will __not__ be included in the block template (from `getblocktemplate`) unless it:
 
