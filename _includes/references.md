@@ -273,6 +273,7 @@ http://opensource.org/licenses/MIT.
 [qgetsigs message]: /en/developer-reference#qgetsigs "A P2P network message used to request signature shares"
 [qjustify message]: /en/developer-reference#qjustify "A P2P network message used to respond to another masternodes DKG complaint"
 [qpcommit message]: /en/developer-reference#qpcommit "A P2P network message used to send an LLMQ premature commitment"
+[qsendrecsigs message]: /en/developer-reference#qsendrecsigs "A P2P network message used to request that recovered quorum signatures be provided"
 [qsigrec message]: /en/developer-reference#qsigrec "A P2P network message used to send recovered quorum signatures"
 [qsigsesann message]: /en/developer-reference#qsigsesann "A P2P network message used to announce signing session details"
 [qsigsinv message]: /en/developer-reference#qsigsinv "A P2P network message used to announce quorum signature share inventories"

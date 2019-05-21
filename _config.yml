@@ -566,6 +566,7 @@ devsearches:
     - "qgetsigs": "/en/developer-reference#qgetsigs"
     - "qjustify": "/en/developer-reference#qjustify"
     - "qpcommit": "/en/developer-reference#qpcommit"
+    - "qsendrecsigs": "/en/developer-reference#qsendrecsigs"
     - "qsigrec": "/en/developer-reference#qsigrec"
     - "qsigsesann": "/en/developer-reference#qsigsesann"
     - "qsigsinv": "/en/developer-reference#qsigsinv"
