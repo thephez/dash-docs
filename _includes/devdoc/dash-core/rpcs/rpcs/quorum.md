@@ -98,7 +98,7 @@ The `quorum<!--noref--> info` RPC returns information about a specific quorum.
 - n: "`llmqType`"
   t: "number"
   p: "Required<br>(exactly 1)"
-  d: "[Type of quorums](https://github.com/dashpay/dips/blob/master/dip-0006.md#current-llmq-types) to list:<br>`1` - LLMQ_50_60<br>`2` - LLMQ_400_60<br>`3` - LLMQ_400_85"
+  d: "[Type of quorums](https://github.com/dashpay/dips/blob/master/dip-0006.md#current-llmq<!--noref-->-types) to list:<br>`1` - LLMQ_50_60<br>`2` - LLMQ_400_60<br>`3` - LLMQ_400_85"
 {% enditemplate %}
 
 *Parameter #2---quorum hash*
@@ -283,7 +283,7 @@ The `quorum<!--noref--> list` RPC displays the status of the current DKG process
 - n: "→ → →<br>`llmqType`"
   t: "number"
   p: "Required<br>(exactly 1)"
-  d: "[Type of quorum](https://github.com/dashpay/dips/blob/master/dip-0006.md#current-llmq-types):<br>`1` - LLMQ_50_60<br>`2` - LLMQ_400_60<br>`3` - LLMQ_400_85"
+  d: "[Type of quorum](https://github.com/dashpay/dips/blob/master/dip-0006.md#current-llmq<!--noref-->-types):<br>`1` - LLMQ_50_60<br>`2` - LLMQ_400_60<br>`3` - LLMQ_400_85"
 
 - n: "→ → →<br>`quorumHash`"
   t: "string (hex)"
@@ -1432,7 +1432,7 @@ The `quorum<!--noref--> sign` RPC requests threshold-signing for a message.
 - n: "`llmqType`"
   t: "number"
   p: "Required<br>(exactly 1)"
-  d: "[Type of quorum](https://github.com/dashpay/dips/blob/master/dip-0006.md#current-llmq-types):<br>`1` - LLMQ_50_60<br>`2` - LLMQ_400_60<br>`3` - LLMQ_400_85"
+  d: "[Type of quorum](https://github.com/dashpay/dips/blob/master/dip-0006.md#current-llmq<!--noref-->-types):<br>`1` - LLMQ_50_60<br>`2` - LLMQ_400_60<br>`3` - LLMQ_400_85"
 {% enditemplate %}
 
 *Parameter #2---id*
@@ -1490,7 +1490,7 @@ The `quorum<!--noref--> getrecsig` RPC checks gets the recovered signature for a
 - n: "`llmqType`"
   t: "number"
   p: "Required<br>(exactly 1)"
-  d: "[Type of quorum](https://github.com/dashpay/dips/blob/master/dip-0006.md#current-llmq-types):<br>`1` - LLMQ_50_60<br>`2` - LLMQ_400_60<br>`3` - LLMQ_400_85"
+  d: "[Type of quorum](https://github.com/dashpay/dips/blob/master/dip-0006.md#current-llmq<!--noref-->-types):<br>`1` - LLMQ_50_60<br>`2` - LLMQ_400_60<br>`3` - LLMQ_400_85"
 {% enditemplate %}
 
 *Parameter #2---id*
@@ -1522,7 +1522,7 @@ The `quorum<!--noref--> getrecsig` RPC checks gets the recovered signature for a
 - n: "→<br>`llmqType`"
   t: "number"
   p: "Required<br>(exactly 1)"
-  d: "[Type of quorum](https://github.com/dashpay/dips/blob/master/dip-0006.md#current-llmq-types):<br>`1` - LLMQ_50_60<br>`2` - LLMQ_400_60<br>`3` - LLMQ_400_85"
+  d: "[Type of quorum](https://github.com/dashpay/dips/blob/master/dip-0006.md#current-llmq<!--noref-->-types):<br>`1` - LLMQ_50_60<br>`2` - LLMQ_400_60<br>`3` - LLMQ_400_85"
 
 - n: "→<br>`quorumHash`"
   t: "string (hex)"
@@ -1586,7 +1586,7 @@ The `quorum<!--noref--> hasrecsig` RPC checks for a recovered signature for a pr
 - n: "`llmqType`"
   t: "number"
   p: "Required<br>(exactly 1)"
-  d: "[Type of quorum](https://github.com/dashpay/dips/blob/master/dip-0006.md#current-llmq-types):<br>`1` - LLMQ_50_60<br>`2` - LLMQ_400_60<br>`3` - LLMQ_400_85"
+  d: "[Type of quorum](https://github.com/dashpay/dips/blob/master/dip-0006.md#current-llmq<!--noref-->-types):<br>`1` - LLMQ_50_60<br>`2` - LLMQ_400_60<br>`3` - LLMQ_400_85"
 {% enditemplate %}
 
 *Parameter #2---id*
@@ -1646,7 +1646,7 @@ The `quorum<!--noref--> isconflicting` RPC checks if there is a conflict for a t
 - n: "`llmqType`"
   t: "number"
   p: "Required<br>(exactly 1)"
-  d: "[Type of quorum](https://github.com/dashpay/dips/blob/master/dip-0006.md#current-llmq-types):<br>`1` - LLMQ_50_60<br>`2` - LLMQ_400_60<br>`3` - LLMQ_400_85"
+  d: "[Type of quorum](https://github.com/dashpay/dips/blob/master/dip-0006.md#current-llmq<!--noref-->-types):<br>`1` - LLMQ_50_60<br>`2` - LLMQ_400_60<br>`3` - LLMQ_400_85"
 {% enditemplate %}
 
 *Parameter #2---id*

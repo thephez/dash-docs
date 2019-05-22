@@ -189,7 +189,7 @@ block.
 
 {% autocrossref %}
 
-Dash's ChainLock feature leverages [LLMQ Signing Requests/Sessions](#llmq-signing-session)
+Dash's ChainLock feature leverages [LLMQ Signing Requests/Sessions](#llmq<!--noref-->-signing-session)
 to reduce uncertainty when receiving funds and remove the possibility of 51%
 mining attacks.
 
