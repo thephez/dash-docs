@@ -902,7 +902,7 @@ functionality.
 
 As shown in the following table, the PoSe Score always decreases by 1 per block
 as long as a masternode has not been banned. Once banned, the masternode can
-only be restored by sending a Provider Update Registrar (ProUpRegTx) special
+only be restored by sending a Provider Update Service (ProUpServTx) special
 transaction.
 
 | PoSe Parameter | Value | Example Value |
