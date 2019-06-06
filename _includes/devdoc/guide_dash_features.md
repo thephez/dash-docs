@@ -911,9 +911,9 @@ transaction.
 | PoSe Score Increases | Maximum PoSe Score * 2/3 | 3333 |
 | PoSe Score Decreases | 1 (per block) | Always `1` |
 
-The current PoSe scoring algorithm increases the PoSe score by 66% for each
-failed DKG session. Depending on timing, this allows for 2 (at most) failures
-for a masternode within a timeframe corresponding to the payment cycle (i.e a
+The current PoSe scoring algorithm increases the PoSe score by 66% of the
+maximum score for each failed DKG session. Depending on timing, this allows for
+no more than 2 failures for a masternode within a payment cycle (i.e a
 number of blocks equal to the number of registered masternodes).
 
 For example, using the values from above with 5000 masternodes:
