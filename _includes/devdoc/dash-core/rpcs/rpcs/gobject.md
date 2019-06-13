@@ -253,20 +253,20 @@ prepare`.
 *Parameter #4---data*
 
 {% itemplate ntpd1 %}
-- n: "`data`"
+- n: "`data-hex`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "Object data (JSON object with governance details)"
+  d: "Object data (JSON object with governance details). See [GObject Prepare](#gobject-prepare) for additional details about this field."
 
 {% enditemplate %}
 
-*Parameter #5---transaction ID*
+*Parameter #5---fee transaction ID*
 
 {% itemplate ntpd1 %}
 - n: "`data`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "Collateral transaction ID"
+  d: "Fee transaction ID - required for all objects except triggers"
 
 {% enditemplate %}
 
@@ -280,21 +280,21 @@ prepare`.
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.14.0*
 
 {% highlight bash %}
-dash-cli -testnet gobject submit 0 1 1509548445 5b5b2270726f706f73616c222c7b22656e645f65706f6\
-368223a313530393638303337392c226e616d65223a22746573742d70726f706f73616c2d646\
-173682d646f6373222c227061796d656e745f61646472657373223a2279554b447a353950745\
-0577348596b56346537424337416263454c72346a52787371222c227061796d656e745f616d6\
-f756e74223a32302c2273746172745f65706f6368223a313530393637363831342c227479706\
-5223a312c2275726c223a2268747470733a2f2f646173682d646f63732e746573742f7465737\
-4227d5d5d 061ec99eb641ffdeaa05a1a724a255103bebc445b15c6c8c028b19c08608496b
+dash-cli -testnet gobject submit 0 1 1560449223 7b22656e645f65706f6368223a3\
+13536303435373035352c226e616d65223a2274657374222c227061796d656e745f61646472\
+657373223a227964354b4d52457333474c4d65366d544a597233597248316a75774e7772464\
+36642222c227061796d656e745f616d6f756e74223a352c2273746172745f65706f6368223a\
+313536303435333439302c2274797065223a312c2275726c223a22687474703a2f2f7465737\
+42e636f6d227d \
+3fd758e7a5761bb07b2850b8ba432ef42c1ea80f0921d2eab0682697dda78262
 {% endhighlight %}
 
 Result (Governance Object Hash):
 {% highlight bash %}
-75e991c86ed5a50305e315e00c9a95fc74841bd97d58391071edc9ff206a0d3c
+e353b2ab5f7e7cb24b95e00e153ec2a6339249672f18b8e8e144aa711678710d
 {% endhighlight %}
 
 {% endautocrossref %}
