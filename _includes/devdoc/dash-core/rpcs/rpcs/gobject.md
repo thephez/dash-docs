@@ -510,7 +510,7 @@ The `gobject count` RPC returns the count of governance objects and votes.
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.3 (mode: `json`/default)*
+*Example from Dash Core 0.14.0 (mode: `json`/default)*
 
 {% highlight bash %}
 dash-cli -testnet gobject count
@@ -519,12 +519,12 @@ dash-cli -testnet gobject count
 Result (wrapped):
 {% highlight json %}
 {
-  "objects_total": 177,
-  "proposals": 177,
+  "objects_total": 3,
+  "proposals": 3,
   "triggers": 0,
   "other": 0,
-  "erased": 5,
-  "votes": 9680
+  "erased": 4,
+  "votes": 18
 }
 {% endhighlight %}
 
@@ -541,7 +541,7 @@ Result (wrapped):
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.3 (mode: `all`)*
+*Example from Dash Core 0.14.0 (mode: `all`)*
 
 {% highlight bash %}
 dash-cli -testnet gobject count all
@@ -549,8 +549,8 @@ dash-cli -testnet gobject count all
 
 Result (wrapped):
 {% highlight text %}
-Governance Objects: 177 (Proposals: 177, Triggers: 0, Watchdogs: 0/0, \
-	Other: 0; Erased: 5), Votes: 9680
+Governance Objects: 177 (Proposals: 177, Triggers: 0, Other: 0; Erased: 5), \
+Votes: 9680
 {% endhighlight %}
 
 {% endautocrossref %}
