@@ -52,7 +52,7 @@ The `gobject check` RPC validates governance object data (_proposals only_).
 *Example from Dash Core 0.14.0*
 
 {% highlight bash %}
-dash-cli -testnet gobject check  7b22656e645f65706f6368223a3135363034353730\
+dash-cli -testnet gobject check 7b22656e645f65706f6368223a3135363034353730\
 35352c226e616d65223a2274657374222c227061796d656e745f61646472657373223a22796\
 4354b4d52457333474c4d65366d544a597233597248316a75774e777246436642222c227061\
 796d656e745f616d6f756e74223a352c2273746172745f65706f6368223a313536303435333\
@@ -101,17 +101,17 @@ The `gobject prepare` RPC prepares a governance object by signing and creating a
 - n: "`time`"
   t: "int64_t"
   p: "Required<br>(exactly 1)"
-  d: "Create time"
+  d: "Create time (Unix epoch time)"
 
 {% enditemplate %}
 
 *Parameter #4---data*
 
 {% itemplate ntpd1 %}
-- n: "`data`"
+- n: "`data-hex`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "Object data (JSON object with governance details)"
+  d: "Object data (JSON object with governance details). Additional details regarding this are provided in an example below."
 
 {% enditemplate %}
 
@@ -156,21 +156,55 @@ The `gobject prepare` RPC prepares a governance object by signing and creating a
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+**Details of the `data-hex` field:**
+
+The `data-hex` field is comprised of a JSON object as described in [GObject
+Deserialize](#gobject-deserialize) which is serialized to hex.
+
+An example of a proposal JSON object is shown here:
+
+{% highlight json %}
+{
+  "end_epoch": 1560457055,
+  "name": "test",
+  "payment_address": "yd5KMREs3GLMe6mTJYr3YrH1juwNwrFCfB",
+  "payment_amount": 5,
+  "start_epoch": 1560453490,
+  "type": 1,
+  "url": "http://test.com"
+}
+{% endhighlight %}
+
+To serialize the object, first remove all spaces from the JSON object as shown below:
+
+{% highlight json %}
+{"end_epoch":1560457055,"name":"test","payment_address":"yd5KMREs3GLMe6mTJYr3YrH1juwNwrFCfB","payment_amount":5,"start_epoch":1560453490,"type":1,"url":"http://test.com"}
+{% endhighlight %}
+
+Then convert the string to its hex equivalent as shown below. This is what will
+be used for the `data-hex` field of the `gobject prepare` command:
 
 {% highlight bash %}
-dash-cli -testnet gobject prepare 0 1 1509548445 5b5b2270726f706f73616c222c7b22656e645f65706f6\
-368223a313530393638303337392c226e616d65223a22746573742d70726f706f73616c2d646\
-173682d646f6373222c227061796d656e745f61646472657373223a2279554b447a353950745\
-0577348596b56346537424337416263454c72346a52787371222c227061796d656e745f616d6\
-f756e74223a32302c2273746172745f65706f6368223a313530393637363831342c227479706\
-5223a312c2275726c223a2268747470733a2f2f646173682d646f63732e746573742f7465737\
-4227d5d5d
+7b22656e645f65706f6368223a313536303435373035352c226e616d65223a2274657374222c\
+227061796d656e745f61646472657373223a227964354b4d52457333474c4d65366d544a5972\
+33597248316a75774e777246436642222c227061796d656e745f616d6f756e74223a352c2273\
+746172745f65706f6368223a313536303435333439302c2274797065223a312c2275726c223a\
+22687474703a2f2f746573742e636f6d227d
+{% endhighlight %}
+
+*Example from Dash Core 0.14.0*
+
+{% highlight bash %}
+gobject prepare 0 1 1560449223 7b22656e645f65706f6368223a3135363034353730353\
+52c226e616d65223a2274657374222c227061796d656e745f61646472657373223a227964354\
+b4d52457333474c4d65366d544a597233597248316a75774e777246436642222c227061796d6\
+56e745f616d6f756e74223a352c2273746172745f65706f6368223a313536303435333439302\
+c2274797065223a312c2275726c223a22687474703a2f2f746573742e636f6d227d
 {% endhighlight %}
 
 Result (Collateral Transaction ID):
 {% highlight bash %}
-061ec99eb641ffdeaa05a1a724a255103bebc445b15c6c8c028b19c08608496b
+3fd758e7a5761bb07b2850b8ba432ef42c1ea80f0921d2eab0682697dda78262
 {% endhighlight %}
 
 {% endautocrossref %}
