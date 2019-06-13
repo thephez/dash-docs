@@ -111,7 +111,7 @@ The `gobject prepare` RPC prepares a governance object by signing and creating a
 - n: "`data-hex`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "Object data (JSON object with governance details). Additional details regarding this are provided in an example below."
+  d: "**Updated in Dash Core 0.14.0 to require all new proposals to use JSON serialization.**<br><br>Object data (JSON object with governance details). Additional details regarding this are provided in an example below."
 
 {% enditemplate %}
 
@@ -256,7 +256,7 @@ prepare`.
 - n: "`data-hex`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "Object data (JSON object with governance details). See [GObject Prepare](#gobject-prepare) for additional details about this field."
+  d: "**Updated in Dash Core 0.14.0 to require all new proposals to use JSON serialization.**<br><br>Object data (JSON object with governance details). See [GObject Prepare](#gobject-prepare) for additional details about this field."
 
 {% enditemplate %}
 
