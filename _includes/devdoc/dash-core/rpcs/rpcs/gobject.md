@@ -309,7 +309,7 @@ The `gobject deserialize` RPC deserializes a governance object from a hex string
 *Parameter #1---object data (hex)*
 
 {% itemplate ntpd1 %}
-- n: "`data-hex`"
+- n: "`hex_data`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
   d: "The data (hex) of a governance object"
@@ -330,11 +330,6 @@ deserialized. Examples are shown below for both proposal and trigger object type
   t: "object"
   p: "Required<br>(exactly 1)"
   d: "Array of governance objects"
-
-- n: "→<br>`proposal`"
-  t: "string (hex)"
-  p: "Required<br>(exactly 1)"
-  d: "Proposal object"
 
 - n: "→ →<br>`end_epoch`"
   t: "string"
@@ -373,35 +368,27 @@ deserialized. Examples are shown below for both proposal and trigger object type
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.14.0*
 
 {% highlight bash %}
-dash-cli -testnet gobject deserialize 5b5b2270726f706f73616c222c7b22656e645f6\
-5706f6368223a2231353037343534383935222c226e616d65223a227465737470726f706f7361\
-6c5f2d5f6162636465666768696a6b6c6d6e6f707172737475767778797a30313233343536373\
-83931353037323635383233222c227061796d656e745f61646472657373223a2279664e68484c\
-4c695936577a5a646a51766137324a64395134313468516578514c68222c227061796d656e745\
-f616d6f756e74223a2232222c2273746172745f65706f6368223a223135303732363538323322\
-2c2274797065223a312c2275726c223a2268747470733a2f2f7777772e6461736863656e74726\
-16c2e6f72672f702f746573745f70726f706f73616c5f31353037323635383233227d5d5d
+dash-cli -testnet gobject deserialize 7b22656e645f65706f6368223a313536303435\
+373035352c226e616d65223a2274657374222c227061796d656e745f61646472657373223a22\
+7964354b4d52457333474c4d65366d544a597233597248316a75774e777246436642222c2270\
+61796d656e745f616d6f756e74223a352c2273746172745f65706f6368223a31353630343533\
+3439302c2274797065223a312c2275726c223a22687474703a2f2f746573742e636f6d227d
 {% endhighlight %}
 
 Result:
 {% highlight json %}
-[
-  [
-    "proposal",
-    {
-      "end_epoch":"1507454895",
-      "name":"testproposal_-_abcdefghijklmnopqrstuvwxyz01234567891507265823",
-      "payment_address":"yfNhHLLiY6WzZdjQva72Jd9Q414hQexQLh",
-      "payment_amount":"2",
-      "start_epoch":"1507265823",
-      "type":1,
-      "url":"https://www.dashcentral.org/p/test_proposal_1507265823"
-    }
-  ]
-]
+{
+  "end_epoch": 1560457055,
+  "name": "test",
+  "payment_address": "yd5KMREs3GLMe6mTJYr3YrH1juwNwrFCfB",
+  "payment_amount": 5,
+  "start_epoch": 1560453490,
+  "type": 1,
+  "url": "http://test.com"
+}
 {% endhighlight %}
 
 <!-- __ -->
