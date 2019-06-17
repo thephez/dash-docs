@@ -4,6 +4,8 @@ http://opensource.org/licenses/MIT.
 {% endcomment %}
 {% assign filename="_includes/devdoc/dash-core/rpcs/rpcs/gobject.md" %}
 
+<!--__-->
+
 ##### GObject
 {% include helpers/subhead-links.md %}
 
@@ -47,17 +49,14 @@ The `gobject check` RPC validates governance object data (_proposals only_).
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.14.0*
 
 {% highlight bash %}
-dash-cli -testnet gobject check 5b5b2270726f706f73616c222c7b22656e645f65706f\
-6368223a2231353037343534383935222c226e616d65223a227465737470726f706f73616c5f\
-2d5f6162636465666768696a6b6c6d6e6f707172737475767778797a30313233343536373839\
-31353037323635383233222c227061796d656e745f61646472657373223a2279664e68484c4c\
-695936577a5a646a51766137324a64395134313468516578514c68222c227061796d656e745f\
-616d6f756e74223a2232222c2273746172745f65706f6368223a223135303732363538323322\
-2c2274797065223a312c2275726c223a2268747470733a2f2f7777772e6461736863656e7472\
-616c2e6f72672f702f746573745f70726f706f73616c5f31353037323635383233227d5d5d
+dash-cli -testnet gobject check 7b22656e645f65706f6368223a3135363034353730\
+35352c226e616d65223a2274657374222c227061796d656e745f61646472657373223a22796\
+4354b4d52457333474c4d65366d544a597233597248316a75774e777246436642222c227061\
+796d656e745f616d6f756e74223a352c2273746172745f65706f6368223a313536303435333\
+439302c2274797065223a312c2275726c223a22687474703a2f2f746573742e636f6d227d
 {% endhighlight %}
 
 Result:
@@ -102,17 +101,17 @@ The `gobject prepare` RPC prepares a governance object by signing and creating a
 - n: "`time`"
   t: "int64_t"
   p: "Required<br>(exactly 1)"
-  d: "Create time"
+  d: "Create time (Unix epoch time)"
 
 {% enditemplate %}
 
 *Parameter #4---data*
 
 {% itemplate ntpd1 %}
-- n: "`data`"
+- n: "`data-hex`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "Object data (JSON object with governance details)"
+  d: "**Updated in Dash Core 0.14.0 to require all new proposals to use JSON serialization.**<br><br>Object data (JSON object with governance details). Additional details regarding this are provided in an example below."
 
 {% enditemplate %}
 
@@ -157,21 +156,55 @@ The `gobject prepare` RPC prepares a governance object by signing and creating a
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+**Details of the `data-hex` field:**
+
+The `data-hex` field is comprised of a JSON object as described in [GObject
+Deserialize](#gobject-deserialize) which is serialized to hex.
+
+An example of a proposal JSON object is shown here:
+
+{% highlight json %}
+{
+  "end_epoch": 1560457055,
+  "name": "test",
+  "payment_address": "yd5KMREs3GLMe6mTJYr3YrH1juwNwrFCfB",
+  "payment_amount": 5,
+  "start_epoch": 1560453490,
+  "type": 1,
+  "url": "http://test.com"
+}
+{% endhighlight %}
+
+To serialize the object, first remove all spaces from the JSON object as shown below:
+
+{% highlight json %}
+{"end_epoch":1560457055,"name":"test","payment_address":"yd5KMREs3GLMe6mTJYr3YrH1juwNwrFCfB","payment_amount":5,"start_epoch":1560453490,"type":1,"url":"http://test.com"}
+{% endhighlight %}
+
+Then convert the string to its hex equivalent as shown below. This is what will
+be used for the `data-hex` field of the `gobject prepare` command:
 
 {% highlight bash %}
-dash-cli -testnet gobject prepare 0 1 1509548445 5b5b2270726f706f73616c222c7b22656e645f65706f6\
-368223a313530393638303337392c226e616d65223a22746573742d70726f706f73616c2d646\
-173682d646f6373222c227061796d656e745f61646472657373223a2279554b447a353950745\
-0577348596b56346537424337416263454c72346a52787371222c227061796d656e745f616d6\
-f756e74223a32302c2273746172745f65706f6368223a313530393637363831342c227479706\
-5223a312c2275726c223a2268747470733a2f2f646173682d646f63732e746573742f7465737\
-4227d5d5d
+7b22656e645f65706f6368223a313536303435373035352c226e616d65223a2274657374222c\
+227061796d656e745f61646472657373223a227964354b4d52457333474c4d65366d544a5972\
+33597248316a75774e777246436642222c227061796d656e745f616d6f756e74223a352c2273\
+746172745f65706f6368223a313536303435333439302c2274797065223a312c2275726c223a\
+22687474703a2f2f746573742e636f6d227d
+{% endhighlight %}
+
+*Example from Dash Core 0.14.0*
+
+{% highlight bash %}
+gobject prepare 0 1 1560449223 7b22656e645f65706f6368223a3135363034353730353\
+52c226e616d65223a2274657374222c227061796d656e745f61646472657373223a227964354\
+b4d52457333474c4d65366d544a597233597248316a75774e777246436642222c227061796d6\
+56e745f616d6f756e74223a352c2273746172745f65706f6368223a313536303435333439302\
+c2274797065223a312c2275726c223a22687474703a2f2f746573742e636f6d227d
 {% endhighlight %}
 
 Result (Collateral Transaction ID):
 {% highlight bash %}
-061ec99eb641ffdeaa05a1a724a255103bebc445b15c6c8c028b19c08608496b
+3fd758e7a5761bb07b2850b8ba432ef42c1ea80f0921d2eab0682697dda78262
 {% endhighlight %}
 
 {% endautocrossref %}
@@ -220,20 +253,20 @@ prepare`.
 *Parameter #4---data*
 
 {% itemplate ntpd1 %}
-- n: "`data`"
+- n: "`data-hex`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "Object data (JSON object with governance details)"
+  d: "**Updated in Dash Core 0.14.0 to require all new proposals to use JSON serialization.**<br><br>Object data (JSON object with governance details). See [GObject Prepare](#gobject-prepare) for additional details about this field."
 
 {% enditemplate %}
 
-*Parameter #5---transaction ID*
+*Parameter #5---fee transaction ID*
 
 {% itemplate ntpd1 %}
 - n: "`data`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "Collateral transaction ID"
+  d: "Fee transaction ID - required for all objects except triggers"
 
 {% enditemplate %}
 
@@ -247,21 +280,21 @@ prepare`.
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.14.0*
 
 {% highlight bash %}
-dash-cli -testnet gobject submit 0 1 1509548445 5b5b2270726f706f73616c222c7b22656e645f65706f6\
-368223a313530393638303337392c226e616d65223a22746573742d70726f706f73616c2d646\
-173682d646f6373222c227061796d656e745f61646472657373223a2279554b447a353950745\
-0577348596b56346537424337416263454c72346a52787371222c227061796d656e745f616d6\
-f756e74223a32302c2273746172745f65706f6368223a313530393637363831342c227479706\
-5223a312c2275726c223a2268747470733a2f2f646173682d646f63732e746573742f7465737\
-4227d5d5d 061ec99eb641ffdeaa05a1a724a255103bebc445b15c6c8c028b19c08608496b
+dash-cli -testnet gobject submit 0 1 1560449223 7b22656e645f65706f6368223a3\
+13536303435373035352c226e616d65223a2274657374222c227061796d656e745f61646472\
+657373223a227964354b4d52457333474c4d65366d544a597233597248316a75774e7772464\
+36642222c227061796d656e745f616d6f756e74223a352c2273746172745f65706f6368223a\
+313536303435333439302c2274797065223a312c2275726c223a22687474703a2f2f7465737\
+42e636f6d227d \
+3fd758e7a5761bb07b2850b8ba432ef42c1ea80f0921d2eab0682697dda78262
 {% endhighlight %}
 
 Result (Governance Object Hash):
 {% highlight bash %}
-75e991c86ed5a50305e315e00c9a95fc74841bd97d58391071edc9ff206a0d3c
+e353b2ab5f7e7cb24b95e00e153ec2a6339249672f18b8e8e144aa711678710d
 {% endhighlight %}
 
 {% endautocrossref %}
@@ -276,7 +309,7 @@ The `gobject deserialize` RPC deserializes a governance object from a hex string
 *Parameter #1---object data (hex)*
 
 {% itemplate ntpd1 %}
-- n: "`data-hex`"
+- n: "`hex_data`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
   d: "The data (hex) of a governance object"
@@ -297,11 +330,6 @@ deserialized. Examples are shown below for both proposal and trigger object type
   t: "object"
   p: "Required<br>(exactly 1)"
   d: "Array of governance objects"
-
-- n: "→<br>`proposal`"
-  t: "string (hex)"
-  p: "Required<br>(exactly 1)"
-  d: "Proposal object"
 
 - n: "→ →<br>`end_epoch`"
   t: "string"
@@ -340,35 +368,27 @@ deserialized. Examples are shown below for both proposal and trigger object type
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.14.0*
 
 {% highlight bash %}
-dash-cli -testnet gobject deserialize 5b5b2270726f706f73616c222c7b22656e645f6\
-5706f6368223a2231353037343534383935222c226e616d65223a227465737470726f706f7361\
-6c5f2d5f6162636465666768696a6b6c6d6e6f707172737475767778797a30313233343536373\
-83931353037323635383233222c227061796d656e745f61646472657373223a2279664e68484c\
-4c695936577a5a646a51766137324a64395134313468516578514c68222c227061796d656e745\
-f616d6f756e74223a2232222c2273746172745f65706f6368223a223135303732363538323322\
-2c2274797065223a312c2275726c223a2268747470733a2f2f7777772e6461736863656e74726\
-16c2e6f72672f702f746573745f70726f706f73616c5f31353037323635383233227d5d5d
+dash-cli -testnet gobject deserialize 7b22656e645f65706f6368223a313536303435\
+373035352c226e616d65223a2274657374222c227061796d656e745f61646472657373223a22\
+7964354b4d52457333474c4d65366d544a597233597248316a75774e777246436642222c2270\
+61796d656e745f616d6f756e74223a352c2273746172745f65706f6368223a31353630343533\
+3439302c2274797065223a312c2275726c223a22687474703a2f2f746573742e636f6d227d
 {% endhighlight %}
 
 Result:
 {% highlight json %}
-[
-  [
-    "proposal",
-    {
-      "end_epoch":"1507454895",
-      "name":"testproposal_-_abcdefghijklmnopqrstuvwxyz01234567891507265823",
-      "payment_address":"yfNhHLLiY6WzZdjQva72Jd9Q414hQexQLh",
-      "payment_amount":"2",
-      "start_epoch":"1507265823",
-      "type":1,
-      "url":"https://www.dashcentral.org/p/test_proposal_1507265823"
-    }
-  ]
-]
+{
+  "end_epoch": 1560457055,
+  "name": "test",
+  "payment_address": "yd5KMREs3GLMe6mTJYr3YrH1juwNwrFCfB",
+  "payment_amount": 5,
+  "start_epoch": 1560453490,
+  "type": 1,
+  "url": "http://test.com"
+}
 {% endhighlight %}
 
 <!-- __ -->
@@ -382,11 +402,6 @@ Result:
   t: "object"
   p: "Required<br>(exactly 1)"
   d: "Array of governance objects"
-
-- n: "→<br>`trigger`"
-  t: "string (hex)"
-  p: "Required<br>(exactly 1)"
-  d: "Trigger object"
 
 - n: "→ →<br>`event_block_height`"
   t: "int"
@@ -415,38 +430,27 @@ Result:
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.14.0*
 
 {% highlight bash %}
-dash-cli -testnet gobject deserialize 5b5b2274726967676572222c207b226576656e7\
-45f626c6f636b5f686569676874223a2031383435362c20227061796d656e745f616464726573\
-736573223a20227952465968665a4a4258567a3861696850365a7166714174374245316256644\
-676567c79544c795070554668696768355270787a72695a6362474c5972527836687959455022\
-2c20227061796d656e745f616d6f756e7473223a2022322e31323334353637387c322e3030303\
-030303030222c202270726f706f73616c5f686173686573223a20223632623161336564633938\
-37626432313134636439323263336339376166643039383339353534313862313730316330666\
-131353262616662386131313735667c3138376337353166653631336434386139623331316161\
-34383833383635666166396234336333623931333433333438326636636632343763313835656\
-13037222c202274797065223a20327d5d5d
+dash-cli -testnet gobject deserialize 7b226576656e745f626c6f636b5f68656967687\
+4223a203131393539322c20227061796d656e745f616464726573736573223a20227954686d6e\
+75565a316765516e79776f456147627079333362695435473573587a62222c20227061796d656\
+e745f616d6f756e7473223a2022312e3335393631393331222c202270726f706f73616c5f6861\
+73686573223a20223836333966636464653131626432373032373663396330333564366435346\
+3653962393138323465366466373532636164376464646331616532663734386435222c202274\
+797065223a20327d
 {% endhighlight %}
 
 Result (wrapped):
 {% highlight json %}
-[  
-  [
-    "trigger",
-    {  
-      "event_block_height":18456,
-      "payment_addresses":"yRFYhfZJBXVz8aihP6ZqfqAt7BE1bVdFvV\
-        |yTLyPpUFhigh5RpxzriZcbGLYrRx6hyYEP",
-      "payment_amounts":"2.12345678|2.00000000",
-      "proposal_hashes":"62b1a3edc987bd2114cd922c3c97afd0983955418b1701c0fa\
-        152bafb8a1175f|187c751fe613d48a9b311aa4883865faf9b43c3b913433482f6c\
-        f247c185ea07",
-      "type":2
-    }
-  ]
-]
+{
+  "event_block_height": 119592,
+  "payment_addresses": "yThmnuVZ1geQnywoEaGbpy33biT5G5sXzb",
+  "payment_amounts": "1.35961931",
+  "proposal_hashes": "8639fcdde11bd270276c9c035d6d54ce9b91824e6df752cad7dddc1ae2f748d5",
+  "type": 2
+}
 {% endhighlight %}
 
 {% endautocrossref %}
@@ -511,7 +515,7 @@ The `gobject count` RPC returns the count of governance objects and votes.
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.3 (mode: `json`/default)*
+*Example from Dash Core 0.14.0 (mode: `json`/default)*
 
 {% highlight bash %}
 dash-cli -testnet gobject count
@@ -520,12 +524,12 @@ dash-cli -testnet gobject count
 Result (wrapped):
 {% highlight json %}
 {
-  "objects_total": 177,
-  "proposals": 177,
+  "objects_total": 3,
+  "proposals": 3,
   "triggers": 0,
   "other": 0,
-  "erased": 5,
-  "votes": 9680
+  "erased": 4,
+  "votes": 18
 }
 {% endhighlight %}
 
@@ -542,7 +546,7 @@ Result (wrapped):
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.3 (mode: `all`)*
+*Example from Dash Core 0.14.0 (mode: `all`)*
 
 {% highlight bash %}
 dash-cli -testnet gobject count all
@@ -550,8 +554,8 @@ dash-cli -testnet gobject count all
 
 Result (wrapped):
 {% highlight text %}
-Governance Objects: 177 (Proposals: 177, Triggers: 0, Watchdogs: 0/0, \
-	Other: 0; Erased: 5), Votes: 9680
+Governance Objects: 177 (Proposals: 177, Triggers: 0, Other: 0; Erased: 5), \
+Votes: 9680
 {% endhighlight %}
 
 {% endautocrossref %}
