@@ -395,6 +395,11 @@ NOT IN DASH
   p: "Required<br>(exactly 1)"
   d: "Object creation time as Unix epoch time"
 
+- n: "→ →<br>`SigningMasternode`"
+  t: "string (hex)"
+  p: "Optional<br>(0 or 1)"
+  d: "Signing masternode's vin (only present in triggers)"
+
 - n: "→ →<br>`AbsoluteYesCount`"
   t: "number"
   p: "Required<br>(exactly 1)"
