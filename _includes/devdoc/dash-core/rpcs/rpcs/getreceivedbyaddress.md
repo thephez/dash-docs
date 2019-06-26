@@ -15,6 +15,8 @@ http://opensource.org/licenses/MIT.
 
 *Requires wallet support.*
 
+{{WARNING_ICON}} Note: This RPC only returns a balance for addresses contained in the local wallet.
+
 The `getreceivedbyaddress` RPC {{summary_getReceivedByAddress}}
 
 *Parameter #1---the address*
@@ -23,7 +25,7 @@ The `getreceivedbyaddress` RPC {{summary_getReceivedByAddress}}
 - n: "Address"
   t: "string"
   p: "Required<br>(exactly 1)"
-  d: "The address whose transactions should be tallied"
+  d: "The address whose transactions should be tallied<br><br>Only works for addresses contained in the local wallet"
 
 {% enditemplate %}
 
