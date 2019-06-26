@@ -25,7 +25,7 @@ The `getreceivedbyaddress` RPC {{summary_getReceivedByAddress}}
 - n: "Address"
   t: "string"
   p: "Required<br>(exactly 1)"
-  d: "The address whose transactions should be tallied<br><br>Only works for addresses contained in the local wallet"
+  d: "__Only works for addresses contained in the local wallet__<br><br>The address whose transactions should be tallied"
 
 {% enditemplate %}
 
