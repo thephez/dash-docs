@@ -3800,8 +3800,6 @@ particular set of alert parameters that can be used to notify users that
 the alert signing key has been compromised and that they should upgrade
 to get a new alert public key. Once a signed alert containing those
 parameters has been received, no other alerts can cancel or override it.
-See the `ProcessAlert()` function in the Dash Core [alert.cpp][core
-alert.cpp] source code for the parameters of this message.
 
 {% endautocrossref %}
 
