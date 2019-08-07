@@ -637,26 +637,3 @@ information. If a peer gets a banscore above the `-banscore=<n>` threshold
 
 
 {% endautocrossref %}
-
-### Alerts
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-*Removed in Bitcoin Core 0.13.0. Retained in Dash Core (see [PR1326](https://github.com/dashpay/dash/pull/1326)).*
-
-In case of a bug or attack, the Dash Core developers can issue an alert via the
-Dash network. Alerts will be displayed by the Dash Core UI. Users can also
-check the error field of the `getinfo` RPC results to get currently active
-alerts for their specific version of Dash Core or use the `-alertnotify` command
-line parameter to specify a custom command to execute when an alert is received.
-
-These messages are aggressively broadcast using the `alert` message, being sent
-to each peer upon connect for the duration of the alert. These messages are
-signed by a specific ECDSA private key that only a small number of developers
-control.
-
-**Resource:** More details about the structure of `alert` messages and a
-complete list of message types can be found in the [P2P reference section][section P2P reference].
-
-{% endautocrossref %}
