@@ -605,7 +605,6 @@ information. If a peer gets a banscore above the `-banscore=<n>` threshold
 | Net | Header List Size | 20 | More than `MAX_HEADERS_RESULTS` (2000) headers received (`headers` message)
 | Net | Header List Sequence | 20 | Non-continous headers sequence received (`headers` message)
 | Net | Invalid Block | **Varies** | Invalid block header received from peer
-| Net | Invalid/Expired Alert | 10 | Invalid or expired alert received (`alert` message)
 | Net | Bloom Filter Size | **100** | Maximum script element size (520) exceeded (`filterload` message or `filteradd` message)
 | Net | MN List Diff | 1 | Failed to get masternode list diff (`getmnlistd` message)
 | Net | Unrequested MN List Diff | **100** | Peer provided an unrequested masternode list diff (`mnlistdiff` message)
