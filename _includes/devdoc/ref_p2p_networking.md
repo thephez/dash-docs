@@ -1959,71 +1959,6 @@ a11e5e7930deccc3e11a931fc9524f06 ........... LLMQ BLS Signature (96 bytes)
 
 {% endautocrossref %}
 
-#### ix
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-The `ix` message (transaction lock request) has the same structure as the `tx` message.
-The masternode network responds with `txlvote` messages if the transaction inputs
-can be locked.
-
-{% endautocrossref %}
-
-
-#### txlvote
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-The `txlvote` message ([transaction lock vote][msg_txlock_vote])
-is sent by masternodes to indicate approval of a transaction lock request
-`ix` message.
-
-| Bytes | Name | Data type | Required | Description |
-| ---------- | ----------- | --------- | -------- | -------- |
-| 32 | txHash | uint256 | Required | TXID of the transaction to lock
-| 36 | outPoint | outpoint | Required | The unspent outpoint to lock in this transaction
-| 36 | outpointMasternode | outpoint | Required | The outpoint of the masternode which is signing the vote
-| 32 | quorumModifierHash | uint256 | Required | *Added in protocol version 70213. Only present when Spork 15 is active.*<br><br>
-| 32 | masternodeProTxHash | uint256 | Required | *Added in protocol version 70213. Only present when Spork 15 is active.*<br><br>The proTxHash of the DIP3 masternode which is signing the vote
-| 96 | vchMasternodeSignature | char[] | Required | Masternode BLS signature
-
-The following annotated hexdump shows a `txlvote` message. (The
-message header has been omitted.)
-
-{% highlight text %}
-84a27bb879f316482598fe65b0b51544
-e85490d85fc36af1c293e186da373c02 ..... TXID
-
-Outpoint to lock
-| 4c1e6318bab4f9284d3bc0e49ec7fe76
-| 1e9c914b8ea0bcac4563005daa451221 ... Outpoint TXID
-| 00000000 ........................... Outpoint index number: 0
-
-Masternode Outpoint
-| 5d02f07c7318411e41fdd4be9f1e5ece
-| 16d680cfe318306087edc8fb205e507b ... Outpoint TXID
-| 01000000 ........................... Outpoint index number: 1
-
-b62cb5007704d2db8595d5b31cfb7cb0
-8d7e530c16a7597e1db4430a00000000 ..... Quorum Modifier hash
-
-569abbea4ab45f36dd059c44f1dc0804
-f3f13071379c2f418d3637fb548c4159 ..... Masternode ProRegTx hash
-
-60 ................................... Signature length: 96
-
-0b0b97ec14fbc1f12566c3a90ed113e4
-e9c5ee6cdcf2fe2171e4b5f387286146
-a0632a250d64ea507ce5e1d1f1983aae
-0b70e568ad2856a0cc13008001c6d0f3
-5bdeb380f6aba0c54663a3b5e2d86d44
-305c2e5d855c72588ffb0e8e2a36482c ..... Masternode BLS Signature
-{% endhighlight %}
-
-{% endautocrossref %}
-
 
 ### PrivateSend Messages
 {% include helpers/subhead-links.md %}
@@ -3912,6 +3847,71 @@ Masternode Unspent Outpoint
 | 7fe33a2901aa654598ae0af572d4fbec
 | ee97af2d0276f189d177dee5848ef3da ......... Outpoint TXID
 | 00000000 ................................. Outpoint index number: 0
+{% endhighlight %}
+
+{% endautocrossref %}
+
+#### ix
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `ix` message (transaction lock request) has the same structure as the `tx` message.
+The masternode network responds with `txlvote` messages if the transaction inputs
+can be locked.
+
+{% endautocrossref %}
+
+
+#### txlvote
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+The `txlvote` message ([transaction lock vote][msg_txlock_vote])
+is sent by masternodes to indicate approval of a transaction lock request
+`ix` message.
+
+| Bytes | Name | Data type | Required | Description |
+| ---------- | ----------- | --------- | -------- | -------- |
+| 32 | txHash | uint256 | Required | TXID of the transaction to lock
+| 36 | outPoint | outpoint | Required | The unspent outpoint to lock in this transaction
+| 36 | outpointMasternode | outpoint | Required | The outpoint of the masternode which is signing the vote
+| 32 | quorumModifierHash | uint256 | Required | *Added in protocol version 70213. Only present when Spork 15 is active.*<br><br>
+| 32 | masternodeProTxHash | uint256 | Required | *Added in protocol version 70213. Only present when Spork 15 is active.*<br><br>The proTxHash of the DIP3 masternode which is signing the vote
+| 96 | vchMasternodeSignature | char[] | Required | Masternode BLS signature
+
+The following annotated hexdump shows a `txlvote` message. (The
+message header has been omitted.)
+
+{% highlight text %}
+84a27bb879f316482598fe65b0b51544
+e85490d85fc36af1c293e186da373c02 ..... TXID
+
+Outpoint to lock
+| 4c1e6318bab4f9284d3bc0e49ec7fe76
+| 1e9c914b8ea0bcac4563005daa451221 ... Outpoint TXID
+| 00000000 ........................... Outpoint index number: 0
+
+Masternode Outpoint
+| 5d02f07c7318411e41fdd4be9f1e5ece
+| 16d680cfe318306087edc8fb205e507b ... Outpoint TXID
+| 01000000 ........................... Outpoint index number: 1
+
+b62cb5007704d2db8595d5b31cfb7cb0
+8d7e530c16a7597e1db4430a00000000 ..... Quorum Modifier hash
+
+569abbea4ab45f36dd059c44f1dc0804
+f3f13071379c2f418d3637fb548c4159 ..... Masternode ProRegTx hash
+
+60 ................................... Signature length: 96
+
+0b0b97ec14fbc1f12566c3a90ed113e4
+e9c5ee6cdcf2fe2171e4b5f387286146
+a0632a250d64ea507ce5e1d1f1983aae
+0b70e568ad2856a0cc13008001c6d0f3
+5bdeb380f6aba0c54663a3b5e2d86d44
+305c2e5d855c72588ffb0e8e2a36482c ..... Masternode BLS Signature
 {% endhighlight %}
 
 {% endautocrossref %}
