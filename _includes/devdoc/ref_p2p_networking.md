@@ -3702,8 +3702,10 @@ The following network messages have been deprecated and should no longer be used
 
 {% autocrossref %}
 
+![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.14.1
+
 *Added in protocol version 311.*
-*Removed by Bitcoin in protocol version 70013, but retained by Dash.*
+*Removed by Bitcoin in protocol version 70013, but retained by Dash until 0.14.1.*
 
 The `alert` message warns nodes of problems that may affect them or the
 rest of the network. Each `alert` message is signed using a key controlled
@@ -3856,6 +3858,8 @@ Masternode Unspent Outpoint
 
 {% autocrossref %}
 
+![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.14.1
+
 The `ix` message (transaction lock request) has the same structure as the `tx` message.
 The masternode network responds with `txlvote` messages if the transaction inputs
 can be locked.
@@ -3867,6 +3871,8 @@ can be locked.
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
+
+![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.14.1
 
 The `txlvote` message ([transaction lock vote][msg_txlock_vote])
 is sent by masternodes to indicate approval of a transaction lock request
