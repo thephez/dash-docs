@@ -159,8 +159,7 @@ The currently-available type identifiers are:
 | 1               | [`MSG_TX`][msg_tx]{:#term-msg_tx}{:.term}                                     | The hash is a TXID.
 | 2               | [`MSG_BLOCK`][msg_block]{:#term-msg_block}{:.term}                            | The hash is of a block header.
 | 3               | [`MSG_FILTERED_BLOCK`][msg_filtered_block]{:#term-msg_filtered_block}{:.term} | The hash is of a block header; identical to `MSG_BLOCK`. When used in a `getdata` message, this indicates the response should be a `merkleblock` message rather than a `block` message (but this only works if a bloom filter was previously configured).  **Only for use in `getdata` messages.**
-| 4               | [`MSG_TXLOCK_REQUEST`][msg_txlock_request]{:#term-msg_txlock_request}{:.term} | The hash is an Instant Send transaction lock request.
-| 5               | [`MSG_TXLOCK_VOTE`][msg_txlock_vote]{:#term-msg_txlock_vote}{:.term}          | The hash is an Instant Send transaction vote.
+| 4               | [`MSG_LEGACY_TXLOCK_REQUEST`][msg_txlock_request]{:#term-msg_txlock_request}{:.term} | `MSG_TXLOCK_REQUEST` prior to Dash Core 0.14.1. The hash is an Instant Send transaction lock request. Transactions received this way are automatically converted to a standard `tx` message as of Dash Core 0.14.1.
 | 6               | [`MSG_SPORK`][msg_spork]{:#term-msg_spork}{:.term}                            | The hash is Spork ID.
 | 16               | [`MSG_DSTX`][msg_dstx]{:#term-msg_dstx}{:.term}                              | The hash is Private Send (Dark Send) Broadcast TX.
 | 17               | [`MSG_GOVERNANCE_OBJECT`][msg_governance_object]{:#term-msg_governance_object}{:.term}                                     | The hash is a Governance Object.
@@ -179,6 +178,7 @@ The deprecated type identifiers are:
 
 | Type Identifier | Name                                                                          | Description
 |-----------------|-------------------------------------------------------------------------------|---------------
+| 5               | [`MSG_TXLOCK_VOTE`][msg_txlock_vote]{:#term-msg_txlock_vote}{:.term}          | **Deprecated in 0.14.1**<br><br>The hash is an Instant Send transaction vote.
 | 7               | [`MSG_MASTERNODE_PAYMENT_VOTE`][msg_masternode_payment_vote]{:#term-msg_masternode_payment_vote}{:.term}                                     | **Deprecated in 0.14.0**<br><br>The hash is a Masternode Payment Vote.
 | 8               | [`MSG_MASTERNODE_PAYMENT_BLOCK`][msg_masternode_payment_block]{:#term-msg_masternode_payment_block}{:.term}                                     | **Deprecated in 0.14.0**<br><br>The hash is a Masternode Payment Block.
 | 8               | `MSG_MASTERNODE_SCANNING_ERROR`                                             | Replaced by `MSG_MASTERNODE_PAYMENT_BLOCK`
@@ -1127,113 +1127,6 @@ d91f4854 ........................... Epoch time: 1414012889
 {% endautocrossref %}
 
 
-#### Alert
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-*Added in protocol version 311.*
-*Removed by Bitcoin in protocol version 70013, but retained by Dash.*
-
-The `alert` message warns nodes of problems that may affect them or the
-rest of the network. Each `alert` message is signed using a key controlled
-by respected community members, mostly Dash Core developers.
-
-To ensure all nodes can validate and forward `alert` messages,
-encapsulation is used. Developers create an alert using the data
-structure appropriate for the versions of the software they want to
-notify; then they serialize that data and sign it. The serialized data
-and its signature make up the outer `alert` message---allowing nodes
-which don't understand the data structure to validate the signature and
-relay the alert to nodes which do understand it. The nodes which
-actually need the message can decode the serialized data to access the
-inner `alert` message.
-
-The outer `alert` message has four fields:
-
-| Bytes       | Name            | Data Type        | Description
-|-------------|-----------------|------------------|-------------
-| *Variable*  | alert bytes     | compactSize uint | The number of bytes in following alert field.
-| *Variable*  | alert           | uchar            | The serialized alert.  See below for a description of the current alert format.
-| *Variable*  | signature bytes | compactSize uint | The number of bytes in the following signature field.
-| *Variable*  | signature       | uchar            | A DER-encoded ECDSA (secp256k1) signature of the alert signed with the developer's alert key.
-
-Although designed to be easily upgraded, the format of the inner
-serialized alert has not changed since the `alert` message was first
-introduced in protocol version 311.
-
-| Bytes    | Name              | Data Type                 | Description
-|----------|-------------------|---------------------------|-------------
-| 4        | version           | int32_t                   | Alert format version.  Version 1 from protocol version 311 through at least protocol version 70002.
-| 8        | relayUntil        | int64_t                   | The time beyond which nodes should stop relaying this alert.  Unix epoch time format.
-| 8        | expiration        | int64_t                   | The time beyond which this alert is no longer in effect and should be ignored.  Unix epoch time format.
-| 4        | ID                | int32_t                   | A unique ID number for this alert.
-| 4        | cancel            | int32_t                   | All alerts with an ID number less than or equal to this number should be canceled: deleted and not accepted in the future.
-| *Varies* | setCancel count   | compactSize uint          | The number of IDs in the following setCancel field.  May be zero.
-| *Varies* | setCancel         | int32_t                   | Alert IDs which should be canceled.  Each alert ID is a separate int32_t number.
-| 4        | minVer            | int32_t                   | This alert only applies to protocol versions greater than or equal to this version. Nodes running other protocol versions should still relay it.
-| 4        | maxVer            | int32_t                   | This alert only applies to protocol versions less than or equal to this version. Nodes running other protocol versions should still relay it.
-| *Varies* | user\_agent count | compactSize uint          | The number of user agent strings in the following setUser\_agent field.  May be zero.
-| *Varies* | setUser\_agent    | compactSize uint + string | If this field is empty, it has no effect on the alert.  If there is at least one entry is this field, this alert only applies to programs with a user agent that exactly matches one of the strings in this field.  Each entry in this field is a compactSize uint followed by a string---the uint indicates how many bytes are in the following string.  This field was originally called setSubVer; since BIP14, it applies to user agent strings as defined in the `version` message.
-| 4        | priority          | int32_t                   | Relative priority compared to other alerts.
-| *Varies* | comment bytes     | compactSize uint          | The number of bytes in the following comment field.  May be zero.
-| *Varies* | comment           | string                    | A comment on the alert that is not displayed.
-| *Varies* | statusBar bytes   | compactSize uint          | The number of bytes in the following statusBar field.  May be zero.
-| *Varies* | statusBar         | string                    | The alert message that is displayed to the user.
-| *Varies* | reserved bytes    | compactSize uint          | The number of bytes in the following reserved field.  May be zero.
-| *Varies* | reserved          | string                    | Reserved for future use.  Originally called RPC Error.  
-
-The annotated hexdump below shows an `alert` message. (The message
-header has been omitted.)
-
-<!-- example below from Bitcoin Wiki but it's a network capture so I
-(@harding) don't think it is subject to the wiki's copyright license; I
-think it's public domain. TODO: replace with a more recent
-alert the next time one is live on the network. -->
-
-{% highlight text %}
-73 ................................. Bytes in encapsulated alert: 115
-01000000 ........................... Version: 1
-3766404f00000000 ................... RelayUntil: 1329620535
-b305434f00000000 ................... Expiration: 1330917376
-
-f2030000 ........................... ID: 1010
-f1030000 ........................... Cancel: 1009
-00 ................................. setCancel count: 0
-
-10270000 ........................... MinVer: 10000
-48ee0000 ........................... MaxVer: 61000
-00 ................................. setUser_agent bytes: 0
-64000000 ........................... Priority: 100
-
-00 ................................. Bytes In Comment String: 0
-46 ................................. Bytes in StatusBar String: 70
-53656520626974636f696e2e6f72672f
-666562323020696620796f7520686176
-652074726f75626c6520636f6e6e6563
-74696e67206166746572203230204665
-627275617279 ....................... Status Bar String: "See [...]"
-00 ................................. Bytes In Reserved String: 0
-
-47 ................................. Bytes in signature: 71
-30450221008389df45f0703f39ec8c1c
-c42c13810ffcae14995bb648340219e3
-53b63b53eb022009ec65e1c1aaeec1fd
-334c6b684bde2b3f573060d5b70c3a46
-723326e4e8a4f1 ..................... Signature
-{% endhighlight %}
-
-**Alert key compromise:** Dash Core's source code defines a
-particular set of alert parameters that can be used to notify users that
-the alert signing key has been compromised and that they should upgrade
-to get a new alert public key. Once a signed alert containing those
-parameters has been received, no other alerts can cancel or override it.
-See the `ProcessAlert()` function in the Dash Core [alert.cpp][core
-alert.cpp] source code for the parameters of this message.
-
-{% endautocrossref %}
-
-
 #### FilterAdd
 {% include helpers/subhead-links.md %}
 
@@ -2062,71 +1955,6 @@ e2e1c797576d8b13c83e929684b9aacd
 197e450fba1196d652f2e1421d3b80ae
 f429c10eabd4ab9289e9a8f80f6989b7
 a11e5e7930deccc3e11a931fc9524f06 ........... LLMQ BLS Signature (96 bytes)
-{% endhighlight %}
-
-{% endautocrossref %}
-
-#### ix
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-The `ix` message (transaction lock request) has the same structure as the `tx` message.
-The masternode network responds with `txlvote` messages if the transaction inputs
-can be locked.
-
-{% endautocrossref %}
-
-
-#### txlvote
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-The `txlvote` message ([transaction lock vote][msg_txlock_vote])
-is sent by masternodes to indicate approval of a transaction lock request
-`ix` message.
-
-| Bytes | Name | Data type | Required | Description |
-| ---------- | ----------- | --------- | -------- | -------- |
-| 32 | txHash | uint256 | Required | TXID of the transaction to lock
-| 36 | outPoint | outpoint | Required | The unspent outpoint to lock in this transaction
-| 36 | outpointMasternode | outpoint | Required | The outpoint of the masternode which is signing the vote
-| 32 | quorumModifierHash | uint256 | Required | *Added in protocol version 70213. Only present when Spork 15 is active.*<br><br>
-| 32 | masternodeProTxHash | uint256 | Required | *Added in protocol version 70213. Only present when Spork 15 is active.*<br><br>The proTxHash of the DIP3 masternode which is signing the vote
-| 96 | vchMasternodeSignature | char[] | Required | Masternode BLS signature
-
-The following annotated hexdump shows a `txlvote` message. (The
-message header has been omitted.)
-
-{% highlight text %}
-84a27bb879f316482598fe65b0b51544
-e85490d85fc36af1c293e186da373c02 ..... TXID
-
-Outpoint to lock
-| 4c1e6318bab4f9284d3bc0e49ec7fe76
-| 1e9c914b8ea0bcac4563005daa451221 ... Outpoint TXID
-| 00000000 ........................... Outpoint index number: 0
-
-Masternode Outpoint
-| 5d02f07c7318411e41fdd4be9f1e5ece
-| 16d680cfe318306087edc8fb205e507b ... Outpoint TXID
-| 01000000 ........................... Outpoint index number: 1
-
-b62cb5007704d2db8595d5b31cfb7cb0
-8d7e530c16a7597e1db4430a00000000 ..... Quorum Modifier hash
-
-569abbea4ab45f36dd059c44f1dc0804
-f3f13071379c2f418d3637fb548c4159 ..... Masternode ProRegTx hash
-
-60 ................................... Signature length: 96
-
-0b0b97ec14fbc1f12566c3a90ed113e4
-e9c5ee6cdcf2fe2171e4b5f387286146
-a0632a250d64ea507ce5e1d1f1983aae
-0b70e568ad2856a0cc13008001c6d0f3
-5bdeb380f6aba0c54663a3b5e2d86d44
-305c2e5d855c72588ffb0e8e2a36482c ..... Masternode BLS Signature
 {% endhighlight %}
 
 {% endautocrossref %}
@@ -3869,462 +3697,177 @@ The following network messages have been deprecated and should no longer be used
 
 {% endautocrossref %}
 
-#### dseg
+#### Alert
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
 
-![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.14.0
+![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.14.1
 
-The `dseg` message requests either the entire masternode list or a specific
-entry. To request the list of all masternodes, use an empty txIn (TXID of all
-zeros and an index of 0xFFFFFFFF).  To request information about a specific
-masternode, use the unspent outpoint associated with that masternode.
+*Added in protocol version 311.*
+*Removed by Bitcoin in protocol version 70013, but retained by Dash until 0.14.1.*
 
-The response to a `dseg` message is an `mnb` message inventory and an
-`mnp` message inventory for each requested masternode. Masternodes ignore this
-request if they are not fully synced.
+The `alert` message warns nodes of problems that may affect them or the
+rest of the network. Each `alert` message is signed using a key controlled
+by respected community members, mostly Dash Core developers.
 
-| Bytes | Name | Data type | Required | Description |
-| ---------- | ----------- | --------- | -------- | -------- |
-| 36 | masternodeOutPoint | outPoint | Required | Request options:<br>`All Entries` - empty txIn<br>`Single Entry` - Masternode's unspent outpoint which is holding 1000 DASH
+To ensure all nodes can validate and forward `alert` messages,
+encapsulation is used. Developers create an alert using the data
+structure appropriate for the versions of the software they want to
+notify; then they serialize that data and sign it. The serialized data
+and its signature make up the outer `alert` message---allowing nodes
+which don't understand the data structure to validate the signature and
+relay the alert to nodes which do understand it. The nodes which
+actually need the message can decode the serialized data to access the
+inner `alert` message.
 
+The outer `alert` message has four fields:
 
-{% highlight text %}
-Note: Dash Core only allows nodes to request the entire list every 3 hours.
-Additional requests sent prior to then may result in the node being banned.
-{% endhighlight %}
+| Bytes       | Name            | Data Type        | Description
+|-------------|-----------------|------------------|-------------
+| *Variable*  | alert bytes     | compactSize uint | The number of bytes in following alert field.
+| *Variable*  | alert           | uchar            | The serialized alert.  See below for a description of the current alert format.
+| *Variable*  | signature bytes | compactSize uint | The number of bytes in the following signature field.
+| *Variable*  | signature       | uchar            | A DER-encoded ECDSA (secp256k1) signature of the alert signed with the developer's alert key.
 
-The following annotated hexdump shows a `dseg` message requesting **all**
-masternodes. (The message header has been omitted.)
+Although designed to be easily upgraded, the format of the inner
+serialized alert has not changed since the `alert` message was first
+introduced in protocol version 311.
 
-{% highlight text %}
-Masternode Unspent Outpoint
-| 00000000000000000000000000000000
-| 00000000000000000000000000000000 ......... Outpoint TXID
-| ffffffff ................................. Outpoint index number: 0
-{% endhighlight %}
+| Bytes    | Name              | Data Type                 | Description
+|----------|-------------------|---------------------------|-------------
+| 4        | version           | int32_t                   | Alert format version.  Version 1 from protocol version 311 through at least protocol version 70002.
+| 8        | relayUntil        | int64_t                   | The time beyond which nodes should stop relaying this alert.  Unix epoch time format.
+| 8        | expiration        | int64_t                   | The time beyond which this alert is no longer in effect and should be ignored.  Unix epoch time format.
+| 4        | ID                | int32_t                   | A unique ID number for this alert.
+| 4        | cancel            | int32_t                   | All alerts with an ID number less than or equal to this number should be canceled: deleted and not accepted in the future.
+| *Varies* | setCancel count   | compactSize uint          | The number of IDs in the following setCancel field.  May be zero.
+| *Varies* | setCancel         | int32_t                   | Alert IDs which should be canceled.  Each alert ID is a separate int32_t number.
+| 4        | minVer            | int32_t                   | This alert only applies to protocol versions greater than or equal to this version. Nodes running other protocol versions should still relay it.
+| 4        | maxVer            | int32_t                   | This alert only applies to protocol versions less than or equal to this version. Nodes running other protocol versions should still relay it.
+| *Varies* | user\_agent count | compactSize uint          | The number of user agent strings in the following setUser\_agent field.  May be zero.
+| *Varies* | setUser\_agent    | compactSize uint + string | If this field is empty, it has no effect on the alert.  If there is at least one entry is this field, this alert only applies to programs with a user agent that exactly matches one of the strings in this field.  Each entry in this field is a compactSize uint followed by a string---the uint indicates how many bytes are in the following string.  This field was originally called setSubVer; since BIP14, it applies to user agent strings as defined in the `version` message.
+| 4        | priority          | int32_t                   | Relative priority compared to other alerts.
+| *Varies* | comment bytes     | compactSize uint          | The number of bytes in the following comment field.  May be zero.
+| *Varies* | comment           | string                    | A comment on the alert that is not displayed.
+| *Varies* | statusBar bytes   | compactSize uint          | The number of bytes in the following statusBar field.  May be zero.
+| *Varies* | statusBar         | string                    | The alert message that is displayed to the user.
+| *Varies* | reserved bytes    | compactSize uint          | The number of bytes in the following reserved field.  May be zero.
+| *Varies* | reserved          | string                    | Reserved for future use.  Originally called RPC Error.  
 
-The following annotated hexdump shows a `dseg` message requesting a specific
-masternode. (The message header has been omitted.)
-
-{% highlight text %}
-Masternode Unspent Outpoint
-| 7fe33a2901aa654598ae0af572d4fbec
-| ee97af2d0276f189d177dee5848ef3da ......... Outpoint TXID
-| 00000000 ................................. Outpoint index number: 0
-{% endhighlight %}
-
-{% endautocrossref %}
-
-#### mnb
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.14.0
-
-The `mnb` message is sent whenever a masternode comes online or a client is
-syncing.  The masternode will send this message which describes the masternode
-entry and how to validate messages from it.
-
-| Bytes | Name | Data type | Required | Description |
-| ---------- | ----------- | --------- | -------- | -------- |
-| 36 | outPoint | outPoint | Required | The unspent outpoint of the masternode (holding 1000 DASH) which is signing the message
-| # | addr | CService | Required | IPv4 address of the masternode
-| 33-65 | pubKeyCollateralAddress | CPubKey | Required | CPubKey of the main 1000 DASH unspent outpoint. Length determined by if it is a compressed public key or not.
-| 33-65 | pubKeyMasternode | CPubKey | Required | CPubKey of the secondary signing key (For all messaging other than the announce message). Length determined by if it is a compressed public key or not.
-| 66 | sig | char[] | Required | Signature of this message verifiable via pubKeyMasternode (Length (1 byte) + Signature (65 bytes))
-| 8 | sigTime | int64_t | Required | Time which the signature was created
-| 4 | nProtocolVersion | int | Required | The protocol version of the masternode
-| # | lastPing | `mnp` message | Required | The last known ping of the masternode
-| 8 | nLastDsq | int64_t | Deprecated | **Removed in Dash Core 0.12.3.0**<br><br>The last time the masternode sent a `dsq` message (for mixing) (DEPRECATED)
-
-The following annotated hexdump shows a `mnb` message. (The
-message header has been omitted and the actual IP address has been replaced
-with a RFC5737 reserved IP address.)
-
-{% highlight text %}
-Masternode Unspent Outpoint
-| 3fbc7d4a8f68ba6ecb02a8db34d1f5b6
-| 2dc105f0b5c3505243435cf815d02394 ......... Outpoint TXID
-| 01000000 ................................. Outpoint index number: 1
-
-Masternode Address
-| 00000000000000000000ffffc0000233 ......... IP Address: ::ffff:192.0.2.51
-| 270f ..................................... Port: 9999
-
-Collateral Public Key
-| 21 ....................................... Key Size: 33
-| 02 ....................................... Key Type: 2 - Compressed (even)
-| 02a47a6845936a4199e126d35399dd09
-| 97c1aaf89a3fe70d474c53f29624a43a5b ....... Public Key
-
-Masternode Public Key
-| 41 ....................................... Key Size: 65
-| 04 ....................................... Key Type: 4 - Uncompressed
-| 04da252243305d604cab90480880af4a
-| b5cea3a934c91393452e9b7b4c97a87e
-| 198bc809916ac2c27436a1db9c28d0aa
-| bfefec4dc3c2193835fd9a56c31150c633 ....... Public Key
-
-Message Signature
-| 41 ....................................... Bytes in signature: 65
-| 1fb80f9ba8c110835e4a7dd4c8deccd7
-| 89027663d00084d9a99ef579a9b5601f
-| 40727b27e91aab2897a078f63976ae25
-| 3ff8f01e56862e953278f432530f6ee080 ....... Signature
-
-4728ef5800000000 ........................... Sig. Timestamp: 2017-04-13 07:27:03 UTC
-
-3e120100 ................................... Protocol Version: 70206
-
-Masternode Ping Message
-| Masternode Unspent Outpoint
-| | 3fbc7d4a8f68ba6ecb02a8db34d1f5b6
-| | 2dc105f0b5c3505243435cf815d02394 ........ Outpoint TXID
-| | 01000000 ................................ Outpoint index number: 1
-|
-| 94fc0fad18b166c2fedf1a5dc0511372
-| 26c353d57e086737ff05000000000000 ......... Chaintip block hash
-|
-| 66c1a95900000000 ......................... Sig. Timestamp: 2017-10-01 21:21:58 UTC
-|
-| Masternode Signature
-| | 41 ..................................... Bytes in signature: 65
-| | 1b3017c49a03e2d77083f3c92a8c2e4c
-| | d815d068b6256498a719e3cb6a34f774
-| | ec6434cfcbb7a5a51704350a05903287
-| | eecc82e6b40ac2fcfa2df29ddaa6c4fc
-| | b8 ..................................... Masternode Signature
-{% endhighlight %}
-
-{% endautocrossref %}
-
-#### mnget
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.14.0
-
-The `mnget` message requests masternode payment sync. The response to an
-`mnget` message is `mnw` message inventories. Masternodes ignore this request if
-they are not fully synced.
-
-{% highlight text %}
-Note: Dash Core limits how frequently a masternode payment sync can be
-requested. Frequent requests will result in the node being banned.
-{% endhighlight %}
-
-There is no payload in a `mnget` message.  See the [message header
-section][section message header] for an example of a message without a payload.
-
-![Warning icon](/img/icons/icon_warning.svg) **The following information is provided for historical reference only.**
-
-In protocol versions <=70208, the `mnget` message has a payload consisting of an
-integer value requesting a specific number of payment votes. In protocol versions
->70208, the `mnget` message has no payload.
-
-| Bytes | Name | Data type | Required | Description |
-| ---------- | ----------- | --------- | -------- | -------- |
-| 4 | nMnCount | int | Deprecated | _Deprecated in Dash Core 0.12.3_<br><br>Number of masternode payment votes to request
-
-The following annotated hexdump shows a pre-0.12.3 `mnget` message. (The
-message header has been omitted.)
-
-{% highlight text %}
-a8170000 ................................... Count: 6056
-{% endhighlight %}
-
-{% endautocrossref %}
-
-#### mnp
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.14.0
-
-The `mnp` message is sent by masternodes every few minutes to ping the network
-with a message that propagates across the whole network. Dash Core currently
-uses a minimum masternode ping time of 10 minutes.
-
-| Bytes | Name | Data type | Required | Description |
-| ---------- | ----------- | --------- | -------- | -------- |
-| 36 | masternodeOutPoint | outPoint | Required | The unspent outpoint of the masternode (holding 1000 DASH) which is signing the message
-| 32 | blockHash | uint256 | Required | Block hash from 12 blocks ago (current chaintip minus 12). This offset allows nodes to be slightly out of sync.
-| 8 | sigTime | int64_t | Required | Time which the signature was created
-| 66* | vchSig | char[] | Required | Signature of this message by masternode - verifiable via pubKeyMasternode (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
-| 1 | fSentinelIsCurrent | bool | Required | True if last sentinel ping was current
-| 4 | nSentinelVersion | uint32_t | Required | The version of Sentinel running on the masternode which is signing the message
-| 4 | nDaemonVersion | uint32_t | Required | The version of dashd on the masternode which is signing the message (i.e. CLIENT_VERSION)
-
-The following annotated hexdump shows a `mnp` message. (The
-message header has been omitted.)
-
-{% highlight text %}
-Masternode Unspent Outpoint
-| ce12d7f32945c9544c5aeb0dcf131174
-| a6269b64b40f9461595e26689b573c58 ......... Outpoint TXID
-| 00000000 ................................. Outpoint index number: 0
-
-6c7da9d9eae78644a3406eac8ed0be3b
-f15eb4bc369acc95b106f37400000000 ........... Chaintip block hash
-
-3c84025a00000000 ........................... Sig. Timestamp: 2017-11-08 04:12:44 UTC
-
-Masternode Signature
-| 41 ....................................... Bytes in signature: 65
-| 1c7572842058a2075b8a996c3905e306
-| 27a581a0b0702842ac4088e6c1a61b22
-| 8e79a4d8aed0f413150f976045f256ef
-| 2727e68a36622efcabfd60a554533b8c
-| 6f ....................................... Masternode Signature
-
-01 ......................................... Sentinel Current: true
-02000100 ................................... Sentinel Version (1.0.2)
-ecd50100 ................................... Dashd Deamon Version (12.3.0)
-{% endhighlight %}
-
-{% endautocrossref %}
-
-#### mnv
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.14.0
-
-The `mnv` message is used by masternodes to verify each other. Several `mnv`
-messages are exchanged in the process. This results in the IP address of
-masternode 1 being validated as of the provided block height.
-
-| Bytes | Name | Data type | Required | Description |
-| ---------- | ----------- | --------- | -------- | -------- |
-| 36 | masternodeOutPoint1 | outPoint | Required | The unspent outpoint which is holding 1000 DASH for masternode 1
-| 36 | masternodeOutPoint2 | outPoint | Required | The unspent outpoint which is holding 1000 DASH for masternode 2
-| # | addr | CService | Required | IPv4 address and port of masternode 1
-| 4 | nonce | int | Required | Random nonce
-| 4 | nBlockHeight | int | Required | Block height
-| 66 | vchSig1 | char[] | Required*<br><br>Added in Step 2 | Signature of this message by masternode 1 - verifiable via pubKeyMasternode (Length (1 byte) + Signature (65 bytes))<br><br>
-| 66 | vchSig2 | char[] | Required*<br><br>Added in Step 3 | Signature of this message by masternode 2 - verifiable via pubKeyMasternode (Length (1 byte) + Signature (65 bytes))<br><br>
-
-Initially, `vin1`, `vin2`, `vchSig1` and `vchSig2` are empty. They are
-updated as the exchange of messages between the masternodes occurs as detailed
-in the table below.
-
-*Masternode Verify Data Flow*
-
-| Step  | **MN 2 (Verifier)** | **Direction**  | **MN 1 (Being verified)**   | **Description** |
-|   | **Verification request** | |                   | **`mnv` message with no signatures** |
-| 1 | `mnv` message    | → |                   | Contains `addr`, `nonce`, and `nBlockHeight`.<br>Sent by _SendVerifyRequest()_.
-| 2 |                  | ← | `mnv` message     | Add `vchSig1` (signature of the IP address + nonce + hash of the requested block).<br>Sent by _SendVerifyReply()_.
-| 3 | `mnv` message    | → |                   | Verify `vchSig1` <br><br>Add `masternodeOutPoint1`, `masternodeOutPoint2`, and `vchSig2` (signature of the IP address + nonce + hash of the requested block + `masternodeOutPoint1` + `masternodeOutPoint2`) and relay message to peers if valid.<br>Sent by _ProcessVerifyReply()_.
-
-Nodes receiving a relayed `mnv` message (one in which `masternodeOutPoint1`, `masternodeOutPoint2`, `vchSig1`
-and `vchSig2` are already present) use it to update the PoSe ban score. If the
-ban score reaches `MASTERNODE_POSE_BAN_MAX_SCORE` (5), the masternode will be
-considered malicious and banned. If the received message is valid, nodes
-receiving it will relay it on to their connected peers.
-
-{% highlight text %}
-Important Notes:
-* Dash Core limits how frequently a masternode verify request can be
-  requested. Frequent requests will result in the node being banned.
-
-* Only masternodes in the top `MAX_POSE_RANK` (10) can send an `mnv` request
-  (to no more than `MAX_POSE_CONNECTIONS` (10)).
-
-{% endhighlight %}
-
-<!-- Need example from Wireshark -->
-The following annotated hexdump shows a `mnv` message. This is an example of the
-initial request (Step 1) so it does not contain any signatures. (The message
+The annotated hexdump below shows an `alert` message. (The message
 header has been omitted.)
 
-{% highlight text %}
-Masternode 1 Unspent Outpoint (empty)
-| 00000000000000000000000000000000
-| 00000000000000000000000000000000 ......... Outpoint TXID
-| ffffffff ................................. Outpoint index number: 0
-
-Masternode 2 Unspent Outpoint (empty)
-| 00000000000000000000000000000000
-| 00000000000000000000000000000000 ......... Outpoint TXID
-| ffffffff ................................. Outpoint index number: 0
-
-00000000000000000000ffff2d20ed4c ........... IP Address: ::ffff:45.32.237.76
-4e1f ....................................... Port: 19999
-9d090000 ................................... Nonce: 2641
-ed5c0000 ................................... Block height: 23789
-
-Masternode 1 Signature
-| 00 ....................................... Bytes in signature: 0
-| .......................................... Signature: Empty
-
-Masternode 2 Signature
-| 00 ....................................... Bytes in signature: 0
-| .......................................... Signature: Empty
-{% endhighlight %}
-
-
-The following annotated hexdump shows a `mnv` message. This is an example of the
-initial response (Step 2) so it only contains the signature of masternode 1 (the
-masternode being verified). (The message header has been omitted.)
+<!-- example below from Bitcoin Wiki but it's a network capture so I
+(@harding) don't think it is subject to the wiki's copyright license; I
+think it's public domain. TODO: replace with a more recent
+alert the next time one is live on the network. -->
 
 {% highlight text %}
-Masternode 1 Unspent Outpoint (empty)
-| 00000000000000000000000000000000
-| 00000000000000000000000000000000 ......... Outpoint TXID
-| ffffffff ................................. Outpoint index number: 0
+73 ................................. Bytes in encapsulated alert: 115
+01000000 ........................... Version: 1
+3766404f00000000 ................... RelayUntil: 1329620535
+b305434f00000000 ................... Expiration: 1330917376
 
-Masternode 2 Unspent Outpoint (empty)
-| 00000000000000000000000000000000
-| 00000000000000000000000000000000 ......... Outpoint TXID
-| ffffffff ................................. Outpoint index number: 0
+f2030000 ........................... ID: 1010
+f1030000 ........................... Cancel: 1009
+00 ................................. setCancel count: 0
 
-00000000000000000000ffff2d20ed4c ........... IP Address: ::ffff:45.32.237.76
-4e1f ....................................... Port: 19999
-9d090000 ................................... Nonce: 2641
-ed5c0000 ................................... Block height: 23789
+10270000 ........................... MinVer: 10000
+48ee0000 ........................... MaxVer: 61000
+00 ................................. setUser_agent bytes: 0
+64000000 ........................... Priority: 100
 
-Masternode 1 Signature
-| 41 ....................................... Bytes in signature: 65
-| 1bf5bd6e6eda0cd32aafb826c4066fa5
-| 4a53baa6f4211528e51716054b4df981
-| d97a77e633947bbbfafd6882324b76a0
-| 90c6e65c16ca1222db48f8558537c062
-| f6 ....................................... Signature
+00 ................................. Bytes In Comment String: 0
+46 ................................. Bytes in StatusBar String: 70
+53656520626974636f696e2e6f72672f
+666562323020696620796f7520686176
+652074726f75626c6520636f6e6e6563
+74696e67206166746572203230204665
+627275617279 ....................... Status Bar String: "See [...]"
+00 ................................. Bytes In Reserved String: 0
 
-Masternode 2 Signature
-| 00 ....................................... Bytes in signature: 0
-| .......................................... Signature: Empty
+47 ................................. Bytes in signature: 71
+30450221008389df45f0703f39ec8c1c
+c42c13810ffcae14995bb648340219e3
+53b63b53eb022009ec65e1c1aaeec1fd
+334c6b684bde2b3f573060d5b70c3a46
+723326e4e8a4f1 ..................... Signature
 {% endhighlight %}
+
+**Alert key compromise:** Dash Core's source code defines a
+particular set of alert parameters that can be used to notify users that
+the alert signing key has been compromised and that they should upgrade
+to get a new alert public key. Once a signed alert containing those
+parameters has been received, no other alerts can cancel or override it.
+
 {% endautocrossref %}
 
-#### mnw
+#### ix
 {% include helpers/subhead-links.md %}
 
 {% autocrossref %}
 
-![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.14.0
+![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.14.1
 
-The `mnw` message is used to pick the next winning masternode. When a new block
-is found on the network, a masternode quorum will be determined and those 10
-selected masternodes will issue the masternode payment vote message.
+The `ix` message (transaction lock request) has the same structure as the `tx` message.
+The masternode network responds with `txlvote` messages if the transaction inputs
+can be locked.
+
+{% endautocrossref %}
+
+
+#### txlvote
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.14.1
+
+The `txlvote` message ([transaction lock vote][msg_txlock_vote])
+is sent by masternodes to indicate approval of a transaction lock request
+`ix` message.
 
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
-| 36 | masternodeOutPoint | outPoint | Required | The unspent outpoint of the masternode (holding 1000 DASH) which is signing the message
-| 4 | nBlockHeight | int | Required | The blockheight which the payee should be paid
-| ? | payeeAddress | CScript | Required | The address receiving payment
-| 66* | vchSig | char[] | Required | Signature of the masternode which is signing the message (66 bytes in most cases. Length (1 byte) + Signature (65 bytes))
+| 32 | txHash | uint256 | Required | TXID of the transaction to lock
+| 36 | outPoint | outpoint | Required | The unspent outpoint to lock in this transaction
+| 36 | outpointMasternode | outpoint | Required | The outpoint of the masternode which is signing the vote
+| 32 | quorumModifierHash | uint256 | Required | *Added in protocol version 70213. Only present when Spork 15 is active.*<br><br>
+| 32 | masternodeProTxHash | uint256 | Required | *Added in protocol version 70213. Only present when Spork 15 is active.*<br><br>The proTxHash of the DIP3 masternode which is signing the vote
+| 96 | vchMasternodeSignature | char[] | Required | Masternode BLS signature
 
-The following annotated hexdump shows a `mnw` message. (The
+The following annotated hexdump shows a `txlvote` message. (The
 message header has been omitted.)
 
 {% highlight text %}
-Masternode Unspent Outpoint
-| 0c1b5c5846792b25b05eeea9586d8c34
-| ecb996c566bedb4ecf6a68fe8ffa9582 ......... Outpoint TXID
-| 00000000 ................................. Outpoint index number: 0
+84a27bb879f316482598fe65b0b51544
+e85490d85fc36af1c293e186da373c02 ..... TXID
 
-fb4f0a00 ................................... Block pay height: 675835
+Outpoint to lock
+| 4c1e6318bab4f9284d3bc0e49ec7fe76
+| 1e9c914b8ea0bcac4563005daa451221 ... Outpoint TXID
+| 00000000 ........................... Outpoint index number: 0
 
-Payee Address
-| 19 ....................................... Address Length: 25
-| | 76 ..................................... OP_DUP
-| | a9 ..................................... OP_HASH160
-| | 14 ..................................... Push 20 bytes as data
-| | | 1767c363646be7d8e4475c0aa85ea454
-| | | 9fd102c4 ............................. Pubkey hash
-| | 88 ..................................... OP_EQUALVERIFY
-| | ac ..................................... OP_CHECKSIG
+Masternode Outpoint
+| 5d02f07c7318411e41fdd4be9f1e5ece
+| 16d680cfe318306087edc8fb205e507b ... Outpoint TXID
+| 01000000 ........................... Outpoint index number: 1
 
-Masternode Signature
-| 41 ....................................... Bytes in signature: 65
-| 1c25da47190a83937fb5ef607235703a
-| 7cdda155bf5a1ae6139929024750f899
-| a90a4f57cdf9d54c9d9603c1f31009f8
-| e257355b49c0484fb4c31bc412c73dd9
-| 20 ....................................... Signature
+b62cb5007704d2db8595d5b31cfb7cb0
+8d7e530c16a7597e1db4430a00000000 ..... Quorum Modifier hash
+
+569abbea4ab45f36dd059c44f1dc0804
+f3f13071379c2f418d3637fb548c4159 ..... Masternode ProRegTx hash
+
+60 ................................... Signature length: 96
+
+0b0b97ec14fbc1f12566c3a90ed113e4
+e9c5ee6cdcf2fe2171e4b5f387286146
+a0632a250d64ea507ce5e1d1f1983aae
+0b70e568ad2856a0cc13008001c6d0f3
+5bdeb380f6aba0c54663a3b5e2d86d44
+305c2e5d855c72588ffb0e8e2a36482c ..... Masternode BLS Signature
 {% endhighlight %}
-
-{% endautocrossref %}
-
-#### mnwb
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.14.0
-
-There is no message for `mnwb` (`inv` message only).
-
-The following annotated hexdump shows an `inv` message with a `mnwb`
-inventory entry.  (The message header has been omitted.)
-
-{% highlight text %}
-01 ................................. Count: 1
-
-08000000 ........................... Type: MSG_MASTERNODE_PAYMENT_BLOCK (8)
-dd6cc6c11211793b239c2e311f1496e2
-2281b200b35233eaae465d2aa3c9d537 ... Hash: mnwb
-{% endhighlight %}
-
-{% endautocrossref %}
-
-#### mnvs
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-Masternode Budget Sync - Deprecated since 12.1
-
-{% endautocrossref %}
-
-#### mvote
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-Masternode Budget Vote - Deprecated since 12.1
-
-{% endautocrossref %}
-
-#### mprop
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-Masternode Budget Proposal - Deprecated since 12.1
-
-{% endautocrossref %}
-
-#### fbs
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-Masternode Budget Final - Deprecated since 12.1
-
-{% endautocrossref %}
-
-#### fbvote
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-Masternode Budget Final Vote - Deprecated since 12.1
-
-{% endautocrossref %}
-
-#### mn quorum
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-Not Implemented
 
 {% endautocrossref %}
