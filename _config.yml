@@ -505,7 +505,6 @@ devsearches:
   ## Bitcoin P2P Protocol messages documented on Bitcoin.org
   "P2P Messages":
     - "addr":  "/en/developer-reference#addr"
-    - "alert":  "/en/developer-reference#alert"
     - "block": "/en/developer-reference#block"
     - "blocktxn": "/en/developer-reference#blocktxn"
     - "cmpctblock": "/en/developer-reference#cmpctblock"
@@ -541,8 +540,6 @@ devsearches:
     # Dash - instantsend
     - "clsig": "/en/developer-reference#clsig"
     - "islock": "/en/developer-reference#islock"
-    - "ix": "/en/developer-reference#ix"
-    - "txlvote": "/en/developer-reference#txlvote"
 
     # Dash - privatesend
     - "dsa": "/en/developer-reference#dsa"
@@ -578,6 +575,9 @@ devsearches:
     - "govsync": "/en/developer-reference#govsync"
 
     # Dash - deprecated
+    - "alert":  "/en/developer-reference#alert"
+    - "ix": "/en/developer-reference#ix"
+    - "txlvote": "/en/developer-reference#txlvote"
 
 donation_banner:
   address: 1GwV7fPX97hmavc6iNrUZUogmjpLPrPFoE
