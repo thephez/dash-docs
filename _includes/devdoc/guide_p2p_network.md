@@ -605,7 +605,6 @@ information. If a peer gets a banscore above the `-banscore=<n>` threshold
 | Net | Header List Size | 20 | More than `MAX_HEADERS_RESULTS` (2000) headers received (`headers` message)
 | Net | Header List Sequence | 20 | Non-continous headers sequence received (`headers` message)
 | Net | Invalid Block | **Varies** | Invalid block header received from peer
-| Net | Invalid/Expired Alert | 10 | Invalid or expired alert received (`alert` message)
 | Net | Bloom Filter Size | **100** | Maximum script element size (520) exceeded (`filterload` message or `filteradd` message)
 | Net | MN List Diff | 1 | Failed to get masternode list diff (`getmnlistd` message)
 | Net | Unrequested MN List Diff | **100** | Peer provided an unrequested masternode list diff (`mnlistdiff` message)
@@ -635,28 +634,5 @@ information. If a peer gets a banscore above the `-banscore=<n>` threshold
 | Spork | Invalid Time | **100** | Peer relayed a spork with a timestamp too far in the future (`spork` message)
 | Spork | Signature<!--noref-->  | **100** | Peer relayed a spork with an invalid signature (`spork` message)
 
-
-{% endautocrossref %}
-
-### Alerts
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-*Removed in Bitcoin Core 0.13.0. Retained in Dash Core (see [PR1326](https://github.com/dashpay/dash/pull/1326)).*
-
-In case of a bug or attack, the Dash Core developers can issue an alert via the
-Dash network. Alerts will be displayed by the Dash Core UI. Users can also
-check the error field of the `getinfo` RPC results to get currently active
-alerts for their specific version of Dash Core or use the `-alertnotify` command
-line parameter to specify a custom command to execute when an alert is received.
-
-These messages are aggressively broadcast using the `alert` message, being sent
-to each peer upon connect for the duration of the alert. These messages are
-signed by a specific ECDSA private key that only a small number of developers
-control.
-
-**Resource:** More details about the structure of `alert` messages and a
-complete list of message types can be found in the [P2P reference section][section P2P reference].
 
 {% endautocrossref %}
