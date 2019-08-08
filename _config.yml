@@ -578,13 +578,6 @@ devsearches:
     - "govsync": "/en/developer-reference#govsync"
 
     # Dash - deprecated
-    - "dseg": "/en/developer-reference#dseg"
-    - "mnb": "/en/developer-reference#mnb"
-    - "mnget": "/en/developer-reference#mnget"
-    - "mnp": "/en/developer-reference#mnp"
-    - "mnv": "/en/developer-reference#mnv"
-    - "mnw": "/en/developer-reference#mnw"
-    - "mnwb": "/en/developer-reference#mnwb"
 
 donation_banner:
   address: 1GwV7fPX97hmavc6iNrUZUogmjpLPrPFoE
