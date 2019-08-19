@@ -19,7 +19,11 @@ Use v0.n.n in abbreviation title to prevent autocrossrefing.
 <!-- Dash - Not Implemented -->
 {% assign DASH_NOT_IMPLEMENTED='**<abbr title="Not Implemented in Dash">Not Implemented</abbr>**' %}
 
-<!-- Dash Core 0.14.0.0 ??? 2019 -->
+<!-- Dash Core 0.14.1.0 ??? 2019 -->
+{% assign DASH_NEW0_14_1='**<abbr title="New in Dash Core v0.14.1">New in Dash Core 0.14.1</abbr>**' %}
+{% assign DASH_UPDATED0_14_1='**<abbr title="Updated in Dash Core v0.14.1">Updated in Dash Core 0.14.1</abbr>**' %}
+
+<!-- Dash Core 0.14.0.0 May 2019 -->
 {% assign DASH_NEW0_14_0='**<abbr title="New in Dash Core v0.14.0">New in Dash Core 0.14.0</abbr>**' %}
 {% assign DASH_UPDATED0_14_0='**<abbr title="Updated in Dash Core v0.14.0">Updated in Dash Core 0.14.0</abbr>**' %}
 
@@ -148,7 +152,7 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 
 * [Debug][rpc debug]: {{summary_debug}} {{DASH_UPDATED0_14_0}}
 * [GetInfo][rpc getinfo]: {{summary_getInfo}} {{DASH_UPDATED0_14_0}} {{DEPRECATED}}
-* [GetMemoryInfo][rpc getmemoryinfo]: {{summary_getMemoryInfo}} {{DASH_NEW0_12_3}} {{NEW_14_0}}
+* [GetMemoryInfo][rpc getmemoryinfo]: {{summary_getMemoryInfo}} {{DASH_UPDATED0_14_1}} {{NEW_14_0}}
 * [Help][rpc help]: {{summary_help}}
 * [Stop][rpc stop]: {{summary_stop}}
 
