@@ -48,10 +48,10 @@ The `getmempoolinfo` RPC {{summary_getMemPoolInfo}}
   p: "Required<br>(exactly 1)"
   d: "*Added in Bitcoin Core 0.12.0*<br><br>The lowest fee per kilobyte paid by any transaction in the memory pool"
 
-  - n: "→<br>`instantsendlocks`"
-    t: "number (int)"
-    p: "Required<br>(exactly 1)"
-    d: "*Added in Dash Core 0.14.1*<br><br>Number of unconfirmed InstantSend locks"
+- n: "→<br>`instantsendlocks`"
+  t: "number (int)"
+  p: "Required<br>(exactly 1)"
+  d: "*Added in Dash Core 0.14.1*<br><br>Number of unconfirmed InstantSend locks"
 
 {% enditemplate %}
 
