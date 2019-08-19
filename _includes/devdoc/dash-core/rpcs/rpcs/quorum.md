@@ -570,7 +570,6 @@ Result:
     }
   }
 }
-p
 {% endhighlight %}
 
 {% endautocrossref %}
@@ -1467,7 +1466,8 @@ The `quorum<!--noref--> sign` RPC requests threshold-signing for a message.
 
 {% highlight bash %}
 dash-cli -testnet quorum sign 1 \
-  "abcd1234abcd1234abcd1234abcd1234abcd1234abcd1234abcd1234abcd1234" "51c11d287dfa85aef3eebb5420834c8e443e01d15c0b0a8e397d67e2e51aa239"
+  "abcd1234abcd1234abcd1234abcd1234abcd1234abcd1234abcd1234abcd1234" \
+  "51c11d287dfa85aef3eebb5420834c8e443e01d15c0b0a8e397d67e2e51aa239"
 {% endhighlight %}
 
 Result:
@@ -1554,7 +1554,8 @@ The `quorum<!--noref--> getrecsig` RPC checks gets the recovered signature for a
 
 {% highlight bash %}
 dash-cli -testnet quorum getrecsig 1 \
-  "e980ebf295b42f24b03321ffb255818753b2b211e8c46b61c0b6fde91242d12f" "907087d4720850e639b7b5cc41d7a6d020e5a50debb3bc3974f0cb3d7d378ea4"
+  "e980ebf295b42f24b03321ffb255818753b2b211e8c46b61c0b6fde91242d12f" \
+  "907087d4720850e639b7b5cc41d7a6d020e5a50debb3bc3974f0cb3d7d378ea4"
 {% endhighlight %}
 
 Result:
@@ -1621,7 +1622,8 @@ The `quorum<!--noref--> hasrecsig` RPC checks for a recovered signature for a pr
 
 {% highlight bash %}
 dash-cli -testnet quorum hasrecsig 1 \
-  "e980ebf295b42f24b03321ffb255818753b2b211e8c46b61c0b6fde91242d12f" "907087d4720850e639b7b5cc41d7a6d020e5a50debb3bc3974f0cb3d7d378ea4"
+  "e980ebf295b42f24b03321ffb255818753b2b211e8c46b61c0b6fde91242d12f" \
+  "907087d4720850e639b7b5cc41d7a6d020e5a50debb3bc3974f0cb3d7d378ea4"
 {% endhighlight %}
 
 Result:
@@ -1681,7 +1683,8 @@ The `quorum<!--noref--> isconflicting` RPC checks if there is a conflict for a t
 
 {% highlight bash %}
 dash-cli -testnet quorum isconflicting 1 \
-  "e980ebf295b42f24b03321ffb255818753b2b211e8c46b61c0b6fde91242d12f" "907087d4720850e639b7b5cc41d7a6d020e5a50debb3bc3974f0cb3d7d378ea4"
+  "e980ebf295b42f24b03321ffb255818753b2b211e8c46b61c0b6fde91242d12f" \
+  "907087d4720850e639b7b5cc41d7a6d020e5a50debb3bc3974f0cb3d7d378ea4"
 {% endhighlight %}
 
 Result:
@@ -1691,7 +1694,102 @@ false
 
 {% endautocrossref %}
 
+
+###### Quorum<!--noref--> MemberOf
+<!-- no subhead-links here -->
+
 {% autocrossref %}
+
+The `quorum` RPC checks which quorums the given masternode is a member of.
+
+*Parameter #1---proTxHash*
+
+{% itemplate ntpd1 %}
+- n: "proTxHash"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "ProTxHash of the masternode."
+{% enditemplate %}
+
+*Parameter #2---scanQuorumsCount*
+
+{% itemplate ntpd1 %}
+- n: "scanQuorumsCount"
+  t: "number"
+  p: "Optional"
+  d: "Number of quorums to scan for. If not specified, the active quorum count for each specific quorum type is used."
+{% enditemplate %}
+
+*Result---list of quorums the masternode is a member of*
+
+{% itemplate ntpd1 %}
+- n: "`result`"
+  t: "Array of objects"
+  p: "Required<br>(exactly 1)"
+  d: "Array containing info for quorum's the masternode belongs to"
+
+- n: "→<br>Quorum"
+  t: "object"
+  p: "Required<br>(0 or more)"
+  d: "An object describing quorum details"
+
+- n: "→ →<br>`height`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "Block height of the quorum"
+
+- n: "→ →<br>`type`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "[Type of quorum](https://github.com/dashpay/dips/blob/master/dip-0006.md#current-llmq<!--noref-->-types)"
+
+- n: "→ →<br>`quorumHash`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The hash of the quorum"
+
+- n: "→ →<br>`minedBlock`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The hash of the block that established the quorum"
+
+- n: "→ →<br>`quorumPublicKey`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "Quorum public key"
+
+- n: "→ →<br>`isValidMember`"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: "Indicates if the member is valid"
+
+- n: "→ →<br>`memberIndex`"
+  t: "number"
+  p: "Required<br>(exactly 1)"
+  d: "Index of the member within the quorum"
+{% enditemplate %}
+
+*Example from Dash Core 0.14.1*
+
+{% highlight bash %}
+dash-cli -testnet quorum memberof 1 \
+  39c07d2c9c6d0ead56f52726b63c15e295cb5c3ecf7fe1fefcfb23b2e3cfed1f 1
+{% endhighlight %}
+
+Result:
+{% highlight json %}
+[
+  {
+    "height": 72000,
+    "type": "llmq_400_60",
+    "quorumHash": "0000000007697fd69a799bfa26576a177e817bc0e45b9fcfbf48b362b05aeff2",
+    "minedBlock": "00000000014d910dca80944b52aa3f522d5604254043b8354d641912aace4343",
+    "quorumPublicKey": "03a3fbbe99d80a9be8fc59fd4fe43dfbeba9119b688e97493664716cdf15ae47fad70fea7cb93f20fba10d689f9e3c02",
+    "isValidMember": true,
+    "memberIndex": 80
+  }
+]
+{% endhighlight %}
 
 *See also: none*
 
