@@ -27,6 +27,11 @@ Core.  Use the RPCs listed in the See Also subsection below instead.
   p: "Required<br>(exactly 1)"
   d: "Information about this node and the network"
 
+- n: "→<br>`deprecation-warning`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "Warning that the getinfo command is deprecated and will be removed in a future version"
+
 - n: "→<br>`version`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
@@ -114,7 +119,7 @@ Core.  Use the RPCs listed in the See Also subsection below instead.
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2 with wallet support enabled*
+*Example from Dash Core 0.14.1 with wallet support enabled*
 
 {% highlight bash %}
 dash-cli -testnet getinfo
@@ -124,8 +129,9 @@ Result:
 
 {% highlight json %}
 {
-  "version": 120200,
-  "protocolversion": 70208,
+  "deprecation-warning": "WARNING: getinfo is deprecated and will be fully removed in a future version. Projects should transition to using getblockchaininfo, getnetworkinfo, and getwalletinfo.",
+  "version": 140100,
+  "protocolversion": 70215,
   "walletversion": 61000,
   "balance": 0.00000000,
   "privatesend_balance": 0.00000000,
