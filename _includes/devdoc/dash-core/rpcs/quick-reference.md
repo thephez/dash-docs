@@ -40,12 +40,12 @@ Use v0.n.n in abbreviation title to prevent autocrossrefing.
 {% assign DASH_UPDATED0_13_0='**<abbr title="Updated in Dash Core v0.13.0">Updated in Dash Core 0.13.0</abbr>**' %}
 
 <!-- Dash Core 0.12.3.0 July 2018 -->
-{% assign DASH_NEW0_12_3='**<abbr title="New in Dash Core v0.12.3">New in Dash Core 0.12.3</abbr>**' %}
-{% assign DASH_UPDATED0_12_3='**<abbr title="Updated in Dash Core v0.12.3">Updated in Dash Core 0.12.3</abbr>**' %}
+{% assign DASH_NEW0_12_3='*<abbr title="New in Dash Core v0.12.3">New in Dash Core 0.12.3</abbr>*' %}
+{% assign DASH_UPDATED0_12_3='*<abbr title="Updated in Dash Core v0.12.3">Updated in Dash Core 0.12.3</abbr>*' %}
 
 <!-- Dash Core 0.12.2.0 Nov 2017 -->
-{% assign DASH_NEW0_12_2='**<abbr title="New in Dash Core v0.12.2">New in Dash Core 0.12.2</abbr>**' %}
-{% assign DASH_UPDATED0_12_2='**<abbr title="Updated in Dash Core v0.12.2">Updated in Dash Core 0.12.2</abbr>**' %}
+{% assign DASH_NEW0_12_2='*<abbr title="New in Dash Core v0.12.2">New in Dash Core 0.12.2</abbr>*' %}
+{% assign DASH_UPDATED0_12_2='*<abbr title="Updated in Dash Core v0.12.2">Updated in Dash Core 0.12.2</abbr>*' %}
 
 <!-- Dash Core 0.12.1.0 Feb 2017 -->
 {% assign DASH_NEW0_12_1='*<abbr title="New in Dash Core v0.12.1">New in Dash Core 0.12.1</abbr>*' %}
@@ -59,11 +59,11 @@ Use v0.n.n in abbreviation title to prevent autocrossrefing.
 {% assign DEPRECATED='**<abbr title="Deprecated; will be removed in a future version of Bitcoin Core">Deprecated</abbr>**' %}
 
 <!-- Bitcoin Core 0.14.1 April 2017 -->
-{% assign UPDATED0_14_0='**<abbr title="Updated in Bitcoin Core v0.14.1">Updated in Bitcoin Core 0.14.1</abbr>**' %}
+{% assign UPDATED0_14_0='*<abbr title="Updated in Bitcoin Core v0.14.1">Updated in Bitcoin Core 0.14.1</abbr>*' %}
 
 <!-- Bitcoin Core 0.14.0 March 2017 -->
-{% assign NEW0_14_0='**<abbr title="New in Bitcoin Core v0.14.0">New in Bitcoin Core 0.14.0</abbr>**' %}
-{% assign UPDATED0_14_0='**<abbr title="Updated in Bitcoin Core v0.14.0">Updated in Bitcoin Core 0.14.0</abbr>**' %}
+{% assign NEW0_14_0='*<abbr title="New in Bitcoin Core v0.14.0">New in Bitcoin Core 0.14.0</abbr>*' %}
+{% assign UPDATED0_14_0='*<abbr title="Updated in Bitcoin Core v0.14.0">Updated in Bitcoin Core 0.14.0</abbr>*' %}
 
 <!-- Bitcoin Core 0.13.1 September 2016 -->
 {% assign UPDATED0_13_1='*<abbr title="Updated in Bitcoin Core v0.13.1">Updated in Bitcoin Core 0.13.1</abbr>*' %}
