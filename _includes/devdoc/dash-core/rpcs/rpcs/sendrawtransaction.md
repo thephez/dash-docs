@@ -39,7 +39,7 @@ The `sendrawtransaction` RPC {{summary_sendRawTransaction}}
 - n: "Use InstantSend"
   t: "bool"
   p: "Optional<br>(0 or 1)"
-  d: "Set to `true` to send as an InstantSend transaction.  Set to `false` (the default) to send as a normal transaction"
+  d: "*Depcrecated and ignored since Dash Core 0.14.1*"
 
 {% enditemplate %}
 

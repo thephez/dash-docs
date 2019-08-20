@@ -74,7 +74,7 @@ The `sendtoaddress` RPC {{summary_sendToAddress}}
 - n: "Use InstantSend"
   t: "bool"
   p: "Optional<br>(0 or 1)"
-  d: "If set to `true`, send this transaction as InstantSend (default: false)."
+  d: "*Deprecated and ignored since Dash Core 0.14.1*"
 
 {% enditemplate %}
 
