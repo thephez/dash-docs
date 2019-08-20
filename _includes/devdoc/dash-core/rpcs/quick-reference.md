@@ -227,7 +227,7 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 * [GetConnectionCount][rpc getconnectioncount]: {{summary_getConnectionCount}}
 * [GetNetTotals][rpc getnettotals]: {{summary_getNetTotals}} {{UPDATED0_12_0}}
 * [GetNetworkInfo][rpc getnetworkinfo]: {{summary_getNetworkInfo}} {{DASH_UPDATED0_14_0}}
-* [GetPeerInfo][rpc getpeerinfo]: {{summary_getPeerInfo}} {{UPDATED0_13_0}}
+* [GetPeerInfo][rpc getpeerinfo]: {{summary_getPeerInfo}} {{DASH_UPDATED0_14_1}}
 * [ListBanned][rpc listbanned]: {{summary_listBanned}} {{NEW0_12_0}}
 * [Ping][rpc ping]: {{summary_ping-rpc}}
 * [SetBan][rpc setban]: {{summary_setBan}} {{NEW0_12_0}}
