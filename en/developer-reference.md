@@ -246,8 +246,6 @@ untrusted source.
 
 {% include devdoc/dash-core/rpcs/rpcs/importwallet.md %}
 
-{% include devdoc/dash-core/rpcs/rpcs/instantsendtoaddress.md %}
-
 {% include devdoc/dash-core/rpcs/rpcs/keepass.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/keypoolrefill.md %}
