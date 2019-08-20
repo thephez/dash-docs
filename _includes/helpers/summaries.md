@@ -88,7 +88,6 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_importPrunedFunds="imports funds without the need of a rescan. Meant for use with pruned wallets." %}
 {% assign summary_importPubKey="imports a public key (in hex) that can be watched as if it were in your wallet but cannot be used to spend" %}
 {% assign summary_importWallet="imports private keys from a file in wallet dump file format (see the `dumpwallet` RPC). These keys will be added to the keys currently in the wallet.  This call may need to rescan all or parts of the block chain for transactions affecting the newly-added keys, which may take several minutes." %}
-{% assign summary_instantSendToAddress="InstantSend an amount to a given address." %}
 {% assign summary_keepass="provides commands for configuring and managing KeePass authentication" %}
 {% assign summary_keyPoolRefill="fills the cache of unused pre-generated keys (the keypool)." %}
 {% assign summary_listAccounts="lists accounts and their balances." %}

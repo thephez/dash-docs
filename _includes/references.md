@@ -156,7 +156,6 @@ http://opensource.org/licenses/MIT.
 [rpc importprunedfunds]: /en/developer-reference#importprunedfunds
 [rpc importpubkey]: /en/developer-reference#importpubkey
 [rpc importwallet]: /en/developer-reference#importwallet
-[rpc instantsendtoaddress]: /en/developer-reference#instantsendtoaddress
 [rpc keepass]: /en/developer-reference#keepass
 [rpc keypoolrefill]: /en/developer-reference#keypoolrefill
 [rpc listaccounts]: /en/developer-reference#listaccounts

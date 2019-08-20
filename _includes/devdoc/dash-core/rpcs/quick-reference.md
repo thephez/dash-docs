@@ -302,7 +302,6 @@ default.
 * [ImportPrunedFunds][rpc importprunedfunds]: {{summary_importPrunedFunds}} {{DASH_NEW0_12_3}} {{NEW0_13_0}}
 * [ImportPubKey][rpc importpubkey]: {{summary_importPubKey}}
 * [ImportWallet][rpc importwallet]: {{summary_importWallet}}
-* [InstantSendToAddress][rpc instantsendtoaddress]: {{summary_instantSendToAddress}}
 * [KeePass][rpc keepass]: {{summary_keepass}} {{DARKCOIN_NEW0_11_0}}
 * [KeyPoolRefill][rpc keypoolrefill]: {{summary_keyPoolRefill}}
 * [ListAccounts][rpc listaccounts]: {{summary_listAccounts}} {{DASH_UPDATED0_13_0}} {{DEPRECATED}}

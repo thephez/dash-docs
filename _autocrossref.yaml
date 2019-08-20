@@ -463,8 +463,6 @@ DIP8:
 '`importpubkey` RPC': rpc importpubkey
 '`importwallet`': rpc importwallet
 '`importwallet` RPC': rpc importwallet
-'`instantsendtoaddress`': rpc instantsendtoaddress
-'`instantsendtoaddress` RPC': rpc instantsendtoaddress
 '`keepass`': rpc keepass
 '`keepass` RPC': rpc keepass
 '`keypoolrefill`': rpc keypoolrefill
