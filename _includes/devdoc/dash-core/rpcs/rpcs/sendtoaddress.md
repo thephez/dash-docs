@@ -88,6 +88,26 @@ The `sendtoaddress` RPC {{summary_sendToAddress}}
 
 {% enditemplate %}
 
+*Parameter #8---confirmation target*
+
+{% itemplate ntpd1 %}
+- n: "`conf_target`"
+  t: "number (int)"
+  p: "Optional<br>(0 or 1)"
+  d: "Confirmation target (in blocks)"
+
+{% enditemplate %}
+
+*Parameter #9---fee estimate mode*
+
+{% itemplate ntpd1 %}
+- n: "`estimate_mode`"
+  t: "string"
+  p: "Optional<br>(0 or 1)"
+  d: " The fee estimate mode, must be one of:<br>`UNSET`<br>`ECONOMICAL`<br>`CONSERVATIVE`<br>Default: `UNSET`"
+
+{% enditemplate %}
+
 *Result---a TXID of the sent transaction*
 
 {% itemplate ntpd1 %}
