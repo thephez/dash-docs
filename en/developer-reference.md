@@ -162,6 +162,8 @@ untrusted source.
 
 {% include devdoc/dash-core/rpcs/rpcs/getchaintips.md %}
 
+{% include devdoc/dash-core/rpcs/rpcs/getchaintxstats.md %}
+
 {% include devdoc/dash-core/rpcs/rpcs/getconnectioncount.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/getdifficulty.md %}

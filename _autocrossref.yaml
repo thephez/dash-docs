@@ -379,6 +379,8 @@ DIP8:
 '`getblocktemplate` RPC': rpc getblocktemplate
 '`getchaintips`': rpc getchaintips
 '`getchaintips` RPC': rpc getchaintips
+'`getchaintxstats`': rpc getchaintxstats
+'`getchaintxstats` RPC': rpc getchaintxstats
 '`getconnectioncount`': rpc getconnectioncount
 '`getconnectioncount` RPC': rpc getconnectioncount
 '`getdifficulty`': rpc getdifficulty

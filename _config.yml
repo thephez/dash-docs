@@ -211,6 +211,7 @@ devsearches:
     - 'GetBlockHeaders': "/en/developer-reference#getblockheaders"
     - 'GetBlockTemplate': "/en/developer-reference#getblocktemplate"
     - 'GetChainTips': "/en/developer-reference#getchaintips"
+    - 'GetChainTxStats': "/en/developer-reference#getchaintxstats"
     - 'GetConnectionCount': "/en/developer-reference#getconnectioncount"
     - 'GetDifficulty': "/en/developer-reference#getdifficulty"
     - 'GetGenerate': "/en/developer-reference#getgenerate"

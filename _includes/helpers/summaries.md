@@ -47,6 +47,7 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_getBlockHeaders="returns an array of items with information about the requested number of blockheaders starting from the requested hash." %}
 {% assign summary_getBlockTemplate="gets a block template or proposal for use with mining software." %}
 {% assign summary_getChainTips="returns information about the highest-height block (tip) of each local block chain." %}
+{% assign summary_getChainTxStats="compute statistics about the total number and rate of transactions in the chain." %}
 {% assign summary_getConnectionCount="returns the number of connections to other nodes." %}
 {% assign summary_getDifficulty="returns the proof-of-work difficulty as a multiple of the minimum difficulty." %}
 {% assign summary_getGenerate="was removed in Dash Core 0.12.3." %}

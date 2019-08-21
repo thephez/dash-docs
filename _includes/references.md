@@ -114,6 +114,7 @@ http://opensource.org/licenses/MIT.
 [rpc getblockheaders]: /en/developer-reference#getblockheaders
 [rpc getblocktemplate]: /en/developer-reference#getblocktemplate
 [rpc getchaintips]: /en/developer-reference#getchaintips
+[rpc getchaintxstats]: /en/developer-reference#getchaintxstats
 [rpc getconnectioncount]: /en/developer-reference#getconnectioncount
 [rpc getdifficulty]: /en/developer-reference#getdifficulty
 [rpc getgenerate]: /en/developer-reference#getgenerate
