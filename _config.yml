@@ -266,6 +266,7 @@ devsearches:
     - 'ListSinceBlock': "/en/developer-reference#listsinceblock"
     - 'ListTransactions': "/en/developer-reference#listtransactions"
     - 'ListUnspent': "/en/developer-reference#listunspent"
+    - 'ListWallets': "/en/developer-reference#listwallets"
     - 'LockUnspent': "/en/developer-reference#lockunspent"
     - 'Masternode': "/en/developer-reference#masternode"
     - 'MasternodeBroadcast': "/en/developer-reference#masternodebroadcast"

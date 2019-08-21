@@ -315,6 +315,7 @@ default.
 * [ListSinceBlock][rpc listsinceblock]: {{summary_listSinceBlock}} {{DASH_UPDATED0_14_1}}
 * [ListTransactions][rpc listtransactions]: {{summary_listTransactions}} {{DASH_UPDATED0_14_0}}
 * [ListUnspent][rpc listunspent]: {{summary_listUnspent}} {{DASH_UPDATED0_14_1}}
+* [ListWallets][rpc listwallets]: {{summary_listWallets}} {{DASH_NEW0_14_1}}
 * [LockUnspent][rpc lockunspent]: {{summary_lockUnspent}}
 * [Move][rpc move]: {{summary_move}} {{DEPRECATED}}
 * [RemovePrunedFunds][rpc removeprunedfunds]: {{summary_removePrunedFunds}} {{DASH_NEW0_12_3}} {{NEW0_13_0}}

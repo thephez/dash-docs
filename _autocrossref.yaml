@@ -489,6 +489,8 @@ DIP8:
 '`listtransactions` RPC': rpc listtransactions
 '`listunspent`': rpc listunspent
 '`listunspent` RPC': rpc listunspent
+'`listwallets`': rpc listwallets
+'`listwallets` RPC': rpc listwallets
 '`lockunspent`': rpc lockunspent
 '`lockunspent` RPC': rpc lockunspent
 '`masternode`': rpc masternode

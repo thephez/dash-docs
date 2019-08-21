@@ -272,6 +272,8 @@ untrusted source.
 
 {% include devdoc/dash-core/rpcs/rpcs/listunspent.md %}
 
+{% include devdoc/dash-core/rpcs/rpcs/listwallets.md %}
+
 {% include devdoc/dash-core/rpcs/rpcs/lockunspent.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/masternode.md %}

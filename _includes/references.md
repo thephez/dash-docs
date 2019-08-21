@@ -169,6 +169,7 @@ http://opensource.org/licenses/MIT.
 [rpc listsinceblock]: /en/developer-reference#listsinceblock
 [rpc listtransactions]: /en/developer-reference#listtransactions
 [rpc listunspent]: /en/developer-reference#listunspent
+[rpc listwallets]: /en/developer-reference#listwallets
 [rpc lockunspent]: /en/developer-reference#lockunspent
 [rpc masternode]: /en/developer-reference#masternode
 [rpc masternodebroadcast]: /en/developer-reference#masternodebroadcast
