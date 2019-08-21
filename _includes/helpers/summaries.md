@@ -142,6 +142,7 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_spork-rpc="reads or updates spork settings on the network." %}
 {% assign summary_stop="safely shuts down the Dash Core server." %}
 {% assign summary_submitBlock="accepts a block, verifies it is a valid addition to the block chain, and broadcasts it to the network. Extra parameters are ignored by Dash Core but may be used by mining pools or other programs." %}
+{% assign summary_uptime="returns the total uptime of the server." %}
 {% assign summary_validateAddress="returns information about the given Dash address." %}
 {% assign summary_verifyChain="verifies each entry in the local block chain database." %}
 {% assign summary_verifyMessage="verifies a signed message." %}

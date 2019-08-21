@@ -202,6 +202,7 @@ http://opensource.org/licenses/MIT.
 [rpc spork]: /en/developer-reference#spork-rpc
 [rpc stop]: /en/developer-reference#stop
 [rpc submitblock]: /en/developer-reference#submitblock
+[rpc uptime]: /en/developer-reference#uptime
 [rpc validateaddress]: /en/developer-reference#validateaddress
 [rpc verifychain]: /en/developer-reference#verifychain
 [rpc verifymessage]: /en/developer-reference#verifymessage

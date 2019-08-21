@@ -338,6 +338,8 @@ untrusted source.
 
 {% include devdoc/dash-core/rpcs/rpcs/submitblock.md %}
 
+{% include devdoc/dash-core/rpcs/rpcs/uptime.md %}
+
 {% include devdoc/dash-core/rpcs/rpcs/validateaddress.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/verifychain.md %}

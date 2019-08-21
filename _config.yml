@@ -299,6 +299,7 @@ devsearches:
     - 'Spork': "/en/developer-reference#spork-rpc"
     - 'Stop': "/en/developer-reference#stop"
     - 'SubmitBlock': "/en/developer-reference#submitblock"
+    - 'Uptime': "/en/developer-reference#uptime"
     - 'ValidateAddress': "/en/developer-reference#validateaddress"
     - 'VerifyChain': "/en/developer-reference#verifychain"
     - 'VerifyMessage': "/en/developer-reference#verifymessage"

@@ -560,6 +560,8 @@ DIP8:
 '`submitblock` RPC': rpc submitblock
 '`validateaddress`': rpc validateaddress
 '`validateaddress` RPC': rpc validateaddress
+'`uptime`': rpc uptime
+'`uptime` RPC': rpc uptime
 '`verifychain`': rpc verifychain
 '`verifychain` RPC': rpc verifychain
 '`verifymessage`': rpc verifymessage
