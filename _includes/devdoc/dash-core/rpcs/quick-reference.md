@@ -278,6 +278,7 @@ with [wallet support][]{:#term-wallet-support}{:.term}, which is the
 default.
 
 * [AbandonTransaction][rpc abandontransaction]: {{summary_abandonTransaction}} {{NEW0_12_0}}
+* [AbortRescan][rpc abortrescan]: {{summary_abortrescan}} {{DASH_NEW0_14_1}}
 * [AddMultiSigAddress][rpc addmultisigaddress]: {{summary_addMultiSigAddress}}
 * [BackupWallet][rpc backupwallet]: {{summary_backupWallet}}
 * [DumpHDInfo][rpc dumphdinfo]: {{summary_dumpHDInfo}} {{DASH_NEW0_12_2}}

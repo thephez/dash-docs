@@ -69,6 +69,7 @@ http://opensource.org/licenses/MIT.
 
 {% comment %}<!-- RPCs; alphabetical order -->{% endcomment %}
 [rpc abandontransaction]: /en/developer-reference#abandontransaction
+[rpc abortrescan]: /en/developer-reference#abortrescan
 [rpc addmultisigaddress]: /en/developer-reference#addmultisigaddress
 [rpc addnode]: /en/developer-reference#addnode
 [rpc addwitnessaddress]: /en/developer-reference#addwitnessaddress

@@ -72,6 +72,8 @@ untrusted source.
 
 {% include devdoc/dash-core/rpcs/rpcs/abandontransaction.md %}
 
+{% include devdoc/dash-core/rpcs/rpcs/abortrescan.md %}
+
 {% include devdoc/dash-core/rpcs/rpcs/addmultisigaddress.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/addnode.md %}

@@ -166,6 +166,7 @@ devsearches:
   ## leading capital) for easier quick scanning
   "RPCs":
     - 'AbandonTransaction': "/en/developer-reference#abandontransaction"
+    - 'AbortRescan': "/en/developer-reference#abortrescan"
     - 'AddMultiSigAddress': "/en/developer-reference#addmultisigaddress"
     - 'AddNode': "/en/developer-reference#addnode"
     - 'AddWitnessAddress': "/en/developer-reference#addwitnessaddress"
