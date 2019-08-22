@@ -117,6 +117,11 @@ The `getblock` RPC {{summary_getBlock}}
   p: "Required<br>(exactly 1)"
   d: "The merkle root for the masternode list"
 
+- n: "→ →<br>`merkleRootQuorums`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The merkle root for the quorum list"
+
 - n: "→<br>`time`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
@@ -232,6 +237,11 @@ The `getblock` RPC {{summary_getBlock}}
   p: "Required<br>(exactly 1)"
   d: "The merkle root for the masternode list"
 
+- n: "→ →<br>`merkleRootQuorums`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "The merkle root for the quorum list"
+
 - n: "→<br>`time`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
@@ -279,7 +289,7 @@ The `getblock` RPC {{summary_getBlock}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.14.0*
+*Example from Dash Core 0.14.1*
 
 Get a block in raw hex:
 
@@ -316,7 +326,7 @@ Result:
 {% highlight json %}
 {
   "hash": "00000000007b0fb99e36713cf08012482478ee496e6dcb4007ad2e806306e62b",
-  "confirmations": 1,
+  "confirmations": 73083,
   "size": 310,
   "height": 86190,
   "version": 536870912,
@@ -338,7 +348,8 @@ Result:
   "difficulty": 440.8261075201009,
   "chainwork": "0000000000000000000000000000000000000000000000000045ab6f9403a8e7",
   "previousblockhash": "000000000073a041bac70a7c3e49c29e8bc954071aeee6e00c7ac8064a372e27",
-  "chainlock": false
+  "nextblockhash": "00000000001c6c962639a1aad4cd069f315560a824d489418dc1f26b50a58aed",
+  "chainlock": true
 }
 {% endhighlight %}
 
@@ -354,7 +365,7 @@ Result:
 {% highlight json %}
 {
   "hash": "00000000007b0fb99e36713cf08012482478ee496e6dcb4007ad2e806306e62b",
-  "confirmations": 1,
+  "confirmations": 73084,
   "size": 310,
   "height": 86190,
   "version": 536870912,
@@ -363,9 +374,9 @@ Result:
   "tx": [
     {
       "txid": "25632685ed0d7286901a80961c924c1ddd952e764754dbd8b40d0956413c8b56",
-      "size": 229,
       "version": 3,
       "type": 5,
+      "size": 229,
       "locktime": 0,
       "vin": [
         {
@@ -413,6 +424,7 @@ Result:
       },
       "instantlock": false,
       "chainlock": false
+      "hex": "03000500010000000000000000000000000000000000000000000000000000000000000000ffffffff2703ae50011a4d696e656420627920416e74506f6f6c2021000b01201da9196f0000000007000000ffffffff02809e4730000000001976a914cbd7bfcc50351180132b2c0698cb90ad74c473c788ac809e4730000000001976a91488a060bc2dfe05780ae4dcb6c98b12436c35a93988ac00000000460200ae50010078e5c08b39960887bf95185c381bdb719e60b6925fa12af78a8824fade927387c757acb6bac63da84f9245e20cfd5d830382ac634d434725ca6349ab5db920a3"
     }
   ],
   "cbTx": {
@@ -428,7 +440,8 @@ Result:
   "difficulty": 440.8261075201009,
   "chainwork": "0000000000000000000000000000000000000000000000000045ab6f9403a8e7",
   "previousblockhash": "000000000073a041bac70a7c3e49c29e8bc954071aeee6e00c7ac8064a372e27",
-  "chainlock": false
+  "nextblockhash": "00000000001c6c962639a1aad4cd069f315560a824d489418dc1f26b50a58aed",
+  "chainlock": true
 }
 {% endhighlight %}
 
