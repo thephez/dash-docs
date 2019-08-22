@@ -41,6 +41,16 @@ The `listsinceblock` RPC {{summary_listSinceBlock}}
 
 {{INCLUDE_INCLUDE_WATCH_ONLY_PARAMETER}}
 
+*Parameter #4---include_removed*
+
+{% itemplate ntpd1 %}
+- n: "include_removed"
+  t: "bool"
+  p: "Optional<br>Default=`true`"
+  d: "Show transactions that were removed due to a reorg in the \"removed\" array (not guaranteed to work on pruned nodes)"
+
+{% enditemplate %}
+
 **Result**
 
 {% assign DEPTH="→ → → " %}
@@ -64,6 +74,11 @@ The `listsinceblock` RPC {{summary_listSinceBlock}}
 
 {{INCLUDE_F_LIST_TRANSACTIONS}}
 {{INCLUDE_F_LIST_TRANSACTIONS_F_FULL}}
+- n: "→<br>`removed`"
+  t: "array"
+  p: "Optional<br>(0 or 1)"
+  d: "Structure is the same as `transactions`. Only present if `include_removed` is `true`.<br>_Note_: transactions that were re-added in the active chain will appear as-is in this array, and may thus have a positive confirmation count."
+
 - n: "→<br>`lastblock`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
@@ -71,15 +86,15 @@ The `listsinceblock` RPC {{summary_listSinceBlock}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.14.0*
+*Example from Dash Core 0.14.1*
 
 Get all transactions since a particular block (including watch-only
 transactions) and the header hash of the sixth most recent block.
 
 {% highlight bash %}
 dash-cli -testnet listsinceblock \
-              00000000688633a503f69818a70eac281302e9189b1bb57a76a05c329fcda718 \
-              6 true
+              0000000001fc119ea77e0c67783227fb9d55386125179ea5597109d311af2337 \
+              6 true true
 {% endhighlight %}
 
 Result (edited to show only two payments):
@@ -89,44 +104,50 @@ Result (edited to show only two payments):
   "transactions": [
     {
       "account": "",
-      "address": "yLXe1NwXmhZbtM6drTXbWFvtEqpsJZkKd2",
+      "address": "yMaodAgCofB2gmHEtATAiV3w5NkzTpmkgS",
       "category": "send",
-      "amount": -1.00000000,
-      "label": "Receiving",
+      "amount": -2365.65209808,
+      "label": "Mining Consolidation",
       "vout": 0,
-      "fee": -0.00000226,
-      "confirmations": 0,
+      "fee": -0.00031420,
+      "confirmations": 5,
       "instantlock": true,
-      "instantlock_internal": true,
-      "chainlock": false,
-      "trusted": true,
-      "txid": "cc2e6c49faae395d79cfc91d188881e479f544c220e4dfee016889cd53b32645",
+      "instantlock_internal": false,
+      "chainlock": true,
+      "blockhash": "00000000001c4e142c6deaa273206706d37a7aa792887d9bd81ae787d4259137",
+      "blockindex": 1,
+      "blocktime": 1566399553,
+      "txid": "bb8a2789c3166181cc190e0fd7675770217b69c9aeafe0d8207baf1ebeb05845",
       "walletconflicts": [
       ],
-      "time": 1554734925,
-      "timereceived": 1554734925,
+      "time": 1566399271,
+      "timereceived": 1566399271,
       "abandoned": false
     },
     {
-      "account": "",
-      "address": "yLXe1NwXmhZbtM6drTXbWFvtEqpsJZkKd2",
+      "account": "Mining Consolidation",
+      "address": "yMaodAgCofB2gmHEtATAiV3w5NkzTpmkgS",
       "category": "receive",
-      "amount": 1.00000000,
-      "label": "Receiving",
+      "amount": 2365.65209808,
+      "label": "Mining Consolidation",
       "vout": 0,
-      "confirmations": 0,
+      "confirmations": 5,
       "instantlock": true,
-      "instantlock_internal": true,
-      "chainlock": false,
-      "trusted": true,
-      "txid": "cc2e6c49faae395d79cfc91d188881e479f544c220e4dfee016889cd53b32645",
+      "instantlock_internal": false,
+      "chainlock": true,
+      "blockhash": "00000000001c4e142c6deaa273206706d37a7aa792887d9bd81ae787d4259137",
+      "blockindex": 1,
+      "blocktime": 1566399553,
+      "txid": "bb8a2789c3166181cc190e0fd7675770217b69c9aeafe0d8207baf1ebeb05845",
       "walletconflicts": [
       ],
-      "time": 1554734925,
-      "timereceived": 1554734925
+      "time": 1566399271,
+      "timereceived": 1566399271
     }
   ],
-  "lastblock": "0000000006be841cd8534b02733d833ad9dd7634ab0897a7e5cd92c574a529a3"
+  "removed": [
+  ],
+  "lastblock": "000000000158ad1e4eab53044e18aaf76e605a27252862d4f1d78cfd373f1686"
 }
 {% endhighlight %}
 

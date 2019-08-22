@@ -78,16 +78,6 @@ The `getrawmempool` RPC {{summary_getRawMemPool}}
   p: "Required<br>(exactly 1)"
   d: "The block height when the transaction entered the memory pool"
 
-- n: "→ →<br>`startingpriority`"
-  t: "number (int)"
-  p: "Required<br>(exactly 1)"
-  d: "The priority of the transaction when it first entered the memory pool"
-
-- n: "→ →<br>`currentpriority`"
-  t: "number (int)"
-  p: "Required<br>(exactly 1)"
-  d: "The current priority of the transaction"
-
 - n: "→ →<br>`descendantcount`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
@@ -128,11 +118,6 @@ The `getrawmempool` RPC {{summary_getRawMemPool}}
   p: "Optional (0 or more)"
   d: "The TXIDs of any unconfirmed transactions this transaction depends upon, encoded as hex in RPC byte order"
 
-- n: "→ →<br>`instantsend`"
-  t: "bool"
-  p: "Required<br>(exactly 1)"
-  d: "*Added in Dash Core 0.12.3*<br><br>Set to `true` for transactions broadcast via the `ix` message (InstantSend lock requested). Set to `false` for standard (non-InstantSend) transactions"
-
 - n: "→ →<br>`instantlock`"
   t: "bool"
   p: "Required<br>(exactly 1)"
@@ -166,44 +151,38 @@ Result:
 
 {% highlight json %}
 {
-  "8fd1440ed74d3739aa4e1700e9b2fdb32bc5c138fe79dd319f965f67339eb1ce": {
-    "size": 372,
-    "fee": 0.00020000,
-    "modifiedfee": 0.00020000,
-    "time": 1519928121,
-    "height": 83907,
-    "startingpriority": 2224190635.564103,
-    "currentpriority": 2224190635.564103,
-    "descendantcount": 2,
-    "descendantsize": 598,
-    "descendantfees": 20226,
-    "ancestorcount": 1,
-    "ancestorsize": 372,
-    "ancestorfees": 20000,
-    "depends": [
-    ],
-    "instantsend": true,
-    "instantlock": true
-  },
-  "2d914d77305dd968bbd67aeb8604cf7e9d66a7df58bf5216724db69a54000f40": {
-    "size": 226,
+  "3bf4985183ddebcb6b1d58fa04dae9728a8f2bf20be298d81e38a8bd2f50ea47": {
+    "size": 225,
     "fee": 0.00000226,
     "modifiedfee": 0.00000226,
-    "time": 1519928256,
-    "height": 83907,
-    "startingpriority": 0,
-    "currentpriority": 0,
+    "time": 1566315512,
+    "height": 159318,
     "descendantcount": 1,
-    "descendantsize": 226,
+    "descendantsize": 225,
     "descendantfees": 226,
     "ancestorcount": 2,
-    "ancestorsize": 598,
-    "ancestorfees": 20226,
+    "ancestorsize": 5760,
+    "ancestorfees": 5780,
     "depends": [
-      "8fd1440ed74d3739aa4e1700e9b2fdb32bc5c138fe79dd319f965f67339eb1ce"
+      "1b8fdb3ce371c1274ee60df807d631320e7efaf30e7867584eb44b8ec4c19d12"
     ],
-    "instantsend": false,
-    "instantlock": false
+    "instantlock": true
+  },
+  "1b8fdb3ce371c1274ee60df807d631320e7efaf30e7867584eb44b8ec4c19d12": {
+    "size": 5535,
+    "fee": 0.00005554,
+    "modifiedfee": 0.00005554,
+    "time": 1566315441,
+    "height": 159318,
+    "descendantcount": 2,
+    "descendantsize": 5760,
+    "descendantfees": 5780,
+    "ancestorcount": 1,
+    "ancestorsize": 5535,
+    "ancestorfees": 5554,
+    "depends": [
+    ],
+    "instantlock": true
   }
 }
 {% endhighlight %}

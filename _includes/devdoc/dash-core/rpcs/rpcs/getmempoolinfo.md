@@ -48,9 +48,14 @@ The `getmempoolinfo` RPC {{summary_getMemPoolInfo}}
   p: "Required<br>(exactly 1)"
   d: "*Added in Bitcoin Core 0.12.0*<br><br>The lowest fee per kilobyte paid by any transaction in the memory pool"
 
+- n: "→<br>`instantsendlocks`"
+  t: "number (int)"
+  p: "Required<br>(exactly 1)"
+  d: "*Added in Dash Core 0.14.1*<br><br>Number of unconfirmed InstantSend locks"
+
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.14.1*
 
 {% highlight bash %}
 dash-cli -testnet getmempoolinfo
@@ -61,10 +66,11 @@ Result:
 {% highlight json %}
 {
   "size": 1,
-  "bytes": 3471,
-  "usage": 8544,
+  "bytes": 666,
+  "usage": 1936,
   "maxmempool": 300000000,
-  "mempoolminfee": 0.00000000
+  "mempoolminfee": 0.00000000,
+  "instantsendlocks": 1
 }
 {% endhighlight %}
 

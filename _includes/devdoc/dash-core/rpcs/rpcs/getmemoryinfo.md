@@ -17,7 +17,16 @@ http://opensource.org/licenses/MIT.
 
 The `getmemoryinfo` RPC {{summary_getMemoryInfo}}
 
-*Parameters: none*
+*Parameter #1---mode*
+
+{% itemplate ntpd1 %}
+- n: "mode"
+  t: "string"
+  p: "Optional<br>Default: `stats`"
+  d: "*Added in Dash Core 0.14.1*<br><br>Determines what kind of information is returned.<br>
+       - `stats` returns general statistics about memory usage in the daemon.<br>
+       - `mallocinfo` returns an XML string describing low-level heap state (only available if compiled with glibc 2.10+)."
+{% enditemplate %}
 
 *Result---information about memory usage*
 
@@ -75,15 +84,14 @@ Result:
 {% highlight json %}
 {
   "locked": {
-    "used": 32,
-    "free": 65504,
-    "total": 65536,
-    "locked": 65536,
-    "chunks_used": 1,
-    "chunks_free": 1
+    "used": 1146240,
+    "free": 426624,
+    "total": 1572864,
+    "locked": 1572864,
+    "chunks_used": 16368,
+    "chunks_free": 7
   }
 }
-
 {% endhighlight %}
 
 *See also*

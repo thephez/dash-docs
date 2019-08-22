@@ -23,6 +23,16 @@ The `estimatesmartfee` RPC {{summary_estimateSmartFee}}
 
 {% enditemplate %}
 
+*Parameter #2---conservative*
+
+{% itemplate ntpd1 %}
+- n: "conservative"
+  t: "bool"
+  p: "Optional<br>Default=`true`"
+  d: "Whether to return a more conservative estimate which also satisfies a longer history. A conservative estimate potentially returns a higher feerate and is more likely to be sufficient for the desired target, but is not as responsive to short term drops in the prevailing fee market"
+
+{% enditemplate %}
+
 *Result---the fee the transaction needs to pay per kilobyte*
 
 {% itemplate ntpd1 %}

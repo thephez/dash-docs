@@ -48,17 +48,17 @@ http://opensource.org/licenses/MIT.
   p: "Required<br>(exactly 1)"
   d: "The number of confirmations the transaction has received.  Will be `0` for unconfirmed and `-1` for conflicted"
 
-- n: "→<br>`instantlock`"
+- n: "{{DEPTH}}<br>`instantlock`"
   t: "bool"
   p: "Required<br>(exactly 1)"
   d: "Current transaction lock state (InstantSend and/or ChainLock)"
 
-- n: "→<br>`instantlock_internal`"
+- n: "{{DEPTH}}<br>`instantlock_internal`"
   t: "bool"
   p: "Required<br>(exactly 1)"
   d: "Current InstantSend transaction lock state"
 
-- n: "<br>`chainlock`"
+- n: "{{DEPTH}}<br>`chainlock`"
   t: "bool"
   p: "Required<br>(exactly 1)"
   d: "*Added in Dash Core 0.14.0*<br><br>If set to `true`, this transaction is in a block that is locked (not susceptible to a chain re-org)"  
@@ -107,6 +107,11 @@ http://opensource.org/licenses/MIT.
   t: "number (int)"
   p: "Required<br>(exactly 1)"
   d: "A Unix epoch time when the transaction was detected by the local node, or the time of the block on the local best block chain that included the transaction"
+
+- n: "{{DEPTH}}<br>`abandoned`"
+  t: "bool"
+  p: "Optional<br>(0 or 1)"
+  d: "`true` if the transaction has been abandoned (inputs are respendable). Only available for the 'send' category of transactions."
 
 - n: "{{DEPTH}}<br>`comment`"
   t: "string"

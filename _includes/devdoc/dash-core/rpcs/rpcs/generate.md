@@ -30,7 +30,7 @@ The `generate` RPC {{summary_generate}}
 *Parameter #2---the number of iterations*
 
 {% itemplate ntpd1 %}
-- n: "`numblocks`"
+- n: "`maxtries`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
   d: "The number of iterations to try (default = 1000000)."

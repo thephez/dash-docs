@@ -82,7 +82,7 @@ The `getblockchaininfo` RPC {{summary_getBlockChainInfo}}
 
 - n: "→ →<br>Softfork"
   t: "object"
-  p: "Required<br>(3 or more)"
+  p: "Required<br>(0 or more)"
   d: "A specific softfork"
 
 - n: "→ → →<br>`id`"
@@ -152,7 +152,7 @@ The `getblockchaininfo` RPC {{summary_getBlockChainInfo}}
 
 - n: "→ →<br>Name"
   t: "string : object"
-  p: "Required<br>(2 or more)"
+  p: "Required<br>(0 or more)"
   d: "A specific BIP9 softfork"
 
 - n: "→ → →<br>`status`"
@@ -164,31 +164,6 @@ The `getblockchaininfo` RPC {{summary_getBlockChainInfo}}
   t: "numeric<br>(int)"
   p: "Optional<br>(0 or 1)"
   d: "The bit (0-28) in the block version field used to signal this softfork.  Field is only shown when status is `started`"
-
-- n: "→ → →<br>`period`"
-  t: "numeric<br>(int)"
-  p: "Optional<br>(0 or 1)"
-  d: "*Added in Dash Core 0.13.0*<br><br>The window size/period for this softfork.  Field is only shown when status is `started`"
-
-- n: "→ → →<br>`threshold`"
-  t: "numeric<br>(int)"
-  p: "Optional<br>(0 or 1)"
-  d: "*Added in Dash Core 0.13.0*<br><br>The threshold for this softfork.  Field is only shown when status is `started`"
-
-- n: "→ → →<br>`windowStart`"
-  t: "numeric<br>(int)"
-  p: "Optional<br>(0 or 1)"
-  d: "*Added in Dash Core 0.13.0*<br><br>The starting block height of the current window.  Field is only shown when status is `started`"
-
-- n: "→ → →<br>`windowBlocks`"
-  t: "numeric<br>(int)"
-  p: "Optional<br>(0 or 1)"
-  d: "*Added in Dash Core 0.13.0*<br><br>The number of blocks in the current window that had the version bit set for this softfork.  Field is only shown when status is `started`"
-
-- n: "→ → →<br>`windowProgress`"
-  t: "numeric<br>(int)"
-  p: "Optional<br>(0 or 1)"
-  d: "*Added in Dash Core 0.13.0*<br><br>The progress (between 0 and 1) for activation of this softfork.  Field is only shown when status is `started`"
 
 - n: "→ → →<br>`startTime`"
   t: "numeric<br>(int)"
@@ -204,9 +179,40 @@ The `getblockchaininfo` RPC {{summary_getBlockChainInfo}}
   t: "numeric<br>(int)"
   p: "Required<br>(exactly 1)"
   d: "*Added in Bitcoin Core 0.14.0*<br><br>The height of the first block to which the status applies"
+
+- n: "→ → →<br>`statistics`"
+  t: "string : object"
+  p: "Required<br>(exactly 1)"
+  d: "*Added in Dash Core 0.14.1*<br><br>Numeric statistics about BIP9 signaling for a softfork (only for \"started\" status)"
+
+- n: "→ → → →<br>`period`"
+  t: "numeric<br>(int)"
+  p: "Optional<br>(0 or 1)"
+  d: "*Added in Dash Core 0.14.1*<br><br>The length in blocks of the BIP9 signaling period.  Field is only shown when status is `started`"
+
+- n: "→ → → →<br>`threshold`"
+  t: "numeric<br>(int)"
+  p: "Optional<br>(0 or 1)"
+  d: "*Added in Dash Core 0.14.1*<br><br>The number of blocks with the version bit set required to activate the feature.  Field is only shown when status is `started`"
+
+- n: "→ → → →<br>`elapsed`"
+  t: "numeric<br>(int)"
+  p: "Optional<br>(0 or 1)"
+  d: "*Added in Dash Core 0.14.1*<br><br>The number of blocks elapsed since the beginning of the current period.  Field is only shown when status is `started`"
+
+- n: "→ → → →<br>`count`"
+  t: "numeric<br>(int)"
+  p: "Optional<br>(0 or 1)"
+  d: "*Added in Dash Core 0.14.1*<br><br>The number of blocks with the version bit set in the current period.  Field is only shown when status is `started`"
+
+- n: "→<br>`possible`"
+  t: "bool"
+  p: "Optional<br>(0 or 1)"
+  d: "*Added in Bitcoin Core 0.11.0*<br><br>Returns false if there are not enough blocks left in this period to pass activation threshold.  Field is only shown when status is `started`"
+
 {% enditemplate %}
 
-*Example from Dash Core 0.12.3*
+*Example from Dash Core 0.14.1*
 
 {% highlight bash %}
 dash-cli -testnet getblockchaininfo
@@ -217,13 +223,13 @@ Result:
 {% highlight json %}
 {
   "chain": "test",
-  "blocks": 82244,
-  "headers": 82244,
-  "bestblockhash": "0000000004efcadbdb9d8b524e5ab982af3db039fdb585c2f1c1df56d42d4492",
-  "difficulty": 47.4955836390814,
-  "mediantime": 1519662782,
-  "verificationprogress": 0.9999999483744162,
-  "chainwork": "0000000000000000000000000000000000000000000000000021adf3af961831",
+  "blocks": 160508,
+  "headers": 160508,
+  "bestblockhash": "0000000008ae87c2999faa79c74727ab2a15783fcab515cc940a6c14dfa921a8",
+  "difficulty": 24.71182965485547,
+  "mediantime": 1566479773,
+  "verificationprogress": 0.9999986039171913,
+  "chainwork": "0000000000000000000000000000000000000000000000000077db2024e1810b",
   "pruned": false,
   "softforks": [
     {
@@ -251,25 +257,36 @@ Result:
   "bip9_softforks": {
     "csv": {
       "status": "active",
-      "startTime": 1506556800,
-      "timeout": 1538092800,
+      "startTime": 1544655600,
+      "timeout": 1576191600,
       "since": 8064
     },
     "dip0001": {
       "status": "active",
-      "startTime": 1505692800,
-      "timeout": 1537228800,
-      "since": 5600
+      "startTime": 1544655600,
+      "timeout": 1576191600,
+      "since": 4400
+    },
+    "dip0003": {
+      "status": "active",
+      "startTime": 1544655600,
+      "timeout": 1576191600,
+      "since": 7000
+    },
+    "dip0008": {
+      "status": "active",
+      "startTime": 1553126400,
+      "timeout": 1584748800,
+      "since": 78800
     },
     "bip147": {
       "status": "active",
-      "startTime": 1517792400,
-      "timeout": 1549328400,
-      "since": 78800
+      "startTime": 1544655600,
+      "timeout": 1576191600,
+      "since": 4300
     }
   }
 }
-
 {% endhighlight %}
 
 *See also*

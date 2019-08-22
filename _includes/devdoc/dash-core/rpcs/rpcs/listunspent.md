@@ -64,6 +64,15 @@ the *spendable* field in the results described below.
 
 {% enditemplate %}
 
+*Parameter #5---query options*
+
+{% itemplate ntpd1 %}
+- n: "Query Options"
+  t: "json"
+  p: "Optional"
+  d: "JSON with query options. Available options:<br> - `minimumAmount`: Minimum value of each UTXO in DASH<br> - `maximumAmount`: Maximum value of each UTXO in DASH<br> - `maximumCount`: Maximum number of UTXOs<br> - `minimumSumAmount`: Minimum sum value of all UTXOs in DASH"
+
+{% enditemplate %}
 
 *Result---the list of unspent outputs*
 
@@ -140,7 +149,7 @@ the *spendable* field in the results described below.
 
 {% enditemplate %}
 
-*Example from Dash Core 0.14.0*
+*Example from Dash Core 0.14.1*
 
 Get all outputs confirmed at least 6 times for a particular
 address:
@@ -168,6 +177,42 @@ Result:
     "solvable": true,
     "safe": true,
     "ps_rounds": 13
+  }
+]
+{% endhighlight %}
+
+Get all outputs for a particular address that have at least 1 confirmation and a maximum value of 10:
+
+{% highlight bash %}
+listunspent 1 9999999 "[\"yQqTPAw1Nk8iFDeDXqe5dQ7A9xD6LVUStD\"]" true "{\"maximumAmount\":\"10\"}"
+
+dash-cli -testnet listunspent 1 9999999 '''
+  [
+    "yQqTPAw1Nk8iFDeDXqe5dQ7A9xD6LVUStD"
+  ]
+  ''' true '''
+  {
+    "maximumAmount": "10"
+  }
+  '''
+{% endhighlight %}
+
+Result:
+
+{% highlight json %}
+[
+  {
+    "txid": "42cd5150fd1179b5a194e034685d524e6d5d38703ac794d236495923a29addc5",
+    "vout": 1,
+    "address": "yQqTPAw1Nk8iFDeDXqe5dQ7A9xD6LVUStD",
+    "account": "",
+    "scriptPubKey": "76a914318d6d7e26e07a142a425a32ea917a30147d6c9788ac",
+    "amount": 5.00000000,
+    "confirmations": 100,
+    "spendable": true,
+    "solvable": true,
+    "safe": true,
+    "ps_rounds": -2
   }
 ]
 {% endhighlight %}
