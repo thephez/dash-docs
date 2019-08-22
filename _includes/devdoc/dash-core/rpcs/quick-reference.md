@@ -118,7 +118,7 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 
 * [GetBestBlockHash][rpc getbestblockhash]: {{summary_getBestBlockHash}}
 * [GetBlock][rpc getblock]: {{summary_getBlock}} {{DASH_UPDATED0_14_0}}
-* [GetBlockChainInfo][rpc getblockchaininfo]: {{summary_getBlockChainInfo}} {{DASH_UPDATED0_13_0}} {{UPDATED0_12_1}}
+* [GetBlockChainInfo][rpc getblockchaininfo]: {{summary_getBlockChainInfo}} {{DASH_UPDATED0_14_1}}
 * [GetBlockCount][rpc getblockcount]: {{summary_getBlockCount}}
 * [GetBlockHash][rpc getblockhash]: {{summary_getBlockHash}}
 * [GetBlockHashes][rpc getblockhashes]: {{summary_getBlockHashes}} {{DASH_NEW0_12_1}}
