@@ -3,6 +3,7 @@ This file is licensed under the MIT License (MIT) available on
 http://opensource.org/licenses/MIT.
 {% endcomment %}
 {% assign filename="_includes/devdoc/dash-core/rpcs/rpcs/getpeerinfo.md" %}
+<!--__-->
 
 ##### GetPeerInfo
 {% include helpers/subhead-links.md %}
@@ -42,6 +43,11 @@ The `getpeerinfo` RPC {{summary_getPeerInfo}}
   t: "string"
   p: "Optional<br>(0 or 1)"
   d: "Our IP address and port number according to the remote node.  May be incorrect due to error or lying.  Most SPV nodes set this to `127.0.0.1:9999`"
+
+- n: "→ →<br>`addrbind`"
+  t: "string"
+  p: "Optional<br>(0 or 1)"
+  d: "Bind address of the connection to the peer"
 
 - n: "→ →<br>`services`"
   t: "string (hex)"
@@ -107,6 +113,11 @@ The `getpeerinfo` RPC {{summary_getPeerInfo}}
   t: "bool"
   p: "Required<br>(exactly 1)"
   d: "Set to `true` if this node connected to us (inbound); set to `false` if we connected to this node (outbound)"
+
+- n: "→ →<br>`addnode`"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: "Set to `true` if this node was added via the `addnode` RPC."
 
 - n: "→ →<br>`startingheight`"
   t: "number (int)"
@@ -180,6 +191,7 @@ Result (edited to show only a single entry, with IP addresses changed to
     "id": 3,
     "addr": "192.0.2.113:19999",
     "addrlocal": "127.0.0.1:56332",
+    "addrbind": "192.168.10.111:56332",
     "services": "0000000000000005",
     "relaytxes": true,
     "lastsend": 1507818327,
@@ -188,62 +200,62 @@ Result (edited to show only a single entry, with IP addresses changed to
     "bytesrecv": 887651,
     "conntime": 1507808575,
     "timeoffset": 0,
-    "pingtime": 0.189852,
-    "minping": 0.187152,
-    "version": 70208,
-    "subver": "/Dash Core:0.12.2/",
+    "pingtime": 0.113646,
+    "minping": 0.106826,
+    "version": 70215,
+    "subver": "/Dash Core:0.14.0.3/",
     "inbound": false,
-    "startingheight": 8416,
+    "addnode": false,
+    "startingheight": 159292,
     "banscore": 0,
-    "synced_headers": 8474,
-    "synced_blocks": 8474,
+    "synced_headers": 159350,
+    "synced_blocks": 159350,
     "inflight": [
     ],
     "whitelisted": false,
     "bytessent_per_msg": {
-      "addr": 165,
-      "dseg": 65,
-      "dsq": 33984,
+      "addr": 55,
+      "dsq": 69530,
       "getaddr": 24,
-      "getdata": 73261,
-      "getheaders": 861,
-      "getsporks": 48,
-      "govobj": 20244,
-      "govobjvote": 22196,
-      "govsync": 545682,
-      "headers": 106,
-      "inv": 139035,
-      "mnget": 28,
-      "notfound": 1220,
-      "ping": 2624,
-      "pong": 2624,
+      "getdata": 9224,
+      "getheaders": 989,
+      "getsporks": 24,
+      "govsync": 66,
+      "headers": 6148,
+      "inv": 837,
+      "ping": 1856,
+      "pong": 1856,
+      "qsendrecsigs": 25,
+      "sendcmpct": 33,
+      "senddsq": 25,
       "sendheaders": 24,
-      "ssc": 1792,
+      "tx": 5808,
       "verack": 24,
-      "version": 128
+      "version": 160
     },
     "bytesrecv_per_msg": {
-      "addr": 4365,
-      "block": 22307,
-      "dsq": 33984,
-      "getdata": 10417,
-      "getheaders": 861,
-      "govobjvote": 179,
-      "govsync": 4620,
-      "headers": 6254,
-      "inv": 130964,
-      "mnp": 352,
-      "mnw": 600208,
-      "notfound": 31192,
-      "ping": 2624,
-      "pong": 2624,
+      "*other*": 25,
+      "addr": 17362,
+      "clsig": 3276,
+      "getdata": 122,
+      "getheaders": 989,
+      "headers": 5300,
+      "inv": 24611,
+      "islock": 3249,
+      "mnauth": 152,
+      "ping": 1856,
+      "pong": 1856,
+      "qsigrec": 16492,
+      "sendcmpct": 33,
+      "senddsq": 25,
       "sendheaders": 24,
-      "spork": 2860,
-      "ssc": 33664,
+      "spork": 2090,
+      "ssc": 32,
+      "tx": 11523,
       "verack": 24,
-      "version": 128
+      "version": 162
     }
-  },
+  }
 ]
 {% endhighlight %}
 

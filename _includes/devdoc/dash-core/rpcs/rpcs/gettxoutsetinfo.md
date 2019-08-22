@@ -3,6 +3,7 @@ This file is licensed under the MIT License (MIT) available on
 http://opensource.org/licenses/MIT.
 {% endcomment %}
 {% assign filename="_includes/devdoc/dash-core/rpcs/rpcs/gettxoutsetinfo.md" %}
+<!--__-->
 
 ##### GetTxOutSetInfo
 {% include helpers/subhead-links.md %}
@@ -43,15 +44,20 @@ The `gettxoutsetinfo` RPC {{summary_getTxOutSetInfo}}
   p: "Required<br>(exactly 1)"
   d: "The number of unspent transaction outputs"
 
-- n: "→<br>`bytes_serialized`"
+- n: "→<br>`bogosize`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
-  d: "The size of the serialized UTXO set in bytes; not counting overhead, this is the size of the `chainstate` directory in the Bitcoin Core configuration directory"
+  d: "A meaningless metric for UTXO set size"
 
-- n: "→<br>`hash_serialized`"
+- n: "→<br>`hash_serialized_2`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
   d: "A SHA256(SHA256()) hash of the serialized UTXO set; useful for comparing two nodes to see if they have the same set (they should, if they always used the same serialization format and currently have the same best block).  The hash is encoded as hex in RPC byte order"
+
+- n: "→<br>`disk_size`"
+  t: "number (int)"
+  p: "Required<br>(exactly 1)"
+  d: "The estimated size of the chainstate on disk"
 
 - n: "→<br>`total_amount`"
   t: "number (Dash)"
@@ -60,7 +66,7 @@ The `gettxoutsetinfo` RPC {{summary_getTxOutSetInfo}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.14.1*
 
 {% highlight bash %}
 dash-cli -testnet gettxoutsetinfo
@@ -70,13 +76,14 @@ Result:
 
 {% highlight json %}
 {
-  "height": 4755,
-  "bestblock": "0000000025da0abc9e9937f1c65b3f544a57bb7e8817422f7ff2a89ff32696f4",
-  "transactions": 4748,
-  "txouts": 10602,
-  "bytes_serialized": 463925,
-  "hash_serialized": "fce0776d7961b409c4d8a46363c8d049879321861f7f40db97b0432e59532320",
-  "total_amount": 2243585.70000000
+  "height": 159358,
+  "bestblock": "0000000000a705ef74a1fc134ea1eba49af8eead40b3df1fc4fb40f5940a0d60",
+  "transactions": 187542,
+  "txouts": 366996,
+  "bogosize": 28344374,
+  "hash_serialized_2": "d7326bdc2d9cb7d91580bfd47d6c2972ab1776c2c33c787873a5fd01986c9377",
+  "disk_size": 21513509,
+  "total_amount": 7517185.08574437
 }
 {% endhighlight %}
 

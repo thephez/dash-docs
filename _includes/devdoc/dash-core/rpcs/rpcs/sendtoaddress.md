@@ -74,7 +74,7 @@ The `sendtoaddress` RPC {{summary_sendToAddress}}
 - n: "Use InstantSend"
   t: "bool"
   p: "Optional<br>(0 or 1)"
-  d: "If set to `true`, send this transaction as InstantSend (default: false)."
+  d: "*Deprecated and ignored since Dash Core 0.14.1*"
 
 {% enditemplate %}
 
@@ -85,6 +85,26 @@ The `sendtoaddress` RPC {{summary_sendToAddress}}
   t: "bool"
   p: "Optional<br>(0 or 1)"
   d: "If set to `true`, use anonymized funds only (default: false)."
+
+{% enditemplate %}
+
+*Parameter #8---confirmation target*
+
+{% itemplate ntpd1 %}
+- n: "`conf_target`"
+  t: "number (int)"
+  p: "Optional<br>(0 or 1)"
+  d: "Confirmation target (in blocks)"
+
+{% enditemplate %}
+
+*Parameter #9---fee estimate mode*
+
+{% itemplate ntpd1 %}
+- n: "`estimate_mode`"
+  t: "string"
+  p: "Optional<br>(0 or 1)"
+  d: " The fee estimate mode, must be one of:<br>`UNSET`<br>`ECONOMICAL`<br>`CONSERVATIVE`<br>Default: `UNSET`"
 
 {% enditemplate %}
 
@@ -164,7 +184,6 @@ ba4bbe29fa06b67d6f3f3a73e381627e66abe22e217ce329aefad41ea72c3922
 
 *See also*
 
-* [InstantSendToAddress][rpc instantsendtoaddress]: {{summary_instantSendToAddress}}
 * [SendFrom][rpc sendfrom]: {{summary_sendFrom}}
 * [SendMany][rpc sendmany]: {{summary_sendMany}}
 * [Move][rpc move]: {{summary_move}}

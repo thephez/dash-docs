@@ -72,6 +72,8 @@ untrusted source.
 
 {% include devdoc/dash-core/rpcs/rpcs/abandontransaction.md %}
 
+{% include devdoc/dash-core/rpcs/rpcs/abortrescan.md %}
+
 {% include devdoc/dash-core/rpcs/rpcs/addmultisigaddress.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/addnode.md %}
@@ -160,6 +162,8 @@ untrusted source.
 
 {% include devdoc/dash-core/rpcs/rpcs/getchaintips.md %}
 
+{% include devdoc/dash-core/rpcs/rpcs/getchaintxstats.md %}
+
 {% include devdoc/dash-core/rpcs/rpcs/getconnectioncount.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/getdifficulty.md %}
@@ -246,8 +250,6 @@ untrusted source.
 
 {% include devdoc/dash-core/rpcs/rpcs/importwallet.md %}
 
-{% include devdoc/dash-core/rpcs/rpcs/instantsendtoaddress.md %}
-
 {% include devdoc/dash-core/rpcs/rpcs/keepass.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/keypoolrefill.md %}
@@ -272,7 +274,11 @@ untrusted source.
 
 {% include devdoc/dash-core/rpcs/rpcs/listunspent.md %}
 
+{% include devdoc/dash-core/rpcs/rpcs/listwallets.md %}
+
 {% include devdoc/dash-core/rpcs/rpcs/lockunspent.md %}
+
+{% include devdoc/dash-core/rpcs/rpcs/logging.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/masternode.md %}
 
@@ -337,6 +343,8 @@ untrusted source.
 {% include devdoc/dash-core/rpcs/rpcs/stop.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/submitblock.md %}
+
+{% include devdoc/dash-core/rpcs/rpcs/uptime.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/validateaddress.md %}
 

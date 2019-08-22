@@ -80,7 +80,7 @@ The `sendmany` RPC {{summary_sendMany}}
 - n: "Use InstantSend"
   t: "bool"
   p: "Optional<br>(0 or 1)"
-  d: "If set to `true`, send this transaction as InstantSend (default: false)."
+  d: "*Deprecated and ignored since Dash Core 0.14.1*"
 
 {% enditemplate %}
 
@@ -91,6 +91,26 @@ The `sendmany` RPC {{summary_sendMany}}
   t: "bool"
   p: "Optional<br>(0 or 1)"
   d: "If set to `true`, use anonymized funds only (default: false)."
+
+{% enditemplate %}
+
+*Parameter #9---confirmation target*
+
+{% itemplate ntpd1 %}
+- n: "`conf_target`"
+  t: "number (int)"
+  p: "Optional<br>(0 or 1)"
+  d: "Confirmation target (in blocks)"
+
+{% enditemplate %}
+
+*Parameter #10---fee estimate mode*
+
+{% itemplate ntpd1 %}
+- n: "`estimate_mode`"
+  t: "string"
+  p: "Optional<br>(0 or 1)"
+  d: " The fee estimate mode, must be one of:<br>`UNSET`<br>`ECONOMICAL`<br>`CONSERVATIVE`<br>Default: `UNSET`"
 
 {% enditemplate %}
 

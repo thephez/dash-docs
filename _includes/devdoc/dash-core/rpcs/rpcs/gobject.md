@@ -121,7 +121,7 @@ The `gobject prepare` RPC prepares a governance object by signing and creating a
 - n: "`use-IS`"
   t: "boolean"
   p: "Optional<br>(0 or 1)"
-  d: "*Added in Dash Core 0.13.0*<br><br>InstantSend lock the collateral, only requiring one chain confirmation"
+  d: "*Deprecated and ignored since Dash Core 0.14.1*"
 
 {% enditemplate %}
 

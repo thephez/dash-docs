@@ -289,6 +289,8 @@ DIP8:
 ## RPCs
 '`abandontransaction`': rpc abandontransaction
 '`abandontransaction` RPC': rpc abandontransaction
+'`abortrescan`': rpc abortrescan
+'`abortrescan` RPC': rpc abortrescan
 '`addmultisigaddress`': rpc addmultisigaddress
 '`addmultisigaddress` RPC': rpc addmultisigaddress
 '`addnode`': rpc addnode
@@ -377,6 +379,8 @@ DIP8:
 '`getblocktemplate` RPC': rpc getblocktemplate
 '`getchaintips`': rpc getchaintips
 '`getchaintips` RPC': rpc getchaintips
+'`getchaintxstats`': rpc getchaintxstats
+'`getchaintxstats` RPC': rpc getchaintxstats
 '`getconnectioncount`': rpc getconnectioncount
 '`getconnectioncount` RPC': rpc getconnectioncount
 '`getdifficulty`': rpc getdifficulty
@@ -463,8 +467,6 @@ DIP8:
 '`importpubkey` RPC': rpc importpubkey
 '`importwallet`': rpc importwallet
 '`importwallet` RPC': rpc importwallet
-'`instantsendtoaddress`': rpc instantsendtoaddress
-'`instantsendtoaddress` RPC': rpc instantsendtoaddress
 '`keepass`': rpc keepass
 '`keepass` RPC': rpc keepass
 '`keypoolrefill`': rpc keypoolrefill
@@ -489,8 +491,12 @@ DIP8:
 '`listtransactions` RPC': rpc listtransactions
 '`listunspent`': rpc listunspent
 '`listunspent` RPC': rpc listunspent
+'`listwallets`': rpc listwallets
+'`listwallets` RPC': rpc listwallets
 '`lockunspent`': rpc lockunspent
 '`lockunspent` RPC': rpc lockunspent
+'`logging`': rpc logging
+'`logging` RPC': rpc logging
 '`masternode`': rpc masternode
 '`masternode` RPC': rpc masternode
 '`masternodebroadcast`': rpc masternodebroadcast
@@ -560,6 +566,8 @@ DIP8:
 '`submitblock` RPC': rpc submitblock
 '`validateaddress`': rpc validateaddress
 '`validateaddress` RPC': rpc validateaddress
+'`uptime`': rpc uptime
+'`uptime` RPC': rpc uptime
 '`verifychain`': rpc verifychain
 '`verifychain` RPC': rpc verifychain
 '`verifymessage`': rpc verifymessage

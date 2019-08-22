@@ -3,6 +3,7 @@ This file is licensed under the MIT License (MIT) available on
 http://opensource.org/licenses/MIT.
 {% endcomment %}
 {% assign filename="_includes/devdoc/dash-core/rpcs/rpcs/submitblock.md" %}
+<!--__-->
 
 ##### SubmitBlock
 {% include helpers/subhead-links.md %}
@@ -23,13 +24,13 @@ The `submitblock` RPC {{summary_submitBlock}}
 
 {% enditemplate %}
 
-*Parameter #2---additional parameters*
+*Parameter #2---dummy value*
 
 {% itemplate ntpd1 %}
-- n: "Parameters"
+- n: "`dummy`"
   t: "object"
   p: "Optional<br>(0 or 1)"
-  d: "A JSON object containing extra parameters.  Not used directly by Dash Core and also not broadcast to the network.  This is available for use by mining pools and other software.  A common parameter is a `workid` string"
+  d: "A dummy value for compatibility with BIP22. This value is ignored."
 
 {% enditemplate %}
 
@@ -43,9 +44,9 @@ The `submitblock` RPC {{summary_submitBlock}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.14.1*
 
-Submit the following block with the workid, "test".
+Submit the following block with the a dummy value, "test".
 
 {% highlight bash %}
 dash-cli -testnet submitblock 0100002032e3965d5fdd7a883209d516599337eb4cb82f\
@@ -64,7 +65,7 @@ dash-cli -testnet submitblock 0100002032e3965d5fdd7a883209d516599337eb4cb82f\
   96e3a36f3e815222cd1cb9586b3193c4a0de030477f621956d51feffffff02a00bd1000000\
   00001976a914d7b47d4b40a23c389f5a17754d7f60f511c7d0ec88ac316168821300000019\
   76a914c9190e507834b78a624d7578f1ad3819592ca1aa88ac771f0000 \
-  '{ "workid": "test" }'
+  "test"
 {% endhighlight %}
 
 Result (the block above was already on a local block chain):

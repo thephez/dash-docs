@@ -60,16 +60,6 @@ The `getmempoolentry` RPC {{summary_getMemPoolEntry}}
   p: "Required<br>(exactly 1)"
   d: "The block height when the transaction entered the memory pool"
 
-- n: "→<br>`startingpriority`"
-  t: "number (int)"
-  p: "Required<br>(exactly 1)"
-  d: "The priority of the transaction when it first entered the memory pool"
-
-- n: "→<br>`currentpriority`"
-  t: "number (int)"
-  p: "Required<br>(exactly 1)"
-  d: "The current priority of the transaction"
-
 - n: "→<br>`descendantcount`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
@@ -110,11 +100,6 @@ The `getmempoolentry` RPC {{summary_getMemPoolEntry}}
   p: "Optional (0 or more)"
   d: "The TXIDs of any unconfirmed transactions this transaction depends upon, encoded as hex in RPC byte order"
 
-- n: "→<br>`instantsend`"
-  t: "bool"
-  p: "Required<br>(exactly 1)"
-  d: "True if this transaction was sent as an InstantSend one"
-
 - n: "→<br>`instantlock`"
   t: "bool"
   p: "Required<br>(exactly 1)"
@@ -133,23 +118,20 @@ Result:
 
 {% highlight json %}
 {
-  "size": 226,
-  "fee": 0.00000226,
-  "modifiedfee": 0.00000226,
-  "time": 1519159538,
-  "height": 79036,
-  "startingpriority": 0,
-  "currentpriority": 0,
-  "descendantcount": 2,
-  "descendantsize": 452,
-  "descendantfees": 452,
+  "size": 372,
+  "fee": 0.00000375,
+  "modifiedfee": 0.00000375,
+  "time": 1566315602,
+  "height": 159320,
+  "descendantcount": 1,
+  "descendantsize": 372,
+  "descendantfees": 375,
   "ancestorcount": 1,
-  "ancestorsize": 226,
-  "ancestorfees": 226,
+  "ancestorsize": 372,
+  "ancestorfees": 375,
   "depends": [
   ],
-  "instantsend": false,
-  "instantlock": false  
+  "instantlock": true
 }
 {% endhighlight %}
 

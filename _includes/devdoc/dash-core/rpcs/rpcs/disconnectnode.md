@@ -22,7 +22,15 @@ The `disconnectnode` RPC {{summary_disconnectNode}}
   t: "string"
   p: "Required<br>(exactly 1)"
   d: "The node you want to disconnect from as a string in the form of `<IP address>:<port>`.<br><br>*Updated in Bitcoin Core 0.14.1*"
+{% enditemplate %}
 
+*Parameter #2---nodeid*
+
+{% itemplate ntpd1 %}
+- n: "nodeid"
+  t: "number"
+  p: "Optional"
+  d: "The node ID (see `getpeerinfo` for node IDs)"
 {% enditemplate %}
 
 *Result---`null` on success or error on failed disconnect*
@@ -35,12 +43,20 @@ The `disconnectnode` RPC {{summary_disconnectNode}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.12.2*
+*Example from Dash Core 0.14.1*
 
-Disconnects following node from your node.
+Disconnects following node by address.
 
 {% highlight bash %}
 dash-cli -testnet disconnectnode 192.0.2.113:19999
+{% endhighlight %}
+
+Result (no output from `dash-cli` because result is set to `null`).
+
+Disconnects following node by id.
+
+{% highlight bash %}
+dash-cli -testnet disconnectnode "" 3
 {% endhighlight %}
 
 Result (no output from `dash-cli` because result is set to `null`).

@@ -69,6 +69,7 @@ http://opensource.org/licenses/MIT.
 
 {% comment %}<!-- RPCs; alphabetical order -->{% endcomment %}
 [rpc abandontransaction]: /en/developer-reference#abandontransaction
+[rpc abortrescan]: /en/developer-reference#abortrescan
 [rpc addmultisigaddress]: /en/developer-reference#addmultisigaddress
 [rpc addnode]: /en/developer-reference#addnode
 [rpc addwitnessaddress]: /en/developer-reference#addwitnessaddress
@@ -113,6 +114,7 @@ http://opensource.org/licenses/MIT.
 [rpc getblockheaders]: /en/developer-reference#getblockheaders
 [rpc getblocktemplate]: /en/developer-reference#getblocktemplate
 [rpc getchaintips]: /en/developer-reference#getchaintips
+[rpc getchaintxstats]: /en/developer-reference#getchaintxstats
 [rpc getconnectioncount]: /en/developer-reference#getconnectioncount
 [rpc getdifficulty]: /en/developer-reference#getdifficulty
 [rpc getgenerate]: /en/developer-reference#getgenerate
@@ -156,7 +158,6 @@ http://opensource.org/licenses/MIT.
 [rpc importprunedfunds]: /en/developer-reference#importprunedfunds
 [rpc importpubkey]: /en/developer-reference#importpubkey
 [rpc importwallet]: /en/developer-reference#importwallet
-[rpc instantsendtoaddress]: /en/developer-reference#instantsendtoaddress
 [rpc keepass]: /en/developer-reference#keepass
 [rpc keypoolrefill]: /en/developer-reference#keypoolrefill
 [rpc listaccounts]: /en/developer-reference#listaccounts
@@ -169,7 +170,9 @@ http://opensource.org/licenses/MIT.
 [rpc listsinceblock]: /en/developer-reference#listsinceblock
 [rpc listtransactions]: /en/developer-reference#listtransactions
 [rpc listunspent]: /en/developer-reference#listunspent
+[rpc listwallets]: /en/developer-reference#listwallets
 [rpc lockunspent]: /en/developer-reference#lockunspent
+[rpc logging]: /en/developer-reference#logging
 [rpc masternode]: /en/developer-reference#masternode
 [rpc masternodebroadcast]: /en/developer-reference#masternodebroadcast
 [rpc masternodelist]: /en/developer-reference#masternodelist
@@ -202,6 +205,7 @@ http://opensource.org/licenses/MIT.
 [rpc spork]: /en/developer-reference#spork-rpc
 [rpc stop]: /en/developer-reference#stop
 [rpc submitblock]: /en/developer-reference#submitblock
+[rpc uptime]: /en/developer-reference#uptime
 [rpc validateaddress]: /en/developer-reference#validateaddress
 [rpc verifychain]: /en/developer-reference#verifychain
 [rpc verifymessage]: /en/developer-reference#verifymessage
