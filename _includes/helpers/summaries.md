@@ -104,6 +104,7 @@ This file is licensed under the terms of its source texts{%endcomment%}
 {% assign summary_listUnspent="returns an array of unspent transaction outputs belonging to this wallet." %}
 {% assign summary_listWallets="returns a list of currently loaded wallets." %}
 {% assign summary_lockUnspent="temporarily locks or unlocks specified transaction outputs. A locked transaction output will not be chosen by automatic coin selection when spending dash. Locks are stored in memory only, so nodes start with zero locked outputs and the locked output list is always cleared when a node stops or fails." %}
+{% assign summary_logging="gets and sets the logging configuration" %}
 {% assign summary_masternode="provides a set of commands for managing masternodes and displaying information about them." %}
 {% assign summary_masternodeBroadcast="was removed in Dash Core 0.14.0." %}
 {% assign summary_masternodeList="returns a list of masternodes in different modes." %}

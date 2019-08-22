@@ -35,6 +35,8 @@ Result:
 Debug mode: net+mempool
 {% endhighlight %}
 
-*See also: none*
+*See also*
+
+* [Logging][rpc logging]: {{summary_logging}}
 
 {% endautocrossref %}

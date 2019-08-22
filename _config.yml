@@ -269,6 +269,7 @@ devsearches:
     - 'ListUnspent': "/en/developer-reference#listunspent"
     - 'ListWallets': "/en/developer-reference#listwallets"
     - 'LockUnspent': "/en/developer-reference#lockunspent"
+    - 'Logging': "/en/developer-reference#logging"
     - 'Masternode': "/en/developer-reference#masternode"
     - 'MasternodeBroadcast': "/en/developer-reference#masternodebroadcast"
     - 'MasternodeList': "/en/developer-reference#masternodelist"

@@ -278,6 +278,8 @@ untrusted source.
 
 {% include devdoc/dash-core/rpcs/rpcs/lockunspent.md %}
 
+{% include devdoc/dash-core/rpcs/rpcs/logging.md %}
+
 {% include devdoc/dash-core/rpcs/rpcs/masternode.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/masternodebroadcast.md %}
