@@ -3646,7 +3646,7 @@ section][section message header] for an example of a message without a payload.
 {% autocrossref %}
 
 The following network messages enable the Governance features built in to Dash.
-For additional details on the governance system, see this [Budget System page](https://docs.dash.org/en/latest/governance/index.html).
+For additional details on the governance system, see this [Budget System page](https://docs.dash.org/en/stable/governance/index.html).
 
 ![Overview Of P2P Protocol Governance Request And Reply Messages](/img/dev/en-p2p-governance-messages.svg)
 
