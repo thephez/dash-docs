@@ -217,6 +217,16 @@ The `getblock` RPC {{summary_getBlock}}
 
 {{INCLUDE_DECODE_RAW_TRANSACTION}}
 
+- n: "→ →<br>`instantlock`"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: "If set to `true`, this transaction is locked (by InstantSend or a ChainLock)"
+
+- n: "→ →<br>`instantlock_internal`"
+  t: "bool"
+  p: "Required<br>(exactly 1)"
+  d: "If set to `true`, this transaction has an InstantSend lock"
+
 - n: "→<br>`cbTx`"
   t: "object"
   p: "Required<br>(exactly 1)"

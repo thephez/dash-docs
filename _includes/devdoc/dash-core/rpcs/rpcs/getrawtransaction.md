@@ -101,7 +101,7 @@ deprecated.
   p: "Optional<br>(0 or 1)"
   d: "This field is currently identical to the time field described above"
 
-- n: "<br>`instantlock`"
+- n: "→<br>`instantlock`"
   t: "bool"
   p: "Required<br>(exactly 1)"
   d: "If set to `true`, this transaction is locked (by InstantSend or a ChainLock)"
@@ -111,7 +111,7 @@ deprecated.
   p: "Required<br>(exactly 1)"
   d: "If set to `true`, this transaction has an InstantSend lock"
 
-- n: "<br>`chainlock`"
+- n: "→<br>`chainlock`"
   t: "bool"
   p: "Required<br>(exactly 1)"
   d: "*Added in Dash Core 0.14.0*<br><br>If set to `true`, this transaction is in a block that is locked (not susceptible to a chain re-org)"
