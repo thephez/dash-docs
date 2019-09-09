@@ -248,7 +248,7 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 * [DecodeRawTransaction][rpc decoderawtransaction]: {{summary_decodeRawTransaction}} {{UPDATED0_13_0}}
 * [DecodeScript][rpc decodescript]: {{summary_decodeScript}}
 * [FundRawTransaction][rpc fundrawtransaction]: {{summary_fundRawTransaction}} {{DASH_UPDATED0_12_3}} {{UPDATED0_14_0}}
-* [GetRawTransaction][rpc getrawtransaction]: {{summary_getRawTransaction}} {{DASH_UPDATED0_14_0}}
+* [GetRawTransaction][rpc getrawtransaction]: {{summary_getRawTransaction}} {{DASH_UPDATED0_14_1}}
 * [SendRawTransaction][rpc sendrawtransaction]: {{summary_sendRawTransaction}} {{DASH_UPDATED0_14_1}}
 * [SignRawTransaction][rpc signrawtransaction]: {{summary_signRawTransaction}}
 
