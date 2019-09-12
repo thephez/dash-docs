@@ -744,7 +744,7 @@ been redesigned and no longer operate as described below.**
 
 {% autocrossref %}
 
-![Warning icon](/img/icons/icon_warning.svg) **Please see [here for details of the current InstantSend design](#instantsend).**
+![Warning icon](/img/icons/icon_warning.svg) **Please see [here for details of the current InstantSend design](#instantsend<!--noref-->).**
 
 Dash Core's InstantSend feature provides a way to lock transaction inputs and
 enable secure, instantaneous transactions. Since Dash Core 0.13.0, any qualifying
