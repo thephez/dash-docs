@@ -32,108 +32,11 @@ economy.
 {% autocrossref %}
 
 Dash Core's InstantSend feature provides a way to lock transaction inputs and
-enable secure, instantaneous transactions. Since Dash Core 0.13.0, any qualifying
-transaction is automatically upgraded to InstantSend by the network without a
-need for the sending wallet to explicitly request it. For these simple
-transactions (those containing 4 or fewer inputs), the previous requirement for
-a special InstantSend transaction fee was also removed. The criteria for
-determining eligibility can be found in the lists of limitations below.
+enable secure, instantaneous transactions. The network automatically attempts to
+upgrade any qualifying transaction to InstantSend without a need for the sending
+wallet to explicitly request it.
 
-The following video provides an overview with a good introduction to the details
-including the InstantSend vulnerability that was fixed in Dash Core 0.12.2.
-Some specific points in the video are listed here for quick reference:
-
- - 2:00 - InstantSend restrictions
- - 5:00 - Masternode quorum creation
- - 6:00 - Input locking
- - 7:45 - Quorum score calculation / Requirement for block confirmations
- - 9:00 - Description of Dash Core pre-0.12.2 InstantSend vulnerability
- - 13:00 - Description of vulnerability fix / Post Dash Core 0.12.2 operation
-
-{% endautocrossref %}
-
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/n4PELomRiFY?rel=0;start=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
-{% autocrossref %}
-
-*InstantSend Data Flow*
-
-| **InstantSend Client** | **Direction**  | **Peers**   | **Description** |
-| `inv` message (ix)          | → |                         | Client sends inventory for transaction lock request
-|                             | ← | `getdata` message (ix)  | Peer responds with request for transaction lock request
-| `ix` message                | → |                         | Client sends InstantSend transaction lock request
-|                             | ← | `inv` message (txlvote) | Masternodes in the [quorum](#quorum-selection) respond with votes
-| `getdata` message (txlvote) | → |                         | Client requests vote
-|                             | ← | `txlvote` message       | Peer responds with vote
-
-Once an InstantSend lock has been requested, the `instantsend` field of various
-RPCs (e.g. the `getmempoolentry` RPC) is set to `true`. Then, if a sufficient
-number of votes approve the transaction lock, the InstantSend transaction is approved
-the `instantlock` field of the RPC is set to `true`.
-
-If an InstantSend transaction is a valid transaction but does not receive a
-transaction lock, it reverts to being a standard transaction.
-
-There are a number of limitations on InstantSend transactions:
-
-* The lock request will timeout 15 seconds after the first vote is seen (`INSTANTSEND_LOCK_TIMEOUT_SECONDS`)
-* The lock request will fail if it has not been locked after 60 seconds (`INSTANTSEND_FAILED_TIMEOUT_SECONDS`)
-* A “per-input” fee of 0.0001 DASH per input is required for non-simple transactions (inputs >=5) since they place a higher load on the masternodes. This fee was most
-recently decreased by [DIP-0001](https://github.com/dashpay/dips/blob/master/dip-0001.md).
-* To be used in an InstantSend transaction, an input must have at least the number confirmations (block depth) indicated by the table below
-
-| **Network** | **Confirmations Required** |
-|---------|--------------|
-| Mainnet | 6 Blocks |
-| Testnet | 2 Blocks |
-| Regtest | 2 Blocks |
-| Devnet  | 2 Blocks |
-
-There are some further limitations on Automatic InstantSend transactions:
-
-* DIP3 must be active
-* Spork 16 must be enabled
-* Mempool usage must be lower than 10% (`AUTO_IX_MEMPOOL_THRESHOLD`). As of Dash Core 0.13.0, this corresponds to a mempool size of 30 MB (`DEFAULT_MAX_MEMPOOL_SIZE` = 300 MB).
-
-**Historical Note**
-
-Prior to Dash Core 0.13.0, `instantsend` and `instantlock` values were not
-available via RPC. At that time, the InstantSend system worked as described below.
-
-Once a sufficient number of votes approved the transaction lock, the InstantSend
-transaction was approved and showed 5 confirmations (`DEFAULT_INSTANTSEND_DEPTH`).
-
-NOTE: The 5 "pseudo-confirmations" were shown to convey confidence that the
-transaction was secure from double-spending and DID NOT indicate the transaction
-had already been confirmed to a block depth of 5 in the blockchain.
-
-{% endautocrossref %}
-
-#### LLMQ InstantSend
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-The introduction of Long-Living Masternode Quorums in Dash Core 0.14 provides
-a foundation to further scale InstantSend. LLMQs enable the transaction input
-locking process (and resulting network traffic) to occur within the quorum. This
-enables further scaling without introducing network congestion since only the
-output of the locking process is relayed to the entire Dash network.
-
-LLMQ-based InstantSend also removes a number of previously required limitations
-and simplifies the process by decreasing the number of P2P messages clients must
-process. Rather than tracking individual masternode votes for each transaction
-input, all required locking information is found within the single `islock` message.
-
-During the evaluation and transition from standard InstantSend to LLMQ-based
-InstantSend, Sporks 2 (`SPORK_2_INSTANTSEND_ENABLED`) and 20 (`SPORK_20_INSTANTSEND_LLMQ_BASED`)
-will both be used. Spork 2 enables or disables the entire InstantSend feature,
-while spork 20 determines which of the two InstantSend mechanisms is active when
-InstantSend is enabled.
-
-There are still some limitations on LLMQ-based InstantSend transactions:
-
-* Transaction inputs must either:
+* To qualify for InstantSend, transaction inputs must either:
   * Be locked by InstantSend
   * Be in a block that has a ChainLock
   * Have at least the number confirmations (block depth) indicated by the table below
@@ -141,24 +44,20 @@ There are still some limitations on LLMQ-based InstantSend transactions:
   | **Network** | **Confirmations Required** |
   |---------|--------------|
   | Mainnet | 6 Blocks |
-  | Testnet | 2 Blocks |
-  | Regtest | 2 Blocks |
-  | Devnet  | 2 Blocks |
+  | Testnet / Regtest / Devnet | 2 Blocks |
 
+The introduction of Long-Living Masternode Quorums in Dash Core 0.14 provided
+a foundation to scale InstantSend. The transaction input locking process (and
+resulting network traffic) now occurs only within the quorum. This minimizes
+network congestion since only the `islock` message produced by the locking
+process is relayed to the entire Dash network. This message contains all the
+information necessary to verify a successful transaction lock.
 
-The improvements over the old InstantSend system include both the addition of new
-functionality and the removal of prior limitations. The following table details
-these improvements:
-
-| **Status** | **Improvement** |
-|---------|--------------|
-| New | Transactions can be chained if the inputs are from transactions that are also locked |
-| New | InstantSend locks are attempted for all transactions (`tx` messages) - no need to request it via the special message (`ix` message) |
-| New | Successful locks are indicated by a single `islock` message - no need to track votes (`txlvote` messages) for each input |
-| Updated | Limit on number of inputs removed |
-| Updated | Limit on transaction value removed |
-| Updated | Timeout for locking removed - transaction locks will only be removed once the transaction is confirmed in a ChainLocked block |
-| Updated | Custom InstantSend fee removed |
+Sporks 2 (`SPORK_2_INSTANTSEND_ENABLED`) and 20 (`SPORK_20_INSTANTSEND_LLMQ_BASED`)
+are used to manage InstantSend. Spork 2 enables or disables the entire
+InstantSend feature. Spork 20 was used to support the transition to LLMQ-based
+InstantSend and is currently retained for backward compatibility. It will be
+deprecated in a future release.
 
 Note: A transaction will __not__ be included in the block template (from `getblocktemplate`) unless it:
 
@@ -181,6 +80,9 @@ block.
 |                             | ← | `inv` message (islock)  | Quorum responds with lock inventory
 | `getdata` message (islock)  | → |                         | Client requests lock message
 |                             | ← | `islock` message        | Quorum responds with lock message
+
+Once a transaction lock is approved, the `instantlock` field of various RPCs
+is set to `true` (e.g. the `getmempoolentry` RPC).
 
 {% endautocrossref %}
 
