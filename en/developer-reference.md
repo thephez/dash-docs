@@ -78,13 +78,9 @@ untrusted source.
 
 {% include devdoc/dash-core/rpcs/rpcs/addnode.md %}
 
-{% include devdoc/dash-core/rpcs/rpcs/addwitnessaddress.md %}
-
 {% include devdoc/dash-core/rpcs/rpcs/backupwallet.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/bls.md %}
-
-{% include devdoc/dash-core/rpcs/rpcs/bumpfee.md %}
 
 {% include devdoc/dash-core/rpcs/rpcs/clearbanned.md %}
 
