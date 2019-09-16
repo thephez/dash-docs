@@ -295,14 +295,10 @@ DIP8:
 '`addmultisigaddress` RPC': rpc addmultisigaddress
 '`addnode`': rpc addnode
 '`addnode` RPC': rpc addnode
-'`addwitnessaddress`': rpc addwitnessaddress
-'`addwitnessaddress` RPC': rpc addwitnessaddress
 '`backupwallet`': rpc backupwallet
 '`backupwallet` RPC': rpc backupwallet
 '`bls`': rpc bls
 '`bls` RPC': rpc bls
-'`bumpfee`': rpc bumpfee
-'`bumpfee` RPC': rpc bumpfee
 '`clearbanned`': rpc clearbanned
 '`clearbanned` RPC': rpc clearbanned
 '`createmultisig`': rpc createmultisig
