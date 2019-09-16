@@ -32,108 +32,11 @@ economy.
 {% autocrossref %}
 
 Dash Core's InstantSend feature provides a way to lock transaction inputs and
-enable secure, instantaneous transactions. Since Dash Core 0.13.0, any qualifying
-transaction is automatically upgraded to InstantSend by the network without a
-need for the sending wallet to explicitly request it. For these simple
-transactions (those containing 4 or fewer inputs), the previous requirement for
-a special InstantSend transaction fee was also removed. The criteria for
-determining eligibility can be found in the lists of limitations below.
+enable secure, instantaneous transactions. The network automatically attempts to
+upgrade any qualifying transaction to InstantSend without a need for the sending
+wallet to explicitly request it.
 
-The following video provides an overview with a good introduction to the details
-including the InstantSend vulnerability that was fixed in Dash Core 0.12.2.
-Some specific points in the video are listed here for quick reference:
-
- - 2:00 - InstantSend restrictions
- - 5:00 - Masternode quorum creation
- - 6:00 - Input locking
- - 7:45 - Quorum score calculation / Requirement for block confirmations
- - 9:00 - Description of Dash Core pre-0.12.2 InstantSend vulnerability
- - 13:00 - Description of vulnerability fix / Post Dash Core 0.12.2 operation
-
-{% endautocrossref %}
-
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/n4PELomRiFY?rel=0;start=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
-{% autocrossref %}
-
-*InstantSend Data Flow*
-
-| **InstantSend Client** | **Direction**  | **Peers**   | **Description** |
-| `inv` message (ix)          | → |                         | Client sends inventory for transaction lock request
-|                             | ← | `getdata` message (ix)  | Peer responds with request for transaction lock request
-| `ix` message                | → |                         | Client sends InstantSend transaction lock request
-|                             | ← | `inv` message (txlvote) | Masternodes in the [quorum](#quorum-selection) respond with votes
-| `getdata` message (txlvote) | → |                         | Client requests vote
-|                             | ← | `txlvote` message       | Peer responds with vote
-
-Once an InstantSend lock has been requested, the `instantsend` field of various
-RPCs (e.g. the `getmempoolentry` RPC) is set to `true`. Then, if a sufficient
-number of votes approve the transaction lock, the InstantSend transaction is approved
-the `instantlock` field of the RPC is set to `true`.
-
-If an InstantSend transaction is a valid transaction but does not receive a
-transaction lock, it reverts to being a standard transaction.
-
-There are a number of limitations on InstantSend transactions:
-
-* The lock request will timeout 15 seconds after the first vote is seen (`INSTANTSEND_LOCK_TIMEOUT_SECONDS`)
-* The lock request will fail if it has not been locked after 60 seconds (`INSTANTSEND_FAILED_TIMEOUT_SECONDS`)
-* A “per-input” fee of 0.0001 DASH per input is required for non-simple transactions (inputs >=5) since they place a higher load on the masternodes. This fee was most
-recently decreased by [DIP-0001](https://github.com/dashpay/dips/blob/master/dip-0001.md).
-* To be used in an InstantSend transaction, an input must have at least the number confirmations (block depth) indicated by the table below
-
-| **Network** | **Confirmations Required** |
-|---------|--------------|
-| Mainnet | 6 Blocks |
-| Testnet | 2 Blocks |
-| Regtest | 2 Blocks |
-| Devnet  | 2 Blocks |
-
-There are some further limitations on Automatic InstantSend transactions:
-
-* DIP3 must be active
-* Spork 16 must be enabled
-* Mempool usage must be lower than 10% (`AUTO_IX_MEMPOOL_THRESHOLD`). As of Dash Core 0.13.0, this corresponds to a mempool size of 30 MB (`DEFAULT_MAX_MEMPOOL_SIZE` = 300 MB).
-
-**Historical Note**
-
-Prior to Dash Core 0.13.0, `instantsend` and `instantlock` values were not
-available via RPC. At that time, the InstantSend system worked as described below.
-
-Once a sufficient number of votes approved the transaction lock, the InstantSend
-transaction was approved and showed 5 confirmations (`DEFAULT_INSTANTSEND_DEPTH`).
-
-NOTE: The 5 "pseudo-confirmations" were shown to convey confidence that the
-transaction was secure from double-spending and DID NOT indicate the transaction
-had already been confirmed to a block depth of 5 in the blockchain.
-
-{% endautocrossref %}
-
-#### LLMQ InstantSend
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
-
-The introduction of Long-Living Masternode Quorums in Dash Core 0.14 provides
-a foundation to further scale InstantSend. LLMQs enable the transaction input
-locking process (and resulting network traffic) to occur within the quorum. This
-enables further scaling without introducing network congestion since only the
-output of the locking process is relayed to the entire Dash network.
-
-LLMQ-based InstantSend also removes a number of previously required limitations
-and simplifies the process by decreasing the number of P2P messages clients must
-process. Rather than tracking individual masternode votes for each transaction
-input, all required locking information is found within the single `islock` message.
-
-During the evaluation and transition from standard InstantSend to LLMQ-based
-InstantSend, Sporks 2 (`SPORK_2_INSTANTSEND_ENABLED`) and 20 (`SPORK_20_INSTANTSEND_LLMQ_BASED`)
-will both be used. Spork 2 enables or disables the entire InstantSend feature,
-while spork 20 determines which of the two InstantSend mechanisms is active when
-InstantSend is enabled.
-
-There are still some limitations on LLMQ-based InstantSend transactions:
-
-* Transaction inputs must either:
+* To qualify for InstantSend, transaction inputs must either:
   * Be locked by InstantSend
   * Be in a block that has a ChainLock
   * Have at least the number confirmations (block depth) indicated by the table below
@@ -141,24 +44,20 @@ There are still some limitations on LLMQ-based InstantSend transactions:
   | **Network** | **Confirmations Required** |
   |---------|--------------|
   | Mainnet | 6 Blocks |
-  | Testnet | 2 Blocks |
-  | Regtest | 2 Blocks |
-  | Devnet  | 2 Blocks |
+  | Testnet / Regtest / Devnet | 2 Blocks |
 
+The introduction of Long-Living Masternode Quorums in Dash Core 0.14 provided
+a foundation to scale InstantSend. The transaction input locking process (and
+resulting network traffic) now occurs only within the quorum. This minimizes
+network congestion since only the `islock` message produced by the locking
+process is relayed to the entire Dash network. This message contains all the
+information necessary to verify a successful transaction lock.
 
-The improvements over the old InstantSend system include both the addition of new
-functionality and the removal of prior limitations. The following table details
-these improvements:
-
-| **Status** | **Improvement** |
-|---------|--------------|
-| New | Transactions can be chained if the inputs are from transactions that are also locked |
-| New | InstantSend locks are attempted for all transactions (`tx` messages) - no need to request it via the special message (`ix` message) |
-| New | Successful locks are indicated by a single `islock` message - no need to track votes (`txlvote` messages) for each input |
-| Updated | Limit on number of inputs removed |
-| Updated | Limit on transaction value removed |
-| Updated | Timeout for locking removed - transaction locks will only be removed once the transaction is confirmed in a ChainLocked block |
-| Updated | Custom InstantSend fee removed |
+Sporks 2 (`SPORK_2_INSTANTSEND_ENABLED`) and 20 (`SPORK_20_INSTANTSEND_LLMQ_BASED`)
+are used to manage InstantSend. Spork 2 enables or disables the entire
+InstantSend feature. Spork 20 was used to support the transition to LLMQ-based
+InstantSend and is currently retained for backward compatibility. It will be
+deprecated in a future release.
 
 Note: A transaction will __not__ be included in the block template (from `getblocktemplate`) unless it:
 
@@ -181,6 +80,9 @@ block.
 |                             | ← | `inv` message (islock)  | Quorum responds with lock inventory
 | `getdata` message (islock)  | → |                         | Client requests lock message
 |                             | ← | `islock` message        | Quorum responds with lock message
+
+Once a transaction lock is approved, the `instantlock` field of various RPCs
+is set to `true` (e.g. the `getmempoolentry` RPC).
 
 {% endautocrossref %}
 
@@ -415,27 +317,6 @@ payments much more predictable, and also allow masternode payments to be
 enforced for all blocks (enforcement for superblocks was not possible in the
 previous system).
 
-**Historical Note**
-
-Prior to DIP3, the masternode payment process operated as described below.
-
-Masternode payment uses a verifiable process to determine which masternode is
-paid in each block. When a new block is processed, a quorum of
-`MNPAYMENTS_SIGNATURES_TOTAL` (10) masternodes vote on the next masternode
-payee. The quorum is calculated deterministically based on the distance between
-masternode's hash and the block's proof of work.
-
-Each member of the quorum issues a 'mnw' message that is relayed to the
-network. The payee is selected from a subset of masternodes made up of 10%
-of eligible nodes that have been waiting the longest since their last payment.
-The winner is then determined based on a number of parameters including the
-distance between the its hash and the block's proof of work. For additional
-detail, reference this [Official Documentation Payment Logic page](https://docs.dash.org/en/0.12.3/masternodes<!--noref-->/understanding.html#payment-logic).
-
-Nodes receiving a `mnw` message verify the validity of the message before
-relaying it to their peers. If the message is invalid, the sending node may be
-treated as misbehaving and have its ban score increased.
-
 {% endautocrossref %}
 
 ### Masternode Sync
@@ -524,113 +405,6 @@ The following actions only run when the masternode sync is past `MASTERNODE_SYNC
 | 60  | Process MN Connections    | Disconnects some masternodes (masternodeman.cpp) |
 | 60  | InstantSend<!--noref--> Check/Remove  | Remove expired/orphaned/invalid InstantSend candidates and votes (instantx.cpp) |
 | 300 | Maintenance               | Check/remove/reprocess governance objects (governance.cpp) |
-
-{% endautocrossref %}
-
-#### Previous System
-<!-- no subhead-links here -->
-
-![Warning icon](/img/icons/icon_warning.svg) **The following information is for
-historical reference only. It describes the masternode sync process that was
-used prior to the deterministic masternode list update in Dash Core v0.13 that
-implemented DIP3.**
-
-Please see [here for details of the current system](#masternode-sync)
-
-##### Initial Sync
-<!-- no subhead-links here -->
-
-{% autocrossref %}
-
-This diagram shows the order in which P2P messages are sent to perform
-masternode synchronization initially after startup.
-
-![Masternode Sync (Initial)](/img/dev/en-masternode-sync-initial.svg)
-
-The following table details the data flow of P2P messages exchanged during
-initial masternode synchronization before the activation of DIP3 and Spork 15.
-
-| **Syncing Node Message** | **Direction**  | **Masternode Response**   | **Description** |
-| **1. Sporks** |   |  |  |
-| `getsporks` message                            | → |                           | Syncing node requests sporks
-|                                                | ← | `spork` message(s)        |
-| **2. Masternode List** |   |  | Sync Masternode list from other connected clients |
-| `dseg` message                                 | → |                           | Syncing node requests masternode list
-|                                                | ← | `ssc` message | Number of entries in masternode list (MASTERNODE_SYNC_LIST)<br><br>Only sent if requesting entire list
-|                                                | ← | `inv` message(s) (mnb)         | MSG_MASTERNODE_ANNOUNCE
-|                                                | ← | `inv` message(s) (mnp)         | MSG_MASTERNODE_PING
-| `getdata` message(s) (mnb) | → |                           | (Optional)
-| `getdata` message(s) (mnp)     | → |                           | (Optional)
-|                                                | ← | `mnb` message(s)          | (If requested) Masternode announce message
-|                                                | ← | `mnp` message(s)          | (If requested) Masternode ping message
-| **3. Masternode payments** |   |  | Ask node for all payment votes it has (new nodes will only return votes for future payments) |
-| `mnget` message                                | → |                           | Syncing node requests masternode payment sync
-|                                                | ← | `ssc` message | Number of entries in masternode payment list
-|                                                | ← | `inv` message(s) (mnw)         | MSG_MASTERNODE_PAYMENT_VOTE
-| `getdata` message(s) (mnw) | → |                           | (Optional)
-|                                                | ← | `mnw` message(s)          | (If requested) Masternode payment vote message
-| **4. Governance** |   |  | See [Governance sync](#governance) |
-
-
-##### Ongoing Sync
-{% include helpers/subhead-links.md %}
-
-Once a masternode completes an initial full sync, continuing synchronization is
-maintained by the exchange of P2P messages with other nodes. This diagram shows
-an overview of the messages exchanged to keep the masternode list, masternode
-payments, and governance objects synchronized between masternodes.
-
-![Masternode Sync (Ongoing)](/img/dev/en-masternode-sync-ongoing.svg)
-
-**Recurring Ping**
-
-![Warning icon](/img/icons/icon_warning.svg) NOTE: Deprecated following
-activation of DIP3.
-
-Each masternode issues a ping (`mnp` message) periodically to notify the network
-that it is still online. Masternodes that do not issue a ping for 3 hours will
-be put into the `MASTERNODE_NEW_START_REQUIRED` state and will need to issue a
-masternode announce (`mnb` message).
-
-**Masternode List**
-
-![Warning icon](/img/icons/icon_warning.svg) NOTE: Deprecated following
-activation of DIP3.
-
-After the initial masternode list has been received, it is kept current by a
-combination of the periodic `mnp` messages received from other masternodes,
-the `mnb` messages sent by masternodes as they come online, and `mnv` messages
-to verify that other masternodes are valid.
-
-Also, `dseg` messages can be sent to request masternode info when messages are
-received that have been signed by an unrecognized masternode (most masternode/governance
-messages include a `vin` value that can be used to verify the masternode's
-unspent 1000 Dash).
-
-Unsynchronized peers may send a `dseg` message to request the entire masternode list.
-
-**Masternode Payment**
-
-![Warning icon](/img/icons/icon_warning.svg) NOTE: Deprecated following
-activation of DIP3.
-
-After the initial masternode payment synchronization, payment information is
-kept current via the `mnw` messages relayed on the network. Unsynchronized peers
-may send a `mnget` message to request masternode payment sync.
-
-##### Sync Schedule
-{% include helpers/subhead-links.md %}
-
-Prior to the deterministic masternode system introduced by DIP3 in Dash Core 0.13,
-the following additional sync actions were also required.
-
-| **Period (seconds)** | **Action** | **Description** |
-| 1   | MN Check                  | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Check the state of each masternode that is still funded and not banned. The action occurs once per second, but individual masternodes are only checked at most every 5 seconds (only a subset of masternodes are checked each time it runs) (masternodeman.cpp) |
-| 60  | MN Check/Remove           | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Remove spent masternodes and check the state of inactive ones (masternodeman.cpp) |
-| 60  | MN Payment Check/Remove   | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Remove old masternode payment votes/blocks (masternode-payments.cpp) |
-| 300 | Full verification         | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Verify masternodes via direct requests (`mnv` messages - note time constraints in the Developer Reference section) (masternodeman.cpp) |
-| 600 | Manage State              | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Sends masternode pings (`mnp` message). Also sends initial masternode broadcast (`mnb` message) for local masternodes. (activemasternode.cpp) |
-
 
 {% endautocrossref %}
 
@@ -907,7 +681,7 @@ transaction.
 
 | PoSe Parameter | Value | Example Value |
 |-|-|-|
-| Maximux PoSe Score | Number of registered masternodes | 5000 |
+| Maximum PoSe Score | Number of registered masternodes | 5000 |
 | PoSe Score Increases | Maximum PoSe Score * 2/3 | 3333 |
 | PoSe Score Decreases | 1 (per block) | Always `1` |
 
@@ -934,5 +708,238 @@ For example, using the values from above with 5000 masternodes:
 | 2 | 7000 | 1500 Blocks Mined | -1500 | 3000 | Valid |
 | 2 | 7000 | DKG Failure (4) | +3333 | 6333 | PoSe Banned |
 | 2 | 10000 | End of Payment Cycle 2 | - | 6333 | PoSe Banned |
+
+{% endautocrossref %}
+
+### Historical Reference
+<!-- no subhead-links here -->
+
+![Warning icon](/img/icons/icon_warning.svg) **The following information is
+deprecated and for historical reference only. It describes features that have
+been redesigned and no longer operate as described below.**
+
+#### InstantSend (original)
+{% include helpers/subhead-links.md %}
+
+{% autocrossref %}
+
+![Warning icon](/img/icons/icon_warning.svg) **Please see [here for details of the current InstantSend design](#instantsend<!--noref-->).**
+
+Dash Core's InstantSend feature provides a way to lock transaction inputs and
+enable secure, instantaneous transactions. Since Dash Core 0.13.0, any qualifying
+transaction is automatically upgraded to InstantSend by the network without a
+need for the sending wallet to explicitly request it. For these simple
+transactions (those containing 4 or fewer inputs), the previous requirement for
+a special InstantSend transaction fee was also removed. The criteria for
+determining eligibility can be found in the lists of limitations below.
+
+The following video provides an overview with a good introduction to the details
+including the InstantSend vulnerability that was fixed in Dash Core 0.12.2.
+Some specific points in the video are listed here for quick reference:
+
+ - 2:00 - InstantSend restrictions
+ - 5:00 - Masternode quorum creation
+ - 6:00 - Input locking
+ - 7:45 - Quorum score calculation / Requirement for block confirmations
+ - 9:00 - Description of Dash Core pre-0.12.2 InstantSend vulnerability
+ - 13:00 - Description of vulnerability fix / Post Dash Core 0.12.2 operation
+
+{% endautocrossref %}
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/n4PELomRiFY?rel=0;start=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+{% autocrossref %}
+
+*InstantSend Data Flow*
+
+| **InstantSend Client** | **Direction**  | **Peers**   | **Description** |
+| `inv` message (ix)          | → |                         | Client sends inventory for transaction lock request
+|                             | ← | `getdata` message (ix)  | Peer responds with request for transaction lock request
+| `ix` message                | → |                         | Client sends InstantSend transaction lock request
+|                             | ← | `inv` message (txlvote) | Masternodes in the [quorum](#quorum-selection) respond with votes
+| `getdata` message (txlvote) | → |                         | Client requests vote
+|                             | ← | `txlvote` message       | Peer responds with vote
+
+Once an InstantSend lock has been requested, the `instantsend` field of various
+RPCs (e.g. the `getmempoolentry` RPC) is set to `true`. Then, if a sufficient
+number of votes approve the transaction lock, the InstantSend transaction is approved
+the `instantlock` field of the RPC is set to `true`.
+
+If an InstantSend transaction is a valid transaction but does not receive a
+transaction lock, it reverts to being a standard transaction.
+
+There are a number of limitations on InstantSend transactions:
+
+* The lock request will timeout 15 seconds after the first vote is seen (`INSTANTSEND_LOCK_TIMEOUT_SECONDS`)
+* The lock request will fail if it has not been locked after 60 seconds (`INSTANTSEND_FAILED_TIMEOUT_SECONDS`)
+* A “per-input” fee of 0.0001 DASH per input is required for non-simple transactions (inputs >=5) since they place a higher load on the masternodes. This fee was most
+recently decreased by [DIP-0001](https://github.com/dashpay/dips/blob/master/dip-0001.md).
+* To be used in an InstantSend transaction, an input must have at least the number confirmations (block depth) indicated by the table below
+
+| **Network** | **Confirmations Required** |
+|---------|--------------|
+| Mainnet | 6 Blocks |
+| Testnet | 2 Blocks |
+| Regtest | 2 Blocks |
+| Devnet  | 2 Blocks |
+
+There are some further limitations on Automatic InstantSend transactions:
+
+* DIP3 must be active
+* Spork 16 must be enabled
+* Mempool usage must be lower than 10% (`AUTO_IX_MEMPOOL_THRESHOLD`). As of Dash Core 0.13.0, this corresponds to a mempool size of 30 MB (`DEFAULT_MAX_MEMPOOL_SIZE` = 300 MB).
+
+**Historical Note**
+
+Prior to Dash Core 0.13.0, `instantsend` and `instantlock` values were not
+available via RPC. At that time, the InstantSend system worked as described below.
+
+Once a sufficient number of votes approved the transaction lock, the InstantSend
+transaction was approved and showed 5 confirmations (`DEFAULT_INSTANTSEND_DEPTH`).
+
+NOTE: The 5 "pseudo-confirmations" were shown to convey confidence that the
+transaction was secure from double-spending and DID NOT indicate the transaction
+had already been confirmed to a block depth of 5 in the blockchain.
+
+{% endautocrossref %}
+
+
+#### Masternode Payment (original)
+{% include helpers/subhead-links.md %}
+
+![Warning icon](/img/icons/icon_warning.svg) **The following information is for
+historical reference only. It describes the masternode payment process that was
+used prior to the deterministic masternode list update in Dash Core v0.13 that
+implemented DIP3.**
+
+Please see [here for details of the current system](#masternode-payment)
+
+{% autocrossref %}
+
+Prior to DIP3, the masternode payment process operated as described below.
+
+Masternode payment uses a verifiable process to determine which masternode is
+paid in each block. When a new block is processed, a quorum of
+`MNPAYMENTS_SIGNATURES_TOTAL` (10) masternodes vote on the next masternode
+payee. The quorum is calculated deterministically based on the distance between
+masternode's hash and the block's proof of work.
+
+Each member of the quorum issues a 'mnw' message that is relayed to the
+network. The payee is selected from a subset of masternodes made up of 10%
+of eligible nodes that have been waiting the longest since their last payment.
+The winner is then determined based on a number of parameters including the
+distance between the its hash and the block's proof of work. For additional
+detail, reference this [Official Documentation Payment Logic page](https://docs.dash.org/en/0.12.3/masternodes<!--noref-->/understanding.html#payment-logic).
+
+Nodes receiving a `mnw` message verify the validity of the message before
+relaying it to their peers. If the message is invalid, the sending node may be
+treated as misbehaving and have its ban score increased.
+
+{% endautocrossref %}
+
+
+#### Masternode Sync (original)
+<!-- no subhead-links here -->
+
+![Warning icon](/img/icons/icon_warning.svg) **The following information is for
+historical reference only. It describes the masternode sync process that was
+used prior to the deterministic masternode list update in Dash Core v0.13 that
+implemented DIP3.**
+
+Please see [here for details of the current system](#masternode-sync)
+
+##### Initial Sync
+<!-- no subhead-links here -->
+
+{% autocrossref %}
+
+This diagram shows the order in which P2P messages are sent to perform
+masternode synchronization initially after startup.
+
+![Masternode Sync (Initial)](/img/dev/en-masternode-sync-initial.svg)
+
+The following table details the data flow of P2P messages exchanged during
+initial masternode synchronization before the activation of DIP3 and Spork 15.
+
+| **Syncing Node Message** | **Direction**  | **Masternode Response**   | **Description** |
+| **1. Sporks** |   |  |  |
+| `getsporks` message                            | → |                           | Syncing node requests sporks
+|                                                | ← | `spork` message(s)        |
+| **2. Masternode List** |   |  | Sync Masternode list from other connected clients |
+| `dseg` message                                 | → |                           | Syncing node requests masternode list
+|                                                | ← | `ssc` message | Number of entries in masternode list (MASTERNODE_SYNC_LIST)<br><br>Only sent if requesting entire list
+|                                                | ← | `inv` message(s) (mnb)         | MSG_MASTERNODE_ANNOUNCE
+|                                                | ← | `inv` message(s) (mnp)         | MSG_MASTERNODE_PING
+| `getdata` message(s) (mnb) | → |                           | (Optional)
+| `getdata` message(s) (mnp)     | → |                           | (Optional)
+|                                                | ← | `mnb` message(s)          | (If requested) Masternode announce message
+|                                                | ← | `mnp` message(s)          | (If requested) Masternode ping message
+| **3. Masternode payments** |   |  | Ask node for all payment votes it has (new nodes will only return votes for future payments) |
+| `mnget` message                                | → |                           | Syncing node requests masternode payment sync
+|                                                | ← | `ssc` message | Number of entries in masternode payment list
+|                                                | ← | `inv` message(s) (mnw)         | MSG_MASTERNODE_PAYMENT_VOTE
+| `getdata` message(s) (mnw) | → |                           | (Optional)
+|                                                | ← | `mnw` message(s)          | (If requested) Masternode payment vote message
+| **4. Governance** |   |  | See [Governance sync](#governance) |
+
+
+##### Ongoing Sync
+{% include helpers/subhead-links.md %}
+
+Once a masternode completes an initial full sync, continuing synchronization is
+maintained by the exchange of P2P messages with other nodes. This diagram shows
+an overview of the messages exchanged to keep the masternode list, masternode
+payments, and governance objects synchronized between masternodes.
+
+![Masternode Sync (Ongoing)](/img/dev/en-masternode-sync-ongoing.svg)
+
+**Recurring Ping**
+
+![Warning icon](/img/icons/icon_warning.svg) NOTE: Deprecated following
+activation of DIP3.
+
+Each masternode issues a ping (`mnp` message) periodically to notify the network
+that it is still online. Masternodes that do not issue a ping for 3 hours will
+be put into the `MASTERNODE_NEW_START_REQUIRED` state and will need to issue a
+masternode announce (`mnb` message).
+
+**Masternode List**
+
+![Warning icon](/img/icons/icon_warning.svg) NOTE: Deprecated following
+activation of DIP3.
+
+After the initial masternode list has been received, it is kept current by a
+combination of the periodic `mnp` messages received from other masternodes,
+the `mnb` messages sent by masternodes as they come online, and `mnv` messages
+to verify that other masternodes are valid.
+
+Also, `dseg` messages can be sent to request masternode info when messages are
+received that have been signed by an unrecognized masternode (most masternode/governance
+messages include a `vin` value that can be used to verify the masternode's
+unspent 1000 Dash).
+
+Unsynchronized peers may send a `dseg` message to request the entire masternode list.
+
+**Masternode Payment**
+
+![Warning icon](/img/icons/icon_warning.svg) NOTE: Deprecated following
+activation of DIP3.
+
+After the initial masternode payment synchronization, payment information is
+kept current via the `mnw` messages relayed on the network. Unsynchronized peers
+may send a `mnget` message to request masternode payment sync.
+
+##### Sync Schedule
+{% include helpers/subhead-links.md %}
+
+Prior to the deterministic masternode system introduced by DIP3 in Dash Core 0.13,
+the following additional sync actions were also required.
+
+| **Period (seconds)** | **Action** | **Description** |
+| 1   | MN Check                  | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Check the state of each masternode that is still funded and not banned. The action occurs once per second, but individual masternodes are only checked at most every 5 seconds (only a subset of masternodes are checked each time it runs) (masternodeman.cpp) |
+| 60  | MN Check/Remove           | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Remove spent masternodes and check the state of inactive ones (masternodeman.cpp) |
+| 60  | MN Payment Check/Remove   | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Remove old masternode payment votes/blocks (masternode-payments.cpp) |
+| 300 | Full verification         | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Verify masternodes via direct requests (`mnv` messages - note time constraints in the Developer Reference section) (masternodeman.cpp) |
+| 600 | Manage State              | ![Warning icon](/img/icons/icon_warning.svg) _Deprecated following activation of DIP3 and Spork 15_<br><br>Sends masternode pings (`mnp` message). Also sends initial masternode broadcast (`mnb` message) for local masternodes. (activemasternode.cpp) |
 
 {% endautocrossref %}
