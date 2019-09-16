@@ -317,27 +317,6 @@ payments much more predictable, and also allow masternode payments to be
 enforced for all blocks (enforcement for superblocks was not possible in the
 previous system).
 
-**Historical Note**
-
-Prior to DIP3, the masternode payment process operated as described below.
-
-Masternode payment uses a verifiable process to determine which masternode is
-paid in each block. When a new block is processed, a quorum of
-`MNPAYMENTS_SIGNATURES_TOTAL` (10) masternodes vote on the next masternode
-payee. The quorum is calculated deterministically based on the distance between
-masternode's hash and the block's proof of work.
-
-Each member of the quorum issues a 'mnw' message that is relayed to the
-network. The payee is selected from a subset of masternodes made up of 10%
-of eligible nodes that have been waiting the longest since their last payment.
-The winner is then determined based on a number of parameters including the
-distance between the its hash and the block's proof of work. For additional
-detail, reference this [Official Documentation Payment Logic page](https://docs.dash.org/en/0.12.3/masternodes<!--noref-->/understanding.html#payment-logic).
-
-Nodes receiving a `mnw` message verify the validity of the message before
-relaying it to their peers. If the message is invalid, the sending node may be
-treated as misbehaving and have its ban score increased.
-
 {% endautocrossref %}
 
 ### Masternode Sync
@@ -821,6 +800,40 @@ transaction was approved and showed 5 confirmations (`DEFAULT_INSTANTSEND_DEPTH`
 NOTE: The 5 "pseudo-confirmations" were shown to convey confidence that the
 transaction was secure from double-spending and DID NOT indicate the transaction
 had already been confirmed to a block depth of 5 in the blockchain.
+
+{% endautocrossref %}
+
+
+#### Masternode Payment (original)
+{% include helpers/subhead-links.md %}
+
+![Warning icon](/img/icons/icon_warning.svg) **The following information is for
+historical reference only. It describes the masternode payment process that was
+used prior to the deterministic masternode list update in Dash Core v0.13 that
+implemented DIP3.**
+
+Please see [here for details of the current system](#masternode-payment)
+
+{% autocrossref %}
+
+Prior to DIP3, the masternode payment process operated as described below.
+
+Masternode payment uses a verifiable process to determine which masternode is
+paid in each block. When a new block is processed, a quorum of
+`MNPAYMENTS_SIGNATURES_TOTAL` (10) masternodes vote on the next masternode
+payee. The quorum is calculated deterministically based on the distance between
+masternode's hash and the block's proof of work.
+
+Each member of the quorum issues a 'mnw' message that is relayed to the
+network. The payee is selected from a subset of masternodes made up of 10%
+of eligible nodes that have been waiting the longest since their last payment.
+The winner is then determined based on a number of parameters including the
+distance between the its hash and the block's proof of work. For additional
+detail, reference this [Official Documentation Payment Logic page](https://docs.dash.org/en/0.12.3/masternodes<!--noref-->/understanding.html#payment-logic).
+
+Nodes receiving a `mnw` message verify the validity of the message before
+relaying it to their peers. If the message is invalid, the sending node may be
+treated as misbehaving and have its ban score increased.
 
 {% endautocrossref %}
 
