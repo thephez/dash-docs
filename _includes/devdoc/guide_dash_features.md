@@ -702,7 +702,7 @@ transaction.
 
 | PoSe Parameter | Value | Example Value |
 |-|-|-|
-| Maximux PoSe Score | Number of registered masternodes | 5000 |
+| Maximum PoSe Score | Number of registered masternodes | 5000 |
 | PoSe Score Increases | Maximum PoSe Score * 2/3 | 3333 |
 | PoSe Score Decreases | 1 (per block) | Always `1` |
 
@@ -732,7 +732,7 @@ For example, using the values from above with 5000 masternodes:
 
 {% endautocrossref %}
 
-### Historial Reference
+### Historical Reference
 <!-- no subhead-links here -->
 
 ![Warning icon](/img/icons/icon_warning.svg) **The following information is
