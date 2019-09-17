@@ -35,9 +35,8 @@ check the faucets listed below. They are community supported and due to
 potentially frequent Testnet changes, one or more of them may be unavailable at
 a given time:
 
-* [Testnet Faucet - Dash.org]
 * [Testnet Faucet - Masternode.io]
-* [Testnet Faucet - Dashninja.pl]
+* [Testnet Faucet - Crowdnode.io]
 
 Testnet is a public resource provided for free by members of the community,
 so please don't abuse it.
