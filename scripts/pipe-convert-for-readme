@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+perl -0777 \
+-pe "s/\{% comment %\}[^{]+\{% endcomment %\}//gs;" \
+-pe "s/\[([^]]+).+\.term\}/<<glossary:\1>>/g;" \
+-pe "s/<<([^>]+)\n([^>]+)>>/<<\1 \2>>/gs;" \
+-pe "s!/img/dev!https://dash-docs.github.io/img/dev!g;" \
+-pe "s/{[^}]+}//g;" \
+-pe "s/\n\n+/\n\n/g;"
