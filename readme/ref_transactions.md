@@ -95,7 +95,7 @@ First, get your hash.  For P2PKH, you RIPEMD-160(SHA256()) hash a ECDSA public k
 
 4. Append the checksum to the version and hash, and encode it as a base58 string: <!--[-->`BASE58(version . hash . checksum)`<!--]-->
 
-Dash's base58 encoding, called [Base58Check][/en/glossary/base58check]{:#term-base58check}{:.term} may not match other implementations. Tier Nolan provided the following example encoding algorithm to the Bitcoin Wiki [Base58Check encoding](https://en.bitcoin.it/wiki/Base58Check_encoding) page under the [Creative Commons Attribution 3.0 license](https://creativecommons.org/licenses/by/3.0/):
+Dash's base58 encoding, called <<glossary:Base58Check>> may not match other implementations. Tier Nolan provided the following example encoding algorithm to the Bitcoin Wiki [Base58Check encoding](https://en.bitcoin.it/wiki/Base58Check_encoding) page under the [Creative Commons Attribution 3.0 license](https://creativecommons.org/licenses/by/3.0/):
 
 ``` c
 code_string = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
@@ -123,7 +123,7 @@ To convert addresses back into hashes, reverse the base58 encoding, extract the 
 
 # Raw Transaction Format
 
-Dash transactions are broadcast between peers in a serialized byte format, called [raw format][/en/glossary/serialized-transaction]{:#term-raw-format}{:.term}. It is this form of a transaction which is SHA256(SHA256()) hashed to create the TXID and, ultimately, the merkle root of a block containing the transaction---making the transaction format part of the consensus rules.
+Dash transactions are broadcast between peers in a serialized byte format, called <<glossary:raw format>>. It is this form of a transaction which is SHA256(SHA256()) hashed to create the TXID and, ultimately, the merkle root of a block containing the transaction---making the transaction format part of the consensus rules.
 
 Dash Core and many other tools print and accept raw transactions encoded as hex.
 
@@ -288,8 +288,8 @@ The first transaction in a block, called the coinbase transaction, must have exa
 | 32       | hash (null)        | char[32]             | A 32-byte null, as a coinbase has no previous outpoint.
 | 4        | index (UINT32_MAX) | uint32_t             | 0xffffffff, as a coinbase has no previous outpoint.
 | *Varies* | script bytes       | compactSize uint     | The number of bytes in the coinbase script, up to a maximum of 100 bytes.
-| *Varies* (4) | height         | script               | The [block height][/en/glossary/coinbase]{:#term-coinbase-block-height}{:.term} of this block as required by BIP34.  Uses script language: starts with a data-pushing opcode that indicates how many bytes to push to the stack followed by the block height as a little-endian unsigned integer.  This script must be as short as possible, otherwise it may be rejected.<br/><br/>  The data-pushing opcode will be 0x03 and the total size four bytes until block 16,777,216 about 300 years from now.
-| *Varies* | coinbase script    | *None*               | The [coinbase field][/en/glossary/coinbase]{:#term-coinbase-field}{:.term}: Arbitrary data not exceeding 100 bytes minus the (4) height bytes.  Miners commonly place an extra nonce in this field to update the block header merkle root during hashing.
+| *Varies* (4) | height         | script               | The <<glossary:block height>> of this block as required by BIP34.  Uses script language: starts with a data-pushing opcode that indicates how many bytes to push to the stack followed by the block height as a little-endian unsigned integer.  This script must be as short as possible, otherwise it may be rejected.<br/><br/>  The data-pushing opcode will be 0x03 and the total size four bytes until block 16,777,216 about 300 years from now.
+| *Varies* | coinbase script    | *None*               | The <<glossary:coinbase field>>: Arbitrary data not exceeding 100 bytes minus the (4) height bytes.  Miners commonly place an extra nonce in this field to update the block header merkle root during hashing.
 | 4        | sequence           | uint32_t             | Sequence number.
 
 Although the coinbase script is arbitrary data, if it includes the bytes used by any signature-checking operations such as `OP_CHECKSIG`, those signature checks will be counted as signature operations (sigops) towards the block's sigop limit.  To avoid this, you can prefix all data with the appropriate push operation.
