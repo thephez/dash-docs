@@ -77,7 +77,7 @@ Failure, aborted: two signature matches required but none found so
 
 The hashes used in P2PKH and P2SH outputs are commonly encoded as Dash addresses.  This is the procedure to encode those hashes and decode the addresses.
 
-First, get your hash.  For P2PKH, you RIPEMD-160(SHA256()) hash a ECDSA public key derived from your 256-bit ECDSA private key (random data). For P2SH, you RIPEMD-160(SHA256()) hash a redeem script serialized in the format used in raw transactions (described in a [following sub-section][raw transaction format]).  Taking the resulting hash:
+First, get your hash.  For P2PKH, you RIPEMD-160(SHA256()) hash a ECDSA public key derived from your 256-bit ECDSA private key (random data). For P2SH, you RIPEMD-160(SHA256()) hash a redeem script serialized in the format used in raw transactions (described in a [following sub-section](#section-raw-transaction-format)).  Taking the resulting hash:
 
 1. Add an address version byte in front of the hash.  The version bytes commonly used by Dash are:
 
