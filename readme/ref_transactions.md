@@ -384,8 +384,7 @@ The special transaction type is 1 and the extra payload consists of the followin
 | 1-9 | payloadSigSize |compactSize uint | Size of the Signature
 | Variable | payloadSig | vector | Signature of the hash of the ProTx fields. Signed with the key corresponding to the collateral outpoint in case the collateral is not part of the ProRegTx itself, empty otherwise.
 
-The following annotated hexdump shows a ProRegTx transaction referencing an
-existing collateral. (Parts of the classical transaction section have been omitted.)
+The following annotated hexdump shows a ProRegTx transaction referencing an existing collateral. (Parts of the classical transaction section have been omitted.)
 
 ~~~
 0300 ....................................... Version (3)
