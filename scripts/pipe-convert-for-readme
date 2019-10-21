@@ -12,8 +12,18 @@
 
 perl -0777 \
 -pe "s/\{% comment %\}[^{]+\{% endcomment %\}//gs;" \
--pe "s/\[([^]]+).+\.term\}/<<glossary:\1>>/g;" \
 -pe "s/<<([^>]+)\n([^>]+)>>/<<\1 \2>>/gs;" \
--pe "s!/img/dev!https://dash-docs.github.io/img/dev!g;" \
--pe "s/{[^}]+}//g;" \
+-pe "s!/img!https://dash-docs.github.io/img!g;" \
+-pe "s/{% assign filename[^}]+}//g;" \
+-pe "s/{% autocrossref %\}//g;" \
+-pe "s/{% endautocrossref %\}//g;" \
+-pe "s/{:.no_toc}//g;" \
+-pe "s/<!--noref-->//g;" \
+-pe "s/{% include helpers\/subhead-links.md %}//g;" \
+-pe "s/{% highlight text %}/~~~/g;" \
+-pe "s/{% highlight json %}/\`\`\`json/g;" \
+-pe "s/{% highlight c %}/\`\`\`c/g;" \
+-pe "s/{%  c++ %}/\`\`\`c/g;" \
 -pe "s/\n\n+/\n\n/g;"
+#-pe "s/{[^}]+}//g;" \
+#-pe "s/\[([^]]+)\]\[.+?\.term\}/<<glossary:\1>>/g;" \

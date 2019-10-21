@@ -1,20 +1,12 @@
-{% comment %}
-This file is licensed under the MIT License (MIT) available on
-http://opensource.org/licenses/MIT.
-{% endcomment %}
-{% assign filename="_includes/devdoc/ref_transactions.md" %}
+
 
 ## Transactions
-{% include helpers/subhead-links.md %}
 
 <!-- __ -->
 
 The following subsections briefly document core transaction details.
 
 #### OpCodes
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
 
 The opcodes used in the pubkey scripts of standard transactions are:
 
@@ -73,7 +65,7 @@ A complete list of opcodes can be found on the Bitcoin Wiki [Script
 Page][wiki script], with an authoritative list in the `opcodetype` enum
 of the Dash Core [script header file][core script.h]
 
-![Warning icon](/img/icons/icon_warning.svg)
+![Warning icon](https://dash-docs.github.io/img/icons/icon_warning.svg)
 **<span id="signature_script_modification_warning">Signature script modification warning</span>:**
 Signature scripts are not signed, so anyone can modify them. This
 means signature scripts should only contain data and data-pushing opcodes
@@ -83,7 +75,7 @@ makes a transaction non-standard, and future consensus rules may forbid
 such transactions altogether. (Non-data-pushing opcodes are already
 forbidden in signature scripts when spending a P2SH pubkey script.)
 
-![Warning icon](/img/icons/icon_warning.svg)
+![Warning icon](https://dash-docs.github.io/img/icons/icon_warning.svg)
 **`OP_CHECKMULTISIG` warning:** The multisig verification process
 described above requires that signatures in the signature script be
 provided in the same order as their corresponding public keys in
@@ -91,7 +83,7 @@ the pubkey script or redeem script. For example, the following
 combined signature and pubkey script will produce the stack and
 comparisons shown:
 
-{% highlight text %}
+~~~
 OP_0 <A sig> <B sig> OP_2 <A pubkey> <B pubkey> <C pubkey> OP_3
 
 Sig Stack       Pubkey Stack  (Actually a single stack)
@@ -110,7 +102,7 @@ Success: two matches found
 But reversing the order of the signatures with everything else the same
 will fail, as shown below:
 
-{% highlight text %}
+~~~
 OP_0 <B sig> <A sig> OP_2 <A pubkey> <B pubkey> <C pubkey> OP_3
 
 Sig Stack       Pubkey Stack  (Actually a single stack)
@@ -126,12 +118,7 @@ Failure, aborted: two signature matches required but none found so
                   far, and there's only one pubkey remaining
 {% endhighlight %}
 
-{% endautocrossref %}
-
 #### Address Conversion
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
 
 The hashes used in P2PKH and P2SH outputs are commonly encoded as Dash
 addresses.  This is the procedure to encode those hashes and decode the
@@ -169,7 +156,7 @@ Wiki [Base58Check
 encoding](https://en.bitcoin.it/wiki/Base58Check_encoding) page under
 the [Creative Commons Attribution 3.0 license][]:
 
-{% highlight c %}
+```c
 code_string = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 x = convert_bytes_to_big_integer(hash_result)
 
@@ -196,12 +183,7 @@ To convert addresses back into hashes, reverse the base58 encoding, extract
 the checksum, repeat the steps to create the checksum and compare it
 against the extracted checksum, and then remove the version byte.
 
-{% endautocrossref %}
-
 #### Raw Transaction Format
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
 
 Dash transactions are broadcast between peers
 in a serialized byte format, called [raw format][/en/glossary/serialized-transaction]{:#term-raw-format}{:.term}.
@@ -246,14 +228,13 @@ txOut structures may recur within a transaction. CompactSize unsigned
 integers are a form of variable-length integers; they are described in
 the [CompactSize section][section CompactSize unsigned integer].
 
-##### JSON-RPC<!--noref--> Responses
-{% include helpers/subhead-links.md %}
+##### JSON-RPC Responses
 
 When retrieving transaction data via Dash Core RPCs (e.g. the `getrawtransaction` RPC),
 the transaction data is returned in the following format.
 
 Version 1 and 2 Transaction Structure (prior to DIP2 activation in Dash Core v0.13.0):
-{% highlight json %}
+```json
 {
   "txid": <string>,
   "size": <int>,
@@ -265,7 +246,7 @@ Version 1 and 2 Transaction Structure (prior to DIP2 activation in Dash Core v0.
 {% endhighlight %}
 
 Version 3 Transaction Structure (Dash Core v0.13.0+ and activated DIP2):
-{% highlight json %}
+```json
 {
   "txid": <string>,
   "size": <int>,
@@ -285,7 +266,7 @@ responses contain a parsed JSON representation of the Transaction Payload.
 The sample transaction below shows the response for a quorum commitment special
 transaction:
 
-{% highlight json %}
+```json
 {
   "txid": "592a09d08348d970b4d9ba216246a23dac866717b460d3f369a86293b9839eea",
   "size": 342,
@@ -315,13 +296,7 @@ transaction:
 
 {% endhighlight %}
 
-{% endautocrossref %}
-
 ##### TxIn: A Transaction Input (Non-Coinbase) {#txin}
-{:.no_toc}
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
 
 Each non-coinbase input spends an outpoint from a previous transaction.
 (Coinbase inputs are described separately after the example section below.)
@@ -333,13 +308,7 @@ Each non-coinbase input spends an outpoint from a previous transaction.
 | *Varies* | signature script | char[]               | A script-language script which satisfies the conditions placed in the outpoint's pubkey script.  Should only contain data pushes; see the [signature script modification warning][].
 | 4        | sequence         | uint32_t             | Sequence number.  Default for Dash Core and almost all other programs is 0xffffffff.
 
-{% endautocrossref %}
-
 ##### Outpoint: The Specific Part Of A Specific Output {#outpoint}
-{:.no_toc}
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
 
 Because a single transaction can include multiple outputs, the outpoint
 structure includes both a TXID and an output index number to refer to
@@ -350,13 +319,7 @@ specific output.
 | 32    | hash  | char[32]  | The TXID of the transaction holding the output to spend.  The TXID is a hash provided here in internal byte order.
 | 4     | index | uint32_t  | The output index number of the specific output to spend from the transaction. The first output is 0x00000000.
 
-{% endautocrossref %}
-
 ##### TxOut: A Transaction Output {#txout}
-{:.no_toc}
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
 
 Each output spends a certain number of duffs, placing them under
 control of anyone who can satisfy the provided pubkey script.
@@ -374,7 +337,7 @@ The sample raw transaction itemized below is the one created in the
 Developer Examples. It spends a previous pay-to-pubkey output by paying
 to a new pay-to-pubkey-hash (P2PKH) output.
 
-{% highlight text %}
+~~~
 01000000 ................................... Version
 
 01 ......................................... Number of inputs
@@ -408,13 +371,7 @@ to a new pay-to-pubkey-hash (P2PKH) output.
 00000000 ................................... locktime: 0 (a block height)
 {% endhighlight %}
 
-{% endautocrossref %}
-
 ##### Coinbase Input: The Input Of The First Transaction In A Block {#coinbase}
-{:.no_toc}
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
 
 The first transaction in a block, called the coinbase transaction, must
 have exactly one input, called a coinbase. The coinbase input currently
@@ -442,7 +399,7 @@ with the appropriate push operation.
 
 An itemized coinbase transaction:
 
-{% highlight text %}
+~~~
 01000000 .............................. Version
 
 01 .................................... Number of inputs
@@ -477,12 +434,7 @@ Note: currently the normal coinbase has 2 outputs (1 for the miner and 1 for
 the selected masternode). Superblocks ([superblock example][superblock example])
 have multiple outputs depending on the number of proposals being funded.
 
-{% endautocrossref %}
-
 ### Special Transactions
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
 
 The Special Transaction framework established by DIP2 enabled the implementation
 of new on-chain features and consensus mechanisms. These transactions provide the
@@ -511,12 +463,7 @@ transaction types is maintained in the [DIP repository](https://github.com/dashp
 | v0.13.0 | 3 | 5 | compactSize uint | hex | CbTx| Masternode List Merkle Proof
 | v0.13.0 | 3 | 6 | compactSize uint | hex | QcTx| Long-Living Masternode Quorum Commitment
 
-{% endautocrossref %}
-
 #### ProRegTx
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
 
 *Added in protocol version 70213 of Dash Core as described by DIP3*
 
@@ -553,7 +500,7 @@ data:
 The following annotated hexdump shows a ProRegTx transaction referencing an
 existing collateral. (Parts of the classical transaction section have been omitted.)
 
-{% highlight text %}
+~~~
 0300 ....................................... Version (3)
 0100 ....................................... Type (1 - ProRegTx)
 
@@ -613,7 +560,7 @@ collateral.
 absence of a signature (since it isn't referring to an existing collateral).**
 (Parts of the classical transaction section have been omitted.)
 
-{% highlight text %}
+~~~
 0300 ....................................... Version (3)
 0100 ....................................... Type (1 - ProRegTx)
 
@@ -669,12 +616,7 @@ ProRegTx Payload
 | .......................................... Signature (Empty)
 {% endhighlight %}
 
-{% endautocrossref %}
-
 #### ProUpServTx
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
 
 *Added in protocol version 70213 of Dash Core as described by DIP3*
 
@@ -707,7 +649,7 @@ payload consists of the following data:
 The following annotated hexdump shows a ProUpServTx transaction. (Parts of the
 classical transaction section have been omitted.)
 
-{% highlight text %}
+~~~
 0300 ....................................... Version (3)
 0200 ....................................... Type (2 - ProUpServTx)
 
@@ -742,12 +684,7 @@ ProUpServTx Payload
 | 789beed8ef7e8839695a334c2e1bd37c ......... BLS Signature (96 bytes)
 {% endhighlight %}
 
-{% endautocrossref %}
-
 #### ProUpRegTx
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
 
 *Added in protocol version 70213 of Dash Core as described by DIP3*
 
@@ -778,7 +715,7 @@ existing collateral. (Parts of the classical transaction section have been omitt
 
 <!--devnet-dashdocs getrawtransaction 702390ef06b10c174841ad7b863df23c166c27815e3be2438e2fee6f87882b91 true-->
 
-{% highlight text %}
+~~~
 0300 ....................................... Version (3)
 0300 ....................................... Type (3 - ProUpRegTx)
 
@@ -823,12 +760,7 @@ ProRegTx Payload
 | a73d347841a58768b94c771819dc2bbce3 ....... Signature
 {% endhighlight %}
 
-{% endautocrossref %}
-
 #### ProUpRevTx
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
 
 *Added in protocol version 70213 of Dash Core as described by DIP3*
 
@@ -854,7 +786,7 @@ payload consists of the following data:
 The following annotated hexdump shows a ProUpRevTx transaction. (Parts of the
 classical transaction section have been omitted.)
 
-{% highlight text %}
+~~~
 0300 ....................................... Version (3)
 0400 ....................................... Type (4 - ProUpRevTx)
 
@@ -885,12 +817,7 @@ ProUpRevTx Payload
 | 05877d82ff7d1af00ae2d303dea5eb3b ......... BLS Signature (96 bytes)
 {% endhighlight %}
 
-{% endautocrossref %}
-
 #### CbTx
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
 
 *Added in protocol version 70213 of Dash Core as described by DIP4*
 
@@ -923,7 +850,7 @@ The following annotated hexdump shows a CbTx transaction.
 
 An itemized coinbase transaction:
 
-{% highlight text %}
+~~~
 0300 ....................................... Version (3)
 0500 ....................................... Type (5 - Coinbase)
 
@@ -967,12 +894,7 @@ Coinbase Transaction Payload
 | fb0bd72a47ecfe0e8aa6f660fb96396e ......... Active LLMQ merkle root
 {% endhighlight %}
 
-{% endautocrossref %}
-
 #### QcTx
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
 
 *Added in protocol version 70213 of Dash Core as described by DIP6*
 
@@ -1009,7 +931,7 @@ The following annotated hexdump shows a QcTx transaction.
 
 An itemized quorum commitment transaction:
 
-{% highlight text %}
+~~~
 0300 ....................................... Version (3)
 0600 ....................................... Type (6 - Quorum Commitment)
 
@@ -1063,12 +985,7 @@ Quorum Commitment Transaction Payload
 | | e0d4f461a2ba0e32a711197ca559dacf ....... BLS Signature (96 bytes)
 {% endhighlight %}
 
-{% endautocrossref %}
-
 ### CompactSize Unsigned Integers
-{% include helpers/subhead-links.md %}
-
-{% autocrossref %}
 
 The raw transaction format and several peer-to-peer network messages use
 a type of variable-length integer to indicate the number of bytes in a
@@ -1096,4 +1013,3 @@ the numbers look like regular unsigned integers in little-endian order.
 
 For example, the number 515 is encoded as 0xfd0302.
 
-{% endautocrossref %}
