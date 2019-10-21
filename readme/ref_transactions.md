@@ -39,7 +39,7 @@ Signature scripts are not signed, so anyone can modify them. This means signatur
 ![Warning icon](https://dash-docs.github.io/img/icons/icon_warning.svg)
 **`OP_CHECKMULTISIG` warning:** The multisig verification process described above requires that signatures in the signature script be provided in the same order as their corresponding public keys in the pubkey script or redeem script. For example, the following combined signature and pubkey script will produce the stack and comparisons shown:
 
-~~~
+``` text
 OP_0 <A sig> <B sig> OP_2 <A pubkey> <B pubkey> <C pubkey> OP_3
 
 Sig Stack       Pubkey Stack  (Actually a single stack)
@@ -53,11 +53,11 @@ OP_0            A pubkey
 3. A sig compared to A pubkey (match #2)
 
 Success: two matches found
-~~~
+```
 
 But reversing the order of the signatures with everything else the same will fail, as shown below:
 
-~~~
+``` text
 OP_0 <B sig> <A sig> OP_2 <A pubkey> <B pubkey> <C pubkey> OP_3
 
 Sig Stack       Pubkey Stack  (Actually a single stack)
@@ -71,7 +71,7 @@ OP_0            A pubkey
 
 Failure, aborted: two signature matches required but none found so
                   far, and there's only one pubkey remaining
-~~~
+```
 
 # Address Conversion
 
@@ -97,7 +97,7 @@ First, get your hash.  For P2PKH, you RIPEMD-160(SHA256()) hash a ECDSA public k
 
 Dash's base58 encoding, called [Base58Check][/en/glossary/base58check]{:#term-base58check}{:.term} may not match other implementations. Tier Nolan provided the following example encoding algorithm to the Bitcoin Wiki [Base58Check encoding](https://en.bitcoin.it/wiki/Base58Check_encoding) page under the [Creative Commons Attribution 3.0 license](https://creativecommons.org/licenses/by/3.0/):
 
-```c
+``` c
 code_string = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 x = convert_bytes_to_big_integer(hash_result)
 
@@ -152,7 +152,7 @@ A transaction may have multiple inputs and outputs, so the txIn and txOut struct
 When retrieving transaction data via Dash Core RPCs (e.g. the `getrawtransaction` RPC), the transaction data is returned in the following format.
 
 Version 1 and 2 Transaction Structure (prior to DIP2 activation in Dash Core v0.13.0):
-```json
+``` json
 {
   "txid": <string>,
   "size": <int>,
@@ -164,7 +164,7 @@ Version 1 and 2 Transaction Structure (prior to DIP2 activation in Dash Core v0.
 ```
 
 Version 3 Transaction Structure (Dash Core v0.13.0+ and activated DIP2):
-```json
+``` json
 {
   "txid": <string>,
   "size": <int>,
@@ -182,7 +182,7 @@ For special transactions (those using the extraPayload fields), JSON-RPC respons
 
 The sample transaction below shows the response for a quorum commitment special transaction:
 
-```json
+``` json
 {
   "txid": "592a09d08348d970b4d9ba216246a23dac866717b460d3f369a86293b9839eea",
   "size": 342,
@@ -245,7 +245,7 @@ Each output spends a certain number of duffs, placing them under control of anyo
 
 The sample raw transaction itemized below is the one created in the [Simple Raw Transaction section][section simple raw transaction] of the Developer Examples. It spends a previous pay-to-pubkey output by paying to a new pay-to-pubkey-hash (P2PKH) output.
 
-~~~
+``` text
 01000000 ................................... Version
 
 01 ......................................... Number of inputs
@@ -277,7 +277,7 @@ The sample raw transaction itemized below is the one created in the [Simple Raw 
 | | ac ..................................... OP_CHECKSIG
 
 00000000 ................................... locktime: 0 (a block height)
-~~~
+```
 
 ### Coinbase Input: The Input Of The First Transaction In A Block {#coinbase}
 
@@ -301,7 +301,7 @@ Although the coinbase script is arbitrary data, if it includes the bytes used by
 
 An itemized coinbase transaction:
 
-~~~
+``` text
 01000000 .............................. Version
 
 01 .................................... Number of inputs
@@ -330,7 +330,7 @@ An itemized coinbase transaction:
 | | f33e64d102c9591a88ac ................ P2PKH script
 |
 | 00000000 ............................ Locktime
-~~~
+```
 
 Note: currently the normal coinbase has 2 outputs (1 for the miner and 1 for the selected masternode). Superblocks ([superblock example](https://chainz.cryptoid.info/dash/block.dws?731104.htm)) have multiple outputs depending on the number of proposals being funded.
 
@@ -386,7 +386,7 @@ The special transaction type is 1 and the extra payload consists of the followin
 
 The following annotated hexdump shows a ProRegTx transaction referencing an existing collateral. (Parts of the classical transaction section have been omitted.)
 
-~~~
+``` text
 0300 ....................................... Version (3)
 0100 ....................................... Type (1 - ProRegTx)
 
@@ -437,14 +437,14 @@ ProRegTx Payload
 | de2b3fc92794c4acda9cad6305ca172e
 | 9e3d6b1cd6e30f86678dae8e6595e53d
 | 2b30bc32141b6c0151eb58479121b3e6a4 ....... Signature
-~~~
+```
 
 The following annotated hexdump shows a ProRegTx transaction creating a new collateral.
 
 **Note the presence of the output, a null Outpoint TXID and the absence of a signature (since it isn't referring to an existing collateral).**
 (Parts of the classical transaction section have been omitted.)
 
-~~~
+``` text
 0300 ....................................... Version (3)
 0100 ....................................... Type (1 - ProRegTx)
 
@@ -498,7 +498,7 @@ ProRegTx Payload
 | Payload signature
 | 00 ....................................... Signature Size (0)
 | .......................................... Signature (Empty)
-~~~
+```
 
 ## ProUpServTx
 
@@ -527,7 +527,7 @@ The special transaction type used for ProUpServTx Transactions is 2 and the extr
 The following annotated hexdump shows a ProUpServTx transaction. (Parts of the
 classical transaction section have been omitted.)
 
-~~~
+``` text
 0300 ....................................... Version (3)
 0200 ....................................... Type (2 - ProUpServTx)
 
@@ -560,7 +560,7 @@ ProUpServTx Payload
 | 02501becf629e93c0a01c76162d56a6c
 | 65a9675c3ca9d5297f053e68f91393dd
 | 789beed8ef7e8839695a334c2e1bd37c ......... BLS Signature (96 bytes)
-~~~
+```
 
 ## ProUpRegTx
 
@@ -591,7 +591,7 @@ existing collateral. (Parts of the classical transaction section have been omitt
 
 <!--devnet-dashdocs getrawtransaction 702390ef06b10c174841ad7b863df23c166c27815e3be2438e2fee6f87882b91 true-->
 
-~~~
+``` text
 0300 ....................................... Version (3)
 0300 ....................................... Type (3 - ProUpRegTx)
 
@@ -634,7 +634,7 @@ ProRegTx Payload
 | 20b810683a68ab7dcea95de1f8f36441
 | 4c56368f189a3ef7a59b83bd77f22431
 | a73d347841a58768b94c771819dc2bbce3 ....... Signature
-~~~
+```
 
 ## ProUpRevTx
 
@@ -658,7 +658,7 @@ The special transaction type used for ProUpServTx Transactions is 4 and the extr
 The following annotated hexdump shows a ProUpRevTx transaction. (Parts of the
 classical transaction section have been omitted.)
 
-~~~
+``` text
 0300 ....................................... Version (3)
 0400 ....................................... Type (4 - ProUpRevTx)
 
@@ -687,7 +687,7 @@ ProUpRevTx Payload
 | 09029a6a16c341c9d2a62789b495fef4
 | e068da711dac28106ff354db7249ae88
 | 05877d82ff7d1af00ae2d303dea5eb3b ......... BLS Signature (96 bytes)
-~~~
+```
 
 ## CbTx
 
@@ -717,7 +717,7 @@ The following annotated hexdump shows a CbTx transaction.
 
 An itemized coinbase transaction:
 
-~~~
+``` text
 0300 ....................................... Version (3)
 0500 ....................................... Type (5 - Coinbase)
 
@@ -759,7 +759,7 @@ Coinbase Transaction Payload
 |
 | 2ef709f55fa42cb53d29d75dad77d212
 | fb0bd72a47ecfe0e8aa6f660fb96396e ......... Active LLMQ merkle root
-~~~
+```
 
 ## QcTx
 
@@ -788,7 +788,7 @@ The following annotated hexdump shows a QcTx transaction.
 
 An itemized quorum commitment transaction:
 
-~~~
+``` text
 0300 ....................................... Version (3)
 0600 ....................................... Type (6 - Quorum Commitment)
 
@@ -840,7 +840,7 @@ Quorum Commitment Transaction Payload
 | | 0f4eac88ee8fd7779e32e4f0be704078
 | | df31601b87b95374cebb4b304afc543e
 | | e0d4f461a2ba0e32a711197ca559dacf ....... BLS Signature (96 bytes)
-~~~
+```
 
 # CompactSize Unsigned Integers
 
