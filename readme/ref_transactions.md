@@ -10,78 +10,40 @@ The following subsections briefly document core transaction details.
 
 The opcodes used in the pubkey scripts of standard transactions are:
 
-* Various data pushing opcodes from 0x00 to 0x4e (1--78). These aren't
-  typically shown in examples, but they must be used to push
-  signatures and public keys onto the stack. See the link below this list
-  for a description.
+* Various data pushing opcodes from 0x00 to 0x4e (1--78). These aren't typically shown in examples, but they must be used to push signatures and public keys onto the stack. See the link below this list for a description.
 
-* `OP_TRUE`/`OP_1` (0x51) and `OP_2` through `OP_16` (0x52--0x60), which
-  push the values 1 through 16 to the stack.
+* `OP_TRUE`/`OP_1` (0x51) and `OP_2` through `OP_16` (0x52--0x60), which push the values 1 through 16 to the stack.
 
-* [`OP_CHECKSIG`][op_checksig]{:#term-op-checksig}{:.term} (0xac) consumes a signature and a full public key, and pushes
-  true onto the stack if the transaction data specified by the SIGHASH flag was
-  converted into the signature using the same ECDSA private key that
-  generated the public key.  Otherwise, it pushes false onto the stack.
+* [`OP_CHECKSIG`][op_checksig]{:#term-op-checksig}{:.term} (0xac) consumes a signature and a full public key, and pushes true onto the stack if the transaction data specified by the SIGHASH flag was converted into the signature using the same ECDSA private key that generated the public key. Otherwise, it pushes false onto the stack.
 
 * [`OP_DUP`][op_dup]{:#term-op-dup}{:.term} (0x76) pushes a copy of the topmost stack item on to the stack.
 
-* [`OP_HASH160`][op_hash160]{:#term-op-hash160}{:.term} (0xa9) consumes the topmost item on the stack,
-  computes the RIPEMD160(SHA256()) hash of that item, and pushes that hash onto the stack.
+* [`OP_HASH160`][op_hash160]{:#term-op-hash160}{:.term} (0xa9) consumes the topmost item on the stack, computes the RIPEMD160(SHA256()) hash of that item, and pushes that hash onto the stack.
 
-* [`OP_EQUAL`][op_equal]{:#term-op-equal}{:.term} (0x87) consumes the top two items on the stack, compares them, and
-  pushes true onto the stack if they are the same, false if not.
+* [`OP_EQUAL`][op_equal]{:#term-op-equal}{:.term} (0x87) consumes the top two items on the stack, compares them, and pushes true onto the stack if they are the same, false if not.
 
-* [`OP_VERIFY`][op_verify]{:#term-op-verify}{:.term} (0x69) consumes the topmost item on the stack.
-  If that item is zero (false) it terminates the script in failure.
+* [`OP_VERIFY`][op_verify]{:#term-op-verify}{:.term} (0x69) consumes the topmost item on the stack. If that item is zero (false) it terminates the script in failure.
 
 * [`OP_EQUALVERIFY`][op_equalverify]{:#term-op-equalverify}{:.term} (0x88) runs `OP_EQUAL` and then `OP_VERIFY` in sequence.
 
-* [`OP_CHECKMULTISIG`][op_checkmultisig]{:#term-op-checkmultisig}{:.term} (0xae) consumes the value (n) at the top of the stack,
-  consumes that many of the next stack levels (public keys), consumes
-  the value (m) now at the top of the stack, and consumes that many of
-  the next values (signatures) plus one extra value.
+* [`OP_CHECKMULTISIG`][op_checkmultisig]{:#term-op-checkmultisig}{:.term} (0xae) consumes the value (n) at the top of the stack, consumes that many of the next stack levels (public keys), consumes the value (m) now at the top of the stack, and consumes that many of the next values (signatures) plus one extra value.
 
-    The "one extra value" it consumes is the result of an off-by-one
-    error in the Bitcoin Core implementation. This value is not used, so
-    signature scripts prefix the list of secp256k1 signatures with a
-    single OP_0 (0x00).
+    The "one extra value" it consumes is the result of an off-by-one error in the Bitcoin Core implementation. This value is not used, so signature scripts prefix the list of secp256k1 signatures with a single OP_0 (0x00).
 
-    `OP_CHECKMULTISIG` compares the first signature against each public
-    key until it finds an ECDSA match. Starting with the subsequent
-    public key, it compares the second signature against each remaining
-    public key until it finds an ECDSA match. The process is repeated
-    until all signatures have been checked or not enough public keys
-    remain to produce a successful result.
+    `OP_CHECKMULTISIG` compares the first signature against each public key until it finds an ECDSA match. Starting with the subsequent public key, it compares the second signature against each remaining public key until it finds an ECDSA match. The process is repeated until all signatures have been checked or not enough public keys remain to produce a successful result.
 
-    Because public keys are not checked again if they fail any signature
-    comparison, signatures must be placed in the signature script using
-    the same order as their corresponding public keys were placed in
-    the pubkey script or redeem script. See the `OP_CHECKMULTISIG` warning
-    below for more details.
+    Because public keys are not checked again if they fail any signature comparison, signatures must be placed in the signature script using the same order as their corresponding public keys were placed in the pubkey script or redeem script. See the `OP_CHECKMULTISIG` warning below for more details.
 
 * [`OP_RETURN`][op_return]{:#term-op-return}{:.term} (0x6a) terminates the script in failure when executed.
 
-A complete list of opcodes can be found on the Bitcoin Wiki [Script
-Page][wiki script], with an authoritative list in the `opcodetype` enum
-of the Dash Core [script header file][core script.h]
+A complete list of opcodes can be found on the Bitcoin Wiki [Script Page][wiki script], with an authoritative list in the `opcodetype` enum of the Dash Core [script header file][core script.h]
 
 ![Warning icon](https://dash-docs.github.io/img/icons/icon_warning.svg)
 **<span id="signature_script_modification_warning">Signature script modification warning</span>:**
-Signature scripts are not signed, so anyone can modify them. This
-means signature scripts should only contain data and data-pushing opcodes
-which can't be modified without causing the pubkey script to fail.
-Placing non-data-pushing opcodes in the signature script currently
-makes a transaction non-standard, and future consensus rules may forbid
-such transactions altogether. (Non-data-pushing opcodes are already
-forbidden in signature scripts when spending a P2SH pubkey script.)
+Signature scripts are not signed, so anyone can modify them. This means signature scripts should only contain data and data-pushing opcodes which can't be modified without causing the pubkey script to fail. Placing non-data-pushing opcodes in the signature script currently makes a transaction non-standard, and future consensus rules may forbid such transactions altogether. (Non-data-pushing opcodes are already forbidden in signature scripts when spending a P2SH pubkey script.)
 
 ![Warning icon](https://dash-docs.github.io/img/icons/icon_warning.svg)
-**`OP_CHECKMULTISIG` warning:** The multisig verification process
-described above requires that signatures in the signature script be
-provided in the same order as their corresponding public keys in
-the pubkey script or redeem script. For example, the following
-combined signature and pubkey script will produce the stack and
-comparisons shown:
+**`OP_CHECKMULTISIG` warning:** The multisig verification process described above requires that signatures in the signature script be provided in the same order as their corresponding public keys in the pubkey script or redeem script. For example, the following combined signature and pubkey script will produce the stack and comparisons shown:
 
 ~~~
 OP_0 <A sig> <B sig> OP_2 <A pubkey> <B pubkey> <C pubkey> OP_3
@@ -99,8 +61,7 @@ OP_0            A pubkey
 Success: two matches found
 ~~~
 
-But reversing the order of the signatures with everything else the same
-will fail, as shown below:
+But reversing the order of the signatures with everything else the same will fail, as shown below:
 
 ~~~
 OP_0 <B sig> <A sig> OP_2 <A pubkey> <B pubkey> <C pubkey> OP_3
@@ -120,18 +81,11 @@ Failure, aborted: two signature matches required but none found so
 
 #### Address Conversion
 
-The hashes used in P2PKH and P2SH outputs are commonly encoded as Dash
-addresses.  This is the procedure to encode those hashes and decode the
-addresses.
+The hashes used in P2PKH and P2SH outputs are commonly encoded as Dash addresses.  This is the procedure to encode those hashes and decode the addresses.
 
-First, get your hash.  For P2PKH, you RIPEMD-160(SHA256()) hash a ECDSA
-public key derived from your 256-bit ECDSA private key (random data).
-For P2SH, you RIPEMD-160(SHA256()) hash a redeem script serialized in the
-format used in raw transactions (described in a [following
-sub-section][raw transaction format]).  Taking the resulting hash:
+First, get your hash.  For P2PKH, you RIPEMD-160(SHA256()) hash a ECDSA public key derived from your 256-bit ECDSA private key (random data). For P2SH, you RIPEMD-160(SHA256()) hash a redeem script serialized in the format used in raw transactions (described in a [following sub-section][raw transaction format]).  Taking the resulting hash:
 
-1. Add an address version byte in front of the hash.  The version
-bytes commonly used by Dash are:
+1. Add an address version byte in front of the hash.  The version bytes commonly used by Dash are:
 
     * 0x4c for P2PKH addresses on the main Dash network (mainnet)
 
@@ -143,18 +97,11 @@ bytes commonly used by Dash are:
 
 2. Create a copy of the version and hash; then hash that twice with SHA256: `SHA256(SHA256(version . hash))`
 
-3. Extract the first four bytes from the double-hashed copy.
-   These are used as a checksum to ensure the base hash gets transmitted
-   correctly.
+3. Extract the first four bytes from the double-hashed copy. These are used as a checksum to ensure the base hash gets transmitted correctly.
 
-4. Append the checksum to the version and hash, and encode it as a base58
-   string: <!--[-->`BASE58(version . hash . checksum)`<!--]-->
+4. Append the checksum to the version and hash, and encode it as a base58 string: <!--[-->`BASE58(version . hash . checksum)`<!--]-->
 
-Dash's base58 encoding, called [Base58Check][/en/glossary/base58check]{:#term-base58check}{:.term} may not match other implementations. Tier
-Nolan provided the following example encoding algorithm to the Bitcoin
-Wiki [Base58Check
-encoding](https://en.bitcoin.it/wiki/Base58Check_encoding) page under
-the [Creative Commons Attribution 3.0 license][]:
+Dash's base58 encoding, called [Base58Check][/en/glossary/base58check]{:#term-base58check}{:.term} may not match other implementations. Tier Nolan provided the following example encoding algorithm to the Bitcoin Wiki [Base58Check encoding](https://en.bitcoin.it/wiki/Base58Check_encoding) page under the [Creative Commons Attribution 3.0 license][]:
 
 ```c
 code_string = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
@@ -176,38 +123,19 @@ repeat(number_of_leading_zero_bytes_in_hash)
 output_string.reverse();
 ```
 
-Dash's own code can be traced using the [base58 header
-file][core base58.h].
+Dash's own code can be traced using the [base58 header file][core base58.h].
 
-To convert addresses back into hashes, reverse the base58 encoding, extract
-the checksum, repeat the steps to create the checksum and compare it
-against the extracted checksum, and then remove the version byte.
+To convert addresses back into hashes, reverse the base58 encoding, extract the checksum, repeat the steps to create the checksum and compare it against the extracted checksum, and then remove the version byte.
 
 #### Raw Transaction Format
 
-Dash transactions are broadcast between peers
-in a serialized byte format, called [raw format][/en/glossary/serialized-transaction]{:#term-raw-format}{:.term}.
-It is this form of a transaction which is SHA256(SHA256()) hashed to create
-the TXID and, ultimately, the merkle root of a block containing the
-transaction---making the transaction format part of the consensus rules.
+Dash transactions are broadcast between peers in a serialized byte format, called [raw format][/en/glossary/serialized-transaction]{:#term-raw-format}{:.term}. It is this form of a transaction which is SHA256(SHA256()) hashed to create the TXID and, ultimately, the merkle root of a block containing the transaction---making the transaction format part of the consensus rules.
 
-Dash Core and many other tools print and accept raw transactions
-encoded as hex.
+Dash Core and many other tools print and accept raw transactions encoded as hex.
 
-Transactions prior to protocol version 70209 defaulted to version 1. Transaction
-version 2 was the default in protocol versions => 70209 and < 70213. Version 2
-transactions have the same format, but the `lock_time` parameter was redefined
-by BIP68 to enable relative lock-times.
-(Note: transactions in the block chain are allowed to list a higher version
-number to permit soft forks, but they are treated as version 2 transactions
-by current software.)
+Transactions prior to protocol version 70209 defaulted to version 1. Transaction version 2 was the default in protocol versions => 70209 and < 70213. Version 2 transactions have the same format, but the `lock_time` parameter was redefined by BIP68 to enable relative lock-times. (Note: transactions in the block chain are allowed to list a higher version number to permit soft forks, but they are treated as version 2 transactions by current software.)
 
-Dash Core 0.13.0 (protocol version 70213) introduced transaction version 3 as
-part of the [DIP2 - Special Transactions](https://github.com/dashpay/dips/blob/master/dip-0002.md)
- implementation. Details of the changes introduced by
-this feature and currently implemented special transactions can be found in the
-[Special Transactions section](#special-transactions) below as well as in the
-[DIP](https://github.com/dashpay/dips/blob/master/dip-0002.md).
+Dash Core 0.13.0 (protocol version 70213) introduced transaction version 3 as part of the [DIP2 - Special Transactions](https://github.com/dashpay/dips/blob/master/dip-0002.md) implementation. Details of the changes introduced by this feature and currently implemented special transactions can be found in the [Special Transactions section](#special-transactions) below as well as in the [DIP](https://github.com/dashpay/dips/blob/master/dip-0002.md).
 
 A raw transaction has the following top-level format:
 
@@ -223,15 +151,11 @@ A raw transaction has the following top-level format:
 | *Varies* | extra_payload size | compactSize uint | *Added by DIP2 in v0.13.0*<br><br>Variable number of bytes of extra payload for DIP2-based special transactions
 | *Varies* | extra_payload | blob               | *Added by DIP2 in v0.13.0*<br><br>Special transaction payload.
 
-A transaction may have multiple inputs and outputs, so the txIn and
-txOut structures may recur within a transaction. CompactSize unsigned
-integers are a form of variable-length integers; they are described in
-the [CompactSize section][section CompactSize unsigned integer].
+A transaction may have multiple inputs and outputs, so the txIn and txOut structures may recur within a transaction. CompactSize unsigned integers are a form of variable-length integers; they are described in the [CompactSize section][section CompactSize unsigned integer].
 
 ##### JSON-RPC Responses
 
-When retrieving transaction data via Dash Core RPCs (e.g. the `getrawtransaction` RPC),
-the transaction data is returned in the following format.
+When retrieving transaction data via Dash Core RPCs (e.g. the `getrawtransaction` RPC), the transaction data is returned in the following format.
 
 Version 1 and 2 Transaction Structure (prior to DIP2 activation in Dash Core v0.13.0):
 ```json
@@ -260,11 +184,9 @@ Version 3 Transaction Structure (Dash Core v0.13.0+ and activated DIP2):
 }
 ```
 
-For special transactions (those using the extraPayload fields), JSON-RPC
-responses contain a parsed JSON representation of the Transaction Payload.
+For special transactions (those using the extraPayload fields), JSON-RPC responses contain a parsed JSON representation of the Transaction Payload.
 
-The sample transaction below shows the response for a quorum commitment special
-transaction:
+The sample transaction below shows the response for a quorum commitment special transaction:
 
 ```json
 {
@@ -297,8 +219,7 @@ transaction:
 
 ##### TxIn: A Transaction Input (Non-Coinbase) {#txin}
 
-Each non-coinbase input spends an outpoint from a previous transaction.
-(Coinbase inputs are described separately after the example section below.)
+Each non-coinbase input spends an outpoint from a previous transaction. (Coinbase inputs are described separately after the example section below.)
 
 | Bytes    | Name             | Data Type            | Description
 |----------|------------------|----------------------|--------------
@@ -309,9 +230,7 @@ Each non-coinbase input spends an outpoint from a previous transaction.
 
 ##### Outpoint: The Specific Part Of A Specific Output {#outpoint}
 
-Because a single transaction can include multiple outputs, the outpoint
-structure includes both a TXID and an output index number to refer to
-specific output.
+Because a single transaction can include multiple outputs, the outpoint structure includes both a TXID and an output index number to refer to specific output.
 
 | Bytes | Name  | Data Type | Description
 |-------|-------|-----------|--------------
@@ -320,8 +239,7 @@ specific output.
 
 ##### TxOut: A Transaction Output {#txout}
 
-Each output spends a certain number of duffs, placing them under
-control of anyone who can satisfy the provided pubkey script.
+Each output spends a certain number of duffs, placing them under control of anyone who can satisfy the provided pubkey script.
 
 | Bytes    | Name            | Data Type        | Description
 |----------|-----------------|------------------|--------------
@@ -331,10 +249,7 @@ control of anyone who can satisfy the provided pubkey script.
 
 **Example**
 
-The sample raw transaction itemized below is the one created in the
-[Simple Raw Transaction section][section simple raw transaction] of the
-Developer Examples. It spends a previous pay-to-pubkey output by paying
-to a new pay-to-pubkey-hash (P2PKH) output.
+The sample raw transaction itemized below is the one created in the [Simple Raw Transaction section][section simple raw transaction] of the Developer Examples. It spends a previous pay-to-pubkey output by paying to a new pay-to-pubkey-hash (P2PKH) output.
 
 ~~~
 01000000 ................................... Version
@@ -372,9 +287,7 @@ to a new pay-to-pubkey-hash (P2PKH) output.
 
 ##### Coinbase Input: The Input Of The First Transaction In A Block {#coinbase}
 
-The first transaction in a block, called the coinbase transaction, must
-have exactly one input, called a coinbase. The coinbase input currently
-has the following format.
+The first transaction in a block, called the coinbase transaction, must have exactly one input, called a coinbase. The coinbase input currently has the following format.
 
 | Bytes    | Name               | Data Type            | Description
 |----------|--------------------|----------------------|--------------
@@ -390,11 +303,7 @@ Most (but not all) blocks prior to block height 227,836 used block
 version 1 which did not require the height parameter to be prefixed to
 the coinbase script.  The block height parameter is now required.
 -->
-Although the coinbase script is arbitrary data, if it includes the
-bytes used by any signature-checking operations such as `OP_CHECKSIG`,
-those signature checks will be counted as signature operations (sigops)
-towards the block's sigop limit.  To avoid this, you can prefix all data
-with the appropriate push operation.
+Although the coinbase script is arbitrary data, if it includes the bytes used by any signature-checking operations such as `OP_CHECKSIG`, those signature checks will be counted as signature operations (sigops) towards the block's sigop limit.  To avoid this, you can prefix all data with the appropriate push operation.
 
 An itemized coinbase transaction:
 
@@ -429,25 +338,16 @@ An itemized coinbase transaction:
 | 00000000 ............................ Locktime
 ~~~
 
-Note: currently the normal coinbase has 2 outputs (1 for the miner and 1 for
-the selected masternode). Superblocks ([superblock example][superblock example])
-have multiple outputs depending on the number of proposals being funded.
+Note: currently the normal coinbase has 2 outputs (1 for the miner and 1 for the selected masternode). Superblocks ([superblock example][superblock example]) have multiple outputs depending on the number of proposals being funded.
 
 ### Special Transactions
 
-The Special Transaction framework established by DIP2 enabled the implementation
-of new on-chain features and consensus mechanisms. These transactions provide the
-flexibility to expand beyond the financial uses of classical transactions. DIP2
-transactions modified classical transactions by:
+The Special Transaction framework established by DIP2 enabled the implementation of new on-chain features and consensus mechanisms. These transactions provide the flexibility to expand beyond the financial uses of classical transactions. DIP2 transactions modified classical transactions by:
 
 1. Splitting the 32 bit `version` field into two 16 bit fields (`version` and `type`)
-2. Adding support for a generic extra payload following the `lock_time` field. The
-   maximum allowed size for a transaction version 3 extra payload is 10000 bytes
-   (`MAX_TX_EXTRA_PAYLOAD`).
+2. Adding support for a generic extra payload following the `lock_time` field. The maximum allowed size for a transaction version 3 extra payload is 10000 bytes (`MAX_TX_EXTRA_PAYLOAD`).
 
-Classical (financial) transactions have a `type` of 0 while special transactions
-have a `type` defined in the DIP describing them. A list of current special
-transaction types is maintained in the [DIP repository](https://github.com/dashpay/dips/blob/master/dip-0002-special-transactions.md).
+Classical (financial) transactions have a `type` of 0 while special transactions have a `type` defined in the DIP describing them. A list of current special transaction types is maintained in the [DIP repository](https://github.com/dashpay/dips/blob/master/dip-0002-special-transactions.md).
 
 **Implemented Special Transactions**
 
@@ -466,17 +366,11 @@ transaction types is maintained in the [DIP repository](https://github.com/dashp
 
 *Added in protocol version 70213 of Dash Core as described by DIP3*
 
-The Masternode Registration (ProRegTx) special transaction is used to join the
-masternode list by proving ownership of the 1000 DASH necessary to create a
-masternode.
+The Masternode Registration (ProRegTx) special transaction is used to join the masternode list by proving ownership of the 1000 DASH necessary to create a masternode.
 
-A ProRegTx is created and sent using the `protx` RPC. The ProRegTx must either
-include an output with 1000 DASH (`protx register`) or refer to an existing
-unspent output holding 1000 DASH (`protx fund_register`). If the 1000 DASH is an
-output of the ProRegTx, the collateralOutpoint hash field should be null.
+A ProRegTx is created and sent using the `protx` RPC. The ProRegTx must either include an output with 1000 DASH (`protx register`) or refer to an existing unspent output holding 1000 DASH (`protx fund_register`). If the 1000 DASH is an output of the ProRegTx, the collateralOutpoint hash field should be null.
 
-The special transaction type is 1 and the extra payload consists of the following
-data:
+The special transaction type is 1 and the extra payload consists of the following data:
 
 | Bytes | Name | Data type |  Description |
 | ---------- | ----------- | -------- | -------- |
@@ -552,11 +446,9 @@ ProRegTx Payload
 | 2b30bc32141b6c0151eb58479121b3e6a4 ....... Signature
 ~~~
 
-The following annotated hexdump shows a ProRegTx transaction creating a new
-collateral.
+The following annotated hexdump shows a ProRegTx transaction creating a new collateral.
 
-**Note the presence of the output, a null Outpoint TXID and the
-absence of a signature (since it isn't referring to an existing collateral).**
+**Note the presence of the output, a null Outpoint TXID and the absence of a signature (since it isn't referring to an existing collateral).**
 (Parts of the classical transaction section have been omitted.)
 
 ~~~
@@ -619,19 +511,13 @@ ProRegTx Payload
 
 *Added in protocol version 70213 of Dash Core as described by DIP3*
 
-The Masternode Provider Update Service (ProUpServTx) special transaction is used
-to update the IP Address and port of a masternode. If a non-zero operatorReward
-was set in the initial ProRegTx, the operator may also set the scriptOperatorPayout
-field in the ProUpServTx.
+The Masternode Provider Update Service (ProUpServTx) special transaction is used to update the IP Address and port of a masternode. If a non-zero operatorReward was set in the initial ProRegTx, the operator may also set the scriptOperatorPayout field in the ProUpServTx.
 
-A ProUpServTx is only valid for masternodes in the registered masternodes subset.
-When processed, it updates the metadata of the masternode entry and revives the
-masternode if it was previously marked as PoSe-banned.
+A ProUpServTx is only valid for masternodes in the registered masternodes subset. When processed, it updates the metadata of the masternode entry and revives the masternode if it was previously marked as PoSe-banned.
 
 A ProUpServTx is created and sent using the `protx update_service` RPC.
 
-The special transaction type used for ProUpServTx Transactions is 2 and the extra
-payload consists of the following data:
+The special transaction type used for ProUpServTx Transactions is 2 and the extra payload consists of the following data:
 
 | Bytes | Name | Data type |  Description |
 | ---------- | ----------- | -------- | -------- |
@@ -687,9 +573,7 @@ ProUpServTx Payload
 
 *Added in protocol version 70213 of Dash Core as described by DIP3*
 
-The Masternode Provider Update Registrar (ProUpRegTx) special transaction is used
-by a masternode owner to update masternode metadata (e.g. operator/voting key
-details or the payout script).
+The Masternode Provider Update Registrar (ProUpRegTx) special transaction is used by a masternode owner to update masternode metadata (e.g. operator/voting key details or the payout script).
 
 A ProUpRegTx is created and sent using the `protx update_registrar` RPC.
 
@@ -763,15 +647,11 @@ ProRegTx Payload
 
 *Added in protocol version 70213 of Dash Core as described by DIP3*
 
-The Masternode Operator Revocation (ProUpRevTx) special transaction allows an
-operator to revoke their key in case of compromise or if they wish to terminate
-service. If a masternode's operator key is revoked, the masternode becomes
-ineligible for payment until the owner provides a new operator key (via a ProUpRegTx).
+The Masternode Operator Revocation (ProUpRevTx) special transaction allows an operator to revoke their key in case of compromise or if they wish to terminate service. If a masternode's operator key is revoked, the masternode becomes ineligible for payment until the owner provides a new operator key (via a ProUpRegTx).
 
 A ProUpRevTx is created and sent using the `protx revoke` RPC.
 
-The special transaction type used for ProUpServTx Transactions is 4 and the extra
-payload consists of the following data:
+The special transaction type used for ProUpServTx Transactions is 4 and the extra payload consists of the following data:
 
 | Bytes | Name | Data type |  Description |
 | ---------- | ----------- | -------- | -------- |
@@ -820,14 +700,9 @@ ProUpRevTx Payload
 
 *Added in protocol version 70213 of Dash Core as described by DIP4*
 
-The Coinbase (CbTx) special transaction adds information to the block’s coinbase
-transaction that enables verification of the deterministic masternode list without
-the full chain (e.g. from SPV clients). This allows light-clients to properly
-verify InstantSend transactions and support additional deterministic masternode
-list functionality in the future.
+The Coinbase (CbTx) special transaction adds information to the block’s coinbase transaction that enables verification of the deterministic masternode list without the full chain (e.g. from SPV clients). This allows light-clients to properly verify InstantSend transactions and support additional deterministic masternode list functionality in the future.
 
-The special transaction type used for CbTx Transactions is 5 and the extra
-payload consists of the following data:
+The special transaction type used for CbTx Transactions is 5 and the extra payload consists of the following data:
 
 | Bytes | Name | Data type |  Description |
 | ---------- | ----------- | -------- | -------- |
@@ -897,23 +772,13 @@ Coinbase Transaction Payload
 
 *Added in protocol version 70213 of Dash Core as described by DIP6*
 
-**NOTE: This special transaction has no inputs and no outputs and thus also
-pays no fee.**
+**NOTE: This special transaction has no inputs and no outputs and thus also pays no fee.**
 
-The Quorum Commitment (QcTx) special transaction adds the best final commitment from a
-Long-Living Masternode Quorum (LLMQ) Distributed Key Generation (DKG) session to
-the chain.
+The Quorum Commitment (QcTx) special transaction adds the best final commitment from a Long-Living Masternode Quorum (LLMQ) Distributed Key Generation (DKG) session to the chain.
 
-Since this special transaction pays no fees, it is mandatory by consensus rules
-to ensure that miners include it. Exactly one quorum commitment transaction MUST
-be included in every block while in the mining phase of the LLMQ process until a
-valid commitment is present in a block.
+Since this special transaction pays no fees, it is mandatory by consensus rules to ensure that miners include it. Exactly one quorum commitment transaction MUST be included in every block while in the mining phase of the LLMQ process until a valid commitment is present in a block.
 
-If a DKG failed or a miner did not receive a final commitment in-time, a null
-commitment has to be included in the special transaction payload. A null
-commitment must have the `signers` and `validMembers` bitsets set to the
-`quorumSize` and all bits set to zero. All other fields must be set to the null
-representation of the field’s types.
+If a DKG failed or a miner did not receive a final commitment in-time, a null commitment has to be included in the special transaction payload. A null commitment must have the `signers` and `validMembers` bitsets set to the `quorumSize` and all bits set to zero. All other fields must be set to the null representation of the field’s types.
 
 The special transaction type used for Quorum Commitment Transactions is 6 and
 the extra payload consists of the following data:
@@ -986,22 +851,11 @@ Quorum Commitment Transaction Payload
 
 ### CompactSize Unsigned Integers
 
-The raw transaction format and several peer-to-peer network messages use
-a type of variable-length integer to indicate the number of bytes in a
-following piece of data.
+The raw transaction format and several peer-to-peer network messages use a type of variable-length integer to indicate the number of bytes in a following piece of data.
 
-Dash Core code and this document refers to these variable length
-integers as compactSize. Many other documents refer to them as var_int
-or varInt, but this risks conflation with other variable-length integer
-encodings---such as the CVarInt class used in Dash Core for
-serializing data to disk.  Because it's used in the transaction format,
-the format of compactSize unsigned integers is part of the consensus
-rules.
+Dash Core code and this document refers to these variable length integers as compactSize. Many other documents refer to them as var_int or varInt, but this risks conflation with other variable-length integer encodings---such as the CVarInt class used in Dash Core for serializing data to disk.  Because it's used in the transaction format, the format of compactSize unsigned integers is part of the consensus rules.
 
-For numbers from 0 to 252 (0xfc), compactSize unsigned integers look like
-regular unsigned integers. For other numbers up to 0xffffffffffffffff, a
-byte is prefixed to the number to indicate its length---but otherwise
-the numbers look like regular unsigned integers in little-endian order.
+For numbers from 0 to 252 (0xfc), compactSize unsigned integers look like regular unsigned integers. For other numbers up to 0xffffffffffffffff, a byte is prefixed to the number to indicate its length---but otherwise the numbers look like regular unsigned integers in little-endian order.
 
 | Value                                   | Bytes Used | Format
 |-----------------------------------------|------------|-----------------------------------------
