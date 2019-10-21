@@ -97,7 +97,7 @@ OP_0            A pubkey
 3. A sig compared to A pubkey (match #2)
 
 Success: two matches found
-{% endhighlight %}
+~~~
 
 But reversing the order of the signatures with everything else the same
 will fail, as shown below:
@@ -116,7 +116,7 @@ OP_0            A pubkey
 
 Failure, aborted: two signature matches required but none found so
                   far, and there's only one pubkey remaining
-{% endhighlight %}
+~~~
 
 #### Address Conversion
 
@@ -174,7 +174,7 @@ repeat(number_of_leading_zero_bytes_in_hash)
    }
 
 output_string.reverse();
-{% endhighlight %}
+```
 
 Dash's own code can be traced using the [base58 header
 file][core base58.h].
@@ -243,7 +243,7 @@ Version 1 and 2 Transaction Structure (prior to DIP2 activation in Dash Core v0.
   "vin": [ ],
   "vout": [ ]
 }
-{% endhighlight %}
+```
 
 Version 3 Transaction Structure (Dash Core v0.13.0+ and activated DIP2):
 ```json
@@ -258,7 +258,7 @@ Version 3 Transaction Structure (Dash Core v0.13.0+ and activated DIP2):
   "extraPayloadSize": <variable int>,
   "extraPayload": …
 }
-{% endhighlight %}
+```
 
 For special transactions (those using the extraPayload fields), JSON-RPC
 responses contain a parsed JSON representation of the Transaction Payload.
@@ -293,8 +293,7 @@ transaction:
   },
   "instantlock": false
 }
-
-{% endhighlight %}
+```
 
 ##### TxIn: A Transaction Input (Non-Coinbase) {#txin}
 
@@ -369,7 +368,7 @@ to a new pay-to-pubkey-hash (P2PKH) output.
 | | ac ..................................... OP_CHECKSIG
 
 00000000 ................................... locktime: 0 (a block height)
-{% endhighlight %}
+~~~
 
 ##### Coinbase Input: The Input Of The First Transaction In A Block {#coinbase}
 
@@ -428,7 +427,7 @@ An itemized coinbase transaction:
 | | f33e64d102c9591a88ac ................ P2PKH script
 |
 | 00000000 ............................ Locktime
-{% endhighlight %}
+~~~
 
 Note: currently the normal coinbase has 2 outputs (1 for the miner and 1 for
 the selected masternode). Superblocks ([superblock example][superblock example])
@@ -551,7 +550,7 @@ ProRegTx Payload
 | de2b3fc92794c4acda9cad6305ca172e
 | 9e3d6b1cd6e30f86678dae8e6595e53d
 | 2b30bc32141b6c0151eb58479121b3e6a4 ....... Signature
-{% endhighlight %}
+~~~
 
 The following annotated hexdump shows a ProRegTx transaction creating a new
 collateral.
@@ -614,7 +613,7 @@ ProRegTx Payload
 | Payload signature
 | 00 ....................................... Signature Size (0)
 | .......................................... Signature (Empty)
-{% endhighlight %}
+~~~
 
 #### ProUpServTx
 
@@ -682,7 +681,7 @@ ProUpServTx Payload
 | 02501becf629e93c0a01c76162d56a6c
 | 65a9675c3ca9d5297f053e68f91393dd
 | 789beed8ef7e8839695a334c2e1bd37c ......... BLS Signature (96 bytes)
-{% endhighlight %}
+~~~
 
 #### ProUpRegTx
 
@@ -758,7 +757,7 @@ ProRegTx Payload
 | 20b810683a68ab7dcea95de1f8f36441
 | 4c56368f189a3ef7a59b83bd77f22431
 | a73d347841a58768b94c771819dc2bbce3 ....... Signature
-{% endhighlight %}
+~~~
 
 #### ProUpRevTx
 
@@ -815,7 +814,7 @@ ProUpRevTx Payload
 | 09029a6a16c341c9d2a62789b495fef4
 | e068da711dac28106ff354db7249ae88
 | 05877d82ff7d1af00ae2d303dea5eb3b ......... BLS Signature (96 bytes)
-{% endhighlight %}
+~~~
 
 #### CbTx
 
@@ -892,7 +891,7 @@ Coinbase Transaction Payload
 |
 | 2ef709f55fa42cb53d29d75dad77d212
 | fb0bd72a47ecfe0e8aa6f660fb96396e ......... Active LLMQ merkle root
-{% endhighlight %}
+~~~
 
 #### QcTx
 
@@ -983,7 +982,7 @@ Quorum Commitment Transaction Payload
 | | 0f4eac88ee8fd7779e32e4f0be704078
 | | df31601b87b95374cebb4b304afc543e
 | | e0d4f461a2ba0e32a711197ca559dacf ....... BLS Signature (96 bytes)
-{% endhighlight %}
+~~~
 
 ### CompactSize Unsigned Integers
 
@@ -1012,4 +1011,3 @@ the numbers look like regular unsigned integers in little-endian order.
 | >= 0x100000000 && <= 0xffffffffffffffff | 9          | 0xff followed by the number as uint64_t
 
 For example, the number 515 is encoded as 0xfd0302.
-
