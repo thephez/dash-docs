@@ -292,11 +292,6 @@ The first transaction in a block, called the coinbase transaction, must have exa
 | *Varies* | coinbase script    | *None*               | The [coinbase field][/en/glossary/coinbase]{:#term-coinbase-field}{:.term}: Arbitrary data not exceeding 100 bytes minus the (4) height bytes.  Miners commonly place an extra nonce in this field to update the block header merkle root during hashing.
 | 4        | sequence           | uint32_t             | Sequence number.
 
-<!--
-Most (but not all) blocks prior to block height 227,836 used block
-version 1 which did not require the height parameter to be prefixed to
-the coinbase script.  The block height parameter is now required.
--->
 Although the coinbase script is arbitrary data, if it includes the bytes used by any signature-checking operations such as `OP_CHECKSIG`, those signature checks will be counted as signature operations (sigops) towards the block's sigop limit.  To avoid this, you can prefix all data with the appropriate push operation.
 
 An itemized coinbase transaction:
@@ -589,8 +584,6 @@ data:
 The following annotated hexdump shows a ProUpRegTx transaction referencing an
 existing collateral. (Parts of the classical transaction section have been omitted.)
 
-<!--devnet-dashdocs getrawtransaction 702390ef06b10c174841ad7b863df23c166c27815e3be2438e2fee6f87882b91 true-->
-
 ``` text
 0300 ....................................... Version (3)
 0300 ....................................... Type (3 - ProUpRegTx)
@@ -713,8 +706,6 @@ Version History
 
 The following annotated hexdump shows a CbTx transaction.
 
-<!--testnet getrawtransaction 1d009d4f47d217ed5fd14e6d8b56e1e61fc7c4e9a277e310d7ea14ddc64bb91c true-->
-
 An itemized coinbase transaction:
 
 ``` text
@@ -783,8 +774,6 @@ the extra payload consists of the following data:
 | Variable | commitment | qfcommit | The payload of the `qfcommit` message
 
 The following annotated hexdump shows a QcTx transaction.
-
-<!--getrawtransaction f218f2d5b8003bc530016dc510b3d982a5cf43ff76313b991ac5aa90a91065b7 true-->
 
 An itemized quorum commitment transaction:
 
