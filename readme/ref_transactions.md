@@ -141,7 +141,7 @@ A raw transaction has the following top-level format:
 | *Varies* | tx_in        | txIn                | Transaction inputs.  See description of txIn below.
 | *Varies* | tx_out count | compactSize uint    | Number of outputs in this transaction.
 | *Varies* | tx_out       | txOut               | Transaction outputs.  See description of txOut below.
-| 4        | lock_time    | uint32_t            | A time (Unix epoch time) or block number.  See the [locktime parsing rules][].
+| 4        | lock_time    | uint32_t            | A time (Unix epoch time) or block number.  See the [locktime parsing rules](core-guide#section-locktime-and-sequence-number).
 | *Varies* | extra_payload size | compactSize uint | *Added by DIP2 in v0.13.0*<br><br>Variable number of bytes of extra payload for DIP2-based special transactions
 | *Varies* | extra_payload | blob               | *Added by DIP2 in v0.13.0*<br><br>Special transaction payload.
 
@@ -219,7 +219,7 @@ Each non-coinbase input spends an outpoint from a previous transaction. (Coinbas
 |----------|------------------|----------------------|--------------
 | 36       | previous_output  | outpoint             | The previous outpoint being spent.  See description of outpoint below.
 | *Varies* | script bytes     | compactSize uint     | The number of bytes in the signature script.  Maximum is 10,000 bytes.
-| *Varies* | signature script | char[]               | A script-language script which satisfies the conditions placed in the outpoint's pubkey script.  Should only contain data pushes; see the [signature script modification warning][].
+| *Varies* | signature script | char[]               | A script-language script which satisfies the conditions placed in the outpoint's pubkey script.  Should only contain data pushes; see the [signature script modification warning](#signature_script_modification_warning).
 | 4        | sequence         | uint32_t             | Sequence number.  Default for Dash Core and almost all other programs is 0xffffffff.
 
 ### Outpoint: The Specific Part Of A Specific Output {#outpoint}
