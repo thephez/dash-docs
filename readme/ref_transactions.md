@@ -1,12 +1,6 @@
-
-
-## Transactions
-
-<!-- __ -->
-
 The following subsections briefly document core transaction details.
 
-#### OpCodes
+# OpCodes
 
 The opcodes used in the pubkey scripts of standard transactions are:
 
@@ -79,7 +73,7 @@ Failure, aborted: two signature matches required but none found so
                   far, and there's only one pubkey remaining
 ~~~
 
-#### Address Conversion
+# Address Conversion
 
 The hashes used in P2PKH and P2SH outputs are commonly encoded as Dash addresses.  This is the procedure to encode those hashes and decode the addresses.
 
@@ -127,7 +121,7 @@ Dash's own code can be traced using the [base58 header file][core base58.h].
 
 To convert addresses back into hashes, reverse the base58 encoding, extract the checksum, repeat the steps to create the checksum and compare it against the extracted checksum, and then remove the version byte.
 
-#### Raw Transaction Format
+# Raw Transaction Format
 
 Dash transactions are broadcast between peers in a serialized byte format, called [raw format][/en/glossary/serialized-transaction]{:#term-raw-format}{:.term}. It is this form of a transaction which is SHA256(SHA256()) hashed to create the TXID and, ultimately, the merkle root of a block containing the transaction---making the transaction format part of the consensus rules.
 
@@ -153,7 +147,7 @@ A raw transaction has the following top-level format:
 
 A transaction may have multiple inputs and outputs, so the txIn and txOut structures may recur within a transaction. CompactSize unsigned integers are a form of variable-length integers; they are described in the [CompactSize section][section CompactSize unsigned integer].
 
-##### JSON-RPC Responses
+## JSON-RPC Responses
 
 When retrieving transaction data via Dash Core RPCs (e.g. the `getrawtransaction` RPC), the transaction data is returned in the following format.
 
@@ -217,7 +211,7 @@ The sample transaction below shows the response for a quorum commitment special 
 }
 ```
 
-##### TxIn: A Transaction Input (Non-Coinbase) {#txin}
+### TxIn: A Transaction Input (Non-Coinbase) {#txin}
 
 Each non-coinbase input spends an outpoint from a previous transaction. (Coinbase inputs are described separately after the example section below.)
 
@@ -228,7 +222,7 @@ Each non-coinbase input spends an outpoint from a previous transaction. (Coinbas
 | *Varies* | signature script | char[]               | A script-language script which satisfies the conditions placed in the outpoint's pubkey script.  Should only contain data pushes; see the [signature script modification warning][].
 | 4        | sequence         | uint32_t             | Sequence number.  Default for Dash Core and almost all other programs is 0xffffffff.
 
-##### Outpoint: The Specific Part Of A Specific Output {#outpoint}
+### Outpoint: The Specific Part Of A Specific Output {#outpoint}
 
 Because a single transaction can include multiple outputs, the outpoint structure includes both a TXID and an output index number to refer to specific output.
 
@@ -237,7 +231,7 @@ Because a single transaction can include multiple outputs, the outpoint structur
 | 32    | hash  | char[32]  | The TXID of the transaction holding the output to spend.  The TXID is a hash provided here in internal byte order.
 | 4     | index | uint32_t  | The output index number of the specific output to spend from the transaction. The first output is 0x00000000.
 
-##### TxOut: A Transaction Output {#txout}
+### TxOut: A Transaction Output {#txout}
 
 Each output spends a certain number of duffs, placing them under control of anyone who can satisfy the provided pubkey script.
 
@@ -285,7 +279,7 @@ The sample raw transaction itemized below is the one created in the [Simple Raw 
 00000000 ................................... locktime: 0 (a block height)
 ~~~
 
-##### Coinbase Input: The Input Of The First Transaction In A Block {#coinbase}
+### Coinbase Input: The Input Of The First Transaction In A Block {#coinbase}
 
 The first transaction in a block, called the coinbase transaction, must have exactly one input, called a coinbase. The coinbase input currently has the following format.
 
@@ -340,7 +334,7 @@ An itemized coinbase transaction:
 
 Note: currently the normal coinbase has 2 outputs (1 for the miner and 1 for the selected masternode). Superblocks ([superblock example][superblock example]) have multiple outputs depending on the number of proposals being funded.
 
-### Special Transactions
+# Special Transactions
 
 The Special Transaction framework established by DIP2 enabled the implementation of new on-chain features and consensus mechanisms. These transactions provide the flexibility to expand beyond the financial uses of classical transactions. DIP2 transactions modified classical transactions by:
 
@@ -362,7 +356,7 @@ Classical (financial) transactions have a `type` of 0 while special transactions
 | v0.13.0 | 3 | 5 | compactSize uint | hex | CbTx| Masternode List Merkle Proof
 | v0.13.0 | 3 | 6 | compactSize uint | hex | QcTx| Long-Living Masternode Quorum Commitment
 
-#### ProRegTx
+## ProRegTx
 
 *Added in protocol version 70213 of Dash Core as described by DIP3*
 
@@ -507,7 +501,7 @@ ProRegTx Payload
 | .......................................... Signature (Empty)
 ~~~
 
-#### ProUpServTx
+## ProUpServTx
 
 *Added in protocol version 70213 of Dash Core as described by DIP3*
 
@@ -569,7 +563,7 @@ ProUpServTx Payload
 | 789beed8ef7e8839695a334c2e1bd37c ......... BLS Signature (96 bytes)
 ~~~
 
-#### ProUpRegTx
+## ProUpRegTx
 
 *Added in protocol version 70213 of Dash Core as described by DIP3*
 
@@ -643,7 +637,7 @@ ProRegTx Payload
 | a73d347841a58768b94c771819dc2bbce3 ....... Signature
 ~~~
 
-#### ProUpRevTx
+## ProUpRevTx
 
 *Added in protocol version 70213 of Dash Core as described by DIP3*
 
@@ -696,7 +690,7 @@ ProUpRevTx Payload
 | 05877d82ff7d1af00ae2d303dea5eb3b ......... BLS Signature (96 bytes)
 ~~~
 
-#### CbTx
+## CbTx
 
 *Added in protocol version 70213 of Dash Core as described by DIP4*
 
@@ -768,7 +762,7 @@ Coinbase Transaction Payload
 | fb0bd72a47ecfe0e8aa6f660fb96396e ......... Active LLMQ merkle root
 ~~~
 
-#### QcTx
+## QcTx
 
 *Added in protocol version 70213 of Dash Core as described by DIP6*
 
@@ -849,7 +843,7 @@ Quorum Commitment Transaction Payload
 | | e0d4f461a2ba0e32a711197ca559dacf ....... BLS Signature (96 bytes)
 ~~~
 
-### CompactSize Unsigned Integers
+# CompactSize Unsigned Integers
 
 The raw transaction format and several peer-to-peer network messages use a type of variable-length integer to indicate the number of bytes in a following piece of data.
 
