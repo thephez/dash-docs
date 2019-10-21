@@ -8,19 +8,19 @@ The opcodes used in the pubkey scripts of standard transactions are:
 
 * `OP_TRUE`/`OP_1` (0x51) and `OP_2` through `OP_16` (0x52--0x60), which push the values 1 through 16 to the stack.
 
-* [`OP_CHECKSIG`][op_checksig]{:#term-op-checksig}{:.term} (0xac) consumes a signature and a full public key, and pushes true onto the stack if the transaction data specified by the SIGHASH flag was converted into the signature using the same ECDSA private key that generated the public key. Otherwise, it pushes false onto the stack.
+* `<<glossary:OP_CHECKSIG>>` (0xac) consumes a signature and a full public key, and pushes true onto the stack if the transaction data specified by the SIGHASH flag was converted into the signature using the same ECDSA private key that generated the public key. Otherwise, it pushes false onto the stack.
 
-* [`OP_DUP`][op_dup]{:#term-op-dup}{:.term} (0x76) pushes a copy of the topmost stack item on to the stack.
+* `<<glossary:OP_DUP>>` (0x76) pushes a copy of the topmost stack item on to the stack.
 
-* [`OP_HASH160`][op_hash160]{:#term-op-hash160}{:.term} (0xa9) consumes the topmost item on the stack, computes the RIPEMD160(SHA256()) hash of that item, and pushes that hash onto the stack.
+* `<<glossary:OP_HASH160>>` (0xa9) consumes the topmost item on the stack, computes the RIPEMD160(SHA256()) hash of that item, and pushes that hash onto the stack.
 
-* [`OP_EQUAL`][op_equal]{:#term-op-equal}{:.term} (0x87) consumes the top two items on the stack, compares them, and pushes true onto the stack if they are the same, false if not.
+* `<<glossary:OP_EQUAL>>` (0x87) consumes the top two items on the stack, compares them, and pushes true onto the stack if they are the same, false if not.
 
-* [`OP_VERIFY`][op_verify]{:#term-op-verify}{:.term} (0x69) consumes the topmost item on the stack. If that item is zero (false) it terminates the script in failure.
+* `<<glossary:OP_VERIFY>>` (0x69) consumes the topmost item on the stack. If that item is zero (false) it terminates the script in failure.
 
-* [`OP_EQUALVERIFY`][op_equalverify]{:#term-op-equalverify}{:.term} (0x88) runs `OP_EQUAL` and then `OP_VERIFY` in sequence.
+* `<<glossary:OP_EQUALVERIFY>>` (0x88) runs `OP_EQUAL` and then `OP_VERIFY` in sequence.
 
-* [`OP_CHECKMULTISIG`][op_checkmultisig]{:#term-op-checkmultisig}{:.term} (0xae) consumes the value (n) at the top of the stack, consumes that many of the next stack levels (public keys), consumes the value (m) now at the top of the stack, and consumes that many of the next values (signatures) plus one extra value.
+* `<<glossary:OP_CHECKMULTISIG>>` (0xae) consumes the value (n) at the top of the stack, consumes that many of the next stack levels (public keys), consumes the value (m) now at the top of the stack, and consumes that many of the next values (signatures) plus one extra value.
 
     The "one extra value" it consumes is the result of an off-by-one error in the Bitcoin Core implementation. This value is not used, so signature scripts prefix the list of secp256k1 signatures with a single OP_0 (0x00).
 
@@ -28,7 +28,7 @@ The opcodes used in the pubkey scripts of standard transactions are:
 
     Because public keys are not checked again if they fail any signature comparison, signatures must be placed in the signature script using the same order as their corresponding public keys were placed in the pubkey script or redeem script. See the `OP_CHECKMULTISIG` warning below for more details.
 
-* [`OP_RETURN`][op_return]{:#term-op-return}{:.term} (0x6a) terminates the script in failure when executed.
+* `<<glossary:OP_RETURN>>` (0x6a) terminates the script in failure when executed.
 
 A complete list of opcodes can be found on the Bitcoin Wiki [Script Page](https://en.bitcoin.it/wiki/Script), with an authoritative list in the `opcodetype` enum of the Dash Core [script header file](https://github.com/dashpay/dash/blob/master/src/script/script.h).
 
