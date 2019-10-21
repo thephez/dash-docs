@@ -30,7 +30,7 @@ The opcodes used in the pubkey scripts of standard transactions are:
 
 * [`OP_RETURN`][op_return]{:#term-op-return}{:.term} (0x6a) terminates the script in failure when executed.
 
-A complete list of opcodes can be found on the Bitcoin Wiki [Script Page][wiki script], with an authoritative list in the `opcodetype` enum of the Dash Core [script header file][core script.h]
+A complete list of opcodes can be found on the Bitcoin Wiki [Script Page](https://en.bitcoin.it/wiki/Script), with an authoritative list in the `opcodetype` enum of the Dash Core [script header file](https://github.com/dashpay/dash/blob/master/src/script/script.h).
 
 ![Warning icon](https://dash-docs.github.io/img/icons/icon_warning.svg)
 **<span id="signature_script_modification_warning">Signature script modification warning</span>:**
@@ -95,7 +95,7 @@ First, get your hash.  For P2PKH, you RIPEMD-160(SHA256()) hash a ECDSA public k
 
 4. Append the checksum to the version and hash, and encode it as a base58 string: <!--[-->`BASE58(version . hash . checksum)`<!--]-->
 
-Dash's base58 encoding, called [Base58Check][/en/glossary/base58check]{:#term-base58check}{:.term} may not match other implementations. Tier Nolan provided the following example encoding algorithm to the Bitcoin Wiki [Base58Check encoding](https://en.bitcoin.it/wiki/Base58Check_encoding) page under the [Creative Commons Attribution 3.0 license][]:
+Dash's base58 encoding, called [Base58Check][/en/glossary/base58check]{:#term-base58check}{:.term} may not match other implementations. Tier Nolan provided the following example encoding algorithm to the Bitcoin Wiki [Base58Check encoding](https://en.bitcoin.it/wiki/Base58Check_encoding) page under the [Creative Commons Attribution 3.0 license](https://creativecommons.org/licenses/by/3.0/):
 
 ```c
 code_string = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
@@ -117,7 +117,7 @@ repeat(number_of_leading_zero_bytes_in_hash)
 output_string.reverse();
 ```
 
-Dash's own code can be traced using the [base58 header file][core base58.h].
+Dash's own code can be traced using the [base58 header file](https://github.com/dashpay/dash/blob/master/src/base58.h).
 
 To convert addresses back into hashes, reverse the base58 encoding, extract the checksum, repeat the steps to create the checksum and compare it against the extracted checksum, and then remove the version byte.
 
@@ -129,7 +129,7 @@ Dash Core and many other tools print and accept raw transactions encoded as hex.
 
 Transactions prior to protocol version 70209 defaulted to version 1. Transaction version 2 was the default in protocol versions => 70209 and < 70213. Version 2 transactions have the same format, but the `lock_time` parameter was redefined by BIP68 to enable relative lock-times. (Note: transactions in the block chain are allowed to list a higher version number to permit soft forks, but they are treated as version 2 transactions by current software.)
 
-Dash Core 0.13.0 (protocol version 70213) introduced transaction version 3 as part of the [DIP2 - Special Transactions](https://github.com/dashpay/dips/blob/master/dip-0002.md) implementation. Details of the changes introduced by this feature and currently implemented special transactions can be found in the [Special Transactions section](#special-transactions) below as well as in the [DIP](https://github.com/dashpay/dips/blob/master/dip-0002.md).
+Dash Core 0.13.0 (protocol version 70213) introduced transaction version 3 as part of the [DIP2 - Special Transactions](https://github.com/dashpay/dips/blob/master/dip-0002.md) implementation. Details of the changes introduced by this feature and currently implemented special transactions can be found in the [Special Transactions section](#section-special-transactions) below as well as in the [DIP](https://github.com/dashpay/dips/blob/master/dip-0002.md).
 
 A raw transaction has the following top-level format:
 
@@ -145,7 +145,7 @@ A raw transaction has the following top-level format:
 | *Varies* | extra_payload size | compactSize uint | *Added by DIP2 in v0.13.0*<br><br>Variable number of bytes of extra payload for DIP2-based special transactions
 | *Varies* | extra_payload | blob               | *Added by DIP2 in v0.13.0*<br><br>Special transaction payload.
 
-A transaction may have multiple inputs and outputs, so the txIn and txOut structures may recur within a transaction. CompactSize unsigned integers are a form of variable-length integers; they are described in the [CompactSize section][section CompactSize unsigned integer].
+A transaction may have multiple inputs and outputs, so the txIn and txOut structures may recur within a transaction. CompactSize unsigned integers are a form of variable-length integers; they are described in the [CompactSize section](#section-compactsize-unsigned-integers).
 
 ## JSON-RPC Responses
 
@@ -332,7 +332,7 @@ An itemized coinbase transaction:
 | 00000000 ............................ Locktime
 ~~~
 
-Note: currently the normal coinbase has 2 outputs (1 for the miner and 1 for the selected masternode). Superblocks ([superblock example][superblock example]) have multiple outputs depending on the number of proposals being funded.
+Note: currently the normal coinbase has 2 outputs (1 for the miner and 1 for the selected masternode). Superblocks ([superblock example](https://chainz.cryptoid.info/dash/block.dws?731104.htm)) have multiple outputs depending on the number of proposals being funded.
 
 # Special Transactions
 
