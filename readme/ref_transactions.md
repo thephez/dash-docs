@@ -32,12 +32,9 @@ The opcodes used in the pubkey scripts of standard transactions are:
 
 A complete list of opcodes can be found on the Bitcoin Wiki [Script Page](https://en.bitcoin.it/wiki/Script), with an authoritative list in the `opcodetype` enum of the Dash Core [script header file](https://github.com/dashpay/dash/blob/master/src/script/script.h).
 
-![Warning icon](https://dash-docs.github.io/img/icons/icon_warning.svg)
-**<span id="signature_script_modification_warning">Signature script modification warning</span>:**
-Signature scripts are not signed, so anyone can modify them. This means signature scripts should only contain data and data-pushing opcodes which can't be modified without causing the pubkey script to fail. Placing non-data-pushing opcodes in the signature script currently makes a transaction non-standard, and future consensus rules may forbid such transactions altogether. (Non-data-pushing opcodes are already forbidden in signature scripts when spending a P2SH pubkey script.)
+![Warning icon](https://dash-docs.github.io/img/icons/icon_warning.svg) **<span id="signature_script_modification_warning">Signature script modification warning</span>:** Signature scripts are not signed, so anyone can modify them. This means signature scripts should only contain data and data-pushing opcodes which can't be modified without causing the pubkey script to fail. Placing non-data-pushing opcodes in the signature script currently makes a transaction non-standard, and future consensus rules may forbid such transactions altogether. (Non-data-pushing opcodes are already forbidden in signature scripts when spending a P2SH pubkey script.)
 
-![Warning icon](https://dash-docs.github.io/img/icons/icon_warning.svg)
-**`OP_CHECKMULTISIG` warning:** The multisig verification process described above requires that signatures in the signature script be provided in the same order as their corresponding public keys in the pubkey script or redeem script. For example, the following combined signature and pubkey script will produce the stack and comparisons shown:
+![Warning icon](https://dash-docs.github.io/img/icons/icon_warning.svg) **`OP_CHECKMULTISIG` warning:** The multisig verification process described above requires that signatures in the signature script be provided in the same order as their corresponding public keys in the pubkey script or redeem script. For example, the following combined signature and pubkey script will produce the stack and comparisons shown:
 
 ``` text
 OP_0 <A sig> <B sig> OP_2 <A pubkey> <B pubkey> <C pubkey> OP_3
@@ -211,7 +208,8 @@ The sample transaction below shows the response for a quorum commitment special 
 }
 ```
 
-### TxIn: A Transaction Input (Non-Coinbase) {#txin}
+**<span id="txin"></span>**
+### TxIn: A Transaction Input (Non-Coinbase)
 
 Each non-coinbase input spends an outpoint from a previous transaction. (Coinbase inputs are described separately after the example section below.)
 
@@ -222,7 +220,8 @@ Each non-coinbase input spends an outpoint from a previous transaction. (Coinbas
 | *Varies* | signature script | char[]               | A script-language script which satisfies the conditions placed in the outpoint's pubkey script.  Should only contain data pushes; see the [signature script modification warning](#signature_script_modification_warning).
 | 4        | sequence         | uint32_t             | Sequence number.  Default for Dash Core and almost all other programs is 0xffffffff.
 
-### Outpoint: The Specific Part Of A Specific Output {#outpoint}
+**<span id="outpoint"></span>**
+### Outpoint: The Specific Part Of A Specific Output
 
 Because a single transaction can include multiple outputs, the outpoint structure includes both a TXID and an output index number to refer to specific output.
 
@@ -231,7 +230,8 @@ Because a single transaction can include multiple outputs, the outpoint structur
 | 32    | hash  | char[32]  | The TXID of the transaction holding the output to spend.  The TXID is a hash provided here in internal byte order.
 | 4     | index | uint32_t  | The output index number of the specific output to spend from the transaction. The first output is 0x00000000.
 
-### TxOut: A Transaction Output {#txout}
+**<span id="txout"></span>**
+### TxOut: A Transaction Output
 
 Each output spends a certain number of duffs, placing them under control of anyone who can satisfy the provided pubkey script.
 
@@ -279,7 +279,8 @@ The sample raw transaction itemized below is the one created in the [Simple Raw 
 00000000 ................................... locktime: 0 (a block height)
 ```
 
-### Coinbase Input: The Input Of The First Transaction In A Block {#coinbase}
+**<span id="coinbase"></span>**
+### Coinbase Input: The Input Of The First Transaction In A Block
 
 The first transaction in a block, called the coinbase transaction, must have exactly one input, called a coinbase. The coinbase input currently has the following format.
 
@@ -340,16 +341,16 @@ Classical (financial) transactions have a `type` of 0 while special transactions
 
 **Implemented Special Transactions**
 
-| Release | Tx Version | Tx Type | Payload Size | Payload | Payload JSON | Tx Purpose
+| Release | Tx Version | Tx Type | Payload JSON | Tx Purpose | Payload | Payload Size |
 | - | - | - | - | - | - |
 | v0.12.3 | 2 | - | n/a | n/a | n/a |
-| v0.13.0 | 3 | 0 | n/a | n/a | n/a | Standard (Classical) Transaction
-| v0.13.0 | 3 | 1 | compactSize uint | hex | ProRegTx | Masternode Registration
-| v0.13.0 | 3 | 2 | compactSize uint | hex | ProUpServTx | Update Masternode Service
-| v0.13.0 | 3 | 3 | compactSize uint | hex | ProUpRegTx| Update Masternode Operator
-| v0.13.0 | 3 | 4 | compactSize uint | hex | ProUpRevTx| Masternode Operator Revocation
-| v0.13.0 | 3 | 5 | compactSize uint | hex | CbTx| Masternode List Merkle Proof
-| v0.13.0 | 3 | 6 | compactSize uint | hex | QcTx| Long-Living Masternode Quorum Commitment
+| v0.13.0 | 3 | 0 | n/a | Standard (Classical) Transaction |  n/a | n/a |
+| v0.13.0 | 3 | 1 | ProRegTx | Masternode Registration | hex | compactSize uint |
+| v0.13.0 | 3 | 2 | ProUpServTx | Update Masternode Service | hex | compactSize uint |
+| v0.13.0 | 3 | 3 | ProUpRegTx| Update Masternode Operator | hex | compactSize uint |
+| v0.13.0 | 3 | 4 | ProUpRevTx| Masternode Operator Revocation | hex | compactSize uint |
+| v0.13.0 | 3 | 5 | CbTx| Masternode List Merkle Proof | hex | compactSize uint |
+| v0.13.0 | 3 | 6 | QcTx| Long-Living Masternode Quorum Commitment | hex | compactSize uint |
 
 ## ProRegTx
 
@@ -436,8 +437,7 @@ ProRegTx Payload
 
 The following annotated hexdump shows a ProRegTx transaction creating a new collateral.
 
-**Note the presence of the output, a null Outpoint TXID and the absence of a signature (since it isn't referring to an existing collateral).**
-(Parts of the classical transaction section have been omitted.)
+**Note the presence of the output, a null Outpoint TXID and the absence of a signature (since it isn't referring to an existing collateral).** (Parts of the classical transaction section have been omitted.)
 
 ``` text
 0300 ....................................... Version (3)
@@ -648,8 +648,7 @@ The special transaction type used for ProUpServTx Transactions is 4 and the extr
 | 1-9 | payloadSigSize |compactSize uint | Size of the Signature<br>**Note:** not present in BLS implementation
 | 96 | payloadSig | vector | BLS Signature of the hash of the ProUpServTx fields. Signed by the Operator.
 
-The following annotated hexdump shows a ProUpRevTx transaction. (Parts of the
-classical transaction section have been omitted.)
+The following annotated hexdump shows a ProUpRevTx transaction. (Parts of the classical transaction section have been omitted.)
 
 ``` text
 0300 ....................................... Version (3)
