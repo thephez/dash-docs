@@ -6,9 +6,9 @@ Block headers are serialized in the 80-byte format described below and then hash
 
 | Bytes | Name                | Data Type | Description
 |-------|---------------------|-----------|----------------
-| 4     | version             |  int32_t  | The [block](glossary#section-block) version number indicates which set of block validation rules to follow. See the list of block versions below.
+| 4     | version             |  int32_t  | The <<glossary:block>> version number indicates which set of block validation rules to follow. See the list of block versions below.
 | 32    | previous block header hash | char[32]  | An X11() hash in internal byte order of the previous block's header.  This ensures no previous block can be changed without also changing this block's header.
-| 32    | merkle root hash    | char[32]  | A SHA256(SHA256()) hash in internal byte order. The merkle root is derived from the hashes of all transactions included in this block, ensuring that none of those transactions can be modified without modifying the header.  See the [merkle trees section][section merkle trees] below.
+| 32    | merkle root hash    | char[32]  | A SHA256(SHA256()) hash in internal byte order. The merkle root is derived from the hashes of all transactions included in this block, ensuring that none of those transactions can be modified without modifying the header.  See the [merkle trees section](#section-merkle-trees) below.
 | 4     | time                | uint32_t  | The block time is a Unix epoch time when the miner started hashing the header (according to the miner).  Must be strictly greater than the median time of the previous 11 blocks.  Full nodes will not accept blocks with headers more than two hours in the future according to their clock.
 | 4     | nBits               | uint32_t  | An encoded version of the target threshold this block's header hash must be less than or equal to.  See the nBits format described below.
 | 4     | nonce               | uint32_t  | An arbitrary number miners change to modify the header hash in order to produce a hash less than or equal to the target threshold.  If all 32-bit values are tested, the time can be updated or the coinbase transaction can be changed and the merkle root updated.
@@ -30,12 +30,11 @@ b6ff0b1b1680a2862a30ca44d346d9e8
 fe9f0864 ........................... Nonce
 ```
 
-
 ## Block Versions
 
 * **Version 1** was used by Dash for the Genesis Block only.
 
-* **Version 2** was introduced with the first block following the Genesis Block (January 2014). As described in [BIP34](https://github.com/bitcoin/bips/blob/master/bip-0034.mediawiki), valid version 2 blocks require a [block height parameter in the [coinbase][coinbase block height].
+* **Version 2** was introduced with the first block following the Genesis Block (January 2014). As described in [BIP34](https://github.com/bitcoin/bips/blob/master/bip-0034.mediawiki), valid version 2 blocks require a block height parameter in the coinbase.
 
 * **Version 3** blocks were introduced in Dash Core 0.11.2 (March 2015) as a
   soft fork (Block 244,834 was the first version 3 block).
@@ -68,8 +67,7 @@ TXIDs and intermediate hashes are always in internal byte order when they're con
 
 ## Target nBits
 
-The target threshold is a 256-bit unsigned integer which a header hash must be equal to or below in order for that header to be a valid part of the block chain.
-However, the header field *nBits* provides only 32 bits of space, so the target number uses a less precise format called "compact" which works like a base-256 version of scientific notation:
+The target threshold is a 256-bit unsigned integer which a header hash must be equal to or below in order for that header to be a valid part of the block chain. However, the header field *nBits* provides only 32 bits of space, so the target number uses a less precise format called "compact" which works like a base-256 version of scientific notation:
 
 ![Converting nBits Into A Target Threshold](https://github.com/dash-docs/dash-docs/raw/master/img/dev/en-nbits-overview.png)
 
@@ -102,17 +100,17 @@ Under current consensus rules, a block is not valid unless its serialized size i
 
 | Bytes    | Name         | Data Type        | Description
 | - | - | - | - |
-| 80       | block header | block_header     | The block header in the format described in the [block header section][section block header].
+| 80       | block header | block_header     | The block header in the format described in the [block header section](#section-block-headers).
 | *Varies* | txn_count    | compactSize uint | The total number of transactions in this block, including the coinbase transaction.
 | *Varies* | txns         | raw transaction  | Every transaction in this block, one after another, in raw transaction format.  Transactions must appear in the data stream in the same order their TXIDs appeared in the first row of the merkle tree.  See the [merkle tree section][section merkle trees] for details.
 
-The first transaction in a block must be a [coinbase transaction](glossary#section-coinbase-transaction) which should collect and spend any transaction fees paid by transactions included in this block.
+The first transaction in a block must be a <<glossary:coinbase transaction>> which should collect and spend any transaction fees paid by transactions included in this block.
 
 Until the coin limit (~18 million Dash) is hit, all blocks are entitled to receive a block subsidy of newly created Dash value. The newly created value should be spent in the coinbase transaction.
 
-The block subsidy declines by ~7.1% per year until all Dash is mined. Subsidy calculations are performed by the Dash Core [GetBlockSubsidy()][block subsidy] function.
+The block subsidy declines by ~7.1% per year until all Dash is mined. Subsidy calculations are performed by the Dash Core [GetBlockSubsidy()](https://github.com/dashpay/dash/blob/9ed9474a9eb007bba70278ce19df68e84aeeb712/src/main.cpp#L1741) function.
 
-Together, the transaction fees and block subsidy are called the [<<glossary:block>> reward](glossary#section-block-reward). A coinbase transaction is invalid if it tries to spend more value than is available from the block reward.
+Together, the transaction fees and block subsidy are called the <<glossary:block reward>>. A coinbase transaction is invalid if it tries to spend more value than is available from the block reward.
 
 The block reward is divided into three parts: Miners, Masternodes, and Superblocks.
 
