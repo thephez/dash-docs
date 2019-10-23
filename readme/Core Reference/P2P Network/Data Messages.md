@@ -17,42 +17,42 @@ The currently-available type identifiers are:
 
 | Type Identifier | Name                                                                          | Description
 |-----------------|-------------------------------------------------------------------------------|---------------
-| 1               | <<glossary:`MSG_TX`>>                                     | The hash is a TXID.
-| 2               | <<glossary:`MSG_BLOCK`>>                            | The hash is of a block header.
-| 3               | <<glossary:`MSG_FILTERED_BLOCK`>> | The hash is of a block header; identical to `MSG_BLOCK`. When used in a `getdata` message, this indicates the response should be a `merkleblock` message rather than a `block` message (but this only works if a bloom filter was previously configured).  **Only for use in `getdata` messages.**
-| 4               | <<glossary:`MSG_LEGACY_TXLOCK_REQUEST`>> | `MSG_TXLOCK_REQUEST` prior to Dash Core 0.14.1. The hash is an Instant Send transaction lock request. Transactions received this way are automatically converted to a standard `tx` message as of Dash Core 0.14.1.
-| 6               | <<glossary:`MSG_SPORK`>>                            | The hash is Spork ID.
-| 16               | <<glossary:`MSG_DSTX`>>                              | The hash is Private Send (Dark Send) Broadcast TX.
-| 17               | <<glossary:`MSG_GOVERNANCE_OBJECT`>>                                     | The hash is a Governance Object.
-| 18               | <<glossary:`MSG_GOVERNANCE_OBJECT_VOTE`>>                                     | The hash is a Governance Object Vote.
-| 20               | <<glossary:`MSG_CMPCT_BLOCK`>>                                     | The hash is of a block header; identical to `MSG_BLOCK`. When used in a `getdata` message, this indicates the response should be a `cmpctblock` message. **Only for use in `getdata` messages.**
-| 21               | <<glossary:`MSG_QUORUM_FINAL_COMMITMENT`>>                | The hash is a long-living masternode quorum final commitment.<br>_Added in 0.13.0_
-| 23               | <<glossary:`MSG_QUORUM_CONTRIB`>>                                     | The hash is a long-living masternode quorum contribution.<br>_Added in 0.14.0_
-| 24               | <<glossary:`MSG_QUORUM_COMPLAINT`>>                                     | The hash is a long-living masternode quorum complaint.<br>_Added in 0.14.0_
-| 25               | <<glossary:`MSG_QUORUM_JUSTIFICATION`>>                   | The hash is a long-living masternode quorum justification.<br>_Added in 0.14.0_
-| 26               | <<glossary:`MSG_QUORUM_PREMATURE_COMMITMENT`>>    | The hash is a long-living masternode quorum premature commitment.<br>_Added in 0.14.0_
-| 28               | <<glossary:`MSG_QUORUM_RECOVERED_SIG`>>                        | The hash is a long-living masternode quorum recovered signature.<br>_Added in 0.14.0_
-| 29               | <<glossary:`MSG_CLSIG`>>                                     | The hash is a ChainLock signature.<br>_Added in 0.14.0_
-| 30               | <<glossary:`MSG_ISLOCK`>>                                   | The hash is an LLMQ-based InstantSend lock.<br>_Added in 0.14.0_
+| 1               | `<<glossary:MSG_TX>>`                                     | The hash is a TXID.
+| 2               | `<<glossary:MSG_BLOCK>>`                            | The hash is of a block header.
+| 3               | `<<glossary:MSG_FILTERED_BLOCK>>` | The hash is of a block header; identical to `MSG_BLOCK`. When used in a `getdata` message, this indicates the response should be a `merkleblock` message rather than a `block` message (but this only works if a bloom filter was previously configured).  **Only for use in `getdata` messages.**
+| 4               | `<<glossary:MSG_LEGACY_TXLOCK_REQUEST>>` | `MSG_TXLOCK_REQUEST` prior to Dash Core 0.14.1. The hash is an Instant Send transaction lock request. Transactions received this way are automatically converted to a standard `tx` message as of Dash Core 0.14.1.
+| 6               | `<<glossary:MSG_SPORK>>`                            | The hash is Spork ID.
+| 16               | `<<glossary:MSG_DSTX>>`                              | The hash is Private Send (Dark Send) Broadcast TX.
+| 17               | `<<glossary:MSG_GOVERNANCE_OBJECT>>`                                     | The hash is a Governance Object.
+| 18               | `<<glossary:MSG_GOVERNANCE_OBJECT_VOTE>>`                                     | The hash is a Governance Object Vote.
+| 20               | `<<glossary:MSG_CMPCT_BLOCK>>`                                     | The hash is of a block header; identical to `MSG_BLOCK`. When used in a `getdata` message, this indicates the response should be a `cmpctblock` message. **Only for use in `getdata` messages.**
+| 21               | `<<glossary:MSG_QUORUM_FINAL_COMMITMENT>>`                | The hash is a long-living masternode quorum final commitment.<br>_Added in 0.13.0_
+| 23               | `<<glossary:MSG_QUORUM_CONTRIB>>`                                     | The hash is a long-living masternode quorum contribution.<br>_Added in 0.14.0_
+| 24               | `<<glossary:MSG_QUORUM_COMPLAINT>>`                                     | The hash is a long-living masternode quorum complaint.<br>_Added in 0.14.0_
+| 25               | `<<glossary:MSG_QUORUM_JUSTIFICATION>>`                   | The hash is a long-living masternode quorum justification.<br>_Added in 0.14.0_
+| 26               | `<<glossary:MSG_QUORUM_PREMATURE_COMMITMENT>>`    | The hash is a long-living masternode quorum premature commitment.<br>_Added in 0.14.0_
+| 28               | `<<glossary:MSG_QUORUM_RECOVERED_SIG>>`                        | The hash is a long-living masternode quorum recovered signature.<br>_Added in 0.14.0_
+| 29               | `<<glossary:MSG_CLSIG>>`                                     | The hash is a ChainLock signature.<br>_Added in 0.14.0_
+| 30               | `<<glossary:MSG_ISLOCK>>`                                   | The hash is an LLMQ-based InstantSend lock.<br>_Added in 0.14.0_
 
 The deprecated type identifiers are:
 
 | Type Identifier | Name                                                                          | Description
 |-----------------|-------------------------------------------------------------------------------|---------------
-| 5               | <<glossary:`MSG_TXLOCK_VOTE`>>          | **Deprecated in 0.14.1**<br><br>The hash is an Instant Send transaction vote.
-| 7               | <<glossary:`MSG_MASTERNODE_PAYMENT_VOTE`>>                                     | **Deprecated in 0.14.0**<br><br>The hash is a Masternode Payment Vote.
-| 8               | <<glossary:`MSG_MASTERNODE_PAYMENT_BLOCK`>>                                     | **Deprecated in 0.14.0**<br><br>The hash is a Masternode Payment Block.
+| 5               | `<<glossary:MSG_TXLOCK_VOTE>>`          | **Deprecated in 0.14.1**<br><br>The hash is an Instant Send transaction vote.
+| 7               | `<<glossary:MSG_MASTERNODE_PAYMENT_VOTE>>`                                     | **Deprecated in 0.14.0**<br><br>The hash is a Masternode Payment Vote.
+| 8               | `<<glossary:MSG_MASTERNODE_PAYMENT_BLOCK>>`                                     | **Deprecated in 0.14.0**<br><br>The hash is a Masternode Payment Block.
 | 8               | `MSG_MASTERNODE_SCANNING_ERROR`                                             | Replaced by `MSG_MASTERNODE_PAYMENT_BLOCK`
-| 9               | <<glossary:`MSG_BUDGET_VOTE`>>          | Deprecated
-| 10               | <<glossary:`MSG_BUDGET_PROPOSAL`>>                                     | Deprecated
-| 11               | <<glossary:`MSG_BUDGET_FINALIZED`>>                                     | Deprecated
-| 12               | <<glossary:`MSG_BUDGET_FINALIZED_VOTE`>>                                     | Deprecated
-| 13               | <<glossary:`MSG_MASTERNODE_QUORUM`>>                                     | Not Implemented
-| 14               | <<glossary:`MSG_MASTERNODE_ANNOUNCE`>>                                     | **Deprecated in 0.14.0**<br><br>The hash is a Masternode Broadcast.
-| 15               | <<glossary:`MSG_MASTERNODE_PING`>>                                     | **Deprecated in 0.14.0**<br><br>The hash is a Masternode Ping.
-| 19               | <<glossary:`MSG_MASTERNODE_VERIFY`>>                                     | **Deprecated in 0.14.0**<br><br>The hash is a Masternode Verify.
+| 9               | `<<glossary:MSG_BUDGET_VOTE>>`          | Deprecated
+| 10               | `<<glossary:MSG_BUDGET_PROPOSAL>>`                                     | Deprecated
+| 11               | `<<glossary:MSG_BUDGET_FINALIZED>>`                                     | Deprecated
+| 12               | `<<glossary:MSG_BUDGET_FINALIZED_VOTE>>`                                     | Deprecated
+| 13               | `<<glossary:MSG_MASTERNODE_QUORUM>>`                                     | Not Implemented
+| 14               | `<<glossary:MSG_MASTERNODE_ANNOUNCE>>`                                     | **Deprecated in 0.14.0**<br><br>The hash is a Masternode Broadcast.
+| 15               | `<<glossary:MSG_MASTERNODE_PING>>`                                     | **Deprecated in 0.14.0**<br><br>The hash is a Masternode Ping.
+| 19               | `<<glossary:MSG_MASTERNODE_VERIFY>>`                                     | **Deprecated in 0.14.0**<br><br>The hash is a Masternode Verify.
 | 22               | `MSG_QUORUM_DUMMY_COMMITMENT`                                     | **Deprecated in 0.14.0**<br><br>Temporarily used on Testnet only.
-| 27               | <<glossary:`MSG_QUORUM_DEBUG_STATUS`>>                            | **Deprecated in 0.14.0**<br><br>Temporarily used on Testnet only.
+| 27               | `<<glossary:MSG_QUORUM_DEBUG_STATUS>>`                            | **Deprecated in 0.14.0**<br><br>Temporarily used on Testnet only.
 
 Type identifier zero and type identifiers greater than twenty are reserved for future implementations. Dash Core ignores all inventories with one of these unknown types.
 
