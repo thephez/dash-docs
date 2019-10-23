@@ -6,7 +6,7 @@ The following network messages all help control the connection between two peers
 
 ![Overview Of P2P Protocol Control And Advisory Messages](https://dash-docs.github.io/img/dev/en-p2p-control-messages.svg)
 
-Note that almost none of the control messages are authenticated in any way, meaning they can contain incorrect or intentionally harmful information. In addition, this section does not yet cover P2P protocol operation over the [Tor network][tor]; if you would like to contribute information about Tor, please [open an issue][docs issue].
+Note that almost none of the control messages are authenticated in any way, meaning they can contain incorrect or intentionally harmful information.
 
 # Addr
 
@@ -25,10 +25,10 @@ Each encapsulated network IP address currently uses the following structure:
 |-------|------------|-----------|---------------
 | 4     | time       | uint32    | *Added in protocol version 31402.* <br><br>A time in Unix epoch time format.  Nodes advertising their own IP address set this to the current time.  Nodes advertising IP addresses they've connected to set this to the last time they connected to that node.  Other nodes just relaying the IP address should not change the time.  Nodes can use the time field to avoid relaying old `addr` messages.  <br><br>Malicious nodes may change times or even set them in the future.
 | 8     | services   | uint64_t  | The services the node advertised in its `version` message.
-| 16    | IP address | char      | IPv6 address in **big endian byte order**. IPv4 addresses can be provided as [IPv4-mapped IPv6 addresses][]
+| 16    | IP address | char      | IPv6 address in **big endian byte order**. IPv4 addresses can be provided as [IPv4-mapped IPv6 addresses](http://en.wikipedia.org/wiki/IPv6#IPv4-mapped_IPv6_addresses)
 | 2     | port       | uint16_t  | Port number in **big endian byte order**.  Note that Dash Core will only connect to nodes with non-standard port numbers as a last resort for finding peers.  This is to prevent anyone from trying to use the network to disrupt non-Dash services that run on other ports.
 
-The following annotated hexdump shows part of an `addr` message. (The message header has been omitted and the actual IP address has been replaced with a [RFC5737][] reserved IP address.)
+The following annotated hexdump shows part of an `addr` message. (The message header has been omitted and the actual IP address has been replaced with a [RFC5737](http://tools.ietf.org/html/rfc5737) reserved IP address.)
 
 ``` text
 fde803 ............................. Address count: 1000
@@ -72,7 +72,7 @@ The `filterclear` message tells the receiving peer to remove a previously-set bl
 
 Dash Core does not require a `filterclear` message before a replacement filter is loaded with `filterload`.  It also doesn't require a `filterload` message before a `filterclear` message.
 
-There is no payload in a `filterclear` message.  See the [message header section][section message header] for an example of a message without a payload.
+There is no payload in a `filterclear` message.  See the [message header section](core-ref-p2p-network-message-headers) for an example of a message without a payload.
 
 # FilterLoad
 
@@ -88,7 +88,7 @@ The `filterload` message tells the receiving peer to filter all relayed transact
 | 4        | nTweak       | uint32_t  | An arbitrary value to add to the seed value in the hash function used by the bloom filter.
 | 1        | nFlags       | uint8_t   | A set of flags that control how outpoints corresponding to a matched pubkey script are added to the filter. See the table in the Updating A Bloom Filter subsection below.
 
-The annotated hexdump below shows a `filterload` message. (The message header has been omitted.)  For an example of how this payload was created, see the [filterload example][section creating a bloom filter].
+The annotated hexdump below shows a `filterload` message. (The message header has been omitted.)  For an example of how this payload was created, see the [filterload example](core-example-p2p-network-creating-a-bloom-filter).
 
 ``` text
 02 ......... Filter bytes: 2
@@ -127,13 +127,13 @@ The seed is `nHashNum * 0xfba4c795 + nTweak` as a *uint32\_t*, where the values 
 
 If the seed resulting from the formula above is larger than four bytes, it must be truncated to its four most significant bytes (for example, `0x8967452301 & 0xffffffff → 0x67452301`).
 
-The actual hash function implementation used is the [32-bit Murmur3 hash function][murmur3].
+The actual hash function implementation used is the [32-bit Murmur3 hash function](https://en.wikipedia.org/wiki/MurmurHash).
 
 ![Warning icon](https://dash-docs.github.io/img/icons/icon_warning.svg) **Warning:** the Murmur3 hash function has separate 32-bit and 64-bit versions that produce different results for the same input.  Only the 32-bit Murmur3 version is used with Dash bloom filters.
 
 The data to be hashed can be any transaction element which the bloom filter can match. See the next subsection for the list of transaction elements checked against the filter. The largest element which can be matched is a script data push of 520 bytes, so the data should never exceed 520 bytes.
 
-The example below from Dash Core [bloom.cpp][core bloom.cpp hash] combines all the steps above to create the hash function template. The seed is the first parameter; the data to be hashed is the second parameter. The result is a uint32\_t modulo the size of the bit field in bits.
+The example below from Dash Core [bloom.cpp](https://github.com/dashpay/dash/blob/333e1eaeea80344e5a28db6efbce2691c85e2b25/src/bloom.cpp#L58) combines all the steps above to create the hash function template. The seed is the first parameter; the data to be hashed is the second parameter. The result is a uint32\_t modulo the size of the bit field in bits.
 
 ``` c++
 MurmurHash3(nHashNum * 0xFBA4C795 + nTweak, vDataToHash) % (vData.size() * 8)
@@ -164,7 +164,7 @@ The following transaction elements are compared against bloom filters. All eleme
 
 As of  Dash Core 0.14.0, elements in the extra payload section of DIP2-based special transactions are also compared against bloom filters.
 
-The following annotated hexdump of a transaction is from the [raw transaction format section][raw transaction format]; the elements which would be checked by the filter are emphasized in bold. Note that this transaction's TXID (**`01000000017b1eab[...]`**) would also be checked, and that the outpoint TXID and index number below would be checked as a single 36-byte element.
+The following annotated hexdump of a transaction is from the [raw transaction format section](core-ref-transactions-raw-transaction-format); the elements which would be checked by the filter are emphasized in bold. Note that this transaction's TXID (**`01000000017b1eab[...]`**) would also be checked, and that the outpoint TXID and index number below would be checked as a single 36-byte element.
 
 <pre><code>01000000 ................................... Version
 
@@ -221,13 +221,13 @@ In addition, because the filter size stays the same even though additional eleme
 
 The `getaddr` message requests an `addr` message from the receiving node, preferably one with lots of IP addresses of other receiving nodes. The transmitting node can use those IP addresses to quickly update its database of available nodes rather than waiting for unsolicited `addr` messages to arrive over time.
 
-There is no payload in a `getaddr` message.  See the [message header section][section message header] for an example of a message without a payload.
+There is no payload in a `getaddr` message.  See the [message header section](core-ref-p2p-network-message-headers) for an example of a message without a payload.
 
 # GetSporks
 
 The `getsporks` message requests `spork` messages from the receiving node.
 
-There is no payload in a `getsporks` message.  See the [message header section][section message header] for an example of a message without a payload.
+There is no payload in a `getsporks` message.  See the [message header section](core-ref-p2p-network-message-headers) for an example of a message without a payload.
 
 # Ping
 
@@ -334,7 +334,7 @@ The `sendcmpct` message tells the receiving peer whether or not to announce new 
 
 Upon receipt of a `sendcmpct` message with the first and second integers set to 1, the node should announce new blocks by sending a `cmpctblock` message.
 
-Upon receipt of a `sendcmpct` message with the first integer set to 0, the node shouldn't announce new blocks by sending a `cmpctblock` message, but instead announce new blocks by sending invs or headers, as defined by [BIP130][].
+Upon receipt of a `sendcmpct` message with the first integer set to 0, the node shouldn't announce new blocks by sending a `cmpctblock` message, but instead announce new blocks by sending invs or headers, as defined by [BIP130](https://github.com/bitcoin/bips/blob/master/bip-0130.mediawiki).
 
 Upon receipt of a `sendcmpct` message with the second integer set to something other than 1, nodes should treat the peer as if they had not received the message (as it indicates the peer will provide an unexpected encoding in `cmpctblock` messages, and/or other, messages). This allows future versions to send duplicate `sendcmpct` messages with different versions as a part of a version handshake.
 
@@ -374,7 +374,7 @@ The following annotated hexdump shows a `senddsq` message. (The message header h
 
 The `sendheaders` message tells the receiving peer to send new block announcements using a `headers` message rather than an `inv` message.
 
-There is no payload in a `sendheaders` message.  See the [message header section][section message header] for an example of a message without a payload.
+There is no payload in a `sendheaders` message.  See the [message header section](core-ref-p2p-network-message-headers) for an example of a message without a payload.
 
 # Spork
 
@@ -391,7 +391,7 @@ The `spork` message tells the receiving peer the status of the spork defined by 
 | 8 | nTimeSigned | int64_t | Required | Time the spork value was signed
 | 66 | vchSig | char[] | Required | Length (1 byte) + Signature (65 bytes)
 
-Sporks (per [`src/spork.h`][spork.h])
+Sporks (per [`src/spork.h`](https://github.com/dashpay/dash/blob/a4f5ba38b65384fb9243ce78c111feceb377e1a9/src/spork.h#L20))
 
 | Spork ID | Number | Name | Description |
 | ---------- | ---------- | ----------- | ----------- |
@@ -414,7 +414,7 @@ Sporks (per [`src/spork.h`][spork.h])
 | _10013_ | _14_ | _`REQUIRE_SENTINEL_FLAG`_ | _Removed in Dash Core 0.14.0.<br>Only masternode's running sentinel will be paid_
 | _10017_ | _18_ | _`QUORUM_DEBUG_ENABLED`_ | _Removed in Dash Core 0.14.0.<br><br>Temporarily used on Testnet only quorum debugging._
 
-To verify `vchSig`, compare the hard-coded spork public key (`strSporkPubKey` from [`src/chainparams.cpp`][spork pubkey]) with the public key recovered from the `spork` message's hash and `vchSig` value (implementation details for Dash Core can be found in `CPubKey::RecoverCompact`). The hash is a double SHA-256 hash of:
+To verify `vchSig`, compare the hard-coded spork public key (`strSporkPubKey` from [`src/chainparams.cpp`](https://github.com/dashpay/dash/blob/eaf90b77177efbaf9cbed46e822f0d794f1a0ee5/src/chainparams.cpp#L158)) with the public key recovered from the `spork` message's hash and `vchSig` value (implementation details for Dash Core can be found in `CPubKey::RecoverCompact`). The hash is a double SHA-256 hash of:
 
 * The spork magic message (`"DarkCoin Signed Message:\n"`)
 * nSporkID + nValue + nTimeSigned
@@ -444,7 +444,7 @@ d32020c827a89f8128a00acd210f4ea4
 
 # VerAck
 
-The `verack` message acknowledges a previously-received `version` message, informing the connecting node that it can begin to send other messages. The `verack` message has no payload; for an example of a message with no payload, see the [message headers section][section message header].
+The `verack` message acknowledges a previously-received `version` message, informing the connecting node that it can begin to send other messages. The `verack` message has no payload; for an example of a message with no payload, see the [message headers section](core-ref-p2p-network-message-headers).
 
 # Version
 
@@ -454,23 +454,23 @@ If a `version` message is accepted, the receiving node should send a `verack` me
 
 Protocol version 70214 added a masternode authentication (challenge/response) system. Following the `verack` message, masternodes should send a `mnauth` message that signs the `mnauth_challenge` with their BLS operator key.
 
-| Bytes    | Name                  | Data Type        | Required/Optional                        | Description
+| Bytes    | Name                  | Data Type        | Required/<br>Optional                        | Description
 |----------|-----------------------|------------------|------------------------------------------|-------------
-| 4        | version               | int32_t          | Required                                 | The highest protocol version understood by the transmitting node.  See the [protocol version section][section protocol versions].
+| 4        | version               | int32_t          | Required                                 | The highest protocol version understood by the transmitting node.  See the [protocol version section](core-ref-p2p-protocol-versions.
 | 8        | services              | uint64_t         | Required                                 | The services supported by the transmitting node encoded as a bitfield.  See the list of service codes below.
 | 8        | timestamp             | int64_t          | Required                                 | The current Unix epoch time according to the transmitting node's clock.  Because nodes will reject blocks with timestamps more than two hours in the future, this field can help other nodes to determine that their clock is wrong.
 | 8        | addr_recv services    | uint64_t         | Required                                 | *Added in protocol version 106.* <br><br>The services supported by the receiving node as perceived by the transmitting node.  Same format as the 'services' field above. Dash Core will attempt to provide accurate information.
-| 16       | addr_recv IP address  | char             | Required                                 | *Added in protocol version 106.* <br><br>The IPv6 address of the receiving node as perceived by the transmitting node in **big endian byte order**. IPv4 addresses can be provided as [IPv4-mapped IPv6 addresses][]. Dash Core will attempt to provide accurate information.
+| 16       | addr_recv IP address  | char             | Required                                 | *Added in protocol version 106.* <br><br>The IPv6 address of the receiving node as perceived by the transmitting node in **big endian byte order**. IPv4 addresses can be provided as [IPv4-mapped IPv6 addresses](http://en.wikipedia.org/wiki/IPv6#IPv4-mapped_IPv6_addresses). Dash Core will attempt to provide accurate information.
 | 2        | addr_recv port        | uint16_t         | Required                                 | *Added in protocol version 106.* <br><br>The port number of the receiving node as perceived by the transmitting node in **big endian byte order**.
 | 8        | addr_trans services   | uint64_t         | Required                                 | The services supported by the transmitting node.  Should be identical to the 'services' field above.
-| 16       | addr_trans IP address | char             | Required                                 | The IPv6 address of the transmitting node in **big endian byte order**. IPv4 addresses can be provided as [IPv4-mapped IPv6 addresses][].  Set to ::ffff:127.0.0.1 if unknown.
+| 16       | addr_trans IP address | char             | Required                                 | The IPv6 address of the transmitting node in **big endian byte order**. IPv4 addresses can be provided as [IPv4-mapped IPv6 addresses](http://en.wikipedia.org/wiki/IPv6#IPv4-mapped_IPv6_addresses).  Set to ::ffff:127.0.0.1 if unknown.
 | 2        | addr_trans port       | uint16_t         | Required                                 | The port number of the transmitting node in **big endian byte order**.
 | 8        | nonce                 | uint64_t         | Required                                 | A random nonce which can help a node detect a connection to itself.  If the nonce is 0, the nonce field is ignored.  If the nonce is anything else, a node should terminate the connection on receipt of a `version` message with a nonce it previously sent.
 | *Varies* | user_agent bytes      | compactSize uint | Required                                 | Number of bytes in following user\_agent field.  If 0x00, no user agent field is sent.
 | *Varies* | user_agent            | string           | Required if user_agent bytes > 0         | *Renamed in protocol version 60000.* <br><br>User agent as defined by BIP14. Previously called subVer.<br><br>Dash Core limits the length to 256 characters.
 | 4        | start_height          | int32_t          | Required                                 | The height of the transmitting node's best block chain or, in the case of an SPV client, best block header chain.
 | 1        | relay                 | bool             | Optional                                 | *Added in protocol version 70001 as described by BIP37.* <br><br>Transaction relay flag.  If 0x00, no `inv` messages or `tx` messages announcing new transactions should be sent to this client until it sends a `filterload` message or `filterclear` message.  If the relay field is not present or is set to 0x01, this node wants `inv` messages and `tx` messages announcing new transactions.
-| 32       | mnauth_challenge      | uint256          | Optional                                 | *Added in protocol version 70214* <br><br>A challenge to be signed by the receiving masternode. The response is returned via a `mnauth` message following the `verack` message.
+| 32       | mnauth_<br>challenge  | uint256          | Optional                                 | *Added in protocol version 70214* <br><br>A challenge to be signed by the receiving masternode. The response is returned via a `mnauth` message following the `verack` message.
 
 The following service identifiers have been assigned.
 
@@ -481,7 +481,7 @@ The following service identifiers have been assigned.
 | 0x02  | NODE_GETUTXO | This node is capable of responding to the getutxo protocol request. *Dash Core does not support this service.*
 | 0x04  | NODE_BLOOM | This node is capable and willing to handle bloom-filtered connections.  Dash Core nodes used to support this by default, without advertising this bit, but no longer do as of protocol version 70201 (= NO_BLOOM_VERSION)
 
-The following annotated hexdump shows a `version` message. (The message header has been omitted and the actual IP addresses have been replaced with [RFC5737][] reserved IP addresses.)
+The following annotated hexdump shows a `version` message. (The message header has been omitted and the actual IP addresses have been replaced with [RFC5737](http://tools.ietf.org/html/rfc5737) reserved IP addresses.)
 
 ``` text
 46120100 .................................... Protocol version: 70214
