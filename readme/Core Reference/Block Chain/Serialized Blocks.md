@@ -8,7 +8,7 @@ Under current consensus rules, a block is not valid unless its serialized size i
 | - | - | - | - |
 | 80       | block header | block_header     | The block header in the format described in the [block header section](core-ref-block-chain-block-headers).
 | *Varies* | txn_count    | compactSize uint | The total number of transactions in this block, including the coinbase transaction.
-| *Varies* | txns         | raw transaction  | Every transaction in this block, one after another, in raw transaction format.  Transactions must appear in the data stream in the same order their TXIDs appeared in the first row of the merkle tree.  See the [merkle tree section][section merkle trees] for details.
+| *Varies* | txns         | raw transaction  | Every transaction in this block, one after another, in raw transaction format.  Transactions must appear in the data stream in the same order their TXIDs appeared in the first row of the merkle tree.  See the [merkle tree section](core-ref-block-chain-block-headers#section-merkle-trees) for details.
 
 The first transaction in a block must be a <<glossary:coinbase transaction>> which should collect and spend any transaction fees paid by transactions included in this block.
 
