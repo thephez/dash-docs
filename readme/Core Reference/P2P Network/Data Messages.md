@@ -2,17 +2,11 @@
 title: "Data Messages"
 excerpt: ""
 ---
-### Data Messages
-
-The following network messages all request or provide data related to
-transactions and blocks.
+The following network messages all request or provide data related to transactions and blocks.
 
 ![Overview Of P2P Protocol Data Request And Reply Messages](https://dash-docs.github.io/img/dev/en-p2p-data-messages.svg)
 
-Many of the data messages use
-<<glossary:inventories>> as unique identifiers
-for transactions and blocks.  Inventories have a simple 36-byte
-structure:
+Many of the data messages use <<glossary:inventories>> as unique identifiers for transactions and blocks.  Inventories have a simple 36-byte structure:
 
 | Bytes | Name            | Data Type | Description
 |-------|-----------------|-----------|-------------
@@ -60,35 +54,21 @@ The deprecated type identifiers are:
 | 22               | `MSG_QUORUM_DUMMY_COMMITMENT`                                     | **Deprecated in 0.14.0**<br><br>Temporarily used on Testnet only.
 | 27               | <<glossary:`MSG_QUORUM_DEBUG_STATUS`>>                            | **Deprecated in 0.14.0**<br><br>Temporarily used on Testnet only.
 
-Type identifier zero and type identifiers greater than twenty are reserved
-for future implementations. Dash Core ignores all inventories with
-one of these unknown types.
+Type identifier zero and type identifiers greater than twenty are reserved for future implementations. Dash Core ignores all inventories with one of these unknown types.
 
 #### Block
 
-The `block` message transmits a single serialized block in the format
-described in the [serialized blocks section][section serialized blocks].
-See that section for an example hexdump.  It can be sent for two
-different reasons:
+The `block` message transmits a single serialized block in the format described in the [serialized blocks section](core-ref-blockchain-serialized-blocks). See that section for an example hexdump.  It can be sent for two different reasons:
 
-1. **GetData Response:** Nodes will always send it in response to a
-   `getdata` message that requests the block with an inventory
-   type of `MSG_BLOCK` (provided the node has that block available for
-   relay).
+1. **GetData Response:** Nodes will always send it in response to a `getdata` message that requests the block with an inventory type of `MSG_BLOCK` (provided the node has that block available for relay).
 
-2. **Unsolicited:** Some miners will send unsolicited `block` messages
-   broadcasting their newly-mined blocks to all of their peers. Many
-   mining pools do the same thing, although some may be misconfigured to
-   send the block from multiple nodes, possibly sending the same block
-   to some peers more than once.
+2. **Unsolicited:** Some miners will send unsolicited `block` messages broadcasting their newly-mined blocks to all of their peers. Many mining pools do the same thing, although some may be misconfigured to send the block from multiple nodes, possibly sending the same block to some peers more than once.
 
 #### Blocktxn
 
 *Added in protocol version 70209 of Dash Core as described by BIP152*
 
-The `blocktxn` message sends requested block transactions to a node which
-previously requested them with a `getblocktxn` message. It is defined as a message
-containing a serialized `BlockTransactions` message.
+The `blocktxn` message sends requested block transactions to a node which previously requested them with a `getblocktxn` message. It is defined as a message containing a serialized `BlockTransactions` message.
 
 Upon receipt of a properly-formatted requested `blocktxn` message, nodes should:
 
@@ -97,8 +77,7 @@ Upon receipt of a properly-formatted requested `blocktxn` message, nodes should:
 3. Place each short transaction ID in the first available position in the block
 4. Once the block has been reconstructed, it shall be processed as normal.
 
-**Short transaction IDs are expected to occasionally collide. Nodes must
-not be penalized for such collisions.**
+**Short transaction IDs are expected to occasionally collide. Nodes must not be penalized for such collisions.**
 
 The structure of `BlockTransactions` is defined below.
 
@@ -108,8 +87,7 @@ The structure of `BlockTransactions` is defined below.
 | 1 or 3   | transactions<br>_length | CompactSize          | As used to encode array lengths elsewhere | The number of transactions provided
 | *Varies* | transactions         | List of transactions | As encoded in `tx` messages in response to `getdata MSG_TX` | The transactions provided
 
-The following annotated hexdump shows a `blocktxn` message.  (The
-message header has been omitted.)
+The following annotated hexdump shows a `blocktxn` message.  (The message header has been omitted.)
 
 ``` text
 182327cb727da7d60541da793831fd0ab0509e79c8cd
@@ -162,45 +140,22 @@ Transaction(s)
 
 *Added in protocol version 70209 of Dash Core as described by BIP152*
 
-The `cmpctblock` message is a reply to a `getdata` message which
-requested a block using the inventory type `MSG_CMPCT_BLOCK`. If the
-requested block was recently announced and is close to the tip of the
-best chain of the receiver and after having sent the requesting peer
-a `sendcmpct` message, nodes respond with a `cmpctblock` message containing
-data for the block.
+The `cmpctblock` message is a reply to a `getdata` message which requested a block using the inventory type `MSG_CMPCT_BLOCK`. If the requested block was recently announced and is close to the tip of the best chain of the receiver and after having sent the requesting peer a `sendcmpct` message, nodes respond with a `cmpctblock` message containing data for the block.
 
 **If the requested block is too old, the node responds with a *full non-compact block***
 
-Upon receipt of a `cmpctblock` message, after sending a `sendcmpct` message,
-nodes should calculate the short transaction ID for each unconfirmed
-transaction they have available (i.e. in their mempool) and compare each
-to each short transaction ID in the `cmpctblock` message. After finding
-already-available transactions, nodes which do not have all transactions
-available to reconstruct the full block should request the missing transactions
-using a `getblocktxn` message.
+Upon receipt of a `cmpctblock` message, after sending a `sendcmpct` message, nodes should calculate the short transaction ID for each unconfirmed transaction they have available (i.e. in their mempool) and compare each to each short transaction ID in the `cmpctblock` message. After finding already-available transactions, nodes which do not have all transactions available to reconstruct the full block should request the missing transactions using a `getblocktxn` message.
 
-A node must not send a `cmpctblock` message unless they are able to respond to
-a `getblocktxn` message which requests every transaction in the block. A node
-must not send a `cmpctblock` message without having validated that the header properly
-commits to each transaction in the block, and properly builds on top of the existing,
-fully-validated chain with a valid proof-of-work either as a part of the current most-work
-valid chain, or building directly on top of it. A node may send a `cmpctblock` message before
-validating that each transaction in the block validly spends existing UTXO set entries.
+A node must not send a `cmpctblock` message unless they are able to respond to a `getblocktxn` message which requests every transaction in the block. A node must not send a `cmpctblock` message without having validated that the header properly commits to each transaction in the block, and properly builds on top of the existing, fully-validated chain with a valid proof-of-work either as a part of the current most-work valid chain, or building directly on top of it. A node may send a `cmpctblock` message before validating that each transaction in the block validly spends existing UTXO set entries.
 
-The `cmpctblock` message contains a vector of `PrefilledTransaction` whose
-structure is defined below. A `PrefilledTransaction` is used in `HeaderAndShortIDs`
-to provide a list of a few transactions explicitly.
+The `cmpctblock` message contains a vector of `PrefilledTransaction` whose structure is defined below. A `PrefilledTransaction` is used in `HeaderAndShortIDs` to provide a list of a few transactions explicitly.
 
 | Bytes    | Name                 | Data Type            | Encoding | Description|
 |----------|----------------------|----------------------|----------|------------|
 | 1 or 3   | index                | CompactSize          | Compact Size, differentially encoded since the last PrefilledTransaction in a list | The index into the block at which this transaction is
 | *Varies* | tx                   | Transaction          | As encoded in `tx` messages sent in response to `getdata MSG_TX` | Transaction which is in the block at index `index`
 
-The `cmpctblock` message is compromised of a serialized `HeaderAndShortIDs`
-structure which is defined below. A `HeaderAndShortIDs` structure is used to
-relay a block header, the short transactions IDs used for matching
-already-available transactions, and a select few transactions which
-we expect a peer may be missing.
+The `cmpctblock` message is compromised of a serialized `HeaderAndShortIDs` structure which is defined below. A `HeaderAndShortIDs` structure is used to relay a block header, the short transactions IDs used for matching already-available transactions, and a select few transactions which we expect a peer may be missing.
 
 | Bytes    | Name                 | Data Type            | Encoding | Description|
 |----------|----------------------|----------------------|----------|------------|
@@ -219,8 +174,7 @@ Short transaction IDs are used to represent a transaction without sending a full
 * Running SipHash-2-4 with the input being the transaction ID and the keys (k0/k1) set to the first two little-endian 64-bit integers from the above hash, respectively.
 * Dropping the 2 most significant bytes from the SipHash output to make it 6 bytes.
 
-The following annotated hexdump shows a `cmpctblock` message. (The
-message header has been omitted.)
+The following annotated hexdump shows a `cmpctblock` message. (The message header has been omitted.)
 
 ``` text
 00000020981178a4342cec6316296b2ad84c9b7cdf9f
@@ -274,26 +228,13 @@ Prefilled Transactions
 
 #### GetBlocks
 
-The `getblocks` message requests an `inv` message that provides block
-header hashes starting from a particular point in the block chain. It
-allows a peer which has been disconnected or started for the first time
-to get the data it needs to request the blocks it hasn't seen.
+The `getblocks` message requests an `inv` message that provides block header hashes starting from a particular point in the block chain. It allows a peer which has been disconnected or started for the first time to get the data it needs to request the blocks it hasn't seen.
 
-Peers which have been disconnected may have stale blocks in their
-locally-stored block chain, so the `getblocks` message allows the
-requesting peer to provide the receiving peer with multiple header
-hashes at various heights on their local chain. This allows the
-receiving peer to find, within that list, the last header hash they had
-in common and reply with all subsequent header hashes.
+Peers which have been disconnected may have stale blocks in their locally-stored block chain, so the `getblocks` message allows the requesting peer to provide the receiving peer with multiple header hashes at various heights on their local chain. This allows the receiving peer to find, within that list, the last header hash they had in common and reply with all subsequent header hashes.
 
-Note: the receiving peer itself may respond with an `inv` message
-containing header hashes of stale blocks.  It is up to the requesting
-peer to poll all of its peers to find the best block chain.
+Note: the receiving peer itself may respond with an `inv` message containing header hashes of stale blocks.  It is up to the requesting peer to poll all of its peers to find the best block chain.
 
-If the receiving peer does not find a common header hash within the
-list, it will assume the last common block was the genesis block (block
-zero), so it will reply with in `inv` message containing header hashes
-starting with block one (the first block after the genesis block).
+If the receiving peer does not find a common header hash within the list, it will assume the last common block was the genesis block (block zero), so it will reply with in `inv` message containing header hashes starting with block one (the first block after the genesis block).
 
 | Bytes    | Name                 | Data Type        | Description
 |----------|----------------------|------------------|----------------
@@ -302,8 +243,7 @@ starting with block one (the first block after the genesis block).
 | *Varies* | block header hashes  | char[32]         | One or more block header hashes (32 bytes each) in internal byte order.  Hashes should be provided in reverse order of block height, so highest-height hashes are listed first and lowest-height hashes are listed last.
 | 32       | stop hash            | char[32]         | The header hash of the last header hash being requested; set to all zeroes to request an `inv` message with all subsequent header hashes (a maximum of 500 will be sent as a reply to this message; if you need more than 500, you will need to send another `getblocks` message with a higher-height header hash as the first entry in block header hash field).
 
-The following annotated hexdump shows a `getblocks` message.  (The
-message header has been omitted.)
+The following annotated hexdump shows a `getblocks` message.  (The message header has been omitted.)
 
 ``` text
 71110100 ........................... Protocol version: 70001
@@ -323,17 +263,9 @@ d39f608a7775b537729884d4e6633bb2
 
 *Added in protocol version 70209 of Dash Core as described by BIP152*
 
-The `getblocktxn` message requests a `blocktxn` message for any transactions
-that it has not seen after a compact block is received. It is defined as a
-message containing a serialized `BlockTransactionsRequest` message. Upon receipt
-of a properly-formatted `getblocktxn` message, nodes which recently provided the
-sender of such a message with a `cmpctblock` message for the block hash
-identified in this message must respond with either an appropriate
-`blocktxn` message, or a full block message.
+The `getblocktxn` message requests a `blocktxn` message for any transactions that it has not seen after a compact block is received. It is defined as a message containing a serialized `BlockTransactionsRequest` message. Upon receipt of a properly-formatted `getblocktxn` message, nodes which recently provided the sender of such a message with a `cmpctblock` message for the block hash identified in this message must respond with either an appropriate `blocktxn` message, or a full block message.
 
-A `blocktxn` message response must contain exactly and only each transaction
-which is present in the appropriate block at the index specified in the
-`getblocktxn` message indexes list, in the order requested.
+A `blocktxn` message response must contain exactly and only each transaction which is present in the appropriate block at the index specified in the `getblocktxn` message indexes list, in the order requested.
 
 The structure of `BlockTransactionsRequest` is defined below.
 
@@ -343,8 +275,7 @@ The structure of `BlockTransactionsRequest` is defined below.
 | *Varies* | indexes_length  | CompactSize uint     | As used to encode array lengths elsewhere | The number of transactions requested
 | *Varies* | indexes         | CompactSize uint[]   | Differentially encoded | Vector of compactSize containing the indexes of the transactions being requested in the block.
 
-The following annotated hexdump shows a `getblocktxn` message.  (The
-message header has been omitted.)
+The following annotated hexdump shows a `getblocktxn` message.  (The message header has been omitted.)
 
 ``` text
 182327cb727da7d60541da793831fd0a
@@ -356,38 +287,21 @@ b0509e79c8cd3d654cdf3a0100000000 ... Block Hash
 
 #### GetData
 
-The `getdata` message requests one or more data objects from another
-node. The objects are requested by an inventory, which the requesting
-node typically previously received by way of an `inv` message.
+The `getdata` message requests one or more data objects from another node. The objects are requested by an inventory, which the requesting node typically previously received by way of an `inv` message.
 
-The response to a `getdata` message can be a `tx` message, `block`
-message, `merkleblock` message, `ix` message, `txlvote` message,
-`mnw` message, `mnb` message, `mnp` message, `dstx` message, `govobj` message,
-`govobjvote` message, `mnv` message, `notfound` message, or `cmpctblock` message.
+The response to a `getdata` message can be a `tx` message, `block` message, `merkleblock` message, `ix` message, `txlvote` message, `mnw` message, `mnb` message, `mnp` message, `dstx` message, `govobj` message, `govobjvote` message, `mnv` message, `notfound` message, or `cmpctblock` message.
 
-This message cannot be used to request arbitrary data, such as historic
-transactions no longer in the memory pool or relay set. Full nodes may
-not even be able to provide older blocks if they've pruned old
-transactions from their block database. For this reason, the `getdata`
-message should usually only be used to request data from a node which
-previously advertised it had that data by sending an `inv` message.
+This message cannot be used to request arbitrary data, such as historic transactions no longer in the memory pool or relay set. Full nodes may not even be able to provide older blocks if they've pruned old transactions from their block database. For this reason, the `getdata` message should usually only be used to request data from a node which previously advertised it had that data by sending an `inv` message.
 
-The format and maximum size limitations of the `getdata` message are
-identical to the `inv` message; only the message header differs.
+The format and maximum size limitations of the `getdata` message are identical to the `inv` message; only the message header differs.
 
 #### GetHeaders
 
 *Added in protocol version 70077.*
 
-The `getheaders` message requests a `headers` message that provides block headers
-starting from a particular point in the block chain. It allows a
-peer which has been disconnected or started for the first time to get
-the headers it hasn’t seen yet.
+The `getheaders` message requests a `headers` message that provides block headers starting from a particular point in the block chain. It allows a peer which has been disconnected or started for the first time to get the headers it hasn’t seen yet.
 
-The `getheaders` message is nearly identical to the `getblocks` message,
-with one minor difference: the `inv` reply to the `getblocks` message
-will include no more than 500 block header hashes; the `headers` reply
-to the `getheaders` message will include as many as 2,000 block headers.
+The `getheaders` message is nearly identical to the `getblocks` message, with one minor difference: the `inv` reply to the `getblocks` message will include no more than 500 block header hashes; the `headers` reply to the `getheaders` message will include as many as 2,000 block headers.
 
 #### GetMNListD
 
@@ -403,8 +317,7 @@ The `getmnlistd` message requests a `mnlistdiff` message that provides either:
 | 32 | baseBlockHash | uint256 | Required | Hash of a block the requester already has a valid masternode list of.<br>_Note: Can be all-zero to indicate that a full masternode list is requested._
 | 32 | blockHash | uint256 | Required | Hash of the block for which the masternode list diff is requested
 
-The following annotated hexdump shows a `getmnlistd` message. (The
-message header has been omitted.)
+The following annotated hexdump shows a `getmnlistd` message. (The message header has been omitted.)
 
 ``` text
 000001ee5108348a2c59396da29dc576
@@ -418,17 +331,14 @@ db3fe368976296fd3b6d73fdaf898cc0 ........... Block hash
 
 *Added in protocol version 31800 (of Bitcoin).*
 
-The `headers` message sends block headers to a node which
-previously requested certain headers with a `getheaders` message. A headers
-message can be empty.
+The `headers` message sends block headers to a node which previously requested certain headers with a `getheaders` message. A headers message can be empty.
 
 | Bytes    | Name    | Data Type        | Description
 |----------|---------|------------------|-----------------
 | *Varies* | count   | compactSize uint | Number of block headers up to a maximum of 2,000.  Note: headers-first sync assumes the sending node will send the maximum number of headers whenever possible.
 | *Varies* | headers | block_header     | Block headers: each 80-byte block header is in the format described in the [block headers section][section block header] with an additional 0x00 suffixed.  This 0x00 is called the transaction count, but because the headers message doesn't include any transactions, the transaction count is always zero.
 
-The following annotated hexdump shows a `headers` message.  (The message
-header has been omitted.)
+The following annotated hexdump shows a `headers` message.  (The message header has been omitted.)
 
 ``` text
 01 ................................. Header count: 1
@@ -447,22 +357,16 @@ fe9f0864 ........................... Nonce
 
 #### Inv
 
-The `inv` message (inventory message) transmits one or more inventories of
-objects known to the transmitting peer.  It can be sent unsolicited to
-announce new transactions or blocks, or it can be sent in reply to a
-`getblocks` message or `mempool` message.
+The `inv` message (inventory message) transmits one or more inventories of objects known to the transmitting peer.  It can be sent unsolicited to announce new transactions or blocks, or it can be sent in reply to a `getblocks` message or `mempool` message.
 
-The receiving peer can compare the inventories from an `inv` message
-against the inventories it has already seen, and then use a follow-up
-message to request unseen objects.
+The receiving peer can compare the inventories from an `inv` message against the inventories it has already seen, and then use a follow-up message to request unseen objects.
 
 | Bytes    | Name      | Data Type             | Description
 |----------|-----------|-----------------------|-----------------
 | *Varies* | count     | compactSize uint      | The number of inventory entries.
 | *Varies* | inventory | inventory             | One or more inventory entries up to a maximum of 50,000 entries.
 
-The following annotated hexdump shows an `inv` message with two
-inventory entries.  (The message header has been omitted.)
+The following annotated hexdump shows an `inv` message with two inventory entries.  (The message header has been omitted.)
 
 ``` text
 02 ................................. Count: 2
@@ -480,62 +384,25 @@ ab17057f9ce4b50c2aef4fadf3729a2e ... Hash (txlvote)
 
 *Added in protocol version 60002 (of Bitcoin).*
 
-The `mempool` message requests the TXIDs of transactions that the
-receiving node has verified as valid but which have not yet appeared in
-a block. That is, transactions which are in the receiving node's memory
-pool. The response to the `mempool` message is one or more `inv`
-messages containing the TXIDs in the usual inventory format.
+The `mempool` message requests the TXIDs of transactions that the receiving node has verified as valid but which have not yet appeared in a block. That is, transactions which are in the receiving node's memory pool. The response to the `mempool` message is one or more `inv` messages containing the TXIDs in the usual inventory format.
 
-Sending the `mempool` message is mostly useful when a program first
-connects to the network. Full nodes can use it to quickly gather most or
-all of the unconfirmed transactions available on the network; this is
-especially useful for miners trying to gather transactions for their
-transaction fees. SPV clients can set a filter before sending a
-`mempool` to only receive transactions that match that filter; this
-allows a recently-started client to get most or all unconfirmed
-transactions related to its wallet.
+Sending the `mempool` message is mostly useful when a program first connects to the network. Full nodes can use it to quickly gather most or all of the unconfirmed transactions available on the network; this is especially useful for miners trying to gather transactions for their transaction fees. SPV clients can set a filter before sending a `mempool` to only receive transactions that match that filter; this allows a recently-started client to get most or all unconfirmed transactions related to its wallet.
 
-The `inv` response to the `mempool` message is, at best, one node's
-view of the network---not a complete list of unconfirmed transactions
-on the network. Here are some additional reasons the list might not
-be complete:
+The `inv` response to the `mempool` message is, at best, one node's view of the network---not a complete list of unconfirmed transactions on the network. Here are some additional reasons the list might not be complete:
 
-* Before Bitcoin Core 0.9.0, the response to the `mempool` message was
-  only one `inv` message. An `inv` message is limited to 50,000
-  inventories, so a node with a memory pool larger than 50,000 entries
-  would not send everything.  Later versions of Bitcoin Core send as
-  many `inv` messages as needed to reference its complete memory pool.
+* Before Bitcoin Core 0.9.0, the response to the `mempool` message was only one `inv` message. An `inv` message is limited to 50,000 inventories, so a node with a memory pool larger than 50,000 entries would not send everything.  Later versions of Bitcoin Core send as many `inv` messages as needed to reference its complete memory pool.
 
-* The `mempool` message is not currently fully compatible with the
-  `filterload` message's `BLOOM_UPDATE_ALL` and
-  `BLOOM_UPDATE_P2PUBKEY_ONLY` flags. Mempool transactions are not
-  sorted like in-block transactions, so a transaction (tx2) spending an
-  output can appear before the transaction (tx1) containing that output,
-  which means the automatic filter update mechanism won't operate until
-  the second-appearing transaction (tx1) is seen---missing the
-  first-appearing transaction (tx2). It has been proposed in [Bitcoin
-  Core issue #2381][] that the transactions should be sorted before
-  being processed by the filter.
+* The `mempool` message is not currently fully compatible with the `filterload` message's `BLOOM_UPDATE_ALL` and `BLOOM_UPDATE_P2PUBKEY_ONLY` flags. Mempool transactions are not sorted like in-block transactions, so a transaction (tx2) spending an output can appear before the transaction (tx1) containing that output, which means the automatic filter update mechanism won't operate until the second-appearing transaction (tx1) is seen---missing the first-appearing transaction (tx2). It has been proposed in [Bitcoin Core issue #2381](https://github.com/bitcoin/bitcoin/issues/2381) that the transactions should be sorted before being processed by the filter.
 
-There is no payload in a `mempool` message.  See the [message header
-section][section message header] for an example of a message without a payload.
+There is no payload in a `mempool` message.  See the [message header section][section message header] for an example of a message without a payload.
 
 #### MerkleBlock
 
 *Added in protocol version 70001 as described by BIP37.*
 
-The `merkleblock` message is a reply to a `getdata` message which
-requested a block using the inventory type `MSG_MERKLEBLOCK`.  It is
-only part of the reply: if any matching transactions are found, they will
-be sent separately as `tx` messages.
+The `merkleblock` message is a reply to a `getdata` message which requested a block using the inventory type `MSG_MERKLEBLOCK`.  It is only part of the reply: if any matching transactions are found, they will be sent separately as `tx` messages.
 
-If a filter has been previously set with the `filterload` message, the
-`merkleblock` message will contain the TXIDs of any transactions in the
-requested block that matched the filter, as well as any parts of the
-block's merkle tree necessary to connect those transactions to the
-block header's merkle root. The message also contains a complete copy
-of the block header to allow the client to hash it and confirm its
-proof of work.
+If a filter has been previously set with the `filterload` message, the `merkleblock` message will contain the TXIDs of any transactions in the requested block that matched the filter, as well as any parts of the block's merkle tree necessary to connect those transactions to the block header's merkle root. The message also contains a complete copy of the block header to allow the client to hash it and confirm its proof of work.
 
 | Bytes    | Name               | Data Type        | Description
 |----------|--------------------|------------------|----------------
@@ -546,9 +413,7 @@ proof of work.
 | *Varies* | flag byte count    | compactSize uint | The number of flag bytes in the following field.
 | *Varies* | flags              | byte[]           | A sequence of bits packed eight in a byte with the least significant bit first.  May be padded to the nearest byte boundary but must not contain any more bits than that.  Used to assign the hashes to particular nodes in the merkle tree as described below.
 
-The annotated hexdump below shows a `merkleblock` message which
-corresponds to the examples below.  (The message header has been
-omitted.)
+The annotated hexdump below shows a `merkleblock` message which corresponds to the examples below.  (The message header has been omitted.)
 
 ``` text
 01000000 ........................... Block version: 1
@@ -576,133 +441,73 @@ bb3183301d7a1fb3bd174fcfa40a2b65 ... Hash #2
 1d ................................. Flags: 1 0 1 1 1 0 0 0
 ```
 
-Note: when fully decoded, the above `merkleblock` message provided the
-TXID for a single transaction that matched the filter. In the network
-traffic dump this output was taken from, the full transaction belonging
-to that TXID was sent immediately after the `merkleblock` message as
-a `tx` message.
+Note: when fully decoded, the above `merkleblock` message provided the TXID for a single transaction that matched the filter. In the network traffic dump this output was taken from, the full transaction belonging to that TXID was sent immediately after the `merkleblock` message as a `tx` message.
 
 ##### Parsing A MerkleBlock Message
 
-As seen in the annotated hexdump above, the `merkleblock` message
-provides three special data types: a transaction count, a list of
-hashes, and a list of one-bit flags.
+As seen in the annotated hexdump above, the `merkleblock` message provides three special data types: a transaction count, a list of hashes, and a list of one-bit flags.
 
-You can use the transaction count to construct an empty merkle tree.
-We'll call each entry in the tree a node; on the bottom are TXID
-nodes---the hashes for these nodes are TXIDs; the remaining nodes
-(including the merkle root) are non-TXID nodes---they may actually have
-the same hash as a TXID, but we treat them differently.
+You can use the transaction count to construct an empty merkle tree. We'll call each entry in the tree a node; on the bottom are TXID nodes---the hashes for these nodes are TXIDs; the remaining nodes (including the merkle root) are non-TXID nodes---they may actually have the same hash as a TXID, but we treat them differently.
 
 ![Example Of Parsing A MerkleBlock Message](https://dash-docs.github.io/img/dev/animated-en-merkleblock-parsing.gif)
 
-Keep the hashes and flags in the order they appear in the `merkleblock`
-message. When we say "next flag" or "next hash", we mean the next flag
-or hash on the list, even if it's the first one we've used so far.
+Keep the hashes and flags in the order they appear in the `merkleblock` message. When we say "next flag" or "next hash", we mean the next flag or hash on the list, even if it's the first one we've used so far.
 
-Start with the merkle root node and the first flag. The table below
-describes how to evaluate a flag based on whether the node being
-processed is a TXID node or a non-TXID node. Once you apply a flag to a
-node, never apply another flag to that same node or reuse that same
-flag again.
+Start with the merkle root node and the first flag. The table below describes how to evaluate a flag based on whether the node being processed is a TXID node or a non-TXID node. Once you apply a flag to a node, never apply another flag to that same node or reuse that same flag again.
 
 | Flag  | TXID Node                                                                                | Non-TXID Node
 |-------|------------------------------------------------------------------------------------------|----
 | **0** | Use the next hash as this node's TXID, but this transaction didn't match the filter.     | Use the next hash as this node's hash.  Don't process any descendant nodes.
 | **1** | Use the next hash as this node's TXID, and mark this transaction as matching the filter. | The hash needs to be computed.  Process the left child node to get its hash; process the right child node to get its hash; then concatenate the two hashes as 64 raw bytes and hash them to get this node's hash.
 
-Any time you begin processing a node for the first time, evaluate the next
-flag. Never use a flag at any other time.
+Any time you begin processing a node for the first time, evaluate the next flag. Never use a flag at any other time.
 
-When processing a child node, you may need to process its children (the
-grandchildren of the original node) or further-descended nodes before
-returning to the parent node. This is expected---keep processing depth
-first until you reach a TXID node or a non-TXID node with a flag of 0.
+When processing a child node, you may need to process its children (the grandchildren of the original node) or further-descended nodes before returning to the parent node. This is expected---keep processing depth first until you reach a TXID node or a non-TXID node with a flag of 0.
 
-After you process a TXID node or a non-TXID node with a flag of 0, stop
-processing flags and begin to ascend the tree. As you ascend, compute
-the hash of any nodes for which you now have both child hashes or for
-which you now have the sole child hash. See the [merkle tree
-section][section merkle trees] for hashing instructions. If you reach a
-node where only the left hash is known, descend into its right child (if
-present) and further descendants as necessary.
+After you process a TXID node or a non-TXID node with a flag of 0, stop processing flags and begin to ascend the tree. As you ascend, compute the hash of any nodes for which you now have both child hashes or for which you now have the sole child hash. See the [merkle tree section][section merkle trees] for hashing instructions. If you reach a node where only the left hash is known, descend into its right child (if present) and further descendants as necessary.
 
-However, if you find a node whose left and right children both have the
-same hash, fail.  This is related to CVE-2012-2459.
+However, if you find a node whose left and right children both have the same hash, fail.  This is related to CVE-2012-2459.
 
-Continue descending and ascending until you have enough information to
-obtain the hash of the merkle root node. If you run out of flags or
-hashes before that condition is reached, fail. Then perform the
-following checks (order doesn't matter):
+Continue descending and ascending until you have enough information to obtain the hash of the merkle root node. If you run out of flags or hashes before that condition is reached, fail. Then perform the following checks (order doesn't matter):
 
 * Fail if there are unused hashes in the hashes list.
 
-* Fail if there are unused flag bits---except for the minimum number of
-  bits necessary to pad up to the next full byte.
+* Fail if there are unused flag bits---except for the minimum number of bits necessary to pad up to the next full byte.
 
-* Fail if the hash of the merkle root node is not identical to the
-  merkle root in the block header.
+* Fail if the hash of the merkle root node is not identical to the merkle root in the block header.
 
-* Fail if the block header is invalid. Remember to ensure that the hash
-  of the header is less than or equal to the target threshold encoded by
-  the nBits header field. Your program should also, of course, attempt
-  to ensure the header belongs to the best block chain and that the user
-  knows how many confirmations this block has.
+* Fail if the block header is invalid. Remember to ensure that the hash of the header is less than or equal to the target threshold encoded by the nBits header field. Your program should also, of course, attempt to ensure the header belongs to the best block chain and that the user knows how many confirmations this block has.
 
-For a detailed example of parsing a `merkleblock` message, please see
-the corresponding [merkle block examples section][section merkleblock
-example].
+For a detailed example of parsing a `merkleblock` message, please see the corresponding [merkle block examples section][section merkleblock example].
 
 ##### Creating A MerkleBlock Message
 
-It's easier to understand how to create a `merkleblock` message after
-you understand how to parse an already-created message, so we recommend
-you read the parsing section above first.
+It's easier to understand how to create a `merkleblock` message after you understand how to parse an already-created message, so we recommend you read the parsing section above first.
 
-Create a complete merkle tree with TXIDs on the bottom row and all the
-other hashes calculated up to the merkle root on the top row. For each
-transaction that matches the filter, track its TXID node and all of its
-ancestor nodes.
+Create a complete merkle tree with TXIDs on the bottom row and all the other hashes calculated up to the merkle root on the top row. For each transaction that matches the filter, track its TXID node and all of its ancestor nodes.
 
 ![Example Of Creating A MerkleBlock Message](https://dash-docs.github.io/img/dev/animated-en-merkleblock-creation.gif)
 
-Start processing the tree with the merkle root node. The table below
-describes how to process both TXID nodes and non-TXID nodes based on
-whether the node is a match, a match ancestor, or neither a match nor a
-match ancestor.
+Start processing the tree with the merkle root node. The table below describes how to process both TXID nodes and non-TXID nodes based on whether the node is a match, a match ancestor, or neither a match nor a match ancestor.
 
 |                                      | TXID Node                                                              | Non-TXID Node
 |--------------------------------------|------------------------------------------------------------------------|----
 | **Neither Match Nor Match Ancestor** | Append a 0 to the flag list; append this node's TXID to the hash list. | Append a 0 to the flag list; append this node's hash to the hash list.  Do not descend into its child nodes.
 | **Match Or Match Ancestor**          | Append a 1 to the flag list; append this node's TXID to the hash list. | Append a 1 to the flag list; process the left child node.  Then, if the node has a right child, process the right child.  Do not append a hash to the hash list for this node.
 
-Any time you begin processing a node for the first time, a flag should be
-appended to the flag list. Never put a flag on the list at any other
-time, except when processing is complete to pad out the flag list to a
-byte boundary.
+Any time you begin processing a node for the first time, a flag should be appended to the flag list. Never put a flag on the list at any other time, except when processing is complete to pad out the flag list to a byte boundary.
 
-When processing a child node, you may need to process its children (the
-grandchildren of the original node) or further-descended nodes before
-returning to the parent node. This is expected---keep processing depth
-first until you reach a TXID node or a node which is neither a TXID nor
-a match ancestor.
+When processing a child node, you may need to process its children (the grandchildren of the original node) or further-descended nodes before returning to the parent node. This is expected---keep processing depth first until you reach a TXID node or a node which is neither a TXID nor a match ancestor.
 
-After you process a TXID node or a node which is neither a TXID nor a
-match ancestor, stop processing and begin to ascend the tree until you
-find a node with a right child you haven't processed yet. Descend into
-that right child and process it.
+After you process a TXID node or a node which is neither a TXID nor a match ancestor, stop processing and begin to ascend the tree until you find a node with a right child you haven't processed yet. Descend into that right child and process it.
 
-After you fully process the merkle root node according to the
-instructions in the table above, processing is complete.  Pad your flag
-list to a byte boundary and construct the `merkleblock` message using the
-template near the beginning of this subsection.
+After you fully process the merkle root node according to the instructions in the table above, processing is complete.  Pad your flag list to a byte boundary and construct the `merkleblock` message using the template near the beginning of this subsection.
 
 #### MnListDiff
 
 *Added in protocol version 70213*
 
-The `mnlistdiff` message is a reply to a `getmnlistd` message which
-requested either a full masternode list or a diff for a range of blocks.
+The `mnlistdiff` message is a reply to a `getmnlistd` message which requested either a full masternode list or a diff for a range of blocks.
 
 | Bytes | Name | Data type | Required | Description |
 | ---------- | ----------- | --------- | -------- | -------- |
@@ -734,8 +539,7 @@ Simplified Masternode List (SML) Entry
 | 20 |keyIDVoting | CKeyID | The public key hash used for voting.
 | 1 | isValid | bool | True if a masternode is not PoSe-banned
 
-The following annotated hexdump shows a `mnlistdiff` message. (The
-message header has been omitted.)
+The following annotated hexdump shows a `mnlistdiff` message. (The message header has been omitted.)
 
 ``` text
 000001ee5108348a2c59396da29dc576
@@ -810,30 +614,16 @@ Masternode List
 
 *Added in protocol version 70001.*
 
-The `notfound` message is a reply to a `getdata` message which
-requested an object the receiving node does not have available for
-relay. (Nodes are not expected to relay historic transactions which
-are no longer in the memory pool or relay set. Nodes may also have
-pruned spent transactions from older blocks, making them unable to
-send those blocks.)
+The `notfound` message is a reply to a `getdata` message which requested an object the receiving node does not have available for relay. (Nodes are not expected to relay historic transactions which are no longer in the memory pool or relay set. Nodes may also have pruned spent transactions from older blocks, making them unable to send those blocks.)
 
-The format and maximum size limitations of the `notfound` message are
-identical to the `inv` message; only the message header differs.
+The format and maximum size limitations of the `notfound` message are identical to the `inv` message; only the message header differs.
 
 #### Tx
 
-The `tx` message transmits a single transaction in the raw transaction
-format. It can be sent in a variety of situations;
+The `tx` message transmits a single transaction in the raw transaction format. It can be sent in a variety of situations;
 
-* **Transaction Response:** Dash Core will send it in response to a
-  `getdata` message that requests the transaction with an inventory
-  type of `MSG_TX`.
+* **Transaction Response:** Dash Core will send it in response to a `getdata` message that requests the transaction with an inventory type of `MSG_TX`.
 
-* **MerkleBlock Response:** Dash Core will send it in response to a
-  `getdata` message that requests a merkle block with an inventory type
-  of `MSG_MERKLEBLOCK`. (This is in addition to sending a `merkleblock`
-  message.) Each `tx` message in this case provides a matched
-  transaction from that block.
+* **MerkleBlock Response:** Dash Core will send it in response to a `getdata` message that requests a merkle block with an inventory type of `MSG_MERKLEBLOCK`. (This is in addition to sending a `merkleblock` message.) Each `tx` message in this case provides a matched transaction from that block.
 
-For an example hexdump of the raw transaction format, see the [raw
-transaction section][raw transaction format].
+For an example hexdump of the raw transaction format, see the [raw transaction section](core-ref-txs-raw-transaction-format).
