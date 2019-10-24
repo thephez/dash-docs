@@ -6,6 +6,6 @@ Dash Core provides an **unauthenticated** HTTP REST interface.  The interface ru
 
 The interface is not intended for public access and is only accessible from localhost by default.
 
-![Warning icon](https://dash-docs.github.io/img/icons/icon_warning.svg) *Warning:* A web browser can access a HTTP REST interface running on localhost, possibly allowing third parties to use cross-site scripting attacks to download your transaction and block data, reducing your privacy.  If you have privacy concerns, you should not run a browser on the same computer as a REST-enabled Dash Core node.
+![Warning icon](https://dash-docs.github.io/img/icons/icon_warning.svg) **Warning:** A web browser can access a HTTP REST interface running on localhost, possibly allowing third parties to use cross-site scripting attacks to download your transaction and block data, reducing your privacy.  If you have privacy concerns, you should not run a browser on the same computer as a REST-enabled Dash Core node.
 
 The interface uses standard [HTTP status codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) and returns a plain-text description of errors for debugging.
