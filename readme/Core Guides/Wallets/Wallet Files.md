@@ -46,7 +46,7 @@ Mini private key format is a method for encoding a private key in under 30 chara
 
 Many implementations disallow the character '1' in the mini private key due to its visual similarity to 'l'.
 
-**Resource:** A common tool to create and redeem these keys is the [Casascius Bitcoin Address Utility][casascius address utility].
+**Resource:** A common tool to create and redeem these keys is the [Casascius Bitcoin Address Utility](https://github.com/casascius/Bitcoin-Address-Utility).
 
 # Public Key Formats
 
@@ -103,7 +103,7 @@ As illustrated above, HD key derivation takes four inputs:
 
 * The <<glossary:index>> number is a 32-bit integer specified by the program.
 
-In the normal form shown in the above illustration, the parent chain code, the parent public key, and the index number are fed into a one-way cryptographic hash ([HMAC-SHA512][]) to produce 512 bits of deterministically-generated-but-seemingly-random data. The seemingly-random 256 bits on the righthand side of the hash output are used as a new child chain code. The seemingly-random 256 bits on the lefthand side of the hash output are used as the integer value to be combined with either the parent private key or parent public key to, respectively, create either a child private key or child public key:
+In the normal form shown in the above illustration, the parent chain code, the parent public key, and the index number are fed into a one-way cryptographic hash ([HMAC-SHA512](https://en.wikipedia.org/wiki/HMAC)) to produce 512 bits of deterministically-generated-but-seemingly-random data. The seemingly-random 256 bits on the righthand side of the hash output are used as a new child chain code. The seemingly-random 256 bits on the lefthand side of the hash output are used as the integer value to be combined with either the parent private key or parent public key to, respectively, create either a child private key or child public key:
 
     child_private_key == (parent_private_key + lefthand_hash_output) % G child_public_key == point( (parent_private_key + lefthand_hash_output) % G ) child_public_key == point(child_private_key) == parent_public_key + point(lefthand_hash_output)
 
@@ -115,8 +115,7 @@ Because creating child keys requires both a key and a chain code, the key and ch
 
 A <<glossary:root seed>> is created from either 128 bits, 256 bits, or 512 bits of random data. This root seed of as little as 128 bits is the the only data the user needs to backup in order to derive every key created by a particular wallet program using particular settings.
 
-![Warning icon](https://dash-docs.github.io/img/icons/icon_warning.svg)
- **Warning:** As of this writing, HD wallet programs are not expected to be fully compatible, so users must only use the same HD wallet program with the same HD-related settings for a particular root seed.
+![Warning icon](https://dash-docs.github.io/img/icons/icon_warning.svg)  **Warning:** As of this writing, HD wallet programs are not expected to be fully compatible, so users must only use the same HD wallet program with the same HD-related settings for a particular root seed.
 
 The root seed is hashed to create 512 bits of seemingly-random data, from which the master private key and master chain code are created (together, the master extended private key). The master public key is derived from the master private key using `point()`, which, together with the master chain code, is the master extended public key. The master extended keys are functionally equivalent to other extended keys; it is only their location at the top of the hierarchy which makes them special.
 
@@ -140,7 +139,7 @@ The hardened formula, illustrated above, combines together the index number, the
 
 Because of that, a <<glossary:hardened extended private key>> is much less useful than a normal extended private key---however, hardened extended private keys create a firewall through which multi-level key derivation compromises cannot happen. Because hardened child extended public keys cannot generate grandchild chain codes on their own, the compromise of a parent extended public key cannot be combined with the compromise of a grandchild private key to create great-grandchild extended private keys.
 
-The HD protocol uses different index numbers to indicate whether a normal or hardened key should be generated. Index numbers from 0x00 to 0x7fffffff (0 to 2<sup>31</sup>-1) will generate a normal key; index numbers from 0x80000000 to 0xffffffff will generate a hardened key. To make descriptions easy, many developers use the [prime symbol][] to indicate hardened keys, so the first normal key (0x00) is 0 and the first hardened key (0x80000000) is 0´.
+The HD protocol uses different index numbers to indicate whether a normal or hardened key should be generated. Index numbers from 0x00 to 0x7fffffff (0 to 2<sup>31</sup>-1) will generate a normal key; index numbers from 0x80000000 to 0xffffffff will generate a hardened key. To make descriptions easy, many developers use the [prime symbol](https://en.wikipedia.org/wiki/Prime_%28symbol%29) to indicate hardened keys, so the first normal key (0x00) is 0 and the first hardened key (0x80000000) is 0´.
 
 (Dash developers typically use the ASCII apostrophe rather than the unicode prime symbol, a convention we will henceforth follow.)
 
@@ -151,7 +150,7 @@ This compact description is further combined with slashes prefixed by
 
 Wallets following the BIP32 HD protocol only create hardened children of the master private key (*m*) to prevent a compromised child key from compromising the master key. As there are no normal children for the master keys, the master public key is not used in HD wallets. All other keys can have normal children, so the corresponding extended public keys may be used instead.
 
-The HD protocol also describes a serialization format for extended public keys and extended private keys.  For details, please see the [wallet section in the developer reference][devref wallets] or BIP32 for the full HD protocol specification.
+The HD protocol also describes a serialization format for extended public keys and extended private keys.  For details, please see the [wallet section in the developer reference](core-ref-wallets) or BIP32 for the full HD protocol specification.
 
 ## Storing Root Seeds
 
