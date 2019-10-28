@@ -18,7 +18,7 @@ New blocks will only be added to the block chain if their hash is at least as ch
 
 * If it took more than one hour to generate the blocks, the expected difficulty value is decreased for the same reason.
 
-This method of calculating difficulty (Dark Gravity Wave) was authored by Dash creator Evan Duffield to fix exploits possible with the previously used Kimoto Gravity Well difficulty readjustment algorithm. For additional detail, reference this [Official Documentation Dark Gravity Wave page](https://docs.dash.org/en/latest/introduction/features.html#dark-gravity-wave).
+This method of calculating difficulty (Dark Gravity Wave) was authored by Dash creator Evan Duffield to fix exploits possible with the previously used Kimoto Gravity Well difficulty readjustment algorithm. For additional detail, reference this [Official Documentation Dark Gravity Wave page](https://docs.dash.org/en/stable/introduction/features.html#dark-gravity-wave).
 
 Because each block header must hash to a value below the target threshold, and because each block is linked to the block that preceded it, it requires (on average) as much hashing power to propagate a modified block as the entire Dash network expended between the time the original block was created and the present time. Only if you acquired a majority of the network's hashing power could you reliably execute such a <<glossary:51 percent attack>> against transaction history (although, it should be noted, that even less than 50% of the hashing power still has a good chance of performing such attacks).
 
