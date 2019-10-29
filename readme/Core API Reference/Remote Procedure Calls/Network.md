@@ -534,7 +534,7 @@ Result:
 * [SetBan](/docs/core-api-ref-remote-procedure-calls-network#section-setban): attempts add or remove a IP/Subnet from the banned list.
 * [ClearBanned](/docs/core-api-ref-remote-procedure-calls-network#section-clearbanned): clears list of banned nodes.
 
-# Ping {#ping-rpc}
+# Ping
 
 The `ping` RPC sends a P2P ping message to all connected nodes to measure ping time. Results are provided by the `getpeerinfo` RPC pingtime and pingwait fields as decimal seconds. The P2P `ping` message is handled in a queue with all other commands, so it measures processing backlog, not just network ping.
 
