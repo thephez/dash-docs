@@ -271,7 +271,8 @@ Result | object | Required<br>(exactly 1) | Object containing result data
 →<br>`overall` | string | Required<br>(exactly 1) | Summary of broadcast message creation success/failure
 
 *Example from Dash Core 0.12.2*
-￼``` bash
+
+``` bash
 masternodebroadcast decode 010fab7e86a6d7c483b836fe862c8a23f69aebadce7c58c4\
 8778a4fa6bd93fc8f60100000000ffffffff00000000000000000000ffff2d20ed4c4e1f2102\
 67fae84ef6aa6ab3d877b47932915a9b406566c873ea025986fc7e15a15fd2f24104341ab0d2\
@@ -331,7 +332,8 @@ Result | object | Required<br>(exactly 1) | Object containing result data
 →<br>`overall` | string | Required<br>(exactly 1) | Summary of broadcast message creation success/failure
 
 *Example from Dash Core 0.12.2*
-￼``` bash
+
+``` bash
 masternodebroadcast relay 010fab7e86a6d7c483b836fe862c8a23f69aebadce7c58c4\
 8778a4fa6bd93fc8f60100000000ffffffff00000000000000000000ffff2d20ed4c4e1f2102\
 67fae84ef6aa6ab3d877b47932915a9b406566c873ea025986fc7e15a15fd2f24104341ab0d2\
