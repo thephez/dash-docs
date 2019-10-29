@@ -136,7 +136,7 @@ Name | Type | Presence | Description
 →→<br>`satoshis` | number | Required<br>(exactly 1) | The difference of duffs
 →→<br>`timestamp` | string | Required<br>(exactly 1) | The time the transaction entered the mempool (seconds)
 →→<br>`prevtxid` | string | Required<br>(exactly 1) | The previous txid (if spending)
-→→<br>`prevout` | string | Required<br>(exactly 1) | The previous transaction output index (if spending)
+→→<br>`prevout` | string | Required<br>(exactly 1) | The previous transaction output index (if spending)    
 
 *Example from Dash Core 0.12.2*
 
@@ -223,7 +223,7 @@ Name | Type | Presence | Description
 →→<br>`address` | string | Required<br>(exactly 1) | The base58check encoded address
 →→<br>`txid` | string | Required<br>(exactly 1) | The output txid
 →→<br>`outputIndex` | number | Required<br>(exactly 1) | The output index
-→→<br>`script` | string | Required<br>(exactly 1) | The script hex encoded
+→→<br>`script` | string | Required<br>(exactly 1) | The script hex encoded    
 →→<br>`satoshis` | number | Required<br>(exactly 1) | The number of duffs of the output
 →→<br>`height` | number | Required<br>(exactly 1) | The block height
 
@@ -357,7 +357,7 @@ Name | Type | Presence | Description
 → →<br>`merkleRootMNList` | string (hex) | Required<br>(exactly 1) | The merkle root for the masternode list
 → →<br>`merkleRootQuorums` | string (hex) | Required<br>(exactly 1) | The merkle root for the quorum list
 →<br>`time` | number (int) | Required<br>(exactly 1) | The value of the *time* field in the block header, indicating approximately when the block was created
-→<br>`mediantime` | number (int) | Required<br>(exactly 1) | *Added in Bitcoin Core 0.12.0*<br><br>The median block time in Unix epoch time
+→<br>`mediantime` | number (int) | Required<br>(exactly 1) | *Added in Bitcoin Core 0.12.0*<br><br>The median block time in Unix epoch time  
 →<br>`nonce` | number (int) | Required<br>(exactly 1) | The nonce which was successful at turning this particular block into one that could be added to the best block chain
 →<br>`bits` | string (hex) | Required<br>(exactly 1) | The value of the *nBits* field in the block header, indicating the target threshold this block's header had to pass
 →<br>`difficulty` | number (real) | Required<br>(exactly 1) | The estimated amount of work done to find this block relative to the estimated amount of work done to find block 0
@@ -366,8 +366,6 @@ Name | Type | Presence | Description
 →<br>`nextblockhash` | string (hex) | Optional<br>(0 or 1) | The hash of the next block on the best block chain, if known, encoded as hex in RPC byte order
 
 *Result (if verbosity was `2`---a JSON block with full transaction details*
-
-{% include helpers/vars.md %}
 
 Name | Type | Presence | Description
 --- | --- | --- | ---
@@ -380,8 +378,38 @@ Name | Type | Presence | Description
 →<br>`versionHex` | string (hex) | Required<br>(exactly 1) | _Added in Bitcoin Core 0.13.0_<br><br>The block version formatted in hexadecimal
 →<br>`merkleroot` | string (hex) | Required<br>(exactly 1) | The merkle root for this block, encoded as hex in RPC byte order
 →<br>`tx` | array | Required<br>(exactly 1) | An array containing the TXIDs of all transactions in this block.  The transactions appear in the array in the same order they appear in the serialized block
-
-{{INCLUDE_DECODE_RAW_TRANSACTION}}
+→ →<br>`txid` | string (hex) | Required<br>(exactly 1) | The transaction's TXID encoded as hex in RPC byte order
+→ →<br>`size` | number (int) | Required<br>(exactly 1) | *Added in Bitcoin Core 0.12.0*<br><br>The serialized transaction size
+→ →<br>`version` | number (int) | Required<br>(exactly 1) | The transaction format version number
+→ →<br>`type` | number (int) | Required<br>(exactly 1) | *Added in Dash Core 0.13.0.0*<br><br>The transaction format type
+→ →<br>`locktime` | number (int) | Required<br>(exactly 1) | The transaction's locktime: either a Unix epoch date or block height; see the [Locktime parsing rules][]
+→ →<br>`vin` | array | Required<br>(exactly 1) | An array of objects with each object being an input vector (vin) for this transaction.  Input objects will have the same order within the array as they have in the transaction, so the first input listed will be input 0
+→ → →<br>Input | object | Required<br>(1 or more) | An object describing one of this transaction's inputs.  May be a regular input or a coinbase
+→ → → →<br>`txid` | string | Optional<br>(0 or 1) | The TXID of the outpoint being spent, encoded as hex in RPC byte order.  Not present if this is a coinbase transaction
+→ → → →<br>`vout` | number (int) | Optional<br>(0 or 1) | The output index number (vout) of the outpoint being spent.  The first output in a transaction has an index of `0`.  Not present if this is a coinbase transaction
+→ → → →<br>`scriptSig` | object | Optional<br>(0 or 1) | An object describing the signature script of this input.  Not present if this is a coinbase transaction
+→ → → → →<br>`asm` | string | Required<br>(exactly 1) | The signature script in decoded form with non-data-pushing opcodes listed
+→ → → → →<br>`hex` | string (hex) | Required<br>(exactly 1) | The signature script encoded as hex
+→ → → →<br>`coinbase` | string (hex) | Optional<br>(0 or 1) | The coinbase (similar to the hex field of a scriptSig) encoded as hex.  Only present if this is a coinbase transaction
+→ → → →<br>`value` | number (Dash) | Optional<br>(exactly 1) | The number of Dash paid to this output.  May be `0`.<br><br>Only present if `spentindex` enabled
+→ → → →<br>`valueSat` | number (duffs) | Optional<br>(exactly 1) | The number of duffs paid to this output.  May be `0`.<br><br>Only present if `spentindex` enabled
+→ → → → →<br>`addresses` | string : array | Optional<br>(0 or 1) | The P2PKH or P2SH addresses used in this transaction, or the computed P2PKH address of any pubkeys in this transaction.  This array will not be returned for `nulldata` or `nonstandard` script types.<br><br>Only present if `spentindex` enabled
+→ → → → → →<br>Address | string | Required<br>(1 or more) | A P2PKH or P2SH address
+→ → → →<br>`sequence` | number (int) | Required<br>(exactly 1) | The input sequence number
+→ →<br>`vout` | array | Required<br>(exactly 1) | An array of objects each describing an output vector (vout) for this transaction.  Output objects will have the same order within the array as they have in the transaction, so the first output listed will be output 0
+→ → →<br>Output | object | Required<br>(1 or more) | An object describing one of this transaction's outputs
+→ → → →<br>`value` | number (Dash) | Required<br>(exactly 1) | The number of Dash paid to this output.  May be `0`
+→ → → →<br>`valueSat` | number (duffs) | Required<br>(exactly 1) | The number of duffs paid to this output.  May be `0`
+→ → → →<br>`n` | number (int) | Required<br>(exactly 1) | The output index number of this output within this transaction
+→ → → →<br>`scriptPubKey` | object | Required<br>(exactly 1) | An object describing the pubkey script
+→ → → → →<br>`asm` | string | Required<br>(exactly 1) | The pubkey script in decoded form with non-data-pushing opcodes listed
+→ → → → →<br>`hex` | string (hex) | Required<br>(exactly 1) | The pubkey script encoded as hex
+→ → → → →<br>`reqSigs` | number (int) | Optional<br>(0 or 1) | The number of signatures required; this is always `1` for P2PK, P2PKH, and P2SH (including P2SH multisig because the redeem script is not available in the pubkey script).  It may be greater than 1 for bare multisig.  This value will not be returned for `nulldata` or `nonstandard` script types (see the `type` key below)
+→ → → → →<br>`type` | string | Optional<br>(0 or 1) | The type of script.  This will be one of the following:<br>• `pubkey` for a P2PK script<br>• `pubkeyhash` for a P2PKH script<br>• `scripthash` for a P2SH script<br>• `multisig` for a bare multisig script<br>• `nulldata` for nulldata scripts<br>• `nonstandard` for unknown scripts
+→ → → → →<br>`addresses` | string : array | Optional<br>(0 or 1) | The P2PKH or P2SH addresses used in this transaction, or the computed P2PKH address of any pubkeys in this transaction.  This array will not be returned for `nulldata` or `nonstandard` script types
+→ → → → → →<br>Address | string | Required<br>(1 or more) | A P2PKH or P2SH address
+→ →<br>`extraPayloadSize` | number (int) | Optional<br>(0 or 1) | *Added in Dash Core 0.13.0.0*<br><br>Size of the DIP2 extra payload. Only present if it's a DIP2 special transaction
+→ →<br>`extraPayload` | string (hex) | Optional<br>(0 or 1) | *Added in Dash Core 0.13.0.0*<br><br>Hex encoded DIP2 extra payload data. Only present if it's a DIP2 special transaction
 → →<br>`instantlock` | bool | Required<br>(exactly 1) | If set to `true`, this transaction is locked (by InstantSend or a ChainLock)
 → →<br>`instantlock_internal` | bool | Required<br>(exactly 1) | If set to `true`, this transaction has an InstantSend lock
 →<br>`cbTx` | object | Required<br>(exactly 1) | Coinbase special transaction details
@@ -390,7 +418,7 @@ Name | Type | Presence | Description
 → →<br>`merkleRootMNList` | string (hex) | Required<br>(exactly 1) | The merkle root for the masternode list
 → →<br>`merkleRootQuorums` | string (hex) | Required<br>(exactly 1) | The merkle root for the quorum list
 →<br>`time` | number (int) | Required<br>(exactly 1) | The value of the *time* field in the block header, indicating approximately when the block was created
-→<br>`mediantime` | number (int) | Required<br>(exactly 1) | *Added in Bitcoin Core 0.12.0*<br><br>The median block time in Unix epoch time
+→<br>`mediantime` | number (int) | Required<br>(exactly 1) | *Added in Bitcoin Core 0.12.0*<br><br>The median block time in Unix epoch time  
 →<br>`nonce` | number (int) | Required<br>(exactly 1) | The nonce which was successful at turning this particular block into one that could be added to the best block chain
 →<br>`bits` | string (hex) | Required<br>(exactly 1) | The value of the *nBits* field in the block header, indicating the target threshold this block's header had to pass
 →<br>`difficulty` | number (real) | Required<br>(exactly 1) | The estimated amount of work done to find this block relative to the estimated amount of work done to find block 0
@@ -837,7 +865,7 @@ Name | Type | Presence | Description
 →<br>`height` | number (int) | Required<br>(exactly 1) | The height of this block on its block chain
 →<br>`version` | number (int) | Required<br>(exactly 1) | This block's version number.  See [block version numbers][section block versions]
 →<br>`merkleroot` | string (hex) | Required<br>(exactly 1) | The merkle root for this block, encoded as hex in RPC byte order
-→<br>`time` | number (int) | Required<br>(exactly 1) | The time of the block
+→<br>`time` | number (int) | Required<br>(exactly 1) | The time of the block  
 →<br>`mediantime` | number (int) | Required<br>(exactly 1) | The computed median time of the previous 11 blocks.  Used for validating transaction locktime under BIP113
 →<br>`nonce` | number (int) | Required<br>(exactly 1) | The nonce which was successful at turning this particular block into one that could be added to the best block chain
 →<br>`bits` | string (hex) | Required<br>(exactly 1) | The value of the *nBits* field in the block header, indicating the target threshold this block's header had to pass
@@ -1076,10 +1104,7 @@ Name | Type | Presence | Description
 →<br>`mediantxsize` | numeric | Required<br>(exactly 1) | Truncated median transaction size
 →<br>`minfee` | numeric | Required<br>(exactly 1) | Minimum fee in the block
 →<br>`minfeerate` | numeric | Required<br>(exactly 1) | Minimum feerate (in duffs per byte)
-
-- n: "→<br>`mintxsize`"
-  t: "numeric"
-  p: "Required<br>(exactly 1)"
+→<br>`mintxsize` | numeric | Required<br>(exactly 1) | Minimum transaction size
 →<br>`outs` | numeric | Required<br>(exactly 1) | The number of outputs
 →<br>`subsidy` | numeric | Required<br>(exactly 1) | The block subsidy
 →<br>`time` | number (real) | Required<br>(exactly 1) | The block time
@@ -1716,11 +1741,7 @@ skip | int | Optional<br>(0 or 1) | The number of transactions to skip (default:
 
 Name | Type | Presence | Description
 --- | --- | --- | ---
-- n: "verbosity"
-  t: "int"
-  p: "Optional<br>(0 or 1)"
-  d: "0 for hashes, 1 for hex-encoded data, and 2 for JSON object
- (default: 0)"
+verbosity | int | Optional<br>(0 or 1) | 0 for hashes, 1 for hex-encoded data, and 2 for JSON object<br>(default: 0)
 
 *Result (if `verbosity` was `0`)---An array of transaction IDs*
 
@@ -2328,12 +2349,7 @@ The `getmemoryinfo` RPC returns information about memory usage.
 
 Name | Type | Presence | Description
 --- | --- | --- | ---
-- n: "mode"
-  t: "string"
-  p: "Optional<br>Default: `stats`"
-  d: "*Added in Dash Core 0.14.1*<br><br>Determines what kind of information is returned.<br>
-       - `stats` returns general statistics about memory usage in the daemon.<br>
-       - `mallocinfo` returns an XML string describing low-level heap state (only available if compiled with glibc 2.10+)."
+mode| string | Optional<br>Default: `stats` | *Added in Dash Core 0.14.1*<br><br>Determines what kind of information is returned.<br>- `stats` returns general statistics about memory usage in the daemon.<br>- `mallocinfo` returns an XML string describing low-level heap state (only available if compiled with glibc 2.10+).
 
 *Result---information about memory usage*
 
@@ -4731,8 +4747,6 @@ Name | Type | Presence | Description
 
 *Result (if `detailed` was `true`)---JSON provider registration transaction details*
 
-{% include helpers/vars.md %}
-
 Name | Type | Presence | Description
 --- | --- | --- | ---
 `result` | array | Required<br>(exactly 1) | An array of objects each containing a provider transaction, or JSON `null` if an error occurred
@@ -4812,8 +4826,6 @@ Result:
 ## ProTx Info
 
 The `protx info` RPC returns detailed information about a deterministic masternode.
-
-{% include helpers/vars.md %}
 
 Name | Type | Presence | Description
 --- | --- | --- | ---
@@ -5033,8 +5045,6 @@ Name | Type | Presence | Description
 `block` | bool | Required<br>(Exactly 1) |
 
 *Result---JSON provider registration transaction details*
-
-{% include helpers/vars.md %}
 
 Name | Type | Presence | Description
 --- | --- | --- | ---
@@ -6343,7 +6353,7 @@ Name | Type | Presence | Description
 --- | --- | --- | ---
 result | bool | Required<br>(exactly 1) | Recovered signature details
 →<br>`llmqType` | number | Required<br>(exactly 1) | [Type of quorum](https://github.com/dashpay/dips/blob/master/dip-0006.md#current-llmq-types):<br>`1` - LLMQ_50_60<br>`2` - LLMQ_400_60<br>`3` - LLMQ_400_85
-→<br>`quorumHash` | string (hex) | Required<br>(exactly 1) | The block hash of the quorum
+→<br>`quorumHash` | string (hex) | Required<br>(exactly 1) | The block hash of the quorum  
 →<br>`id` | string (hex) | Required<br>(exactly 1) | The signing session ID
 →<br>`msgHash` | string (hex) | Required<br>(exactly 1) | The message hash
 →<br>`sig` | string (hex) | Required<br>(exactly 1) | The recovered signature
@@ -6679,7 +6689,7 @@ Name | Type | Presence | Description
 →<br>`previousbits` | string | Required<br>(exactly 1) | The compressed target of  the current highest block
 →<br>`height` | number | Required<br>(exactly 1) | The height of the next block
 →<br>`masternode` | array (objects) | Required<br>(0 or more) | Required masternode payments that must be included in the next block
-→ →<br>Masternode Payee | object | Optional<br>(0 or more) | Object containing a masternode payee's information
+→ →<br>Masternode Payee | object | Optional<br>(0 or more) | Object containing a masternode payee's information  
 → → →<br>`payee` | string | Required<br>(exactly 1) | Payee address
 → → →<br>`script` | string | Required<br>(exactly 1) | Payee scriptPubKey
 → → →<br>`amount` | number | Required<br>(exactly 1) | Required amount to pay
@@ -7178,10 +7188,10 @@ Name | Type | Presence | Description
 →<br>`uploadtarget` | string : <br>object | Required<br>(exactly 1) | The upload target information
 → →<br>`timeframe` | number (int) | Required<br>(exactly 1) | Length of the measuring timeframe in seconds (currently set to `24` hours)
 → →<br>`target` | number (int) | Required<br>(exactly 1) | The maximum allowed outbound traffic in bytes (default is `0`).  Can be changed with `-maxuploadtarget`
-→ →<br>`target_reached` | bool | Required<br>(exactly 1) | Indicates if the target is reached.  If the target is reached the node won't serve SPV and historical block requests anymore
-→ →<br>`serve_historical_blocks` | bool | Required<br>(exactly 1) | Indicates if historical blocks are served
-→ →<br>`bytes_left_in_cycle` | number (int) | Required<br>(exactly 1) | Amount of bytes left in current time cycle.  `0` is displayed if no upload target is set
-→ →<br>`time_left_in_cycle` | number (int) | Required<br>(exactly 1) | Seconds left in current time cycle.  `0` is displayed if no upload target is set
+→ →<br>`target_reached` | bool | Required<br>(exactly 1) | Indicates if the target is reached.  If the target is reached the node won't serve SPV and historical block requests anymore  
+→ →<br>`serve_historical_blocks` | bool | Required<br>(exactly 1) | Indicates if historical blocks are served  
+→ →<br>`bytes_left_in_cycle` | number (int) | Required<br>(exactly 1) | Amount of bytes left in current time cycle.  `0` is displayed if no upload target is set  
+→ →<br>`time_left_in_cycle` | number (int) | Required<br>(exactly 1) | Seconds left in current time cycle.  `0` is displayed if no upload target is set    
 
 *Example from Dash Core 0.12.2*
 
@@ -7753,8 +7763,38 @@ Serialized Transaction | string (hex) | Required<br>(exactly 1) | The transactio
 Name | Type | Presence | Description
 --- | --- | --- | ---
 `result` | object | Required<br>(exactly 1) | An object describing the decoded transaction, or JSON `null` if the transaction could not be decoded
-
-{{INCLUDE_DECODE_RAW_TRANSACTION}}
+→<br>`txid` | string (hex) | Required<br>(exactly 1) | The transaction's TXID encoded as hex in RPC byte order
+→<br>`size` | number (int) | Required<br>(exactly 1) | *Added in Bitcoin Core 0.12.0*<br><br>The serialized transaction size
+→<br>`version` | number (int) | Required<br>(exactly 1) | The transaction format version number
+→<br>`type` | number (int) | Required<br>(exactly 1) | *Added in Dash Core 0.13.0.0*<br><br>The transaction format type
+→<br>`locktime` | number (int) | Required<br>(exactly 1) | The transaction's locktime: either a Unix epoch date or block height; see the [Locktime parsing rules][]
+→<br>`vin` | array | Required<br>(exactly 1) | An array of objects with each object being an input vector (vin) for this transaction.  Input objects will have the same order within the array as they have in the transaction, so the first input listed will be input 0
+→ →<br>Input | object | Required<br>(1 or more) | An object describing one of this transaction's inputs.  May be a regular input or a coinbase
+→ → →<br>`txid` | string | Optional<br>(0 or 1) | The TXID of the outpoint being spent, encoded as hex in RPC byte order.  Not present if this is a coinbase transaction
+→ → →<br>`vout` | number (int) | Optional<br>(0 or 1) | The output index number (vout) of the outpoint being spent.  The first output in a transaction has an index of `0`.  Not present if this is a coinbase transaction
+→ → →<br>`scriptSig` | object | Optional<br>(0 or 1) | An object describing the signature script of this input.  Not present if this is a coinbase transaction
+→ → → →<br>`asm` | string | Required<br>(exactly 1) | The signature script in decoded form with non-data-pushing opcodes listed
+→ → → →<br>`hex` | string (hex) | Required<br>(exactly 1) | The signature script encoded as hex
+→ → →<br>`coinbase` | string (hex) | Optional<br>(0 or 1) | The coinbase (similar to the hex field of a scriptSig) encoded as hex.  Only present if this is a coinbase transaction
+→ → →<br>`value` | number (Dash) | Optional<br>(exactly 1) | The number of Dash paid to this output.  May be `0`.<br><br>Only present if `spentindex` enabled
+→ → →<br>`valueSat` | number (duffs) | Optional<br>(exactly 1) | The number of duffs paid to this output.  May be `0`.<br><br>Only present if `spentindex` enabled
+→ → → →<br>`addresses` | string : array | Optional<br>(0 or 1) | The P2PKH or P2SH addresses used in this transaction, or the computed P2PKH address of any pubkeys in this transaction.  This array will not be returned for `nulldata` or `nonstandard` script types.<br><br>Only present if `spentindex` enabled
+→ → → → →<br>Address | string | Required<br>(1 or more) | A P2PKH or P2SH address
+→ → →<br>`sequence` | number (int) | Required<br>(exactly 1) | The input sequence number
+→<br>`vout` | array | Required<br>(exactly 1) | An array of objects each describing an output vector (vout) for this transaction.  Output objects will have the same order within the array as they have in the transaction, so the first output listed will be output 0
+→ →<br>Output | object | Required<br>(1 or more) | An object describing one of this transaction's outputs
+→ → →<br>`value` | number (Dash) | Required<br>(exactly 1) | The number of Dash paid to this output.  May be `0`
+→ → →<br>`valueSat` | number (duffs) | Required<br>(exactly 1) | The number of duffs paid to this output.  May be `0`
+→ → →<br>`n` | number (int) | Required<br>(exactly 1) | The output index number of this output within this transaction
+→ → →<br>`scriptPubKey` | object | Required<br>(exactly 1) | An object describing the pubkey script
+→ → → →<br>`asm` | string | Required<br>(exactly 1) | The pubkey script in decoded form with non-data-pushing opcodes listed
+→ → → →<br>`hex` | string (hex) | Required<br>(exactly 1) | The pubkey script encoded as hex
+→ → → →<br>`reqSigs` | number (int) | Optional<br>(0 or 1) | The number of signatures required; this is always `1` for P2PK, P2PKH, and P2SH (including P2SH multisig because the redeem script is not available in the pubkey script).  It may be greater than 1 for bare multisig.  This value will not be returned for `nulldata` or `nonstandard` script types (see the `type` key below)
+→ → → →<br>`type` | string | Optional<br>(0 or 1) | The type of script.  This will be one of the following:<br>• `pubkey` for a P2PK script<br>• `pubkeyhash` for a P2PKH script<br>• `scripthash` for a P2SH script<br>• `multisig` for a bare multisig script<br>• `nulldata` for nulldata scripts<br>• `nonstandard` for unknown scripts
+→ → → →<br>`addresses` | string : array | Optional<br>(0 or 1) | The P2PKH or P2SH addresses used in this transaction, or the computed P2PKH address of any pubkeys in this transaction.  This array will not be returned for `nulldata` or `nonstandard` script types
+→ → → → →<br>Address | string | Required<br>(1 or more) | A P2PKH or P2SH address
+→<br>`extraPayloadSize` | number (int) | Optional<br>(0 or 1) | *Added in Dash Core 0.13.0.0*<br><br>Size of the DIP2 extra payload. Only present if it's a DIP2 special transaction
+→<br>`extraPayload` | string (hex) | Optional<br>(0 or 1) | *Added in Dash Core 0.13.0.0*<br><br>Hex encoded DIP2 extra payload data. Only present if it's a DIP2 special transaction
 
 *Example from Dash Core 0.13.0*
 
@@ -7890,7 +7930,7 @@ Result:
     "merkleRootQuorums": "a320b95dab4963ca2547434d63ac8203835dfd0ce245924fa83dc6bab6ac57c7"
   },
   "instantlock": false,
-  "instantlock_internal": false,
+  "instantlock_internal": false,  
   "chainlock": false
 }
 ```
@@ -7983,17 +8023,10 @@ Options | Object | Optional<br>(0 or 1) | *Added in Bitcoin Core 0.13.0*<br><br>
 → <br>`changePosition` | nummeric (int) | Optional<br>(0 or 1) | The index of the change output. If not set, the change position is randomly chosen
 `includeWatching` | bool | Optional<br>(0 or 1) | Inputs from watch-only addresses are also considered. The default is `false`
 → <br>`lockUnspent` | bool | Optional<br>(0 or 1) | The selected outputs are locked after running the rpc call. The default is `false`
-→ <br>`reserveChangeKey` | bool | Optional<br>(0 or 1) | *Deprecated and ignored in Dash Core 0.14.1*<br><br>Reserves the change output key from the keypool. The default is `true`. Before Bitcoin Core 0.14.0, the used keypool key was never marked as change-address key and directly returned to the keypool (leading to address reuse).
+→ <br>`reserveChangeKey` | bool | Optional<br>(0 or 1) | *Deprecated and ignored in Dash Core 0.14.1*<br><br>Reserves the change output key from the keypool. The default is `true`. Before Bitcoin Core 0.14.0, the used keypool key was never marked as change-address key and directly returned to the keypool (leading to address reuse).  
 → <br>`feeRate` | numeric (bitcoins) | Optional<br>(0 or 1) | The specific feerate  you are willing to pay(BTC per KB). If not set, the wallet determines the fee
 → <br>`subtractFeeFromOutputs` | array | Optional<br>(0 or 1) | A json array of integers. The fee will be equally deducted from the amount of each specified output. The outputs are specified by their zero-based index, before any change output is added.
-
-- n: "→ →<br>Output index"
-  t: numeric (int)
-  p: Optional<br>(0 or more)
-  d: "A output index number (vout) from which the fee should be subtracted.
-  If multiple vouts are provided, the total fee will be divided by the
-  numer of vouts listed and each vout will have that amount subtracted
-  from it"
+→ →<br>Output index | numeric (int) | Optional<br>(0 or more) | A output index number (vout) from which the fee should be subtracted. If multiple vouts are provided, the total fee will be divided by the number of vouts listed and each vout will have that amount subtracted from it.
 
 *Result---information about the created transaction*
 
@@ -8072,9 +8105,39 @@ Name | Type | Presence | Description
 Name | Type | Presence | Description
 --- | --- | --- | ---
 `result` | object | Required<br>(exactly 1) | If the transaction was found, this will be an object describing it
-
-{{INCLUDE_DECODE_RAW_TRANSACTION}}
-→<br>`hex` | string (hex) | Required<br>(exactly 1) | The serialized, hex-encoded data for the provided `txid`
+→<br>`txid` | string (hex) | Required<br>(exactly 1) | The transaction's TXID encoded as hex in RPC byte order
+→<br>`size` | number (int) | Required<br>(exactly 1) | *Added in Bitcoin Core 0.12.0*<br><br>The serialized transaction size
+→<br>`version` | number (int) | Required<br>(exactly 1) | The transaction format version number
+→<br>`type` | number (int) | Required<br>(exactly 1) | *Added in Dash Core 0.13.0.0*<br><br>The transaction format type
+→<br>`locktime` | number (int) | Required<br>(exactly 1) | The transaction's locktime: either a Unix epoch date or block height; see the [Locktime parsing rules][]
+→<br>`vin` | array | Required<br>(exactly 1) | An array of objects with each object being an input vector (vin) for this transaction.  Input objects will have the same order within the array as they have in the transaction, so the first input listed will be input 0
+→ →<br>Input | object | Required<br>(1 or more) | An object describing one of this transaction's inputs.  May be a regular input or a coinbase
+→ → →<br>`txid` | string | Optional<br>(0 or 1) | The TXID of the outpoint being spent, encoded as hex in RPC byte order.  Not present if this is a coinbase transaction
+→ → →<br>`vout` | number (int) | Optional<br>(0 or 1) | The output index number (vout) of the outpoint being spent.  The first output in a transaction has an index of `0`.  Not present if this is a coinbase transaction
+→ → →<br>`scriptSig` | object | Optional<br>(0 or 1) | An object describing the signature script of this input.  Not present if this is a coinbase transaction
+→ → → →<br>`asm` | string | Required<br>(exactly 1) | The signature script in decoded form with non-data-pushing opcodes listed
+→ → → →<br>`hex` | string (hex) | Required<br>(exactly 1) | The signature script encoded as hex
+→ → →<br>`coinbase` | string (hex) | Optional<br>(0 or 1) | The coinbase (similar to the hex field of a scriptSig) encoded as hex.  Only present if this is a coinbase transaction
+→ → →<br>`value` | number (Dash) | Optional<br>(exactly 1) | The number of Dash paid to this output.  May be `0`.<br><br>Only present if `spentindex` enabled
+→ → →<br>`valueSat` | number (duffs) | Optional<br>(exactly 1) | The number of duffs paid to this output.  May be `0`.<br><br>Only present if `spentindex` enabled
+→ → → →<br>`addresses` | string : array | Optional<br>(0 or 1) | The P2PKH or P2SH addresses used in this transaction, or the computed P2PKH address of any pubkeys in this transaction.  This array will not be returned for `nulldata` or `nonstandard` script types.<br><br>Only present if `spentindex` enabled
+→ → → → →<br>Address | string | Required<br>(1 or more) | A P2PKH or P2SH address
+→ → →<br>`sequence` | number (int) | Required<br>(exactly 1) | The input sequence number
+→<br>`vout` | array | Required<br>(exactly 1) | An array of objects each describing an output vector (vout) for this transaction.  Output objects will have the same order within the array as they have in the transaction, so the first output listed will be output 0
+→ →<br>Output | object | Required<br>(1 or more) | An object describing one of this transaction's outputs
+→ → →<br>`value` | number (Dash) | Required<br>(exactly 1) | The number of Dash paid to this output.  May be `0`
+→ → →<br>`valueSat` | number (duffs) | Required<br>(exactly 1) | The number of duffs paid to this output.  May be `0`
+→ → →<br>`n` | number (int) | Required<br>(exactly 1) | The output index number of this output within this transaction
+→ → →<br>`scriptPubKey` | object | Required<br>(exactly 1) | An object describing the pubkey script
+→ → → →<br>`asm` | string | Required<br>(exactly 1) | The pubkey script in decoded form with non-data-pushing opcodes listed
+→ → → →<br>`hex` | string (hex) | Required<br>(exactly 1) | The pubkey script encoded as hex
+→ → → →<br>`reqSigs` | number (int) | Optional<br>(0 or 1) | The number of signatures required; this is always `1` for P2PK, P2PKH, and P2SH (including P2SH multisig because the redeem script is not available in the pubkey script).  It may be greater than 1 for bare multisig.  This value will not be returned for `nulldata` or `nonstandard` script types (see the `type` key below)
+→ → → →<br>`type` | string | Optional<br>(0 or 1) | The type of script.  This will be one of the following:<br>• `pubkey` for a P2PK script<br>• `pubkeyhash` for a P2PKH script<br>• `scripthash` for a P2SH script<br>• `multisig` for a bare multisig script<br>• `nulldata` for nulldata scripts<br>• `nonstandard` for unknown scripts
+→ → → →<br>`addresses` | string : array | Optional<br>(0 or 1) | The P2PKH or P2SH addresses used in this transaction, or the computed P2PKH address of any pubkeys in this transaction.  This array will not be returned for `nulldata` or `nonstandard` script types
+→ → → → →<br>Address | string | Required<br>(1 or more) | A P2PKH or P2SH address
+→<br>`extraPayloadSize` | number (int) | Optional<br>(0 or 1) | *Added in Dash Core 0.13.0.0*<br><br>Size of the DIP2 extra payload. Only present if it's a DIP2 special transaction
+→<br>`extraPayload` | string (hex) | Optional<br>(0 or 1) | *Added in Dash Core 0.13.0.0*<br><br>Hex encoded DIP2 extra payload data. Only present if it's a DIP2 special transaction
+→<br>`hex` | string (hex) | Required<br>(exactly 1) | The serialized, hex-encoded data for the provided `txid`   
 →<br>`blockhash` | string (hex) | Optional<br>(0 or 1) | If the transaction has been included in a block on the local best block chain, this is the hash of that block encoded as hex in RPC byte order
 →<br>`height` | number (int) | Optional<br>(0 or 1) | The block height where the transaction was mined
 →<br>`confirmations` | number (int) | Required<br>(exactly 1) | If the transaction has been included in a block on the local best block chain, this is how many confirmations it has.  Otherwise, this is `0`
@@ -8634,7 +8697,7 @@ Name | Type | Presence | Description
 `result` | object | Required<br>(exactly 1) | Information about the address
 →<br>`isvalid` | bool | Required<br>(exactly 1) | Set to `true` if the address is a valid P2PKH or P2SH address; set to `false` otherwise
 →<br>`address` | string (base58) | Optional<br>(0 or 1) | The Dash address given as parameter
-→<br>`scriptPubKey` | string (hex) | Optional<br>(0 or 1) | The hex encoded scriptPubKey generated by the address
+→<br>`scriptPubKey` | string (hex) | Optional<br>(0 or 1) | The hex encoded scriptPubKey generated by the address  
 →<br>`ismine` | bool | Optional<br>(0 or 1) | Set to `true` if the address belongs to the wallet; set to false if it does not.  Only returned if wallet support enabled
 →<br>`iswatchonly` | bool | Optional<br>(0 or 1) | Set to `true` if the address is watch-only.  Otherwise set to `false`.  Only returned if address is in the wallet
 →<br>`isscript` | bool | Optional<br>(0 or 1) | Set to `true` if a P2SH address; otherwise set to `false`.  Only returned if the address is in the wallet
@@ -8647,8 +8710,8 @@ Name | Type | Presence | Description
 →<br>`iscompressed` | bool | Optional<br>(0 or 1) | Set to `true` if a compressed public key or set to `false` if an uncompressed public key.  Only returned if the address is a P2PKH address in the wallet
 →<br>`account` | string | Optional<br>(0 or 1) | *Deprecated: will be removed in a later version of Bitcoin Core*<br><br>The account this address belong to.  May be an empty string for the default account.  Only returned if the address belongs to the wallet
 →<br>`timestamp` | number (int) | Optional<br>(0 or 1) | *Added in Dash Core 0.12.3*<br><br>The creation time of the key if available in seconds since epoch (Jan 1 1970 GMT)
-→<br>`hdkeypath` | string | Optional<br>(0 or 1) | *Added in Bitcoin Core 0.13.0*<br><br>The HD keypath if the key is HD and available
-→<br>`hdmasterkeyid` | string (hash160) | Optional<br>(0 or 1) | *Added in Bitcoin Core 0.13.0*<br><br>The Hash160 of the HD master public key
+→<br>`hdkeypath` | string | Optional<br>(0 or 1) | *Added in Bitcoin Core 0.13.0*<br><br>The HD keypath if the key is HD and available  
+→<br>`hdmasterkeyid` | string (hash160) | Optional<br>(0 or 1) | *Added in Bitcoin Core 0.13.0*<br><br>The Hash160 of the HD master public key  
 
 *Example from Dash Core 0.12.3*
 
@@ -8700,7 +8763,7 @@ Result:
   ],
   "sigsrequired": 2,
   "account": "test account"
-  "timestamp": 0
+  "timestamp": 0  
 }
 ```
 
@@ -9488,8 +9551,6 @@ TXID | string (hex) | Required<br>(exactly 1) | The TXID of the transaction to g
 
 *Result---a description of the transaction*
 
-{% include helpers/vars.md %}
-
 Name | Type | Presence | Description
 --- | --- | --- | ---
 `result` | object | Required<br>(exactly 1) | An object describing how the transaction affects the wallet
@@ -9628,7 +9689,7 @@ Result:
 {
   "walletversion": 61000,
   "balance": 3000.00000000,
-  "privatesend_balance": 413.20413200,
+  "privatesend_balance": 413.20413200,  
   "unconfirmed_balance": 10.10000000,
   "immature_balance": 11.25000000,
   "txcount": 267,
@@ -9765,7 +9826,7 @@ Imports | array | Required<br>(exactly 1) | An array of JSON objects, each one b
 → →<br>`keys` | array | Optional<br>(0 or 1) | Array of strings giving private keys whose corresponding public keys must occur in the scriptPubKey or redeemscript
 → →<br>`internal` | bool | Optional<br>(0 or 1) | Stating whether matching outputs should be treated as change rather than incoming payments. The default is `false`
 → →<br>`watchonly` | bool | Optional<br>(0 or 1) | Stating whether matching outputs should be considered watched even when they're not spendable. This is only allowed if keys are empty. The default is `false`
-→ →<br>`label` | string | Optional<br>(0 or 1) | Label to assign to the address, only allowed with `internal` set to `false`. The default is an empty string (“”)
+→ →<br>`label` | string | Optional<br>(0 or 1) | Label to assign to the address, only allowed with `internal` set to `false`. The default is an empty string (“”)  
 
 *Parameter #2---options regarding the import*
 
@@ -9782,8 +9843,8 @@ Name | Type | Presence | Description
 → Result | object | Required<br>(1 or more) | A JSON object describing the execution result of an imported address or script
 → → <br>`success` | string | Required<br>(exactly 1) | Displays `true` if the import has been successful or `false` if it failed
 → → <br>`error` | string : object | Optional<br>(0 or 1) | A JSON object containing details about the error. Only displayed if the import fails
-→ → → <br>`code` | number (int) | Optional<br>(0 or 1) | The error code
-→ → → <br>`message` | string | Optional<br>(0 or 1) | The error message
+→ → → <br>`code` | number (int) | Optional<br>(0 or 1) | The error code  
+→ → → <br>`message` | string | Optional<br>(0 or 1) | The error message    
 
 *Example from Dash Core 0.12.3*
 
@@ -10040,7 +10101,7 @@ dash-cli -testnet keepass genkey
 Result:
 ``` bash
 Generated Key: dNjo+J8Jb30txbJiKq4s9H6vEgWq/whb1w9bb2cTOFo=
-```
+```  
 
 **Command Mode - `init`**
 
@@ -10062,7 +10123,7 @@ Result (wrapped):
 ``` bash
 Association successful. Id: testwalletassociation - \
 Key: MSb+JLygqz7ZH40SyJ1QR62i00IXoa3tmT85MGGI2K0=
-```
+```  
 
 **Command Mode - `setpassphrase`**
 
@@ -10089,7 +10150,7 @@ dash-cli -testnet keepass setpassphrase 1BWi20Xyk76uWumxJQy4
 Result:
 ``` bash
 setlogin: Updated credentials.
-```
+```  
 
 *See also: none*
 
@@ -10428,7 +10489,7 @@ Name | Type | Presence | Description
 → →<br>`account` | string | Required<br>(exactly 1) | *Deprecated: will be removed in a later version of Dash Core*<br><br>The account the address belongs to.  May be the default account, an empty string (\\")"
 → →<br>`amount` | number (dash) | Required<br>(exactly 1) | The total amount the address has received in dash
 → →<br>`confirmations` | number (int) | Required<br>(exactly 1) | The number of confirmations of the latest transaction to the address.  May be `0` for unconfirmed
-→ →<br>`label` | string | Required<br>(exactly 1) | The account the address belongs to.  May be the default account, an empty string (\\")"
+→ →<br>`label` | string | Required<br>(exactly 1) | The account the address belongs to.  May be the default account, an empty string (\\")"    
 → →<br>`txids` | array | Required<br>(exactly 1) | An array of TXIDs belonging to transactions that pay the address
 → → →<br>TXID | string | Optional<br>(0 or more) | The TXID of a transaction paying the address, encoded as hex in RPC byte order
 
@@ -10505,8 +10566,6 @@ Name | Type | Presence | Description
 include_removed | bool | Optional<br>Default=`true` | Show transactions that were removed due to a reorg in the \removed\" array (not guaranteed to work on pruned nodes)"
 
 **Result**
-
-{% include helpers/vars.md %}
 
 Name | Type | Presence | Description
 --- | --- | --- | ---
@@ -10627,11 +10686,11 @@ Name | Type | Presence | Description
 → →<br>`address` | string (base58) | Optional<br>(0 or 1) | The address paid in this payment, which may be someone else's address not belonging to this wallet.  May be empty if the address is unknown, such as when paying to a non-standard pubkey script or if this is in the *move* category
 → →<br>`category` | string | Required<br>(exactly 1) | Set to one of the following values:<br>• `send` if sending payment<br>• `receive` if this wallet received payment in a regular transaction<br>• `generate` if a matured and spendable coinbase<br>• `immature` if a coinbase that is not spendable yet<br>• `orphan` if a coinbase from a block that's not in the local best block chain<br>• `move` if an off-block-chain move made with the `move` RPC
 → →<br>`amount` | number (dash) | Required<br>(exactly 1) | A negative dash amount if sending payment; a positive dash amount if receiving payment (including coinbases)
-→ →<br>`label` | string | Optional<br>(0 or 1) | A comment for the address/transaction
+→ →<br>`label` | string | Optional<br>(0 or 1) | A comment for the address/transaction  
 → →<br>`vout` | number (int) | Optional<br>(0 or 1) | For an output, the output index (vout) for this output in this transaction.  For an input, the output index for the output being spent in its transaction.  Because inputs list the output indexes from previous transactions, more than one entry in the details array may have the same output index.  Not returned for *move* category payments
 → →<br>`fee` | number (dash) | Optional<br>(0 or 1) | If sending payment, the fee paid as a negative dash value.  May be `0`. Not returned if receiving payment or for *move* category payments
 → →<br>`confirmations` | number (int) | Optional<br>(0 or 1) | The number of confirmations the transaction has received.  Will be `0` for unconfirmed and `-1` for conflicted.  Not returned for *move* category payments
-→<br>`instantlock` | bool | Required<br>(exactly 1) | Current transaction lock state (InstantSend and/or ChainLock)
+→<br>`instantlock` | bool | Required<br>(exactly 1) | Current transaction lock state (InstantSend and/or ChainLock)  
 →<br>`instantlock_internal` | bool | Required<br>(exactly 1) | Current InstantSend transaction lock state
 <br>`chainlock` | bool | Required<br>(exactly 1) | *Added in Dash Core 0.14.0*<br><br>If set to `true`, this transaction is in a block that is locked (not susceptible to a chain re-org)
 → →<br>`generated` | bool | Optional<br>(0 or 1) | Set to `true` if the transaction is a coinbase.  Not returned for regular transactions or *move* category payments
