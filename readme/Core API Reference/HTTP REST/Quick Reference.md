@@ -1,3 +1,7 @@
+---
+title: "Quick Reference"
+excerpt: ""
+---
 * [GET Block](/docs/core-api-ref-http-rest-requests#section-get-block) gets a block with a particular header hash from the local block database either as a JSON object or as a serialized block. {{UPDATED0_13_0}}
 * [GET Block/NoTxDetails](/docs/core-api-ref-http-rest-requests#section-get-blocknotxdetails) gets a block with a particular header hash from the local block database either as a JSON object or as a serialized block.  The JSON object includes TXIDs for transactions within the block rather than the complete transactions [GET block](/docs/core-api-ref-http-rest-requests#section-get-block) returns. {{UPDATED0_13_0}}
 * [GET ChainInfo](/docs/core-api-ref-http-rest-requests#section-get-chaininfo) returns information about the current state of the block chain. {{NEW0_11_0}}, {{UPDATED0_12_0}}
