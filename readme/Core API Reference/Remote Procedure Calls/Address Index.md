@@ -2,14 +2,6 @@
 title: "Address Index"
 excerpt: ""
 ---
-These RPCs are all Dash-specific and not found in Bitcoin Core
-
-GetAddressBalance: returns the balance for address(es).
-GetAddressDeltas: returns all changes for an address.
-GetAddressMempool: returns all mempool deltas for an address.
-GetAddressTxids: returns the txids for an address(es).
-GetAddressUtxos: returns all unspent outputs for an address.
-
 # GetAddressBalance
 
 *Requires wallet support and `-addressindex` Dash Core command-line/configuration-file parameter to be enabled.*
@@ -50,9 +42,8 @@ Result:
 
 *See also*
 
-* [GetBalance][rpc getbalance]: {{summary_getBalance}}
-* [GetUnconfirmedBalance][rpc getunconfirmedbalance]: {{summary_getUnconfirmedBalance}}
-
+* [GetBalance](/docs/core-api-ref-remote-procedure-calls-wallet#section-getbalance): gets the balance in decimal dash across all accounts or for a particular account.
+* [GetUnconfirmedBalance](/docs/core-api-ref-remote-procedure-calls-wallet#section-getunconfirmedbalance): returns the wallet's total unconfirmed balance.
 
 # GetAddressDeltas
 
@@ -122,8 +113,6 @@ Result:
 ]
 ```
 
-
-
 # GetAddressMempool
 
 *Requires wallet support and `-addressindex` Dash Core command-line/configuration-file parameter to be enabled.*
@@ -165,9 +154,7 @@ Result:
   Example result needed
 ```
 
-
 # GetAddressTxids
-
 
 *Requires wallet support and `-addressindex` Dash Core command-line/configuration-file parameter to be enabled.*
 
@@ -215,7 +202,6 @@ Result:
   "6cb4379eec45cd3bb08b8f4c3a101b8cd89795e24f2cb8288a9941a85fb114cf"
 ]
 ```
-
 
 # GetAddressUtxos
 
