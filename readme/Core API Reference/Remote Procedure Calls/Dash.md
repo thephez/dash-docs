@@ -1564,7 +1564,7 @@ Mixing was reset
 
 *See also: none*
 
-# Spork {#spork-rpc}
+# Spork
 
 The `spork` RPC reads or updates spork settings on the network.
 
