@@ -49,7 +49,6 @@ Result:
   "address": "8uJLxDxk2gEMbidF5vT8XLS2UCgQmVcroW",
   "redeemScript": "522102eacba539d92eb88d4e73bb32749d79f53f6e8d7947ac40a71bd4b26c13b6ec29210311f97539724e0de38fb1ff79f5148e5202459d06ed07193ab18c730274fd0d882103251f25a5c0291446d801ba6df122f67a7dd06c60a9b332b7b29cc94f3b8f57d053ae"
 }
-{% endhighlight %}
 ```
 
 *See also*

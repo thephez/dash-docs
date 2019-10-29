@@ -2,8 +2,13 @@
 title: "Deprecated Messages"
 excerpt: ""
 ---
-The following network messages have been deprecated and should no longer be used.
-
+[block:callout]
+{
+  "type": "danger",
+  "body": "The following network messages have been deprecated and should no longer be used.",
+  "title": "Deprecated Messages"
+}
+[/block]
 # Alert
 
 ![Warning icon](https://dash-docs.github.io/img/icons/icon_warning.svg) Deprecated since 0.14.1

@@ -1,3 +1,7 @@
+---
+title: "Quick Reference"
+excerpt: ""
+---
 # Addressindex RPCs
 
 These RPCs are all Dash-specific and not found in Bitcoin Core
