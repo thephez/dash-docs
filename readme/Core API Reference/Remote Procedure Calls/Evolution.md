@@ -401,8 +401,33 @@ Name | Type | Presence | Description
 Name | Type | Presence | Description
 --- | --- | --- | ---
 `result` | array | Required<br>(exactly 1) | An array of objects each containing a provider transaction, or JSON `null` if an error occurred
-
-  {{INCLUDE_PROTX}}
+<br>Provider Transaction | object/null | Required<br>(exactly 1) | An object containing a provider transaction
+→<br>`proTxHash` | string (hex) | Required<br>(exactly 1) | The hash of the provider transaction as hex in RPC byte order
+→<br>`collateralHash` | string (hex) | Required<br>(exactly 1) | The hash of the collateral transaction as hex in RPC byte order
+→<br>`collateralIndex` | number (int) | Required<br>(exactly 1) | The collateral index
+→ →<br>`collateralAddress` | string (hex) | Required<br>(exactly 1) | The collateral address
+→<br>`operatorReward` | number (int) | Required<br>(exactly 1) | The operator reward %
+→<br>`state` | object/null | Required<br>(exactly 1) | An object containing a provider transaction state
+→ →<br>`service` | string | Required<br>(exactly 1) | The masternode's IP:Port
+→ →<br>`registeredHeight` | number (int) | Required<br>(exactly 1) | The height where the masternode was registered
+→ →<br>`lastPaidHeight` | number (int) | Required<br>(exactly 1) | The height where the masternode was last paid
+→ →<br>`PoSePenalty` | number (int) | Required<br>(exactly 1) | The masternode's proof of service penalty
+→ →<br>`PoSeRevivedHeight` | number (int) | Required<br>(exactly 1) | The height where the masternode recovered from a proof of service ban
+→ →<br>`PoSeBanHeight` | number (int) | Required<br>(exactly 1) | The height where the masternode was banned for proof of service violations
+→ →<br>`revocationReason` | number (int) | Required<br>(exactly 1) | The reason for a ProUpRegTx revocation
+→ →<br>`ownerAddress` | string (hex) | Required<br>(exactly 1) | The owner address
+→ →<br>`votingAddress` | string (hex) | Required<br>(exactly 1) | The voting address
+→ →<br>`payoutAddress` | string (hex) | Required<br>(exactly 1) | The owner's payout address
+→ →<br>`pubKeyOperator` | string (hex) | Required<br>(exactly 1) | The operator public key
+→ →<br>`operatorPayoutAddress` | string (hex) | Required<br>(exactly 1) | The operator's payout address
+→<br>`confirmations` | number (int) | Required<br>(exactly 1) | The number of confirmations this ProTx has
+→<br>`wallet` | object/null | Required<br>(exactly 1) | An object containing a wallet details related to this ProTx
+→ →<br>`hasOwnerKey` | bool | Required<br>(exactly 1) | The owner key is present in this wallet
+→ →<br>`hasOperatorKey` | bool | Required<br>(exactly 1) | The operator key is present in this wallet
+→ →<br>`hasVotingKey` | bool | Required<br>(exactly 1) | The voting key is present in this wallet
+→ →<br>`ownsCollateral` | bool | Required<br>(exactly 1) | The collateral is owned by this wallet
+→ →<br>`ownsPayeeScript` | bool | Required<br>(exactly 1) | The payee script is owned by this wallet
+→ →<br>`ownsOperatorRewardScript` | bool | Required<br>(exactly 1) | The operator reward script is owned by this wallet
 
 *Example from Dash Core 0.14.0*
 
@@ -481,8 +506,33 @@ The `protx info` RPC returns detailed information about a deterministic masterno
 Name | Type | Presence | Description
 --- | --- | --- | ---
 `result` | object | Required<br>(exactly 1) | An JSON object containing a provider transaction, or JSON `null` if an error occurred
-
-  {{INCLUDE_PROTX}}
+<br>Provider Transaction | object/null | Required<br>(exactly 1) | An object containing a provider transaction
+→<br>`proTxHash` | string (hex) | Required<br>(exactly 1) | The hash of the provider transaction as hex in RPC byte order
+→<br>`collateralHash` | string (hex) | Required<br>(exactly 1) | The hash of the collateral transaction as hex in RPC byte order
+→<br>`collateralIndex` | number (int) | Required<br>(exactly 1) | The collateral index
+→ →<br>`collateralAddress` | string (hex) | Required<br>(exactly 1) | The collateral address
+→<br>`operatorReward` | number (int) | Required<br>(exactly 1) | The operator reward %
+→<br>`state` | object/null | Required<br>(exactly 1) | An object containing a provider transaction state
+→ →<br>`service` | string | Required<br>(exactly 1) | The masternode's IP:Port
+→ →<br>`registeredHeight` | number (int) | Required<br>(exactly 1) | The height where the masternode was registered
+→ →<br>`lastPaidHeight` | number (int) | Required<br>(exactly 1) | The height where the masternode was last paid
+→ →<br>`PoSePenalty` | number (int) | Required<br>(exactly 1) | The masternode's proof of service penalty
+→ →<br>`PoSeRevivedHeight` | number (int) | Required<br>(exactly 1) | The height where the masternode recovered from a proof of service ban
+→ →<br>`PoSeBanHeight` | number (int) | Required<br>(exactly 1) | The height where the masternode was banned for proof of service violations
+→ →<br>`revocationReason` | number (int) | Required<br>(exactly 1) | The reason for a ProUpRegTx revocation
+→ →<br>`ownerAddress` | string (hex) | Required<br>(exactly 1) | The owner address
+→ →<br>`votingAddress` | string (hex) | Required<br>(exactly 1) | The voting address
+→ →<br>`payoutAddress` | string (hex) | Required<br>(exactly 1) | The owner's payout address
+→ →<br>`pubKeyOperator` | string (hex) | Required<br>(exactly 1) | The operator public key
+→ →<br>`operatorPayoutAddress` | string (hex) | Required<br>(exactly 1) | The operator's payout address
+→<br>`confirmations` | number (int) | Required<br>(exactly 1) | The number of confirmations this ProTx has
+→<br>`wallet` | object/null | Required<br>(exactly 1) | An object containing a wallet details related to this ProTx
+→ →<br>`hasOwnerKey` | bool | Required<br>(exactly 1) | The owner key is present in this wallet
+→ →<br>`hasOperatorKey` | bool | Required<br>(exactly 1) | The operator key is present in this wallet
+→ →<br>`hasVotingKey` | bool | Required<br>(exactly 1) | The voting key is present in this wallet
+→ →<br>`ownsCollateral` | bool | Required<br>(exactly 1) | The collateral is owned by this wallet
+→ →<br>`ownsPayeeScript` | bool | Required<br>(exactly 1) | The payee script is owned by this wallet
+→ →<br>`ownsOperatorRewardScript` | bool | Required<br>(exactly 1) | The operator reward script is owned by this wallet
 
 *Example from Dash Core 0.14.0*
 

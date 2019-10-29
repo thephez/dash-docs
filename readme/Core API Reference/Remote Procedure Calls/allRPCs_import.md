@@ -3253,7 +3253,27 @@ Name | Type | Presence | Description
 
 *Result---governance objects*
 
-{{INCLUDE_GOVERNANCE_OBJECT}}
+Name | Type | Presence | Description
+--- | --- | --- | ---
+Result | object | Required<br>(exactly 1) | Information about the governance object
+→<br>Governance Object(s) | object | Required<br>(1 or more) | Key: Governance object hash<br>Values: Governance object details
+→ →<br>`DataHex` | string (hex) | Required<br>(exactly 1) | Governance object info as hex string
+→ →<br>`DataString` | string | Required<br>(exactly 1) | Governance object info as string
+→ →<br>`Hash` | string (hex) | Required<br>(exactly 1) | Hash of this governance object
+→ →<br>`CollateralHash` | string (hex) | Required<br>(exactly 1) | Hash of the collateral payment transaction
+→ →<br>`ObjectType` | number | Required<br>(exactly 1) | Object types:<br>`1` - Unknown<br>`2` - Proposal<br>`3` - Trigger
+→ →<br>`CreationTime` | number | Required<br>(exactly 1) | Object creation time as Unix epoch time
+→ →<br>`SigningMasternode` | string (hex) | Optional<br>(0 or 1) | Signing masternode's vin (only present in triggers)
+→ →<br>`AbsoluteYesCount` | number | Required<br>(exactly 1) | Number of `Yes` votes minus number of `No` votes
+→ →<br>`YesCount` | number | Required<br>(exactly 1) | Number of `Yes` votes
+→ →<br>`NoCount` | number | Required<br>(exactly 1) | Number of `No` votes
+→ →<br>`AbstainCount` | number | Required<br>(exactly 1) | Number of `Abstain` votes
+→<br>`fLocalValidity` | boolean | Required<br>(exactly 1) | Valid by the blockchain
+→<br>`IsValidReason` | string | Required<br>(exactly 1) | `fLocalValidity` error result. Empty if no error returned.
+→<br>`fCachedValid` | boolean | Required<br>(exactly 1) | Minimum network support has been reached flagging this object as a valid and understood governance object (e.g, the serialized data is correct format, etc)
+→<br>`fCachedFunding` | boolean | Required<br>(exactly 1) | Minimum network support has been reached for this object to be funded (doesn't mean it will be for sure though)
+→<br>`fCachedDelete` | boolean | Required<br>(exactly 1) | Minimum network support has been reached saying this object should be deleted from the system entirely
+→<br>`fCachedEndorsed` | boolean | Required<br>(exactly 1) | Minimum network support has been reached flagging this object as endorsed
 
 *Example from Dash Core 0.12.2*
 
@@ -3321,7 +3341,27 @@ Name | Type | Presence | Description
 
 *Result---governance objects*
 
-{{INCLUDE_GOVERNANCE_OBJECT}}
+Name | Type | Presence | Description
+--- | --- | --- | ---
+Result | object | Required<br>(exactly 1) | Information about the governance object
+→<br>Governance Object(s) | object | Required<br>(1 or more) | Key: Governance object hash<br>Values: Governance object details
+→ →<br>`DataHex` | string (hex) | Required<br>(exactly 1) | Governance object info as hex string
+→ →<br>`DataString` | string | Required<br>(exactly 1) | Governance object info as string
+→ →<br>`Hash` | string (hex) | Required<br>(exactly 1) | Hash of this governance object
+→ →<br>`CollateralHash` | string (hex) | Required<br>(exactly 1) | Hash of the collateral payment transaction
+→ →<br>`ObjectType` | number | Required<br>(exactly 1) | Object types:<br>`1` - Unknown<br>`2` - Proposal<br>`3` - Trigger
+→ →<br>`CreationTime` | number | Required<br>(exactly 1) | Object creation time as Unix epoch time
+→ →<br>`SigningMasternode` | string (hex) | Optional<br>(0 or 1) | Signing masternode's vin (only present in triggers)
+→ →<br>`AbsoluteYesCount` | number | Required<br>(exactly 1) | Number of `Yes` votes minus number of `No` votes
+→ →<br>`YesCount` | number | Required<br>(exactly 1) | Number of `Yes` votes
+→ →<br>`NoCount` | number | Required<br>(exactly 1) | Number of `No` votes
+→ →<br>`AbstainCount` | number | Required<br>(exactly 1) | Number of `Abstain` votes
+→<br>`fLocalValidity` | boolean | Required<br>(exactly 1) | Valid by the blockchain
+→<br>`IsValidReason` | string | Required<br>(exactly 1) | `fLocalValidity` error result. Empty if no error returned.
+→<br>`fCachedValid` | boolean | Required<br>(exactly 1) | Minimum network support has been reached flagging this object as a valid and understood governance object (e.g, the serialized data is correct format, etc)
+→<br>`fCachedFunding` | boolean | Required<br>(exactly 1) | Minimum network support has been reached for this object to be funded (doesn't mean it will be for sure though)
+→<br>`fCachedDelete` | boolean | Required<br>(exactly 1) | Minimum network support has been reached saying this object should be deleted from the system entirely
+→<br>`fCachedEndorsed` | boolean | Required<br>(exactly 1) | Minimum network support has been reached flagging this object as endorsed
 
 *Example from Dash Core 0.12.2*
 
@@ -4750,8 +4790,33 @@ Name | Type | Presence | Description
 Name | Type | Presence | Description
 --- | --- | --- | ---
 `result` | array | Required<br>(exactly 1) | An array of objects each containing a provider transaction, or JSON `null` if an error occurred
-
-  {{INCLUDE_PROTX}}
+<br>Provider Transaction | object/null | Required<br>(exactly 1) | An object containing a provider transaction
+→<br>`proTxHash` | string (hex) | Required<br>(exactly 1) | The hash of the provider transaction as hex in RPC byte order
+→<br>`collateralHash` | string (hex) | Required<br>(exactly 1) | The hash of the collateral transaction as hex in RPC byte order
+→<br>`collateralIndex` | number (int) | Required<br>(exactly 1) | The collateral index
+→ →<br>`collateralAddress` | string (hex) | Required<br>(exactly 1) | The collateral address
+→<br>`operatorReward` | number (int) | Required<br>(exactly 1) | The operator reward %
+→<br>`state` | object/null | Required<br>(exactly 1) | An object containing a provider transaction state
+→ →<br>`service` | string | Required<br>(exactly 1) | The masternode's IP:Port
+→ →<br>`registeredHeight` | number (int) | Required<br>(exactly 1) | The height where the masternode was registered
+→ →<br>`lastPaidHeight` | number (int) | Required<br>(exactly 1) | The height where the masternode was last paid
+→ →<br>`PoSePenalty` | number (int) | Required<br>(exactly 1) | The masternode's proof of service penalty
+→ →<br>`PoSeRevivedHeight` | number (int) | Required<br>(exactly 1) | The height where the masternode recovered from a proof of service ban
+→ →<br>`PoSeBanHeight` | number (int) | Required<br>(exactly 1) | The height where the masternode was banned for proof of service violations
+→ →<br>`revocationReason` | number (int) | Required<br>(exactly 1) | The reason for a ProUpRegTx revocation
+→ →<br>`ownerAddress` | string (hex) | Required<br>(exactly 1) | The owner address
+→ →<br>`votingAddress` | string (hex) | Required<br>(exactly 1) | The voting address
+→ →<br>`payoutAddress` | string (hex) | Required<br>(exactly 1) | The owner's payout address
+→ →<br>`pubKeyOperator` | string (hex) | Required<br>(exactly 1) | The operator public key
+→ →<br>`operatorPayoutAddress` | string (hex) | Required<br>(exactly 1) | The operator's payout address
+→<br>`confirmations` | number (int) | Required<br>(exactly 1) | The number of confirmations this ProTx has
+→<br>`wallet` | object/null | Required<br>(exactly 1) | An object containing a wallet details related to this ProTx
+→ →<br>`hasOwnerKey` | bool | Required<br>(exactly 1) | The owner key is present in this wallet
+→ →<br>`hasOperatorKey` | bool | Required<br>(exactly 1) | The operator key is present in this wallet
+→ →<br>`hasVotingKey` | bool | Required<br>(exactly 1) | The voting key is present in this wallet
+→ →<br>`ownsCollateral` | bool | Required<br>(exactly 1) | The collateral is owned by this wallet
+→ →<br>`ownsPayeeScript` | bool | Required<br>(exactly 1) | The payee script is owned by this wallet
+→ →<br>`ownsOperatorRewardScript` | bool | Required<br>(exactly 1) | The operator reward script is owned by this wallet
 
 *Example from Dash Core 0.14.0*
 
@@ -4830,8 +4895,33 @@ The `protx info` RPC returns detailed information about a deterministic masterno
 Name | Type | Presence | Description
 --- | --- | --- | ---
 `result` | object | Required<br>(exactly 1) | An JSON object containing a provider transaction, or JSON `null` if an error occurred
-
-  {{INCLUDE_PROTX}}
+<br>Provider Transaction | object/null | Required<br>(exactly 1) | An object containing a provider transaction
+→<br>`proTxHash` | string (hex) | Required<br>(exactly 1) | The hash of the provider transaction as hex in RPC byte order
+→<br>`collateralHash` | string (hex) | Required<br>(exactly 1) | The hash of the collateral transaction as hex in RPC byte order
+→<br>`collateralIndex` | number (int) | Required<br>(exactly 1) | The collateral index
+→ →<br>`collateralAddress` | string (hex) | Required<br>(exactly 1) | The collateral address
+→<br>`operatorReward` | number (int) | Required<br>(exactly 1) | The operator reward %
+→<br>`state` | object/null | Required<br>(exactly 1) | An object containing a provider transaction state
+→ →<br>`service` | string | Required<br>(exactly 1) | The masternode's IP:Port
+→ →<br>`registeredHeight` | number (int) | Required<br>(exactly 1) | The height where the masternode was registered
+→ →<br>`lastPaidHeight` | number (int) | Required<br>(exactly 1) | The height where the masternode was last paid
+→ →<br>`PoSePenalty` | number (int) | Required<br>(exactly 1) | The masternode's proof of service penalty
+→ →<br>`PoSeRevivedHeight` | number (int) | Required<br>(exactly 1) | The height where the masternode recovered from a proof of service ban
+→ →<br>`PoSeBanHeight` | number (int) | Required<br>(exactly 1) | The height where the masternode was banned for proof of service violations
+→ →<br>`revocationReason` | number (int) | Required<br>(exactly 1) | The reason for a ProUpRegTx revocation
+→ →<br>`ownerAddress` | string (hex) | Required<br>(exactly 1) | The owner address
+→ →<br>`votingAddress` | string (hex) | Required<br>(exactly 1) | The voting address
+→ →<br>`payoutAddress` | string (hex) | Required<br>(exactly 1) | The owner's payout address
+→ →<br>`pubKeyOperator` | string (hex) | Required<br>(exactly 1) | The operator public key
+→ →<br>`operatorPayoutAddress` | string (hex) | Required<br>(exactly 1) | The operator's payout address
+→<br>`confirmations` | number (int) | Required<br>(exactly 1) | The number of confirmations this ProTx has
+→<br>`wallet` | object/null | Required<br>(exactly 1) | An object containing a wallet details related to this ProTx
+→ →<br>`hasOwnerKey` | bool | Required<br>(exactly 1) | The owner key is present in this wallet
+→ →<br>`hasOperatorKey` | bool | Required<br>(exactly 1) | The operator key is present in this wallet
+→ →<br>`hasVotingKey` | bool | Required<br>(exactly 1) | The voting key is present in this wallet
+→ →<br>`ownsCollateral` | bool | Required<br>(exactly 1) | The collateral is owned by this wallet
+→ →<br>`ownsPayeeScript` | bool | Required<br>(exactly 1) | The payee script is owned by this wallet
+→ →<br>`ownsOperatorRewardScript` | bool | Required<br>(exactly 1) | The operator reward script is owned by this wallet
 
 *Example from Dash Core 0.14.0*
 
@@ -9294,7 +9384,9 @@ Account | string | Optional<br>(0 or 1) | *Deprecated: will be removed in a late
 
 *Parameter #2---the minimum number of confirmations*
 
-{{INCLUDE_CONFIRMATIONS_PARAMETER}}
+Name | Type | Presence | Description
+--- | --- | --- | ---
+Confirmations | number (int) | Optional<br>(0 or 1) | The minimum number of confirmations an externally-generated transaction must have before it is counted towards the balance.  Transactions generated by this node are counted immediately.  Typically, externally-generated transactions are payments to this wallet and transactions generated by this node are payments to other wallets.  Use `0` to count unconfirmed transactions.  Default is `1`
 
 *Parameter #3---whether to add the balance from transactions locked via InstantSend*
 
@@ -9304,7 +9396,9 @@ addlocked | bool | Optional<br>(exactly 1) | Add the balance from InstantSend lo
 
 *Parameter #4---whether to include watch-only addresses*
 
-{{INCLUDE_INCLUDE_WATCH_ONLY_PARAMETER}}
+Name | Type | Presence | Description
+--- | --- | --- | ---
+Include Watch-Only | bool | Optional<br>(0 or 1) | If set to `true`, include watch-only addresses in details and calculations as if they were regular addresses belonging to the wallet.  If set to `false` (the default), treat watch-only addresses as if they didn't belong to this wallet
 
 *Result---the balance in dash*
 
@@ -9434,7 +9528,9 @@ Account | string | Required<br>(exactly 1) | The name of the account containing 
 
 *Parameter #2---the minimum number of confirmations*
 
-{{INCLUDE_CONFIRMATIONS_PARAMETER}}
+Name | Type | Presence | Description
+--- | --- | --- | ---
+Confirmations | number (int) | Optional<br>(0 or 1) | The minimum number of confirmations an externally-generated transaction must have before it is counted towards the balance.  Transactions generated by this node are counted immediately.  Typically, externally-generated transactions are payments to this wallet and transactions generated by this node are payments to other wallets.  Use `0` to count unconfirmed transactions.  Default is `1`
 
 *Parameter #3---whether to include transactions locked via InstantSend*
 
@@ -9485,7 +9581,9 @@ Address | string | Required<br>(exactly 1) | __Only works for addresses containe
 
 *Parameter #2---the minimum number of confirmations*
 
-{{INCLUDE_CONFIRMATIONS_PARAMETER}}
+Name | Type | Presence | Description
+--- | --- | --- | ---
+Confirmations | number (int) | Optional<br>(0 or 1) | The minimum number of confirmations an externally-generated transaction must have before it is counted towards the balance.  Transactions generated by this node are counted immediately.  Typically, externally-generated transactions are payments to this wallet and transactions generated by this node are payments to other wallets.  Use `0` to count unconfirmed transactions.  Default is `1`
 
 *Parameter #3---whether to include transactions locked via InstantSend*
 
@@ -9547,7 +9645,9 @@ TXID | string (hex) | Required<br>(exactly 1) | The TXID of the transaction to g
 
 *Parameter #2---whether to include watch-only addresses in details and calculations*
 
-{{INCLUDE_INCLUDE_WATCH_ONLY_PARAMETER}}
+Name | Type | Presence | Description
+--- | --- | --- | ---
+Include Watch-Only | bool | Optional<br>(0 or 1) | If set to `true`, include watch-only addresses in details and calculations as if they were regular addresses belonging to the wallet.  If set to `false` (the default), treat watch-only addresses as if they didn't belong to this wallet
 
 *Result---a description of the transaction*
 
@@ -9556,8 +9656,22 @@ Name | Type | Presence | Description
 `result` | object | Required<br>(exactly 1) | An object describing how the transaction affects the wallet
 →<br>`amount` | number (dash) | Required<br>(exactly 1) | A positive number of dash if this transaction increased the total wallet balance; a negative number of dash if this transaction decreased the total wallet balance, or `0` if the transaction had no net effect on wallet balance
 →<br>`fee` | number (dash) | Optional<br>(0 or 1) | If an outgoing transaction, this is the fee paid by the transaction reported as negative dash
-
-{{INCLUDE_F_LIST_TRANSACTIONS_F_FULL}}
+→ <br>`confirmations` | number (int) | Required<br>(exactly 1) | The number of confirmations the transaction has received.  Will be `0` for unconfirmed and `-1` for conflicted
+→ <br>`instantlock` | bool | Required<br>(exactly 1) | Current transaction lock state (InstantSend and/or ChainLock)
+→ <br>`instantlock_internal` | bool | Required<br>(exactly 1) | Current InstantSend transaction lock state
+→ <br>`chainlock` | bool | Required<br>(exactly 1) | *Added in Dash Core 0.14.0*<br><br>If set to `true`, this transaction is in a block that is locked (not susceptible to a chain re-org)  
+→ <br>`generated` | bool | Optional<br>(0 or 1) | Set to `true` if the transaction is a coinbase.  Not returned for regular transactions
+→ <br>`blockhash` | string (hex) | Optional<br>(0 or 1) | The hash of the block on the local best block chain which includes this transaction, encoded as hex in RPC byte order.  Only returned for confirmed transactions
+→ <br>`blockindex` | number (int) | Optional<br>(0 or 1) | The index of the transaction in the block that includes it.  Only returned for confirmed transactions
+→ <br>`blocktime` | number (int) | Optional<br>(0 or 1) | The block header time (Unix epoch time) of the block on the local best block chain which includes this transaction.  Only returned for confirmed transactions
+→ <br>`txid` | string (hex) | Required<br>(exactly 1) | The TXID of the transaction, encoded as hex in RPC byte order
+→ <br>`walletconflicts` | array | Required<br>(exactly 1) | An array containing the TXIDs of other transactions that spend the same inputs (UTXOs) as this transaction.  Array may be empty
+→ →<br>TXID | string (hex) | Optional<br>(0 or more) | The TXID of a conflicting transaction, encoded as hex in RPC byte order
+→ <br>`time` | number (int) | Required<br>(exactly 1) | A Unix epoch time when the transaction was added to the wallet
+→ <br>`timereceived` | number (int) | Required<br>(exactly 1) | A Unix epoch time when the transaction was detected by the local node, or the time of the block on the local best block chain that included the transaction
+→ <br>`abandoned` | bool | Optional<br>(0 or 1) | `true` if the transaction has been abandoned (inputs are respendable). Only available for the 'send' category of transactions.
+→ <br>`comment` | string | Optional<br>(0 or 1) | For transaction originating with this wallet, a locally-stored comment added to the transaction.  Only returned if a comment was added
+→ <br>`to` | string | Optional<br>(0 or 1) | For transaction originating with this wallet, a locally-stored comment added to the transaction identifying who the transaction was sent to.  Only returned if a comment-to was added
 →<br>`DS` | bool | Optional<br>(0 or 1) | Set to 1 if a PrivateSend transaction
 →<br>`details` | array | Required<br>(exactly 1) | An array containing one object for each input or output in the transaction which affected the wallet
 → → <br>`involvesWatchonly` | bool | Optional<br>(0 or 1) | Set to `true` if the input or output involves a watch-only address.  Otherwise not returned
@@ -10200,7 +10314,9 @@ Core.  Use the RPCs listed in the See Also subsection below instead.
 
 *Parameter #1---the minimum number of confirmations a transaction must have*
 
-{{INCLUDE_CONFIRMATIONS_PARAMETER}}
+Name | Type | Presence | Description
+--- | --- | --- | ---
+Confirmations | number (int) | Optional<br>(0 or 1) | The minimum number of confirmations an externally-generated transaction must have before it is counted towards the balance.  Transactions generated by this node are counted immediately.  Typically, externally-generated transactions are payments to this wallet and transactions generated by this node are payments to other wallets.  Use `0` to count unconfirmed transactions.  Default is `1`
 
 *Parameter #2--- whether to include transactions locked via InstantSend*
 
@@ -10210,7 +10326,9 @@ addlocked | bool | Optional<br>(exactly 1) | Add the balance from InstantSend lo
 
 *Parameter #3---whether to include watch-only addresses in results*
 
-{{INCLUDE_INCLUDE_WATCH_ONLY_PARAMETER}}
+Name | Type | Presence | Description
+--- | --- | --- | ---
+Include Watch-Only | bool | Optional<br>(0 or 1) | If set to `true`, include watch-only addresses in details and calculations as if they were regular addresses belonging to the wallet.  If set to `false` (the default), treat watch-only addresses as if they didn't belong to this wallet
 
 *Result---a list of accounts and their balances*
 
@@ -10390,7 +10508,9 @@ Core.  Use the RPCs listed in the See Also subsection below instead.
 
 *Parameter #1---the minimum number of confirmations a transaction must have to be counted*
 
-{{INCLUDE_CONFIRMATIONS_PARAMETER}}
+Name | Type | Presence | Description
+--- | --- | --- | ---
+Confirmations | number (int) | Optional<br>(0 or 1) | The minimum number of confirmations an externally-generated transaction must have before it is counted towards the balance.  Transactions generated by this node are counted immediately.  Typically, externally-generated transactions are payments to this wallet and transactions generated by this node are payments to other wallets.  Use `0` to count unconfirmed transactions.  Default is `1`
 
 *Parameter #2---whether to include transactions locked via InstantSend*
 
@@ -10406,7 +10526,9 @@ Include Empty | bool | Optional<br>(0 or 1) | Set to `true` to display accounts 
 
 *Parameter #4---whether to include watch-only addresses in results*
 
-{{INCLUDE_INCLUDE_WATCH_ONLY_PARAMETER}}
+Name | Type | Presence | Description
+--- | --- | --- | ---
+Include Watch-Only | bool | Optional<br>(0 or 1) | If set to `true`, include watch-only addresses in details and calculations as if they were regular addresses belonging to the wallet.  If set to `false` (the default), treat watch-only addresses as if they didn't belong to this wallet
 
 *Result---account names, balances, and minimum confirmations*
 
@@ -10460,7 +10582,9 @@ The `listreceivedbyaddress` RPC lists the total number of dash received by each 
 
 *Parameter #1---the minimum number of confirmations a transaction must have to be counted*
 
-{{INCLUDE_CONFIRMATIONS_PARAMETER}}
+Name | Type | Presence | Description
+--- | --- | --- | ---
+Confirmations | number (int) | Optional<br>(0 or 1) | The minimum number of confirmations an externally-generated transaction must have before it is counted towards the balance.  Transactions generated by this node are counted immediately.  Typically, externally-generated transactions are payments to this wallet and transactions generated by this node are payments to other wallets.  Use `0` to count unconfirmed transactions.  Default is `1`
 
 *Parameter #2---whether to include transactions locked via InstantSend*
 
@@ -10476,7 +10600,9 @@ Include Empty | bool | Optional<br>(0 or 1) | Set to `true` to display accounts 
 
 *Parameter #4---whether to include watch-only addresses in results*
 
-{{INCLUDE_INCLUDE_WATCH_ONLY_PARAMETER}}
+Name | Type | Presence | Description
+--- | --- | --- | ---
+Include Watch-Only | bool | Optional<br>(0 or 1) | If set to `true`, include watch-only addresses in details and calculations as if they were regular addresses belonging to the wallet.  If set to `false` (the default), treat watch-only addresses as if they didn't belong to this wallet
 
 *Result---addresses, account names, balances, and minimum confirmations*
 
@@ -10557,7 +10683,9 @@ Target Confirmations | number (int) | Optional<br>(0 or 1) | Sets the lastblock 
 
 *Parameter #3---whether to include watch-only addresses in details and calculations*
 
-{{INCLUDE_INCLUDE_WATCH_ONLY_PARAMETER}}
+Name | Type | Presence | Description
+--- | --- | --- | ---
+Include Watch-Only | bool | Optional<br>(0 or 1) | If set to `true`, include watch-only addresses in details and calculations as if they were regular addresses belonging to the wallet.  If set to `false` (the default), treat watch-only addresses as if they didn't belong to this wallet
 
 *Parameter #4---include_removed*
 
@@ -10572,9 +10700,29 @@ Name | Type | Presence | Description
 `result` | object | Required<br>(exactly 1) | An object containing an array of transactions and the lastblock field
 →<br>`transactions` | array | Required<br>(exactly 1) | An array of objects each describing a particular **payment** to or from this wallet.  The objects in this array do not describe an actual transactions, so more than one object in this array may come from the same transaction.  This array may be empty
 → →<br>Payment | object | Optional<br>(0 or more) | An payment which did not appear in the specified block or an earlier block
-
-{{INCLUDE_F_LIST_TRANSACTIONS}}
-{{INCLUDE_F_LIST_TRANSACTIONS_F_FULL}}
+→ <br>`involvesWatchonly` | bool | Optional<br>(0 or 1) | Set to `true` if the payment involves a watch-only address.  Otherwise not returned
+→ <br>`account` | string | Required<br>(exactly 1) | *Deprecated: will be removed in a later version of Bitcoin Core*<br><br>The account which the payment was credited to or debited from.  May be an empty string (\\") for the default account"
+→ <br>`address` | string (base58) | Optional<br>(0 or 1) | The address paid in this payment, which may be someone else's address not belonging to this wallet.  May be empty if the address is unknown, such as when paying to a non-standard pubkey script
+→ <br>`category` | string | Required<br>(exactly 1) | Set to one of the following values:<br>• `send` if sending payment normally<br>• `privatesend` if sending PrivateSend payment<br>• `receive` if this wallet received payment in a regular transaction<br>• `generate` if a matured and spendable coinbase<br>• `immature` if a coinbase that is not spendable yet<br>• `orphan` if a coinbase from a block that's not in the local best block chain
+→ <br>`amount` | number (dash) | Required<br>(exactly 1) | A negative dash amount if sending payment; a positive dash amount if receiving payment (including coinbases)
+→ <br>`vout` | number (int) | Required<br>(exactly 1) | For an output, the output index (vout) for this output in this transaction.  For an input, the output index for the output being spent in its transaction.  Because inputs list the output indexes from previous transactions, more than one entry in the details array may have the same output index
+→ <br>`fee` | number (dash) | Optional<br>(0 or 1) | If sending payment, the fee paid as a negative dash value.  May be `0`. Not returned if receiving payment
+→ <br>`confirmations` | number (int) | Required<br>(exactly 1) | The number of confirmations the transaction has received.  Will be `0` for unconfirmed and `-1` for conflicted
+→ <br>`instantlock` | bool | Required<br>(exactly 1) | Current transaction lock state (InstantSend and/or ChainLock)
+→ <br>`instantlock_internal` | bool | Required<br>(exactly 1) | Current InstantSend transaction lock state
+→ <br>`chainlock` | bool | Required<br>(exactly 1) | *Added in Dash Core 0.14.0*<br><br>If set to `true`, this transaction is in a block that is locked (not susceptible to a chain re-org)  
+→ <br>`generated` | bool | Optional<br>(0 or 1) | Set to `true` if the transaction is a coinbase.  Not returned for regular transactions
+→ <br>`blockhash` | string (hex) | Optional<br>(0 or 1) | The hash of the block on the local best block chain which includes this transaction, encoded as hex in RPC byte order.  Only returned for confirmed transactions
+→ <br>`blockindex` | number (int) | Optional<br>(0 or 1) | The index of the transaction in the block that includes it.  Only returned for confirmed transactions
+→ <br>`blocktime` | number (int) | Optional<br>(0 or 1) | The block header time (Unix epoch time) of the block on the local best block chain which includes this transaction.  Only returned for confirmed transactions
+→ <br>`txid` | string (hex) | Required<br>(exactly 1) | The TXID of the transaction, encoded as hex in RPC byte order
+→ <br>`walletconflicts` | array | Required<br>(exactly 1) | An array containing the TXIDs of other transactions that spend the same inputs (UTXOs) as this transaction.  Array may be empty
+→ →<br>TXID | string (hex) | Optional<br>(0 or more) | The TXID of a conflicting transaction, encoded as hex in RPC byte order
+→ <br>`time` | number (int) | Required<br>(exactly 1) | A Unix epoch time when the transaction was added to the wallet
+→ <br>`timereceived` | number (int) | Required<br>(exactly 1) | A Unix epoch time when the transaction was detected by the local node, or the time of the block on the local best block chain that included the transaction
+→ <br>`abandoned` | bool | Optional<br>(0 or 1) | `true` if the transaction has been abandoned (inputs are respendable). Only available for the 'send' category of transactions.
+→ <br>`comment` | string | Optional<br>(0 or 1) | For transaction originating with this wallet, a locally-stored comment added to the transaction.  Only returned if a comment was added
+→ <br>`to` | string | Optional<br>(0 or 1) | For transaction originating with this wallet, a locally-stored comment added to the transaction identifying who the transaction was sent to.  Only returned if a comment-to was added
 →<br>`removed` | array | Optional<br>(0 or 1) | Structure is the same as `transactions`. Only present if `include_removed` is `true`.<br>_Note_: transactions that were re-added in the active chain will appear as-is in this array, and may thus have a positive confirmation count.
 →<br>`lastblock` | string (hex) | Required<br>(exactly 1) | The header hash of the block with the number of confirmations specified in the *target confirmations* parameter, encoded as hex in RPC byte order
 
@@ -10674,7 +10822,9 @@ Skip | number (int) | Optional<br>(0 or 1) | The number of the most recent trans
 
 *Parameter #4---whether to include watch-only addresses in details and calculations*
 
-{{INCLUDE_INCLUDE_WATCH_ONLY_PARAMETER}}
+Name | Type | Presence | Description
+--- | --- | --- | ---
+Include Watch-Only | bool | Optional<br>(0 or 1) | If set to `true`, include watch-only addresses in details and calculations as if they were regular addresses belonging to the wallet.  If set to `false` (the default), treat watch-only addresses as if they didn't belong to this wallet
 
 *Result---payment details*
 
@@ -11160,11 +11310,20 @@ Amount | number (dash) | Required<br>(exactly 1) | The amount to spend in dash. 
 
 *Parameter #4---minimum confirmations*
 
-{{INCLUDE_SPEND_CONFIRMATIONS}}
+Name | Type | Presence | Description
+--- | --- | --- | ---
+Confirmations | number (int) | Optional<br>(0 or 1) | The minimum number of confirmations an incoming transaction must have for its outputs to be credited to this account's balance. Outgoing transactions are always counted, as are move transactions made with the `move` RPC. If an account doesn't have a balance high enough to pay for this transaction, the payment will be rejected.  Use `0` to spend unconfirmed incoming payments. Default is `1`
+
+![Warning icon](https://dash-docs.github.io/img/icons/icon_warning.svg)
+**Warning:** if account1 receives an unconfirmed payment and transfers
+it to account2 with the `move` RPC, account2 will be able to spend those
+dash even if this parameter is set to `1` or higher.
 
 *Parameter #5---whether to add the balance from transactions locked via InstantSend*
 
-{{INCLUDE_ADD_LOCKED_PARAMETER}}
+Name | Type | Presence | Description
+--- | --- | --- | ---
+addlocked | bool | Optional<br>(0 or 1) | If set to `true`, add the balance from InstantSend locked transactions. If set to `false` (the default), InstantSend locked transaction balances are not included.
 
 *Parameter #6---a comment*
 
@@ -11234,10 +11393,19 @@ Outputs | object | Required<br>(exactly 1) | An object containing key/value pair
 
 *Parameter #3---minimum confirmations*
 
-{{INCLUDE_SPEND_CONFIRMATIONS}}
+Name | Type | Presence | Description
+--- | --- | --- | ---
+Confirmations | number (int) | Optional<br>(0 or 1) | The minimum number of confirmations an incoming transaction must have for its outputs to be credited to this account's balance. Outgoing transactions are always counted, as are move transactions made with the `move` RPC. If an account doesn't have a balance high enough to pay for this transaction, the payment will be rejected.  Use `0` to spend unconfirmed incoming payments. Default is `1`
+
+![Warning icon](https://dash-docs.github.io/img/icons/icon_warning.svg)
+**Warning:** if account1 receives an unconfirmed payment and transfers
+it to account2 with the `move` RPC, account2 will be able to spend those
+dash even if this parameter is set to `1` or higher.
 
 *Parameter #4--whether to add the balance from transactions locked via InstantSend*
-{{INCLUDE_ADD_LOCKED_PARAMETER}}
+Name | Type | Presence | Description
+--- | --- | --- | ---
+addlocked | bool | Optional<br>(0 or 1) | If set to `true`, add the balance from InstantSend locked transactions. If set to `false` (the default), InstantSend locked transaction balances are not included.
 
 *Parameter #5---a comment*
 
@@ -12139,7 +12307,7 @@ Result | object | Required<br>(exactly 1) | Object containing result data
 →<br>`overall` | string | Required<br>(exactly 1) | Summary of broadcast message creation success/failure
 
 *Example from Dash Core 0.12.2*
-￼``` bash
+``` bash
 masternodebroadcast relay 010fab7e86a6d7c483b836fe862c8a23f69aebadce7c58c4\
 8778a4fa6bd93fc8f60100000000ffffffff00000000000000000000ffff2d20ed4c4e1f2102\
 67fae84ef6aa6ab3d877b47932915a9b406566c873ea025986fc7e15a15fd2f24104341ab0d2\

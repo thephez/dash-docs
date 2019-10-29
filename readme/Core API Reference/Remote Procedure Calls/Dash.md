@@ -646,7 +646,27 @@ Name | Type | Presence | Description
 
 *Result---governance objects*
 
-{{INCLUDE_GOVERNANCE_OBJECT}}
+Name | Type | Presence | Description
+--- | --- | --- | ---
+Result | object | Required<br>(exactly 1) | Information about the governance object
+→<br>Governance Object(s) | object | Required<br>(1 or more) | Key: Governance object hash<br>Values: Governance object details
+→ →<br>`DataHex` | string (hex) | Required<br>(exactly 1) | Governance object info as hex string
+→ →<br>`DataString` | string | Required<br>(exactly 1) | Governance object info as string
+→ →<br>`Hash` | string (hex) | Required<br>(exactly 1) | Hash of this governance object
+→ →<br>`CollateralHash` | string (hex) | Required<br>(exactly 1) | Hash of the collateral payment transaction
+→ →<br>`ObjectType` | number | Required<br>(exactly 1) | Object types:<br>`1` - Unknown<br>`2` - Proposal<br>`3` - Trigger
+→ →<br>`CreationTime` | number | Required<br>(exactly 1) | Object creation time as Unix epoch time
+→ →<br>`SigningMasternode` | string (hex) | Optional<br>(0 or 1) | Signing masternode's vin (only present in triggers)
+→ →<br>`AbsoluteYesCount` | number | Required<br>(exactly 1) | Number of `Yes` votes minus number of `No` votes
+→ →<br>`YesCount` | number | Required<br>(exactly 1) | Number of `Yes` votes
+→ →<br>`NoCount` | number | Required<br>(exactly 1) | Number of `No` votes
+→ →<br>`AbstainCount` | number | Required<br>(exactly 1) | Number of `Abstain` votes
+→<br>`fLocalValidity` | boolean | Required<br>(exactly 1) | Valid by the blockchain
+→<br>`IsValidReason` | string | Required<br>(exactly 1) | `fLocalValidity` error result. Empty if no error returned.
+→<br>`fCachedValid` | boolean | Required<br>(exactly 1) | Minimum network support has been reached flagging this object as a valid and understood governance object (e.g, the serialized data is correct format, etc)
+→<br>`fCachedFunding` | boolean | Required<br>(exactly 1) | Minimum network support has been reached for this object to be funded (doesn't mean it will be for sure though)
+→<br>`fCachedDelete` | boolean | Required<br>(exactly 1) | Minimum network support has been reached saying this object should be deleted from the system entirely
+→<br>`fCachedEndorsed` | boolean | Required<br>(exactly 1) | Minimum network support has been reached flagging this object as endorsed
 
 *Example from Dash Core 0.12.2*
 
@@ -714,7 +734,27 @@ Name | Type | Presence | Description
 
 *Result---governance objects*
 
-{{INCLUDE_GOVERNANCE_OBJECT}}
+Name | Type | Presence | Description
+--- | --- | --- | ---
+Result | object | Required<br>(exactly 1) | Information about the governance object
+→<br>Governance Object(s) | object | Required<br>(1 or more) | Key: Governance object hash<br>Values: Governance object details
+→ →<br>`DataHex` | string (hex) | Required<br>(exactly 1) | Governance object info as hex string
+→ →<br>`DataString` | string | Required<br>(exactly 1) | Governance object info as string
+→ →<br>`Hash` | string (hex) | Required<br>(exactly 1) | Hash of this governance object
+→ →<br>`CollateralHash` | string (hex) | Required<br>(exactly 1) | Hash of the collateral payment transaction
+→ →<br>`ObjectType` | number | Required<br>(exactly 1) | Object types:<br>`1` - Unknown<br>`2` - Proposal<br>`3` - Trigger
+→ →<br>`CreationTime` | number | Required<br>(exactly 1) | Object creation time as Unix epoch time
+→ →<br>`SigningMasternode` | string (hex) | Optional<br>(0 or 1) | Signing masternode's vin (only present in triggers)
+→ →<br>`AbsoluteYesCount` | number | Required<br>(exactly 1) | Number of `Yes` votes minus number of `No` votes
+→ →<br>`YesCount` | number | Required<br>(exactly 1) | Number of `Yes` votes
+→ →<br>`NoCount` | number | Required<br>(exactly 1) | Number of `No` votes
+→ →<br>`AbstainCount` | number | Required<br>(exactly 1) | Number of `Abstain` votes
+→<br>`fLocalValidity` | boolean | Required<br>(exactly 1) | Valid by the blockchain
+→<br>`IsValidReason` | string | Required<br>(exactly 1) | `fLocalValidity` error result. Empty if no error returned.
+→<br>`fCachedValid` | boolean | Required<br>(exactly 1) | Minimum network support has been reached flagging this object as a valid and understood governance object (e.g, the serialized data is correct format, etc)
+→<br>`fCachedFunding` | boolean | Required<br>(exactly 1) | Minimum network support has been reached for this object to be funded (doesn't mean it will be for sure though)
+→<br>`fCachedDelete` | boolean | Required<br>(exactly 1) | Minimum network support has been reached saying this object should be deleted from the system entirely
+→<br>`fCachedEndorsed` | boolean | Required<br>(exactly 1) | Minimum network support has been reached flagging this object as endorsed
 
 *Example from Dash Core 0.12.2*
 
