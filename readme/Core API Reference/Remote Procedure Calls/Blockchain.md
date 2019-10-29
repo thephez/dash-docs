@@ -1986,5 +1986,4 @@ Result:
 *See also*
 
 * [GetTxOutProof](/docs/core-api-ref-remote-procedure-calls-blockchain#section-gettxoutproof): returns a hex-encoded proof that one or more specified transactions were included in a block.
-* [`merkleblock` message][merkleblock message]: A description of the
-  format used for the proof.
+* [`merkleblock` message][merkleblock message]: A description of the format used for the proof.
