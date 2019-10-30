@@ -69,9 +69,9 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 
 # Evolution RPCs
 
-* [BLS](/docs/core-api-ref-remote-procedure-calls-evolution#section-bls): provides a set of commands to execute BLS-related actions. {{DASH_UPDATED0_14_0}}
-* [ProTx](/docs/core-api-ref-remote-procedure-calls-evolution#section-protx): provides a set of commands to execute ProTx related actions. {{DASH_UPDATED0_14_0}}
-* [Quorum](/docs/core-api-ref-remote-procedure-calls-evolution#section-quorum): provides a set of commands for quorums (LLMQs). {{DASH_NEW0_14_0}}
+* [BLS](/docs/core-api-ref-remote-procedure-calls-evo#section-bls): provides a set of commands to execute BLS-related actions. {{DASH_UPDATED0_14_0}}
+* [ProTx](/docs/core-api-ref-remote-procedure-calls-evo#section-protx): provides a set of commands to execute ProTx related actions. {{DASH_UPDATED0_14_0}}
+* [Quorum](/docs/core-api-ref-remote-procedure-calls-evo#section-quorum): provides a set of commands for quorums (LLMQs). {{DASH_NEW0_14_0}}
 
 # Generating RPCs
 
@@ -103,23 +103,23 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 
 # Raw Transaction RPCs
 
-* [CombineRawTransaction](/docs/core-api-ref-remote-procedure-calls-raw-transaction#section-combinerawtransaction): combine multiple partially signed transactions into one transaction. {{DASH_NEW0_14_1}}
-* [CreateRawTransaction](/docs/core-api-ref-remote-procedure-calls-raw-transaction#section-createrawtransaction): creates an unsigned serialized transaction that spends a previous output to a new output with a P2PKH or P2SH address. The transaction is not stored in the wallet or transmitted to the network. {{DASH_UPDATED0_12_3}} {{UPDATED0_14_1}}
-* [DecodeRawTransaction](/docs/core-api-ref-remote-procedure-calls-raw-transaction#section-decoderawtransaction): decodes a serialized transaction hex string into a JSON object describing the transaction. {{UPDATED0_13_0}}
-* [DecodeScript](/docs/core-api-ref-remote-procedure-calls-raw-transaction#section-decodescript): decodes a hex-encoded P2SH redeem script.
-* [FundRawTransaction](/docs/core-api-ref-remote-procedure-calls-raw-transaction#section-fundrawtransaction): adds inputs to a transaction until it has enough in value to meet its out value. {{DASH_UPDATED0_14_1}}
-* [GetRawTransaction](/docs/core-api-ref-remote-procedure-calls-raw-transaction#section-getrawtransaction): gets a hex-encoded serialized transaction or a JSON object describing the transaction. By default, Dash Core only stores complete transaction data for UTXOs and your own transactions, so the RPC may fail on historic transactions unless you use the non-default `txindex=1` in your Dash Core startup settings. {{DASH_UPDATED0_14_1}}
-* [SendRawTransaction](/docs/core-api-ref-remote-procedure-calls-raw-transaction#section-sendrawtransaction): validates a transaction and broadcasts it to the peer-to-peer network. {{DASH_UPDATED0_14_1}}
-* [SignRawTransaction](/docs/core-api-ref-remote-procedure-calls-raw-transaction#section-signrawtransaction): signs a transaction in the serialized transaction format using private keys stored in the wallet or provided in the call.
+* [CombineRawTransaction](/docs/core-api-ref-remote-procedure-calls-raw-transactions#section-combinerawtransaction): combine multiple partially signed transactions into one transaction. {{DASH_NEW0_14_1}}
+* [CreateRawTransaction](/docs/core-api-ref-remote-procedure-calls-raw-transactions#section-createrawtransaction): creates an unsigned serialized transaction that spends a previous output to a new output with a P2PKH or P2SH address. The transaction is not stored in the wallet or transmitted to the network. {{DASH_UPDATED0_12_3}} {{UPDATED0_14_1}}
+* [DecodeRawTransaction](/docs/core-api-ref-remote-procedure-calls-raw-transactions#section-decoderawtransaction): decodes a serialized transaction hex string into a JSON object describing the transaction. {{UPDATED0_13_0}}
+* [DecodeScript](/docs/core-api-ref-remote-procedure-calls-raw-transactions#section-decodescript): decodes a hex-encoded P2SH redeem script.
+* [FundRawTransaction](/docs/core-api-ref-remote-procedure-calls-raw-transactions#section-fundrawtransaction): adds inputs to a transaction until it has enough in value to meet its out value. {{DASH_UPDATED0_14_1}}
+* [GetRawTransaction](/docs/core-api-ref-remote-procedure-calls-raw-transactions#section-getrawtransaction): gets a hex-encoded serialized transaction or a JSON object describing the transaction. By default, Dash Core only stores complete transaction data for UTXOs and your own transactions, so the RPC may fail on historic transactions unless you use the non-default `txindex=1` in your Dash Core startup settings. {{DASH_UPDATED0_14_1}}
+* [SendRawTransaction](/docs/core-api-ref-remote-procedure-calls-raw-transactions#section-sendrawtransaction): validates a transaction and broadcasts it to the peer-to-peer network. {{DASH_UPDATED0_14_1}}
+* [SignRawTransaction](/docs/core-api-ref-remote-procedure-calls-raw-transactions#section-signrawtransaction): signs a transaction in the serialized transaction format using private keys stored in the wallet or provided in the call.
 
 # Utility RPCs
 
-* [CreateMultiSig](/docs/core-api-ref-remote-procedure-calls-utility#section-createmultisig): creates a P2SH multi-signature address.
-* [EstimateFee](/docs/core-api-ref-remote-procedure-calls-utility#section-estimatefee): estimates the transaction fee per kilobyte that needs to be paid for a transaction to begin confirmation within a certain number of blocks.
-* [EstimateSmartFee](/docs/core-api-ref-remote-procedure-calls-utility#section-estimatesmartfee): estimates the transaction fee per kilobyte that needs to be paid for a transaction to begin confirmation within a certain number of blocks and returns the number of blocks for which the estimate is valid. {{DASH_UPDATED0_14_1}}
-* [SignMessageWithPrivKey](/docs/core-api-ref-remote-procedure-calls-utility#section-signmessagewithprivkey): signs a message with a given private key.  {{DASH_NEW0_12_3}} {{NEW0_13_0}}
-* [ValidateAddress](/docs/core-api-ref-remote-procedure-calls-utility#section-validateaddress): returns information about the given Dash address. {{DASH_UPDATED0_12_3}} {{UPDATED0_13_0}}
-* [VerifyMessage](/docs/core-api-ref-remote-procedure-calls-utility#section-verifymessage): verifies a signed message.
+* [CreateMultiSig](/docs/core-api-ref-remote-procedure-calls-util#section-createmultisig): creates a P2SH multi-signature address.
+* [EstimateFee](/docs/core-api-ref-remote-procedure-calls-util#section-estimatefee): estimates the transaction fee per kilobyte that needs to be paid for a transaction to begin confirmation within a certain number of blocks.
+* [EstimateSmartFee](/docs/core-api-ref-remote-procedure-calls-util#section-estimatesmartfee): estimates the transaction fee per kilobyte that needs to be paid for a transaction to begin confirmation within a certain number of blocks and returns the number of blocks for which the estimate is valid. {{DASH_UPDATED0_14_1}}
+* [SignMessageWithPrivKey](/docs/core-api-ref-remote-procedure-calls-util#section-signmessagewithprivkey): signs a message with a given private key.  {{DASH_NEW0_12_3}} {{NEW0_13_0}}
+* [ValidateAddress](/docs/core-api-ref-remote-procedure-calls-util#section-validateaddress): returns information about the given Dash address. {{DASH_UPDATED0_12_3}} {{UPDATED0_13_0}}
+* [VerifyMessage](/docs/core-api-ref-remote-procedure-calls-util#section-verifymessage): verifies a signed message.
 
 # Wallet RPCs
 
