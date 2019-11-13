@@ -1482,7 +1482,7 @@ false
 
 {% autocrossref %}
 
-The `quorum<!--noref--> getrecsig` RPC checks gets the recovered signature for a previous threshold-signing message request.
+The `quorum<!--noref--> getrecsig` RPC gets the recovered signature for a previous threshold-signing message request.
 
 *Parameter #1---LLMQ Type*
 

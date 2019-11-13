@@ -730,7 +730,7 @@ The `protx<!--noref--> update_registrar` RPC creates and sends a ProUpRegTx to t
 - n: "`operatorPubKey`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: " The operator public key. The private key does not have to be known. It has to match the private key which is later used when operating the masternode. If set to an empty string, the last on-chain operator key of the masternode will be used."
+  d: " The operator public key. The private key does not have to be known. It has to match the private key which is later used when operating the masternode. If set to an empty string, the currently active operator BLS public key is reused."
 {% enditemplate %}
 
 *Parameter #3---voting address*
@@ -739,7 +739,7 @@ The `protx<!--noref--> update_registrar` RPC creates and sends a ProUpRegTx to t
 - n: "`votingAddress`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
-  d: "The voting address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to an empty string, `ownerAddress` will be used."
+  d: "The voting address. The private key does not have to be known by your wallet. It has to match the private key which is later used when voting on proposals. If set to an empty string, the currently active voting key address is reused."
 {% enditemplate %}
 
 *Parameter #4---operator payout address*
@@ -748,7 +748,7 @@ The `protx<!--noref--> update_registrar` RPC creates and sends a ProUpRegTx to t
 - n: "`payoutAddress`"
   t: "string (hex)"
   p: "Optional<br>(0 or 1)"
-  d: "The Dash address to use for masternode reward payments. If set to an empty string, the last on-chain payout address of the masternode will be used."
+  d: "The Dash address to use for masternode reward payments. If set to an empty string, the currently active payout address is reused."
 {% enditemplate %}
 
 *Parameter #5---fee source address*
