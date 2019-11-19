@@ -159,7 +159,7 @@ The currently-available type identifiers are:
 | 1               | [`MSG_TX`][msg_tx]{:#term-msg_tx}{:.term}                                     | The hash is a TXID.
 | 2               | [`MSG_BLOCK`][msg_block]{:#term-msg_block}{:.term}                            | The hash is of a block header.
 | 3               | [`MSG_FILTERED_BLOCK`][msg_filtered_block]{:#term-msg_filtered_block}{:.term} | The hash is of a block header; identical to `MSG_BLOCK`. When used in a `getdata` message, this indicates the response should be a `merkleblock` message rather than a `block` message (but this only works if a bloom filter was previously configured).  **Only for use in `getdata` messages.**
-| 4               | [`MSG_LEGACY_TXLOCK_REQUEST`][msg_txlock_request]{:#term-msg_txlock_request}{:.term} | `MSG_TXLOCK_REQUEST` prior to Dash Core 0.14.1. The hash is an Instant Send transaction lock request. Transactions received this way are automatically converted to a standard `tx` message as of Dash Core 0.14.1.
+| 4               | [`MSG_LEGACY_TXLOCK_REQUEST`][msg_txlock_request]{:#term-msg_txlock_request}{:.term} | `MSG_TXLOCK_REQUEST` prior to Dash Core 0.15.0. The hash is an Instant Send transaction lock request. Transactions received this way are automatically converted to a standard `tx` message as of Dash Core 0.15.0.
 | 6               | [`MSG_SPORK`][msg_spork]{:#term-msg_spork}{:.term}                            | The hash is Spork ID.
 | 16               | [`MSG_DSTX`][msg_dstx]{:#term-msg_dstx}{:.term}                              | The hash is Private Send (Dark Send) Broadcast TX.
 | 17               | [`MSG_GOVERNANCE_OBJECT`][msg_governance_object]{:#term-msg_governance_object}{:.term}                                     | The hash is a Governance Object.
@@ -178,7 +178,7 @@ The deprecated type identifiers are:
 
 | Type Identifier | Name                                                                          | Description
 |-----------------|-------------------------------------------------------------------------------|---------------
-| 5               | [`MSG_TXLOCK_VOTE`][msg_txlock_vote]{:#term-msg_txlock_vote}{:.term}          | **Deprecated in 0.14.1**<br><br>The hash is an Instant Send transaction vote.
+| 5               | [`MSG_TXLOCK_VOTE`][msg_txlock_vote]{:#term-msg_txlock_vote}{:.term}          | **Deprecated in 0.15.0**<br><br>The hash is an Instant Send transaction vote.
 | 7               | [`MSG_MASTERNODE_PAYMENT_VOTE`][msg_masternode_payment_vote]{:#term-msg_masternode_payment_vote}{:.term}                                     | **Deprecated in 0.14.0**<br><br>The hash is a Masternode Payment Vote.
 | 8               | [`MSG_MASTERNODE_PAYMENT_BLOCK`][msg_masternode_payment_block]{:#term-msg_masternode_payment_block}{:.term}                                     | **Deprecated in 0.14.0**<br><br>The hash is a Masternode Payment Block.
 | 8               | `MSG_MASTERNODE_SCANNING_ERROR`                                             | Replaced by `MSG_MASTERNODE_PAYMENT_BLOCK`
@@ -1716,10 +1716,10 @@ Sporks (per [`src/spork.h`][spork.h])
 | 10019 | 20 | `SPORK_20_INSTANTSEND_LLMQ_BASED` | Enable LLMQ-based InstantSend.
 | | | |
 | | | **Removed Sporks** |
-| _10004_ | _5_ | _`INSTANTSEND_MAX_VALUE`_ | _Removed in Dash Core 0.14.1.<br>Controls the max value for an InstantSend transaction (currently 2000 dash)_
+| _10004_ | _5_ | _`INSTANTSEND_MAX_VALUE`_ | _Removed in Dash Core 0.15.0.<br>Controls the max value for an InstantSend transaction (currently 2000 dash)_
 | _10007_ | _8_ | _`MASTERNODE_PAYMENT_ENFORCEMENT`_ | _Removed in Dash Core 0.14.0.<br>Requires masternodes to be paid by miners when blocks are processed_
 | _10009_ | _10_ | _`MASTERNODE_PAY_UPDATED_NODES`_ | _Removed in Dash Core 0.14.0.<br>Only current protocol version masternode's will be paid (not older nodes)_
-| _10011_ | _12_ | _`RECONSIDER_BLOCKS`_ | _Removed in Dash Core 0.14.1.<br>Forces reindex of a specified number of blocks to recover from unintentional network forks_
+| _10011_ | _12_ | _`RECONSIDER_BLOCKS`_ | _Removed in Dash Core 0.15.0.<br>Forces reindex of a specified number of blocks to recover from unintentional network forks_
 | _10012_ | _13_ | _`OLD_SUPERBLOCK_FLAG`_ | _Removed in Dash Core 0.12.3.<br>No network function since block 614820_
 | _10013_ | _14_ | _`REQUIRE_SENTINEL_FLAG`_ | _Removed in Dash Core 0.14.0.<br>Only masternode's running sentinel will be paid_
 | _10017_ | _18_ | _`QUORUM_DEBUG_ENABLED`_ | _Removed in Dash Core 0.14.0.<br><br>Temporarily used on Testnet only quorum debugging._
@@ -2465,7 +2465,7 @@ The `dssu` message provides a mixing pool status update.
 | ---------- | ----------- | --------- | -------- | -------- |
 | 4 | nMsgSessionID | int | Required | Session ID
 | 4 | nMsgState | int | Required | Current state of mixing process
-| 4 | nMsgEntriesCount | int | Required | _Deprecated in Dash Core 0.14.1_<br><br>Number of entries in the mixing pool
+| 4 | nMsgEntriesCount | int | Required | _Deprecated in Dash Core 0.15.0_<br><br>Number of entries in the mixing pool
 | 4 | nMsgStatusUpdate | int | Required | Update state and/or signal if entry was accepted or not
 | 4 | nMsgMessageID | int | Required | ID of the typical masternode reply message
 
@@ -3701,10 +3701,10 @@ The following network messages have been deprecated and should no longer be used
 
 {% autocrossref %}
 
-![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.14.1
+![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.15.0
 
 *Added in protocol version 311.*
-*Removed by Bitcoin in protocol version 70013, but retained by Dash until 0.14.1.*
+*Removed by Bitcoin in protocol version 70013, but retained by Dash until 0.15.0.*
 
 The `alert` message warns nodes of problems that may affect them or the
 rest of the network. Each `alert` message is signed using a key controlled
@@ -3807,7 +3807,7 @@ parameters has been received, no other alerts can cancel or override it.
 
 {% autocrossref %}
 
-![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.14.1
+![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.15.0
 
 The `ix` message (transaction lock request) has the same structure as the `tx` message.
 The masternode network responds with `txlvote` messages if the transaction inputs
@@ -3821,7 +3821,7 @@ can be locked.
 
 {% autocrossref %}
 
-![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.14.1
+![Warning icon](/img/icons/icon_warning.svg) Deprecated since 0.15.0
 
 The `txlvote` message ([transaction lock vote][msg_txlock_vote])
 is sent by masternodes to indicate approval of a transaction lock request
