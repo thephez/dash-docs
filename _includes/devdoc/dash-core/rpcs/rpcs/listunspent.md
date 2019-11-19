@@ -149,7 +149,7 @@ the *spendable* field in the results described below.
 
 {% enditemplate %}
 
-*Example from Dash Core 0.14.1*
+*Example from Dash Core 0.15.0*
 
 Get all outputs confirmed at least 6 times for a particular
 address:

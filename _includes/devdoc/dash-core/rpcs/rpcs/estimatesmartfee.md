@@ -59,7 +59,7 @@ The `estimatesmartfee` RPC {{summary_estimateSmartFee}}
   d: "Block number where the estimate was found"
 {% enditemplate %}
 
-*Examples from Dash Core 0.14.1*
+*Examples from Dash Core 0.15.0*
 
 {% highlight bash %}
 dash-cli estimatesmartfee 6

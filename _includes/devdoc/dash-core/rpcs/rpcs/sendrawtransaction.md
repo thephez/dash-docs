@@ -39,7 +39,7 @@ The `sendrawtransaction` RPC {{summary_sendRawTransaction}}
 - n: "Use InstantSend"
   t: "bool"
   p: "Optional<br>(0 or 1)"
-  d: "*Depcrecated and ignored since Dash Core 0.14.1*"
+  d: "*Depcrecated and ignored since Dash Core 0.15.0*"
 
 {% enditemplate %}
 

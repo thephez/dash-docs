@@ -1769,7 +1769,7 @@ The `quorum` RPC checks which quorums the given masternode is a member of.
   d: "Index of the member within the quorum"
 {% enditemplate %}
 
-*Example from Dash Core 0.14.1*
+*Example from Dash Core 0.15.0*
 
 {% highlight bash %}
 dash-cli -testnet quorum memberof 1 \

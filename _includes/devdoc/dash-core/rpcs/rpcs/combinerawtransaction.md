@@ -38,7 +38,7 @@ fully signed transaction.
 
 {% enditemplate %}
 
-*Example from Dash Core 0.14.1*
+*Example from Dash Core 0.15.0*
 
 The following example shows a fully signed two input transaction being assembled
 by combining two partially signed transactions. The first hex-encoded string is

@@ -66,7 +66,7 @@ The `gettxoutsetinfo` RPC {{summary_getTxOutSetInfo}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.14.1*
+*Example from Dash Core 0.15.0*
 
 {% highlight bash %}
 dash-cli -testnet gettxoutsetinfo

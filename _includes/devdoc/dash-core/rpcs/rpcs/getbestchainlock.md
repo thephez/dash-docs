@@ -44,7 +44,7 @@ Throws an error if there is no known chainlock yet.
 
 {% enditemplate %}
 
-*Example from Dash Core 0.14.1*
+*Example from Dash Core 0.15.0*
 
 {% highlight bash %}
 dash-cli -testnet getbestchainlock

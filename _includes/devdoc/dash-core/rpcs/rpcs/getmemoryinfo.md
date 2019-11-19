@@ -23,7 +23,7 @@ The `getmemoryinfo` RPC {{summary_getMemoryInfo}}
 - n: "mode"
   t: "string"
   p: "Optional<br>Default: `stats`"
-  d: "*Added in Dash Core 0.14.1*<br><br>Determines what kind of information is returned.<br>
+  d: "*Added in Dash Core 0.15.0*<br><br>Determines what kind of information is returned.<br>
        - `stats` returns general statistics about memory usage in the daemon.<br>
        - `mallocinfo` returns an XML string describing low-level heap state (only available if compiled with glibc 2.10+)."
 {% enditemplate %}

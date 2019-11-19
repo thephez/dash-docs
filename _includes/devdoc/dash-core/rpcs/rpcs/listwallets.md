@@ -33,7 +33,7 @@ For full information on the wallet, use the `getwalletinfo` RPC.
 
 {% enditemplate %}
 
-*Example from Dash Core 0.14.1*
+*Example from Dash Core 0.15.0*
 
 {% highlight bash %}
 dash-cli -testnet listwallets
