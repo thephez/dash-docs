@@ -172,7 +172,7 @@ It won't work for some heights with pruning. It won't work without `-txindex` fo
   d: "The increase/decrease in size for the utxo index (not discounting op_return and similar)"
 {% enditemplate %}
 
-*Example from Dash Core 0.14.1*
+*Example from Dash Core 0.15.0*
 
 {% highlight bash %}
 dash-cli getblockstats 1000 '["blockhash","subsidy", "txs"]'

@@ -183,27 +183,27 @@ The `getblockchaininfo` RPC {{summary_getBlockChainInfo}}
 - n: "→ → →<br>`statistics`"
   t: "string : object"
   p: "Required<br>(exactly 1)"
-  d: "*Added in Dash Core 0.14.1*<br><br>Numeric statistics about BIP9 signaling for a softfork (only for \"started\" status)"
+  d: "*Added in Dash Core 0.15.0*<br><br>Numeric statistics about BIP9 signaling for a softfork (only for \"started\" status)"
 
 - n: "→ → → →<br>`period`"
   t: "numeric<br>(int)"
   p: "Optional<br>(0 or 1)"
-  d: "*Added in Dash Core 0.14.1*<br><br>The length in blocks of the BIP9 signaling period.  Field is only shown when status is `started`"
+  d: "*Added in Dash Core 0.15.0*<br><br>The length in blocks of the BIP9 signaling period.  Field is only shown when status is `started`"
 
 - n: "→ → → →<br>`threshold`"
   t: "numeric<br>(int)"
   p: "Optional<br>(0 or 1)"
-  d: "*Added in Dash Core 0.14.1*<br><br>The number of blocks with the version bit set required to activate the feature.  Field is only shown when status is `started`"
+  d: "*Added in Dash Core 0.15.0*<br><br>The number of blocks with the version bit set required to activate the feature.  Field is only shown when status is `started`"
 
 - n: "→ → → →<br>`elapsed`"
   t: "numeric<br>(int)"
   p: "Optional<br>(0 or 1)"
-  d: "*Added in Dash Core 0.14.1*<br><br>The number of blocks elapsed since the beginning of the current period.  Field is only shown when status is `started`"
+  d: "*Added in Dash Core 0.15.0*<br><br>The number of blocks elapsed since the beginning of the current period.  Field is only shown when status is `started`"
 
 - n: "→ → → →<br>`count`"
   t: "numeric<br>(int)"
   p: "Optional<br>(0 or 1)"
-  d: "*Added in Dash Core 0.14.1*<br><br>The number of blocks with the version bit set in the current period.  Field is only shown when status is `started`"
+  d: "*Added in Dash Core 0.15.0*<br><br>The number of blocks with the version bit set in the current period.  Field is only shown when status is `started`"
 
 - n: "→<br>`possible`"
   t: "bool"
@@ -212,7 +212,7 @@ The `getblockchaininfo` RPC {{summary_getBlockChainInfo}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.14.1*
+*Example from Dash Core 0.15.0*
 
 {% highlight bash %}
 dash-cli -testnet getblockchaininfo

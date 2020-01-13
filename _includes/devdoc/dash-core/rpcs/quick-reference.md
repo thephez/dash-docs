@@ -19,9 +19,9 @@ Use v0.n.n in abbreviation title to prevent autocrossrefing.
 <!-- Dash - Not Implemented -->
 {% assign DASH_NOT_IMPLEMENTED='**<abbr title="Not Implemented in Dash">Not Implemented</abbr>**' %}
 
-<!-- Dash Core 0.14.1.0 ??? 2019 -->
-{% assign DASH_NEW0_14_1='**<abbr title="New in Dash Core v0.14.1">New in Dash Core 0.14.1</abbr>**' %}
-{% assign DASH_UPDATED0_14_1='**<abbr title="Updated in Dash Core v0.14.1">Updated in Dash Core 0.14.1</abbr>**' %}
+<!-- Dash Core 0.15.0 ??? 2019 -->
+{% assign DASH_NEW0_15_0='**<abbr title="New in Dash Core v0.15.0">New in Dash Core 0.15.0</abbr>**' %}
+{% assign DASH_UPDATED0_15_0='**<abbr title="Updated in Dash Core v0.15.0">Updated in Dash Core 0.15.0</abbr>**' %}
 
 <!-- Dash Core 0.14.0.0 May 2019 -->
 {% assign DASH_NEW0_14_0='**<abbr title="New in Dash Core v0.14.0">New in Dash Core 0.14.0</abbr>**' %}
@@ -117,29 +117,29 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 {% autocrossref %}
 
 * [GetBestBlockHash][rpc getbestblockhash]: {{summary_getBestBlockHash}}
-* [GetBestChainLock][rpc getbestchainlock]: {{summary_getBestChainLock}} {{DASH_NEW0_14_1}}
-* [GetBlock][rpc getblock]: {{summary_getBlock}} {{DASH_UPDATED0_14_1}}
-* [GetBlockChainInfo][rpc getblockchaininfo]: {{summary_getBlockChainInfo}} {{DASH_UPDATED0_14_1}}
+* [GetBestChainLock][rpc getbestchainlock]: {{summary_getBestChainLock}} {{DASH_NEW0_15_0}}
+* [GetBlock][rpc getblock]: {{summary_getBlock}} {{DASH_UPDATED0_15_0}}
+* [GetBlockChainInfo][rpc getblockchaininfo]: {{summary_getBlockChainInfo}} {{DASH_UPDATED0_15_0}}
 * [GetBlockCount][rpc getblockcount]: {{summary_getBlockCount}}
 * [GetBlockHash][rpc getblockhash]: {{summary_getBlockHash}}
 * [GetBlockHashes][rpc getblockhashes]: {{summary_getBlockHashes}} {{DASH_NEW0_12_1}}
 * [GetBlockHeader][rpc getblockheader]: {{summary_getBlockHeader}} {{NEW0_12_0}}
 * [GetBlockHeaders][rpc getblockheaders]: {{summary_getBlockHeaders}} {{DASH_NEW0_12_1}}
-* [GetBlockStats][rpc getblockstats]: {{summary_getBlockStats}} {{DASH_NEW0_14_1}}
+* [GetBlockStats][rpc getblockstats]: {{summary_getBlockStats}} {{DASH_NEW0_15_0}}
 * [GetChainTips][rpc getchaintips]: {{summary_getChainTips}} {{DASH_UPDATED0_12_3}}
-* [GetChainTxStats][rpc getchaintxstats]: {{summary_getChainTxStats}} {{DASH_NEW0_14_1}}
+* [GetChainTxStats][rpc getchaintxstats]: {{summary_getChainTxStats}} {{DASH_NEW0_15_0}}
 * [GetDifficulty][rpc getdifficulty]: {{summary_getDifficulty}}
 * [GetMemPoolAncestors][rpc getmempoolancestors]: {{summary_getMemPoolAncestors}} {{DASH_UPDATED0_14_0}} {{NEW0_13_0}}
 * [GetMemPoolDescendants][rpc getmempooldescendants]: {{summary_getMemPoolDescendants}} {{DASH_UPDATED0_14_0}} {{NEW0_13_0}}
 * [GetMemPoolEntry][rpc  getmempoolentry]: {{summary_getMemPoolEntry}} {{DASH_UPDATED0_14_0}} {{NEW0_13_0}}
-* [GetMemPoolInfo][rpc getmempoolinfo]: {{summary_getMemPoolInfo}} {{DASH_UPDATED0_14_1}}
-* [GetRawMemPool][rpc getrawmempool]: {{summary_getRawMemPool}} {{DASH_UPDATED0_14_1}}
-* [GetMerkleBlocks][rpc getmerkleblocks]: {{summary_getMerkleBlocks}} {{DASH_NEW0_14_1}}
+* [GetMemPoolInfo][rpc getmempoolinfo]: {{summary_getMemPoolInfo}} {{DASH_UPDATED0_15_0}}
+* [GetRawMemPool][rpc getrawmempool]: {{summary_getRawMemPool}} {{DASH_UPDATED0_15_0}}
+* [GetMerkleBlocks][rpc getmerkleblocks]: {{summary_getMerkleBlocks}} {{DASH_NEW0_15_0}}
 * [GetSpecialTxes][rpc getspecialtxes]: {{summary_getSpecialTxes}} {{DASH_NEW0_13_1}}
 * [GetSpentInfo][rpc getspentinfo]: {{summary_getSpentInfo}} {{DASH_NEW0_12_1}}
-* [GetTxOut][rpc gettxout]: {{summary_getTxOut}} {{DASH_UPDATED0_14_1}}
+* [GetTxOut][rpc gettxout]: {{summary_getTxOut}} {{DASH_UPDATED0_15_0}}
 * [GetTxOutProof][rpc gettxoutproof]: {{summary_getTxOutProof}} {{NEW0_11_0}}
-* [GetTxOutSetInfo][rpc gettxoutsetinfo]: {{summary_getTxOutSetInfo}} {{DASH_UPDATED0_14_1}}
+* [GetTxOutSetInfo][rpc gettxoutsetinfo]: {{summary_getTxOutSetInfo}} {{DASH_UPDATED0_15_0}}
 * [PreciousBlock][rpc preciousblock]: {{summary_preciousBlock}} {{DASH_NEW0_12_3}} {{NEW0_14_0}}
 * [PruneBlockChain][rpc pruneblockchain]: {{summary_pruneBlockChain}} {{DASH_NEW0_12_3}} {{NEW0_14_0}}
 * [VerifyChain][rpc verifychain]: {{summary_verifyChain}}
@@ -154,12 +154,12 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 {% autocrossref %}
 
 * [Debug][rpc debug]: {{summary_debug}} {{DASH_UPDATED0_14_0}}
-* [GetInfo][rpc getinfo]: {{summary_getInfo}} {{DASH_UPDATED0_14_1}} {{DEPRECATED}}
-* [GetMemoryInfo][rpc getmemoryinfo]: {{summary_getMemoryInfo}} {{DASH_UPDATED0_14_1}} {{NEW_14_0}}
+* [GetInfo][rpc getinfo]: {{summary_getInfo}} {{DASH_UPDATED0_15_0}} {{DEPRECATED}}
+* [GetMemoryInfo][rpc getmemoryinfo]: {{summary_getMemoryInfo}} {{DASH_UPDATED0_15_0}} {{NEW_14_0}}
 * [Help][rpc help]: {{summary_help}}
-* [Logging][rpc logging]: {{summary_logging}} {{DASH_NEW0_14_1}}
+* [Logging][rpc logging]: {{summary_logging}} {{DASH_NEW0_15_0}}
 * [Stop][rpc stop]: {{summary_stop}}
-* [Uptime][rpc uptime]: {{summary_uptime}} {{DASH_NEW0_14_1}}
+* [Uptime][rpc uptime]: {{summary_uptime}} {{DASH_NEW0_15_0}}
 
 {% endautocrossref %}
 
@@ -171,9 +171,9 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 
 * [GetGovernanceInfo][rpc getgovernanceinfo]: {{summary_getGovernanceInfo}} {{DASH_UPDATED0_14_0}}
 * [GetPoolInfo][rpc getpoolinfo]: {{summary_getPoolInfo}} {{DEPRECATED}}
-* [GetPrivateSendInfo][rpc getprivatesendinfo]: {{summary_getPrivateSend}} {{DASH_NEW0_14_1}}
+* [GetPrivateSendInfo][rpc getprivatesendinfo]: {{summary_getPrivateSend}} {{DASH_NEW0_15_0}}
 * [GetSuperblockBudget][rpc getsuperblockbudget]: {{summary_getSuperblockBudget}}
-* [GObject][rpc gobject]: {{summary_gObject}} {{DASH_UPDATED0_14_1}}
+* [GObject][rpc gobject]: {{summary_gObject}} {{DASH_UPDATED0_15_0}}
 * [Masternode][rpc masternode]: {{summary_masternode}} {{DASH_UPDATED0_14_0}}
 * [MasternodeList][rpc masternodelist]: {{summary_masternodeList}} {{DASH_UPDATED0_14_0}}
 * [MnSync][rpc mnsync]: {{summary_mnSync}} {{DASH_UPDATED0_14_0}}
@@ -228,12 +228,12 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 
 * [AddNode][rpc addnode]: {{summary_addNode}} {{UPDATED0_14_0}}
 * [ClearBanned][rpc clearbanned]: {{summary_clearBanned}} {{NEW0_12_0}}
-* [DisconnectNode][rpc disconnectnode]: {{summary_disconnectNode}} {{DASH_UPDATED0_14_1}} {{UPDATED0_14_1}}
+* [DisconnectNode][rpc disconnectnode]: {{summary_disconnectNode}} {{DASH_UPDATED0_15_0}} {{UPDATED0_14_1}}
 * [GetAddedNodeInfo][rpc getaddednodeinfo]: {{summary_getAddedNodeInfo}} {{DASH_UPDATED0_12_3}} {{UPDATED0_14_0}}
 * [GetConnectionCount][rpc getconnectioncount]: {{summary_getConnectionCount}}
 * [GetNetTotals][rpc getnettotals]: {{summary_getNetTotals}} {{UPDATED0_12_0}}
 * [GetNetworkInfo][rpc getnetworkinfo]: {{summary_getNetworkInfo}} {{DASH_UPDATED0_14_0}}
-* [GetPeerInfo][rpc getpeerinfo]: {{summary_getPeerInfo}} {{DASH_UPDATED0_14_1}}
+* [GetPeerInfo][rpc getpeerinfo]: {{summary_getPeerInfo}} {{DASH_UPDATED0_15_0}}
 * [ListBanned][rpc listbanned]: {{summary_listBanned}} {{NEW0_12_0}}
 * [Ping][rpc ping]: {{summary_ping-rpc}}
 * [SetBan][rpc setban]: {{summary_setBan}} {{NEW0_12_0}}
@@ -247,13 +247,13 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 
 {% autocrossref %}
 
-* [CombineRawTransaction][rpc combinerawtransaction]: {{summary_combineRawTransaction}} {{DASH_NEW0_14_1}}
+* [CombineRawTransaction][rpc combinerawtransaction]: {{summary_combineRawTransaction}} {{DASH_NEW0_15_0}}
 * [CreateRawTransaction][rpc createrawtransaction]: {{summary_createRawTransaction}} {{DASH_UPDATED0_12_3}} {{UPDATED0_14_1}}
 * [DecodeRawTransaction][rpc decoderawtransaction]: {{summary_decodeRawTransaction}} {{UPDATED0_13_0}}
 * [DecodeScript][rpc decodescript]: {{summary_decodeScript}}
-* [FundRawTransaction][rpc fundrawtransaction]: {{summary_fundRawTransaction}} {{DASH_UPDATED0_14_1}}
-* [GetRawTransaction][rpc getrawtransaction]: {{summary_getRawTransaction}} {{DASH_UPDATED0_14_1}}
-* [SendRawTransaction][rpc sendrawtransaction]: {{summary_sendRawTransaction}} {{DASH_UPDATED0_14_1}}
+* [FundRawTransaction][rpc fundrawtransaction]: {{summary_fundRawTransaction}} {{DASH_UPDATED0_15_0}}
+* [GetRawTransaction][rpc getrawtransaction]: {{summary_getRawTransaction}} {{DASH_UPDATED0_15_0}}
+* [SendRawTransaction][rpc sendrawtransaction]: {{summary_sendRawTransaction}} {{DASH_UPDATED0_15_0}}
 * [SignRawTransaction][rpc signrawtransaction]: {{summary_signRawTransaction}}
 
 {% endautocrossref %}
@@ -266,7 +266,7 @@ These RPCs are all Dash-specific and not found in Bitcoin Core
 
 * [CreateMultiSig][rpc createmultisig]: {{summary_createMultiSig}}
 * [EstimateFee][rpc estimatefee]: {{summary_estimateFee}}
-* [EstimateSmartFee][rpc estimatesmartfee]: {{summary_estimateSmartFee}} {{DASH_UPDATED0_14_1}}
+* [EstimateSmartFee][rpc estimatesmartfee]: {{summary_estimateSmartFee}} {{DASH_UPDATED0_15_0}}
 * [SignMessageWithPrivKey][rpc signmessagewithprivkey]: {{summary_signMessageWithPrivKey}}  {{DASH_NEW0_12_3}} {{NEW0_13_0}}
 * [ValidateAddress][rpc validateaddress]: {{summary_validateAddress}} {{DASH_UPDATED0_12_3}} {{UPDATED0_13_0}}
 * [VerifyMessage][rpc verifymessage]: {{summary_verifyMessage}}
@@ -284,7 +284,7 @@ with [wallet support][]{:#term-wallet-support}{:.term}, which is the
 default.
 
 * [AbandonTransaction][rpc abandontransaction]: {{summary_abandonTransaction}} {{NEW0_12_0}}
-* [AbortRescan][rpc abortrescan]: {{summary_abortrescan}} {{DASH_NEW0_14_1}}
+* [AbortRescan][rpc abortrescan]: {{summary_abortrescan}} {{DASH_NEW0_15_0}}
 * [AddMultiSigAddress][rpc addmultisigaddress]: {{summary_addMultiSigAddress}}
 * [BackupWallet][rpc backupwallet]: {{summary_backupWallet}}
 * [DumpHDInfo][rpc dumphdinfo]: {{summary_dumpHDInfo}} {{DASH_NEW0_12_2}}
@@ -317,16 +317,16 @@ default.
 * [ListLockUnspent][rpc listlockunspent]: {{summary_listLockUnspent}}
 * [ListReceivedByAccount][rpc listreceivedbyaccount]: {{summary_listReceivedByAccount}} {{DASH_UPDATED0_13_0}} {{DEPRECATED}}
 * [ListReceivedByAddress][rpc listreceivedbyaddress]: {{summary_listReceivedByAddress}} {{DASH_UPDATED0_13_0}}
-* [ListSinceBlock][rpc listsinceblock]: {{summary_listSinceBlock}} {{DASH_UPDATED0_14_1}}
+* [ListSinceBlock][rpc listsinceblock]: {{summary_listSinceBlock}} {{DASH_UPDATED0_15_0}}
 * [ListTransactions][rpc listtransactions]: {{summary_listTransactions}} {{DASH_UPDATED0_14_0}}
-* [ListUnspent][rpc listunspent]: {{summary_listUnspent}} {{DASH_UPDATED0_14_1}}
-* [ListWallets][rpc listwallets]: {{summary_listWallets}} {{DASH_NEW0_14_1}}
+* [ListUnspent][rpc listunspent]: {{summary_listUnspent}} {{DASH_UPDATED0_15_0}}
+* [ListWallets][rpc listwallets]: {{summary_listWallets}} {{DASH_NEW0_15_0}}
 * [LockUnspent][rpc lockunspent]: {{summary_lockUnspent}}
 * [Move][rpc move]: {{summary_move}} {{DEPRECATED}}
 * [RemovePrunedFunds][rpc removeprunedfunds]: {{summary_removePrunedFunds}} {{DASH_NEW0_12_3}} {{NEW0_13_0}}
 * [SendFrom][rpc sendfrom]: {{summary_sendFrom}} {{DASH_UPDATED0_13_0}} {{DEPRECATED}}
-* [SendMany][rpc sendmany]: {{summary_sendMany}} {{DASH_UPDATED0_14_1}}
-* [SendToAddress][rpc sendtoaddress]: {{summary_sendToAddress}} {{DASH_UPDATED0_14_1}}
+* [SendMany][rpc sendmany]: {{summary_sendMany}} {{DASH_UPDATED0_15_0}}
+* [SendToAddress][rpc sendtoaddress]: {{summary_sendToAddress}} {{DASH_UPDATED0_15_0}}
 * [SetAccount][rpc setaccount]: {{summary_setAccount}} {{DEPRECATED}}
 * [SetPrivateSendAmount][rpc setprivatesendamount]: {{summary_setPrivateSendAmount}}
 * [SetPrivateSendRounds][rpc setprivatesendrounds]: {{summary_setPrivateSendRounds}}

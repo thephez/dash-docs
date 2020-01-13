@@ -12,7 +12,7 @@ http://opensource.org/licenses/MIT.
 
 {% autocrossref %}
 
-*Added in Dash Core 0.14.1*
+*Added in Dash Core 0.15.0*
 
 The `getmerkleblocks` RPC {{summary_getMerkleBlocks}}
 
@@ -60,7 +60,7 @@ The `getmerkleblocks` RPC {{summary_getMerkleBlocks}}
   d: "A serialized, hex-encoded merkleblock"
 {% enditemplate %}
 
-*Example from Dash Core 0.14.1*
+*Example from Dash Core 0.15.0*
 
 {% highlight bash %}
 dash-cli getmerkleblocks \

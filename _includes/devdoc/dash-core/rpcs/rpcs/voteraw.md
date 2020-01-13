@@ -16,20 +16,20 @@ http://opensource.org/licenses/MIT.
 The `voteraw` RPC {{summary_voteRaw}}
 
 
-*Parameter #1---masternode transaction hash*
+*Parameter #1---masternode collateral transaction hash*
 
 {% itemplate ntpd1 %}
-- n: "`masternode<!--noref-->-tx-hash`"
+- n: "`masternode<!--noref-->-collateral-tx-hash`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
   d: "Hash of the masternode collateral transaction"
 
 {% enditemplate %}
 
-*Parameter #2---vote signal*
+*Parameter #2---masternode collateral transaction index*
 
 {% itemplate ntpd1 %}
-- n: "`masternode<!--noref-->-tx-index`"
+- n: "`masternode<!--noref-->collateral-tx-index`"
   t: "string"
   p: "Required<br>(exactly 1)"
   d: "Index of the masternode collateral transaction"
