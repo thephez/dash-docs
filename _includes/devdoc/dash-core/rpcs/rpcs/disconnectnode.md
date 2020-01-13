@@ -43,7 +43,7 @@ The `disconnectnode` RPC {{summary_disconnectNode}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.14.1*
+*Example from Dash Core 0.15.0*
 
 Disconnects following node by address.
 

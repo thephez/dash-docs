@@ -27,7 +27,7 @@ Stops current wallet rescan triggered e.g. by an `importprivkey` RPC call.
   d: "`true` when the command was successful or `false` if not successful."
 {% enditemplate %}
 
-*Example from Dash Core 0.14.1*
+*Example from Dash Core 0.15.0*
 
 Abort the running wallet rescan
 

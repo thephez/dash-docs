@@ -121,7 +121,7 @@ The `gobject prepare` RPC prepares a governance object by signing and creating a
 - n: "`use-IS`"
   t: "boolean"
   p: "Optional<br>(0 or 1)"
-  d: "*Deprecated and ignored since Dash Core 0.14.1*"
+  d: "*Deprecated and ignored since Dash Core 0.15.0*"
 
 {% enditemplate %}
 

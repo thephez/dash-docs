@@ -86,7 +86,7 @@ The `listsinceblock` RPC {{summary_listSinceBlock}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.14.1*
+*Example from Dash Core 0.15.0*
 
 Get all transactions since a particular block (including watch-only
 transactions) and the header hash of the sixth most recent block.

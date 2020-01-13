@@ -51,11 +51,11 @@ The `getmempoolinfo` RPC {{summary_getMemPoolInfo}}
 - n: "→<br>`instantsendlocks`"
   t: "number (int)"
   p: "Required<br>(exactly 1)"
-  d: "*Added in Dash Core 0.14.1*<br><br>Number of unconfirmed InstantSend locks"
+  d: "*Added in Dash Core 0.15.0*<br><br>Number of unconfirmed InstantSend locks"
 
 {% enditemplate %}
 
-*Example from Dash Core 0.14.1*
+*Example from Dash Core 0.15.0*
 
 {% highlight bash %}
 dash-cli -testnet getmempoolinfo

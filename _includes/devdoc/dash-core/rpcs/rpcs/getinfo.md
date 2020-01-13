@@ -119,7 +119,7 @@ Core.  Use the RPCs listed in the See Also subsection below instead.
 
 {% enditemplate %}
 
-*Example from Dash Core 0.14.1 with wallet support enabled*
+*Example from Dash Core 0.15.0 with wallet support enabled*
 
 {% highlight bash %}
 dash-cli -testnet getinfo

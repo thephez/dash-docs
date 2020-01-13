@@ -109,7 +109,7 @@ The `gettxout` RPC {{summary_getTxOut}}
 
 {% enditemplate %}
 
-*Example from Dash Core 0.14.1*
+*Example from Dash Core 0.15.0*
 
 Get the UTXO from the following transaction from the first output index ("0"),
 searching the memory pool if necessary.
