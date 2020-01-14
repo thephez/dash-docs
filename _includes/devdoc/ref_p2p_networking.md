@@ -695,12 +695,6 @@ view of the network---not a complete list of unconfirmed transactions
 on the network. Here are some additional reasons the list might not
 be complete:
 
-* Before Bitcoin Core 0.9.0, the response to the `mempool` message was
-  only one `inv` message. An `inv` message is limited to 50,000
-  inventories, so a node with a memory pool larger than 50,000 entries
-  would not send everything.  Later versions of Bitcoin Core send as
-  many `inv` messages as needed to reference its complete memory pool.
-
 * The `mempool` message is not currently fully compatible with the
   `filterload` message's `BLOOM_UPDATE_ALL` and
   `BLOOM_UPDATE_P2PUBKEY_ONLY` flags. Mempool transactions are not
