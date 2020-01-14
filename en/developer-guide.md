@@ -18,6 +18,8 @@ end_of_page: |
 ---
 <link rel="stylesheet" href="/css/jquery-ui.min.css">
 
+<h2 style="text-align:center"><img src="/img/icons/icon_warning.svg"></img> Important Note: This documentation site has been deprecated and will no longer be updated. Please refer to the new site at <a href="https://dashcore.readme.io">https://dashcore.readme.io</a>. <img src="/img/icons/icon_warning.svg"></img></h2><!-- no subhead-links here -->
+
 # Dash Developer Guide
 
 <p class="summary">Find detailed information about the Dash protocol and related specifications.</p>

@@ -65,9 +65,9 @@ post-build-tests-fast: check-for-build-errors ensure-each-svg-has-a-png check-fo
     check-for-broken-kramdown-tables check-for-duplicate-header-ids \
     check-for-headers-containing-auto-link check-for-missing-subhead-links \
 	check-for-empty-title-tag \
-    check-for-subheading-anchors \
     check-jshint \
-    check-for-javascript-in-svgs
+    check-for-javascript-in-svgs \
+		# check-for-subheading-anchors \
 
 ## All pre-build tests, including those which might take multiple minutes
 pre-build-tests: pre-build-tests-fast
