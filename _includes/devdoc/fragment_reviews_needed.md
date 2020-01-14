@@ -5,7 +5,8 @@ http://opensource.org/licenses/MIT.
 
 <!--Temporary disclaimer BEGIN-->
 <div id="develdocdisclaimer" class="develdocdisclaimer"><div>
-<b>BETA</b>: This documentation has not been extensively reviewed by Dash experts and so likely contains numerous errors. Please use the <em>Issue</em> and <em>Edit</em> links on the bottom left menu to help us improve.  <a href="#" onclick="disclaimerClose(event);">Click here</a> to close this disclaimer.
+<b style="text-align:center"><img src="/img/icons/icon_warning.svg"></img> Important Note: This documentation site has been deprecated and will no longer be updated. Please refer to the new site at <a href="https://dashcore.readme.io">dashcore.readme.io</a>.</b>
+<a href="#" onclick="disclaimerClose(event);">Click here</a> to close this message.
 <a class="develdocdisclaimerclose" onclick="disclaimerClose(event);">X</a>
 </div></div>
 <script>disclaimerAutoClose();</script>
