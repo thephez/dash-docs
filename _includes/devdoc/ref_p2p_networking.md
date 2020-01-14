@@ -684,16 +684,16 @@ transaction fees. SPV clients can set a filter before sending a
 allows a recently-started client to get most or all unconfirmed
 transactions related to its wallet.
 
+NOTE: Since Dash Core 0.15.0, the `mempool` message was expanded to include
+syncing of InstantSend Lock inventories. Additionally, nodes now attempt to
+sync their mempool with peers at startup by default. This allows nodes to more
+quickly detect any double-spend attempts as well as show InstantSend lock
+status correctly for transactions received while offline.
+
 The `inv` response to the `mempool` message is, at best, one node's
 view of the network---not a complete list of unconfirmed transactions
 on the network. Here are some additional reasons the list might not
 be complete:
-
-* Before Bitcoin Core 0.9.0, the response to the `mempool` message was
-  only one `inv` message. An `inv` message is limited to 50,000
-  inventories, so a node with a memory pool larger than 50,000 entries
-  would not send everything.  Later versions of Bitcoin Core send as
-  many `inv` messages as needed to reference its complete memory pool.
 
 * The `mempool` message is not currently fully compatible with the
   `filterload` message's `BLOOM_UPDATE_ALL` and
