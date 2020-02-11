@@ -132,6 +132,11 @@ The `quorum<!--noref--> info` RPC returns information about a specific quorum.
   p: "Required<br>(exactly 1)"
   d: "Block height of the quorum"
 
+- n: "→<br>`type`"
+  t: "string"
+  p: "Required<br>(exactly 1)"
+  d: "Type of LLMQ"
+
 - n: "→<br>`quorumHash`"
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
@@ -156,6 +161,11 @@ The `quorum<!--noref--> info` RPC returns information about a specific quorum.
   t: "string (hex)"
   p: "Required<br>(exactly 1)"
   d: "The masternode's Provider Registration transaction hash"
+
+- n: "→ → →<br>`pubKeyOperator`"
+  t: "string (hex)"
+  p: "Required<br>(exactly 1)"
+  d: "*Added in Dash Core 0.15.0*<br><br>The masternode's Operator public key"
 
 - n: "→ → →<br>`valid`"
   t: "bool"
