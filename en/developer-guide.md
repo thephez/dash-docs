@@ -15,6 +15,7 @@ end_of_page: |
   <script src="/js/jquery/jquery-ui.min.js"></script>
   <script src="/js/devsearch.js"></script>
   <script>updateToc();</script>
+redirect_to: "https://dashcore.readme.io/docs/core-guide-introduction"
 ---
 <link rel="stylesheet" href="/css/jquery-ui.min.css">
 

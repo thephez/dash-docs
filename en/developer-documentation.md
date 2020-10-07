@@ -13,7 +13,7 @@ end_of_page: |
   <script src="/js/jquery/jquery-ui.min.js"></script>
   <script src="/js/devsearch.js"></script>
 
-redirect_to: "https://www.dashcore.readme.io"
+redirect_to: "https://dashcore.readme.io/"
 ---
 <link rel="stylesheet" href="/css/jquery-ui.min.css">
 
