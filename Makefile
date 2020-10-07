@@ -133,13 +133,7 @@ check-for-liquid-errors:
 #
 ## Takes less than 1 second here as of 2014-05-16 -harding
 check-for-missing-anchors:
-	$S sed -n 's!^\[[^]]*]: \+!!; s/ .*//; /#/s!^/!!p' _includes/references.md \
-	    | sort -u \
-	    | while read link ; do file="$(SITEDIR)/$${link%#*}.html" \
-	        ; anchor="$${link##*#}" \
-	        ; egrep -ql '(id|name)=.'$$anchor'[^a-zA-Z0-9_-]' $$file \
-	        || echo "$$file#$$anchor not found" \
-	    ; done | eval $(ERROR_ON_OUTPUT)
+	
 
 check-for-broken-markdown-reference-links:
 ## Report Markdown reference-style links which weren't converted to HTML
