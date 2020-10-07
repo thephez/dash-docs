@@ -20,7 +20,7 @@ end_of_page: |
 
 <!-- This should be empty, but comment it out just in case: {% include helpers/vars.md %} -->
 
-<h2 style="text-align:center"><img src="/img/icons/icon_warning.svg"></img> Important Note: This documentation site has been deprecated and has not been updated since Dash Core 0.15.0. Please refer to the new site at <a href="https://dashcore.readme.io">https://dashcore.readme.io</a>. <img src="/img/icons/icon_warning.svg"></img></h2><!-- no subhead-links here -->
+<h2 style="text-align:center"><img src="/img/icons/icon_warning.svg"></img> Important Note: This documentation site has been deprecated and has not been updated since Dash Core 0.15.0. You will be redirected to the new site at <a href="https://dashcore.readme.io">https://dashcore.readme.io</a> momentarily. <img src="/img/icons/icon_warning.svg"></img></h2><!-- no subhead-links here -->
 
 # Dash Developer Reference
 
