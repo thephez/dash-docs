@@ -25,6 +25,7 @@ group :development do
   gem 'jshintrb', '~>0.3.0'
   gem 'safe_yaml'
   gem 'json-schema'
+  gem 'jekyll-redirect-from'
 end
 
 ## Not used on build server. Only used by developers and Travis CI, so
